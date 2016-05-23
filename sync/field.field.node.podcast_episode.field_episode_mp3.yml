@@ -1,0 +1,23 @@
+uuid: f956f443-c20e-4c92-a883-46b6d969774c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_episode_mp3
+    - node.type.podcast_episode
+  module:
+    - link
+id: node.podcast_episode.field_episode_mp3
+field_name: field_episode_mp3
+entity_type: node
+bundle: podcast_episode
+label: 'URI of the MP3'
+description: '^https://'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

@@ -1,0 +1,19 @@
+uuid: f74f1db8-9c3e-4f73-91f7-82714f10a4c6
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_collection
+    - text
+id: field_collection_item.field_impact_statement
+field_name: field_impact_statement
+entity_type: field_collection_item
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,21 @@
+uuid: 92444129-8619-46cc-8632-612a4ce1ee8b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.field_collection_item.field_impact_statement
+    - field_collection.field_collection.field_episode_chapters
+  module:
+    - text
+id: field_collection_item.field_episode_chapters.field_impact_statement
+field_name: field_impact_statement
+entity_type: field_collection_item
+bundle: field_episode_chapters
+label: 'Impact statement'
+description: 'Description of the chapter'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

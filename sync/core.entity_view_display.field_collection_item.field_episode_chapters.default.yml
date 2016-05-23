@@ -1,0 +1,37 @@
+uuid: cec80069-a2c9-4174-8a06-f9f5c78fdfac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.field_collection_item.field_episode_chapters.field_chapter_start
+    - field.field.field_collection_item.field_episode_chapters.field_chapter_title
+    - field.field.field_collection_item.field_episode_chapters.field_impact_statement
+    - field_collection.field_collection.field_episode_chapters
+  module:
+    - text
+id: field_collection_item.field_episode_chapters.default
+targetEntityType: field_collection_item
+bundle: field_episode_chapters
+mode: default
+content:
+  field_chapter_start:
+    weight: 2
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_chapter_title:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_impact_statement:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+hidden: {  }

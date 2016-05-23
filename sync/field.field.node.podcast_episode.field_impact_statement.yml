@@ -1,0 +1,21 @@
+uuid: a291189c-2d3e-47af-b812-ae45552f0c1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_impact_statement
+    - node.type.podcast_episode
+  module:
+    - text
+id: node.podcast_episode.field_impact_statement
+field_name: field_impact_statement
+entity_type: node
+bundle: podcast_episode
+label: 'Impact statement'
+description: 'Description of the episode'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

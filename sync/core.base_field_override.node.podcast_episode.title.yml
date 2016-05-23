@@ -1,0 +1,18 @@
+uuid: ec037bdd-7913-4a33-9792-c20d7eae70dc
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.podcast_episode
+id: node.podcast_episode.title
+field_name: title
+entity_type: node
+bundle: podcast_episode
+label: 'Title of the episode'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

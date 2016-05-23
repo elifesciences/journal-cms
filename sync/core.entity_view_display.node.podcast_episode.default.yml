@@ -1,0 +1,84 @@
+uuid: f97f54aa-e726-4309-a3c3-9a4a9d900e7d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.podcast_episode.field_episode_chapters
+    - field.field.node.podcast_episode.field_episode_mp3
+    - field.field.node.podcast_episode.field_episode_number
+    - field.field.node.podcast_episode.field_highlighted
+    - field.field.node.podcast_episode.field_image
+    - field.field.node.podcast_episode.field_impact_statement
+    - field.field.node.podcast_episode.field_publication_date
+    - node.type.podcast_episode
+  module:
+    - datetime
+    - field_collection
+    - image
+    - link
+    - text
+    - user
+id: node.podcast_episode.default
+targetEntityType: node
+bundle: podcast_episode
+mode: default
+content:
+  field_episode_chapters:
+    weight: 107
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: field_collection_list
+  field_episode_mp3:
+    weight: 104
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  field_episode_number:
+    weight: 101
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_highlighted:
+    weight: 103
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_image:
+    weight: 106
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_impact_statement:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_publication_date:
+    weight: 105
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+  links:
+    weight: 100
+hidden: {  }

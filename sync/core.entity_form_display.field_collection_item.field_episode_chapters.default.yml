@@ -1,0 +1,37 @@
+uuid: cdc5c761-23c0-487f-97af-23862a4353c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.field_collection_item.field_episode_chapters.field_chapter_start
+    - field.field.field_collection_item.field_episode_chapters.field_chapter_title
+    - field.field.field_collection_item.field_episode_chapters.field_impact_statement
+    - field_collection.field_collection.field_episode_chapters
+  module:
+    - text
+id: field_collection_item.field_episode_chapters.default
+targetEntityType: field_collection_item
+bundle: field_episode_chapters
+mode: default
+content:
+  field_chapter_start:
+    weight: 2
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_chapter_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textfield
+  field_impact_statement:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+hidden: {  }
