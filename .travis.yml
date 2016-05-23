@@ -26,7 +26,7 @@ install:
 script:
   - cp $TRAVIS_BUILD_DIR/config/travis.settings.php $TRAVIS_BUILD_DIR/config/local.settings.php
   - cd $TRAVIS_BUILD_DIR/web
-  - /usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" $TRAVIS_BUILD_DIR/vendor/bin/drush site-install config_installer --account-name=admin --account-pass=admin --site-name="eLife 2.0" --yes
+  - $TRAVIS_BUILD_DIR/vendor/bin/drush site-install config_installer --account-name=admin --account-pass=admin --site-name="eLife 2.0" --yes
   - $TRAVIS_BUILD_DIR/vendor/bin/drush runserver http://127.0.0.1:8080 &
   - sleep 3
   # Skip core/tests/Drupal/Tests/ComposerIntegrationTest.php because web/ has no composer.json
