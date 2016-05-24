@@ -79,6 +79,9 @@
       ]
     },
     "patches": {
+      "drupal/core": {
+        "Call to a member function getPath() when installing Profiles with unknown modules as requirement": "https://www.drupal.org/files/issues/2608408-11.patch"
+      },
       "drupal/unique_field": {
         "PHP Warning: Invalid argument supplied for foreach() in unique_field.module": "https://www.drupal.org/files/issues/php_warning_invalid-2721645-2.patch"
       }
