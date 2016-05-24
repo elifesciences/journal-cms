@@ -7,8 +7,11 @@ sudo: false
 
 env:
   global:
-    - SIMPLETEST_DB=sqlite://tmp/elife_2_0.sqlite
+    - SIMPLETEST_DB=mysql://root:@localhost/elife_2_0
     - SIMPLETEST_BASE_URL="http://127.0.0.1:8080"
+
+services:
+  - mysql
 
 before_install:
   - echo 'sendmail_path = /bin/true' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
@@ -17,6 +20,7 @@ before_install:
   - composer --version
 
 install:
+  - mysql --execute='CREATE DATABASE elife_2_0;'
   - composer --verbose install
 
 script:
