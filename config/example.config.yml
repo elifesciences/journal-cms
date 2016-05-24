@@ -56,6 +56,9 @@ drupal_account_pass: admin
 drupal_mysql_user: elife_2_0
 drupal_mysql_password: elife_2_0
 drupal_mysql_database: elife_2_0
+legacy_mysql_user: elife_1_0
+legacy_mysql_password: elife_1_0
+legacy_mysql_database: elife_1_0
 
 # Additional arguments or options to pass to `drush site-install`.
 drupal_site_install_extra_args: []
@@ -141,12 +144,19 @@ mysql_databases:
   - name: "{{ drupal_mysql_database }}"
     encoding: utf8
     collation: utf8_general_ci
+  - name: "{{ legacy_mysql_database }}"
+    encoding: utf8
+    collation: utf8_general_ci
 
 mysql_users:
   - name: "{{ drupal_mysql_user }}"
     host: "%"
     password: "{{ drupal_mysql_password }}"
     priv: "{{ drupal_mysql_database }}.*:ALL"
+  - name: "{{ legacy_mysql_user }}"
+    host: "%"
+    password: "{{ legacy_mysql_password }}"
+    priv: "{{ legacy_mysql_database }}.*:ALL"
 
 # Comment out any extra utilities you don't want to install. If you don't want
 # to install *any* extras, make set this value to an empty set, e.g. `[]`.
@@ -230,8 +240,8 @@ composer_home_group: "{{ drupalvm_user }}"
 # Run specified scripts before or after VM is provisioned. Path is relative to
 # the `provisioning/playbook.yml` file.
 pre_provision_scripts: []
-post_provision_scripts: []
-  # - "../examples/scripts/configure-solr.sh"
+post_provision_scripts:
+  - "../../../scripts/post-provision.sh"
 
 # MySQL Configuration.
 mysql_root_password: root

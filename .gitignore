@@ -1,6 +1,8 @@
+.DS_Store
 .idea/
+.vagrant/
 config/config.yml
 config/local.settings.php
+scripts/elife_1_0.sql.gz
 vendor/
 web/
-.DS_Store
