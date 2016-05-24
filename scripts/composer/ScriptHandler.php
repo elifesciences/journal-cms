@@ -9,7 +9,7 @@ namespace eLifeDrupalProject\composer;
 
 use Composer\Script\Event;
 use DrupalProject\composer\ScriptHandler as DrupalScriptHandler;
-  use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ScriptHandler extends DrupalScriptHandler {
 
@@ -29,9 +29,13 @@ class ScriptHandler extends DrupalScriptHandler {
       $event->getIO()->write('Create a sites/default/settings.php file from local config with chmod 0666');
     }
 
+    if (!$fs->exists($config_root . '/local.settings.php')) {
+      $fs->copy($config_root . '/drupal-vm.settings.php', $config_root . '/local.settings.php');
+    }
+
     // Create symlink to custom modules folder.
     if ($fs->exists('./../src/modules') && !$fs->exists($drupal_root . '/modules/custom')) {
-      // $fs->symlink('../../src/modules', $drupal_root . '/modules/custom');
+      $fs->symlink('../../src/modules', $drupal_root . '/modules/custom');
     }
 
     if (!$fs->exists($config_root . '/config.yml')) {

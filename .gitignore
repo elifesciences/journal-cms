@@ -1,5 +1,6 @@
 .idea/
 config/config.yml
+config/local.settings.php
 vendor/
 web/
 .DS_Store

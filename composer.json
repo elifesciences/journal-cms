@@ -22,7 +22,7 @@
     "cweagans/composer-patches": "~1.0",
     "drupal/admin_toolbar": "~8.1.0",
     "drupal/config_devel": "~8.1.0-rc1",
-    "drupal/config_installer": "~8.1.2",
+    "drupal/config_installer": "~8.1",
     "drupal/entity_reference_revisions": "~8.1.0-rc6",
     "drupal/field_collection": "~8.1.0-alpha1",
     "drupal/graphql": "~8.1.0",
