@@ -32,7 +32,7 @@ vagrant_memory: 2048
 vagrant_cpus: 4
 
 # The web server software to use. Can be either 'apache' or 'nginx'.
-drupalvm_webserver: apache
+drupalvm_webserver: nginx
 
 # Set this to false if you are using a different site deployment strategy and
 # would like to configure 'vagrant_synced_folders' and 'apache_vhosts' manually.
@@ -174,7 +174,7 @@ installed_extras:
   # - selenium
   # - solr
   - varnish
-  # - xdebug
+  - xdebug
   # - xhprof
 
 # Add any extra apt or yum packages you would like installed.
@@ -241,7 +241,7 @@ composer_home_group: "{{ drupalvm_user }}"
 # the `provisioning/playbook.yml` file.
 pre_provision_scripts: []
 post_provision_scripts:
-  - "../../../scripts/post-provision.sh"
+  - "../../../../scripts/post-provision.sh"
 
 # MySQL Configuration.
 mysql_root_password: root

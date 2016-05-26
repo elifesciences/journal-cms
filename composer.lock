@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f7f1f2a7adf9c7c93e04b4f29d104503",
-    "content-hash": "bf0563e8462c97cf016c52ef16bc4489",
+    "hash": "92fa3c0a79c8a71bd1e11147a2586d5e",
+    "content-hash": "b4a11e5b6e0db4d9a754dd7a89c615ec",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -329,6 +329,58 @@
             ],
             "description": "Provides a way to patch Composer packages.",
             "time": "2016-02-29 03:45:02"
+        },
+        {
+            "name": "dflydev/placeholder-resolver",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dflydev/dflydev-placeholder-resolver.git",
+                "reference": "c498d0cae91b1bb36cc7d60906dab8e62bb7c356"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dflydev/dflydev-placeholder-resolver/zipball/c498d0cae91b1bb36cc7d60906dab8e62bb7c356",
+                "reference": "c498d0cae91b1bb36cc7d60906dab8e62bb7c356",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Dflydev\\PlaceholderResolver": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dragonfly Development Inc.",
+                    "email": "info@dflydev.com",
+                    "homepage": "http://dflydev.com"
+                },
+                {
+                    "name": "Beau Simensen",
+                    "email": "beau@dflydev.com",
+                    "homepage": "http://beausimensen.com"
+                }
+            ],
+            "description": "Given a data source representing key => value pairs, resolve placeholders like ${foo.bar} to the value associated with the 'foo.bar' key in the data source.",
+            "homepage": "https://github.com/dflydev/dflydev-placeholder-resolver",
+            "keywords": [
+                "placeholder",
+                "resolver"
+            ],
+            "time": "2012-10-28 21:08:28"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -763,25 +815,23 @@
         },
         {
             "name": "drupal-composer/drupal-project",
-            "version": "8.x-dev",
+            "version": "dev-feature/console_1_0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/drupal-composer/drupal-project.git",
-                "reference": "c469aaaebcf4972a4363e5c463e0515fa5b933f9"
+                "url": "https://github.com/nlisgo/drupal-project.git",
+                "reference": "c0fc504ba47951e8720fdc37062b147a376af425"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal-composer/drupal-project/zipball/c469aaaebcf4972a4363e5c463e0515fa5b933f9",
-                "reference": "c469aaaebcf4972a4363e5c463e0515fa5b933f9",
+                "url": "https://api.github.com/repos/nlisgo/drupal-project/zipball/c0fc504ba47951e8720fdc37062b147a376af425",
+                "reference": "c0fc504ba47951e8720fdc37062b147a376af425",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.0.20",
                 "cweagans/composer-patches": "~1.0",
                 "drupal-composer/drupal-scaffold": "^1.3.1",
-                "drupal/console": "~0.10",
-                "drupal/core": "~8.0",
-                "drush/drush": "~8.0"
+                "drupal/core": "~8.0"
             },
             "conflict": {
                 "drupal/drupal": "*"
@@ -794,6 +844,10 @@
                 "mikey179/vfsstream": "~1.2",
                 "phpunit/phpunit": "~4.8",
                 "symfony/css-selector": "2.7.*"
+            },
+            "suggest": {
+                "drupal/console": "The new CLI for Drupal. A tool to generate boilerplate code, interact with and debug Drupal.",
+                "drush/drush": "Drush is a command line shell and Unix scripting interface for Drupal."
             },
             "type": "project",
             "extra": {
@@ -844,10 +898,9 @@
             ],
             "description": "Project template for Drupal 8 projects with composer",
             "support": {
-                "source": "https://github.com/drupal-composer/drupal-project/tree/8.x",
-                "issues": "https://github.com/drupal-composer/drupal-project/issues"
+                "source": "https://github.com/nlisgo/drupal-project/tree/feature/console_1_0"
             },
-            "time": "2016-05-19 23:00:49"
+            "time": "2016-05-26 11:03:25"
         },
         {
             "name": "drupal-composer/drupal-scaffold",
@@ -906,7 +959,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/admin_toolbar-8.x-1.15.zip",
-                "reference": "f8380381183bc76babaec9dfe392511011d54904",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -950,7 +1003,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/config_devel-8.x-1.0-rc1.zip",
-                "reference": "064a5297d00af7330b455f08dacd90b4ab109c81",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -981,7 +1034,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/config_installer-8.x-1.3.zip",
-                "reference": "071213c9a7507bddcd6f6018d3f24217c13bb9d7",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -1003,39 +1056,40 @@
         },
         {
             "name": "drupal/console",
-            "version": "0.11.3",
+            "version": "1.0.0-alpha2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hechoendrupal/DrupalConsole.git",
-                "reference": "e0912b0f52455542d18d39f12387f297ec0f6cac"
+                "reference": "ac13afd0c4e703940ddfb90c3c0cea7336bd4f0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hechoendrupal/DrupalConsole/zipball/e0912b0f52455542d18d39f12387f297ec0f6cac",
-                "reference": "e0912b0f52455542d18d39f12387f297ec0f6cac",
+                "url": "https://api.github.com/repos/hechoendrupal/DrupalConsole/zipball/ac13afd0c4e703940ddfb90c3c0cea7336bd4f0b",
+                "reference": "ac13afd0c4e703940ddfb90c3c0cea7336bd4f0b",
                 "shasum": ""
             },
             "require": {
                 "alchemy/zippy": "0.3.5",
                 "composer/installers": "~1.0",
+                "dflydev/placeholder-resolver": "~1.0",
                 "gabordemooij/redbean": "@stable",
                 "guzzlehttp/guzzle": "~6.1",
                 "padraic/phar-updater": "~1.0@dev",
                 "php": ">=5.5.9",
                 "phpseclib/phpseclib": "2.*",
                 "stecman/symfony-console-completion": "^0.5.1",
-                "symfony/config": "~2.7",
-                "symfony/console": "~2.7",
+                "symfony/config": "~2.8",
+                "symfony/console": "~2.8",
                 "symfony/css-selector": "~2.7",
                 "symfony/debug": "~2.7",
-                "symfony/dependency-injection": "~2.7",
+                "symfony/dependency-injection": "~2.8",
                 "symfony/dom-crawler": "~2.7",
-                "symfony/event-dispatcher": "~2.7",
-                "symfony/filesystem": "~2.7",
-                "symfony/finder": "~2.7",
-                "symfony/http-foundation": "~2.7",
-                "symfony/translation": "~2.7",
-                "symfony/yaml": "~2.7",
+                "symfony/event-dispatcher": "~2.8",
+                "symfony/filesystem": "~2.8",
+                "symfony/finder": "~2.8",
+                "symfony/http-foundation": "~2.8",
+                "symfony/translation": "~2.8",
+                "symfony/yaml": "~2.8",
                 "twig/twig": "^1.23.1"
             },
             "bin": [
@@ -1084,7 +1138,7 @@
                 "drupal",
                 "symfony"
             ],
-            "time": "2016-04-14 06:45:29"
+            "time": "2016-05-02 19:00:25"
         },
         {
             "name": "drupal/core",
@@ -1269,7 +1323,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/entity_reference_revisions-8.x-1.0-rc6.zip",
-                "reference": "c9056323e728586436688d6aa1310a0b60c241d1",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -1300,7 +1354,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/field_collection-8.x-1.0-alpha1.zip",
-                "reference": "8eac83accfecf28eec4d3bf0afe3c047762649fc",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -1332,7 +1386,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/graphql-8.x-1.1.zip",
-                "reference": "0e6d145833ff92d1d503fe2c83dd95cadac20daa",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -1365,7 +1419,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/inline_entity_form-8.x-1.0-alpha6.zip",
-                "reference": "27af4de9fd961fa6ae1369604d05fec8b06db867",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -1386,6 +1440,131 @@
             "time": "2016-04-18 21:57:48"
         },
         {
+            "name": "drupal/migrate_manifest",
+            "version": "8.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/migrate_manifest.git",
+                "reference": "0dff781e8c714675adaaed3b9c6d79dea2332c51"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/migrate_manifest-8.x-1.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "drupal/core": "8.*",
+                "drupal/migrate_tools": "8.*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-8.x-1.x": "8.1.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Supports the running of migrations using a structured manifest file.",
+            "homepage": "https://www.drupal.org/project/migrate_manifest",
+            "time": "2016-02-23 16:54:28"
+        },
+        {
+            "name": "drupal/migrate_plus",
+            "version": "8.2.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/migrate_plus.git",
+                "reference": "5c7e48e4430226dec66a312a05f76d09d824819e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/migrate_plus-8.x-2.0-beta1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "drupal/core": "8.*",
+                "drupal/migrate": "8.*",
+                "drupal/system": ">=8.1.0"
+            },
+            "replace": {
+                "drupal/migrate_example": "self.version",
+                "drupal/migrate_example_advanced": "self.version",
+                "drupal/migrate_example_advanced_setup": "self.version",
+                "drupal/migrate_example_setup": "self.version"
+            },
+            "suggest": {
+                "drupal/comment": "Required by drupal/migrate_example_setup, drupal/migrate_example_advanced_setup",
+                "drupal/core": "Required by drupal/migrate_example, drupal/migrate_example_setup, drupal/migrate_example_advanced, drupal/migrate_example_advanced_setup",
+                "drupal/image": "Required by drupal/migrate_example_setup, drupal/migrate_example_advanced_setup",
+                "drupal/migrate": "Required by drupal/migrate_example, drupal/migrate_example_advanced",
+                "drupal/migrate_example_advanced_setup": "Required by drupal/migrate_example_advanced",
+                "drupal/migrate_example_setup": "Required by drupal/migrate_example",
+                "drupal/migrate_source_json": "Required by drupal/migrate_example_advanced",
+                "drupal/migrate_source_xml": "Required by drupal/migrate_example_advanced",
+                "drupal/options": "Required by drupal/migrate_example_setup",
+                "drupal/rest": "Required by drupal/migrate_example_advanced_setup",
+                "drupal/taxonomy": "Required by drupal/migrate_example_setup, drupal/migrate_example_advanced_setup",
+                "drupal/text": "Required by drupal/migrate_example_setup, drupal/migrate_example_advanced_setup"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-8.x-2.x": "8.2.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Mike Ryan",
+                    "homepage": "https://www.drupal.org/u/mikeryan",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Enhancements to core migration support",
+            "homepage": "https://www.drupal.org/project/migrate_plus",
+            "time": "2016-04-20 20:39:20"
+        },
+        {
+            "name": "drupal/migrate_tools",
+            "version": "8.2.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/migrate_tools.git",
+                "reference": "e23d12cefc71fb35800878078fdb247d1b05307d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/migrate_tools-8.x-2.0-beta1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "drupal/core": "8.*",
+                "drupal/migrate_plus": "8.*",
+                "drupal/system": ">=8.1.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-8.x-2.x": "8.2.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Tools to assist in developing and running migrations.",
+            "homepage": "https://www.drupal.org/project/migrate_tools",
+            "time": "2016-05-05 23:01:53"
+        },
+        {
             "name": "drupal/paragraphs",
             "version": "8.1.0-rc4",
             "source": {
@@ -1396,7 +1575,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/paragraphs-8.x-1.0-rc4.zip",
-                "reference": "740874bacb56a6a90683e7818c06ba77a638125c",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -3231,16 +3410,16 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.7.13",
+            "version": "v2.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "b6e5e9087ed7affbd4c38948da8f93513a87de43"
+                "reference": "07b7ced3ae0c12918477c095453ea8595000810e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/b6e5e9087ed7affbd4c38948da8f93513a87de43",
-                "reference": "b6e5e9087ed7affbd4c38948da8f93513a87de43",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/07b7ced3ae0c12918477c095453ea8595000810e",
+                "reference": "07b7ced3ae0c12918477c095453ea8595000810e",
                 "shasum": ""
             },
             "require": {
@@ -3249,7 +3428,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -3280,7 +3459,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-04 07:52:28"
+            "time": "2016-03-04 07:54:35"
         },
         {
             "name": "symfony/debug",
@@ -6188,6 +6367,9 @@
         "drupal/paragraphs": 5,
         "drupal/unique_field": 20,
         "drupal-composer/drupal-project": 20,
+        "drupal/migrate_plus": 10,
+        "drupal/migrate_tools": 10,
+        "drupal/console": 20,
         "jcalderonzumba/gastonjs": 20
     },
     "prefer-stable": false,
