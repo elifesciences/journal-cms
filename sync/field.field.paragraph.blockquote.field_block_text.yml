@@ -1,0 +1,19 @@
+uuid: a6ec24aa-1842-4f97-ac36-46ed98f69b01
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_text
+    - paragraphs.paragraphs_type.blockquote
+id: paragraph.blockquote.field_block_text
+field_name: field_block_text
+entity_type: paragraph
+bundle: blockquote
+label: Text
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

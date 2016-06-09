@@ -1,0 +1,50 @@
+uuid: d508e77b-91d4-4caf-8c68-caadfd30d47c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.labs_experiment
+    - paragraphs.paragraphs_type.blockquote
+    - paragraphs.paragraphs_type.image
+    - paragraphs.paragraphs_type.paragraph
+    - paragraphs.paragraphs_type.section
+    - paragraphs.paragraphs_type.youtube
+  module:
+    - entity_reference_revisions
+id: node.labs_experiment.field_content
+field_name: field_content
+entity_type: node
+bundle: labs_experiment
+label: Content
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      blockquote: blockquote
+      section: section
+      image: image
+      paragraph: paragraph
+      youtube: youtube
+    target_bundles_drag_drop:
+      blockquote:
+        enabled: true
+        weight: 5
+      section:
+        enabled: true
+        weight: 6
+      image:
+        enabled: true
+        weight: 6
+      paragraph:
+        enabled: true
+        weight: 7
+      youtube:
+        enabled: true
+        weight: 8
+field_type: entity_reference_revisions

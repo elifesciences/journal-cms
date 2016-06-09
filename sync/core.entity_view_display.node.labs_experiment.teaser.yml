@@ -1,0 +1,17 @@
+uuid: 2ae07cb0-4361-49d2-8945-119ca4c78b47
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.labs_experiment
+  module:
+    - user
+id: node.labs_experiment.teaser
+targetEntityType: node
+bundle: labs_experiment
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden: {  }

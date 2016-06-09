@@ -1,0 +1,21 @@
+uuid: 7d4f664e-6509-49a6-bce4-d684331aacb0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.paragraph.field_block_text
+    - paragraphs.paragraphs_type.paragraph
+id: paragraph.paragraph.default
+targetEntityType: paragraph
+bundle: paragraph
+mode: default
+content:
+  field_block_text:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+hidden:
+  created: true
+  uid: true

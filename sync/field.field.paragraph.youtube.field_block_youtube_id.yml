@@ -1,0 +1,19 @@
+uuid: b6ea9dac-3dbc-47e6-b117-4a4489789285
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_youtube_id
+    - paragraphs.paragraphs_type.youtube
+id: paragraph.youtube.field_block_youtube_id
+field_name: field_block_youtube_id
+entity_type: paragraph
+bundle: youtube
+label: 'Video ID'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,23 @@
+uuid: 34d7ced0-0012-40fe-9a9a-7ad2b88dad4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_youtube_height
+    - paragraphs.paragraphs_type.youtube
+id: paragraph.youtube.field_block_youtube_height
+field_name: field_block_youtube_height
+entity_type: paragraph
+bundle: youtube
+label: Height
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

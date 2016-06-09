@@ -1,0 +1,49 @@
+uuid: 6274741a-eb65-4f76-841a-00fed0cc6aca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_content
+    - paragraphs.paragraphs_type.blockquote
+    - paragraphs.paragraphs_type.image
+    - paragraphs.paragraphs_type.paragraph
+    - paragraphs.paragraphs_type.section
+    - paragraphs.paragraphs_type.youtube
+  module:
+    - entity_reference_revisions
+id: paragraph.section.field_block_content
+field_name: field_block_content
+entity_type: paragraph
+bundle: section
+label: Content
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      section: section
+      blockquote: blockquote
+      image: image
+      paragraph: paragraph
+      youtube: youtube
+    target_bundles_drag_drop:
+      section:
+        enabled: true
+        weight: 6
+      blockquote:
+        enabled: true
+        weight: 7
+      image:
+        enabled: true
+        weight: 8
+      paragraph:
+        enabled: true
+        weight: 9
+      youtube:
+        enabled: true
+        weight: 10
+field_type: entity_reference_revisions

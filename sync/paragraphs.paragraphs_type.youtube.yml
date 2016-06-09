@@ -1,0 +1,6 @@
+uuid: 86861318-699e-4f60-8ef9-93d2fac0f439
+langcode: en
+status: true
+dependencies: {  }
+id: youtube
+label: 'YouTube video'

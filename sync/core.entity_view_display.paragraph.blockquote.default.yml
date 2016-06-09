@@ -1,0 +1,28 @@
+uuid: f26fea8c-7e7e-4a9d-b1f8-a9dbb36e1ce7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.blockquote.field_block_citation
+    - field.field.paragraph.blockquote.field_block_text
+    - paragraphs.paragraphs_type.blockquote
+id: paragraph.blockquote.default
+targetEntityType: paragraph
+bundle: blockquote
+mode: default
+content:
+  field_block_citation:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_block_text:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+hidden:
+  created: true
+  uid: true

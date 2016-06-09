@@ -1,0 +1,19 @@
+uuid: d11f0034-b13a-451a-befb-679198e27a57
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_block_citation
+field_name: field_block_citation
+entity_type: paragraph
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

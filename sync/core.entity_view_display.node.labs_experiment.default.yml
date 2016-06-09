@@ -1,0 +1,26 @@
+uuid: 36fa9b1d-34c1-4153-92aa-73755ee58816
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.labs_experiment.field_content
+    - node.type.labs_experiment
+  module:
+    - entity_reference_revisions
+    - user
+id: node.labs_experiment.default
+targetEntityType: node
+bundle: labs_experiment
+mode: default
+content:
+  field_content:
+    type: entity_reference_revisions_entity_view
+    weight: 101
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden: {  }

@@ -1,0 +1,19 @@
+uuid: 60b1686d-5397-495f-8490-c65fde7195c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_id
+    - paragraphs.paragraphs_type.youtube
+id: paragraph.youtube.field_id
+field_name: field_id
+entity_type: paragraph
+bundle: youtube
+label: ID
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
