@@ -13,9 +13,13 @@ if [[ -e /vagrant/scripts/elife_1_0.sql.gz && ! -e "$ELIFE_1_0_IMPORTED" ]]; the
 fi
 
 # Set the default directory when accessing the vm and add vendor bin to PATH.
-if [[ ! -e /home/vagrant/.bashrc ]]; then
-    echo "cd /var/www/elife-2.0-website" >> /home/vagrant/.bashrc
-    echo "export PATH=\"/var/www/elife-2.0-website/vendor/bin:$PATH\"" >> /home/vagrant/.bashrc
+if [[ ! -e /home/vagrant/.bash_profile ]]; then
+    echo "cd /var/www/elife-2.0-website" >> /home/vagrant/.bash_profile
+    echo "export PATH=\"/vagrant/vendor/bin:\$PATH\"" >> /home/vagrant/.bash_profile
+    echo "if [[ ! -e ~/.console ]]; then" >> /home/vagrant/.bash_profile
+    echo "    /vagrant/vendor/bin/drupal init" >> /home/vagrant/.bash_profile
+    echo "fi" >> /home/vagrant/.bash_profile
+    chown vagrant:vagrant /home/vagrant/.bash_profile
 fi
 
 exit 0
