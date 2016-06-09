@@ -14,7 +14,7 @@
     },
     {
       "type": "vcs",
-      "url": "https://github.com/nlisgo/drupal-project"
+      "url": "https://github.com/drupal-composer/drupal-project"
     }
   ],
   "require": {
@@ -29,12 +29,12 @@
     "drupal/inline_entity_form": "~8.1.0-alpha6",
     "drupal/paragraphs": "~8.1.0-rc4",
     "drupal/unique_field": "~8.1.0@dev",
-    "drupal-composer/drupal-project": "dev-feature/console_1_0",
+    "drupal-composer/drupal-project": "8.x-dev",
     "drupal/migrate_plus": "8.2-beta1",
-    "drupal/migrate_tools": "8.2-beta1",
+    "drupal/migrate_tools": "~8.2.0@dev",
     "drupal/migrate_manifest": "^8.1",
     "drush/drush": "~8.0",
-    "drupal/console": "~1.0@dev"
+    "drupal/migrate_upgrade": "~8.2.0-beta1"
   },
   "require-dev": {
     "behat/mink": "~1.6",
@@ -57,11 +57,9 @@
   "scripts": {
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "post-install-cmd": [
-      "DrupalProject\\composer\\ScriptHandler::buildScaffold",
       "eLifeDrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ],
     "post-update-cmd": [
-      "DrupalProject\\composer\\ScriptHandler::buildScaffold",
       "eLifeDrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ]
   },
@@ -85,6 +83,7 @@
     },
     "patches": {
       "drupal/core": {
+        "Empty migration_dependencies gives \"Unsupported operand types\"": "https://www.drupal.org/files/issues/empty-2717483-12.patch",
         "Call to a member function getPath() when installing Profiles with unknown modules as requirement": "https://www.drupal.org/files/issues/2608408-11.patch"
       },
       "drupal/unique_field": {

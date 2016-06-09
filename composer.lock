@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "92fa3c0a79c8a71bd1e11147a2586d5e",
-    "content-hash": "b4a11e5b6e0db4d9a754dd7a89c615ec",
+    "hash": "d8fefb1a81fad757b0ba3d2ac68ce643",
+    "content-hash": "57be1764f7633c2db9b4eff37a45fd6b",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -68,61 +68,6 @@
                 "zip"
             ],
             "time": "2016-02-15 22:46:40"
-        },
-        {
-            "name": "codegyre/robo",
-            "version": "0.7.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Codegyre/Robo.git",
-                "reference": "9982edecb19f59420031dd9855b0d31e861b8b68"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Codegyre/Robo/zipball/9982edecb19f59420031dd9855b0d31e861b8b68",
-                "reference": "9982edecb19f59420031dd9855b0d31e861b8b68",
-                "shasum": ""
-            },
-            "require": {
-                "henrikbjorn/lurker": "~1.0",
-                "php": ">=5.4.0",
-                "symfony/console": "~2.5|~3.0",
-                "symfony/filesystem": "~2.5|~3.0",
-                "symfony/finder": "~2.5|~3.0",
-                "symfony/process": "~2.5|~3.0"
-            },
-            "require-dev": {
-                "codeception/aspect-mock": "0.5.4",
-                "codeception/base": "~2.1.5",
-                "codeception/verify": "0.2.*",
-                "natxet/cssmin": "~3.0",
-                "patchwork/jsqueeze": "~1.0",
-                "pear/archive_tar": "~1.0"
-            },
-            "suggest": {
-                "pear/archive_tar": "Allows tar archives to be created and extracted in taskPack and taskExtract, respectively."
-            },
-            "bin": [
-                "robo"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Robo\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Davert",
-                    "email": "davert.php@resend.cc"
-                }
-            ],
-            "description": "Modern task runner",
-            "time": "2016-04-13 20:14:17"
         },
         {
             "name": "composer/installers",
@@ -288,20 +233,20 @@
         },
         {
             "name": "cweagans/composer-patches",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweagans/composer-patches.git",
-                "reference": "0d75c63b6de66144517a1da9084422b78c2ff251"
+                "reference": "8de7c73b2eae217f4e7028d7262ff2330aa4b4e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/0d75c63b6de66144517a1da9084422b78c2ff251",
-                "reference": "0d75c63b6de66144517a1da9084422b78c2ff251",
+                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/8de7c73b2eae217f4e7028d7262ff2330aa4b4e8",
+                "reference": "8de7c73b2eae217f4e7028d7262ff2330aa4b4e8",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "~1.0",
+                "composer-plugin-api": "^1.0",
                 "php": ">=5.3.0"
             },
             "require-dev": {
@@ -328,59 +273,7 @@
                 }
             ],
             "description": "Provides a way to patch Composer packages.",
-            "time": "2016-02-29 03:45:02"
-        },
-        {
-            "name": "dflydev/placeholder-resolver",
-            "version": "v1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dflydev/dflydev-placeholder-resolver.git",
-                "reference": "c498d0cae91b1bb36cc7d60906dab8e62bb7c356"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dflydev/dflydev-placeholder-resolver/zipball/c498d0cae91b1bb36cc7d60906dab8e62bb7c356",
-                "reference": "c498d0cae91b1bb36cc7d60906dab8e62bb7c356",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Dflydev\\PlaceholderResolver": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dragonfly Development Inc.",
-                    "email": "info@dflydev.com",
-                    "homepage": "http://dflydev.com"
-                },
-                {
-                    "name": "Beau Simensen",
-                    "email": "beau@dflydev.com",
-                    "homepage": "http://beausimensen.com"
-                }
-            ],
-            "description": "Given a data source representing key => value pairs, resolve placeholders like ${foo.bar} to the value associated with the 'foo.bar' key in the data source.",
-            "homepage": "https://github.com/dflydev/dflydev-placeholder-resolver",
-            "keywords": [
-                "placeholder",
-                "resolver"
-            ],
-            "time": "2012-10-28 21:08:28"
+            "time": "2016-03-28 18:54:21"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -815,39 +708,37 @@
         },
         {
             "name": "drupal-composer/drupal-project",
-            "version": "dev-feature/console_1_0",
+            "version": "8.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nlisgo/drupal-project.git",
-                "reference": "c0fc504ba47951e8720fdc37062b147a376af425"
+                "url": "https://github.com/drupal-composer/drupal-project.git",
+                "reference": "544ba79cd95cb4fca599cba586498aaf0faf2885"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nlisgo/drupal-project/zipball/c0fc504ba47951e8720fdc37062b147a376af425",
-                "reference": "c0fc504ba47951e8720fdc37062b147a376af425",
+                "url": "https://api.github.com/repos/drupal-composer/drupal-project/zipball/544ba79cd95cb4fca599cba586498aaf0faf2885",
+                "reference": "544ba79cd95cb4fca599cba586498aaf0faf2885",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.0.20",
                 "cweagans/composer-patches": "~1.0",
-                "drupal-composer/drupal-scaffold": "^1.3.1",
-                "drupal/core": "~8.0"
+                "drupal-composer/drupal-scaffold": "^2.0.1",
+                "drupal/console": "~0.10",
+                "drupal/core": "~8.0",
+                "drush/drush": "~8.0"
             },
             "conflict": {
                 "drupal/drupal": "*"
             },
             "require-dev": {
-                "behat/mink": "~1.6",
+                "behat/mink": "~1.7",
                 "behat/mink-goutte-driver": "~1.2",
-                "jcalderonzumba/gastonjs": "^1.1@dev",
+                "jcalderonzumba/gastonjs": "~1.0.2",
                 "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
                 "mikey179/vfsstream": "~1.2",
                 "phpunit/phpunit": "~4.8",
-                "symfony/css-selector": "2.7.*"
-            },
-            "suggest": {
-                "drupal/console": "The new CLI for Drupal. A tool to generate boilerplate code, interact with and debug Drupal.",
-                "drush/drush": "Drush is a command line shell and Unix scripting interface for Drupal."
+                "symfony/css-selector": "~2.8"
             },
             "type": "project",
             "extra": {
@@ -879,11 +770,9 @@
                     "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
                 ],
                 "post-install-cmd": [
-                    "DrupalProject\\composer\\ScriptHandler::buildScaffold",
                     "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
                 ],
                 "post-update-cmd": [
-                    "DrupalProject\\composer\\ScriptHandler::buildScaffold",
                     "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
                 ]
             },
@@ -898,31 +787,27 @@
             ],
             "description": "Project template for Drupal 8 projects with composer",
             "support": {
-                "source": "https://github.com/nlisgo/drupal-project/tree/feature/console_1_0"
+                "source": "https://github.com/drupal-composer/drupal-project/tree/8.x",
+                "issues": "https://github.com/drupal-composer/drupal-project/issues"
             },
-            "time": "2016-05-26 11:03:25"
+            "time": "2016-05-26 08:05:16"
         },
         {
             "name": "drupal-composer/drupal-scaffold",
-            "version": "1.3.2",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal-composer/drupal-scaffold.git",
-                "reference": "594e0cba2ad3c494da39a8cca0408ac9e3300f52"
+                "reference": "0899167ed08be48e5137a701436fe4919820d6bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal-composer/drupal-scaffold/zipball/594e0cba2ad3c494da39a8cca0408ac9e3300f52",
-                "reference": "594e0cba2ad3c494da39a8cca0408ac9e3300f52",
+                "url": "https://api.github.com/repos/drupal-composer/drupal-scaffold/zipball/0899167ed08be48e5137a701436fe4919820d6bf",
+                "reference": "0899167ed08be48e5137a701436fe4919820d6bf",
                 "shasum": ""
             },
             "require": {
-                "codegyre/robo": "^0.7.1",
                 "composer-plugin-api": "^1.0.0",
-                "ext-curl": "*",
-                "ext-zlib": "*",
-                "guzzlehttp/guzzle": "~6.1",
-                "pear/archive_tar": "~1.0",
                 "php": ">=5.4.5"
             },
             "require-dev": {
@@ -933,7 +818,7 @@
             "extra": {
                 "class": "DrupalComposer\\DrupalScaffold\\Plugin",
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -946,7 +831,7 @@
                 "GPL-2.0+"
             ],
             "description": "Composer Plugin for updating the Drupal scaffold files when using drupal/core",
-            "time": "2016-04-13 15:46:44"
+            "time": "2016-05-25 21:59:48"
         },
         {
             "name": "drupal/admin_toolbar",
@@ -959,7 +844,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/admin_toolbar-8.x-1.15.zip",
-                "reference": null,
+                "reference": "f8380381183bc76babaec9dfe392511011d54904",
                 "shasum": null
             },
             "require": {
@@ -1003,7 +888,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/config_devel-8.x-1.0-rc1.zip",
-                "reference": null,
+                "reference": "064a5297d00af7330b455f08dacd90b4ab109c81",
                 "shasum": null
             },
             "require": {
@@ -1034,7 +919,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/config_installer-8.x-1.3.zip",
-                "reference": null,
+                "reference": "071213c9a7507bddcd6f6018d3f24217c13bb9d7",
                 "shasum": null
             },
             "require": {
@@ -1056,40 +941,39 @@
         },
         {
             "name": "drupal/console",
-            "version": "1.0.0-alpha2",
+            "version": "0.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hechoendrupal/DrupalConsole.git",
-                "reference": "ac13afd0c4e703940ddfb90c3c0cea7336bd4f0b"
+                "reference": "e0912b0f52455542d18d39f12387f297ec0f6cac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hechoendrupal/DrupalConsole/zipball/ac13afd0c4e703940ddfb90c3c0cea7336bd4f0b",
-                "reference": "ac13afd0c4e703940ddfb90c3c0cea7336bd4f0b",
+                "url": "https://api.github.com/repos/hechoendrupal/DrupalConsole/zipball/e0912b0f52455542d18d39f12387f297ec0f6cac",
+                "reference": "e0912b0f52455542d18d39f12387f297ec0f6cac",
                 "shasum": ""
             },
             "require": {
                 "alchemy/zippy": "0.3.5",
                 "composer/installers": "~1.0",
-                "dflydev/placeholder-resolver": "~1.0",
                 "gabordemooij/redbean": "@stable",
                 "guzzlehttp/guzzle": "~6.1",
                 "padraic/phar-updater": "~1.0@dev",
                 "php": ">=5.5.9",
                 "phpseclib/phpseclib": "2.*",
                 "stecman/symfony-console-completion": "^0.5.1",
-                "symfony/config": "~2.8",
-                "symfony/console": "~2.8",
+                "symfony/config": "~2.7",
+                "symfony/console": "~2.7",
                 "symfony/css-selector": "~2.7",
                 "symfony/debug": "~2.7",
-                "symfony/dependency-injection": "~2.8",
+                "symfony/dependency-injection": "~2.7",
                 "symfony/dom-crawler": "~2.7",
-                "symfony/event-dispatcher": "~2.8",
-                "symfony/filesystem": "~2.8",
-                "symfony/finder": "~2.8",
-                "symfony/http-foundation": "~2.8",
-                "symfony/translation": "~2.8",
-                "symfony/yaml": "~2.8",
+                "symfony/event-dispatcher": "~2.7",
+                "symfony/filesystem": "~2.7",
+                "symfony/finder": "~2.7",
+                "symfony/http-foundation": "~2.7",
+                "symfony/translation": "~2.7",
+                "symfony/yaml": "~2.7",
                 "twig/twig": "^1.23.1"
             },
             "bin": [
@@ -1138,20 +1022,20 @@
                 "drupal",
                 "symfony"
             ],
-            "time": "2016-05-02 19:00:25"
+            "time": "2016-04-14 06:45:29"
         },
         {
             "name": "drupal/core",
-            "version": "8.1.1",
+            "version": "8.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal-composer/drupal-core.git",
-                "reference": "e405a10c85a874a70932fe53670993f790df746f"
+                "reference": "a5d3f14db87ef953d227fb411489bada1afbb0a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal-composer/drupal-core/zipball/e405a10c85a874a70932fe53670993f790df746f",
-                "reference": "e405a10c85a874a70932fe53670993f790df746f",
+                "url": "https://api.github.com/repos/drupal-composer/drupal-core/zipball/a5d3f14db87ef953d227fb411489bada1afbb0a8",
+                "reference": "a5d3f14db87ef953d227fb411489bada1afbb0a8",
                 "shasum": ""
             },
             "require": {
@@ -1212,6 +1096,7 @@
                 "drupal/core-discovery": "self.version",
                 "drupal/core-event-dispatcher": "self.version",
                 "drupal/core-file-cache": "self.version",
+                "drupal/core-filesystem": "self.version",
                 "drupal/core-gettext": "self.version",
                 "drupal/core-graph": "self.version",
                 "drupal/core-php-storage": "self.version",
@@ -1275,7 +1160,7 @@
                 "drupal/views_ui": "self.version"
             },
             "require-dev": {
-                "behat/mink": "~1.6",
+                "behat/mink": "~1.7",
                 "behat/mink-goutte-driver": "~1.2",
                 "jcalderonzumba/gastonjs": "~1.0.2",
                 "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
@@ -1286,6 +1171,7 @@
             "type": "drupal-core",
             "extra": {
                 "patches_applied": {
+                    "Empty migration_dependencies gives \"Unsupported operand types\"": "https://www.drupal.org/files/issues/empty-2717483-12.patch",
                     "Call to a member function getPath() when installing Profiles with unknown modules as requirement": "https://www.drupal.org/files/issues/2608408-11.patch"
                 }
             },
@@ -1310,7 +1196,7 @@
                 "GPL-2.0+"
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
-            "time": "2016-05-04 11:20:24"
+            "time": "2016-06-01 23:31:24"
         },
         {
             "name": "drupal/entity_reference_revisions",
@@ -1323,7 +1209,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/entity_reference_revisions-8.x-1.0-rc6.zip",
-                "reference": null,
+                "reference": "c9056323e728586436688d6aa1310a0b60c241d1",
                 "shasum": null
             },
             "require": {
@@ -1354,7 +1240,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/field_collection-8.x-1.0-alpha1.zip",
-                "reference": null,
+                "reference": "8eac83accfecf28eec4d3bf0afe3c047762649fc",
                 "shasum": null
             },
             "require": {
@@ -1386,7 +1272,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/graphql-8.x-1.1.zip",
-                "reference": null,
+                "reference": "0e6d145833ff92d1d503fe2c83dd95cadac20daa",
                 "shasum": null
             },
             "require": {
@@ -1419,7 +1305,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/inline_entity_form-8.x-1.0-alpha6.zip",
-                "reference": null,
+                "reference": "27af4de9fd961fa6ae1369604d05fec8b06db867",
                 "shasum": null
             },
             "require": {
@@ -1450,7 +1336,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/migrate_manifest-8.x-1.2.zip",
-                "reference": null,
+                "reference": "0dff781e8c714675adaaed3b9c6d79dea2332c51",
                 "shasum": null
             },
             "require": {
@@ -1482,7 +1368,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/migrate_plus-8.x-2.0-beta1.zip",
-                "reference": null,
+                "reference": "5c7e48e4430226dec66a312a05f76d09d824819e",
                 "shasum": null
             },
             "require": {
@@ -1533,17 +1419,11 @@
         },
         {
             "name": "drupal/migrate_tools",
-            "version": "8.2.0-beta1",
+            "version": "dev-8.x-2.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/migrate_tools.git",
                 "reference": "e23d12cefc71fb35800878078fdb247d1b05307d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/migrate_tools-8.x-2.0-beta1.zip",
-                "reference": null,
-                "shasum": null
             },
             "require": {
                 "drupal/core": "8.*",
@@ -1565,6 +1445,42 @@
             "time": "2016-05-05 23:01:53"
         },
         {
+            "name": "drupal/migrate_upgrade",
+            "version": "8.2.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/migrate_upgrade.git",
+                "reference": "e0c6a0ce859346ae61462070e98dc10f816c955f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/migrate_upgrade-8.x-2.0-beta1.zip",
+                "reference": "e0c6a0ce859346ae61462070e98dc10f816c955f",
+                "shasum": null
+            },
+            "require": {
+                "drupal/core": "8.*",
+                "drupal/dblog": "8.*",
+                "drupal/migrate": "8.*",
+                "drupal/migrate_drupal": "8.*",
+                "drupal/migrate_plus": "8.*",
+                "drupal/system": ">=8.1.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-8.x-2.x": "8.2.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Drush support for direct upgrades from older Drupal versions.",
+            "homepage": "https://www.drupal.org/project/migrate_upgrade",
+            "time": "2016-04-14 20:50:52"
+        },
+        {
             "name": "drupal/paragraphs",
             "version": "8.1.0-rc4",
             "source": {
@@ -1575,7 +1491,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/paragraphs-8.x-1.0-rc4.zip",
-                "reference": null,
+                "reference": "740874bacb56a6a90683e7818c06ba77a638125c",
                 "shasum": null
             },
             "require": {
@@ -1905,16 +1821,16 @@
         },
         {
             "name": "gabordemooij/redbean",
-            "version": "v4.3.1",
+            "version": "v4.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gabordemooij/redbean.git",
-                "reference": "f1f572ddac226d047d730444927794321ee9aca6"
+                "reference": "72368f15cedfa7990c7fb228e47d2f00c7f49d4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gabordemooij/redbean/zipball/f1f572ddac226d047d730444927794321ee9aca6",
-                "reference": "f1f572ddac226d047d730444927794321ee9aca6",
+                "url": "https://api.github.com/repos/gabordemooij/redbean/zipball/72368f15cedfa7990c7fb228e47d2f00c7f49d4f",
+                "reference": "72368f15cedfa7990c7fb228e47d2f00c7f49d4f",
                 "shasum": ""
             },
             "require": {
@@ -1942,7 +1858,7 @@
             "keywords": [
                 "orm"
             ],
-            "time": "2015-12-28 19:46:34"
+            "time": "2016-05-01 10:27:43"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2114,65 +2030,6 @@
                 "uri"
             ],
             "time": "2016-04-13 19:56:01"
-        },
-        {
-            "name": "henrikbjorn/lurker",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/flint/Lurker.git",
-                "reference": "ab45f9cefe600065cc3137a238217598d3a1d062"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/flint/Lurker/zipball/ab45f9cefe600065cc3137a238217598d3a1d062",
-                "reference": "ab45f9cefe600065cc3137a238217598d3a1d062",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "symfony/config": "~2.2",
-                "symfony/event-dispatcher": "~2.2"
-            },
-            "suggest": {
-                "ext-inotify": ">=0.1.6"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Lurker": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Yaroslav Kiliba",
-                    "email": "om.dattaya@gmail.com"
-                },
-                {
-                    "name": "Konstantin Kudryashov",
-                    "email": "ever.zet@gmail.com"
-                },
-                {
-                    "name": "Henrik Bjrnskov",
-                    "email": "henrik@bjrnskov.dk"
-                }
-            ],
-            "description": "Resource Watcher.",
-            "keywords": [
-                "filesystem",
-                "resource",
-                "watching"
-            ],
-            "time": "2015-10-27 09:19:19"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -2577,119 +2434,6 @@
             "time": "2016-03-18 20:34:03"
         },
         {
-            "name": "pear/archive_tar",
-            "version": "1.4.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/Archive_Tar.git",
-                "reference": "bdd47347df76dbaa89227c5e1afd6f6809985b4c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/Archive_Tar/zipball/bdd47347df76dbaa89227c5e1afd6f6809985b4c",
-                "reference": "bdd47347df76dbaa89227c5e1afd6f6809985b4c",
-                "shasum": ""
-            },
-            "require": {
-                "pear/pear-core-minimal": "^1.10.0alpha2",
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "*"
-            },
-            "suggest": {
-                "ext-bz2": "bz2 compression support.",
-                "ext-xz": "lzma2 compression support.",
-                "ext-zlib": "Gzip compression support."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Archive_Tar": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "./"
-            ],
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Vincent Blavet",
-                    "email": "vincent@phpconcept.net"
-                },
-                {
-                    "name": "Greg Beaver",
-                    "email": "greg@chiaraquartet.net"
-                },
-                {
-                    "name": "Michiel Rook",
-                    "email": "mrook@php.net"
-                }
-            ],
-            "description": "Tar file management class",
-            "homepage": "https://github.com/pear/Archive_Tar",
-            "keywords": [
-                "archive",
-                "tar"
-            ],
-            "time": "2016-02-25 10:30:39"
-        },
-        {
-            "name": "pear/console_getopt",
-            "version": "v1.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/Console_Getopt.git",
-                "reference": "82f05cd1aa3edf34e19aa7c8ca312ce13a6a577f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/Console_Getopt/zipball/82f05cd1aa3edf34e19aa7c8ca312ce13a6a577f",
-                "reference": "82f05cd1aa3edf34e19aa7c8ca312ce13a6a577f",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Console": "./"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "./"
-            ],
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Greg Beaver",
-                    "email": "cellog@php.net",
-                    "role": "Helper"
-                },
-                {
-                    "name": "Andrei Zmievski",
-                    "email": "andrei@php.net",
-                    "role": "Lead"
-                },
-                {
-                    "name": "Stig Bakken",
-                    "email": "stig@php.net",
-                    "role": "Developer"
-                }
-            ],
-            "description": "More info available on: http://pear.php.net/package/Console_Getopt",
-            "time": "2015-07-20 20:28:12"
-        },
-        {
             "name": "pear/console_table",
             "version": "v1.3.0",
             "source": {
@@ -2743,105 +2487,6 @@
                 "console"
             ],
             "time": "2016-01-21 16:14:31"
-        },
-        {
-            "name": "pear/pear-core-minimal",
-            "version": "v1.10.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/pear-core-minimal.git",
-                "reference": "cae0f1ce0cb5bddb611b0a652d322905a65a5896"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/pear-core-minimal/zipball/cae0f1ce0cb5bddb611b0a652d322905a65a5896",
-                "reference": "cae0f1ce0cb5bddb611b0a652d322905a65a5896",
-                "shasum": ""
-            },
-            "require": {
-                "pear/console_getopt": "~1.3",
-                "pear/pear_exception": "~1.0"
-            },
-            "replace": {
-                "rsky/pear-core-min": "self.version"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "src/"
-            ],
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Weiske",
-                    "email": "cweiske@php.net",
-                    "role": "Lead"
-                }
-            ],
-            "description": "Minimal set of PEAR core files to be used as composer dependency",
-            "time": "2015-10-17 11:41:19"
-        },
-        {
-            "name": "pear/pear_exception",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/PEAR_Exception.git",
-                "reference": "8c18719fdae000b690e3912be401c76e406dd13b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/PEAR_Exception/zipball/8c18719fdae000b690e3912be401c76e406dd13b",
-                "reference": "8c18719fdae000b690e3912be401c76e406dd13b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=4.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "*"
-            },
-            "type": "class",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "PEAR": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "."
-            ],
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Helgi Thormar",
-                    "email": "dufuz@php.net"
-                },
-                {
-                    "name": "Greg Beaver",
-                    "email": "cellog@php.net"
-                }
-            ],
-            "description": "The PEAR Exception base class.",
-            "homepage": "https://github.com/pear/PEAR_Exception",
-            "keywords": [
-                "exception"
-            ],
-            "time": "2015-02-10 20:07:52"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -4710,16 +4355,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.24.0",
+            "version": "v1.24.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8"
+                "reference": "3566d311a92aae4deec6e48682dc5a4528c4a512"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
-                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3566d311a92aae4deec6e48682dc5a4528c4a512",
+                "reference": "3566d311a92aae4deec6e48682dc5a4528c4a512",
                 "shasum": ""
             },
             "require": {
@@ -4767,7 +4412,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-01-25 21:22:18"
+            "time": "2016-05-30 09:11:59"
         },
         {
             "name": "zendframework/zend-diactoros",
@@ -6301,16 +5946,16 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v3.0.6",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "e07127ac31230b30887c2dddf3708d883d239b14"
+                "reference": "b645a9b23d6c0eeba5ac823fa87bf010db9aff22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/e07127ac31230b30887c2dddf3708d883d239b14",
-                "reference": "e07127ac31230b30887c2dddf3708d883d239b14",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/b645a9b23d6c0eeba5ac823fa87bf010db9aff22",
+                "reference": "b645a9b23d6c0eeba5ac823fa87bf010db9aff22",
                 "shasum": ""
             },
             "require": {
@@ -6327,7 +5972,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -6354,7 +5999,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-04 07:55:57"
+            "time": "2016-03-04 07:56:56"
         }
     ],
     "aliases": [],
@@ -6368,8 +6013,8 @@
         "drupal/unique_field": 20,
         "drupal-composer/drupal-project": 20,
         "drupal/migrate_plus": 10,
-        "drupal/migrate_tools": 10,
-        "drupal/console": 20,
+        "drupal/migrate_tools": 20,
+        "drupal/migrate_upgrade": 10,
         "jcalderonzumba/gastonjs": 20
     },
     "prefer-stable": false,
