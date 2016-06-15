@@ -1,0 +1,42 @@
+uuid: 6218af50-f91d-4c4a-830b-afa96693efcf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_block_image
+    - node.type.labs_experiment
+    - paragraphs.paragraphs_type.image
+  module:
+    - entity_reference_revisions
+id: node.labs_experiment.field_block_image
+field_name: field_block_image
+entity_type: node
+bundle: labs_experiment
+label: Image
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      image: image
+    target_bundles_drag_drop:
+      blockquote:
+        weight: 6
+        enabled: false
+      image:
+        enabled: true
+        weight: 7
+      paragraph:
+        weight: 8
+        enabled: false
+      section:
+        weight: 9
+        enabled: false
+      youtube:
+        weight: 10
+        enabled: false
+field_type: entity_reference_revisions

@@ -1,0 +1,21 @@
+uuid: c1fde270-c5b2-4112-96b7-df28da520b49
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_impact_statement
+    - node.type.labs_experiment
+  module:
+    - text
+id: node.labs_experiment.field_impact_statement
+field_name: field_impact_statement
+entity_type: node
+bundle: labs_experiment
+label: 'Impact statement'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

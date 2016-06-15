@@ -3,16 +3,28 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.labs_experiment.field_block_image
     - field.field.node.labs_experiment.field_content
+    - field.field.node.labs_experiment.field_experiment_number
+    - field.field.node.labs_experiment.field_impact_statement
     - node.type.labs_experiment
   module:
     - entity_reference_revisions
+    - text
     - user
 id: node.labs_experiment.default
 targetEntityType: node
 bundle: labs_experiment
 mode: default
 content:
+  field_block_image:
+    type: entity_reference_revisions_entity_view
+    weight: 102
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
   field_content:
     type: entity_reference_revisions_entity_view
     weight: 101
@@ -21,6 +33,20 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+  field_experiment_number:
+    weight: 104
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_impact_statement:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
   links:
     weight: 100
 hidden: {  }

@@ -1,0 +1,20 @@
+uuid: ee1bed9d-bdb4-48b9-be5c-6360b5e97b44
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_experiment_number
+field_name: field_experiment_number
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

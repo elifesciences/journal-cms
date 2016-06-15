@@ -1,0 +1,23 @@
+uuid: 6183b114-d666-494f-9db2-51d0500c2f56
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_experiment_number
+    - node.type.labs_experiment
+id: node.labs_experiment.field_experiment_number
+field_name: field_experiment_number
+entity_type: node
+bundle: labs_experiment
+label: 'Experiment number'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
