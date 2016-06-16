@@ -1,20 +1,20 @@
-uuid: 41372b4a-fd9e-486f-955f-67aaa0d6c3fc
+uuid: 00f851c3-7c4c-49a1-99bd-406c552f8a2b
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_image
-    - node.type.podcast_episode
+    - node.type.labs_experiment
   module:
     - image
-id: node.podcast_episode.field_image
+id: node.labs_experiment.field_image
 field_name: field_image
 entity_type: node
-bundle: podcast_episode
+bundle: labs_experiment
 label: Image
 description: ''
-required: false
-translatable: false
+required: true
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

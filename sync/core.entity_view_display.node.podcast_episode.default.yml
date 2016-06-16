@@ -58,7 +58,7 @@ content:
     third_party_settings: {  }
     type: boolean
   field_image:
-    weight: 106
+    weight: 108
     label: above
     settings:
       image_style: ''

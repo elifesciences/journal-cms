@@ -2,6 +2,7 @@ module:
   admin_toolbar: 0
   admin_toolbar_tools: 0
   automated_cron: 0
+  basic_auth: 0
   block: 0
   block_content: 0
   breakpoint: 0
@@ -21,12 +22,15 @@ module:
   field_collection: 0
   field_ui: 0
   file: 0
+  file_entity: 0
   filter: 0
   graphql: 0
+  hal: 0
   help: 0
   history: 0
   image: 0
   inline_entity_form: 0
+  labs_experiment: 0
   link: 0
   menu_ui: 0
   node: 0
@@ -37,6 +41,7 @@ module:
   quickedit: 0
   rdf: 0
   rest: 0
+  restui: 0
   search: 0
   serialization: 0
   shortcut: 0

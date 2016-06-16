@@ -10,12 +10,11 @@ dependencies:
     - field.field.node.podcast_episode.field_image
     - field.field.node.podcast_episode.field_impact_statement
     - field.field.node.podcast_episode.field_publication_date
-    - image.style.thumbnail
     - node.type.podcast_episode
   module:
     - datetime
     - field_collection
-    - image
+    - file_entity
     - link
     - path
     - text
@@ -54,12 +53,11 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
   field_image:
-    weight: 36
+    weight: 38
     settings:
       progress_indicator: throbber
-      preview_image_style: thumbnail
     third_party_settings: {  }
-    type: image_image
+    type: file_editable
   field_impact_statement:
     weight: 32
     settings:

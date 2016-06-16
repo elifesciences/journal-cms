@@ -1,0 +1,39 @@
+uuid: 28b52894-16f3-4be5-9ba0-62c50aadfcde
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.file.image.field_image_alt_text
+    - field.field.file.image.field_image_caption_text
+    - file_entity.type.image
+  module:
+    - text
+_core:
+  default_config_hash: HYzof_QiEoo7449yRhD_uJoLXMEAmSafqexxGS9OmjQ
+id: file.image.default
+targetEntityType: file
+bundle: image
+mode: default
+content:
+  field_image_alt_text:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_image_caption_text:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textfield
+  filename:
+    type: string_textfield
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

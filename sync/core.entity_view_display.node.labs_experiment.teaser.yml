@@ -15,4 +15,7 @@ content:
   links:
     weight: 100
 hidden:
+  field_block_image: true
   field_content: true
+  field_experiment_number: true
+  field_impact_statement: true

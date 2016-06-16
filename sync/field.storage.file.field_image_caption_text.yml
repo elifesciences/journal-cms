@@ -1,0 +1,20 @@
+uuid: 2ffb4a36-e944-483a-bf9d-de1f1166f481
+langcode: en
+status: true
+dependencies:
+  module:
+    - file
+    - text
+id: file.field_image_caption_text
+field_name: field_image_caption_text
+entity_type: file
+type: text
+settings:
+  max_length: 255
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

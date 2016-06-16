@@ -14,3 +14,7 @@ permissions:
   - 'access comments'
   - 'access site-wide contact form'
   - 'search content'
+  - 'view files'
+  - 'restful get entity:node'
+  - 'restful get entity:file'
+  - 'restful get entity:paragraph'
