@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d8fefb1a81fad757b0ba3d2ac68ce643",
-    "content-hash": "57be1764f7633c2db9b4eff37a45fd6b",
+    "hash": "30b69c8b2d141be8f32ac8ed76740629",
+    "content-hash": "a5003f23e72fb53037b7fd47e64d9ff1",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -844,7 +844,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/admin_toolbar-8.x-1.15.zip",
-                "reference": null,
+                "reference": "f8380381183bc76babaec9dfe392511011d54904",
                 "shasum": null
             },
             "require": {
@@ -888,7 +888,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/config_devel-8.x-1.0-rc1.zip",
-                "reference": null,
+                "reference": "064a5297d00af7330b455f08dacd90b4ab109c81",
                 "shasum": null
             },
             "require": {
@@ -919,7 +919,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/config_installer-8.x-1.3.zip",
-                "reference": null,
+                "reference": "071213c9a7507bddcd6f6018d3f24217c13bb9d7",
                 "shasum": null
             },
             "require": {
@@ -1209,7 +1209,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/entity_reference_revisions-8.x-1.0-rc7.zip",
-                "reference": null,
+                "reference": "09b19416018f59e1b1f4acef6cfd34496ba991ba",
                 "shasum": null
             },
             "require": {
@@ -1240,7 +1240,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/field_collection-8.x-1.0-alpha1.zip",
-                "reference": null,
+                "reference": "8eac83accfecf28eec4d3bf0afe3c047762649fc",
                 "shasum": null
             },
             "require": {
@@ -1262,6 +1262,41 @@
             "time": "2016-04-05 13:53:48"
         },
         {
+            "name": "drupal/file_entity",
+            "version": "8.2.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/file_entity",
+                "reference": "9f7799d73471a3fa9f764c3b1c6a275d99750fb9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/file_entity-8.x-2.0-beta1.zip",
+                "reference": "9f7799d73471a3fa9f764c3b1c6a275d99750fb9",
+                "shasum": null
+            },
+            "require": {
+                "drupal/core": "8.*",
+                "drupal/file": "8.*",
+                "drupal/image": "8.*",
+                "drupal/text": "8.*",
+                "drupal/views": "8.*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-8.x-2.x": "8.2.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Extends Drupal file entities to be fieldable and viewable.",
+            "homepage": "https://www.drupal.org/project/file_entity",
+            "time": "2016-06-03 09:40:10"
+        },
+        {
             "name": "drupal/graphql",
             "version": "8.1.1",
             "source": {
@@ -1272,7 +1307,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/graphql-8.x-1.1.zip",
-                "reference": null,
+                "reference": "0e6d145833ff92d1d503fe2c83dd95cadac20daa",
                 "shasum": null
             },
             "require": {
@@ -1305,7 +1340,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/inline_entity_form-8.x-1.0-alpha6.zip",
-                "reference": null,
+                "reference": "27af4de9fd961fa6ae1369604d05fec8b06db867",
                 "shasum": null
             },
             "require": {
@@ -1336,7 +1371,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/migrate_manifest-8.x-1.2.zip",
-                "reference": null,
+                "reference": "0dff781e8c714675adaaed3b9c6d79dea2332c51",
                 "shasum": null
             },
             "require": {
@@ -1368,7 +1403,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/migrate_plus-8.x-2.0-beta1.zip",
-                "reference": null,
+                "reference": "5c7e48e4430226dec66a312a05f76d09d824819e",
                 "shasum": null
             },
             "require": {
@@ -1455,7 +1490,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/migrate_upgrade-8.x-2.0-beta1.zip",
-                "reference": null,
+                "reference": "e0c6a0ce859346ae61462070e98dc10f816c955f",
                 "shasum": null
             },
             "require": {
@@ -1491,7 +1526,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/paragraphs-8.x-1.0-rc5.zip",
-                "reference": null,
+                "reference": "bed1bddffdf03626ba057ab697635b049d8d98de",
                 "shasum": null
             },
             "require": {
@@ -1528,6 +1563,38 @@
             "description": "Enables the creation of paragraphs entities. To safely uninstall, go first to Structure > Paragraphs types > Settings.",
             "homepage": "https://www.drupal.org/project/paragraphs",
             "time": "2016-05-31 19:59:20"
+        },
+        {
+            "name": "drupal/restui",
+            "version": "8.1.11",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/restui",
+                "reference": "b32b5f8bf16b91fd1c65acbb61e82db7b706e127"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/restui-8.x-1.11.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "drupal/core": "8.*",
+                "drupal/rest": "8.*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-8.x-1.x": "8.1.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Provides a user interface to manage REST resources",
+            "homepage": "https://www.drupal.org/project/restui",
+            "time": "2015-12-01 13:26:14"
         },
         {
             "name": "drupal/unique_field",
@@ -2165,16 +2232,16 @@
         },
         {
             "name": "masterminds/html5",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Masterminds/html5-php.git",
-                "reference": "cb1ce51f817af9bbf400c88e8dcebcbf9a097077"
+                "reference": "170aa5cb35b29fccafbf5ea63487c013f396fdc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/cb1ce51f817af9bbf400c88e8dcebcbf9a097077",
-                "reference": "cb1ce51f817af9bbf400c88e8dcebcbf9a097077",
+                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/170aa5cb35b29fccafbf5ea63487c013f396fdc9",
+                "reference": "170aa5cb35b29fccafbf5ea63487c013f396fdc9",
                 "shasum": ""
             },
             "require": {
@@ -2226,7 +2293,7 @@
                 "serializer",
                 "xml"
             ],
-            "time": "2016-04-11 13:54:57"
+            "time": "2016-05-10 14:11:45"
         },
         {
             "name": "nikic/php-parser",
@@ -4896,16 +4963,16 @@
         },
         {
             "name": "geerlingguy/drupal-vm",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geerlingguy/drupal-vm.git",
-                "reference": "85628261570998cae59888ab0993e01418393759"
+                "reference": "6cc1f733507462b9497203016c27b91f8d6cf764"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/85628261570998cae59888ab0993e01418393759",
-                "reference": "85628261570998cae59888ab0993e01418393759",
+                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/6cc1f733507462b9497203016c27b91f8d6cf764",
+                "reference": "6cc1f733507462b9497203016c27b91f8d6cf764",
                 "shasum": ""
             },
             "type": "project",
@@ -4931,7 +4998,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2016-06-06 15:50:41"
+            "time": "2016-06-13 03:50:19"
         },
         {
             "name": "jcalderonzumba/gastonjs",
@@ -5153,22 +5220,22 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "3.0.2",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "45ada3e3fd09789fbfbd6d65b3f0901f0030dc61"
+                "reference": "9270140b940ff02e58ec577c237274e92cd40cdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/45ada3e3fd09789fbfbd6d65b3f0901f0030dc61",
-                "reference": "45ada3e3fd09789fbfbd6d65b3f0901f0030dc61",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/9270140b940ff02e58ec577c237274e92cd40cdd",
+                "reference": "9270140b940ff02e58ec577c237274e92cd40cdd",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5",
                 "phpdocumentor/reflection-common": "^1.0@dev",
-                "phpdocumentor/type-resolver": "^0.1.5",
+                "phpdocumentor/type-resolver": "^0.2.0",
                 "webmozart/assert": "^1.0"
             },
             "require-dev": {
@@ -5194,20 +5261,20 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2016-06-06 06:44:13"
+            "time": "2016-06-10 09:48:41"
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "0.1.8",
+            "version": "0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "9891754231e55d42f0d16988ffb799af39f31a12"
+                "reference": "b39c7a5b194f9ed7bd0dd345c751007a41862443"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/9891754231e55d42f0d16988ffb799af39f31a12",
-                "reference": "9891754231e55d42f0d16988ffb799af39f31a12",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/b39c7a5b194f9ed7bd0dd345c751007a41862443",
+                "reference": "b39c7a5b194f9ed7bd0dd345c751007a41862443",
                 "shasum": ""
             },
             "require": {
@@ -5216,7 +5283,7 @@
             },
             "require-dev": {
                 "mockery/mockery": "^0.9.4",
-                "phpunit/phpunit": "^5.2"
+                "phpunit/phpunit": "^5.2||^4.8.24"
             },
             "type": "library",
             "extra": {
@@ -5241,7 +5308,7 @@
                     "email": "me@mikevanriel.com"
                 }
             ],
-            "time": "2016-03-28 10:02:29"
+            "time": "2016-06-10 07:14:17"
         },
         {
             "name": "phpspec/prophecy",
@@ -6049,7 +6116,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v3.1.0",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
@@ -6167,6 +6234,7 @@
         "drupal/migrate_plus": 10,
         "drupal/migrate_tools": 20,
         "drupal/migrate_upgrade": 10,
+        "drupal/file_entity": 10,
         "jcalderonzumba/gastonjs": 20
     },
     "prefer-stable": false,
