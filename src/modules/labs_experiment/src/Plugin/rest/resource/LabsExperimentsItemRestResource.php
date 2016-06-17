@@ -2,28 +2,23 @@
 
 namespace Drupal\labs_experiment\Plugin\rest\resource;
 
-use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\rest\Plugin\ResourceBase;
-use Drupal\rest\ResourceResponse;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Zend\Diactoros\Response\JsonResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Provides a resource to get view modes by entity and bundle.
  *
  * @RestResource(
- *   id = "labs_experiment_rest_resource",
- *   label = @Translation("Labs experiment rest resource"),
+ *   id = "labs_experiments_item_rest_resource",
+ *   label = @Translation("Labs experiments item rest resource"),
  *   uri_paths = {
  *     "canonical" = "/labs-experiments/{number}"
  *   }
  * )
  */
-class LabsExperimentRestResource extends ResourceBase {
+class LabsExperimentsItemRestResource extends ResourceBase {
   /**
    * Responds to GET requests.
    *

@@ -1,5 +1,11 @@
 resources:
-  labs_experiment_rest_resource:
+  labs_experiments_item_rest_resource:
+    GET:
+      supported_formats:
+        - json
+      supported_auth:
+        - basic_auth
+  labs_experiments_list_rest_resource:
     GET:
       supported_formats:
         - json

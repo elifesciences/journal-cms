@@ -7,9 +7,10 @@ dependencies:
     - field.field.node.labs_experiment.field_experiment_number
     - field.field.node.labs_experiment.field_image
     - field.field.node.labs_experiment.field_impact_statement
+    - image.style.thumbnail
     - node.type.labs_experiment
   module:
-    - file_entity
+    - image
     - paragraphs
     - path
     - text
@@ -40,11 +41,12 @@ content:
     third_party_settings: {  }
     type: number
   field_image:
-    weight: 4
+    weight: 26
     settings:
       progress_indicator: throbber
+      preview_image_style: thumbnail
     third_party_settings: {  }
-    type: file_editable
+    type: image_image
   field_impact_statement:
     weight: 2
     settings:

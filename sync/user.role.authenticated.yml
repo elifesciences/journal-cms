@@ -18,3 +18,5 @@ permissions:
   - 'access shortcuts'
   - 'search content'
   - 'view files'
+  - 'restful get labs_experiments_item_rest_resource'
+  - 'restful get labs_experiments_list_rest_resource'
