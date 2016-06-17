@@ -1,4 +1,4 @@
-uuid: b280023c-1a6a-4d40-a090-93f964c5553f
+uuid: 26e38e27-7bca-4b14-bde8-1920e72fe761
 langcode: en
 status: true
 dependencies:
@@ -6,8 +6,8 @@ dependencies:
     - file
     - image
     - paragraphs
-id: paragraph.field_block_image_file
-field_name: field_block_image_file
+id: paragraph.field_block_image
+field_name: field_block_image
 entity_type: paragraph
 type: image
 settings:

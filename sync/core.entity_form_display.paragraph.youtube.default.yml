@@ -6,7 +6,6 @@ dependencies:
     - field.field.paragraph.youtube.field_block_youtube_height
     - field.field.paragraph.youtube.field_block_youtube_id
     - field.field.paragraph.youtube.field_block_youtube_width
-    - field.field.paragraph.youtube.field_id
     - paragraphs.paragraphs_type.youtube
 id: paragraph.youtube.default
 targetEntityType: paragraph
@@ -32,13 +31,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: number
-  field_id:
-    weight: 0
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
 hidden:
   created: true
   status: true

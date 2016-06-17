@@ -3,7 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.image.field_block_image_file
+    - field.field.paragraph.image.field_block_image
+    - field.field.paragraph.image.field_block_text
     - image.style.thumbnail
     - paragraphs.paragraphs_type.image
   module:
@@ -13,13 +14,20 @@ targetEntityType: paragraph
 bundle: image
 mode: default
 content:
-  field_block_image_file:
-    weight: 0
+  field_block_image:
+    weight: 2
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+  field_block_text:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
 hidden:
   created: true
   status: true

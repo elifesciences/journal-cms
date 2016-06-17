@@ -3,7 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.image.field_block_image_file
+    - field.field.paragraph.image.field_block_image
+    - field.field.paragraph.image.field_block_text
     - paragraphs.paragraphs_type.image
   module:
     - image
@@ -12,14 +13,20 @@ targetEntityType: paragraph
 bundle: image
 mode: default
 content:
-  field_block_image_file:
-    weight: 0
+  field_block_image:
+    weight: 2
     label: above
     settings:
       image_style: ''
       image_link: ''
     third_party_settings: {  }
     type: image
+  field_block_text:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
 hidden:
   created: true
   uid: true

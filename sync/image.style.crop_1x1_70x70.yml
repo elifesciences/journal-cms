@@ -1,0 +1,14 @@
+uuid: b0511225-8ecd-4257-8c31-a2a558c39862
+langcode: en
+status: true
+dependencies: {  }
+name: crop_1x1_70x70
+label: crop_1x1_70x70
+effects:
+  78837303-c200-41b5-a470-ab4b169de90f:
+    uuid: 78837303-c200-41b5-a470-ab4b169de90f
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 70
+      height: 70

@@ -1,0 +1,14 @@
+uuid: dab26a24-d846-4449-b3db-9eb78bbf50c5
+langcode: en
+status: true
+dependencies: {  }
+name: crop_2x1_1800x900
+label: crop_2x1_1800x900
+effects:
+  feaccfff-7dd9-472e-b9ab-0d34fd341d2f:
+    uuid: feaccfff-7dd9-472e-b9ab-0d34fd341d2f
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 1800
+      height: 900

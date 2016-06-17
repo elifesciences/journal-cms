@@ -1,0 +1,14 @@
+uuid: cf21ea70-d9fb-4652-bbbc-45aef145f02a
+langcode: en
+status: true
+dependencies: {  }
+name: crop_16x9_250x141
+label: crop_16x9_250x141
+effects:
+  b266179a-86a4-4363-96fe-4a54ec3de3bd:
+    uuid: b266179a-86a4-4363-96fe-4a54ec3de3bd
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 250
+      height: 141

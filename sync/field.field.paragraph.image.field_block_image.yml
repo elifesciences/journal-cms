@@ -1,14 +1,14 @@
-uuid: 5be44e16-d2a2-4b05-9668-1e868ae322c0
+uuid: 9c72ea45-fa7f-4a15-9747-4bd063fb6cb0
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_block_image_file
+    - field.storage.paragraph.field_block_image
     - paragraphs.paragraphs_type.image
   module:
     - image
-id: paragraph.image.field_block_image_file
-field_name: field_block_image_file
+id: paragraph.image.field_block_image
+field_name: field_block_image
 entity_type: paragraph
 bundle: image
 label: File
@@ -25,7 +25,7 @@ settings:
   min_resolution: ''
   alt_field: true
   alt_field_required: true
-  title_field: true
+  title_field: false
   title_field_required: false
   default_image:
     uuid: ''

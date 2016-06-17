@@ -1,0 +1,14 @@
+uuid: ac993daa-3d32-4041-a6e5-d5307bb756fb
+langcode: en
+status: true
+dependencies: {  }
+name: crop_16x9_500x282
+label: crop_16x9_500x282
+effects:
+  08f01519-802f-4aba-b1cd-a86c323bd5b9:
+    uuid: 08f01519-802f-4aba-b1cd-a86c323bd5b9
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 500
+      height: 282
