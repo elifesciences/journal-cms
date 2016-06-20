@@ -35,8 +35,8 @@
     "drupal/migrate_manifest": "^8.1",
     "drush/drush": "~8.0",
     "drupal/migrate_upgrade": "~8.2.0-beta1",
-    "drupal/file_entity": "~8.2.0-beta1",
-    "drupal/restui": "^8.1"
+    "drupal/restui": "^8.1",
+    "drupal/migrate_source_json": "~8.2.0@dev"
   },
   "require-dev": {
     "behat/mink": "~1.6",
