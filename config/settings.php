@@ -710,7 +710,7 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  * Keep this code block at the end of this file to take full effect.
  */
 $settings['install_profile'] = 'config_installer';
-$config_directories['sync'] = './../sync';
+$config_directories[CONFIG_SYNC_DIRECTORY] = './../sync';
 
 if (file_exists(__DIR__ . '/../../../config/local.settings.php')) {
   include __DIR__ . '/../../../config/local.settings.php';

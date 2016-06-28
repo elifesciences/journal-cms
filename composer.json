@@ -30,13 +30,12 @@
     "drupal/paragraphs": "~8.1.0-rc4",
     "drupal/unique_field": "~8.1.0@dev",
     "drupal-composer/drupal-project": "8.x-dev",
-    "drupal/migrate_plus": "8.2-beta1",
+    "drupal/migrate_plus": "~8.2.0@dev",
     "drupal/migrate_tools": "~8.2.0@dev",
     "drupal/migrate_manifest": "^8.1",
     "drush/drush": "~8.0",
     "drupal/migrate_upgrade": "~8.2.0-beta1",
-    "drupal/restui": "^8.1",
-    "drupal/migrate_source_json": "~8.2.0@dev"
+    "drupal/restui": "^8.1"
   },
   "require-dev": {
     "behat/mink": "~1.6",
@@ -90,6 +89,9 @@
       },
       "drupal/unique_field": {
         "PHP Warning: Invalid argument supplied for foreach() in unique_field.module": "https://www.drupal.org/files/issues/php_warning_invalid-2721645-2.patch"
+      },
+      "drupal/migrate_plus" : {
+        "PHP 7 Seg Fault in migrate_example_advanced": "https://www.drupal.org/files/issues/php_7_seg_fault-2731697-2.patch"
       }
     }
   }

@@ -1,16 +1,4 @@
-resources:
-  labs_experiments_item_rest_resource:
-    GET:
-      supported_formats:
-        - json
-      supported_auth:
-        - basic_auth
-  labs_experiments_list_rest_resource:
-    GET:
-      supported_formats:
-        - json
-      supported_auth:
-        - basic_auth
+resources: {  }
 link_domain: null
 _core:
   default_config_hash: E9VXRiWZNet4YVBv8j9WQmTlgb-rOjo0MiCSdgV0Guw
