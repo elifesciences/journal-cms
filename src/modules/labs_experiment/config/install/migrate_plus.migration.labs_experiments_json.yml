@@ -1,0 +1,45 @@
+id: labs_experiments_json
+label: JSON feed of labs experiments
+migration_group: labs_experiments
+source:
+  plugin: labs_experiment_node
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls: /migration_assets/labs_experiments.json
+  item_selector: 0
+  fields:
+    -
+      name: number
+      label: 'Experiment number'
+      selector: number
+    -
+      name: title
+      label: 'Experiment title'
+      selector: title
+    -
+      name: image
+      label: 'Experiment image'
+      selector: image
+    -
+      name: image_alt
+      label: 'Experiment image alt'
+      selector: image_alt
+  ids:
+    number:
+      type: string
+destination:
+  plugin: entity:node
+process:
+  id: number
+  label: title
+  # Hardcode the destination node type (bundle) as 'labs_experiment'.
+  type:
+    plugin: default_value
+    default_value: labs_experiment
+  title: title
+  field_experiment_number: number
+  field_image:
+    source: image
+    plugin: file_import
+
+migration_dependencies: {}

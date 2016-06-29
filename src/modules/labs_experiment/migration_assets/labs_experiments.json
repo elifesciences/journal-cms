@@ -1,0 +1,12 @@
+[
+  {
+    "number": "1",
+    "title": "Lab 1",
+    "image": "labs/lab_1.png",
+    "image_alt": "image alt"
+  },
+  {
+    "number": "2",
+    "title": "Lab 2"
+  }
+]

@@ -1,0 +1,6 @@
+id: labs_experiments
+label: Labs experiments
+source_type: Json
+shared_configuration:
+  source:
+    key: default
