@@ -1,0 +1,14 @@
+uuid: 32c7f9c7-ff7d-4475-a3fd-7476e8188bde
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 0C0I_Ith3A7FUWbHg0XabWrWJsAeijurq8tBeSEatHI
+id: labs_experiments
+label: 'Labs experiments'
+description: null
+source_type: Json
+module: null
+shared_configuration:
+  source:
+    key: default

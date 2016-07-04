@@ -1,0 +1,67 @@
+uuid: 736818b0-5652-4367-8ed6-f15c852f05e6
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: ELrPqJVlDJMWVNhk3uB1z1dX5aUyClJ8JyWi4ofd3lg
+id: labs_experiments_json
+migration_tags: null
+migration_group: labs_experiments
+label: 'JSON feed of labs experiments'
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls: 'http://elife-2.0-website.dev/modules/custom/labs_experiment/migration_assets/labs_experiments.json'
+  item_selector: 0
+  fields:
+    -
+      name: number
+      label: 'Experiment number'
+      selector: number
+    -
+      name: title
+      label: 'Experiment title'
+      selector: title
+    -
+      name: impact_statement
+      label: 'Experiment impact statement'
+      selector: impact_statement
+    -
+      name: image
+      label: 'Experiment image'
+      selector: image
+    -
+      name: image_alt
+      label: 'Experiment image alt'
+      selector: image_alt
+    -
+      name: content
+      label: 'Experiment content'
+      selector: content
+  ids:
+    number:
+      type: string
+process:
+  id: number
+  label: title
+  type:
+    plugin: default_value
+    default_value: labs_experiment
+  title: title
+  field_experiment_number: number
+  field_impact_statement/value: impact_statement
+  field_impact_statement/format:
+    plugin: default_value
+    default_value: basic_html
+  field_image:
+    plugin: labs_image
+    source:
+      - image
+      - image_alt
+  field_content:
+    plugin: labs_content
+    source: content
+destination:
+  plugin: 'entity:node'
+migration_dependencies: {  }
