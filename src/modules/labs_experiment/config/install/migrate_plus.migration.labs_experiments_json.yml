@@ -2,10 +2,10 @@ id: labs_experiments_json
 label: JSON feed of labs experiments
 migration_group: labs_experiments
 source:
-  plugin: labs_experiment_node
+  plugin: url
   data_fetcher_plugin: http
   data_parser_plugin: json
-  urls: /migration_assets/labs_experiments.json
+  urls: http://elife-2.0-website.dev/modules/custom/labs_experiment/migration_assets/labs_experiments.json
   item_selector: 0
   fields:
     -
@@ -17,6 +17,10 @@ source:
       label: 'Experiment title'
       selector: title
     -
+      name: impact_statement
+      label: 'Experiment impact statement'
+      selector: impact_statement
+    -
       name: image
       label: 'Experiment image'
       selector: image
@@ -24,6 +28,10 @@ source:
       name: image_alt
       label: 'Experiment image alt'
       selector: image_alt
+    -
+      name: content
+      label: 'Experiment content'
+      selector: content
   ids:
     number:
       type: string
@@ -38,8 +46,17 @@ process:
     default_value: labs_experiment
   title: title
   field_experiment_number: number
+  'field_impact_statement/value': impact_statement
+  'field_impact_statement/format':
+    plugin: default_value
+    default_value: basic_html
   field_image:
-    source: image
-    plugin: file_import
+    plugin: labs_image
+    source:
+      - image
+      - image_alt
+  field_content:
+    plugin: labs_content
+    source: content
 
 migration_dependencies: {}

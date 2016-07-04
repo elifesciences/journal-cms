@@ -2,11 +2,78 @@
   {
     "number": "1",
     "title": "Lab 1",
+    "impact_statement": "Impact statement",
     "image": "labs/lab_1.png",
-    "image_alt": "image alt"
+    "image_alt": "image alt",
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "First paragraph"
+      },
+      {
+        "type": "paragraph",
+        "text": "Second paragraph"
+      },
+      {
+        "type": "image",
+        "text": "Caption",
+        "image": "labs/lab_1.png",
+        "image_alt": "image alt"
+      },
+      {
+        "type": "blockquote",
+        "text": "Text",
+        "citation": "Citation"
+      },
+      {
+        "type": "youtube",
+        "id": "sajdfhkadsjh",
+        "height": "100",
+        "width": "100"
+      },
+      {
+        "type": "section",
+        "title": "Section title",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "First paragraph"
+          },
+          {
+            "type": "section",
+            "title": "Sub-section title",
+            "content": [
+              {
+                "type": "blockquote",
+                "text": "Text",
+                "citation": "Citation"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Second paragraph"
+          },
+          {
+            "type": "image",
+            "text": "Caption",
+            "image": "labs/lab_1.png",
+            "image_alt": "image alt"
+          }
+        ]
+      }
+    ]
   },
   {
     "number": "2",
-    "title": "Lab 2"
+    "title": "Lab 2",
+    "image": "labs/lab_1.png",
+    "image_alt": "image alt",
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "First paragraph"
+      }
+    ]
   }
 ]
