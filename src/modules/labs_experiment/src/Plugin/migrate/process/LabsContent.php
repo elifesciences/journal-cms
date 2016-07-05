@@ -57,9 +57,11 @@ class LabsContent extends ProcessPluginBase {
         ];
         break;
       case 'image':
-        $values['field_block_text'] = [
-          'value' => $value['text'],
-        ];
+        if (!empty($value['text'])) {
+          $values['field_block_text'] = [
+            'value' => $value['text'],
+          ];
+        }
         $image = $value['image'];
         $image_alt = $value['image_alt'];
         $source = drupal_get_path('module', 'labs_experiment') . '/migration_assets/images/' . $image;

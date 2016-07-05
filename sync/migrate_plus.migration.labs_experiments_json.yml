@@ -1,9 +1,9 @@
-uuid: 736818b0-5652-4367-8ed6-f15c852f05e6
+uuid: 931079d2-b2ef-41a7-86fd-a820099898f1
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: ELrPqJVlDJMWVNhk3uB1z1dX5aUyClJ8JyWi4ofd3lg
+  default_config_hash: tUD6WFnUhHiUhrvOe7wIKEukViR5bsqe-4Bh_r1yRGI
 id: labs_experiments_json
 migration_tags: null
 migration_group: labs_experiments
@@ -23,6 +23,10 @@ source:
       name: title
       label: 'Experiment title'
       selector: title
+    -
+      name: date
+      label: 'Experiment publication date'
+      selector: date
     -
       name: impact_statement
       label: 'Experiment impact statement'
@@ -62,6 +66,12 @@ process:
   field_content:
     plugin: labs_content
     source: content
+  changed:
+    plugin: transform_date
+    source: date
+  created:
+    plugin: transform_date
+    source: date
 destination:
   plugin: 'entity:node'
 migration_dependencies: {  }

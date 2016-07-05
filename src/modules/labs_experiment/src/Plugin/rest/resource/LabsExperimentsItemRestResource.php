@@ -4,8 +4,8 @@ namespace Drupal\labs_experiment\Plugin\rest\resource;
 
 use Drupal\image\Entity\ImageStyle;
 use Drupal\rest\Plugin\ResourceBase;
+use Drupal\rest\ResourceResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Provides a resource to get view modes by entity and bundle.
@@ -122,7 +122,7 @@ class LabsExperimentsItemRestResource extends ResourceBase {
         $response['content'] = $content;
       }
 
-      return new JsonResponse($response);
+      return new ResourceResponse($response);
     }
 
     throw new NotFoundHttpException(t('Lab experiment with ID @id was not found', ['@id' => $number]));

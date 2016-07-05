@@ -4,8 +4,7 @@ namespace Drupal\labs_experiment\Plugin\rest\resource;
 
 use Drupal\image\Entity\ImageStyle;
 use Drupal\rest\Plugin\ResourceBase;
-use Zend\Diactoros\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\rest\ResourceResponse;
 
 /**
  * Provides a resource to get view modes by entity and bundle.
@@ -113,7 +112,7 @@ class LabsExperimentsRestResource extends ResourceBase {
         }
       }
 
-      return new JsonResponse($response);
+      return new ResourceResponse($response);
     }
   }
 

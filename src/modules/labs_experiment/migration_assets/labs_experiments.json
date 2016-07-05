@@ -1,78 +1,97 @@
 [
   {
-    "number": "1",
-    "title": "Lab 1",
-    "impact_statement": "Impact statement",
-    "image": "labs/lab_1.png",
-    "image_alt": "image alt",
+    "number": "4",
+    "title": "Presenting Proteopedia for sharing macromolecule concepts online",
+    "date": "2016-06-29 09:33",
+    "impact_statement": "At eLife, we promote emerging tools that support publishing online to help improve excellence in science. We are delighted to showcase Proteopedia, a tool for sharing knowledge about the structure and function of proteins, DNA, and other macromolecules on the web, developed by scientists at the Weizmann Institute of Science in Israel.",
+    "image": "labs/proteopedia.png",
+    "image_alt": "Proteopedia for sharing 3D macromolecules",
     "content": [
       {
         "type": "paragraph",
-        "text": "First paragraph"
+        "text": "eLife Labs is a meeting place where innovators passionate about accelerating scientific discoveries, and curious scientists and publishers interested in testing new tools, can come together. With Guest Experiments, we help these innovators showcase their latest applications that have the potential to improve science communication."
       },
       {
         "type": "paragraph",
-        "text": "Second paragraph"
+        "text": "Blog post by Jaime Prilusky and Joel L. Sussman, from the Weizmann Institute of Science, Israel"
+      },
+      {
+        "type": "paragraph",
+        "text": "Online publishing opens new opportunities for conveying scientific ideas in new ways. For example, <a href=\"http://proteopedia.org/\">Proteopedia</a> makes it possible to publish ideas about the relationship between the structures of 3D biological macromolecules and their functions in novel, visual ways."
+      },
+      {
+        "type": "paragraph",
+        "text": "Proteopedia is a web-based Wiki for crowd sourcing concepts on the 3D structure/function relationships of biological macromolecules<sup>1-4</sup>. As it ties text to 3D interactive images, Proteopedia aims to serve as a forum for the scientific community to share, retrieve, and discuss information related to proteins, macromolecules, small molecules, and chemicals of interest. It also aims to maintain low barriers to contribution."
+      },
+      {
+        "type": "paragraph",
+        "text": "These goals fit directly into how Proteopedia is currently being used in conjunction with publication of scientific papers and how it might be used in the future to aid more directly in the publication process."
+      },
+      {
+        "type": "paragraph",
+        "text": "There are already around 90 Interactive 3D Complements (<a href=\"http://proteopedia.org/w/I3DC\">I3DC</a>) in Proteopedia articles, which serve as complements to published papers in scientific journals. A link within the publication to an I3DC in Proteopedia enables readers to rotate molecular scenes with the same initial orientation, color schemes, and labeling as figures in the publication. Links to the I3DC in Proteopedia can be placed in the text of the publication, and/or in the online text file included on the journal website as supplementary material. The I3DC has a link directly back to the original journal article. It is not visible to the public until the online version of the article appears on the journal’s website."
+      },
+      {
+        "type": "paragraph",
+        "text": "All the I3DCs are listed at <a href=\"http://proteopedia.org/w/Proteopedia:I3DC\">Proteopedia:I3DC</a>. Here is an example of one I3DC, which is complementary to a paper in Cell: ‘<a href=\"http://proteopedia.org/w/Journal:Cell:1\">Structural linkage between ligand discrimination and receptor activation by type I interferons</a>’<sup>5</sup> (Fig. 1). By clicking the green links embedded in the text, the reader can change the position and representation on the 3D structure in the applet, obtaining a view that complements and enhances the concept described in words in the paper. "
       },
       {
         "type": "image",
-        "text": "Caption",
-        "image": "labs/lab_1.png",
-        "image_alt": "image alt"
+        "text": "Fig. 1. Example of an I3DC in Proteopedia, ‘<a href=\"http://proteopedia.org/w/Journal:Cell:1\">Structural linkage between ligand discrimination and receptor activation by type I interferons</a>’, linking to a paper in Cell<sup>5</sup>.",
+        "image": "labs/proteopedia_fig_1_cell.png",
+        "image_alt": "Structural linkage between ligand discrimination and receptor activation by type I interferons."
       },
-      {
-        "type": "blockquote",
-        "text": "Text",
-        "citation": "Citation"
-      },
-      {
-        "type": "youtube",
-        "id": "sajdfhkadsjh",
-        "height": "100",
-        "width": "100"
-      },
-      {
-        "type": "section",
-        "title": "Section title",
-        "content": [
-          {
-            "type": "paragraph",
-            "text": "First paragraph"
-          },
-          {
-            "type": "section",
-            "title": "Sub-section title",
-            "content": [
-              {
-                "type": "blockquote",
-                "text": "Text",
-                "citation": "Citation"
-              }
-            ]
-          },
-          {
-            "type": "paragraph",
-            "text": "Second paragraph"
-          },
-          {
-            "type": "image",
-            "text": "Caption",
-            "image": "labs/lab_1.png",
-            "image_alt": "image alt"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "number": "2",
-    "title": "Lab 2",
-    "image": "labs/lab_1.png",
-    "image_alt": "image alt",
-    "content": [
       {
         "type": "paragraph",
-        "text": "First paragraph"
+        "text": "Although Proteopedia is a free web service, it differs from <a href=\"https://en.wikipedia.org/\">Wikipedia</a> in that only registered users can contribute to it. The names of each contributor to a page in Proteopedia appear at the bottom of the page, giving them both credit and responsibility for what they write. At present, there are more than 3,300 registered users of Proteopedia from over 55 countries."
+      },
+      {
+        "type": "paragraph",
+        "text": "The text creation is done very simply via the use of <a href=\"https://www.mediawiki.org/wiki/Manual:Tools\">MediaWiki Tools</a>. The actual creation of the figures is via the user-friendly Graphical User Interface ‘<a href=\"http://proteopedia.org/w/Scene_authoring_tools\">scene authoring tools</a>’ (SATs) front end for the popular <a href=\"http://jmol.sourceforge.net/\">Jmol/JSmol</a> web-based molecular visualization tool. In addition to the text describing the media wiki and SATs tools, there is a <a href=\"http://proteopedia.org/w/Proteopedia:Video_Guide\">Proteopedia:Video Guide</a> that contains seven short videos to help users quickly learn how to create Proteopedia pages."
+      },
+      {
+        "type": "paragraph",
+        "text": "Anyone, whether they are registered or not, can view pages in Proteopedia via computers, tablets or smartphones and see the 3D structures without needing any additional software beyond a standard internet browser."
+      },
+      {
+        "type": "paragraph",
+        "text": "In addition to around 120,000 automatically made pages in Proteopedia corresponding to every entry in the <a href=\"http://www.rcsb.org/\">Protein Data Bank (PDB)</a>, there are about 3,000 user-added pages not directly tied to a particular published paper or particular entries in the PDB, but written more in the spirit of News & Views, describing a specific concept. Examples of a few of these pages can be seen in Figs. 2-5."
+      },
+      {
+        "type": "image",
+        "text": "Fig. 2. A user-contributed  page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Tutorial:How_do_we_get_the_oxygen_we_breathe\">Tutorial:How do we get the oxygen we breathe</a>’",
+        "image": "labs/proteopedia_fig_2_tutorial_how_we_breathe.png",
+        "image_alt": "How to get the oxygen we breathe."
+      },
+      {
+        "type": "image",
+        "text": "Fig. 3. A user-contributed  page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Group:SMART:A_Physical_Model_of_the_%CE%B22-Adrenergic_Receptor\">Physical Model of the β2-Adrenergic Receptor</a>’",
+        "image": "labs/proteopedia_fig_3_b2_andrenergic_receptor.png",
+        "image_alt": "A physical model of the β2-Adrenergic Receptor."
+      },
+      {
+        "type": "image",
+        "text": "Fig. 4. A user-contributed  page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/HIV-1_protease\">HIV-1 Protease</a>’",
+        "image": "labs/proteopedia_fig_4_hiv_1_protease.png",
+        "image_alt": "HIV-1 protease."
+      },
+      {
+        "type": "image",
+        "text": "Fig. 5. A user-contributed  page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Ribosome\">Ribosome</a>’",
+        "image": "labs/proteopedia_fig_5_ribosome.png",
+        "image_alt": "Ribsome."
+      },
+      {
+        "type": "paragraph",
+        "text": "You can get a feeling for how easy it is to generate a 3D live scene on Proteopedia at <a href=\"http://proteopedia.org/w/Proteopedia:DIY:Scenes\">http://proteopedia.org/w/Proteopedia:DIY:Scenes</a>. Following the step-by-step instructions for the first time might take 10-15 minutes, and all you need is a modern web browser (no Java required)."
+      },
+      {
+        "type": "paragraph",
+        "text": "Over 3,300 users worldwide, including students at university and high school, are using Proteopedia to highlight structural aspects of proteins and their relation to function. We encourage you to give it a try."
+      },
+      {
+        "type": "paragraph",
+        "text": "[REFERENCES]"
       }
     ]
   }

@@ -17,6 +17,10 @@ source:
       label: 'Experiment title'
       selector: title
     -
+      name: date
+      label: 'Experiment publication date'
+      selector: date
+    -
       name: impact_statement
       label: 'Experiment impact statement'
       selector: impact_statement
@@ -58,5 +62,11 @@ process:
   field_content:
     plugin: labs_content
     source: content
+  changed:
+    plugin: transform_date
+    source: date
+  created:
+    plugin: transform_date
+    source: date
 
 migration_dependencies: {}
