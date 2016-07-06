@@ -19,7 +19,11 @@
   ],
   "require": {
     "composer/installers": "^1.0.20",
+    "drupal-composer/drupal-scaffold": "^2.0.1",
     "cweagans/composer-patches": "~1.0",
+    "drupal/core": "~8.0",
+    "drush/drush": "~8.0",
+    "drupal/console": "~1.0",
     "drupal/admin_toolbar": "~8.1.0",
     "drupal/config_devel": "~8.1.0-rc1",
     "drupal/config_installer": "~8.1",
@@ -33,15 +37,13 @@
     "drupal/migrate_plus": "~8.2.0@dev",
     "drupal/migrate_tools": "~8.2.0@dev",
     "drupal/migrate_manifest": "^8.1",
-    "drush/drush": "~8.0",
     "drupal/migrate_upgrade": "~8.2.0-beta1",
     "drupal/restui": "^8.1"
   },
   "require-dev": {
-    "behat/mink": "~1.6",
+    "behat/mink": "~1.7",
     "behat/mink-goutte-driver": "~1.2",
-    "geerlingguy/drupal-vm": "^3.0",
-    "jcalderonzumba/gastonjs": "^1.1@dev",
+    "jcalderonzumba/gastonjs": "~1.0.2",
     "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
     "mikey179/vfsStream": "~1.2",
     "phpunit/phpunit": "~4.8",
@@ -98,7 +100,7 @@
       "drupal/unique_field": {
         "PHP Warning: Invalid argument supplied for foreach() in unique_field.module": "https://www.drupal.org/files/issues/php_warning_invalid-2721645-2.patch"
       },
-      "drupal/migrate_plus" : {
+      "drupal/migrate_plus": {
         "PHP 7 Seg Fault in migrate_example_advanced": "https://www.drupal.org/files/issues/php_7_seg_fault-2731697-2.patch"
       }
     }
