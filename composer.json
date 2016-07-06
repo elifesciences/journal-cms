@@ -47,6 +47,8 @@
     "phpunit/phpunit": "~4.8",
     "symfony/css-selector": "~2.8"
   },
+  "minimum-stability": "beta",
+  "prefer-stable": true,
   "conflict": {
     "drupal/drupal": "*"
   },
@@ -57,6 +59,12 @@
   },
   "scripts": {
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+    "pre-install-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+    ],
+    "pre-update-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+    ],
     "post-install-cmd": [
       "eLifeDrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ],
