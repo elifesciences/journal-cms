@@ -1,0 +1,8 @@
+elifePipeline {
+    stage 'Checkout'
+    checkout scm
+    def commit = elifeGitRevision()
+
+    stage 'End2end deploy'
+    builderDeployRevision 'journal-cms--develop--end2end', commit
+}
