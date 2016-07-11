@@ -4,5 +4,10 @@ elifePipeline {
     def commit = elifeGitRevision()
 
     stage 'End2end deploy'
-    builderDeployRevision 'journal-cms--develop--end2end', commit
+    elifeEnd2EndTest(
+        {
+            builderDeployRevision 'journal-cms--develop--end2end', commit
+        },
+        'two'
+    )
 }
