@@ -15,7 +15,7 @@ elifePipeline {
     stage 'End2end tests'
     elifeEnd2EndTest(
         {
-            builderDeployRevision 'journal-cms--develop--end2end', commit
+            builderDeployRevision 'journal-cms--end2end', commit
         },
         'two'
     )
