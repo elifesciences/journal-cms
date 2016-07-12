@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "83a129e0f2d64e2fad8da6f545d4a4b9",
-    "content-hash": "bad071c2b0c99d8fc45ca22c7cb6c2fa",
+    "hash": "ee69db096a2e8dd02d38fc7457b3e342",
+    "content-hash": "a22ac8e1ffd971607f2c5b2db2e8da4c",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1088,16 +1088,16 @@
         },
         {
             "name": "drupal/core",
-            "version": "8.1.3",
+            "version": "8.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal-composer/drupal-core.git",
-                "reference": "ac94c29c14d85c8e77f5cb1d0ab38036f5f25c9c"
+                "reference": "a6555edbe58e0a6a1d107cbf8c6568dd5e4531a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal-composer/drupal-core/zipball/ac94c29c14d85c8e77f5cb1d0ab38036f5f25c9c",
-                "reference": "ac94c29c14d85c8e77f5cb1d0ab38036f5f25c9c",
+                "url": "https://api.github.com/repos/drupal-composer/drupal-core/zipball/a6555edbe58e0a6a1d107cbf8c6568dd5e4531a2",
+                "reference": "a6555edbe58e0a6a1d107cbf8c6568dd5e4531a2",
                 "shasum": ""
             },
             "require": {
@@ -1152,8 +1152,10 @@
                 "drupal/content_translation": "self.version",
                 "drupal/contextual": "self.version",
                 "drupal/core-annotation": "self.version",
+                "drupal/core-assertion": "self.version",
                 "drupal/core-bridge": "self.version",
                 "drupal/core-datetime": "self.version",
+                "drupal/core-dependency-injection": "self.version",
                 "drupal/core-diff": "self.version",
                 "drupal/core-discovery": "self.version",
                 "drupal/core-event-dispatcher": "self.version",
@@ -1231,12 +1233,6 @@
                 "symfony/css-selector": "~2.8"
             },
             "type": "drupal-core",
-            "extra": {
-                "patches_applied": {
-                    "Empty migration_dependencies gives \"Unsupported operand types\"": "https://www.drupal.org/files/issues/empty-2717483-12.patch",
-                    "Call to a member function getPath() when installing Profiles with unknown modules as requirement": "https://www.drupal.org/files/issues/2608408-11.patch"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Drupal\\Core\\": "lib/Drupal/Core",
@@ -1258,7 +1254,7 @@
                 "GPL-2.0+"
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
-            "time": "2016-06-15 20:08:27"
+            "time": "2016-07-11 13:07:34"
         },
         {
             "name": "drupal/entity_reference_revisions",
@@ -1428,17 +1424,11 @@
         },
         {
             "name": "drupal/migrate_plus",
-            "version": "8.2.0-beta1",
+            "version": "dev-8.x-2.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/migrate_plus.git",
-                "reference": "5c7e48e4430226dec66a312a05f76d09d824819e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/migrate_plus-8.x-2.0-beta1.zip",
-                "reference": null,
-                "shasum": null
+                "reference": "fc622f3d89cb99151a372cbf3068c2c2617cb75f"
             },
             "require": {
                 "drupal/core": "8.*",
@@ -1458,8 +1448,6 @@
                 "drupal/migrate": "Required by drupal/migrate_example, drupal/migrate_example_advanced",
                 "drupal/migrate_example_advanced_setup": "Required by drupal/migrate_example_advanced",
                 "drupal/migrate_example_setup": "Required by drupal/migrate_example",
-                "drupal/migrate_source_json": "Required by drupal/migrate_example_advanced",
-                "drupal/migrate_source_xml": "Required by drupal/migrate_example_advanced",
                 "drupal/options": "Required by drupal/migrate_example_setup",
                 "drupal/rest": "Required by drupal/migrate_example_advanced_setup",
                 "drupal/taxonomy": "Required by drupal/migrate_example_setup, drupal/migrate_example_advanced_setup",
@@ -1469,9 +1457,6 @@
             "extra": {
                 "branch-alias": {
                     "dev-8.x-2.x": "8.2.x-dev"
-                },
-                "patches_applied": {
-                    "PHP 7 Seg Fault in migrate_example_advanced": "https://www.drupal.org/files/issues/php_7_seg_fault-2731697-2.patch"
                 }
             },
             "notification-url": "https://packagist.drupal-composer.org/downloads/",
@@ -1487,7 +1472,7 @@
             ],
             "description": "Enhancements to core migration support",
             "homepage": "https://www.drupal.org/project/migrate_plus",
-            "time": "2016-04-20 20:39:20"
+            "time": "2016-07-11 15:30:28"
         },
         {
             "name": "drupal/migrate_tools",
@@ -5003,6 +4988,45 @@
                 "scraper"
             ],
             "time": "2015-11-05 12:58:44"
+        },
+        {
+            "name": "geerlingguy/drupal-vm",
+            "version": "3.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geerlingguy/drupal-vm.git",
+                "reference": "18a801945a1af526685c380d5ff7139b9efe8599"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/18a801945a1af526685c380d5ff7139b9efe8599",
+                "reference": "18a801945a1af526685c380d5ff7139b9efe8599",
+                "shasum": ""
+            },
+            "type": "project",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeff Geerling",
+                    "homepage": "http://www.jeffgeerling.com"
+                },
+                {
+                    "name": "Oskar Schöldström",
+                    "homepage": "http://oxy.fi"
+                }
+            ],
+            "description": "A VM for local Drupal development, built with Vagrant + Ansible",
+            "homepage": "https://www.drupalvm.com",
+            "keywords": [
+                "drupal",
+                "vagrant",
+                "virtual machine",
+                "vm"
+            ],
+            "time": "2016-07-12 02:04:10"
         },
         {
             "name": "jcalderonzumba/gastonjs",
