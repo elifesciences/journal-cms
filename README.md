@@ -2,6 +2,7 @@
 
 ```
 $ composer install
+$ composer drupal-scaffold
 ```
 
 Following instructions to [setup drupal-vm](https://github.com/geerlingguy/drupal-vm/blob/3.0.0/README.md)
