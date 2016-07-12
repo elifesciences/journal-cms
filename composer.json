@@ -34,7 +34,7 @@
     "drupal/paragraphs": "~8.1.0-rc4",
     "drupal/unique_field": "~8.1.0@dev",
     "drupal-composer/drupal-project": "8.x-dev",
-    "drupal/migrate_plus": "~8.2.0@dev",
+    "drupal/migrate_plus": "8.2.x-dev",
     "drupal/migrate_tools": "~8.2.0@dev",
     "drupal/migrate_manifest": "^8.1",
     "drupal/migrate_upgrade": "~8.2.0-beta1",
@@ -43,6 +43,7 @@
   "require-dev": {
     "behat/mink": "~1.7",
     "behat/mink-goutte-driver": "~1.2",
+    "geerlingguy/drupal-vm": "^3.0",
     "jcalderonzumba/gastonjs": "~1.0.2",
     "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
     "mikey179/vfsStream": "~1.2",
@@ -93,15 +94,8 @@
       ]
     },
     "patches": {
-      "drupal/core": {
-        "Empty migration_dependencies gives \"Unsupported operand types\"": "https://www.drupal.org/files/issues/empty-2717483-12.patch",
-        "Call to a member function getPath() when installing Profiles with unknown modules as requirement": "https://www.drupal.org/files/issues/2608408-11.patch"
-      },
       "drupal/unique_field": {
         "PHP Warning: Invalid argument supplied for foreach() in unique_field.module": "https://www.drupal.org/files/issues/php_warning_invalid-2721645-2.patch"
-      },
-      "drupal/migrate_plus": {
-        "PHP 7 Seg Fault in migrate_example_advanced": "https://www.drupal.org/files/issues/php_7_seg_fault-2731697-2.patch"
       }
     }
   }
