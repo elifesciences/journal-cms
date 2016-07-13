@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ee69db096a2e8dd02d38fc7457b3e342",
+    "hash": "1196cd04b1cb5c54c6a173e4bcba8710",
     "content-hash": "a22ac8e1ffd971607f2c5b2db2e8da4c",
     "packages": [
         {
@@ -904,7 +904,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/admin_toolbar-8.x-1.15.zip",
-                "reference": null,
+                "reference": "f8380381183bc76babaec9dfe392511011d54904",
                 "shasum": null
             },
             "require": {
@@ -948,7 +948,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/config_devel-8.x-1.0-rc1.zip",
-                "reference": null,
+                "reference": "064a5297d00af7330b455f08dacd90b4ab109c81",
                 "shasum": null
             },
             "require": {
@@ -979,7 +979,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/config_installer-8.x-1.3.zip",
-                "reference": null,
+                "reference": "071213c9a7507bddcd6f6018d3f24217c13bb9d7",
                 "shasum": null
             },
             "require": {
@@ -1267,7 +1267,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/entity_reference_revisions-8.x-1.0-rc7.zip",
-                "reference": null,
+                "reference": "09b19416018f59e1b1f4acef6cfd34496ba991ba",
                 "shasum": null
             },
             "require": {
@@ -1298,7 +1298,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/field_collection-8.x-1.0-alpha1.zip",
-                "reference": null,
+                "reference": "8eac83accfecf28eec4d3bf0afe3c047762649fc",
                 "shasum": null
             },
             "require": {
@@ -1330,7 +1330,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/graphql-8.x-1.1.zip",
-                "reference": null,
+                "reference": "0e6d145833ff92d1d503fe2c83dd95cadac20daa",
                 "shasum": null
             },
             "require": {
@@ -1363,7 +1363,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/inline_entity_form-8.x-1.0-alpha6.zip",
-                "reference": null,
+                "reference": "27af4de9fd961fa6ae1369604d05fec8b06db867",
                 "shasum": null
             },
             "require": {
@@ -1394,7 +1394,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/migrate_manifest-8.x-1.3.zip",
-                "reference": null,
+                "reference": "4029a65eb790eae744e22eaf9939d3ae40419d27",
                 "shasum": null
             },
             "require": {
@@ -1485,7 +1485,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/migrate_tools-8.x-2.0-beta1.zip",
-                "reference": null,
+                "reference": "e23d12cefc71fb35800878078fdb247d1b05307d",
                 "shasum": null
             },
             "require": {
@@ -1518,7 +1518,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/migrate_upgrade-8.x-2.0-beta1.zip",
-                "reference": null,
+                "reference": "e0c6a0ce859346ae61462070e98dc10f816c955f",
                 "shasum": null
             },
             "require": {
@@ -1554,7 +1554,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/paragraphs-8.x-1.0-rc5.zip",
-                "reference": null,
+                "reference": "bed1bddffdf03626ba057ab697635b049d8d98de",
                 "shasum": null
             },
             "require": {
@@ -1603,7 +1603,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/restui-8.x-1.11.zip",
-                "reference": null,
+                "reference": "b32b5f8bf16b91fd1c65acbb61e82db7b706e127",
                 "shasum": null
             },
             "require": {
