@@ -8,6 +8,7 @@ dependencies:
     - paragraphs.paragraphs_type.image
     - paragraphs.paragraphs_type.paragraph
     - paragraphs.paragraphs_type.section
+    - paragraphs.paragraphs_type.table
     - paragraphs.paragraphs_type.youtube
   module:
     - entity_reference_revisions
@@ -30,6 +31,7 @@ settings:
       image: image
       paragraph: paragraph
       youtube: youtube
+      table: table
     target_bundles_drag_drop:
       section:
         enabled: true
@@ -46,4 +48,7 @@ settings:
       youtube:
         enabled: true
         weight: 10
+      table:
+        enabled: true
+        weight: 11
 field_type: entity_reference_revisions

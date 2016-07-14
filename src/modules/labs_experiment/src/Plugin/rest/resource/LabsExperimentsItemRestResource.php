@@ -109,6 +109,14 @@ class LabsExperimentsItemRestResource extends ResourceBase {
                 $result_item['citation'] = $content_item->get('field_block_citation')->first()->getValue()['value'];
               }
               break;
+            case 'youtube':
+              $result_item['id'] = $content_item->get('field_block_youtube_id')->first()->getValue()['value'];
+              $result_item['width'] = (int) $content_item->get('field_block_youtube_width')->first()->getValue()['value'];
+              $result_item['height'] = (int) $content_item->get('field_block_youtube_height')->first()->getValue()['value'];
+              break;
+            case 'table':
+              $result_item['html'] = $content_item->get('field_block_html')->first()->getValue()['value'];
+              break;
           }
 
           $result[] = $result_item;

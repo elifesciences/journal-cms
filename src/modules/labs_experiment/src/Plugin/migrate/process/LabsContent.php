@@ -74,6 +74,12 @@ class LabsContent extends ProcessPluginBase {
           ];
         }
         break;
+      case 'table':
+        $values['field_block_html'] = [
+          'value' => $value['html'],
+          'format' => 'full_html',
+        ];
+        break;
       case 'section':
         $values['field_block_title'] = [
           'value' => $value['title'],
