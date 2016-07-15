@@ -55,6 +55,411 @@
     ]
   },
   {
+    "number": 2,
+    "title": "Toward publishing reproducible computation with Binder",
+    "date": "2016-05-13 16:25",
+    "image": "labs/binder_post_binder_homepage.png",
+    "image_alt": "Binder for reproducible computation",
+    "content": [
+      {
+        "type": "section",
+        "title": "eLife is looking to innovate in all aspects of scientific publishing to support excellence in science and we’re pleased to bring attention to a new and exciting open-source project called Binder, created by scientists at HHMI’s Janelia Research Campus.",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "We are looking for new ways to exploit the flexibility of digital media, to present and make available all kinds of data and analysis, encouraging greater transparency in research and enabling the scientific community to build upon published results more effectively."
+          },
+          {
+            "type": "paragraph",
+            "text": "<a href=\"http://mybinder.org/\">Binder</a> is a website and collection of open-source tools for building and executing reproducible computational environments. Binder makes it easy to include an interactive version of your analysis, with the supporting data and code, alongside a published paper. An example has recently been included with a neuroscience research article by <a href=\"http://dx.doi.org/10.7554/eLife.12559\">Sofroniew et al</a>."
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "title": "Blog post by Jeremy Freeman and Andrew Osheroff",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Developers of Binder, at HHMI’s Janelia Research Campus"
+          },
+          {
+            "type": "paragraph",
+            "text": "Modern science depends on data analysis. From neuroscience to genomics, to cancer research, scientific conclusions are often several stages removed from raw data, and reflect extensive data processing and statistical analyses."
+          },
+          {
+            "type": "paragraph",
+            "text": "Yet in the traditional academic paper, we can only show a small sample of raw data, and report just a few of many possible summary statistics. We have to describe our analyses in compact paragraphs of plain text sprinkled with equations — an opaque starting point when trying to reproduce an analysis. Data and code, if shared at all, are appended to the paper as an afterthought, without ensuring that they are easy to reuse."
+          },
+          {
+            "type": "paragraph",
+            "text": "Why does this matter? Scientific progress depends on replicating and validating the work of others. And replicating what someone else has done is often the starting point for scientific collaboration."
+          },
+          {
+            "type": "paragraph",
+            "text": "Several open-source tools can be used to help address the challenges of sharing and reproducing scientific analyses. The <a href=\"http://jupyter.org\">Jupyter notebook</a> is a coding environment that runs in a web browser and lets users create computational “narrative documents” that combine code, data, figures, and text in a single interactive, executable document. These notebooks are easy to write, support many programming languages, and are already being used in science, journalism, and education."
+          },
+          {
+            "type": "image",
+            "image": "labs/binder_post_juptyer_notebook.png",
+            "image_alt": "Jupiter notebook"
+          },
+          {
+            "type": "paragraph",
+            "text": "<a href=\"https://github.com/\">GitHub</a> is a website for collaborative code development, built on top of the version-control system git. GitHub makes it easy to track changes to code over time, especially when multiple contributors are working on the same project. Putting data, code, and notebooks into a GitHub “repository” is a terrific way to share and organize scientific analyses."
+          },
+          {
+            "type": "image",
+            "image": "labs/binder_post_github_repository.png",
+            "image_alt": "GitHub repository"
+          },
+          {
+            "type": "paragraph",
+            "text": "But just providing our code, data, and notebooks alongside a paper isn’t enough — what ran on my machine might not run on yours. We can share our computer configurations, but setting up a new machine the exact same way can be challenging and unreliable."
+          },
+          {
+            "type": "paragraph",
+            "text": "We designed <a href=\"https://github.com/binder-project/binder\">Binder</a> to make it as easy as possible to go straight from a paper to an interactive version of an analysis."
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "title": "How it works",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "To use Binder, you only have to put the code, data, and Jupyter notebooks that you are already using for analysis on your machine into a GitHub repository, and provide Binder with the link."
+          },
+          {
+            "type": "image",
+            "image": "labs/binder_post_binder_homepage.png",
+            "image_alt": "Binder homepage"
+          },
+          {
+            "type": "paragraph",
+            "text": "Binder will then build an executable environment that contains all the necessary dependencies to run your code, and can be launched by clicking a link in your web browser. Now, with one click, anyone can immediately inspect the raw data, recompute a statistic, regenerate a figure, and perform arbitrary interactive analyses."
+          },
+          {
+            "type": "paragraph",
+            "text": "To make this work, Binder uses existing, robust tools wherever possible. Along with Jupyter and GitHub, Binder leverages two open-source projects under the hood to manage computational environments — <a href=\"https://www.docker.com/\">Docker</a> builds the environments from a project’s dependencies, and <a href=\"http://kubernetes.io/\">Kubernetes</a> schedules resources for these environments across a cloud compute cluster."
+          },
+          {
+            "type": "paragraph",
+            "text": "A key use case for Binder is sharing analyses alongside traditional journal publications, and a few great examples of that already exist. A recent paper on neural coding in the somatosensory cortex by <a href=\"http://dx.doi.org/10.7554/eLife.12559\">Sofroniew et al</a>. in eLife used Binder <a href=\"https://github.com/sofroniewn/tactile-coding\">to share data and analyses of neural recordings</a>. Another example is a recent paper in Nature by <a href=\"http://dx.doi.org/10.1038/nature17643\">Li et al.</a> on robustness to perturbation in neural circuits, which used Binder to share <a href=\"https://github.com/kpdaie/LiDaie\">simulation results from a computational model</a>. Notebooks demonstrating the discovery of <a href=\"https://github.com/minrk/ligo-binder\">gravitational waves from the LIGO group</a> were turned into a Binder, which has been by far our most popular example."
+          },
+          {
+            "type": "image",
+            "image": "labs/binder_post_ligo_example.png",
+            "image_alt": "LIGO example"
+          },
+          {
+            "type": "paragraph",
+            "text": "We’ve also seen Binder used in domains we didn’t expect. Outside of science publications, Binder has been used to make <a href=\"https://github.com/BuzzFeedNews/2015-11-refugees-in-the-united-states\">analyses for news stories</a> more reproducible, and even to make <a href=\"https://github.com/data-8/textbook\">an entire book on data science</a> executable. It’s also become a popular way to run courses or tutorial sessions, because students can <a href=\"https://github.com/glouppe/tutorials-scikit-learn\">launch tutorials straight from their web browsers</a>, without wasting precious time configuring dependencies. Physicists at CERN use it to showcase demos of their <a href=\"https://www.github.com/cernphsft/rootbinder\">ROOT analysis framework</a>."
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "title": "Next steps",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "With more than 1200 reproducible environments already built by its users, Binder has proven useful and we’re excited by its potential — but much work remains, both on Binder itself and the underlying technologies, especially for making it better suited to scientific publishing."
+          },
+          {
+            "type": "paragraph",
+            "text": "Here are a couple of directions we’re excited about:"
+          },
+          {
+            "type": "paragraph",
+            "text": "We currently maintain a public Binder deployment, hosted by our lab at HHMI Janelia Research Campus and running on Google Compute Engine, designed for open source and open science. But we’ve recently made it easy for others to deploy custom versions of Binder on their own compute infrastructure. We hope this can provide a way for publishers to deploy and host Binders with guaranteed availability for their readers."
+          },
+          {
+            "type": "paragraph",
+            "text": "We currently recommend users put data in their GitHub repositories, but git was designed to keep track of code, not data, which often consists of heterogenous files in a variety of formats, rather than plain text. We are collaborating with the team behind a new peer-to-peer data sharing and versioning project called <a href=\"http://dat-data.com/\">Dat</a>, and hope to integrate it with Binder."
+          },
+          {
+            "type": "paragraph",
+            "text": "We want to work on new ways to integrate static papers and interactive notebooks. Even with Binder, these remain separate and very different kinds of documents. Ideally, we would have unified interfaces that give readers the option to engage with code and figures at whatever level of detail they desire."
+          },
+          {
+            "type": "paragraph",
+            "text": "<em>Thanks to Fernando Perez, Brian Granger, Kyle Kelley, Min RK, and Max Ogden for help, inspiration, discussion, and ideas.</em>"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "number": 3,
+    "title": "The International Image Interoperability Framework (IIIF) for science publishers",
+    "date": "2016-05-16 90:42",
+    "image": "labs/fig1_iiifcolection.jpg",
+    "image_alt": "Image Interoperability Framework",
+    "content": [
+      {
+        "type": "section",
+        "title": "We are pleased to introduce the IIIF, a community-driven image framework with well-defined application program interfaces (APIs) for making the world’s image repositories interoperable and accessible.",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "eLife works to innovate and experiment in all aspects of scientific publishing to help improve research communication. When it comes to communicating important discoveries, we appreciate that images can sometimes be as effective as simple text, if not more so. This blog post provides an overview of the IIIF standard, focusing on its potential for STM publishers, with an invitation for these organisations to participate in a pilot service offered by the Wellcome Library."
+          },
+          {
+            "type": "paragraph",
+            "text": "Based around the IIIF framework, the Wellcome Trust’s new <a href=\"https://dlcs.gitbooks.io/book/content/overview.html\">Digital Library Cloud Service (DLCS)</a> is a cloud-based infrastructure that seeks to provide fast, scalable, and widely available services for the delivery of images in rich and engaging ways."
+          },
+          {
+            "type": "paragraph",
+            "text": "While many large research libraries have adopted the IIIF to make their digital images available, many Scientific, Technical, and Medical (STM) publishers are yet to experience the benefits."
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "title": "Blog post by Robert Kiley, Head of Digital Services, Wellcome Library (<a href=\"mailto:r.kiley@wellcome.ac.uk\">r.kiley@wellcome.ac.uk</a>), and Tom Crane, Technical Director, Digirati (<a href=\"mailto:tom.crane@digirati.com\">tom.crane@digirati.com</a>)",
+        "content": [
+          {
+            "type": "section",
+            "title": "The potential of the IIIF for STM publishers",
+            "content": [
+              {
+                "type": "paragraph",
+                "text": "It is widely acknowledged that a picture is worth a thousand words, and this is especially true on the web. Yet bringing together collections of images held at different websites into a single digital object, and presenting these through a feature-rich viewing application, is a difficult task."
+              },
+              {
+                "type": "paragraph",
+                "text": "This is exactly the problem that a group of librarians with a special interest in medieval manuscripts wanted to address. They wished to present their users with access to digitised images in a single viewing tool, and for the viewing experience to support features such as deep zoom, search, and annotation. This all led to the development of the IIIF."
+              },
+              {
+                "type": "paragraph",
+                "text": "Over the past couple of years, many of the world's biggest research libraries have started to make their digitised images available using this framework. Few STM publishers have engaged with this standard, however, even though images in the form of figures play a central role in the dissemination of scholarly information."
+              },
+              {
+                "type": "image",
+                "image": "labs/fig1_iiifcolection.jpg",
+                "image_alt": "An IIIF collection of biomedical images from the Wellcome Library",
+                "text": "Fig. 1. An IIIF collection of biomedical images from the Wellcome Library <a href=\"https://alpha.wellcomelibrary.org/collections/biomed\">https://alpha.wellcomelibrary.org/collections/biomed</a>"
+              },
+              {
+                "type": "paragraph",
+                "text": "There are a range of benefits of IIIF for STM publishers:"
+              },
+              {
+                "type": "list",
+                "ordered": false,
+                "items": [
+                  "It allows them to present images on their own platform in a rich and engaging way. While many publishers provide full-size images in their online articles, very few offer the user the option to view the image in a deep-zoom client. This can prove difficult for those who are used to deep-zoom functionality.",
+                  "Once images are available as IIIF endpoints, an STM publisher could easily build a series of web applications, bringing together all their images and providing a picture library-like service for users.",
+                  "While the uses of IIIF outlined above would be useful for individual publishers to build, even richer applications could be built if all publishers started to expose their images in this way. For example, the recent public health emergency around the Zika virus resulted in a number of publishers agreeing to make all the research they held on this topic freely available. If these same publishers exposed the images in these papers as IIIF endpoints, then researchers could have a single digital object where all images related to the virus could be accessed in one place.",
+                  "Finally, IIIF is already finding uses in Cultural Heritage crowdsourcing projects for transcription, translation, and tagging. These activities are equally applicable to STM material."
+                ]
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "title": "The Wellcome Library’s DLCS",
+            "content": [
+              {
+                "type": "paragraph",
+                "text": "The <a href=\"http://wellcomelibrary.org/\">Wellcome Library</a> is currently developing an IIIF-compliant, cloud-based infrastructure to provide widely available services for the delivery of its digital images, the provision of full-text search and authentication services and, in time, annotation functionality."
+              },
+              {
+                "type": "paragraph",
+                "text": "Developing services to provide IIIF endpoints is a challenging task requiring an institution/publisher to master and deploy image server technology. We are therefore exploring how we can make these services available as a fully managed service, with a pilot project in which around 40 institutions are able to use our DLCS infrastructure to generate IIIF endpoints for all images they expose through this platform. Further details are available at: <a href=\"https://dlcs.gitbooks.io/book/content/index.html\">https://dlcs.gitbooks.io/book/content/index.html</a>. If any publisher wishes to try this service, they are encouraged to read the <a href=\"https://dlcs.gitbooks.io/book/content/faqs.html\">DLCS FAQ</a> and make contact with <a href=\"mailto:r.kiley@wellcome.ac.uk\">Robert Kiley</a>."
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "title": "What is IIIF?",
+            "content": [
+              {
+                "type": "paragraph",
+                "text": "The IIIF supports two APIs – an Image and a Presentation API – and two related APIs, authentication and search."
+              },
+              {
+                "type": "paragraph",
+                "text": "IIIF Image API"
+              },
+              {
+                "type": "paragraph",
+                "text": "The ambition behind the Image API is to allow a user (either a a human or computer) to request an image with an IIIF endpoint in a variety of ways, by modifying the size, region, rotation, and format as required."
+              },
+              {
+                "type": "image",
+                "image": "labs/fig2_iiif_image_api.jpg",
+                "image_alt": "Demonstration of IIIF image API",
+                "text": "Fig. 2. Demonstration of IIIF image API"
+              },
+              {
+                "type": "paragraph",
+                "text": "Full details of the Image API can be found at <a href=\"http://iiif.io/api/image/2.0/\">http://iiif.io/api/image/2.0/</a>. In essence, each request uses the following syntax: {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}"
+              },
+              {
+                "type": "paragraph",
+                "text": "For example: <a href=\"http://www.example.org/image-service/abcd1234/full/max/0/default.jpg\">www.example.org/image-service/abcd1234/full/max/0/default.jpg</a>"
+              },
+              {
+                "type": "paragraph",
+                "text": "Using this syntax, a user could, as an example, build a web page that displays images at, say, 300x300 pixels, while someone else could make use of the same image, but display it at a different size and rotation, and focus on a specific region. In every case, the IIIF image server holds a master image and delivers the images to the client as requested."
+              },
+              {
+                "type": "paragraph",
+                "text": "The potential of this API is best demonstrated by some clickable examples, as set out in Table 1 below.  Note how the URL can simply be edited to generate different responses from the IIIF server:"
+              },
+              {
+                "type": "table",
+                "html": "<table><tbody><tr><td>Task</td><td>URL and Comments</td></tr><tr><td>Viewing an IIIF image</td><td><p><a href=\"http://wellcomelibrary.org/iiif-img/b20432033-0/d7b80202-a1d7-4f88-ab57-0f6b369fe41b/full/full/0/default.jpg\">http://wellcomelibrary.org/iiif-img/b20432033-0/d7b80202-a1d7-4f88-ab57-0f6b369fe41b/full/full/0/default.jpg</a></p><p>This is the default request – deliver the full-size image, no rotation, as a jpg file.</p></td></tr><tr><td><p>Requesting a different image size</p></td><td><p><a href=\"http://wellcomelibrary.org/iiif-img/b20432033-0/d7b80202-a1d7-4f88-ab57-0f6b369fe41b/full/500,500/0/default.jpg\">http://wellcomelibrary.org/iiif-img/b20432033-0/d7b80202-a1d7-4f88-ab57-0f6b369fe41b/full/500,500/0/default.jpg</a></p><p>In this example, we ask for the image to be returned at a 500x500 pixel size.</p></td></tr><tr><td>Rotating an image</td><td><p><a href=\"http://wellcomelibrary.org/iiif-img/b20432033-0/d7b80202-a1d7-4f88-ab57-0f6b369fe41b/full/,500/90/default.jpg\">http://wellcomelibrary.org/iiif-img/b20432033-0/d7b80202-a1d7-4f88-ab57-0f6b369fe41b/full/,500/90/default.jpg</a></p></td></tr></tbody></table>"
+              },
+              {
+                "type": "paragraph",
+                "text": "Table 1: The IIIF Image API - clickable examples"
+              },
+              {
+                "type": "paragraph",
+                "text": "How do we know the image supports all this manipulation?"
+              },
+              {
+                "type": "paragraph",
+                "text": "You can determine the range of IIIF services supported by an IIIF image by looking at the info.json resource. So, for the first example we looked at, we will request the JSON file instead of the image: <a href=\"http://wellcomelibrary.org/iiif-img/b20432033-0/d7b80202-a1d7-4f88-ab57-0f6b369fe41b/info.json\">http://wellcomelibrary.org/iiif-img/b20432033-0/d7b80202-a1d7-4f88-ab57-0f6b369fe41b/info.json</a>"
+              },
+              {
+                "type": "paragraph",
+                "text": "Here you will see that rotation is supported, but in blocks of 90 degrees (\"rotationBy90s\")."
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "title": "IIIF Presentation API",
+            "content": [
+              {
+                "type": "paragraph",
+                "text": "In the words of the IIIF, the Presentation API “specifies a web service that returns JSON-LD structured documents that together describe the structure and layout of a digitized object.” Expressed more simply, the Presentation API provides just enough metadata to drive viewer application. In the IIIF world, these structured documents are known as manifests."
+              },
+              {
+                "type": "image",
+                "image": "labs/fig3_iiif_presentation_api.jpg",
+                "image_alt": "Using the Universal Viewer to view an IIIF image",
+                "text": "Fig. 3. Using the Universal Viewer to view an IIIF image"
+              },
+              {
+                "type": "paragraph",
+                "text": "The examples in Table 2 below show a simple demonstration of the IIIF Presentation API. Full details can be found at: <a href=\"http://iiif.io/api/presentation/2.1/\">http://iiif.io/api/presentation/2.1/</a>"
+              },
+              {
+                "type": "table",
+                "html": "<table><tbody><tr><td>Task</td><td>URL and Comments</td></tr><tr><td>Viewing an IIIF manifest</td><td><p><a href=\"http://wellcomelibrary.org/iiif/b20432033/manifest\">http://wellcomelibrary.org/iiif/b20432033/manifest</a></p><p>This shows us the manifest for the Zebrafish embryo image we looked at via the image API (see above).</p></td></tr><tr><td>Opening a manifest in the Universal Viewer</td><td><p><a href=\"http://wellcomelibrary.org/item/b20432033\">http://wellcomelibrary.org/item/b20432033</a></p><p>The Wellcome Library has implemented the Universal Viewer (UV) (<a href=\"https://github.com/UniversalViewer/universalviewer\">https://github.com/UniversalViewer/universalviewer</a>) as its IIIF viewer.  To view this object, open up the following URL: [Insert URL here]</p></td></tr><tr><td><p>Viewing an item in a different IIIF viewer</p></td><td><p>Another strength of IIIF is that you can choose whichever IIIF-compliant viewer you like to render your images.</p><p>Here we will view the Zebrafish image in the Mirador IIIF viewer, developed by Stanford.</p><p><a href=\"http://projectmirador.org/demo/\">http://projectmirador.org/demo/</a></p><p>Click “Add new object from URL - and paste in <a href=\"http://wellcomelibrary.org/iiif/b20432033/manifest\">http://wellcomelibrary.org/iiif/b20432033/manifest</a></p></td></tr></tbody></table>"
+              },
+              {
+                "type": "paragraph",
+                "text": "Table 2: The IIIF Presentation API - clickable examples"
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "title": "Authentication and search services",
+            "content": [
+              {
+                "type": "paragraph",
+                "text": "In addition to providing access to image endpoints, the IIIF also supports authentication and search services."
+              },
+              {
+                "type": "paragraph",
+                "text": "Authentication"
+              },
+              {
+                "type": "paragraph",
+                "text": "Recognising that not all images are made available under an open-access model, the IIIF infrastructure supports the ability to describe and enforce access control on images."
+              },
+              {
+                "type": "paragraph",
+                "text": "The IIIF Authentication API is an interaction pattern that a client viewer can implement to allow a user to gain access to images. This is essential because different institutions will have different existing authentication and authorisation mechanisms, and IIIF needs to work with all of them. This API can be used in various ways, from a simple click-through option (when the server doesn't need to establish the user’s identity), to full delegated authentication, in which access requests are passed back to the authentication application of the organisation hosting those images."
+              },
+              {
+                "type": "paragraph",
+                "text": "An IIIF manifest can be built that references images from multiple different endpoints, all of which might have different policies to manage authentication.  For example, let's assume someone built an IIIF manifest showing all the images relating to malaria, which were published in Science, Nature and eLife. It might be possible to immediately see the images from eLife because they are open access but, when the user navigates to an image hosted by Nature or Science, they would be asked to authenticate at these publications, because the images are not open access. If authentication was denied, those images would not be available. The IIIF Authentication API describes how a client viewer controls the user experience throughout this flow."
+              },
+              {
+                "type": "paragraph",
+                "text": "Table 3 shows examples of how the Wellcome Library has implemented access controls to its content:"
+              },
+              {
+                "type": "table",
+                "html": "<table><tbody><tr><td>Task</td><td><p>URL and Comments</p></td></tr><tr><td><p>Click-through licence</p></td><td><p><a href=\"http://wellcomelibrary.org/item/b18170183\">http://wellcomelibrary.org/item/b18170183</a></p><div><p>Here, because this archive may contain personal data, we ask users to agree not to misuse any such data.</p></div></td></tr><tr><td><p>Delegated authentication</p></td><td><p><a href=\"http://wellcomelibrary.org/item/b16728701\">http://wellcomelibrary.org/item/b16728701</a></p><div><p>The Wellcome Library holds some clinical images, the access to which is limited for health professionals.  When you try to view this image, you are directed back to the Wellcome Library’s CAS server.</p></div></td></tr></tbody></table>"
+              },
+              {
+                "type": "paragraph",
+                "text": "Table 3: The IIIF Authentication API - clickable examples"
+              },
+              {
+                "type": "paragraph",
+                "text": "Full details of the IIIF Authentication API can be found at: <a href=\"http://iiif.io/api/auth/0.9/\">http://iiif.io/api/auth/0.9/</a>"
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "title": "Search",
+            "content": [
+              {
+                "type": "paragraph",
+                "text": "IIIF also offers a Search API that returns annotations available across the resources being searched. These annotations could be transcriptions, commentary, tagging, and identification, among others."
+              },
+              {
+                "type": "paragraph",
+                "text": "One significant use for this is to search within a piece of work that has images with searchable text. The text results can be returned as annotations so viewers can highlight the terms. Search can also be used for:"
+              },
+              {
+                "type": "list",
+                "ordered": false,
+                "items": [
+                  "Finding all comments made by a particular person",
+                  "Finding all tags within a particular collection",
+                  "Finding all the highlights that contain the term “cholera” in annotations made on the Wellcome Library’s Medical Officer of Health reports"
+                ]
+              },
+              {
+                "type": "paragraph",
+                "text": "In Table 4 below, we provide some examples of how this API works. Note that the additional parameters used after the first example are not currently supported by the example service:"
+              },
+              {
+                "type": "table",
+                "html": "<table><tbody><tr><td>Task</td><td><p>URL and Comments</p></td></tr><tr><td><p>Find term x in a specific document</p></td><td><p><a href=\"http://wellcomelibrary.org/annoservices/search/b19956435?q=london\">http://wellcomelibrary.org/annoservices/search/b19956435?q=london</a></p><p>The annotations returned include contextual information and enough location information for a viewer to render highlights:</p><p><a href=\"http://wellcomelibrary.org/item/b19956435#?cv=24&amp;h=london\">http://wellcomelibrary.org/item/b19956435#?cv=24&amp;h=london</a></p></td></tr><tr><td>Find term in annotations made by a particular user</td><td><p><a href=\"http://wellcomelibrary.org/annoservices/search/b19956435?q=london&amp;user=wellcome:87678\">http://wellcomelibrary.org/annoservices/search/b19956435?q=london&amp;user=wellcome:87678</a></p></td></tr><tr><td><p>Find user X’s identifications of people within a particular region of a photograph between two dates</p></td><td><p><a href=\"http://wellcomelibrary.org/annoservices/search/canvas-123454321?motivation=identifying&amp;user=wellcome:87678&amp;box=200,200,1000,1000&amp;date=2016-01-01/2016-02-01\">http://wellcomelibrary.org/annoservices/search/canvas-123454321?motivation=identifying&amp;user=wellcome:87678&amp;box=200,200,1000,1000&amp;date=2016-01-01/2016-02-01</a></p></td></tr></tbody></table>"
+              },
+              {
+                "type": "paragraph",
+                "text": "Table 4: The IIIF Search API - clickable examples"
+              },
+              {
+                "type": "paragraph",
+                "text": "The search service is accompanied by an autocomplete service, useful for providing term or tag completion. Both services are described in the IIIF Search API at <a href=\"http://iiif.io/api/search/1.0/\">http://iiif.io/api/search/1.0/</a>"
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "title": "Conclusion",
+            "content": [
+              {
+                "type": "paragraph",
+                "text": "Given both the flexibility and richness of IIIF APIs, it is surprising that many STM publishers have not rushed to embrace this new standard for publishing images on the web. This could be due to a lack of awareness, a sense that IIIF was only relevant to open-access articles, and perhaps uncertainty as to how it could be applied to these publishers’ needs."
+              },
+              {
+                "type": "paragraph",
+                "text": "The ambition behind the IIIF is to enable richer access to the world’s images. Hopefully, more STM publishers will be encouraged to make their image-based material available in this way."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "number": 4,
     "title": "Presenting Proteopedia for sharing macromolecule concepts online",
     "date": "2016-06-29 09:33",
@@ -114,25 +519,25 @@
       },
       {
         "type": "image",
-        "text": "Fig. 2. A user-contributed  page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Tutorial:How_do_we_get_the_oxygen_we_breathe\">Tutorial:How do we get the oxygen we breathe</a>’",
+        "text": "Fig. 2. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Tutorial:How_do_we_get_the_oxygen_we_breathe\">Tutorial:How do we get the oxygen we breathe</a>’",
         "image": "labs/proteopedia_fig_2_tutorial_how_we_breathe.png",
         "image_alt": "How to get the oxygen we breathe."
       },
       {
         "type": "image",
-        "text": "Fig. 3. A user-contributed  page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Group:SMART:A_Physical_Model_of_the_%CE%B22-Adrenergic_Receptor\">Physical Model of the β2-Adrenergic Receptor</a>’",
+        "text": "Fig. 3. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Group:SMART:A_Physical_Model_of_the_%CE%B22-Adrenergic_Receptor\">Physical Model of the β2-Adrenergic Receptor</a>’",
         "image": "labs/proteopedia_fig_3_b2_andrenergic_receptor.png",
         "image_alt": "A physical model of the β2-Adrenergic Receptor."
       },
       {
         "type": "image",
-        "text": "Fig. 4. A user-contributed  page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/HIV-1_protease\">HIV-1 Protease</a>’",
+        "text": "Fig. 4. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/HIV-1_protease\">HIV-1 Protease</a>’",
         "image": "labs/proteopedia_fig_4_hiv_1_protease.png",
         "image_alt": "HIV-1 protease."
       },
       {
         "type": "image",
-        "text": "Fig. 5. A user-contributed  page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Ribosome\">Ribosome</a>’",
+        "text": "Fig. 5. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Ribosome\">Ribosome</a>’",
         "image": "labs/proteopedia_fig_5_ribosome.png",
         "image_alt": "Ribsome."
       },
