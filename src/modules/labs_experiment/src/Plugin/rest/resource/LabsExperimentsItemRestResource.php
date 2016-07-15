@@ -117,6 +117,12 @@ class LabsExperimentsItemRestResource extends ResourceBase {
             case 'table':
               $result_item['html'] = $content_item->get('field_block_html')->first()->getValue()['value'];
               break;
+            case 'list':
+              $result_item['ordered'] = $content_item->get('field_block_list_ordered')->first()->getValue()['value'] ? TRUE : FALSE;
+              $result_item['items'] = $handle_paragraphs($content_item->get('field_block_list_items'));
+              break;
+            case 'list_item':
+              $result_item = $content_item->get('field_block_text')->first()->getValue()['value'];
           }
 
           $result[] = $result_item;

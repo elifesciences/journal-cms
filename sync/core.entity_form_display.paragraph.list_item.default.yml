@@ -1,0 +1,23 @@
+uuid: b4b78024-a4bb-471b-8a82-3593a4c3856e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.list_item.field_block_text
+    - paragraphs.paragraphs_type.list_item
+id: paragraph.list_item.default
+targetEntityType: paragraph
+bundle: list_item
+mode: default
+content:
+  field_block_text:
+    weight: 0
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+hidden:
+  created: true
+  status: true
+  uid: true

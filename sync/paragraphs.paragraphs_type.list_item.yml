@@ -1,0 +1,6 @@
+uuid: e8b982f4-4807-4525-9c0d-adda2ec9e4ab
+langcode: en
+status: true
+dependencies: {  }
+id: list_item
+label: 'List item'

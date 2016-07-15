@@ -1,0 +1,23 @@
+uuid: 8611b0d8-a6d3-4c51-b19f-b2187b2c961a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_list_ordered
+    - paragraphs.paragraphs_type.list
+id: paragraph.list.field_block_list_ordered
+field_name: field_block_list_ordered
+entity_type: paragraph
+bundle: list
+label: Ordered
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Ordered
+  off_label: Unordered
+field_type: boolean

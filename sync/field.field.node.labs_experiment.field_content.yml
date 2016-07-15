@@ -7,8 +7,10 @@ dependencies:
     - node.type.labs_experiment
     - paragraphs.paragraphs_type.blockquote
     - paragraphs.paragraphs_type.image
+    - paragraphs.paragraphs_type.list
     - paragraphs.paragraphs_type.paragraph
     - paragraphs.paragraphs_type.section
+    - paragraphs.paragraphs_type.table
     - paragraphs.paragraphs_type.youtube
   module:
     - entity_reference_revisions
@@ -27,18 +29,20 @@ settings:
   handler_settings:
     target_bundles:
       blockquote: blockquote
-      section: section
       image: image
+      section: section
       paragraph: paragraph
       youtube: youtube
+      list: list
+      table: table
     target_bundles_drag_drop:
       blockquote:
         enabled: true
         weight: 5
-      section:
+      image:
         enabled: true
         weight: 6
-      image:
+      section:
         enabled: true
         weight: 6
       paragraph:
@@ -47,4 +51,13 @@ settings:
       youtube:
         enabled: true
         weight: 8
+      list:
+        enabled: true
+        weight: 11
+      list_item:
+        weight: 12
+        enabled: false
+      table:
+        enabled: true
+        weight: 15
 field_type: entity_reference_revisions

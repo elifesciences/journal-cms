@@ -1,0 +1,19 @@
+uuid: 7c5fbc92-0db4-44ed-897f-99c271f0488a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_text
+    - paragraphs.paragraphs_type.list_item
+id: paragraph.list_item.field_block_text
+field_name: field_block_text
+entity_type: paragraph
+bundle: list_item
+label: Text
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

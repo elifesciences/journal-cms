@@ -27,7 +27,13 @@ class LabsContent extends ProcessPluginBase {
     return NULL;
   }
 
-  private function processItemValue($value) {
+  private function processItemValue($value, $type = NULL) {
+    if ($type == 'list_item' && is_string($value)) {
+      $value = [
+        'type' => $type,
+        'text' => $value,
+      ];
+    }
     $values = [
       'type' => $value['type'],
     ];
@@ -89,6 +95,21 @@ class LabsContent extends ProcessPluginBase {
           $content[] = $this->processItemValue($item);
         }
         $values['field_block_content'] = $content;
+        break;
+      case 'list':
+        $values['field_block_list_ordered'] = [
+          'value' => $value['ordered'] ? 1 : 0,
+        ];
+        $content = [];
+        foreach ($value['items'] as $item) {
+          $content[] = $this->processItemValue($item, 'list_item');
+        }
+        $values['field_block_list_items'] = $content;
+        break;
+      case 'list_item':
+        $values['field_block_text'] = [
+          'value' => $value['text'],
+        ];
         break;
     }
     $paragraph = Paragraph::create($values);
