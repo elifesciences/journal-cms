@@ -20,16 +20,16 @@ class LabsImage extends ProcessPluginBase {
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
 
-    list($image, $image_alt) = $value;
+    list($image, $alt) = $value;
 
-    if (!empty($image) && !empty($image_alt)) {
+    if (!empty($image) && !empty($alt)) {
       $source = drupal_get_path('module', 'labs_experiment') . '/migration_assets/images/' . $image;
       if ($uri = file_unmanaged_copy($source)) {
         $file = \Drupal::entityTypeManager()->getStorage('file')->create(['uri' => $uri]);
         $file->save();
         return [
           'target_id' => $file->id(),
-          'alt' => $image_alt,
+          'alt' => $alt,
         ];
       }
     }

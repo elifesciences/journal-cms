@@ -29,9 +29,9 @@ source:
       label: 'Experiment image'
       selector: image
     -
-      name: image_alt
-      label: 'Experiment image alt'
-      selector: image_alt
+      name: alt
+      label: 'Experiment image alt text'
+      selector: alt
     -
       name: content
       label: 'Experiment content'
@@ -49,6 +49,9 @@ process:
     plugin: default_value
     default_value: labs_experiment
   title: title
+  uid:
+    plugin: default_value
+    default_value: 1
   field_experiment_number: number
   'field_impact_statement/value': impact_statement
   'field_impact_statement/format':
@@ -58,7 +61,7 @@ process:
     plugin: labs_image
     source:
       - image
-      - image_alt
+      - alt
   field_content:
     plugin: labs_content
     source: content

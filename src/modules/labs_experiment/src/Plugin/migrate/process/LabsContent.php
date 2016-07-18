@@ -69,14 +69,14 @@ class LabsContent extends ProcessPluginBase {
           ];
         }
         $image = $value['image'];
-        $image_alt = $value['image_alt'];
+        $alt = $value['alt'];
         $source = drupal_get_path('module', 'labs_experiment') . '/migration_assets/images/' . $image;
         if ($uri = file_unmanaged_copy($source)) {
           $file = \Drupal::entityTypeManager()->getStorage('file')->create(['uri' => $uri]);
           $file->save();
           $values['field_block_image'] = [
             'target_id' => $file->id(),
-            'alt' => $image_alt,
+            'alt' => $alt,
           ];
         }
         break;

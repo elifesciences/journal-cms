@@ -1,9 +1,9 @@
-uuid: 931079d2-b2ef-41a7-86fd-a820099898f1
+uuid: 6fe54730-9d05-4f2e-ad4c-4cee7400bfcb
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: tUD6WFnUhHiUhrvOe7wIKEukViR5bsqe-4Bh_r1yRGI
+  default_config_hash: uhgAcdd4Nm1IAnVy1FMWMRJ3Mh8MFyUNoarmAZVie50
 id: labs_experiments_json
 migration_tags: null
 migration_group: labs_experiments
@@ -36,9 +36,9 @@ source:
       label: 'Experiment image'
       selector: image
     -
-      name: image_alt
-      label: 'Experiment image alt'
-      selector: image_alt
+      name: alt
+      label: 'Experiment image alt text'
+      selector: alt
     -
       name: content
       label: 'Experiment content'
@@ -53,6 +53,9 @@ process:
     plugin: default_value
     default_value: labs_experiment
   title: title
+  uid:
+    plugin: default_value
+    default_value: 1
   field_experiment_number: number
   field_impact_statement/value: impact_statement
   field_impact_statement/format:
@@ -62,7 +65,7 @@ process:
     plugin: labs_image
     source:
       - image
-      - image_alt
+      - alt
   field_content:
     plugin: labs_content
     source: content

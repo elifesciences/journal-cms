@@ -4,7 +4,7 @@
     "title": "Experimental eLife Lens search page",
     "date": "2015-04-01 11:32",
     "image": "labs/elife_lens_search_page.png",
-    "image_alt": "eLife Lens search",
+    "alt": "eLife Lens search",
     "content": [
       {
         "type": "paragraph",
@@ -37,19 +37,19 @@
       {
         "type": "image",
         "image": "labs/elife_lens_contextual.png",
-        "image_alt": "contextual search results",
+        "alt": "contextual search results",
         "text": "contextual search results"
       },
       {
         "type": "image",
         "image": "labs/elife_lens_typeahead.png",
-        "image_alt": "type ahead search results",
+        "alt": "type ahead search results",
         "text": "type ahead search results"
       },
       {
         "type": "image",
         "image": "labs/elife_lens_search_filters.png",
-        "image_alt": "filters showing frequency of search term in filter",
+        "alt": "filters showing frequency of search term in filter",
         "text": "filters showing frequency of search term in filter"
       }
     ]
@@ -59,7 +59,7 @@
     "title": "Toward publishing reproducible computation with Binder",
     "date": "2016-05-13 16:25",
     "image": "labs/binder_post_binder_homepage.png",
-    "image_alt": "Binder for reproducible computation",
+    "alt": "Binder for reproducible computation",
     "content": [
       {
         "type": "section",
@@ -102,7 +102,7 @@
           {
             "type": "image",
             "image": "labs/binder_post_juptyer_notebook.png",
-            "image_alt": "Jupiter notebook"
+            "alt": "Jupiter notebook"
           },
           {
             "type": "paragraph",
@@ -111,7 +111,7 @@
           {
             "type": "image",
             "image": "labs/binder_post_github_repository.png",
-            "image_alt": "GitHub repository"
+            "alt": "GitHub repository"
           },
           {
             "type": "paragraph",
@@ -134,7 +134,7 @@
           {
             "type": "image",
             "image": "labs/binder_post_binder_homepage.png",
-            "image_alt": "Binder homepage"
+            "alt": "Binder homepage"
           },
           {
             "type": "paragraph",
@@ -151,7 +151,7 @@
           {
             "type": "image",
             "image": "labs/binder_post_ligo_example.png",
-            "image_alt": "LIGO example"
+            "alt": "LIGO example"
           },
           {
             "type": "paragraph",
@@ -196,7 +196,7 @@
     "title": "The International Image Interoperability Framework (IIIF) for science publishers",
     "date": "2016-05-16 90:42",
     "image": "labs/fig1_iiifcolection.jpg",
-    "image_alt": "Image Interoperability Framework",
+    "alt": "Image Interoperability Framework",
     "content": [
       {
         "type": "section",
@@ -239,7 +239,7 @@
               {
                 "type": "image",
                 "image": "labs/fig1_iiifcolection.jpg",
-                "image_alt": "An IIIF collection of biomedical images from the Wellcome Library",
+                "alt": "An IIIF collection of biomedical images from the Wellcome Library",
                 "text": "Fig. 1. An IIIF collection of biomedical images from the Wellcome Library <a href=\"https://alpha.wellcomelibrary.org/collections/biomed\">https://alpha.wellcomelibrary.org/collections/biomed</a>"
               },
               {
@@ -291,7 +291,7 @@
               {
                 "type": "image",
                 "image": "labs/fig2_iiif_image_api.jpg",
-                "image_alt": "Demonstration of IIIF image API",
+                "alt": "Demonstration of IIIF image API",
                 "text": "Fig. 2. Demonstration of IIIF image API"
               },
               {
@@ -343,7 +343,7 @@
               {
                 "type": "image",
                 "image": "labs/fig3_iiif_presentation_api.jpg",
-                "image_alt": "Using the Universal Viewer to view an IIIF image",
+                "alt": "Using the Universal Viewer to view an IIIF image",
                 "text": "Fig. 3. Using the Universal Viewer to view an IIIF image"
               },
               {
@@ -465,7 +465,7 @@
     "date": "2016-06-29 09:33",
     "impact_statement": "At eLife, we promote emerging tools that support publishing online to help improve excellence in science. We are delighted to showcase Proteopedia, a tool for sharing knowledge about the structure and function of proteins, DNA, and other macromolecules on the web, developed by scientists at the Weizmann Institute of Science in Israel.",
     "image": "labs/proteopedia.png",
-    "image_alt": "Proteopedia for sharing 3D macromolecules",
+    "alt": "Proteopedia for sharing 3D macromolecules",
     "content": [
       {
         "type": "paragraph",
@@ -497,9 +497,9 @@
       },
       {
         "type": "image",
-        "text": "Fig. 1. Example of an I3DC in Proteopedia, ‘<a href=\"http://proteopedia.org/w/Journal:Cell:1\">Structural linkage between ligand discrimination and receptor activation by type I interferons</a>’, linking to a paper in Cell<sup>5</sup>.",
+        "caption": "Fig. 1. Example of an I3DC in Proteopedia, ‘<a href=\"http://proteopedia.org/w/Journal:Cell:1\">Structural linkage between ligand discrimination and receptor activation by type I interferons</a>’, linking to a paper in Cell<sup>5</sup>.",
         "image": "labs/proteopedia_fig_1_cell.png",
-        "image_alt": "Structural linkage between ligand discrimination and receptor activation by type I interferons."
+        "alt": "Structural linkage between ligand discrimination and receptor activation by type I interferons."
       },
       {
         "type": "paragraph",
@@ -519,27 +519,27 @@
       },
       {
         "type": "image",
-        "text": "Fig. 2. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Tutorial:How_do_we_get_the_oxygen_we_breathe\">Tutorial:How do we get the oxygen we breathe</a>’",
+        "caption": "Fig. 2. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Tutorial:How_do_we_get_the_oxygen_we_breathe\">Tutorial:How do we get the oxygen we breathe</a>’",
         "image": "labs/proteopedia_fig_2_tutorial_how_we_breathe.png",
-        "image_alt": "How to get the oxygen we breathe."
+        "alt": "How to get the oxygen we breathe."
       },
       {
         "type": "image",
-        "text": "Fig. 3. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Group:SMART:A_Physical_Model_of_the_%CE%B22-Adrenergic_Receptor\">Physical Model of the β2-Adrenergic Receptor</a>’",
+        "caption": "Fig. 3. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Group:SMART:A_Physical_Model_of_the_%CE%B22-Adrenergic_Receptor\">Physical Model of the β2-Adrenergic Receptor</a>’",
         "image": "labs/proteopedia_fig_3_b2_andrenergic_receptor.png",
-        "image_alt": "A physical model of the β2-Adrenergic Receptor."
+        "alt": "A physical model of the β2-Adrenergic Receptor."
       },
       {
         "type": "image",
-        "text": "Fig. 4. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/HIV-1_protease\">HIV-1 Protease</a>’",
+        "caption": "Fig. 4. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/HIV-1_protease\">HIV-1 Protease</a>’",
         "image": "labs/proteopedia_fig_4_hiv_1_protease.png",
-        "image_alt": "HIV-1 protease."
+        "alt": "HIV-1 protease."
       },
       {
         "type": "image",
-        "text": "Fig. 5. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Ribosome\">Ribosome</a>’",
+        "caption": "Fig. 5. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Ribosome\">Ribosome</a>’",
         "image": "labs/proteopedia_fig_5_ribosome.png",
-        "image_alt": "Ribsome."
+        "alt": "Ribsome."
       },
       {
         "type": "paragraph",
