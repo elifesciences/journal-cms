@@ -1,7 +1,6 @@
 .DS_Store
 .idea/
 .vagrant/
-config/config.yml
 config/local.settings.php
 scripts/elife_1_0.sql.gz
 scripts/elife_1_0_files/

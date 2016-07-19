@@ -23,7 +23,7 @@ vagrant_synced_folders:
   # The first synced folder will be used for the default Drupal installation, if
   # any of the build_* settings are 'true'. By default the folder is set to
   # the drupal-vm folder.
-  - local_path: %DRUPAL_PWD%
+  - local_path: .
     destination: /var/www/elife-2.0-website
     type: nfs
     create: true

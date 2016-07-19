@@ -38,14 +38,6 @@ class ScriptHandler extends DrupalScriptHandler {
     if ($fs->exists($src_root . '/modules') && !$fs->exists($drupal_root . '/modules/custom')) {
       $fs->symlink('../../src/modules', $drupal_root . '/modules/custom');
     }
-
-    if (!$fs->exists($config_root . '/config.yml')) {
-      $fs->copy($config_root . '/example.config.yml', $config_root . '/config.yml');
-
-      $config_yaml = file_get_contents($config_root . '/config.yml');
-      $config_yaml = preg_replace('/%DRUPAL_PWD%/', $root, $config_yaml);
-      file_put_contents($config_root . '/config.yml', $config_yaml);
-    }
   }
 
 }
