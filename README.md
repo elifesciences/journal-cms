@@ -15,4 +15,4 @@ Below is the summary:
 - Run `vagrant up`
 
 
-Once it is setup, visit `http://elife-2.0-website.dev`.
+Once it is setup, visit `http://journal-cms.dev`.

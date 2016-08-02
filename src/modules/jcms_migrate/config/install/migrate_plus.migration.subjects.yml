@@ -1,0 +1,58 @@
+id: jcms_subjects_json
+label: JSON feed of subjects
+migration_group: jcms_migrate
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls: http://journal-cms.dev/modules/custom/jcms_migrate/migration_assets/subjects.json
+  item_selector: 0
+  fields:
+    -
+      name: id
+      label: 'Subject ID'
+      selector: id
+    -
+      name: name
+      label: 'Subject name'
+      selector: name
+    -
+      name: impact_statement
+      label: 'Experiment impact statement'
+      selector: impact_statement
+    -
+      name: image
+      label: 'Experiment image'
+      selector: image
+    -
+      name: alt
+      label: 'Experiment image alt text'
+      selector: alt
+  ids:
+    id:
+      type: string
+destination:
+  plugin: entity:taxonomy_term
+process:
+  id: id
+  label: title
+  # Hardcode the destination vocabulary as 'subjects'.
+  vid:
+    plugin: default_value
+    default_value: subjects
+  name: name
+  uid:
+    plugin: default_value
+    default_value: 1
+  field_subject_id: id
+  'field_impact_statement/value': impact_statement
+  'field_impact_statement/format':
+    plugin: default_value
+    default_value: basic_html
+  field_image:
+    plugin: jcms_image
+    source:
+      - image
+      - alt
+
+migration_dependencies: {}

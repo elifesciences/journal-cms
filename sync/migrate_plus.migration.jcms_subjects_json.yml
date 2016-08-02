@@ -1,0 +1,63 @@
+uuid: 013f11ed-e6c8-4f37-8787-e4aca4bc0776
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: u73aBAc8hGRq53N26CIlpkHxTlgnb7TRNfiJd_EpowU
+id: jcms_subjects_json
+migration_tags: null
+migration_group: jcms_migrate
+label: 'JSON feed of subjects'
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls: 'http://journal-cms.dev/modules/custom/jcms_migrate/migration_assets/subjects.json'
+  item_selector: 0
+  fields:
+    -
+      name: id
+      label: 'Subject ID'
+      selector: id
+    -
+      name: name
+      label: 'Subject name'
+      selector: name
+    -
+      name: impact_statement
+      label: 'Experiment impact statement'
+      selector: impact_statement
+    -
+      name: image
+      label: 'Experiment image'
+      selector: image
+    -
+      name: alt
+      label: 'Experiment image alt text'
+      selector: alt
+  ids:
+    id:
+      type: string
+process:
+  id: id
+  label: title
+  vid:
+    plugin: default_value
+    default_value: subjects
+  name: name
+  uid:
+    plugin: default_value
+    default_value: 1
+  field_subject_id: id
+  field_impact_statement/value: impact_statement
+  field_impact_statement/format:
+    plugin: default_value
+    default_value: basic_html
+  field_image:
+    plugin: jcms_image
+    source:
+      - image
+      - alt
+destination:
+  plugin: 'entity:taxonomy_term'
+migration_dependencies: {  }

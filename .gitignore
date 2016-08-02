@@ -2,7 +2,7 @@
 .idea/
 .vagrant/
 config/local.settings.php
-scripts/elife_1_0.sql.gz
-scripts/elife_1_0_files/
+scripts/legacy_cms.sql.gz
+scripts/legacy_cms_files/
 vendor/
 web/

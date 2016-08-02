@@ -1,0 +1,19 @@
+uuid: e0955e86-d41a-40e3-ac03-c0474d46c73f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_subject_id
+    - taxonomy.vocabulary.subjects
+id: taxonomy_term.subjects.field_subject_id
+field_name: field_subject_id
+entity_type: taxonomy_term
+bundle: subjects
+label: ID
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

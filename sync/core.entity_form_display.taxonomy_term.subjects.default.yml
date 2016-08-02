@@ -1,0 +1,49 @@
+uuid: 0ea39b91-f638-4019-b671-a4ff9e72aa54
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.subjects.field_image
+    - field.field.taxonomy_term.subjects.field_impact_statement
+    - field.field.taxonomy_term.subjects.field_subject_id
+    - image.style.thumbnail
+    - taxonomy.vocabulary.subjects
+  module:
+    - image
+    - text
+id: taxonomy_term.subjects.default
+targetEntityType: taxonomy_term
+bundle: subjects
+mode: default
+content:
+  field_image:
+    weight: 3
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_impact_statement:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_subject_id:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  name:
+    type: string_textfield
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  description: true
+  path: true

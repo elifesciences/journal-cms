@@ -1,0 +1,14 @@
+uuid: 769f4057-3506-417a-a5dc-30dbed29b4eb
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: P8V0BeUg957nUpNraj6YwouhmqC-s2TatnjdgQuV3p8
+id: jcms_migrate
+label: 'Jounral CMS migration'
+description: null
+source_type: Json
+module: null
+shared_configuration:
+  source:
+    key: default

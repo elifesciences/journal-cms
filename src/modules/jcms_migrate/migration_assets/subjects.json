@@ -1,0 +1,107 @@
+[
+  {
+    "id": "plant-biology",
+    "name": "Plant Biology",
+    "impact_statement": "Plant Biology impact statement",
+    "image": "subjects/plant-biology.png",
+    "alt": "Plant Biology alt"
+  },
+  {
+    "id": "neuroscience",
+    "name": "Neuroscience",
+    "impact_statement": "Neuroscience impact statement",
+    "image": "subjects/neuroscience.png",
+    "alt": "Neuroscience alt"
+  },
+  {
+    "id": "microbiology-and-infectious-disease",
+    "name": "Microbiology and Infectious Disease",
+    "impact_statement": "Microbiology and Infectious Disease impact statement",
+    "image": "subjects/microbiology-and-infectious-disease.png",
+    "alt": "Microbiology and Infectious Disease alt"
+  },
+  {
+    "id": "immunology",
+    "name": "Immunology",
+    "impact_statement": "Immunology impact statement",
+    "image": "subjects/immunology.png",
+    "alt": "Immunology alt"
+  },
+  {
+    "id": "human-biology-and-medicine",
+    "name": "Human Biology and Medicine",
+    "impact_statement": "Human Biology and Medicine impact statement",
+    "image": "subjects/human-biology-and-medicine.png",
+    "alt": "Human Biology and Medicine alt"
+  },
+  {
+    "id": "genomics-and-evolutionary-biology",
+    "name": "Genomics and Evolutionary Biology",
+    "impact_statement": "Genomics and Evolutionary Biology impact statement",
+    "image": "subjects/genomics-and-evolutionary-biology.png",
+    "alt": "Genomics and Evolutionary Biology alt"
+  },
+  {
+    "id": "genes-and-chromosomes",
+    "name": "Genes and Chromosomes",
+    "impact_statement": "Genes and Chromosomes impact statement",
+    "image": "subjects/genes-and-chromosomes.png",
+    "alt": "Genes and Chromosomes alt"
+  },
+  {
+    "id": "epidemiology-and-global-health",
+    "name": "Epidemiology and Global Health",
+    "impact_statement": "Epidemiology and Global Health impact statement",
+    "image": "subjects/epidemiology-and-global-health.png",
+    "alt": "Epidemiology and Global Health alt"
+  },
+  {
+    "id": "ecology",
+    "name": "Ecology",
+    "impact_statement": "Ecology impact statement",
+    "image": "subjects/ecology.png",
+    "alt": "Ecology alt"
+  },
+  {
+    "id": "developmental-biology-and-stem-cells",
+    "name": "Developmental Biology and Stem Cells",
+    "impact_statement": "Developmental Biology and Stem Cells impact statement",
+    "image": "subjects/developmental-biology-and-stem-cells.png",
+    "alt": "Developmental Biology and Stem Cells alt"
+  },
+  {
+    "id": "computational-and-systems-biology",
+    "name": "Computational and Systems Biology",
+    "impact_statement": "Computational and Systems Biology impact statement",
+    "image": "subjects/computational-and-systems-biology.png",
+    "alt": "Computational and Systems Biology alt"
+  },
+  {
+    "id": "cell-biology",
+    "name": "Cell Biology",
+    "impact_statement": "Cell Biology impact statement",
+    "image": "subjects/cell-biology.png",
+    "alt": "Cell Biology alt"
+  },
+  {
+    "id": "cancer-biology",
+    "name": "Cancer Biology",
+    "impact_statement": "Cancer Biology impact statement",
+    "image": "subjects/cancer-biology.png",
+    "alt": "Cancer Biology alt"
+  },
+  {
+    "id": "biophysics-and-structural-biology",
+    "name": "Biophysics and Structural Biology",
+    "impact_statement": "Biophysics and Structural Biology impact statement",
+    "image": "subjects/biophysics-and-structural-biology.png",
+    "alt": "Biophysics and Structural Biology alt"
+  },
+  {
+    "id": "biochemistry",
+    "name": "Biochemistry",
+    "impact_statement": "Biochemistry impact statement",
+    "image": "subjects/biochemistry.png",
+    "alt": "Biochemistry alt"
+  }
+]

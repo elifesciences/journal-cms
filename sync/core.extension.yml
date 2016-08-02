@@ -13,6 +13,7 @@ module:
   config_devel: 0
   contact: 0
   contextual: 0
+  ctools: 0
   datetime: 0
   dblog: 0
   dynamic_page_cache: 0
@@ -29,7 +30,8 @@ module:
   history: 0
   image: 0
   inline_entity_form: 0
-  labs_experiment: 0
+  jcms_migrate: 0
+  jcms_rest: 0
   link: 0
   menu_ui: 0
   migrate: 0
@@ -46,6 +48,7 @@ module:
   restui: 0
   search: 0
   serialization: 0
+  services: 0
   shortcut: 0
   system: 0
   taxonomy: 0

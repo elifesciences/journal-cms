@@ -8,7 +8,7 @@
          verbose="true"
         >
     <testsuites>
-        <testsuite name="elife-2.0-website tests">
+        <testsuite name="journal-cms tests">
             <directory>./test/</directory>
         </testsuite>
     </testsuites>

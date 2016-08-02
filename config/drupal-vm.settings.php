@@ -1,9 +1,9 @@
 <?php
 
 $databases['default']['default'] = [
-  'database' => 'elife_2_0',
-  'username' => 'elife_2_0',
-  'password' => 'elife_2_0',
+  'database' => 'journal_cms',
+  'username' => 'journal_cms',
+  'password' => 'journal_cms',
   'prefix' => '',
   'host' => 'localhost',
   'port' => '3306',
@@ -11,10 +11,10 @@ $databases['default']['default'] = [
   'driver' => 'mysql',
 ];
 
-$databases['elife_1_0']['default'] = [
-  'database' => 'elife_1_0',
-  'username' => 'elife_1_0',
-  'password' => 'elife_1_0',
+$databases['legacy_cms']['default'] = [
+  'database' => 'legacy_cms',
+  'username' => 'legacy_cms',
+  'password' => 'legacy_cms',
   'prefix' => '',
   'host' => 'localhost',
   'port' => '3306',
@@ -23,5 +23,5 @@ $databases['elife_1_0']['default'] = [
 ];
 
 $settings['trusted_host_patterns'] = [
-  '^elife\-2\.0\-website\.dev$',
+  '^journal\-cms\.dev$',
 ];

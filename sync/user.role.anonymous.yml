@@ -20,3 +20,5 @@ permissions:
   - 'restful get entity:paragraph'
   - 'restful get labs_experiments_item_rest_resource'
   - 'restful get labs_experiments_list_rest_resource'
+  - 'restful get subjects_list_rest_resource'
+  - 'restful get subjects_item_rest_resource'

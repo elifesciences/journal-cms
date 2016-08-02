@@ -1,7 +1,7 @@
 <?php
 
 $databases['default']['default'] = [
-  'database' => 'elife_2_0',
+  'database' => 'journal_cms',
   'username' => 'root',
   'password' => '',
   'prefix' => '',

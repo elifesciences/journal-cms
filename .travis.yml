@@ -7,7 +7,7 @@ sudo: false
 
 env:
   global:
-    - SIMPLETEST_DB=mysql://root:@localhost/elife_2_0
+    - SIMPLETEST_DB=mysql://root:@localhost/journal_cms
     - SIMPLETEST_BASE_URL="http://127.0.0.1:8080"
 
 services:
@@ -20,14 +20,14 @@ before_install:
   - composer --version
 
 install:
-  - mysql --execute='CREATE DATABASE elife_2_0;'
+  - mysql --execute='CREATE DATABASE journal_cms;'
   - composer --verbose install
   - composer drupal-scaffold
 
 script:
   - cp $TRAVIS_BUILD_DIR/config/travis.settings.php $TRAVIS_BUILD_DIR/config/local.settings.php
   - cd $TRAVIS_BUILD_DIR/web
-  - $TRAVIS_BUILD_DIR/vendor/bin/drush site-install config_installer --account-name=admin --account-pass=admin --site-name="eLife 2.0" --yes
+  - $TRAVIS_BUILD_DIR/vendor/bin/drush site-install config_installer --account-name=admin --account-pass=admin --site-name="Journal CMS" --yes
   - $TRAVIS_BUILD_DIR/vendor/bin/drush runserver http://127.0.0.1:8080 &
   - sleep 3
   # Skip core/tests/Drupal/Tests/ComposerIntegrationTest.php because web/ has no composer.json

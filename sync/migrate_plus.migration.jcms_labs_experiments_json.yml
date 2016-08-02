@@ -1,0 +1,80 @@
+uuid: ea960db7-6db0-4b38-a82b-cff93691c058
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: sXAQ_uDQo-ln_BQt2vs_dCaA3xi6DdmTm-dmee7hGl4
+id: jcms_labs_experiments_json
+migration_tags: null
+migration_group: jcms_migrate
+label: 'JSON feed of labs experiments'
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls: 'http://journal-cms.dev/modules/custom/jcms_migrate/migration_assets/labs_experiments.json'
+  item_selector: 0
+  fields:
+    -
+      name: number
+      label: 'Experiment number'
+      selector: number
+    -
+      name: title
+      label: 'Experiment title'
+      selector: title
+    -
+      name: date
+      label: 'Experiment publication date'
+      selector: date
+    -
+      name: impact_statement
+      label: 'Experiment impact statement'
+      selector: impact_statement
+    -
+      name: image
+      label: 'Experiment image'
+      selector: image
+    -
+      name: alt
+      label: 'Experiment image alt text'
+      selector: alt
+    -
+      name: content
+      label: 'Experiment content'
+      selector: content
+  ids:
+    number:
+      type: string
+process:
+  id: number
+  label: title
+  type:
+    plugin: default_value
+    default_value: labs_experiment
+  title: title
+  uid:
+    plugin: default_value
+    default_value: 1
+  field_experiment_number: number
+  field_impact_statement/value: impact_statement
+  field_impact_statement/format:
+    plugin: default_value
+    default_value: basic_html
+  field_image:
+    plugin: jcms_image
+    source:
+      - image
+      - alt
+  field_content:
+    plugin: jcms_content
+    source: content
+  changed:
+    plugin: transform_date
+    source: date
+  created:
+    plugin: transform_date
+    source: date
+destination:
+  plugin: 'entity:node'
+migration_dependencies: {  }

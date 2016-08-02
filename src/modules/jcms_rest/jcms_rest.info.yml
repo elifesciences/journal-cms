@@ -1,0 +1,7 @@
+name: Journal CMS (REST)
+type: module
+description: API endpoint for Journal CMS
+core: 8.x
+dependencies:
+  - rest
+package: eLife

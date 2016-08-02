@@ -11,6 +11,18 @@ resources:
         - json
       supported_auth:
         - basic_auth
+  subjects_list_rest_resource:
+    GET:
+      supported_formats:
+        - json
+      supported_auth:
+        - basic_auth
+  subjects_item_rest_resource:
+    GET:
+      supported_formats:
+        - json
+      supported_auth:
+        - basic_auth
 link_domain: null
 _core:
   default_config_hash: E9VXRiWZNet4YVBv8j9WQmTlgb-rOjo0MiCSdgV0Guw

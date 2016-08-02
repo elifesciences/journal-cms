@@ -1,0 +1,21 @@
+uuid: 16e77748-ae6b-42da-bc42-93d0e99943a0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_impact_statement
+    - taxonomy.vocabulary.subjects
+  module:
+    - text
+id: taxonomy_term.subjects.field_impact_statement
+field_name: field_impact_statement
+entity_type: taxonomy_term
+bundle: subjects
+label: 'Impact statement'
+description: 'Description of the subject'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
