@@ -2,7 +2,6 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
@@ -120,8 +119,8 @@ class LabsExperimentsRestResource extends ResourceBase {
     }
 
     $resource_response = new ResourceResponse($response, $status);
-    $cache_tags = explode('::', str_replace('=', ':', urldecode(http_build_query($options, '', '::'))));
-    $resource_response->addCacheableDependency((new CacheableMetadata())->addCacheTags($cache_tags));
+    // @todo - elife - nlisgo - Implement caching with options as a cacheable dependency, disable for now.
+    $resource_response->addCacheableDependency(NULL);
 
     return $resource_response;
   }
