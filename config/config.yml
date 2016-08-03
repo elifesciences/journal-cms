@@ -39,11 +39,12 @@ drupalvm_webserver: nginx
 # would like to configure 'vagrant_synced_folders' and 'apache_vhosts' manually.
 build_makefile: false
 drush_makefile_path: "{{ config_dir }}/drupal.make.yml"
+drush_make_options: "--no-gitinfofile"
 
 # Set 'build_makefile' to 'false' and this to 'true' if you are using a
 # composer based site deployment strategy.
-build_composer: true
-drupal_composer_path: "/var/www/journal-cms/drupal.composer.json"
+build_composer: false
+drupal_composer_path: "{{ config_dir }}/drupal.composer.json"
 drupal_composer_install_dir: "/var/www/journal-cms"
 drupal_composer_dependencies: []
 
@@ -57,21 +58,23 @@ drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction
 # settings below), but instead copy down a database (e.g. using drush sql-sync).
 install_site: true
 
-# Settings for installing a Drupal site (if 'install_site:' is 'true').
-drupal_major_version: 8
+# Required Drupal settings.
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
-drupal_domain: "{{ vagrant_hostname }}"
-drupal_site_name: "Drupal"
-drupal_install_profile: config_installer
-drupal_enable_modules: []
-drupal_account_name: admin
-drupal_account_pass: admin
 drupal_mysql_user: journal_cms
 drupal_mysql_password: journal_cms
 drupal_mysql_database: journal_cms
 legacy_mysql_user: legacy_cms
 legacy_mysql_password: legacy_cms
 legacy_mysql_database: legacy_cms
+
+# Settings for installing a Drupal site if 'install_site:' is 'true'.
+drupal_major_version: 8
+drupal_domain: "{{ vagrant_hostname }}"
+drupal_site_name: "Journal CMS"
+drupal_install_profile: config_installer
+drupal_enable_modules: []
+drupal_account_name: admin
+drupal_account_pass: admin
 
 # Additional arguments or options to pass to `drush site-install`.
 drupal_site_install_extra_args: []
@@ -180,6 +183,7 @@ installed_extras:
   - adminer
   # - blackfire
   # - drupalconsole
+  # - elasticsearch
   - mailhog
   # - memcached
   # - newrelic
@@ -225,6 +229,7 @@ firewall_allowed_tcp_ports:
   - "8080"
   - "8443"
   - "8983"
+  - "9200"
 firewall_log_dropped_packets: false
 
 # PHP Configuration. Currently-supported versions: 5.6, 7.0.
@@ -234,7 +239,7 @@ php_memory_limit: "256M"
 php_display_errors: "On"
 php_display_startup_errors: "On"
 php_realpath_cache_size: "1024K"
-php_sendmail_path: "/usr/sbin/ssmtp -t"
+php_sendmail_path: "/opt/mailhog/mhsendmail"
 php_opcache_enabled_in_ini: true
 php_opcache_memory_consumption: "192"
 php_opcache_max_accelerated_files: 4096
@@ -266,7 +271,18 @@ mysql_slow_query_time: 2
 mysql_wait_timeout: 300
 adminer_install_filename: index.php
 
-# Varnish Configuration.
+# Node.js configuration (if enabled above).
+# Valid examples: "0.10", "0.12", "4.x", "5.x".
+nodejs_version: "0.12"
+nodejs_npm_global_packages: []
+nodejs_install_npm_user: "{{ drupalvm_user }}"
+npm_config_prefix: "/home/{{ drupalvm_user }}/.npm-global"
+
+# Ruby Configuration (if enabled above).
+ruby_install_gems_user: "{{ drupalvm_user }}"
+ruby_install_gems: []
+
+# Varnish Configuration (if enabled above).
 varnish_listen_port: "81"
 varnish_default_vcl_template_path: templates/drupalvm.vcl.j2
 varnish_default_backend_host: "127.0.0.1"
@@ -277,7 +293,7 @@ pimpmylog_install_dir: /usr/share/php/pimpmylog
 pimpmylog_grant_all_privs: true
 
 # XDebug configuration. XDebug is disabled by default for better performance.
-php_xdebug_default_enable: 1
+php_xdebug_default_enable: 0
 php_xdebug_coverage_enable: 0
 php_xdebug_cli_enable: 1
 php_xdebug_remote_enable: 1
@@ -287,7 +303,7 @@ php_xdebug_idekey: PHPSTORM
 php_xdebug_max_nesting_level: 256
 
 # Solr Configuration (if enabled above).
-solr_version: "5.5.1"
+solr_version: "5.5.2"
 solr_xms: "64M"
 solr_xmx: "128M"
 
@@ -297,3 +313,4 @@ selenium_version: 2.46.0
 # Other configuration.
 dashboard_install_dir: /var/www/dashboard
 known_hosts_path: ~/.ssh/known_hosts
+#ssh_home: "{{ drupal_core_path }}"

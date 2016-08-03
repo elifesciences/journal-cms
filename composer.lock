@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8f4eceeaa29e1119cebd64e07fca7461",
-    "content-hash": "57bb12a3dbc880bc62825f039f280668",
+    "hash": "d5a9e5e3ed9d99700046e61a462d6653",
+    "content-hash": "136cdee121c431baa4705066a9fcd91c",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1002,7 +1002,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/admin_toolbar-8.x-1.15.zip",
-                "reference": null,
+                "reference": "f8380381183bc76babaec9dfe392511011d54904",
                 "shasum": null
             },
             "require": {
@@ -1046,7 +1046,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/config_devel-8.x-1.0-rc1.zip",
-                "reference": null,
+                "reference": "064a5297d00af7330b455f08dacd90b4ab109c81",
                 "shasum": null
             },
             "require": {
@@ -1077,7 +1077,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/config_installer-8.x-1.3.zip",
-                "reference": null,
+                "reference": "071213c9a7507bddcd6f6018d3f24217c13bb9d7",
                 "shasum": null
             },
             "require": {
@@ -1365,7 +1365,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/ctools-8.x-3.0-alpha26.zip",
-                "reference": null,
+                "reference": "c14a5eee970c3d0aab02e88f6c6a4d18091439b8",
                 "shasum": null
             },
             "require": {
@@ -1405,7 +1405,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/entity_reference_revisions-8.x-1.0-rc7.zip",
-                "reference": null,
+                "reference": "09b19416018f59e1b1f4acef6cfd34496ba991ba",
                 "shasum": null
             },
             "require": {
@@ -1436,7 +1436,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/field_collection-8.x-1.0-alpha1.zip",
-                "reference": null,
+                "reference": "8eac83accfecf28eec4d3bf0afe3c047762649fc",
                 "shasum": null
             },
             "require": {
@@ -1468,7 +1468,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/graphql-8.x-1.1.zip",
-                "reference": null,
+                "reference": "0e6d145833ff92d1d503fe2c83dd95cadac20daa",
                 "shasum": null
             },
             "require": {
@@ -1501,7 +1501,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/inline_entity_form-8.x-1.0-alpha6.zip",
-                "reference": null,
+                "reference": "27af4de9fd961fa6ae1369604d05fec8b06db867",
                 "shasum": null
             },
             "require": {
@@ -1532,7 +1532,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/migrate_manifest-8.x-1.3.zip",
-                "reference": null,
+                "reference": "4029a65eb790eae744e22eaf9939d3ae40419d27",
                 "shasum": null
             },
             "require": {
@@ -1623,7 +1623,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/migrate_tools-8.x-2.0-beta1.zip",
-                "reference": null,
+                "reference": "e23d12cefc71fb35800878078fdb247d1b05307d",
                 "shasum": null
             },
             "require": {
@@ -1656,7 +1656,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/migrate_upgrade-8.x-2.0-beta1.zip",
-                "reference": null,
+                "reference": "e0c6a0ce859346ae61462070e98dc10f816c955f",
                 "shasum": null
             },
             "require": {
@@ -1692,7 +1692,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/paragraphs-8.x-1.0-rc5.zip",
-                "reference": null,
+                "reference": "bed1bddffdf03626ba057ab697635b049d8d98de",
                 "shasum": null
             },
             "require": {
@@ -1741,7 +1741,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/restui-8.x-1.11.zip",
-                "reference": null,
+                "reference": "b32b5f8bf16b91fd1c65acbb61e82db7b706e127",
                 "shasum": null
             },
             "require": {
@@ -1773,7 +1773,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/services-8.x-4.0-alpha3.zip",
-                "reference": null,
+                "reference": "3272958a223a1d0edb5875cc8378b31bb32b241e",
                 "shasum": null
             },
             "require": {
@@ -5215,16 +5215,16 @@
         },
         {
             "name": "geerlingguy/drupal-vm",
-            "version": "3.1.4",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geerlingguy/drupal-vm.git",
-                "reference": "18a801945a1af526685c380d5ff7139b9efe8599"
+                "reference": "bfb50bb1d8ed196ecd396655daf113ad87141402"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/18a801945a1af526685c380d5ff7139b9efe8599",
-                "reference": "18a801945a1af526685c380d5ff7139b9efe8599",
+                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/bfb50bb1d8ed196ecd396655daf113ad87141402",
+                "reference": "bfb50bb1d8ed196ecd396655daf113ad87141402",
                 "shasum": ""
             },
             "type": "project",
@@ -5250,7 +5250,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2016-07-12 02:04:10"
+            "time": "2016-07-27 02:47:47"
         },
         {
             "name": "jcalderonzumba/gastonjs",
