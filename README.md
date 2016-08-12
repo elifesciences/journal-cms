@@ -1,18 +1,17 @@
+## Preparation
+
+Ensure the you have the following installed:
+
+- VirtualBox
+- Vagrant
+- Ansible
+- Hostupdater (`vagrant plugin install vagrant-hostsupdater`)
+
 ## Instructions
 
 ```
 $ composer install
+$ vagrant up
 ```
-
-Following instructions to [setup drupal-vm](https://github.com/geerlingguy/drupal-vm/blob/3.0.0/README.md)
-
-Below is the summary:
-
-- Install vagrant
-- Install ansible
-- Install ansible dependencies `sudo ansible-galaxy install -r ./vendor/geerlingguy/drupal-vm/provisioning/requirements.yml --force`
-- Install hostsupdater `vagrant plugin install vagrant-hostsupdater`
-- Run `vagrant up`
-
 
 Once it is setup, visit `http://journal-cms.dev`.
