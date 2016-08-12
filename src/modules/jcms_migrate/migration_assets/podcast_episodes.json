@@ -1,13 +1,391 @@
 [
   {
+    "number": 30,
+    "title": "June 2016",
+    "date": "2016-07-01 08:30:15",
+    "image": "episodes/episode_30.png",
+    "alt": "June 2016",
+    "impact_statement": "In this episode of the eLife podcast we hear about drug production, early career researchers, honeybees, human migrations and pain.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_16.06.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 29,
+    "title": "April/May 2016",
+    "date": "2016-05-27 13:19:42",
+    "image": "episodes/episode_29.png",
+    "alt": "April/May 2016",
+    "impact_statement": "In this episode of the eLife podcast we hear about parasitic worms, dog tumours, epilepsy, DNA sequencing classes and social behaviour in mice.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_16.05.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 28,
+    "title": "March 2016",
+    "date": "2016-03-24 00:00:27",
+    "image": "episodes/episode_28.png",
+    "alt": "March 2016",
+    "impact_statement": "In this episode of the eLife podcast we hear about aging, artificial fingertips, ancient DNA, antibiotic resistance and dengue fever.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_16.03.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 27,
+    "title": "January/February 2016",
+    "date": "2016-02-11 16:07:23",
+    "image": "episodes/episode_27.png",
+    "alt": "January/February 2016",
+    "impact_statement": "In this episode of the eLife podcast we hear about midnight snacking, X-ray imaging of fossils, hummingbirds, monkeys gambling and axolotls regenerating.&nbsp;",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_02.16.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 26,
+    "title": "December 2015",
+    "date": "2015-12-23 13:01:46",
+    "image": "episodes/episode_26.png",
+    "alt": "December 2015",
+    "impact_statement": "In this episode of the eLife podcast we hear about heat-seeking behaviour in mosquitos, mass spawning in coral reefs, social organization in ants, fear in rats and tissue regeneration in newts.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_12.15.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 25,
+    "title": "November 2015",
+    "date": "2015-11-06 17:08:26",
+    "image": "episodes/episode_25.png",
+    "alt": "November 2015",
+    "impact_statement": "In this episode of the eLife podcast we hear about deep-sea bacteria, cigarette smoke and lung disease, antibiotic resistance, unconscious perception, and the benefits of sleep.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_11.15.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 24,
+    "title": "September/October 2015",
+    "date": "2015-10-01 11:51:07",
+    "image": "episodes/episode_24.png",
+    "alt": "September/October 2015",
+    "impact_statement": "In this episode of the eLife podcast we hear about Parkinson's Disease, depression, chickenpox, bats, beetles, and how small prey can escape larger predators.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_09.15.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 23,
+    "title": "SPECIAL EPISODE:    Meet <i>Homo naledi</i>",
+    "date": "2015-09-09 14:25:49",
+    "image": "episodes/episode_23.png",
+    "alt": "SPECIAL EPISODE:    Meet <i>Homo naledi</i>",
+    "impact_statement": "In this special episode of the eLife podcast we hear about a new human species, <em>Homo naledi</em>, that has been unearthed from the Rising Star cave system in South Africa.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/Homo-Naledi-Special-eLife-Podcast.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 22,
+    "title": "July/August 2015",
+    "date": "2015-07-01 08:47:01",
+    "image": "episodes/episode_22.png",
+    "alt": "July/August 2015",
+    "impact_statement": "In this episode of the eLife podcast we hear about cancer, dengue fever, sperm DNA and neurons that are sensitive to magnetic fields.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_07.15.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 21,
+    "title": "June 2015",
+    "date": "2015-06-22 21:54:34",
+    "image": "episodes/episode_21.png",
+    "alt": "June 2015",
+    "impact_statement": "In this episode of the eLife podcast we hear about tinnitus and hyperacusis, salamanders, chemical harpoons, and the role of ultrasound and song in the mating rituals of mice and flies.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_06.15.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 20,
+    "title": "April/May 2015",
+    "date": "2015-05-18 20:05:46",
+    "image": "episodes/episode_20.png",
+    "alt": "April/May 2015",
+    "impact_statement": "In this episode of the eLife podcast we hear about echolocation, bacteriophages, babies and pain, a neural code for food abundance, and how zebrafish can make their own sunscreen.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_05.15.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 19,
+    "title": "March 2015",
+    "date": "2015-03-05 21:35:06",
+    "image": "episodes/episode_19.png",
+    "alt": "March 2015",
+    "impact_statement": "In this episode of the eLife podcast we hear about herpes, breweries, model organisms, social interactions in rats and traumatic brain injuries in flies.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_03.15.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 18,
+    "title": "February 2015",
+    "date": "2015-03-05 21:32:01",
+    "image": "episodes/episode_18.png",
+    "alt": "February 2015",
+    "impact_statement": "In this episode of the eLife podcast we hear about TB, HIV, social behaviour in ants, genetics in baboons and a surprising twist to the handshake.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_02.15.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 17,
+    "title": "January 2015",
+    "date": "2014-12-23 21:03:09",
+    "image": "episodes/episode_17.png",
+    "alt": "January 2015",
+    "impact_statement": "In this episode of the eLife podcast we hear about controlling sperm by optogenetics, hibernation, body clocks, enzyme structure, and a way to overcome stress-induced infertility.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_01.15.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 16,
+    "title": "November/December 2014",
+    "date": "2014-12-23 21:35:14",
+    "image": "episodes/episode_16.png",
+    "alt": "November/December 2014",
+    "impact_statement": "In this episode of the eLife podcast we hear about reproducibility, drug resistance, cells without walls, gene transfer, interspecies signalling, and stem cells.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_12.14.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 15,
+    "title": "October 2014",
+    "date": "2014-11-05 16:25:27",
+    "image": "episodes/episode_15.png",
+    "alt": "October 2014",
+    "impact_statement": "In this episode of the eLife podcast we hear about influenza pandemics, eating too much, cannabis and the brain, HIV cure research, and the evolution of sea squirts.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_10.14.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 14,
+    "title": "August/September 2014",
+    "date": "2014-10-01 17:09:43",
+    "image": "episodes/episode_14.png",
+    "alt": "August/September 2014",
+    "impact_statement": "In this episode of the eLife podcast we hear about the spread of the ebola virus, the financial costs of research misconduct, aging in yeast, grooming in flies, and symbiosis between bacteria and fungal cells.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_09.14.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 13,
+    "title": "June/July 2014",
+    "date": "2014-08-02 16:00:23",
+    "image": "episodes/episode_13.png",
+    "alt": "June/July 2014",
+    "impact_statement": "In this episode of the eLife podcast we hear about using photographs to diagnose rare genetic disorders, an unexpected benefit of exercise, hybridizing fish species, the mysteries of the MECP2 gene, and the risks and benefits of using gene drives to alter wild populations.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_07.14.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 12,
+    "title": "May 2014",
+    "date": "2014-06-13 11:08:58",
+    "image": "episodes/episode_12.png",
+    "alt": "May 2014",
+    "impact_statement": "In this episode of the eLife podcast we hear about the neuroscience of chewing, skin cancer, African sleeping sickness, and an ancient protein complex called TSET. eLife editor-in-chief Randy Schekman also shares his thoughts on scientific publishing.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_05.14.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 11,
+    "title": "April 2014",
+    "date": "2014-05-08 22:56:54",
+    "image": "episodes/episode_11.png",
+    "alt": "April 2014",
+    "impact_statement": "In this episode of the eLife podcast we hear about neuropathic pain, gene therapy, insulin production, aging in worms, and how flatworms grow new body parts.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_04.14.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 10,
+    "title": "March 2014",
+    "date": "2014-04-03 09:51:57",
+    "image": "episodes/episode_10.png",
+    "alt": "March 2014",
+    "impact_statement": "In this episode of the eLife podcast we hear about the mating habits of flies, radiation resistance in bacteria, how insects learned to smell, and the Hawaiian bobtail squid..",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_03.14.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 9,
+    "title": "February 2014",
+    "date": "2014-03-04 09:53:37",
+    "image": "episodes/episode_9.png",
+    "alt": "February 2014",
+    "impact_statement": "In this episode of the eLife podcast we learn more about sleep, super Spy chaperones, swimming bacteria, orphan genes and the neuroscience of birdsong.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_02.14.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 8,
+    "title": "January 2014",
+    "date": "2014-01-09 17:02:56",
+    "image": "episodes/episode_8.png",
+    "alt": "January 2014",
+    "impact_statement": "In this episode of the eLife podcast we discuss rats, ants, sharks and rays, and the pathogen that causes corn smut in maize.",
+    "mp3": "https://nakeddiscovery.com/scripts/mp3s/audio/eLife_Podcast_01.14.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 7,
+    "title": "December 2013",
+    "date": "2014-01-09 13:45:10",
+    "image": "episodes/episode_7.png",
+    "alt": "December 2013",
+    "impact_statement": "In this episode of the eLife podcast we discuss the growing problem of drug resistance, severe brain damage, sugar versus sweetener, public goods dilemmas, and the evolution of translation machinery in cells.",
+    "mp3": "https://nakeddiscovery.com/libsyn/eLife_Podcast_12.13.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 6,
+    "title": "November 2013",
+    "date": "2013-11-30 12:06:30",
+    "image": "episodes/episode_6.png",
+    "alt": "November 2013",
+    "impact_statement": "In this episode of the eLife podcast we discuss doing protein crystallography with electrons, the discovery of a receptor for carbon dioxide, new insights into arthritis, how the brain responds to a missing hand, and the best shape for whiskers.",
+    "mp3": "https://nakeddiscovery.com/downloads/audio/original/eLife_Podcast_13.11.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 5,
+    "title": "October 2013",
+    "date": "2013-08-21 12:47:49",
+    "image": "episodes/episode_5.png",
+    "alt": "October 2013",
+    "impact_statement": "In this episode of the eLife podcast we discuss how chimpanzees use conceptual metaphors, the hyperactivation of spermatozoa, the use of bacteria to estimate the time of death, stem cells and smoking, and a new type of bacteria.",
+    "mp3": "https://nakeddiscovery.com/libsyn/eLife_Podcast_13.10.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 4,
+    "title": "September 2013",
+    "date": "2013-08-21 12:54:08",
+    "image": "episodes/episode_4.png",
+    "alt": "September 2013",
+    "impact_statement": "In this episode of the eLife podcast we discuss how flatworms can grow new heads and tails, how photosynthesis has evolved over time, social interactions between mice, the properties of undead cells, and interactions between steroids and genes.",
+    "mp3": "https://nakeddiscovery.com/libsyn/eLife_Podcast_13.09.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 3,
+    "title": "August 2013",
+    "date": "2013-08-21 12:48:50",
+    "image": "episodes/episode_3.png",
+    "alt": "August 2013",
+    "impact_statement": "In this episode of the eLife podcast we discuss the cocktail party effect, how psuedogene RNA has a role in the immune response, new insights into the genetic origins of a common form of blindness, research into individual responses to the flu vaccine, and the origins of the tropical disease schistosomiasis.",
+    "mp3": "https://nakeddiscovery.com/libsyn/eLife_Podcast_13.08.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
+    "number": 2,
+    "title": "July 2013",
+    "date": "2013-07-17 08:33:32",
+    "image": "episodes/episode_2.png",
+    "alt": "July 2013",
+    "impact_statement": "In this issue of the eLife podcast we discuss plants performing arithmetic division, the evolutionary dynamics of cancer, single-molecule measurements in the immune system, why blood vessels don’t grow in the retina, how to make science count in government, a sensor for ammonium, and the evolution of gene regulation.",
+    "mp3": "https://nakeddiscovery.com/libsyn/eLife_Podcast_13.07.mp3",
+    "subjects": [
+      "biochemistry",
+      "plant-biology"
+    ]
+  },
+  {
     "number": 1,
-    "title": "Episode 1",
-    "date": "2015-04-01 11:32",
+    "title": "June 2013",
+    "date": "2013-07-17 08:30:27",
     "image": "episodes/episode_1.png",
-    "alt": "Episode 1",
+    "alt": "June 2013",
+    "impact_statement": "Welcome to the first eLife podcast, which covers topics as diverse as the origins of multicellularity, what modern sequencing technology can tell us about the potato famines of the 1840s, the discovery of the receptor for the hepatitis B and D viruses, the effect of fog on the behaviour of car drivers, and the evolution of chromatin.",
     "mp3": "https://nakeddiscovery.com/libsyn/eLife_Podcast_13.06.mp3",
     "subjects": [
-      "microbiology-and-infectious-disease",
+      "biochemistry",
       "plant-biology"
     ]
   }
