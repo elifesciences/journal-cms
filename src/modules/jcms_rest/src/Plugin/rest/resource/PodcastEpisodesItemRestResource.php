@@ -92,7 +92,11 @@ class PodcastEpisodesItemRestResource extends ResourceBase {
         }
       }
 
-      return new ResourceResponse($response, $status);
+      $resource_response = new ResourceResponse($response, $status);
+      // @todo - elife - nlisgo - Implement caching with options as a cacheable dependency, disable for now.
+      $resource_response->addCacheableDependency(NULL);
+
+      return $resource_response;
     }
 
     throw new NotFoundHttpException(t('Lab experiment with ID @id was not found', ['@id' => $number]));

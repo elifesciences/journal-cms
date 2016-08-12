@@ -78,7 +78,11 @@ class SubjectsItemRestResource extends ResourceBase {
         $response['impactStatement'] = $term->get('field_impact_statement')->first()->getValue()['value'];
       }
 
-      return new ResourceResponse($response, $status);
+      $resource_response = new ResourceResponse($response, $status);
+      // @todo - elife - nlisgo - Implement caching with options as a cacheable dependency, disable for now.
+      $resource_response->addCacheableDependency(NULL);
+
+      return $resource_response;
     }
 
     throw new NotFoundHttpException(t('Subject with ID @id was not found', ['@id' => $id]));
