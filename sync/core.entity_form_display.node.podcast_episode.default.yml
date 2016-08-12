@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.podcast_episode.field_episode_chapters
     - field.field.node.podcast_episode.field_episode_mp3
     - field.field.node.podcast_episode.field_episode_number
-    - field.field.node.podcast_episode.field_highlighted
     - field.field.node.podcast_episode.field_image
     - field.field.node.podcast_episode.field_impact_statement
     - field.field.node.podcast_episode.field_publication_date
@@ -47,12 +46,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: number
-  field_highlighted:
-    weight: 33
-    settings:
-      display_label: false
-    third_party_settings: {  }
-    type: boolean_checkbox
   field_image:
     weight: 39
     settings:
