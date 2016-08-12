@@ -1,0 +1,19 @@
+uuid: c13ff418-768a-4b50-8747-e061c2e9b3d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_person_index_name
+    - node.type.person
+id: node.person.field_person_index_name
+field_name: field_person_index_name
+entity_type: node
+bundle: person
+label: 'Index name'
+description: "This is the name that should be used for indexing people.\r\n\r\nFor example:\r\n  - Schekman, Randy\r\n  - VijayRaghavan, Krishnaswamy\r\n  - Wenhui Li"
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

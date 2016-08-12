@@ -1,0 +1,17 @@
+uuid: 54d267db-1bbc-4667-9bd5-909a4e341d2e
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Person
+type: person
+description: ''
+help: "Preferred name is generally the name that is used by the person for English-language publications.\r\nFor example:\r\n  - Randy Schekman\r\n  - K. VijayRaghavan\r\n  - Wenhui Li"
+new_revision: false
+preview_mode: 0
+display_submitted: false
