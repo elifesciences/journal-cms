@@ -42,28 +42,15 @@ class SubjectsRestResource extends ResourceBase {
       'total' => 0,
       'items' => [],
     ];
-    $options = [];
 
     if ($total = $count_query->count()->execute()) {
       $response['total'] = (int) $total;
 
       $request = \Drupal::request();
-      if ($page = $request->query->get('page')) {
-        $options['page'] = $page;
-      }
-
-      if ($per_page = $request->query->get('per-page')) {
-        $options['per-page'] = $per_page;
-      }
-
-      if ($order = $request->query->get('order')) {
-        $options['order'] = $order;
-      }
-
-      $options += [
-        'page' => 1,
-        'per-page' => 20,
-        'order' => 'desc',
+      $options = [
+        'page' => $request->query->get('page', 1),
+        'per-page' => $request->query->get('per-page', 20),
+        'order' => $request->query->get('order', 'desc'),
       ];
 
       $items_query->range(($options['page']-1)*$options['per-page'], $options['per-page']);
