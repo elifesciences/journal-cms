@@ -3,17 +3,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.podcast_episode.field_episode_chapters
     - field.field.node.podcast_episode.field_episode_mp3
     - field.field.node.podcast_episode.field_episode_number
     - field.field.node.podcast_episode.field_image
     - field.field.node.podcast_episode.field_impact_statement
     - field.field.node.podcast_episode.field_publication_date
+    - field.field.node.podcast_episode.field_subjects
     - image.style.thumbnail
     - node.type.podcast_episode
   module:
     - datetime
-    - field_collection
     - image
     - link
     - path
@@ -28,11 +27,6 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
-  field_episode_chapters:
-    weight: 37
-    settings: {  }
-    third_party_settings: {  }
-    type: field_collection_embed
   field_episode_mp3:
     weight: 34
     settings:
@@ -65,6 +59,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+  field_subjects:
+    weight: 40
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   path:
     type: path
     weight: 30

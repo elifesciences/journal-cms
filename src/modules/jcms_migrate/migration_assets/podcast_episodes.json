@@ -1,0 +1,14 @@
+[
+  {
+    "number": 1,
+    "title": "Episode 1",
+    "date": "2015-04-01 11:32",
+    "image": "episodes/episode_1.png",
+    "alt": "Episode 1",
+    "mp3": "https://nakeddiscovery.com/libsyn/eLife_Podcast_13.06.mp3",
+    "subjects": [
+      "microbiology-and-infectious-disease",
+      "plant-biology"
+    ]
+  }
+]

@@ -1,0 +1,86 @@
+id: jcms_podcast_episodes_json
+label: JSON feed of labs experiments
+migration_group: jcms_migrate
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls: http://journal-cms.dev/modules/custom/jcms_migrate/migration_assets/podcast_episodes.json
+  item_selector: 0
+  fields:
+    -
+      name: number
+      label: 'Episode number'
+      selector: number
+    -
+      name: title
+      label: 'Episode title'
+      selector: title
+    -
+      name: date
+      label: 'Episode publication date'
+      selector: date
+    -
+      name: impact_statement
+      label: 'Episode impact statement'
+      selector: impact_statement
+    -
+      name: image
+      label: 'Episode image'
+      selector: image
+    -
+      name: alt
+      label: 'Episode image alt text'
+      selector: alt
+    -
+      name: mp3
+      label: 'Episode mp3'
+      selector: mp3
+    -
+      name: subjects
+      label: 'Episode subjects'
+      selector: subjects
+  ids:
+    number:
+      type: string
+destination:
+  plugin: entity:node
+process:
+  id: number
+  label: title
+  # Hardcode the destination node type (bundle) as 'podcast_episode'.
+  type:
+    plugin: default_value
+    default_value: podcast_episode
+  title: title
+  uid:
+    plugin: default_value
+    default_value: 1
+  field_episode_number: number
+  'field_impact_statement/value': impact_statement
+  'field_impact_statement/format':
+    plugin: default_value
+    default_value: basic_html
+  field_image:
+    plugin: jcms_image
+    source:
+      - image
+      - alt
+  field_content:
+    plugin: jcms_content
+    source: content
+  'field_episode_mp3/uri': mp3
+  field_subjects:
+    plugin: migration
+    migration: jcms_subjects_json
+    source: subjects
+  changed:
+    plugin: transform_date
+    source: date
+  created:
+    plugin: transform_date
+    source: date
+
+migration_dependencies:
+  required:
+    - jcms_subjects_json

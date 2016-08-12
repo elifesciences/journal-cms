@@ -63,6 +63,7 @@ class PodcastEpisodesItemRestResource extends ResourceBase {
             ],
           ],
         ],
+        'mp3' => $node->get('field_episode_mp3')->first()->getValue()['uri'],
       ];
 
       $image_uri = $node->get('field_image')->first()->get('entity')->getTarget()->get('uri')->first()->getValue()['value'];
@@ -82,12 +83,12 @@ class PodcastEpisodesItemRestResource extends ResourceBase {
       }
 
       if ($node->get('field_subjects')->count()) {
-        $item['subjects'] = [];
+        $response['subjects'] = [];
         /** @var \Drupal\Core\Entity\Entity $field_subjects */
         $field_subjects = $node->get('field_subjects');
         /* @var \Drupal\taxonomy\Entity\Term $term */
         foreach ($field_subjects->referencedEntities() as $term) {
-          $item['subjects'][] = $term->get('field_subject_id')->first()->getValue()['value'];
+          $response['subjects'][] = $term->get('field_subject_id')->first()->getValue()['value'];
         }
       }
 

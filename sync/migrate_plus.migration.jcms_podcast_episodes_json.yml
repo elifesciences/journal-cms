@@ -1,10 +1,10 @@
-uuid: 7130e50c-3729-40d2-8ac3-ee838472cb17
+uuid: ad907cd4-b975-4b8c-8d19-fc5a4a9dbc3d
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: sXAQ_uDQo-ln_BQt2vs_dCaA3xi6DdmTm-dmee7hGl4
-id: jcms_labs_experiments_json
+  default_config_hash: 8J6V8YFmct0dnpflNbyBYcWS0RCnHDLGa63au8Kqxd4
+id: jcms_podcast_episodes_json
 migration_tags: null
 migration_group: jcms_migrate
 label: 'JSON feed of labs experiments'
@@ -12,37 +12,41 @@ source:
   plugin: url
   data_fetcher_plugin: http
   data_parser_plugin: json
-  urls: 'http://journal-cms.dev/modules/custom/jcms_migrate/migration_assets/labs_experiments.json'
+  urls: 'http://journal-cms.dev/modules/custom/jcms_migrate/migration_assets/podcast_episodes.json'
   item_selector: 0
   fields:
     -
       name: number
-      label: 'Experiment number'
+      label: 'Episode number'
       selector: number
     -
       name: title
-      label: 'Experiment title'
+      label: 'Episode title'
       selector: title
     -
       name: date
-      label: 'Experiment publication date'
+      label: 'Episode publication date'
       selector: date
     -
       name: impact_statement
-      label: 'Experiment impact statement'
+      label: 'Episode impact statement'
       selector: impact_statement
     -
       name: image
-      label: 'Experiment image'
+      label: 'Episode image'
       selector: image
     -
       name: alt
-      label: 'Experiment image alt text'
+      label: 'Episode image alt text'
       selector: alt
     -
-      name: content
-      label: 'Experiment content'
-      selector: content
+      name: mp3
+      label: 'Episode mp3'
+      selector: mp3
+    -
+      name: subjects
+      label: 'Episode subjects'
+      selector: subjects
   ids:
     number:
       type: string
@@ -51,12 +55,12 @@ process:
   label: title
   type:
     plugin: default_value
-    default_value: labs_experiment
+    default_value: podcast_episode
   title: title
   uid:
     plugin: default_value
     default_value: 1
-  field_experiment_number: number
+  field_episode_number: number
   field_impact_statement/value: impact_statement
   field_impact_statement/format:
     plugin: default_value
@@ -69,6 +73,11 @@ process:
   field_content:
     plugin: jcms_content
     source: content
+  field_episode_mp3/uri: mp3
+  field_subjects:
+    plugin: migration
+    migration: jcms_subjects_json
+    source: subjects
   changed:
     plugin: transform_date
     source: date
@@ -77,4 +86,6 @@ process:
     source: date
 destination:
   plugin: 'entity:node'
-migration_dependencies: {  }
+migration_dependencies:
+  required:
+    - jcms_subjects_json
