@@ -1,0 +1,28 @@
+uuid: d403e371-7c69-4db4-b7d3-81398949aa25
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_research_expertises
+    - paragraphs.paragraphs_type.research_details
+    - taxonomy.vocabulary.subjects
+id: paragraph.research_details.field_research_expertises
+field_name: field_research_expertises
+entity_type: paragraph
+bundle: research_details
+label: Expertises
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      subjects: subjects
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

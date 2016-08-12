@@ -22,7 +22,7 @@ settings:
   file_extensions: 'png gif jpg jpeg'
   max_filesize: ''
   max_resolution: ''
-  min_resolution: 500x250
+  min_resolution: 500x282
   alt_field: true
   alt_field_required: true
   title_field: false

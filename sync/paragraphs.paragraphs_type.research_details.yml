@@ -1,0 +1,6 @@
+uuid: 8a6a5585-3ab3-462f-a38e-d8cccc1c63b5
+langcode: en
+status: true
+dependencies: {  }
+id: research_details
+label: 'Research details'

@@ -1,0 +1,21 @@
+uuid: 8d142cae-ca87-421b-a078-f31042d9d3de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_person_competing
+    - node.type.person
+  module:
+    - text
+id: node.person.field_person_competing
+field_name: field_person_competing
+entity_type: node
+bundle: person
+label: 'Competing interests statement'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

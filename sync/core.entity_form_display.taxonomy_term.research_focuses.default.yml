@@ -1,0 +1,34 @@
+uuid: 56e74903-30b3-4ec9-9e81-40f1eb303a6c
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.research_focuses
+  module:
+    - path
+    - text
+id: taxonomy_term.research_focuses.default
+targetEntityType: taxonomy_term
+bundle: research_focuses
+mode: default
+content:
+  description:
+    type: text_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

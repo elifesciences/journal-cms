@@ -1,0 +1,20 @@
+uuid: 0f86948b-60c8-4dbd-90a3-85f28da1a31e
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.research_organisms
+  module:
+    - text
+id: taxonomy_term.research_organisms.default
+targetEntityType: taxonomy_term
+bundle: research_organisms
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

@@ -1,0 +1,38 @@
+uuid: 61c6900c-a833-4227-9375-f1198c0ffcbd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.research_details.field_research_expertises
+    - field.field.paragraph.research_details.field_research_focuses
+    - field.field.paragraph.research_details.field_research_organisms
+    - paragraphs.paragraphs_type.research_details
+id: paragraph.research_details.default
+targetEntityType: paragraph
+bundle: research_details
+mode: default
+content:
+  field_research_expertises:
+    weight: 0
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_research_focuses:
+    weight: 1
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_research_organisms:
+    weight: 2
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+hidden:
+  created: true
+  uid: true

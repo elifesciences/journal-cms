@@ -1,0 +1,20 @@
+uuid: 0ce4bef6-ccf5-4965-8f63-2dbd0de6f0b1
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - taxonomy
+id: paragraph.field_research_focuses
+field_name: field_research_focuses
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

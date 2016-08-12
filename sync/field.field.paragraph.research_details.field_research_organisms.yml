@@ -1,0 +1,28 @@
+uuid: 5b1f3712-c43a-4266-8a37-d4e57cb64aef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_research_organisms
+    - paragraphs.paragraphs_type.research_details
+    - taxonomy.vocabulary.research_organisms
+id: paragraph.research_details.field_research_organisms
+field_name: field_research_organisms
+entity_type: paragraph
+bundle: research_details
+label: 'Research organisms'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      research_organisms: research_organisms
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

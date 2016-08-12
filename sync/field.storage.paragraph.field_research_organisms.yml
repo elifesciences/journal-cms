@@ -1,0 +1,20 @@
+uuid: 065f917e-06a1-4f25-8269-efbdde6a6d7c
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - taxonomy
+id: paragraph.field_research_organisms
+field_name: field_research_organisms
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

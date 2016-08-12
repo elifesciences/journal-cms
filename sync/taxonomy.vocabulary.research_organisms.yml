@@ -1,0 +1,9 @@
+uuid: 6e561cbe-2978-4193-b681-cceb1f2d5c5c
+langcode: en
+status: true
+dependencies: {  }
+name: 'Research organisms'
+vid: research_organisms
+description: ''
+hierarchy: 0
+weight: 0

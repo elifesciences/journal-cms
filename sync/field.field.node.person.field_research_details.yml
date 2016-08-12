@@ -1,0 +1,54 @@
+uuid: f3b5494a-ed83-4917-9f7b-1f0069c08c78
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_research_details
+    - node.type.person
+    - paragraphs.paragraphs_type.research_details
+  module:
+    - entity_reference_revisions
+id: node.person.field_research_details
+field_name: field_research_details
+entity_type: node
+bundle: person
+label: 'Research details'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      research_details: research_details
+    target_bundles_drag_drop:
+      blockquote:
+        weight: 10
+        enabled: false
+      image:
+        weight: 11
+        enabled: false
+      list:
+        weight: 12
+        enabled: false
+      list_item:
+        weight: 13
+        enabled: false
+      paragraph:
+        weight: 14
+        enabled: false
+      research_details:
+        enabled: true
+        weight: 15
+      section:
+        weight: 16
+        enabled: false
+      table:
+        weight: 17
+        enabled: false
+      youtube:
+        weight: 18
+        enabled: false
+field_type: entity_reference_revisions

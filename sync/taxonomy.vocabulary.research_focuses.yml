@@ -1,0 +1,9 @@
+uuid: b59c4f9f-b85d-4ae5-a6b5-586ca0af6d56
+langcode: en
+status: true
+dependencies: {  }
+name: 'Research focuses'
+vid: research_focuses
+description: ''
+hierarchy: 0
+weight: 0

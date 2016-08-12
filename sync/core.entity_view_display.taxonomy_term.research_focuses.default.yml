@@ -1,0 +1,20 @@
+uuid: 43bda817-9e80-43d5-b127-918c194dda7d
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.research_focuses
+  module:
+    - text
+id: taxonomy_term.research_focuses.default
+targetEntityType: taxonomy_term
+bundle: research_focuses
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

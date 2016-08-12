@@ -1,0 +1,28 @@
+uuid: b4098932-8601-4e8a-93b3-42551ac1ff2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_research_focuses
+    - paragraphs.paragraphs_type.research_details
+    - taxonomy.vocabulary.research_focuses
+id: paragraph.research_details.field_research_focuses
+field_name: field_research_focuses
+entity_type: paragraph
+bundle: research_details
+label: 'Research focuses'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      research_focuses: research_focuses
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
