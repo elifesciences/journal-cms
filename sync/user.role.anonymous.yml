@@ -24,3 +24,4 @@ permissions:
   - 'restful get subjects_item_rest_resource'
   - 'restful get podcast_episodes_list_rest_resource'
   - 'restful get podcast_episodes_item_rest_resource'
+  - 'restful get person_list_rest_resource'
