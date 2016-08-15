@@ -1,0 +1,27 @@
+uuid: 5dd497c4-edc1-410d-b8a1-7c5ce8886c14
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: kaOS4GTcEJrwNANVbpElw-bESD-Y4r_y6NRiZatXi0Y
+id: jcms_people_db
+migration_tags: null
+migration_group: jcms_migrate
+label: 'Legacy person profiles'
+source:
+  plugin: jcms_person_node
+process:
+  type:
+    plugin: default_value
+    default_value: person
+  title: preferred_name
+  nid: nid
+  uid:
+    plugin: default_value
+    default_value: 1
+  field_person_index_name: index_name
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - jcms_subjects_json

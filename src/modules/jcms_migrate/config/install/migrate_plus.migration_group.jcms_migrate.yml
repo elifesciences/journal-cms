@@ -3,4 +3,4 @@ label: Jounral CMS migration
 source_type: Json
 shared_configuration:
   source:
-    key: default
+    key: legacy_cms

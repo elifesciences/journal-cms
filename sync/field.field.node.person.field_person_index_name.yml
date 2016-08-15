@@ -10,7 +10,7 @@ field_name: field_person_index_name
 entity_type: node
 bundle: person
 label: 'Index name'
-description: "This is the name that should be used for indexing people.\r\n\r\nFor example:\r\n  - Schekman, Randy\r\n  - VijayRaghavan, Krishnaswamy\r\n  - Wenhui Li"
+description: "This is the name that should be used for indexing people.\r\n\r\nFor example:\r\n<ul>\r\n  <li>Schekman, Randy</li>\r\n  <li>VijayRaghavan, Krishnaswamy</li>\r\n  <li>Wenhui Li</li>\r\n</ul>"
 required: true
 translatable: false
 default_value: {  }

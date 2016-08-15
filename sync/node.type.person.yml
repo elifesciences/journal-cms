@@ -11,7 +11,7 @@ third_party_settings:
 name: Person
 type: person
 description: ''
-help: "Preferred name is generally the name that is used by the person for English-language publications.\r\nFor example:\r\n  - Randy Schekman\r\n  - K. VijayRaghavan\r\n  - Wenhui Li"
+help: "Preferred name is generally the name that is used by the person for English-language publications.\r\nFor example:\r\n<ul>\r\n  <li>Randy Schekman</li>\r\n  <li>K. VijayRaghavan</li>\r\n  <li>Wenhui Li</li>\r\n</ul>"
 new_revision: false
 preview_mode: 0
 display_submitted: false
