@@ -71,4 +71,5 @@ content:
     type: entity_reference_label
   links:
     weight: 100
-hidden: {  }
+hidden:
+  field_episode_chapters: true

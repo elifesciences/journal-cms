@@ -10,13 +10,40 @@ process:
   type:
     plugin: default_value
     default_value: person
-  title: preferred_name
+  title:
+    plugin: concat
+    source:
+      - name_first
+      - name_last
+    delimiter: " "
   nid: nid
   uid:
     plugin: default_value
     default_value: 1
-  field_person_index_name: index_name
+  created: created
+  field_person_index_name:
+    plugin: concat
+    source:
+      - name_last
+      - name_first
+    delimiter: ", "
+  field_person_type: ptype
+  field_person_orcid: orcid_id
+  field_person_id:
+    -
+      plugin: concat
+      source:
+        - name_initial
+        - name_last
+    -
+      plugin: machine_name
+    -
+      plugin: dedupe_entity
+      entity_type: node
+      field: field_person_id
+      postfix: _
 
 migration_dependencies:
   required:
     - jcms_subjects_json
+    - jcms_research_focuses_db

@@ -1,0 +1,20 @@
+uuid: 128912ac-8071-4f73-8b9c-cb2acc36ca21
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: ueTFP5T9_u53d49ed9DKDNJ3iytJ9egnIgvsBh95_NA
+id: jcms_research_focuses_db
+migration_tags: null
+migration_group: jcms_migrate
+label: 'Legacy research focuses'
+source:
+  plugin: jcms_research_focus_term
+process:
+  vid:
+    plugin: default_value
+    default_value: research_focuses
+  name: name
+destination:
+  plugin: 'entity:taxonomy_term'
+migration_dependencies: {  }

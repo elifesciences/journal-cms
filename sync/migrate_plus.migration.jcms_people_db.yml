@@ -1,9 +1,9 @@
-uuid: 5dd497c4-edc1-410d-b8a1-7c5ce8886c14
+uuid: 405f677f-1785-4d22-8e19-221583b9bcf7
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: kaOS4GTcEJrwNANVbpElw-bESD-Y4r_y6NRiZatXi0Y
+  default_config_hash: 1yCdHueqDx8SP4zsETHOYh4eBG09DYwnxHi7YYaVinc
 id: jcms_people_db
 migration_tags: null
 migration_group: jcms_migrate
@@ -14,14 +14,41 @@ process:
   type:
     plugin: default_value
     default_value: person
-  title: preferred_name
+  title:
+    plugin: concat
+    source:
+      - name_first
+      - name_last
+    delimiter: ' '
   nid: nid
   uid:
     plugin: default_value
     default_value: 1
-  field_person_index_name: index_name
+  created: created
+  field_person_index_name:
+    plugin: concat
+    source:
+      - name_last
+      - name_first
+    delimiter: ', '
+  field_person_type: ptype
+  field_person_orcid: orcid_id
+  field_person_id:
+    -
+      plugin: concat
+      source:
+        - name_initial
+        - name_last
+    -
+      plugin: machine_name
+    -
+      plugin: dedupe_entity
+      entity_type: node
+      field: field_person_id
+      postfix: _
 destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
     - jcms_subjects_json
+    - jcms_research_focuses_db

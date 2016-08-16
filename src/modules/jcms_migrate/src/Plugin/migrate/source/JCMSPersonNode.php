@@ -3,10 +3,9 @@
 namespace Drupal\jcms_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
-use Drupal\migrate\Row;
 
 /**
- * Source plugin for beer content.
+ * Source plugin for perosn content.
  *
  * @MigrateSource(
  *   id = "jcms_person_node"
@@ -19,12 +18,20 @@ class JCMSPersonNode extends SqlBase {
    */
   public function query() {
     $query = $this->select('node', 'n')
-      ->fields('n', ['nid', 'title', 'created'])
-      ->condition('type', 'elife_person_profile');
-    $query->join('field_data_field_elife_pp_last_name', 'lname', 'lname.entity_id = n.nid');
-    $query->join('field_data_field_elife_pp_first_name', 'fname', 'fname.entity_id = n.nid');
-    $query->addExpression("CONCAT(fname.field_elife_pp_first_name_value, ' ', lname.field_elife_pp_last_name_value)", 'preferred_name');
-    $query->addExpression("CONCAT(lname.field_elife_pp_last_name_value, ', ', fname.field_elife_pp_first_name_value)", 'index_name');
+      ->fields('n', ['nid', 'title', 'created', 'status']);
+    $query->innerJoin('field_data_field_elife_pp_last_name', 'lname', 'lname.entity_id = n.nid');
+    $query->innerJoin('field_data_field_elife_pp_first_name', 'fname', 'fname.entity_id = n.nid');
+    // Don't migrate the early careers profiles, for now.
+    $query->innerJoin('field_data_field_elife_pp_type', 'ptype', "ptype.entity_id = n.nid AND field_elife_pp_type_value NOT IN ('early-careers')");
+    $query->leftJoin('field_data_field_elife_pp_orcid', 'orcid', 'orcid.entity_id = n.nid');
+    $query->addExpression("CASE field_elife_pp_type_value WHEN 'deputy-editor' THEN 'leadership' WHEN 'editor-in-chief' THEN 'leadership' WHEN 'staff' THEN 'executive' ELSE field_elife_pp_type_value END", 'ptype');
+    $query->addField('lname', 'field_elife_pp_last_name_value', 'name_last');
+    $query->addExpression('SUBSTRING(TRIM(fname.field_elife_pp_first_name_value), 1, 1)', 'name_initial');
+    $query->addField('fname', 'field_elife_pp_first_name_value', 'name_first');
+    $query->addField('orcid', 'field_elife_pp_orcid_value', 'orcid_id');
+
+    $query->condition('n.type', 'elife_person_profile');
+
     return $query;
   }
 
@@ -33,11 +40,13 @@ class JCMSPersonNode extends SqlBase {
    */
   public function fields() {
     $fields = [
-      'nid' => $this->t('Person ID'),
+      'nid' => $this->t('Legacy ID'),
       'title' => $this->t('Name'),
-      'created' => $this->t('Created date'),
-      'preferred_name' => $this->t('Preferred name'),
-      'index_name' => $this->t('Index name'),
+      'created' => $this->t('Created timestamp'),
+      'status' => $this->t('Published'),
+      'ptype' => $this->t('Profile type'),
+      'orcid_id' => $this->t('ORCID'),
+      'person_id' => $this->t('Person ID'),
     ];
 
     return $fields;
@@ -53,13 +62,6 @@ class JCMSPersonNode extends SqlBase {
         'alias' => 'n',
       ],
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function prepareRow(Row $row) {
-    return parent::prepareRow($row);
   }
 
 }
