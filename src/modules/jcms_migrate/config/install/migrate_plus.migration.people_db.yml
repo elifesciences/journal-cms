@@ -16,7 +16,6 @@ process:
       - name_first
       - name_last
     delimiter: " "
-  nid: nid
   uid:
     plugin: default_value
     default_value: 1
@@ -42,8 +41,15 @@ process:
       entity_type: node
       field: field_person_id
       postfix: _
+  field_research_details:
+    plugin: jcms_research_details
+    source:
+      - expertises
+      - focus_ids
+      - organism_ids
 
 migration_dependencies:
   required:
     - jcms_subjects_json
     - jcms_research_focuses_db
+    - jcms_research_organisms_db
