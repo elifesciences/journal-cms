@@ -1,9 +1,9 @@
-uuid: 2a1071aa-7f06-4664-82ed-459e41b2bed1
+uuid: 92c47c4d-74db-40b2-a86b-9e6ddb71f6e7
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: GSm43u9mNykLpOtBYQtPHjLSHPgTTOl3MUcfOKzCF7U
+  default_config_hash: wMzYdAU_zrsssbiqt3N9kXLNYIn70cKTZ9MaoUWy3tM
 id: jcms_people_db
 migration_tags: null
 migration_group: jcms_migrate
@@ -45,12 +45,23 @@ process:
       entity_type: node
       field: field_person_id
       postfix: _
+  field_person_profile:
+    -
+      plugin: jcms_split_paragraphs
+      source: profile_description
+    -
+      plugin: jcms_content
+      multiple: true
   field_research_details:
     plugin: jcms_research_details
     source:
       - expertises
       - focus_ids
       - organism_ids
+  field_person_competing/value: interest_value
+  field_person_competing/format:
+    plugin: default_value
+    default_value: basic_html
 destination:
   plugin: 'entity:node'
 migration_dependencies:

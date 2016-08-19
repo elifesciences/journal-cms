@@ -21,7 +21,16 @@ class JCMSContent extends ProcessPluginBase {
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     if (!empty($value)) {
-      return $this->processItemValue($value);
+      if (!isset($this->configuration['multiple'])) {
+        return $this->processItemValue($value);
+      }
+      else {
+        $items = [];
+        foreach ($value as $val) {
+          $items[] = $this->processItemValue($val);
+        }
+        return $items;
+      }
     }
 
     return NULL;

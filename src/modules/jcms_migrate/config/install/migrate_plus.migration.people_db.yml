@@ -41,12 +41,23 @@ process:
       entity_type: node
       field: field_person_id
       postfix: _
+  field_person_profile:
+    -
+      plugin: jcms_split_paragraphs
+      source: profile_description
+    -
+      plugin: jcms_content
+      multiple: true
   field_research_details:
     plugin: jcms_research_details
     source:
       - expertises
       - focus_ids
       - organism_ids
+  'field_person_competing/value': interest_value
+  'field_person_competing/format':
+    plugin: default_value
+    default_value: basic_html
 
 migration_dependencies:
   required:
