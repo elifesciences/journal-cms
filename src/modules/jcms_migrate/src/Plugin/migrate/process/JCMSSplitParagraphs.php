@@ -28,9 +28,14 @@ class JCMSSplitParagraphs extends ProcessPluginBase {
       $children = $xpath->query('//body/*');
       $paragraphs = [];
       foreach ($children as $child) {
+        $node_children = $child->childNodes;
+        $innerHTML = '';
+        foreach ($node_children as $node_child) {
+          $innerHTML .= $dom->saveXML($node_child);
+        }
         $paragraphs[] = [
           'type' => 'paragraph',
-          'text' => $dom->saveHTML($child),
+          'text' => $innerHTML,
         ];
       }
       return $paragraphs;
