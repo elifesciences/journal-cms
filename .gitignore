@@ -6,3 +6,4 @@ scripts/legacy_cms.sql.gz
 scripts/legacy_cms_files/
 vendor/
 web/
+build
