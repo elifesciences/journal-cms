@@ -12,14 +12,16 @@ elifePipeline {
     // builderTestArtifact testArtifact, 'journal-cms--ci', '/srv/journal-cms/build/phpunit.xml'
     // elifeVerifyJunitXml testArtifact
 
-    stage 'End2end tests'
-    elifeEnd2EndTest(
-        {
-            builderDeployRevision 'journal-cms--end2end', commit
-        },
-        'two'
-    )
+    elifeMainlineOnly {
+        stage 'End2end tests'
+        elifeEnd2EndTest(
+            {
+                builderDeployRevision 'journal-cms--end2end', commit
+            },
+            'two'
+        )
 
-    stage 'Approval'
-    elifeGitMoveToBranch commit, 'approved'
+        stage 'Approval'
+        elifeGitMoveToBranch commit, 'approved'
+    }
 }
