@@ -17,11 +17,17 @@ elifePipeline {
         elifeEnd2EndTest(
             {
                 builderDeployRevision 'journal-cms--end2end', commit
+                builderSmokeTests 'journal-cms--end2end', '/srv/journal-cms'
             },
             'two'
         )
 
         stage 'Approval'
         elifeGitMoveToBranch commit, 'approved'
+
+        stage 'Not production yet'
+        elifeGitMoveToBranch commit, 'master'
+        //builderDeployRevision 'journal-cms--prod', commit
+        //builderSmokeTests 'journal-cms--prod', '/srv/journal-cms'
     }
 }
