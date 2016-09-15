@@ -31,13 +31,11 @@ script:
   - $TRAVIS_BUILD_DIR/vendor/bin/drush runserver http://127.0.0.1:8080 &
   - sleep 3
   # Skip core/tests/Drupal/Tests/ComposerIntegrationTest.php because web/ has no composer.json
-  - $TRAVIS_BUILD_DIR/vendor/bin/phpunit -c core --testsuite=unit --exclude-group Composer
+#  - $TRAVIS_BUILD_DIR/vendor/bin/phpunit -c core --testsuite=unit --exclude-group Composer
   # Code coverage.
   - cd $TRAVIS_BUILD_DIR
   - mkdir -p $TRAVIS_BUILD_DIR/build/logs
   - $TRAVIS_BUILD_DIR/vendor/bin/phpunit -c $TRAVIS_BUILD_DIR/phpunit.xml.dist
-  # Behat.
-  - $TRAVIS_BUILD_DIR/vendor/bin/behat
 
 after_success:
   - travis_retry $TRAVIS_BUILD_DIR/vendor/bin/coveralls -v
