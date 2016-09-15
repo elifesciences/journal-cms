@@ -1,0 +1,9 @@
+services:
+  serializer.encoder.elife:
+    class: Drupal\jcms_rest\Encoder\JsonEncoder
+    tags:
+      - { name: encoder, priority: 10, format: elife_json }
+  exception.default_json:
+    class: Drupal\jcms_rest\EventSubscriber\ExceptionElifeJsonSubscriber
+    tags:
+      - { name: event_subscriber }
