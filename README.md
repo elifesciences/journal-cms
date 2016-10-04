@@ -8,6 +8,8 @@ Ensure the you have the following installed:
 - Vagrant
 - Ansible
 - Hostupdater (`vagrant plugin install vagrant-hostsupdater`)
+- Composer
+- Puli
 
 ## Instructions
 

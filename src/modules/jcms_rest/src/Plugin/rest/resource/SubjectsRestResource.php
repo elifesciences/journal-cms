@@ -55,6 +55,7 @@ class SubjectsRestResource extends ResourceBase {
       }
     }
     $response = new ResourceResponse($response_data);
+    // @todo - Digirati - jamiehollern - Alter response content type header to include the API version.
     // @todo - elife - nlisgo - Implement caching with options as a cacheable dependency, disable for now.
     $response->addCacheableDependency(NULL);
     //$response->addCacheableDependency($version); // ???

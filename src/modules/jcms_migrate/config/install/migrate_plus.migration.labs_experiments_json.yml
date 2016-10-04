@@ -3,9 +3,9 @@ label: JSON feed of labs experiments
 migration_group: jcms_migrate
 source:
   plugin: url
-  data_fetcher_plugin: http
+  data_fetcher_plugin: file
   data_parser_plugin: json
-  urls: http://journal-cms.dev/modules/custom/jcms_migrate/migration_assets/labs_experiments.json
+  urls: modules/custom/jcms_migrate/migration_assets/labs_experiments.json
   item_selector: 0
   fields:
     -
