@@ -1,18 +1,18 @@
-uuid: 278c9447-009f-43cc-a946-5e472b6d82c2
+uuid: 7aedc607-13a3-4b34-bf8a-aec137671ec2
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: sXAQ_uDQo-ln_BQt2vs_dCaA3xi6DdmTm-dmee7hGl4
+  default_config_hash: 45-bRHUDeMUIVOzF2okEKQQIXyXDviNAP0Zjn9Bmuu8
 id: jcms_labs_experiments_json
 migration_tags: null
 migration_group: jcms_migrate
 label: 'JSON feed of labs experiments'
 source:
   plugin: url
-  data_fetcher_plugin: http
+  data_fetcher_plugin: file
   data_parser_plugin: json
-  urls: 'http://journal-cms.dev/modules/custom/jcms_migrate/migration_assets/labs_experiments.json'
+  urls: modules/custom/jcms_migrate/migration_assets/labs_experiments.json
   item_selector: 0
   fields:
     -

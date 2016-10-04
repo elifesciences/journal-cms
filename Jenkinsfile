@@ -4,13 +4,10 @@ elifePipeline {
     def commit = elifeGitRevision()
 
     stage 'Project tests'
-    // there are no PHPUnit tests to produce an artifact
-    // def testArtifact = "${env.BUILD_TAG}.junit.xml"
-    builderDeployRevision 'journal-cms--ci', commit
-    // only smoke tests will run inside this step:
-    builderProjectTests 'journal-cms--ci', '/srv/journal-cms'
-    // builderTestArtifact testArtifact, 'journal-cms--ci', '/srv/journal-cms/build/phpunit.xml'
-    // elifeVerifyJunitXml testArtifact
+    lock('journal-cms--ci') {
+        builderDeployRevision 'journal-cms--ci', commit
+        builderProjectTests 'journal-cms--ci', '/srv/journal-cms', ['build/phpunit.xml']
+    }
 
     elifeMainlineOnly {
         stage 'End2end tests'

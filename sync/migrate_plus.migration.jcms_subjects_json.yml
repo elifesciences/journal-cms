@@ -1,18 +1,18 @@
-uuid: 3db037b9-6837-40d6-8e21-8644e8a215e5
+uuid: f55added-f3e0-4533-abf6-fcb01cc68ba9
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: u73aBAc8hGRq53N26CIlpkHxTlgnb7TRNfiJd_EpowU
+  default_config_hash: gnIh0oXBidGxVdNtvwjeJbfZbruq13oYoul2hMQxu44
 id: jcms_subjects_json
 migration_tags: null
 migration_group: jcms_migrate
 label: 'JSON feed of subjects'
 source:
   plugin: url
-  data_fetcher_plugin: http
+  data_fetcher_plugin: file
   data_parser_plugin: json
-  urls: 'http://journal-cms.dev/modules/custom/jcms_migrate/migration_assets/subjects.json'
+  urls: modules/custom/jcms_migrate/migration_assets/subjects.json
   item_selector: 0
   fields:
     -
