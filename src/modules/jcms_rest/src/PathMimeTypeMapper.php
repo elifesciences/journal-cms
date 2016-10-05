@@ -25,6 +25,8 @@ class PathMimeTypeMapper {
       '/podcast-episodes/{number}' => 'application/vnd.elife.podcast-episode+json',
       '/subjects' => 'application/vnd.elife.subject-list+json',
       '/subjects/{id}' => 'application/vnd.elife.subject+json',
+      '/blog-articles' => 'application/vnd.elife.blog-article-list+json',
+      '/blog-articles/{id}' => 'application/vnd.elife.blog-article+json',
     ];
     return $map;
   }

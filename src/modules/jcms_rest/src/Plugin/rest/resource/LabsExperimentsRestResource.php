@@ -48,7 +48,7 @@ class LabsExperimentsRestResource extends ResourceBase {
       $response_data['total'] = (int) $total;
       $request_options = $this->getRequestOptions();
       $items_query->range(($request_options['page'] - 1) * $request_options['per-page'], $request_options['per-page']);
-      $items_query->sort('field_experiment_number.value', $request_options['order']);
+      $items_query->sort('created', $request_options['order']);
       $nids = $items_query->execute();
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {

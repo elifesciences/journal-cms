@@ -1,5 +1,5 @@
 id: jcms_podcast_episodes_json
-label: JSON feed of labs experiments
+label: JSON feed of podcast episodes
 migration_group: jcms_migrate
 source:
   plugin: url

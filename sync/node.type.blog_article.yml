@@ -1,0 +1,17 @@
+uuid: fd55e490-048e-402f-80b8-f94160e51629
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Blog article'
+type: blog_article
+description: ''
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false
