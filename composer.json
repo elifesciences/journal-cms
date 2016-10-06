@@ -99,6 +99,9 @@
       ]
     },
     "patches": {
+      "drupal/config_installer": {
+        "array_diff warning during profile installation": "https://www.drupal.org/files/issues/config_installer-array-warning-2760923-2.patch"
+      },
       "drupal/unique_field": {
         "PHP Warning: Invalid argument supplied for foreach() in unique_field.module": "https://www.drupal.org/files/issues/php_warning_invalid-2721645-2.patch"
       },
