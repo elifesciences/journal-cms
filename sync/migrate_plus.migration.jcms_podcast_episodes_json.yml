@@ -1,18 +1,18 @@
-uuid: 9c71b600-9fb0-4375-a8fa-d9a2b9029d10
+uuid: 9613fb25-5e1c-4e9c-a5fc-1967aec91d35
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: 8J6V8YFmct0dnpflNbyBYcWS0RCnHDLGa63au8Kqxd4
+  default_config_hash: 3cVgfoQegALfyWNNyhirUYmo0KCu-Umj4Esh53756Lo
 id: jcms_podcast_episodes_json
 migration_tags: null
 migration_group: jcms_migrate
 label: 'JSON feed of labs experiments'
 source:
   plugin: url
-  data_fetcher_plugin: http
+  data_fetcher_plugin: file
   data_parser_plugin: json
-  urls: 'http://journal-cms.dev/modules/custom/jcms_migrate/migration_assets/podcast_episodes.json'
+  urls: modules/custom/jcms_migrate/migration_assets/podcast_episodes.json
   item_selector: 0
   fields:
     -

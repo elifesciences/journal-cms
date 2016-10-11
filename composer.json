@@ -40,7 +40,8 @@
     "drupal/migrate_upgrade": "~8.2.0-beta1",
     "drupal/restui": "^8.1",
     "drupal/ctools": "8.3.0-alpha26",
-    "drupal/services": "8.4.0-alpha3"
+    "drupal/services": "8.4.0-alpha3",
+    "puli/composer-plugin": "dev-master"
   },
   "require-dev": {
     "drupal/drupal-extension": "~3.0",
@@ -55,11 +56,10 @@
     "satooshi/php-coveralls": "^1.0",
     "phpunit/phpcov": "2.*",
     "bossa/phpspec2-expect": "~1.0",
-    "puli/cli": "^1.0",
     "elife/api": "dev-master",
     "elife/api-validator": "dev-master"
   },
-  "minimum-stability": "beta",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "conflict": {
     "drupal/drupal": "*"
@@ -70,7 +70,7 @@
     ]
   },
   "scripts": {
-    "clean-up": "chmod -R 755 web/ && rm -rf config/local.settings.php web/ vendor/",
+    "clean-up": "chmod -R 755 web/ && rm -rf config/local.settings.php config/journal-cms.{key,crt} web/ vendor/",
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "post-install-cmd": [
       "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",

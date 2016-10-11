@@ -414,38 +414,12 @@
             "install-path": "vendor/psy/psysh",
             "installer": "composer"
         },
-        "puli/cli": {
-            "install-path": "vendor/puli/cli",
-            "installer": "composer",
-            "env": "dev"
-        },
         "puli/composer-plugin": {
             "install-path": "vendor/puli/composer-plugin",
-            "installer": "composer",
-            "env": "dev"
-        },
-        "puli/discovery": {
-            "install-path": "vendor/puli/discovery",
-            "installer": "composer",
-            "env": "dev"
-        },
-        "puli/manager": {
-            "install-path": "vendor/puli/manager",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "puli/repository": {
             "install-path": "vendor/puli/repository",
-            "installer": "composer",
-            "env": "dev"
-        },
-        "puli/url-generator": {
-            "install-path": "vendor/puli/url-generator",
-            "installer": "composer",
-            "env": "dev"
-        },
-        "ramsey/uuid": {
-            "install-path": "vendor/ramsey/uuid",
             "installer": "composer",
             "env": "dev"
         },
@@ -632,18 +606,7 @@
         },
         "webmozart/assert": {
             "install-path": "vendor/webmozart/assert",
-            "installer": "composer",
-            "env": "dev"
-        },
-        "webmozart/console": {
-            "install-path": "vendor/webmozart/console",
-            "installer": "composer",
-            "env": "dev"
-        },
-        "webmozart/expression": {
-            "install-path": "vendor/webmozart/expression",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "webmozart/glob": {
             "install-path": "vendor/webmozart/glob",
@@ -657,8 +620,7 @@
         },
         "webmozart/path-util": {
             "install-path": "vendor/webmozart/path-util",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "zendframework/zend-diactoros": {
             "install-path": "vendor/zendframework/zend-diactoros",

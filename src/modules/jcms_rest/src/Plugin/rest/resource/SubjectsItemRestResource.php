@@ -42,7 +42,7 @@ class SubjectsItemRestResource extends ResourceBase {
 
       $response = [
         'id' => $id,
-        'title' => $term->toLink()->getText(),
+        'name' => $term->toLink()->getText(),
         'image' => [
           'alt' => $term->get('field_image')->first()->getValue()['alt'],
           'sizes' => [
