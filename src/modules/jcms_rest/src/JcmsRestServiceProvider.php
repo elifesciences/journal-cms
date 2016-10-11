@@ -15,7 +15,7 @@ class JcmsRestServiceProvider implements ServiceModifierInterface {
    */
   public function alter(ContainerBuilder $container) {
     if ($container->has('http_middleware.negotiation') && is_a($container->getDefinition('http_middleware.negotiation')->getClass(), '\Drupal\Core\StackMiddleware\NegotiationMiddleware', TRUE)) {
-      $container->getDefinition('http_middleware.negotiation')->addMethodCall('registerFormat', ['jcms_json', ['application/vnd.elife.annual-report-list+json']]);
+      $container->getDefinition('http_middleware.negotiation')->addMethodCall('registerFormat', ['jcms_json', ['application/vnd.elife.subject+json;version=1']]);
     }
   }
 

@@ -14,13 +14,13 @@ resources:
   subjects_list_rest_resource:
     GET:
       supported_formats:
-        - json
+        - jcms_json
       supported_auth:
         - basic_auth
   subjects_item_rest_resource:
     GET:
       supported_formats:
-        - json
+        - jcms_json
       supported_auth:
         - basic_auth
   podcast_episodes_list_rest_resource:
