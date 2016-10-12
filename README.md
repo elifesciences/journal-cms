@@ -9,13 +9,12 @@ Ensure the you have the following installed:
 - Ansible
 - Hostupdater (`vagrant plugin install vagrant-hostsupdater`)
 - Composer
-- Puli
 
 ## Instructions
 
 ```
-$ composer install
+$ COMPOSER=composer-setup.json composer install
 $ vagrant up
 ```
 
-Once it is setup, visit `http://journal-cms.dev`.
+Once it is setup, visit `http://journal-cms.local`.

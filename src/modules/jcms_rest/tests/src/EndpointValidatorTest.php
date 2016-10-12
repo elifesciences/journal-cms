@@ -40,6 +40,7 @@ class EndpointValidatorTest extends UnitTestCase {
     // Setup Puli.
     $this->resourceRepository = (new GeneratedPuliFactory)->createRepository();
     $this->client = new Client([
+      // @todo - elife - nlisgo - We should be able to make this request contextually.
       'base_uri' => 'http://127.0.0.1:8080/',
       'http_errors' => FALSE,
     ]);

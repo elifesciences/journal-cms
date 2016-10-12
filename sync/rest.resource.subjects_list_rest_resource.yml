@@ -1,0 +1,16 @@
+uuid: d4d9ef2e-c949-4448-98df-ab530d51671b
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - jcms_rest
+id: subjects_list_rest_resource
+plugin_id: subjects_list_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - jcms_json
+    supported_auth:
+      - basic_auth

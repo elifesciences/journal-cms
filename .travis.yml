@@ -1,39 +1,34 @@
 language: php
+
 php:
   - 7.0
 
-sudo: false
-
-env:
-  global:
-    - SIMPLETEST_DB=mysql://root:@localhost/journal_cms
-    - SIMPLETEST_BASE_URL="http://127.0.0.1:8080"
-
-services:
-  - mysql
+mysql:
+  database: journal_cms
+  username: root
+  encoding: utf8
 
 before_install:
   - curl https://puli.io/installer | php
   - echo 'sendmail_path = /bin/true' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - composer --verbose self-update
-  - composer --version
 
 install:
-  - mysql --execute='CREATE DATABASE journal_cms;'
-  # We require coveralls like this as it won't work straight from composer.json.
-  - composer require satooshi/php-coveralls
   - composer --verbose install
-  - composer drupal-scaffold
 
-script:
+before_script:
   - cp $TRAVIS_BUILD_DIR/config/travis.settings.php $TRAVIS_BUILD_DIR/config/local.settings.php
   - cd $TRAVIS_BUILD_DIR/web
   - $TRAVIS_BUILD_DIR/vendor/bin/drush site-install config_installer --account-name=admin --account-pass=admin --site-name="Journal CMS" --yes
+
   # Start web server.
   - $TRAVIS_BUILD_DIR/vendor/bin/drush runserver http://127.0.0.1:8080 &
   - sleep 3
+
   # Migrate subjects.
   - $TRAVIS_BUILD_DIR/vendor/bin/drush mi jcms_subjects_json
+
+script:
   # Code coverage.
   - cd $TRAVIS_BUILD_DIR
   - mkdir -p $TRAVIS_BUILD_DIR/build/logs

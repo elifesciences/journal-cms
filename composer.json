@@ -21,7 +21,7 @@
     "composer/installers": "^1.0.20",
     "drupal-composer/drupal-scaffold": "^2.0.1",
     "cweagans/composer-patches": "~1.0",
-    "drupal/core": "~8.0",
+    "drupal/core": "^8.2",
     "drush/drush": "~8.0",
     "drupal/console": "~1.0",
     "drupal/admin_toolbar": "~8.1.0",
@@ -37,11 +37,16 @@
     "drupal/migrate_plus": "8.2.x-dev",
     "drupal/migrate_tools": "~8.2.0@dev",
     "drupal/migrate_manifest": "^8.1",
-    "drupal/migrate_upgrade": "~8.2.0-beta1",
-    "drupal/restui": "^8.1",
+    "drupal/restui": "8.1.x-dev",
     "drupal/ctools": "8.3.0-alpha26",
     "drupal/services": "8.4.0-alpha3",
-    "puli/composer-plugin": "dev-master"
+    "puli/cli": "1.0.x-dev",
+    "puli/composer-plugin": "dev-master",
+    "symfony-cmf/routing": "^1.4",
+    "satooshi/php-coveralls": "^1.0",
+    "puli/manager": "1.0.x-dev",
+    "webmozart/json": "^1.3@dev",
+    "justinrainbow/json-schema": "^2.0"
   },
   "require-dev": {
     "drupal/drupal-extension": "~3.0",
@@ -53,7 +58,6 @@
     "drupal/devel": "8.1.x-dev",
     "symfony/css-selector": "~2.8",
     "mockery/mockery": "~0.9",
-    "satooshi/php-coveralls": "^1.0",
     "phpunit/phpcov": "2.*",
     "bossa/phpspec2-expect": "~1.0",
     "elife/api": "dev-master",
@@ -70,7 +74,7 @@
     ]
   },
   "scripts": {
-    "clean-up": "chmod -R 755 web/ && rm -rf config/local.settings.php config/journal-cms.{key,crt} web/ vendor/",
+    "clean-up": "chmod -R 755 web/ && rm -rf config/local.settings.php web/ vendor/",
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "post-install-cmd": [
       "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
@@ -107,6 +111,9 @@
       },
       "drupal/core": {
         "CommandLineOrUnsafeMethodTest::testHttpMethod failures": "https://www.drupal.org/files/issues/options_trace_error-2776367-3.patch"
+      },
+      "drupal/restui" : {
+        "Handle core 8.2.x changing REST configuration to use configuration entities": "https://www.drupal.org/files/issues/handle_core_8_2_x-2758563-12.patch"
       }
     }
   }

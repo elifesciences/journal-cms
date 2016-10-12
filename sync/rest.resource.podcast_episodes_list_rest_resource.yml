@@ -1,0 +1,17 @@
+uuid: 44b7efb0-4a2b-4917-83ba-b3e7662812f2
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - jcms_rest
+    - serialization
+id: podcast_episodes_list_rest_resource
+plugin_id: podcast_episodes_list_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - basic_auth

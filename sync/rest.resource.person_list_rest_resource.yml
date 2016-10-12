@@ -1,0 +1,17 @@
+uuid: cddcacdb-16d0-41fa-bad5-64a054fa0163
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - jcms_rest
+    - serialization
+id: person_list_rest_resource
+plugin_id: person_list_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - basic_auth
