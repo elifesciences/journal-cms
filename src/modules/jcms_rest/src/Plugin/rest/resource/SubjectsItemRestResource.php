@@ -5,6 +5,7 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -78,11 +79,8 @@ class SubjectsItemRestResource extends ResourceBase {
         $response['impactStatement'] = $term->get('field_impact_statement')->first()->getValue()['value'];
       }
 
-      $resource_response = new ResourceResponse($response, $status);
-      // @todo - elife - nlisgo - Implement caching with options as a cacheable dependency, disable for now.
-      $resource_response->addCacheableDependency(NULL);
-
-      return $resource_response;
+      $response = new JsonResponse($response, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.subject+json;version=1']);
+      return $response;
     }
 
     throw new NotFoundHttpException(t('Subject with ID @id was not found', ['@id' => $id]));
