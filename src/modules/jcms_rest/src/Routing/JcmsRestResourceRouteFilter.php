@@ -35,7 +35,7 @@ class JcmsRestResourceRouteFilter implements RouteFilterInterface {
    * {@inheritdoc}
    */
   public function applies(Route $route) {
-    return $route->hasRequirement('_format');
+    return $this->pathMimeTypeMapper->getMimeTypeByPath($route->getPath());
   }
 
   /**
