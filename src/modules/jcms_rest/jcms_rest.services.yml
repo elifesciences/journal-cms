@@ -1,9 +1,21 @@
 services:
-  serializer.encoder.jcms_rest:
+  jcms_rest.serializer.encoder:
     class: Drupal\jcms_rest\Encoder\JsonEncoder
     tags:
       - { name: encoder, priority: 10, format: jcms_json }
-  exception.default_json.jcms_rest:
+  jcms_rest.exception.default_json:
     class: Drupal\jcms_rest\EventSubscriber\ExceptionJcmsJsonSubscriber
     tags:
       - { name: event_subscriber }
+  jcms_rest.route_subscriber:
+    class: Drupal\jcms_rest\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+  jcms_rest.request_format_route_filter:
+    class: Drupal\jcms_rest\Routing\JcmsRestResourceRouteFilter
+    arguments: ["@jcms_rest.path_mime_type_mapper"]
+    tags:
+      - { name: route_filter }
+  jcms_rest.path_mime_type_mapper:
+    class: Drupal\jcms_rest\PathMimeTypeMapper
+

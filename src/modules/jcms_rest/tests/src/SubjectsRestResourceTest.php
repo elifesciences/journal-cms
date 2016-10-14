@@ -147,13 +147,10 @@ class SubjectsRestResourceTest extends UnitTestCase {
     // Run the method.
     $response = $this->resource->get();
     // Test we have the correct response.
-    $this->assertInstanceOf('Drupal\rest\ResourceResponse', $response);
+    $this->assertInstanceOf('Symfony\Component\HttpFoundation\JsonResponse', $response);
     // Don't just test the response, test the data.
-    $actual = $response->getResponseData();
-    $expected = [
-      'total' => 0,
-      'items' => [],
-    ];
+    $actual = $response->getContent();
+    $expected = '{"total":0,"items":[]}';
     $this->assertEquals($expected, $actual);
   }
 
@@ -182,36 +179,10 @@ class SubjectsRestResourceTest extends UnitTestCase {
     // MAke the call.
     $response = $this->resource->get();
     // Test we have the correct response.
-    $this->assertInstanceOf('Drupal\rest\ResourceResponse', $response);
+    $this->assertInstanceOf('Symfony\Component\HttpFoundation\JsonResponse', $response);
     // Don't just test the response, test the data.
-    $actual = $response->getResponseData();
-    $expected = [
-      'total' => 1,
-      'items' => [
-        [
-          'id' => '15',
-          'name' => 'Biochemistry',
-          'image' => [
-            'alt' => 'Biochemistry alt',
-            'sizes' => [
-              '2:1' => [
-                900 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-                1800 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-              ],
-              '16:9' => [
-                250 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-                500 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-              ],
-              '1:1' => [
-                70 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-                140 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-              ],
-            ],
-          ],
-          'impactStatement' => 'Biochemistry impact statement',
-        ],
-      ],
-    ];
+    $actual = $response->getContent();
+    $expected = '{"total":1,"items":[{"id":"15","name":"Biochemistry","image":{"alt":"Biochemistry alt","sizes":{"2:1":{"900":"\u0022http:\/\/journal-cms.local\/sites\/default\/files\/styles\/crop_2x1_1800x900\/public\/plant-biology.png?itok=c-fmlMss","1800":"\u0022http:\/\/journal-cms.local\/sites\/default\/files\/styles\/crop_2x1_1800x900\/public\/plant-biology.png?itok=c-fmlMss"},"16:9":{"250":"\u0022http:\/\/journal-cms.local\/sites\/default\/files\/styles\/crop_2x1_1800x900\/public\/plant-biology.png?itok=c-fmlMss","500":"\u0022http:\/\/journal-cms.local\/sites\/default\/files\/styles\/crop_2x1_1800x900\/public\/plant-biology.png?itok=c-fmlMss"},"1:1":{"70":"\u0022http:\/\/journal-cms.local\/sites\/default\/files\/styles\/crop_2x1_1800x900\/public\/plant-biology.png?itok=c-fmlMss","140":"\u0022http:\/\/journal-cms.local\/sites\/default\/files\/styles\/crop_2x1_1800x900\/public\/plant-biology.png?itok=c-fmlMss"}}},"impactStatement":"Biochemistry impact statement"}]}';
     $this->assertEquals($expected, $actual);
   }
 

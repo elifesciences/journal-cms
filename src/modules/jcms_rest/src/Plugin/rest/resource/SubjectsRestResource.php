@@ -7,6 +7,8 @@ use Drupal\rest\Plugin\ResourceBase;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\rest\ResourceResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Provides a resource to get view modes by entity and bundle.
@@ -54,11 +56,7 @@ class SubjectsRestResource extends ResourceBase {
         }
       }
     }
-    $response = new ResourceResponse($response_data);
-    // @todo - Digirati - jamiehollern - Alter response content type header to include the API version.
-    // @todo - elife - nlisgo - Implement caching with options as a cacheable dependency, disable for now.
-    $response->addCacheableDependency(NULL);
-    //$response->addCacheableDependency($version); // ???
+    $response = new JsonResponse($response_data, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.subject-list+json;version=1']);
     return $response;
   }
 

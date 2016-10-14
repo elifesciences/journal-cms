@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\Tests\jcms_rest\Unit;
 
 use Drupal\Tests\UnitTestCase;
@@ -9,14 +10,12 @@ use eLife\ApiValidator\MessageValidator\JsonMessageValidator;
 use eLife\ApiValidator\SchemaFinder\PuliSchemaFinder;
 use Webmozart\Json\JsonDecoder;
 use \Puli\GeneratedPuliFactory;
-use Puli\Repository\Api\ResourceRepository;
 
 /**
  * Class SubjectsRestResourceTest
  *
  * @package Drupal\Tests\jcms_rest\Unit
  * @todo    Figure out an elegant way to fix the Puli issue described below.
- * @todo    Make this a data provider for an array of endpoints.
  * @see     https://github.com/puli/composer-plugin/pull/46#issuecomment-239702638
  */
 class EndpointValidatorTest extends UnitTestCase {
@@ -46,15 +45,39 @@ class EndpointValidatorTest extends UnitTestCase {
     ]);
   }
 
-  public function tearDown() {
+  /**
+   * Data provider for the validator test.
+   *
+   * @return array
+   */
+  public function dataProvider() : array {
+    return [
+      [
+        'GET',
+        '/subjects/plant-biology',
+        ' application/vnd.elife.subject+json;version=1',
+      ],
+      [
+        'GET',
+        '/subjects',
+        ' application/vnd.elife.subject-list+json;version=1',
+      ],
+    ];
   }
 
   /**
    * @test
+   * @dataProvider dataProvider
+   * @param string $method
+   *   The HTTP method/verb to be used.
+   * @param string $endpoint
+   *   The endpoint/URI to test.
+   * @param string $mime_type
+   *   The accept header mime type to send.
    */
-  public function testSubjectsItemEndpoint() {
-    $request = new Request('GET', '/subjects/plant-biology', [
-      'Accept' => 'application/vnd.elife.subject+json;version=1',
+  public function testValidateEndpointsAgainstRaml(string $method, string $endpoint, string $mime_type) {
+    $request = new Request($method, $endpoint, [
+      'Accept' => $mime_type,
     ]);
     $response = $this->client->send($request);
     $json_decoder = new JsonDecoder();

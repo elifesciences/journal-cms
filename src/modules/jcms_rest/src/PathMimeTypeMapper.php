@@ -1,0 +1,95 @@
+<?php
+
+namespace Drupal\jcms_rest;
+
+/**
+ * Class PathMimeTypeMapper.
+ *
+ * @package Drupal\jcms_rest
+ */
+class PathMimeTypeMapper {
+
+  /**
+   * An array of mime types, keyed by their appropriate paths.
+   *
+   * @return array
+   *   An array of mime types.
+   */
+  protected function getMappings() : array {
+    $map = [
+      '/labs-experiments' => 'application/vnd.elife.labs-experiment-list+json',
+      '/labs-experiments/{number}' => 'application/vnd.elife.labs-experiment+json',
+      '/people' => 'application/vnd.elife.person-list+json',
+      '/people/{id}' => 'application/vnd.elife.person+json',
+      '/podcast-episodes' => 'application/vnd.elife.podcast-episode-list+json',
+      '/podcast-episodes/{number}' => 'application/vnd.elife.podcast-episode+json',
+      '/subjects' => 'application/vnd.elife.subject-list+json',
+      '/subjects/{id}' => 'application/vnd.elife.subject+json',
+    ];
+    return $map;
+  }
+
+  /**
+   * Takes a path and returns the appropriate mime type if it exists.
+   *
+   * @param string $path
+   *   A path/URI such as /subjects.
+   *
+   * @return string
+   *   A mime type or an empty string if no matching mime type is found.
+   */
+  public function getMimeTypeByPath(string $path) : string {
+    // Trim any trailing slashes from the path.
+    $path = rtrim($path, '/');
+    $mappings = $this->getMappings();
+    if (array_key_exists($path, $mappings)) {
+      return $mappings[$path];
+    }
+    else {
+      foreach ($mappings as $map_path => $mime_type) {
+        $match = $this->matchPathWithPlaceholders($path, $map_path);
+        if (!empty($match) && $match == $path) {
+          return $mime_type;
+        }
+      }
+    }
+    return '';
+  }
+
+  /**
+   * Takes the current path and a path with placeholders and generates a path.
+   *
+   * @param string $path
+   *   A path/URI such as /subjects.
+   * @param string $map_path
+   *   A path with placeholders such as /subjects/{id}.
+   *
+   * @return string
+   *   A generated path from the placeholder string, or an empty string.
+   */
+  protected function matchPathWithPlaceholders(string $path, string $map_path) : string {
+    $generated_path = '';
+    // Parse the map path into a regex and build a list of placeholders.
+    $placeholders = [];
+    $regex = preg_replace_callback('#/({[a-z]+})(?=/|$)#', function ($x) use (&$placeholders) {
+      $placeholders[] = $x[1];
+      return '/([^/]+)';
+    }, $map_path);
+    // If this path doesn't have placeholders.
+    if ($map_path == $regex) {
+      return $generated_path;
+    }
+    // Check the path against the regex and populate variables if it matches.
+    $values = [];
+    if (preg_match("#^$regex$#", $path, $matches)) {
+      foreach ($placeholders as $id => $placeholder) {
+        $values[$placeholder] = $matches[$id + 1];
+      }
+      // Replace the placeholders with %s then replace those with the values.
+      $map_path = preg_replace("#{[a-z]+}#", '%s', $map_path);
+      $generated_path = vsprintf($map_path, $values);
+    }
+    return $generated_path;
+  }
+
+}
