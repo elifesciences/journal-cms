@@ -4,7 +4,7 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\image\Entity\ImageStyle;
 use Drupal\rest\Plugin\ResourceBase;
-use Drupal\rest\ResourceResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -34,7 +34,6 @@ class LabsExperimentsItemRestResource extends ResourceBase {
       ->condition('changed', REQUEST_TIME, '<')
       ->condition('type', 'labs_experiment')
       ->condition('field_experiment_number.value', $number);
-    $status = Response::HTTP_OK;
 
     $nids = $query->execute();
     if ($nids) {
@@ -43,7 +42,7 @@ class LabsExperimentsItemRestResource extends ResourceBase {
       $node = \Drupal\node\Entity\Node::load($nid);
 
       $response = [
-        'number' => $number,
+        'number' => (int) $number,
         'title' => $node->getTitle(),
         'published' => \Drupal::service('date.formatter')->format($node->getCreatedTime(), 'html_datetime'),
         'image' => [
@@ -102,7 +101,7 @@ class LabsExperimentsItemRestResource extends ResourceBase {
               $result_item['alt'] = $image->getValue()['alt'];
               $result_item['uri'] = file_create_url($image->get('entity')->getTarget()->get('uri')->first()->getValue()['value']);
               if ($content_item->get('field_block_text')->count()) {
-                $result_item['caption'] = $content_item->get('field_block_text')->first()->getValue()['value'];
+                $result_item['title'] = $content_item->get('field_block_text')->first()->getValue()['value'];
               }
               break;
             case 'blockquote':
@@ -117,7 +116,7 @@ class LabsExperimentsItemRestResource extends ResourceBase {
               $result_item['height'] = (int) $content_item->get('field_block_youtube_height')->first()->getValue()['value'];
               break;
             case 'table':
-              $result_item['html'] = $content_item->get('field_block_html')->first()->getValue()['value'];
+              $result_item['tables'] = [$content_item->get('field_block_html')->first()->getValue()['value']];
               break;
             case 'list':
               $result_item['ordered'] = $content_item->get('field_block_list_ordered')->first()->getValue()['value'] ? TRUE : FALSE;
@@ -138,11 +137,8 @@ class LabsExperimentsItemRestResource extends ResourceBase {
         $response['content'] = $content;
       }
 
-      $resource_response = new ResourceResponse($response, $status);
-      // @todo - elife - nlisgo - Implement caching with options as a cacheable dependency, disable for now.
-      $resource_response->addCacheableDependency(NULL);
-
-      return $resource_response;
+      $response = new JsonResponse($response, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.labs-experiment+json;version=1']);
+      return $response;
     }
 
     throw new NotFoundHttpException(t('Lab experiment with ID @id was not found', ['@id' => $number]));

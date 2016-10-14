@@ -33,7 +33,6 @@ class SubjectsItemRestResource extends ResourceBase {
     $query = \Drupal::entityQuery('taxonomy_term')
       ->condition('vid', 'subjects')
       ->condition('field_subject_id.value', $id);
-    $status = Response::HTTP_OK;
 
     $tids = $query->execute();
     if ($tids) {

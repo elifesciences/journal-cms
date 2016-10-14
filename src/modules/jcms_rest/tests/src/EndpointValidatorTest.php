@@ -54,12 +54,22 @@ class EndpointValidatorTest extends UnitTestCase {
       [
         'GET',
         '/subjects/plant-biology',
-        ' application/vnd.elife.subject+json;version=1',
+        'application/vnd.elife.subject+json;version=1',
       ],
       [
         'GET',
         '/subjects',
-        ' application/vnd.elife.subject-list+json;version=1',
+        'application/vnd.elife.subject-list+json;version=1',
+      ],
+      [
+        'GET',
+        '/labs-experiments/3',
+        'application/vnd.elife.labs-experiment+json;version=1',
+      ],
+      [
+        'GET',
+        '/labs-experiments',
+        'application/vnd.elife.labs-experiment-list+json;version=1',
       ],
     ];
   }
