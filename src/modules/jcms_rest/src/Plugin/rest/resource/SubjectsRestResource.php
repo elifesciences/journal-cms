@@ -6,7 +6,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\rest\ResourceResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -78,11 +77,12 @@ class SubjectsRestResource extends ResourceBase {
   /**
    * Takes a taxonomy term and builds an item from it.
    *
-   * @param \Drupal\taxonomy\Entity\Term $term
+   * @param \Drupal\Core\Entity\EntityInterface $term
    *
    * @return array
    */
   public function getItem(EntityInterface $term) {
+    /* @var Term $term */
     $item = [
       'id' => $term->get('field_subject_id')->first()->getValue()['value'],
       'name' => $term->toLink()->getText(),

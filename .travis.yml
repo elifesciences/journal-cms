@@ -40,6 +40,8 @@ before_script:
 
   # Migrate subjects.
   - $TRAVIS_BUILD_DIR/vendor/bin/drush mi jcms_subjects_json
+  # Migrate labs.
+  - $TRAVIS_BUILD_DIR/vendor/bin/drush mi jcms_labs_experiments_json
 
 script:
   # Code coverage.
