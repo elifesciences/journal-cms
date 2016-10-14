@@ -23,5 +23,5 @@ $databases['legacy_cms']['default'] = [
 ];
 
 $settings['trusted_host_patterns'] = [
-  '^journal\-cms\.dev$',
+  '^journal\-cms\.local$',
 ];

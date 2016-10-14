@@ -124,7 +124,7 @@ class SubjectsRestResourceTest extends UnitTestCase {
     $this->entityManager->shouldReceive('getStorage')->andReturnSelf();
     $this->entityManager->shouldReceive('load')->andReturnSelf();
     $this->entityManager->shouldReceive('buildUrl')
-      ->andReturn('"http://journal-cms.dev/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss');
+      ->andReturn('"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss');
     // Impact statement.
     $term->shouldReceive('count')->once()->andReturn(1);
     $term->shouldReceive('getValue')
@@ -135,7 +135,7 @@ class SubjectsRestResourceTest extends UnitTestCase {
 
   /**
    * @test
-   * @covers Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::get
+   * @covers \Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::get
    * @group  journal-cms-tests
    */
   public function testGetNoSubjects() {
@@ -159,8 +159,8 @@ class SubjectsRestResourceTest extends UnitTestCase {
 
   /**
    * @test
-   * @covers Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::get
-   * @covers Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::getRequestOptions
+   * @covers \Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::get
+   * @covers \Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::getRequestOptions
    * @group  journal-cms-tests
    */
   public function testGetHasSubjectsDefaultOptions() {
@@ -195,16 +195,16 @@ class SubjectsRestResourceTest extends UnitTestCase {
             'alt' => 'Biochemistry alt',
             'sizes' => [
               '2:1' => [
-                900 => '"http://journal-cms.dev/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-                1800 => '"http://journal-cms.dev/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
+                900 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
+                1800 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
               ],
               '16:9' => [
-                250 => '"http://journal-cms.dev/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-                500 => '"http://journal-cms.dev/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
+                250 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
+                500 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
               ],
               '1:1' => [
-                70 => '"http://journal-cms.dev/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-                140 => '"http://journal-cms.dev/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
+                70 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
+                140 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
               ],
             ],
           ],
@@ -217,7 +217,7 @@ class SubjectsRestResourceTest extends UnitTestCase {
 
   /**
    * @test
-   * @covers Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::getRequestOptions
+   * @covers \Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::getRequestOptions
    * @group  journal-cms-tests
    */
   public function testGetRequestOptionsDefault() {
@@ -235,7 +235,7 @@ class SubjectsRestResourceTest extends UnitTestCase {
 
   /**
    * @test
-   * @covers Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::getRequestOptions
+   * @covers \Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::getRequestOptions
    * @group  journal-cms-tests
    */
   public function testGetRequestOptionsDefaultModified() {
@@ -258,7 +258,7 @@ class SubjectsRestResourceTest extends UnitTestCase {
 
   /**
    * @test
-   * @covers Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::getItem
+   * @covers \Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::getItem
    * @group  journal-cms-tests
    */
   public function testGetItem() {
@@ -269,16 +269,16 @@ class SubjectsRestResourceTest extends UnitTestCase {
         'alt' => 'Biochemistry alt',
         'sizes' => [
           '2:1' => [
-            900 => '"http://journal-cms.dev/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-            1800 => '"http://journal-cms.dev/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
+            900 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
+            1800 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
           ],
           '16:9' => [
-            250 => '"http://journal-cms.dev/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-            500 => '"http://journal-cms.dev/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
+            250 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
+            500 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
           ],
           '1:1' => [
-            70 => '"http://journal-cms.dev/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-            140 => '"http://journal-cms.dev/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
+            70 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
+            140 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
           ],
         ],
       ],

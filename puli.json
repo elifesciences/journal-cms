@@ -9,6 +9,10 @@
             "install-path": "vendor/alchemy/zippy",
             "installer": "composer"
         },
+        "asm89/stack-cors": {
+            "install-path": "vendor/asm89/stack-cors",
+            "installer": "composer"
+        },
         "beberlei/assert": {
             "install-path": "vendor/beberlei/assert",
             "installer": "composer",
@@ -191,10 +195,6 @@
             "install-path": "web/modules/contrib/migrate_tools",
             "installer": "composer"
         },
-        "drupal/migrate_upgrade": {
-            "install-path": "web/modules/contrib/migrate_upgrade",
-            "installer": "composer"
-        },
         "drupal/paragraphs": {
             "install-path": "web/modules/contrib/paragraphs",
             "installer": "composer"
@@ -253,8 +253,7 @@
         },
         "guzzle/guzzle": {
             "install-path": "vendor/guzzle/guzzle",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "guzzlehttp/guzzle": {
             "install-path": "vendor/guzzlehttp/guzzle",
@@ -302,8 +301,7 @@
         },
         "justinrainbow/json-schema": {
             "install-path": "vendor/justinrainbow/json-schema",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "masterminds/html5": {
             "install-path": "vendor/masterminds/html5",
@@ -414,19 +412,37 @@
             "install-path": "vendor/psy/psysh",
             "installer": "composer"
         },
+        "puli/cli": {
+            "install-path": "vendor/puli/cli",
+            "installer": "composer"
+        },
         "puli/composer-plugin": {
             "install-path": "vendor/puli/composer-plugin",
             "installer": "composer"
         },
+        "puli/discovery": {
+            "install-path": "vendor/puli/discovery",
+            "installer": "composer"
+        },
+        "puli/manager": {
+            "install-path": "vendor/puli/manager",
+            "installer": "composer"
+        },
         "puli/repository": {
             "install-path": "vendor/puli/repository",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
+        },
+        "puli/url-generator": {
+            "install-path": "vendor/puli/url-generator",
+            "installer": "composer"
+        },
+        "ramsey/uuid": {
+            "install-path": "vendor/ramsey/uuid",
+            "installer": "composer"
         },
         "satooshi/php-coveralls": {
             "install-path": "vendor/satooshi/php-coveralls",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "sebastian/comparator": {
             "install-path": "vendor/sebastian/comparator",
@@ -470,8 +486,7 @@
         },
         "seld/jsonlint": {
             "install-path": "vendor/seld/jsonlint",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "stack/builder": {
             "install-path": "vendor/stack/builder",
@@ -576,8 +591,7 @@
         },
         "symfony/stopwatch": {
             "install-path": "vendor/symfony/stopwatch",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "symfony/translation": {
             "install-path": "vendor/symfony/translation",
@@ -608,15 +622,21 @@
             "install-path": "vendor/webmozart/assert",
             "installer": "composer"
         },
+        "webmozart/console": {
+            "install-path": "vendor/webmozart/console",
+            "installer": "composer"
+        },
+        "webmozart/expression": {
+            "install-path": "vendor/webmozart/expression",
+            "installer": "composer"
+        },
         "webmozart/glob": {
             "install-path": "vendor/webmozart/glob",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "webmozart/json": {
             "install-path": "vendor/webmozart/json",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "webmozart/path-util": {
             "install-path": "vendor/webmozart/path-util",

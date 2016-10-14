@@ -1,0 +1,17 @@
+uuid: 878ce069-5750-4451-90ad-6ab2e6d68e15
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - jcms_rest
+    - serialization
+id: labs_experiments_item_rest_resource
+plugin_id: labs_experiments_item_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - basic_auth

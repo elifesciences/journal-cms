@@ -11,6 +11,6 @@ default:
     Behat\MinkExtension:
       goutte: ~
       selenium2: ~
-      base_url: http://journal-cms.dev/
+      base_url: http://journal-cms.local/
     Drupal\DrupalExtension:
       blackbox: ~

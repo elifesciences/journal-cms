@@ -22,11 +22,4 @@ if [[ ! -e /home/vagrant/.bash_profile ]]; then
     chown vagrant:vagrant /home/vagrant/.bash_profile
 fi
 
-if [[ ! `which puli` ]]; then
-  wget https://github.com/puli/cli/releases/download/1.0.0-beta10/puli.phar
-  chmod +x puli.phar
-  mv puli.phar ./vendor/bin/puli
-  ln -s ./vendor/bin/puli puli
-fi
-
 exit 0

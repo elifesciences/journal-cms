@@ -7,7 +7,7 @@ vagrant_synced_folder_default_type: nfs
 
 # If you need to run multiple instances of Drupal VM, set a unique hostname,
 # machine name, and IP address for each instance.
-vagrant_hostname: journal-cms.dev
+vagrant_hostname: journal-cms.local
 vagrant_machine_name: journal-cms
 vagrant_ip: 192.168.88.83
 
@@ -32,8 +32,18 @@ vagrant_synced_folders:
 vagrant_memory: 2048
 vagrant_cpus: 4
 
+# Minimum required versions.
+drupalvm_vagrant_version_min: '1.8.5'
+drupalvm_ansible_version_min: '2.1'
+
+# Force use of ansible_local provisioner, even if Ansible is installed on host.
+force_ansible_local: false
+
 # The web server software to use. Can be either 'apache' or 'nginx'.
 drupalvm_webserver: nginx
+
+# The database system to use. Can be either 'mysql' or 'pgsql'.
+drupalvm_database: mysql
 
 # Set this to 'false' if you are using a different site deployment strategy and
 # would like to configure 'vagrant_synced_folders' and 'apache_vhosts' manually.
@@ -43,8 +53,8 @@ drush_make_options: "--no-gitinfofile"
 
 # Set 'build_makefile' to 'false' and this to 'true' if you are using a
 # composer based site deployment strategy.
-build_composer: false
-drupal_composer_path: "{{ config_dir }}/drupal.composer.json"
+build_composer: true
+drupal_composer_path: "{{ config_dir }}/../composer.json"
 drupal_composer_install_dir: "/var/www/journal-cms"
 drupal_composer_dependencies: []
 
@@ -60,12 +70,12 @@ install_site: true
 
 # Required Drupal settings.
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
-drupal_mysql_user: journal_cms
-drupal_mysql_password: journal_cms
-drupal_mysql_database: journal_cms
-legacy_mysql_user: legacy_cms
-legacy_mysql_password: legacy_cms
-legacy_mysql_database: legacy_cms
+drupal_db_user: journal_cms
+drupal_db_password: journal_cms
+drupal_db_name: journal_cms
+legacy_db_user: legacy_cms
+legacy_db_password: legacy_cms
+legacy_db_name: legacy_cms
 
 # Settings for installing a Drupal site if 'install_site:' is 'true'.
 drupal_major_version: 8
@@ -82,11 +92,9 @@ drupal_site_install_extra_args: []
 # Cron jobs are added to the vagrant user's crontab. Keys include name
 # (required), minute, hour, day, weekday, month, job (required), and state.
 drupalvm_cron_jobs: []
-  # - {
-  #   name: "Drupal Cron",
+  # - name: "Drupal Cron",
   #   minute: "*/30",
   #   job: "drush -r {{ drupal_core_path }} core-cron"
-  # }
 
 # Drupal VM automatically creates a drush alias file in your ~/.drush folder if
 # this variable is 'true'.
@@ -157,25 +165,34 @@ nginx_hosts:
 nginx_remove_default_vhost: true
 nginx_ppa_use: true
 
-# MySQL Databases and users. If 'install_site' is 'true', first database will
-# be used for the site.
+# MySQL databases and users.
 mysql_databases:
-  - name: "{{ drupal_mysql_database }}"
-    encoding: utf8
-    collation: utf8_general_ci
-  - name: "{{ legacy_mysql_database }}"
-    encoding: utf8
-    collation: utf8_general_ci
+  - name: "{{ drupal_db_name }}"
+    encoding: utf8mb4
+    collation: utf8mb4_general_ci
+  - name: "{{ legacy_db_name }}"
+    encoding: utf8mb4
+    collation: utf8mb4_general_ci
 
 mysql_users:
-  - name: "{{ drupal_mysql_user }}"
+  - name: "{{ drupal_db_user }}"
     host: "%"
-    password: "{{ drupal_mysql_password }}"
-    priv: "{{ drupal_mysql_database }}.*:ALL"
-  - name: "{{ legacy_mysql_user }}"
+    password: "{{ drupal_db_password }}"
+    priv: "{{ drupal_db_name }}.*:ALL"
+  - name: "{{ legacy_db_user }}"
     host: "%"
-    password: "{{ legacy_mysql_password }}"
-    priv: "{{ legacy_mysql_database }}.*:ALL"
+    password: "{{ legacy_db_password }}"
+    priv: "{{ legacy_db_name }}.*:ALL"
+
+# PostgreSQL databases and users.
+postgresql_databases:
+  - name: "{{ drupal_db_name }}"
+
+postgresql_users:
+  - name: "{{ drupal_db_user }}"
+    password: "{{ drupal_db_password }}"
+    db: "{{ drupal_db_name }}"
+    priv: "ALL"
 
 # Comment out any extra utilities you don't want to install. If you don't want
 # to install *any* extras, make set this value to an empty set, e.g. `[]`.
@@ -184,6 +201,7 @@ installed_extras:
   # - blackfire
   # - drupalconsole
   # - elasticsearch
+  # - java
   - mailhog
   # - memcached
   # - newrelic
@@ -260,7 +278,8 @@ composer_global_packages:
 
 # Run specified scripts before or after VM is provisioned. Path is relative to
 # the `provisioning/playbook.yml` file.
-pre_provision_scripts: []
+pre_provision_scripts:
+  - "../../../../scripts/pre-provision.sh"
 post_provision_scripts:
   - "../../../../scripts/post-provision.sh"
 
@@ -308,7 +327,7 @@ solr_xms: "64M"
 solr_xmx: "128M"
 
 # Selenium configuration.
-selenium_version: 2.46.0
+selenium_version: 2.53.0
 
 # Other configuration.
 dashboard_install_dir: /var/www/dashboard
