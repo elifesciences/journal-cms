@@ -49,6 +49,13 @@ class JcmsRestResourceRouteFilter implements RouteFilterInterface {
       $path = $request->getPathInfo();
       $accept_header = $request->headers->get('Accept');
       $acceptable_mime_type = $this->pathMimeTypeMapper->getMimeTypeByPath($path);
+      /*
+      error_log("new HTTP request");
+      error_log($path);
+      error_log($accept_header);
+      $e = new \Exception();
+      error_log($e->getTraceAsString());
+      */
       if (AcceptHeader::fromString($accept_header)->get($acceptable_mime_type)) {
         $collection->add($name, $route);
       }
