@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   }
  * )
  */
-class BlogArticlesItemRestResource extends AbstractRestResource {
+class BlogArticlesItemRestResource extends AbstractRestResourceBase {
   /**
    * Responds to GET requests.
    *
@@ -46,7 +46,7 @@ class BlogArticlesItemRestResource extends AbstractRestResource {
       $response = $this->processDefault($node, $id);
 
       // Image is optional.
-      if ($image = $this->processFieldImage($node->get('field_image'), FALSE)) {
+      if ($image = $this->processFieldImage($node->get('field_image'))) {
         $response['image'] = $image;
       }
 

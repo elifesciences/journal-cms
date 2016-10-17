@@ -1,19 +1,21 @@
-uuid: 96bda0eb-0fae-4f7c-af50-2a3b1509dc18
+uuid: 564bb974-a829-4508-8db3-0f0537bb9835
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_block_text
+    - field.storage.paragraph.field_block_html
     - paragraphs.paragraphs_type.paragraph
-id: paragraph.paragraph.field_block_text
-field_name: field_block_text
+  module:
+    - text
+id: paragraph.paragraph.field_block_html
+field_name: field_block_html
 entity_type: paragraph
 bundle: paragraph
 label: Text
 description: ''
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string_long
+field_type: text_long

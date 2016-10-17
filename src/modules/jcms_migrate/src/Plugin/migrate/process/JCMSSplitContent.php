@@ -19,6 +19,8 @@ use Drupal\migrate\Row;
  */
 class JCMSSplitContent extends ProcessPluginBase {
 
+  use JMCSCheckMarkupTrait;
+
   /**
    * {@inheritdoc}
    */
@@ -207,16 +209,6 @@ class JCMSSplitContent extends ProcessPluginBase {
     else {
       return NULL;
     }
-    $url = preg_replace('/^(http:\/\/|https:\/\/|\/\/)/', '', $url);
-    if (stristr($url,'youtu.be/') && preg_match('/(www\.|)(.*?)\/(.{11})/i', $url, $final_ID)) {
-      return $final_ID[3];
-    }
-    elseif (preg_match('/(www\.|)(.*?)\/(embed\/|watch.*?v=|)([a-z_A-Z0-9\-]{11})/i', $url, $IDD)) {
-      return $IDD[4];
-    }
-    else {
-      return NULL;
-    }
   }
 
   /**
@@ -253,6 +245,7 @@ class JCMSSplitContent extends ProcessPluginBase {
       foreach ($element as $child) {
         $html = $child->ownerDocument->saveHTML($child);
         $html = str_replace('&nbsp;', ' ', $html);
+        $html = $this->checkMarkup($html, 'basic_html');
         $innerHTML .= trim($html);
       }
     }
