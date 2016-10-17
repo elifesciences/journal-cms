@@ -1,0 +1,66 @@
+uuid: 7564c068-5a4d-4405-b97c-45eb59898935
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.blog_article
+    - paragraphs.paragraphs_type.blockquote
+    - paragraphs.paragraphs_type.image
+    - paragraphs.paragraphs_type.list
+    - paragraphs.paragraphs_type.paragraph
+    - paragraphs.paragraphs_type.section
+    - paragraphs.paragraphs_type.table
+    - paragraphs.paragraphs_type.youtube
+  module:
+    - entity_reference_revisions
+id: node.blog_article.field_content
+field_name: field_content
+entity_type: node
+bundle: blog_article
+label: Content
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      blockquote: blockquote
+      image: image
+      list: list
+      paragraph: paragraph
+      section: section
+      table: table
+      youtube: youtube
+    target_bundles_drag_drop:
+      blockquote:
+        enabled: true
+        weight: 10
+      image:
+        enabled: true
+        weight: 11
+      list:
+        enabled: true
+        weight: 12
+      list_item:
+        weight: 13
+        enabled: false
+      paragraph:
+        enabled: true
+        weight: 14
+      research_details:
+        weight: 15
+        enabled: false
+      section:
+        enabled: true
+        weight: 16
+      table:
+        enabled: true
+        weight: 17
+      youtube:
+        enabled: true
+        weight: 18
+field_type: entity_reference_revisions

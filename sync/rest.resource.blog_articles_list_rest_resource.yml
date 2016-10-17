@@ -1,0 +1,16 @@
+uuid: a70e127f-6e42-4dc7-803c-b49f82167426
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - jcms_rest
+id: blog_articles_list_rest_resource
+plugin_id: blog_articles_list_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - jcms_json
+    supported_auth:
+      - basic_auth
