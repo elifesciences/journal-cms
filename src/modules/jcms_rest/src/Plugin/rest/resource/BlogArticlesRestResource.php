@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   }
  * )
  */
-class BlogArticlesRestResource extends AbstractRestResource {
+class BlogArticlesRestResource extends AbstractRestResourceBase {
 
   /**
    * Responds to GET requests.

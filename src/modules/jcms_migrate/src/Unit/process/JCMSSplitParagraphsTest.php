@@ -13,7 +13,10 @@ use Drupal\Tests\migrate\Unit\process\MigrateProcessTestCase;
 class JCMSSplitParagraphsTest extends MigrateProcessTestCase {
 
   /**
+   * @test
+   * @covers \Drupal\jcms_migrate\Plugin\migrate\process\JCMSSplitParagraphs::transform()
    * @dataProvider getTransformDataProvider
+   * @group  journal-cms-tests
    */
   public function testTransform($html, $expected_result) {
     $plugin = new JCMSSplitParagraphs(array(), 'jcms_split_paragraphs', array());

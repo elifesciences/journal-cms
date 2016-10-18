@@ -16,6 +16,8 @@ use Drupal\paragraphs\Entity\Paragraph;
  */
 class JCMSContent extends ProcessPluginBase {
 
+  use JMCSCheckMarkupTrait;
+
   /**
    * {@inheritdoc}
    */
@@ -46,15 +48,21 @@ class JCMSContent extends ProcessPluginBase {
     $values = [
       'type' => $value['type'],
     ];
+
+    if (!empty($value['text'])) {
+      $value['text'] = $this->checkMarkup($value['text'], 'basic_html');
+    }
     switch ($value['type']) {
       case 'paragraph':
-        $values['field_block_text'] = [
-          'value' => $value['text'],
+        $values['field_block_html'] = [
+          'value' => $this->checkMarkup($value['text'], 'basic_html'),
+          'format' => 'basic_html',
         ];
         break;
       case 'blockquote':
-        $values['field_block_text'] = [
-          'value' => $value['text'],
+        $values['field_block_html'] = [
+          'value' => $this->checkMarkup($value['text'], 'basic_html'),
+          'format' => 'basic_html',
         ];
         $values['field_block_citation'] = [
           'value' => $value['citation'],
@@ -73,8 +81,9 @@ class JCMSContent extends ProcessPluginBase {
         break;
       case 'image':
         if (!empty($value['text'])) {
-          $values['field_block_text'] = [
-            'value' => $value['text'],
+          $values['field_block_html'] = [
+            'value' => $this->checkMarkup($value['text'], 'basic_html'),
+            'format' => 'basic_html',
           ];
         }
         $image = $value['image'];
@@ -111,8 +120,8 @@ class JCMSContent extends ProcessPluginBase {
         break;
       case 'table':
         $values['field_block_html'] = [
-          'value' => $value['html'],
-          'format' => 'full_html',
+          'value' => $this->checkMarkup($value['html'], 'basic_html'),
+          'format' => 'basic_html',
         ];
         break;
       case 'section':
@@ -136,8 +145,9 @@ class JCMSContent extends ProcessPluginBase {
         $values['field_block_list_items'] = $content;
         break;
       case 'list_item':
-        $values['field_block_text'] = [
-          'value' => $value['text'],
+        $values['field_block_html'] = [
+          'value' => $this->checkMarkup($value['text'], 'basic_html'),
+          'format' => 'basic_html',
         ];
         break;
     }

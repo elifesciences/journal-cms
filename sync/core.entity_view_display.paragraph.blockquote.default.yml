@@ -4,8 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.blockquote.field_block_citation
-    - field.field.paragraph.blockquote.field_block_text
+    - field.field.paragraph.blockquote.field_block_html
     - paragraphs.paragraphs_type.blockquote
+  module:
+    - text
 id: paragraph.blockquote.default
 targetEntityType: paragraph
 bundle: blockquote
@@ -17,12 +19,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-  field_block_text:
-    weight: 0
+  field_block_html:
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    type: text_default
 hidden:
   created: true
   uid: true

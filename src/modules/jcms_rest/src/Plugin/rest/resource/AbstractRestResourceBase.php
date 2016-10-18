@@ -8,7 +8,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\rest\Plugin\ResourceBase;
 
-abstract class AbstractRestResource extends ResourceBase {
+abstract class AbstractRestResourceBase extends ResourceBase {
 
   protected static $requestOptions = [];
 
@@ -17,11 +17,12 @@ abstract class AbstractRestResource extends ResourceBase {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    * @param string $id
+   * @param string|int $id_key
    * @return array
    */
-  protected function processDefault(EntityInterface $entity, $id = NULL) {
+  protected function processDefault(EntityInterface $entity, $id = NULL, $id_key = 'id') {
     return [
-      'id' => !empty($id) ? $id : substr($entity->uuid(), -8),
+      $id_key => !is_null($id) ? $id : substr($entity->uuid(), -8),
       'title' => $entity->getTitle(),
       'published' => \Drupal::service('date.formatter')->format($entity->getCreatedTime(), 'html_datetime'),
     ];
@@ -122,18 +123,18 @@ abstract class AbstractRestResource extends ResourceBase {
             $result_item['content'] = $handle_paragraphs($content_item->get('field_block_content'));
             break;
           case 'paragraph':
-            $result_item['text'] = $content_item->get('field_block_text')->first()->getValue()['value'];
+            $result_item['text'] = $content_item->get('field_block_html')->first()->getValue()['value'];
             break;
           case 'image':
             $image = $content_item->get('field_block_image')->first();
             $result_item['alt'] = $image->getValue()['alt'];
             $result_item['uri'] = file_create_url($image->get('entity')->getTarget()->get('uri')->first()->getValue()['value']);
-            if ($content_item->get('field_block_text')->count()) {
-              $result_item['title'] = $content_item->get('field_block_text')->first()->getValue()['value'];
+            if ($content_item->get('field_block_html')->count()) {
+              $result_item['title'] = $content_item->get('field_block_html')->first()->getValue()['value'];
             }
             break;
           case 'blockquote':
-            $result_item['text'] = $content_item->get('field_block_text')->first()->getValue()['value'];
+            $result_item['text'] = $content_item->get('field_block_html')->first()->getValue()['value'];
             if ($content_item->get('field_block_citation')->count()) {
               $result_item['citation'] = $content_item->get('field_block_citation')->first()->getValue()['value'];
             }
@@ -151,7 +152,7 @@ abstract class AbstractRestResource extends ResourceBase {
             $result_item['items'] = $handle_paragraphs($content_item->get('field_block_list_items'));
             break;
           case 'list_item':
-            $result_item = $content_item->get('field_block_text')->first()->getValue()['value'];
+            $result_item = $content_item->get('field_block_html')->first()->getValue()['value'];
         }
 
         $result[] = $result_item;
