@@ -127,7 +127,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             break;
           case 'image':
             $image = $content_item->get('field_block_image')->first();
-            $result_item['alt'] = $image->getValue()['alt'];
+            $result_item['alt'] = (string) $image->getValue()['alt'];
             $result_item['uri'] = file_create_url($image->get('entity')->getTarget()->get('uri')->first()->getValue()['value']);
             if ($content_item->get('field_block_html')->count()) {
               $result_item['title'] = $content_item->get('field_block_html')->first()->getValue()['value'];
@@ -145,7 +145,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             $result_item['height'] = (int) $content_item->get('field_block_youtube_height')->first()->getValue()['value'];
             break;
           case 'table':
-            $result_item['tables'] = [$content_item->get('field_block_html')->first()->getValue()['value']];
+            $result_item['tables'] = [preg_replace('/\n/', '', $content_item->get('field_block_html')->first()->getValue()['value'])];
             break;
           case 'list':
             $result_item['ordered'] = $content_item->get('field_block_list_ordered')->first()->getValue()['value'] ? TRUE : FALSE;
@@ -153,9 +153,14 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             break;
           case 'list_item':
             $result_item = $content_item->get('field_block_html')->first()->getValue()['value'];
+            break;
+          default:
+            unset($result_item['type']);
         }
 
-        $result[] = $result_item;
+        if (!empty($result_item)) {
+          $result[] = $result_item;
+        }
       }
 
       return $result;
