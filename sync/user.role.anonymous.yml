@@ -6,7 +6,7 @@ _core:
   default_config_hash: j5zLMOdJBqC0bMvSdth5UebkprJB8g_2FXHqhfpJzow
 id: anonymous
 label: 'Anonymous user'
-weight: 0
+weight: -10
 is_admin: false
 permissions:
   - 'access content'
@@ -28,3 +28,5 @@ permissions:
   - 'restful get person_rest_resource'
   - 'restful get blog_articles_list_rest_resource'
   - 'restful get blog_articles_item_rest_resource'
+  - 'view own field_subject_id'
+  - 'view field_subject_id'

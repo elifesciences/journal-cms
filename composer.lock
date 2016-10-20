@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5c9de03ecfb7c4e52078a1515736ccc9",
-    "content-hash": "4f76f79d77d749eb0d1637fe8aee9bce",
+    "hash": "205c8146ecf3b94ad7ebb1c00fb14223",
+    "content-hash": "50d1598e30eeea826dc6f0793e457d95",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1522,6 +1522,37 @@
             "description": "Provides a field collection field, to which any number of fields can be attached.",
             "homepage": "https://www.drupal.org/project/field_collection",
             "time": "2016-04-05 13:53:48"
+        },
+        {
+            "name": "drupal/field_permissions",
+            "version": "8.1.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/field_permissions",
+                "reference": "b8dab935ead70cd43b96ed08eb85dba9adbb04b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/field_permissions-8.x-1.0-beta1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "drupal/core": "8.*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-8.x-1.x": "8.1.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Set field-level permissions to create, update or view fields.",
+            "homepage": "https://www.drupal.org/project/field_permissions",
+            "time": "2016-07-19 19:48:08"
         },
         {
             "name": "drupal/graphql",
