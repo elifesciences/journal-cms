@@ -99,4 +99,12 @@ class EndpointValidatorTest extends UnitTestCase {
     $messageValidator->validate($response);
   }
 
+  public function testNotExistent() {
+    $request = new Request('GET', '/subjects/does-not-exist', [
+      'Accept' => 'application/vnd.elife.subject+json; version=1',
+    ]);
+    $response = $this->client->send($request);
+    $this->assertEquals(404, $response->getStatusCode());
+  }
+
 }
