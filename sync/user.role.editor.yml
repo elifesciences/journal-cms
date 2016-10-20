@@ -1,0 +1,18 @@
+uuid: 1a2bba1c-3d26-40b1-b871-1fe1cd81843c
+langcode: en
+status: true
+dependencies: {  }
+id: editor
+label: Editor
+weight: -8
+is_admin: null
+permissions:
+  0: 'access content overview'
+  1: 'administer nodes'
+  3: 'bypass node access'
+  5: 'access toolbar'
+  6: 'create field_subject_id'
+  13: 'access administration pages'
+  14: 'access site in maintenance mode'
+  21: 'administer taxonomy'
+  22: 'view the administration theme'
