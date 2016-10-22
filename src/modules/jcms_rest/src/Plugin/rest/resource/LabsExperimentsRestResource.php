@@ -31,7 +31,6 @@ class LabsExperimentsRestResource extends AbstractRestResourceBase {
    *   Throws exception expected.
    *
    * @todo - elife - nlisgo - Handle version specific requests
-   * @todo - elife - nlisgo - Handle content negotiation
    */
   public function get() {
     $base_query = \Drupal::entityQuery('node')
@@ -46,7 +45,7 @@ class LabsExperimentsRestResource extends AbstractRestResourceBase {
     ];
     if ($total = $count_query->count()->execute()) {
       $response_data['total'] = (int) $total;
-      $this->filterPageAndOrder($items_query);
+      $this->filterPageAndOrder($items_query, 'field_experiment_number.value');
       $nids = $items_query->execute();
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
@@ -68,7 +67,7 @@ class LabsExperimentsRestResource extends AbstractRestResourceBase {
    */
   public function getItem(EntityInterface $node) {
     /* @var Node $node */
-    $item = $this->processDefault($node, (int) $node->get('field_experiment_number')->first()->getValue(), 'number');
+    $item = $this->processDefault($node, (int) $node->get('field_experiment_number')->first()->getValue()['value'], 'number');
 
     // Image is required.
     $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE);

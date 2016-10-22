@@ -1,0 +1,36 @@
+id: jcms_research_focuses_json
+label: JSON feed of research focuses
+migration_group: jcms_migrate
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: json
+  urls: modules/custom/jcms_migrate/migration_assets/research_focuses.json
+  item_selector: 0
+  fields:
+    -
+      name: id
+      label: 'Research focus ID'
+      selector: id
+    -
+      name: name
+      label: 'Research focus'
+      selector: name
+  ids:
+    id:
+      type: string
+destination:
+  plugin: entity:taxonomy_term
+process:
+  id: id
+  label: name
+  # Hardcode the destination vocabulary as 'research_focuses'.
+  vid:
+    plugin: default_value
+    default_value: research_focuses
+  name: name
+  uid:
+    plugin: default_value
+    default_value: 1
+
+migration_dependencies: {}

@@ -23,7 +23,7 @@ class JCMSContent extends ProcessPluginBase {
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     if (!empty($value)) {
-      if (!isset($this->configuration['multiple'])) {
+      if (!isset($this->configuration['multiple']) || $this->configuration['multiple'] === FALSE) {
         return $this->processItemValue($value);
       }
       else {
@@ -165,6 +165,8 @@ class JCMSContent extends ProcessPluginBase {
     if ($status === 200) {
       return file_get_contents($filename);
     }
+
+    return FALSE;
   }
 
 }

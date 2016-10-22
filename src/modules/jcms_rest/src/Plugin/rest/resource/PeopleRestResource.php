@@ -2,9 +2,11 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\image\Entity\ImageStyle;
-use Drupal\rest\Plugin\ResourceBase;
-use Drupal\rest\ResourceResponse;
+use Drupal\Core\Database\Database;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Query\QueryInterface;
+use Drupal\node\Entity\Node;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -18,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   }
  * )
  */
-class PeopleRestResource extends ResourceBase {
+class PeopleRestResource extends AbstractRestResourceBase {
   /**
    * Responds to GET requests.
    *
@@ -26,95 +28,94 @@ class PeopleRestResource extends ResourceBase {
    *
    * @throws \Symfony\Component\HttpKernel\Exception\HttpException
    *   Throws exception expected.
+   *
+   * @todo - elife - nlisgo - Handle version specific requests
    */
   public function get() {
     $base_query = \Drupal::entityQuery('node')
       ->condition('status', NODE_PUBLISHED)
       ->condition('changed', REQUEST_TIME, '<')
       ->condition('type', 'person');
-    $status = Response::HTTP_OK;
 
-    // @todo - elife - nlisgo - Handle version specific requests
-    // @todo - elife - nlisgo - Handle content negotiation
-
-    $request = \Drupal::request();
-    $options = [
-      'page' => $request->query->get('page', 1),
-      'per-page' => $request->query->get('per-page', 20),
-      'order' => $request->query->get('order', 'desc'),
-      'subject' => (array) $request->query->get('subject', []),
-    ];
-
-    if (!empty($options['subject'])) {
-      // @todo - elife - nlisgo filter by those that have the research expertise.
-    }
+    $this->filterSubjects($base_query);
 
     $count_query = clone $base_query;
     $items_query = clone $base_query;
-
-    $response = [
+    $response_data = [
       'total' => 0,
       'items' => [],
     ];
-
     if ($total = $count_query->count()->execute()) {
-      $response['total'] = (int) $total;
-
-      $items_query->range(($options['page']-1)*$options['per-page'], $options['per-page']);
-      $items_query->sort('field_episode_number.value', $options['order']);
-
-      // @todo - elife - nlisgo - filter by subject
-
+      $response_data['total'] = (int) $total;
+      $this->filterPageAndOrder($items_query, 'field_person_index_name.value');
       $nids = $items_query->execute();
-      /* @var \Drupal\node\Entity\Node[] $nodes */
-      $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
-      foreach ($nodes as $node) {
-        $item = [
-          'id' => $node->get('field_person_id')->first()->getValue()['value'],
-          'type' => $node->get('field_person_type')->first()->getValue()['value'],
-          'name' => [
-            'preferred' => $node->getTitle(),
-            'index' => $node->get('field_person_index_name')->first()->getValue()['value'],
-          ],
-        ];
-
-        if ($node->get('field_image')->count()) {
-          $item['image'] = [
-            'alt' => $node->get('field_image')->first()->getValue()['alt'],
-            'sizes' => [
-              '16:9' => [
-                250 => '141',
-                500 => '282',
-              ],
-              '1:1' => [
-                70 => '70',
-                140 => '140',
-              ],
-            ],
-          ];
-
-          $image_uri = $node->get('field_image')->first()->get('entity')->getTarget()->get('uri')->first()->getValue()['value'];
-          foreach ($item['image']['sizes'] as $ar => $sizes) {
-            foreach ($sizes as $width => $height) {
-              $image_style = [
-                'crop',
-                str_replace(':', 'x', $ar),
-                $width . 'x' . $height,
-              ];
-              $item['image']['sizes'][$ar][$width] = ImageStyle::load(implode('_', $image_style))->buildUrl($image_uri);
-            }
-          }
+      $nodes = Node::loadMultiple($nids);
+      if (!empty($nodes)) {
+        foreach ($nodes as $node) {
+          $response_data['items'][] = $this->getItem($node);
         }
-
-        $response['items'][] = $item;
       }
     }
+    $response = new JsonResponse($response_data, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.person-list+json;version=1']);
+    return $response;
+  }
 
-    $resource_response = new ResourceResponse($response, $status);
-    // @todo - elife - nlisgo - Implement caching with options as a cacheable dependency, disable for now.
-    $resource_response->addCacheableDependency(NULL);
+  /**
+   * Apply filter for subjects by amending query.
+   *
+   * @param \Drupal\Core\Entity\Query\QueryInterface $query
+   */
+  protected function filterSubjects(QueryInterface &$query) {
+    $subjects = $this->getRequestOption('subject');
+    if (!empty($subjects)) {
+      // @todo - elife - nlisgo - Ideally we would just filter on $query.
+      // The below query doesn't work.
+      // $query->condition('field_research_details.entity.field_research_expertises.entity.field_subject_id.value', $subjects, 'IN');
+      $subjects_query = Database::getConnection()->select('node__field_research_details', 'rd');
+      $subjects_query->addField('rd', 'entity_id');
+      $subjects_query->innerJoin('paragraph__field_research_expertises', 're', 're.entity_id = rd.field_research_details_target_id');
+      $subjects_query->innerJoin('taxonomy_term__field_subject_id', 'si', 'si.entity_id = re.field_research_expertises_target_id');
+      $subjects_query->condition('rd.bundle', 'person');
+      $subjects_query->condition('si.field_subject_id_value', $subjects, 'IN');
+      if ($results = $subjects_query->execute()->fetchCol()) {
+        $query->condition('nid', $results, 'IN');
+      }
+      else {
+        // Force no results if there are no matches for subject ids.
+        $query->notExists('nid');
+      }
+    }
+  }
 
-    return $resource_response;
+  /**
+   * Takes a node and builds an item from it.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $node
+   *
+   * @return array
+   */
+  public function getItem(EntityInterface $node) {
+    /* @var Node $node */
+    $item = [
+      'id' => substr($node->uuid(), -8),
+      'type' => $node->get('field_person_type')->first()->getValue()['value'],
+      'name' => [
+        'preferred' => $node->getTitle(),
+        'index' => $node->get('field_person_index_name')->first()->getValue()['value'],
+      ],
+    ];
+
+    // Orcid is optional.
+    if ($node->get('field_person_orcid')->count()) {
+      $item['orcid'] = $node->get('field_person_orcid')->first()->getValue()['value'];
+    }
+
+    // Image is optional.
+    if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {
+      $item['image'] = $image;
+    }
+
+    return $item;
   }
 
 }

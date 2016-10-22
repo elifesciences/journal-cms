@@ -45,6 +45,7 @@ process:
     -
       plugin: jcms_split_paragraphs
       source: profile_description
+      strip_keywords: true
     -
       plugin: jcms_content
       multiple: true
@@ -52,15 +53,23 @@ process:
     plugin: jcms_research_details
     source:
       - expertises
-      - focus_ids
-      - organism_ids
-  'field_person_competing/value': interest_value
+      - focuses
+      - organisms
+      - profile_description
+  'field_person_competing/value':
+    plugin: jcms_filter_html
+    source: interest_value
   'field_person_competing/format':
     plugin: default_value
     default_value: basic_html
+  field_image:
+    plugin: jcms_image
+    source:
+      - photo_uri
+      - photo_alt
 
 migration_dependencies:
   required:
     - jcms_subjects_json
-    - jcms_research_focuses_db
-    - jcms_research_organisms_db
+    - jcms_research_focuses_json
+    - jcms_research_organisms_json

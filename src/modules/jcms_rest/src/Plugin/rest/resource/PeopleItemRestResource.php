@@ -5,6 +5,7 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -19,7 +20,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   }
  * )
  */
-class PeopleItemRestResource extends ResourceBase {
+class PeopleItemRestResource extends AbstractRestResourceBase {
   /**
    * Responds to GET requests.
    *
@@ -28,13 +29,12 @@ class PeopleItemRestResource extends ResourceBase {
    * @throws \Symfony\Component\HttpKernel\Exception\HttpException
    *   Throws exception expected.
    */
-  public function get($id = NULL) {
+  public function get($id) {
     $query = \Drupal::entityQuery('node')
       ->condition('status', NODE_PUBLISHED)
       ->condition('changed', REQUEST_TIME, '<')
       ->condition('type', 'person')
-      ->condition('field_person_id.value', $id);
-    $status = Response::HTTP_OK;
+      ->condition('uuid', '%' . $id, 'LIKE');
 
     // @todo - elife - nlisgo - Handle version specific requests
     // @todo - elife - nlisgo - Handle content negotiation
@@ -45,7 +45,7 @@ class PeopleItemRestResource extends ResourceBase {
       /* @var \Drupal\node\Entity\Node $node */
       $node = \Drupal\node\Entity\Node::load($nid);
       $response = [
-        'id' => $node->get('field_person_id')->first()->getValue()['value'],
+        'id' => $id,
         'type' => $node->get('field_person_type')->first()->getValue()['value'],
         'name' => [
           'preferred' => $node->getTitle(),
@@ -53,39 +53,54 @@ class PeopleItemRestResource extends ResourceBase {
         ],
       ];
 
-      if ($node->get('field_image')->count()) {
-        $response['image'] = [
-          'alt' => $node->get('field_image')->first()->getValue()['alt'],
-          'sizes' => [
-            '16:9' => [
-              250 => '141',
-              500 => '282',
-            ],
-            '1:1' => [
-              70 => '70',
-              140 => '140',
-            ],
-          ],
-        ];
+      // Orcid is optional.
+      if ($node->get('field_person_orcid')->count()) {
+        $item['orcid'] = $node->get('field_person_orcid')->first()->getValue()['value'];
+      }
 
-        $image_uri = $node->get('field_image')->first()->get('entity')->getTarget()->get('uri')->first()->getValue()['value'];
-        foreach ($response['image']['sizes'] as $ar => $sizes) {
-          foreach ($sizes as $width => $height) {
-            $image_style = [
-              'crop',
-              str_replace(':', 'x', $ar),
-              $width . 'x' . $height,
+      // Image is optional.
+      if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {
+        $response['image'] = $image;
+      }
+
+      // Profile description is optional.
+      if ($profile = $this->processFieldContent($node->get('field_person_profile'))) {
+        $response['profile'] = $profile;
+      }
+
+      if ($node->get('field_research_details')->count()) {
+        $research = [];
+        $research_details_field = $node->get('field_research_details')->first()->get('entity')->getTarget()->getValue();
+        if ($research_details_field->get('field_research_expertises')->count()) {
+          $research['expertises'] = [];
+          $research['focuses'] = [];
+          foreach ($research_details_field->get('field_research_expertises') as $expertise) {
+            $research['expertises'][] = [
+              'id' => $expertise->get('entity')->getValue()->get('field_subject_id')->first()->getValue()['value'],
+              'name' => $expertise->get('entity')->getValue()->toLink()->getText(),
             ];
-            $response['image']['sizes'][$ar][$width] = ImageStyle::load(implode('_', $image_style))->buildUrl($image_uri);
           }
+        }
+        if ($research_details_field->get('field_research_focuses')->count()) {
+          $research['focuses'] = [];
+          foreach ($research_details_field->get('field_research_focuses') as $focus) {
+            $research['focuses'][] = $focus->get('entity')->getValue()->toLink()->getText();
+          }
+        }
+        if ($research_details_field->get('field_research_organisms')->count()) {
+          $research['organisms'] = [];
+          foreach ($research_details_field->get('field_research_organisms') as $organism) {
+            $research['organisms'][] = $organism->get('entity')->getValue()->toLink()->getText();
+          }
+        }
+
+        if (!empty($research)) {
+          $response['research'] = $research;
         }
       }
 
-      $resource_response = new ResourceResponse($response, $status);
-      // @todo - elife - nlisgo - Implement caching with options as a cacheable dependency, disable for now.
-      $resource_response->addCacheableDependency(NULL);
-
-      return $resource_response;
+      $response = new JsonResponse($response, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.person+json;version=1']);
+      return $response;
     }
 
     throw new NotFoundHttpException(t('Person with ID @id was not found', ['@id' => $id]));

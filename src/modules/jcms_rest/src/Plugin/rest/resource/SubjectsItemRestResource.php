@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   }
  * )
  */
-class SubjectsItemRestResource extends ResourceBase {
+class SubjectsItemRestResource extends AbstractRestResourceBase {
   /**
    * Responds to GET requests.
    *
@@ -44,36 +44,8 @@ class SubjectsItemRestResource extends ResourceBase {
       $response = [
         'id' => $id,
         'name' => $term->toLink()->getText(),
-        'image' => [
-          'alt' => $term->get('field_image')->first()->getValue()['alt'],
-          'sizes' => [
-            '2:1' => [
-              900 => '450',
-              1800 => '900',
-            ],
-            '16:9' => [
-              250 => '141',
-              500 => '282',
-            ],
-            '1:1' => [
-              70 => '70',
-              140 => '140',
-            ],
-          ],
-        ],
       ];
-
-      $image_uri = $term->get('field_image')->first()->get('entity')->getTarget()->get('uri')->first()->getValue()['value'];
-      foreach ($response['image']['sizes'] as $ar => $sizes) {
-        foreach ($sizes as $width => $height) {
-          $image_style = [
-            'crop',
-            str_replace(':', 'x', $ar),
-            $width . 'x' . $height,
-          ];
-          $response['image']['sizes'][$ar][$width] = ImageStyle::load(implode('_', $image_style))->buildUrl($image_uri);
-        }
-      }
+      $response['image'] = $this->processFieldImage($term->get('field_image'), TRUE);
 
       if ($term->get('field_impact_statement')->count()) {
         $response['impactStatement'] = $term->get('field_impact_statement')->first()->getValue()['value'];
