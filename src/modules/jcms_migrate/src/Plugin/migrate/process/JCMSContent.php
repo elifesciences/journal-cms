@@ -16,6 +16,8 @@ use Drupal\paragraphs\Entity\Paragraph;
  */
 class JCMSContent extends ProcessPluginBase {
 
+  use JMCSCheckMarkupTrait;
+
   /**
    * {@inheritdoc}
    */
@@ -46,15 +48,21 @@ class JCMSContent extends ProcessPluginBase {
     $values = [
       'type' => $value['type'],
     ];
+
+    if (!empty($value['text'])) {
+      $value['text'] = $this->checkMarkup($value['text'], 'basic_html');
+    }
     switch ($value['type']) {
       case 'paragraph':
-        $values['field_block_text'] = [
-          'value' => $value['text'],
+        $values['field_block_html'] = [
+          'value' => $this->checkMarkup($value['text'], 'basic_html'),
+          'format' => 'basic_html',
         ];
         break;
       case 'blockquote':
-        $values['field_block_text'] = [
-          'value' => $value['text'],
+        $values['field_block_html'] = [
+          'value' => $this->checkMarkup($value['text'], 'basic_html'),
+          'format' => 'basic_html',
         ];
         $values['field_block_citation'] = [
           'value' => $value['citation'],
@@ -73,26 +81,47 @@ class JCMSContent extends ProcessPluginBase {
         break;
       case 'image':
         if (!empty($value['text'])) {
-          $values['field_block_text'] = [
-            'value' => $value['text'],
+          $values['field_block_html'] = [
+            'value' => $this->checkMarkup($value['text'], 'basic_html'),
+            'format' => 'basic_html',
           ];
         }
         $image = $value['image'];
-        $alt = $value['alt'];
-        $source = drupal_get_path('module', 'jcms_migrate') . '/migration_assets/images/' . $image;
-        if ($uri = file_unmanaged_copy($source)) {
+
+        if (preg_match('/^http/', $image) && preg_match('/elifesciences\.org\/sites\/default\/files\/(?P<file>.*)/', $image, $match)) {
+          $source = DRUPAL_ROOT . '/../scripts/legacy_cms_files/' . $match['file'];
+        }
+        elseif (!preg_match('/^http/', $image)) {
+          $source = drupal_get_path('module', 'jcms_migrate') . '/migration_assets/images/' . $image;
+        }
+        else {
+          $source = NULL;
+        }
+
+        if ($source && file_exists($source)) {
+          $uri = file_unmanaged_copy($source, NULL, FILE_EXISTS_REPLACE);
           $file = \Drupal::entityTypeManager()->getStorage('file')->create(['uri' => $uri]);
           $file->save();
+        }
+        elseif (preg_match('/^http/', $image) && $data = $this->getFile($image)) {
+          $file = file_save_data($data, 'public://' . basename($image), FILE_EXISTS_REPLACE);
+        }
+        else {
+          $file = NULL;
+        }
+        if (!empty($file)) {
           $values['field_block_image'] = [
             'target_id' => $file->id(),
-            'alt' => $alt,
           ];
+          if (!empty($value['alt'])) {
+            $values['field_block_image']['alt'] = $value['alt'];
+          }
         }
         break;
       case 'table':
         $values['field_block_html'] = [
-          'value' => $value['html'],
-          'format' => 'full_html',
+          'value' => $this->checkMarkup($value['html'], 'basic_html'),
+          'format' => 'basic_html',
         ];
         break;
       case 'section':
@@ -116,8 +145,9 @@ class JCMSContent extends ProcessPluginBase {
         $values['field_block_list_items'] = $content;
         break;
       case 'list_item':
-        $values['field_block_text'] = [
-          'value' => $value['text'],
+        $values['field_block_html'] = [
+          'value' => $this->checkMarkup($value['text'], 'basic_html'),
+          'format' => 'basic_html',
         ];
         break;
     }
@@ -127,6 +157,14 @@ class JCMSContent extends ProcessPluginBase {
       'target_id' => $paragraph->id(),
       'target_revision_id' => $paragraph->getRevisionId(),
     ];
+  }
+
+  function getFile($filename) {
+    $headers = get_headers($filename);
+    $status = (int) substr($headers[0], 9, 3);
+    if ($status === 200) {
+      return file_get_contents($filename);
+    }
   }
 
 }

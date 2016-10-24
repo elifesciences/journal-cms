@@ -1,13 +1,13 @@
-uuid: 9613fb25-5e1c-4e9c-a5fc-1967aec91d35
+uuid: b3b74765-f95f-48d2-9f30-e76141f163b5
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: 3cVgfoQegALfyWNNyhirUYmo0KCu-Umj4Esh53756Lo
+  default_config_hash: 7w2X7SMGfUgQ4VcGuPwyQDmLCtZsYtfJmQgMJJY6N74
 id: jcms_podcast_episodes_json
 migration_tags: null
 migration_group: jcms_migrate
-label: 'JSON feed of labs experiments'
+label: 'JSON feed of podcast episodes'
 source:
   plugin: url
   data_fetcher_plugin: file

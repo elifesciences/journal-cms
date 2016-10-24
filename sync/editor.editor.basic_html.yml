@@ -19,37 +19,31 @@ settings:
           items:
             - Bold
             - Italic
+            - Superscript
+            - RemoveFormat
         -
           name: Linking
           items:
             - DrupalLink
             - DrupalUnlink
         -
-          name: Lists
-          items:
-            - BulletedList
-            - NumberedList
-        -
-          name: Media
-          items:
-            - Blockquote
-            - DrupalImage
-        -
           name: 'Block Formatting'
           items:
-            - Format
+            - Table
         -
           name: Tools
           items:
             - Source
   plugins:
+    language:
+      language_list: un
     stylescombo:
       styles: ''
 image_upload:
-  status: true
+  status: false
   scheme: public
   directory: inline-images
   max_size: ''
   max_dimensions:
-    width: 0
-    height: 0
+    width: null
+    height: null

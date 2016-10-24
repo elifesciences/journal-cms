@@ -3,17 +3,17 @@
 namespace Drupal\jcms_rest;
 
 /**
- * Class PathMimeTypeMapper.
+ * Class PathMediaTypeMapper.
  *
  * @package Drupal\jcms_rest
  */
-class PathMimeTypeMapper {
+class PathMediaTypeMapper {
 
   /**
-   * An array of mime types, keyed by their appropriate paths.
+   * An array of media types, keyed by their appropriate paths.
    *
    * @return array
-   *   An array of mime types.
+   *   An array of media types.
    */
   protected function getMappings() : array {
     $map = [
@@ -25,20 +25,22 @@ class PathMimeTypeMapper {
       '/podcast-episodes/{number}' => 'application/vnd.elife.podcast-episode+json',
       '/subjects' => 'application/vnd.elife.subject-list+json',
       '/subjects/{id}' => 'application/vnd.elife.subject+json',
+      '/blog-articles' => 'application/vnd.elife.blog-article-list+json',
+      '/blog-articles/{id}' => 'application/vnd.elife.blog-article+json',
     ];
     return $map;
   }
 
   /**
-   * Takes a path and returns the appropriate mime type if it exists.
+   * Takes a path and returns the appropriate media type if it exists.
    *
    * @param string $path
    *   A path/URI such as /subjects.
    *
    * @return string
-   *   A mime type or an empty string if no matching mime type is found.
+   *   A media type or an empty string if no matching media type is found.
    */
-  public function getMimeTypeByPath(string $path) : string {
+  public function getMediaTypeByPath(string $path) : string {
     // Trim any trailing slashes from the path.
     $path = rtrim($path, '/');
     $mappings = $this->getMappings();
@@ -46,10 +48,10 @@ class PathMimeTypeMapper {
       return $mappings[$path];
     }
     else {
-      foreach ($mappings as $map_path => $mime_type) {
+      foreach ($mappings as $map_path => $media_type) {
         $match = $this->matchPathWithPlaceholders($path, $map_path);
         if (!empty($match) && $match == $path) {
-          return $mime_type;
+          return $media_type;
         }
       }
     }

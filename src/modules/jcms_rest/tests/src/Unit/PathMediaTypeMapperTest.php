@@ -1,25 +1,25 @@
 <?php
 
-namespace Drupal\Tests\jcms_rest\Unit;
+namespace Drupal\jcms_rest\Tests\Unit;
 
 use Drupal\Tests\UnitTestCase;
-use Drupal\jcms_rest\PathMimeTypeMapper;
+use Drupal\jcms_rest\PathMediaTypeMapper;
 
 /**
- * Class PathMimeTypeMapperTest
+ * Class PathMediaTypeMapperTest
  *
  * @package Drupal\Tests\jcms_rest\Unit
  */
-class PathMimeTypeMapperTest extends UnitTestCase {
+class PathMediaTypeMapperTest extends UnitTestCase {
 
   /**
-   * @var \Drupal\jcms_rest\PathMimeTypeMapper
+   * @var \Drupal\jcms_rest\PathMediaTypeMapper
    *   The class we're testing.
    */
-  protected $pathMimeTypeMapper;
+  protected $pathMediaTypeMapper;
 
   public function setUp() {
-    $this->pathMimeTypeMapper = new PathMimeTypeMapper();
+    $this->pathMediaTypeMapper = new PathMediaTypeMapper();
   }
 
   public function dataProvider()
@@ -49,13 +49,13 @@ class PathMimeTypeMapperTest extends UnitTestCase {
   /**
    * @test
    * @dataProvider dataProvider
-   * @covers \Drupal\jcms_rest\PathMimeTypeMapper::getMappings
-   * @covers \Drupal\jcms_rest\PathMimeTypeMapper::matchPathWithPlaceholders
-   * @covers \Drupal\jcms_rest\PathMimeTypeMapper::getMimeTypeByPath
+   * @covers \Drupal\jcms_rest\PathMediaTypeMapper::getMappings
+   * @covers \Drupal\jcms_rest\PathMediaTypeMapper::matchPathWithPlaceholders
+   * @covers \Drupal\jcms_rest\PathMediaTypeMapper::getMediaTypeByPath
    * @group  journal-cms-tests
    */
-  public function testGetMimeTypeByPath($path, $expected) {
-    $actual = $this->pathMimeTypeMapper->getMimeTypeByPath($path);
+  public function testGetMediaTypeByPath($path, $expected) {
+    $actual = $this->pathMediaTypeMapper->getMediaTypeByPath($path);
     $this->assertEquals($expected, $actual);
   }
 

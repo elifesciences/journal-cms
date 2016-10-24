@@ -17,6 +17,8 @@ use Drupal\migrate\Row;
  */
 class JCMSSplitParagraphs extends ProcessPluginBase {
 
+  use JMCSCheckMarkupTrait;
+
   /**
    * {@inheritdoc}
    */
@@ -33,10 +35,13 @@ class JCMSSplitParagraphs extends ProcessPluginBase {
         foreach ($node_children as $node_child) {
           $innerHTML .= $dom->saveXML($node_child);
         }
-        $paragraphs[] = [
-          'type' => 'paragraph',
-          'text' => $innerHTML,
-        ];
+        $innerHTML = trim($this->checkMarkup($innerHTML, 'basic_html'));
+        if (!empty($innerHTML)) {
+          $paragraphs[] = [
+            'type' => 'paragraph',
+            'text' => $innerHTML,
+          ];
+        }
       }
       return $paragraphs;
     }

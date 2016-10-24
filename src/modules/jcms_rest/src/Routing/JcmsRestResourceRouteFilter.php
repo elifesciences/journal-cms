@@ -3,10 +3,10 @@
 namespace Drupal\jcms_rest\Routing;
 
 use Drupal\Core\Routing\RouteFilterInterface;
-use Drupal\jcms_rest\PathMimeTypeMapper;
+use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
+use Drupal\jcms_rest\PathMediaTypeMapper;
 use Symfony\Component\HttpFoundation\AcceptHeader;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
@@ -18,45 +18,39 @@ use Symfony\Component\Routing\RouteCollection;
 class JcmsRestResourceRouteFilter implements RouteFilterInterface {
 
   /**
-   * @var \Drupal\jcms_rest\PathMimeTypeMapper
+   * @var \Drupal\jcms_rest\PathMediaTypeMapper
    */
-  protected $pathMimeTypeMapper;
+  protected $pathMediaTypeMapper;
 
   /**
    * JcmsRestResourceRouteFilter constructor.
    *
-   * @param \Drupal\jcms_rest\PathMimeTypeMapper $path_mime_type_mapper
+   * @param \Drupal\jcms_rest\PathMediaTypeMapper $path_media_type_mapper
    */
-  public function __construct(PathMimeTypeMapper $path_mime_type_mapper) {
-    $this->pathMimeTypeMapper = $path_mime_type_mapper;
+  public function __construct(PathMediaTypeMapper $path_media_type_mapper) {
+    $this->pathMediaTypeMapper = $path_media_type_mapper;
   }
 
   /**
    * {@inheritdoc}
    */
   public function applies(Route $route) {
-    return $this->pathMimeTypeMapper->getMimeTypeByPath($route->getPath());
+    return $this->pathMediaTypeMapper->getMediaTypeByPath($route->getPath());
   }
 
   /**
    * {@inheritdoc}
    */
   public function filter(RouteCollection $collection, Request $request) {
-    $accept_header = '';
+    // Set the request format to ensure only JSON is ever rendered.
+    $request->setRequestFormat('jcms_json');
+    // If the accept header matches the correct JCMS media type.
+    $path = $request->getPathInfo();
+    $accept_header = $request->headers->get('Accept');
+    $acceptable_media_type = $this->pathMediaTypeMapper->getMediaTypeByPath($path);
     /** @var \Symfony\Component\Routing\Route $route */
     foreach ($collection as $name => $route) {
-      // If the accept header matches the correct JCMS mime type.
-      $path = $request->getPathInfo();
-      $accept_header = $request->headers->get('Accept');
-      $acceptable_mime_type = $this->pathMimeTypeMapper->getMimeTypeByPath($path);
-      /*
-      error_log("new HTTP request");
-      error_log($path);
-      error_log($accept_header);
-      $e = new \Exception();
-      error_log($e->getTraceAsString());
-      */
-      if (AcceptHeader::fromString($accept_header)->get($acceptable_mime_type)) {
+      if (AcceptHeader::fromString($accept_header)->get($acceptable_media_type)) {
         $collection->add($name, $route);
       }
       else {
@@ -69,7 +63,7 @@ class JcmsRestResourceRouteFilter implements RouteFilterInterface {
     // We do not throw a
     // \Symfony\Component\Routing\Exception\ResourceNotFoundException here
     // because we don't want to return a 404 status code, but rather a 406.
-    throw new NotAcceptableHttpException("No route found for the specified accept header $accept_header.");
+    throw new JCMSNotAcceptableHttpException("No route found for the specified accept header $accept_header.", NULL, $acceptable_media_type);
   }
 
 }

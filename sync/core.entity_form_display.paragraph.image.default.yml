@@ -3,17 +3,25 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.image.field_block_html
     - field.field.paragraph.image.field_block_image
-    - field.field.paragraph.image.field_block_text
     - image.style.thumbnail
     - paragraphs.paragraphs_type.image
   module:
     - image
+    - text
 id: paragraph.image.default
 targetEntityType: paragraph
 bundle: image
 mode: default
 content:
+  field_block_html:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
   field_block_image:
     weight: 2
     settings:
@@ -21,13 +29,6 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
-  field_block_text:
-    weight: 3
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textarea
 hidden:
   created: true
   status: true

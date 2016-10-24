@@ -2,11 +2,9 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\image\Entity\ImageStyle;
-use Drupal\rest\Plugin\ResourceBase;
+use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Provides a resource to get view modes by entity and bundle.
@@ -19,16 +17,19 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   }
  * )
  */
-class LabsExperimentsItemRestResource extends ResourceBase {
+class LabsExperimentsItemRestResource extends AbstractRestResourceBase {
   /**
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
    *
+   * @param int $number
+   * @return array|\Symfony\Component\HttpFoundation\JsonResponse
+   *
    * @throws \Symfony\Component\HttpKernel\Exception\HttpException
    *   Throws exception expected.
    */
-  public function get($number = NULL) {
+  public function get(int $number) {
     $query = \Drupal::entityQuery('node')
       ->condition('status', NODE_PUBLISHED)
       ->condition('changed', REQUEST_TIME, '<')
@@ -41,99 +42,17 @@ class LabsExperimentsItemRestResource extends ResourceBase {
       /* @var \Drupal\node\Entity\Node $node */
       $node = \Drupal\node\Entity\Node::load($nid);
 
-      $response = [
-        'number' => (int) $number,
-        'title' => $node->getTitle(),
-        'published' => \Drupal::service('date.formatter')->format($node->getCreatedTime(), 'html_datetime'),
-        'image' => [
-          'alt' => $node->get('field_image')->first()->getValue()['alt'],
-          'sizes' => [
-            '2:1' => [
-              900 => '450',
-              1800 => '900',
-            ],
-            '16:9' => [
-              250 => '141',
-              500 => '282',
-            ],
-            '1:1' => [
-              70 => '70',
-              140 => '140',
-            ],
-          ],
-        ],
-      ];
+      $response = $this->processDefault($node, (int) $number, 'number');
 
-      $image_uri = $node->get('field_image')->first()->get('entity')->getTarget()->get('uri')->first()->getValue()['value'];
-      foreach ($response['image']['sizes'] as $ar => $sizes) {
-        foreach ($sizes as $width => $height) {
-          $image_style = [
-            'crop',
-            str_replace(':', 'x', $ar),
-            $width . 'x' . $height,
-          ];
-          $response['image']['sizes'][$ar][$width] = ImageStyle::load(implode('_', $image_style))->buildUrl($image_uri);
-        }
-      }
+      // Image is required.
+      $response['image'] = $this->processFieldImage($node->get('field_image'), TRUE);
 
+      // Impact statement is optional.
       if ($node->get('field_impact_statement')->count()) {
         $response['impactStatement'] = $node->get('field_impact_statement')->first()->getValue()['value'];
       }
 
-      $handle_paragraphs = function($content) use (&$handle_paragraphs) {
-        $result = [];
-        foreach ($content as $paragraph) {
-          $content_item = $paragraph->get('entity')->getTarget()->getValue();
-          $content_type = $content_item->getType();
-          $result_item = [
-            'type' => $content_type,
-          ];
-          switch ($content_type) {
-            case 'section':
-              $result_item['title'] = $content_item->get('field_block_title')->first()->getValue()['value'];
-              $result_item['content'] = $handle_paragraphs($content_item->get('field_block_content'));
-              break;
-            case 'paragraph':
-              $result_item['text'] = $content_item->get('field_block_text')->first()->getValue()['value'];
-              break;
-            case 'image':
-              $image = $content_item->get('field_block_image')->first();
-              $result_item['alt'] = $image->getValue()['alt'];
-              $result_item['uri'] = file_create_url($image->get('entity')->getTarget()->get('uri')->first()->getValue()['value']);
-              if ($content_item->get('field_block_text')->count()) {
-                $result_item['title'] = $content_item->get('field_block_text')->first()->getValue()['value'];
-              }
-              break;
-            case 'blockquote':
-              $result_item['text'] = $content_item->get('field_block_text')->first()->getValue()['value'];
-              if ($content_item->get('field_block_citation')->count()) {
-                $result_item['citation'] = $content_item->get('field_block_citation')->first()->getValue()['value'];
-              }
-              break;
-            case 'youtube':
-              $result_item['id'] = $content_item->get('field_block_youtube_id')->first()->getValue()['value'];
-              $result_item['width'] = (int) $content_item->get('field_block_youtube_width')->first()->getValue()['value'];
-              $result_item['height'] = (int) $content_item->get('field_block_youtube_height')->first()->getValue()['value'];
-              break;
-            case 'table':
-              $result_item['tables'] = [$content_item->get('field_block_html')->first()->getValue()['value']];
-              break;
-            case 'list':
-              $result_item['ordered'] = $content_item->get('field_block_list_ordered')->first()->getValue()['value'] ? TRUE : FALSE;
-              $result_item['items'] = $handle_paragraphs($content_item->get('field_block_list_items'));
-              break;
-            case 'list_item':
-              $result_item = $content_item->get('field_block_text')->first()->getValue()['value'];
-          }
-
-          $result[] = $result_item;
-        }
-
-        return $result;
-      };
-
-      $content = $handle_paragraphs($node->get('field_content'));
-      if (!empty($content)) {
+      if ($content = $this->processFieldContent($node->get('field_content'))) {
         $response['content'] = $content;
       }
 
@@ -141,7 +60,7 @@ class LabsExperimentsItemRestResource extends ResourceBase {
       return $response;
     }
 
-    throw new NotFoundHttpException(t('Lab experiment with ID @id was not found', ['@id' => $number]));
+    throw new JCMSNotFoundHttpException(t('Lab experiment with ID @id was not found', ['@id' => $number]), NULL, 'application/problem+json');
   }
 
 }

@@ -4,8 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.blockquote.field_block_citation
-    - field.field.paragraph.blockquote.field_block_text
+    - field.field.paragraph.blockquote.field_block_html
     - paragraphs.paragraphs_type.blockquote
+  module:
+    - text
 id: paragraph.blockquote.default
 targetEntityType: paragraph
 bundle: blockquote
@@ -18,13 +20,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
-  field_block_text:
-    weight: 0
+  field_block_html:
+    weight: 2
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: string_textarea
+    type: text_textarea
 hidden:
   created: true
   status: true

@@ -3,19 +3,21 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.list_item.field_block_text
+    - field.field.paragraph.list_item.field_block_html
     - paragraphs.paragraphs_type.list_item
+  module:
+    - text
 id: paragraph.list_item.default
 targetEntityType: paragraph
 bundle: list_item
 mode: default
 content:
-  field_block_text:
-    weight: 0
+  field_block_html:
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    type: text_default
 hidden:
   created: true
   uid: true

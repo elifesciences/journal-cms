@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\jcms_rest\Unit;
+namespace Drupal\jcms_rest\Tests\Functional;
 
 use Drupal\Tests\UnitTestCase;
 use eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator;
@@ -12,13 +12,13 @@ use Webmozart\Json\JsonDecoder;
 use \Puli\GeneratedPuliFactory;
 
 /**
- * Class SubjectsRestResourceTest
+ * Test to interrogate all items in a query to a list API endpoint.
+ *
+ * This is useful to verify that the migration of content has been successful.
  *
  * @package Drupal\Tests\jcms_rest\Unit
- * @todo    Figure out an elegant way to fix the Puli issue described below.
- * @see     https://github.com/puli/composer-plugin/pull/46#issuecomment-239702638
  */
-class EndpointValidatorTest extends UnitTestCase {
+class RecursiveEndpointValidatorTest extends UnitTestCase {
 
   private $projectRoot;
 
@@ -52,24 +52,22 @@ class EndpointValidatorTest extends UnitTestCase {
   public function dataProvider() : array {
     return [
       [
-        'GET',
-        '/subjects/plant-biology',
+        '/subjects',
+        'id',
+        'application/vnd.elife.subject-list+json;version=1',
         'application/vnd.elife.subject+json;version=1',
       ],
       [
-        'GET',
-        '/subjects',
-        'application/vnd.elife.subject-list+json;version=1',
+        '/blog-articles',
+        'id',
+        'application/vnd.elife.blog-article-list+json;version=1',
+        'application/vnd.elife.blog-article+json;version=1',
       ],
       [
-        'GET',
-        '/labs-experiments/3',
-        'application/vnd.elife.labs-experiment+json;version=1',
-      ],
-      [
-        'GET',
         '/labs-experiments',
+        'number',
         'application/vnd.elife.labs-experiment-list+json;version=1',
+        'application/vnd.elife.labs-experiment+json;version=1',
       ],
     ];
   }
@@ -77,29 +75,40 @@ class EndpointValidatorTest extends UnitTestCase {
   /**
    * @test
    * @dataProvider dataProvider
-   * @param string $method
-   *   The HTTP method/verb to be used.
    * @param string $endpoint
-   *   The endpoint/URI to test.
-   * @param string $mime_type
-   *   The accept header mime type to send.
+   * @param string $id_key
+   * @param string $mime_type_list
+   * @param string $mime_type_item
    */
-  public function testValidateEndpointsAgainstRaml(string $method, string $endpoint, string $mime_type) {
-    $request = new Request($method, $endpoint, [
-      'Accept' => $mime_type,
+  public function testValidEndpointsRecursively(string $endpoint, string $id_key, string $mime_type_list, string $mime_type_item) {
+    $request = new Request('GET', $endpoint . '?per-page=1', [
+      'Accept' => $mime_type_list,
     ]);
+
     $response = $this->client->send($request);
+    $data = \GuzzleHttp\json_decode($response->getBody()->getContents());
+    $total = $data->total;
+
+    $request = new Request('GET', $endpoint . '?per-page=' . $total, [
+      'Accept' => $mime_type_list,
+    ]);
+
+    $response = $this->client->send($request);
+    $data = \GuzzleHttp\json_decode($response->getBody()->getContents());
     $json_decoder = new JsonDecoder();
     $messageValidator = new FakeHttpsMessageValidator(new JsonMessageValidator(new PuliSchemaFinder($this->resourceRepository), $json_decoder), $json_decoder);
     $messageValidator->validate($response);
-  }
 
-  public function testNotExistent() {
-    $request = new Request('GET', '/subjects/does-not-exist', [
-      'Accept' => 'application/vnd.elife.subject+json; version=1',
-    ]);
-    $response = $this->client->send($request);
-    $this->assertEquals(404, $response->getStatusCode());
+    foreach ($data->items as $item) {
+      $request = new Request('GET', $endpoint . '/' . $item->{$id_key}, [
+        'Accept' => $mime_type_item
+      ]);
+
+      $response = $this->client->send($request);
+      $json_decoder = new JsonDecoder();
+      $messageValidator = new FakeHttpsMessageValidator(new JsonMessageValidator(new PuliSchemaFinder($this->resourceRepository), $json_decoder), $json_decoder);
+      $messageValidator->validate($response);
+    }
   }
 
 }

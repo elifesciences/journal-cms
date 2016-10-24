@@ -1,12 +1,14 @@
-uuid: 7c5fbc92-0db4-44ed-897f-99c271f0488a
+uuid: 852c1d48-c61b-485e-98a9-d81ab488523f
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_block_text
+    - field.storage.paragraph.field_block_html
     - paragraphs.paragraphs_type.list_item
-id: paragraph.list_item.field_block_text
-field_name: field_block_text
+  module:
+    - text
+id: paragraph.list_item.field_block_html
+field_name: field_block_html
 entity_type: paragraph
 bundle: list_item
 label: Text
@@ -16,4 +18,4 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string_long
+field_type: text_long

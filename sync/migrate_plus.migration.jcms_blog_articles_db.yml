@@ -1,0 +1,34 @@
+uuid: 1d8e554d-4e70-4eeb-b94a-87646071928e
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: XrPeG6CmzfHlo0qKAY9NuFouavTgGhGaqmlCwb7Bggg
+id: jcms_blog_articles_db
+migration_tags: null
+migration_group: jcms_migrate
+label: 'Legacy Blog articles'
+source:
+  plugin: jcms_blog_article_node
+process:
+  type:
+    plugin: default_value
+    default_value: blog_article
+  title: title
+  uid:
+    plugin: default_value
+    default_value: 1
+  created: created
+  field_impact_statement: summary
+  field_content:
+    -
+      plugin: jcms_split_content
+      source: content
+    -
+      plugin: jcms_content
+      multiple: true
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - jcms_subjects_json
