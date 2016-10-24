@@ -4,7 +4,7 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+use Drupal\image\Entity\ImageStyle;
 
 /**
  * Provides a resource to get view modes by entity and bundle.
