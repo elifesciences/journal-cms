@@ -1,0 +1,19 @@
+uuid: 7cd92336-b1ae-4ef2-9988-8d10226fe481
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_chapter_content
+    - paragraphs.paragraphs_type.episode_chapter
+id: paragraph.episode_chapter.field_chapter_content
+field_name: field_chapter_content
+entity_type: paragraph
+bundle: episode_chapter
+label: Content
+description: '@todo: This needs to be swapped out for an entity reference field for articles or collections'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

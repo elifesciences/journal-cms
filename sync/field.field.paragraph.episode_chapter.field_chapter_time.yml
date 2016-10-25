@@ -1,0 +1,25 @@
+uuid: 288f697e-85a5-4b35-b187-7e0957086c77
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_chapter_time
+    - paragraphs.paragraphs_type.episode_chapter
+id: paragraph.episode_chapter.field_chapter_time
+field_name: field_chapter_time
+entity_type: paragraph
+bundle: episode_chapter
+label: Time
+description: 'Number of seconds into the episode that the chapter begins'
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

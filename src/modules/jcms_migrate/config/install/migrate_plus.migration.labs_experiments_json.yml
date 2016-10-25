@@ -65,9 +65,6 @@ process:
   field_content:
     plugin: jcms_content
     source: content
-  changed:
-    plugin: transform_date
-    source: date
   created:
     plugin: transform_date
     source: date

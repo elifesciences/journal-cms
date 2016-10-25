@@ -4,6 +4,11 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.podcast_episode.field_episode_mp3
+    - field.field.node.podcast_episode.field_episode_number
+    - field.field.node.podcast_episode.field_image
+    - field.field.node.podcast_episode.field_impact_statement
+    - field.field.node.podcast_episode.field_subjects
     - node.type.podcast_episode
   module:
     - user
@@ -14,6 +19,8 @@ mode: teaser
 content:
   links:
     weight: 100
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_episode_chapters: true
   field_episode_mp3: true
@@ -21,5 +28,4 @@ hidden:
   field_highlighted: true
   field_image: true
   field_impact_statement: true
-  field_publication_date: true
   field_subjects: true

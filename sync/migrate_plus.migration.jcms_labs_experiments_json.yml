@@ -1,9 +1,9 @@
-uuid: fa41c995-24f0-4adc-8a85-f3447a44bad1
+uuid: 8b8907f9-f631-4145-bf8a-06a77cb6a841
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: 45-bRHUDeMUIVOzF2okEKQQIXyXDviNAP0Zjn9Bmuu8
+  default_config_hash: XDPlBp-4G5R7RkbcSBaVNA8TlyLBgnNfSQohQNOuUFQ
 id: jcms_labs_experiments_json
 migration_tags: null
 migration_group: jcms_migrate
@@ -69,9 +69,6 @@ process:
   field_content:
     plugin: jcms_content
     source: content
-  changed:
-    plugin: transform_date
-    source: date
   created:
     plugin: transform_date
     source: date

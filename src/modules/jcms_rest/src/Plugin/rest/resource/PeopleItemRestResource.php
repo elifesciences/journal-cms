@@ -59,7 +59,7 @@ class PeopleItemRestResource extends AbstractRestResourceBase {
       }
 
       // Image is optional.
-      if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {
+      if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail', TRUE)) {
         $response['image'] = $image;
       }
 

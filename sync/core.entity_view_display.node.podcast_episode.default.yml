@@ -3,15 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.podcast_episode.field_episode_chapter
     - field.field.node.podcast_episode.field_episode_mp3
     - field.field.node.podcast_episode.field_episode_number
     - field.field.node.podcast_episode.field_image
     - field.field.node.podcast_episode.field_impact_statement
-    - field.field.node.podcast_episode.field_publication_date
     - field.field.node.podcast_episode.field_subjects
     - node.type.podcast_episode
   module:
-    - datetime
+    - entity_reference_revisions
     - image
     - link
     - text
@@ -21,6 +21,14 @@ targetEntityType: node
 bundle: podcast_episode
 mode: default
 content:
+  field_episode_chapter:
+    type: entity_reference_revisions_entity_view
+    weight: 110
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
   field_episode_mp3:
     weight: 104
     label: above
@@ -54,14 +62,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
-  field_publication_date:
-    weight: 105
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
   field_subjects:
     weight: 109
     label: above

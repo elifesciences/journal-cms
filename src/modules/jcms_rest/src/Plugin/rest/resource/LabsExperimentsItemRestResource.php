@@ -42,7 +42,7 @@ class LabsExperimentsItemRestResource extends AbstractRestResourceBase {
       /* @var \Drupal\node\Entity\Node $node */
       $node = \Drupal\node\Entity\Node::load($nid);
 
-      $response = $this->processDefault($node, (int) $number, 'number');
+      $response = $this->processDefault($node, $number, 'number');
 
       // Image is required.
       $response['image'] = $this->processFieldImage($node->get('field_image'), TRUE);

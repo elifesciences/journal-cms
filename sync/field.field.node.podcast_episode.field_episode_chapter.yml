@@ -1,0 +1,57 @@
+uuid: b5b04fba-cac2-4174-9633-9dbe996d7e95
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_episode_chapter
+    - node.type.podcast_episode
+    - paragraphs.paragraphs_type.episode_chapter
+  module:
+    - entity_reference_revisions
+id: node.podcast_episode.field_episode_chapter
+field_name: field_episode_chapter
+entity_type: node
+bundle: podcast_episode
+label: Chapters
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      episode_chapter: episode_chapter
+    target_bundles_drag_drop:
+      blockquote:
+        weight: 11
+        enabled: false
+      episode_chapter:
+        enabled: true
+        weight: 12
+      image:
+        weight: 13
+        enabled: false
+      list:
+        weight: 14
+        enabled: false
+      list_item:
+        weight: 15
+        enabled: false
+      paragraph:
+        weight: 16
+        enabled: false
+      research_details:
+        weight: 17
+        enabled: false
+      section:
+        weight: 18
+        enabled: false
+      table:
+        weight: 19
+        enabled: false
+      youtube:
+        weight: 20
+        enabled: false
+field_type: entity_reference_revisions

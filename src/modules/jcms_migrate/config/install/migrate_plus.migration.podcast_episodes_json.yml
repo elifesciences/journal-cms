@@ -40,6 +40,10 @@ source:
       name: subjects
       label: 'Episode subjects'
       selector: subjects
+    -
+      name: chapters
+      label: 'Episode chapters'
+      selector: chapters
   ids:
     number:
       type: string
@@ -65,18 +69,15 @@ process:
     plugin: jcms_image
     source:
       - image
-      - alt
-  field_content:
-    plugin: jcms_content
-    source: content
+      - title
   'field_episode_mp3/uri': mp3
   field_subjects:
     plugin: migration
     migration: jcms_subjects_json
     source: subjects
-  changed:
-    plugin: transform_date
-    source: date
+  field_episode_chapter:
+    plugin: jcms_episode_chapter
+    source: chapters
   created:
     plugin: transform_date
     source: date
