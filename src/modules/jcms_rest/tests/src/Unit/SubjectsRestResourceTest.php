@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\jcms_rest\Unit;
+namespace Drupal\jcms_rest\Tests\Unit;
 
 use Drupal\Tests\UnitTestCase;
 use Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource;

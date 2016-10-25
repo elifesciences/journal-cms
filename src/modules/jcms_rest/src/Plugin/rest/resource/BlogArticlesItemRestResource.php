@@ -2,10 +2,9 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\image\Entity\ImageStyle;
+use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Drupal\image\Entity\ImageStyle;
 
 /**
  * Provides a resource to get view modes by entity and bundle.
@@ -68,8 +67,7 @@ class BlogArticlesItemRestResource extends AbstractRestResourceBase {
       $response = new JsonResponse($response, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.blog-article+json;version=1']);
       return $response;
     }
-
-    throw new NotFoundHttpException(t('Blog article with ID @id was not found', ['@id' => $id]));
+    throw new JCMSNotFoundHttpException(t('Blog article with ID @id was not found', ['@id' => $id]), NULL, 'application/problem+json');
   }
 
 }

@@ -3,6 +3,7 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\image\Entity\ImageStyle;
+use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -82,7 +83,7 @@ class SubjectsItemRestResource extends ResourceBase {
       return $response;
     }
 
-    throw new NotFoundHttpException(t('Subject with ID @id was not found', ['@id' => $id]));
+    throw new JCMSNotFoundHttpException(t('Subject with ID @id was not found', ['@id' => $id]), NULL, 'application/problem+json');
   }
 
 }
