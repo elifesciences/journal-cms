@@ -1,0 +1,41 @@
+uuid: a05fbd57-808a-4420-a998-b016f2b364c1
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: S24WxJg5lb0Fd5_nY4XfZhs8vgegfflXnSoSOHREw9Y
+id: jcms_research_focuses_json
+migration_tags: null
+migration_group: jcms_migrate
+label: 'JSON feed of research focuses'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: json
+  urls: modules/custom/jcms_migrate/migration_assets/research_focuses.json
+  item_selector: 0
+  fields:
+    -
+      name: id
+      label: 'Research focus ID'
+      selector: id
+    -
+      name: name
+      label: 'Research focus'
+      selector: name
+  ids:
+    id:
+      type: string
+process:
+  id: id
+  label: name
+  vid:
+    plugin: default_value
+    default_value: research_focuses
+  name: name
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:taxonomy_term'
+migration_dependencies: {  }

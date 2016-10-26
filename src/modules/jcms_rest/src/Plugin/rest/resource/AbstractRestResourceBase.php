@@ -10,7 +10,32 @@ use Drupal\rest\Plugin\ResourceBase;
 
 abstract class AbstractRestResourceBase extends ResourceBase {
 
+  protected $defaultOptions = [
+    'per-page' => 10,
+    'page' => 1,
+    'order' => 'desc',
+  ];
+
   protected static $requestOptions = [];
+
+  protected $imageSizes = [
+    'banner' => [
+      '2:1' => [
+        900 => '450',
+        1800 => '900',
+      ],
+    ],
+    'thumbnail' => [
+      '16:9' => [
+        250 => '141',
+        500 => '282',
+      ],
+      '1:1' => [
+        70 => '70',
+        140 => '140',
+      ],
+    ],
+  ];
 
   /**
    * Process default values.
@@ -29,6 +54,16 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   }
 
   /**
+   * Set default request option.
+   *
+   * @param string $option
+   * @param string|int|array $default
+   */
+  protected function setDefaultOption($option, $default) {
+    $this->defaultOptions[$option] = $default;
+  }
+
+  /**
    * Returns an array of Drupal request options.
    *
    * @return array
@@ -37,10 +72,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     if (empty($this::$requestOptions)) {
       $request = \Drupal::request();
       $this::$requestOptions = [
-        'page' => (int) $request->query->get('page', 1),
-        'per-page' => (int) $request->query->get('per-page', 20),
-        'order' => $request->query->get('order', 'desc'),
-        'subject' => (array) $request->query->get('subject', []),
+        'page' => (int) $request->query->get('page', $this->defaultOptions['page']),
+        'per-page' => (int) $request->query->get('per-page', $this->defaultOptions['per-page']),
+        'order' => $request->query->get('order', $this->defaultOptions['order']),
+        'subject' => (array) $request->query->get('subject', $this->defaultOptions['subject']),
       ];
     }
     return $this::$requestOptions;
@@ -64,43 +99,49 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   /**
    * @param \Drupal\Core\Field\FieldItemListInterface $data
    * @param bool $required
+   * @param array|string $size_types
    * @return array
    */
-  protected function processFieldImage(FieldItemListInterface $data, $required = FALSE) {
+  protected function processFieldImage(FieldItemListInterface $data, $required = FALSE, $size_types = ['banner', 'thumbnail']) {
     if ($required || $data->count()) {
-      $image = [
-        'alt' => $data->first()->getValue()['alt'],
-        'sizes' => [
-          '2:1' => [
-            900 => '450',
-            1800 => '900',
-          ],
-          '16:9' => [
-            250 => '141',
-            500 => '282',
-          ],
-          '1:1' => [
-            70 => '70',
-            140 => '140',
-          ],
-        ],
-      ];
-      $image_uri = $data->first()->get('entity')->getTarget()->get('uri')->first()->getValue()['value'];
-      foreach ($image['sizes'] as $ar => $sizes) {
-        foreach ($sizes as $width => $height) {
-          $image_style = [
-            'crop',
-            str_replace(':', 'x', $ar),
-            $width . 'x' . $height,
-          ];
-          $image['sizes'][$ar][$width] = ImageStyle::load(implode('_', $image_style))->buildUrl($image_uri);
+      $image = $this->getImageSizes($size_types);
+
+      foreach ($image as $type => $image_sizes) {
+        $image_uri = $data->first()->get('entity')->getTarget()->get('uri')->first()->getValue()['value'];
+        $image[$type]['alt'] = $data->first()->getValue()['alt'];
+        foreach ($image_sizes['sizes'] as $ar => $sizes) {
+          foreach ($sizes as $width => $height) {
+            $image_style = [
+              'crop',
+              str_replace(':', 'x', $ar),
+              $width . 'x' . $height,
+            ];
+            $image[$type]['sizes'][$ar][$width] = ImageStyle::load(implode('_', $image_style))->buildUrl($image_uri);
+          }
         }
+      }
+
+      if (count($image) === 1) {
+        $keys = array_keys($image);
+        $image = $image[$keys[0]];
       }
 
       return $image;
     }
 
     return [];
+  }
+
+  protected function getImageSizes($size_types = ['banner', 'thumbnail']) {
+    $sizes = [];
+    $size_types = (array) $size_types;
+    foreach ($size_types as $size_type) {
+      if (isset($this->imageSizes[$size_type])) {
+        $sizes[$size_type]['sizes'] = $this->imageSizes[$size_type];
+      }
+    }
+
+    return $sizes;
   }
 
   /**
@@ -123,14 +164,24 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             $result_item['content'] = $handle_paragraphs($content_item->get('field_block_content'));
             break;
           case 'paragraph':
-            $result_item['text'] = $content_item->get('field_block_html')->first()->getValue()['value'];
+            if ($content_item->get('field_block_html')->first()) {
+              $result_item['text'] = $content_item->get('field_block_html')->first()->getValue()['value'];
+            }
+            else {
+              unset($result_item);
+            }
             break;
           case 'image':
-            $image = $content_item->get('field_block_image')->first();
-            $result_item['alt'] = (string) $image->getValue()['alt'];
-            $result_item['uri'] = file_create_url($image->get('entity')->getTarget()->get('uri')->first()->getValue()['value']);
-            if ($content_item->get('field_block_html')->count()) {
-              $result_item['title'] = $content_item->get('field_block_html')->first()->getValue()['value'];
+            if ($image = $content_item->get('field_block_image')->first()) {
+              $image = $content_item->get('field_block_image')->first();
+              $result_item['alt'] = (string) $image->getValue()['alt'];
+              $result_item['uri'] = file_create_url($image->get('entity')->getTarget()->get('uri')->first()->getValue()['value']);
+              if ($content_item->get('field_block_html')->count()) {
+                $result_item['title'] = $content_item->get('field_block_html')->first()->getValue()['value'];
+              }
+            }
+            else {
+              unset($result_item);
             }
             break;
           case 'blockquote':
@@ -148,7 +199,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             $result_item['tables'] = [preg_replace('/\n/', '', $content_item->get('field_block_html')->first()->getValue()['value'])];
             break;
           case 'list':
-            $result_item['ordered'] = $content_item->get('field_block_list_ordered')->first()->getValue()['value'] ? TRUE : FALSE;
+            $result_item['prefix'] = $content_item->get('field_block_list_ordered')->first()->getValue()['value'] ? 'number' : 'bullet';
             $result_item['items'] = $handle_paragraphs($content_item->get('field_block_list_items'));
             break;
           case 'list_item':
@@ -183,7 +234,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     if ($required || $field_subjects->count()) {
       /* @var \Drupal\taxonomy\Entity\Term $term */
       foreach ($field_subjects->referencedEntities() as $term) {
-        $subjects[] = substr($term->uuid(), 0, 8);
+        $subjects[] = [
+          'id' => $term->get('field_subject_id')->first()->getValue()['value'],
+          'name' => $term->toLink()->getText(),
+        ];
       }
     }
     return $subjects;
@@ -197,13 +251,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   protected function filterSubjects(QueryInterface &$query) {
     $subjects = $this->getRequestOption('subject');
     if (!empty($subjects)) {
-      if (!empty($request_options['subject'])) {
-        $db_or = $query->orConditionGroup();
-        foreach ($request_options['subject'] as $subject_id) {
-          $db_or->condition('field_subjects.entity.uuid', '%' . $subject_id, 'LIKE');
-        }
-        $query->condition($db_or);
-      }
+      $query->condition('field_subjects.entity.field_subject_id.value', $subjects, 'IN');
     }
   }
 

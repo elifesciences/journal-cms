@@ -1534,7 +1534,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/field_permissions-8.x-1.0-beta1.zip",
-                "reference": null,
+                "reference": "b8dab935ead70cd43b96ed08eb85dba9adbb04b8",
                 "shasum": null
             },
             "require": {
@@ -6849,12 +6849,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "fe895093f1881000ce86508c2f7e741501f79e83"
+                "reference": "2633155034c994720181c8a6a643a776f6c6cb79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/fe895093f1881000ce86508c2f7e741501f79e83",
-                "reference": "fe895093f1881000ce86508c2f7e741501f79e83",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/2633155034c994720181c8a6a643a776f6c6cb79",
+                "reference": "2633155034c994720181c8a6a643a776f6c6cb79",
                 "shasum": ""
             },
             "require": {
@@ -6866,7 +6866,7 @@
                 "GPL-3.0+"
             ],
             "description": "eLife Sciences API specification",
-            "time": "2016-09-16 14:51:58"
+            "time": "2016-10-21 08:32:46"
         },
         {
             "name": "elife/api-validator",

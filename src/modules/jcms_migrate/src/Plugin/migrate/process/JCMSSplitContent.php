@@ -27,9 +27,10 @@ class JCMSSplitContent extends ProcessPluginBase {
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     if (!empty($value)) {
       $value = $this->tidyHtml($value);
-      libxml_use_internal_errors(TRUE);
       $dom = new DomDocument();
+      libxml_use_internal_errors(TRUE);
       $dom->loadHTML('<?xml encoding="UTF-8"><html><body>' . $value . '</body></html>');
+      libxml_clear_errors();
 
       $xpath = new DomXPath($dom);
       $body = $xpath->query('//body');

@@ -8,14 +8,15 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
   /**
    * Tests the split paragraphs process plugin.
    *
+   * @coversDefaultClass \Drupal\jcms_migrate\Plugin\migrate\process\JCMSSplitContent
    * @group jcms_migrate
    */
   class JCMSSplitContentTest extends MigrateProcessTestCase {
 
     /**
      * @test
-     * @covers \Drupal\jcms_migrate\Plugin\migrate\process\JCMSSplitContent::transform()
-     * @dataProvider getTransformDataProvider
+     * @covers ::transform()
+     * @dataProvider transformDataProvider
      * @group  journal-cms-tests
      */
     public function testTransform($html, $expected_result) {
@@ -24,7 +25,7 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
       $this->assertSame($expected_result, $split_content);
     }
 
-    public function getTransformDataProvider() {
+    public function transformDataProvider() {
       return [
         [
           '<p>Paragraph 1</p><p>Paragraph 2</p>',
@@ -78,11 +79,15 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
             ['type' => 'paragraph', 'text' => 'Paragraph 2'],
           ],
         ],
+        // @todo - elife - nlisgo - add test for entity_id 249171 field_data_field_elife_n_text
       ];
     }
 
     /**
-     * @dataProvider getNl2pDataProvider
+     * @test
+     * @covers ::nl2p()
+     * @dataProvider nl2pDataProvider
+     * @group  journal-cms-tests
      */
     public function testNl2p($html, $expected_result) {
       $plugin = new JCMSSplitContent([], 'jcms_split_content', []);
@@ -90,7 +95,7 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
       $this->assertSame($expected_result, $nl2p);
     }
 
-    public function getNl2pDataProvider() {
+    public function nl2pDataProvider() {
       return [
         [
           "<div><img src=\"https://journal-cms.dev/image.jpg\" />The Amboseli Baboon Research Project (ABRP) is a long-term study of yellow baboons, <em>Papio cynocephalus</em>, in Kenya, just north of Mt Kilimanjaro.</div>",
@@ -100,7 +105,10 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
     }
 
     /**
-     * @dataProvider getYoutubeIDDataProvider
+     * @test
+     * @covers ::youtubeID()
+     * @dataProvider youtubeIDDataProvider
+     * @group  journal-cms-tests
      */
     public function testYoutubeID($url, $expected_result) {
       $plugin = new JCMSSplitContent([], 'jcms_split_content', []);
@@ -108,7 +116,7 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
       $this->assertSame($expected_result, $youtube_id);
     }
 
-    public function getYoutubeIDDataProvider() {
+    public function youtubeIDDataProvider() {
       return [
         [
           "https://www.youtube.com/embed/Y8Bcr2KTa9o",
@@ -186,7 +194,10 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
     }
 
     /**
-     * @dataProvider getYoutubeConvertDataProvider
+     * @test
+     * @covers ::youtubeConvert()
+     * @dataProvider youtubeConvertDataProvider
+     * @group  journal-cms-tests
      */
     public function testYoutubeConvert($html, $expected_result) {
       $plugin = new JCMSSplitContent([], 'jcms_split_content', []);
@@ -194,7 +205,7 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
       $this->assertSame($expected_result, $convert_html);
     }
 
-    public function getYoutubeConvertDataProvider() {
+    public function youtubeConvertDataProvider() {
       return [
         [
           "<p><iframe allowfullscreen=\"\" frameborder=\"0\" height=\"315\" src=\"//www.youtube.com/embed/Ykk0ELhUAxo\" width=\"560\"></iframe></p>",

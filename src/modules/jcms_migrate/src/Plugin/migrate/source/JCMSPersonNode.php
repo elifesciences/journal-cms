@@ -27,19 +27,25 @@ class JCMSPersonNode extends SqlBase {
     $query->leftJoin('field_data_field_elife_pp_expertise', 'expertise', 'expertise.entity_id = n.nid');
     $query->leftJoin('taxonomy_term_data', 'expertise_term', 'expertise_term.tid = expertise.field_elife_pp_expertise_target_id');
     $query->leftJoin('field_data_field_elife_pp_research_focus', 'focus', 'focus.entity_id = n.nid');
+    $query->leftJoin('field_data_field_elife_title', 'focus_term', "focus_term.entity_type = 'taxonomy_term' AND focus_term.entity_id = focus.field_elife_pp_research_focus_target_id");
     $query->leftJoin('field_data_field_elife_pp_organism', 'organism', 'organism.entity_id = n.nid');
+    $query->leftJoin('field_data_field_elife_title', 'organism_term', "organism_term.entity_type = 'taxonomy_term' AND organism_term.entity_id = organism.field_elife_pp_organism_target_id");
     $query->leftJoin('field_data_field_elife_pp_profile', 'profile', 'profile.entity_id = n.nid');
     $query->leftJoin('field_data_field_elife_pp_interest', 'interest', 'interest.entity_id = n.nid');
-    $query->addExpression('GROUP_CONCAT(DISTINCT expertise_term.name ORDER BY expertise.delta ASC)', 'expertises');
-    $query->addExpression('GROUP_CONCAT(DISTINCT focus.field_elife_pp_research_focus_target_id ORDER BY focus.delta ASC)', 'focus_ids');
-    $query->addExpression('GROUP_CONCAT(DISTINCT organism.field_elife_pp_organism_target_id ORDER BY organism.delta ASC)', 'organism_ids');
-    $query->addExpression("CASE ptype.field_elife_pp_type_value WHEN 'deputy-editor' THEN 'leadership' WHEN 'editor-in-chief' THEN 'leadership' WHEN 'staff' THEN 'executive' ELSE ptype.field_elife_pp_type_value END", 'ptype');
+    $query->leftJoin('field_data_field_elife_pp_photo', 'photo', 'photo.entity_id = n.nid');
+    $query->leftJoin('file_managed', 'fm', 'fm.fid = photo.field_elife_pp_photo_fid');
+    $query->addExpression("GROUP_CONCAT(DISTINCT expertise_term.name ORDER BY expertise.delta ASC SEPARATOR '|')", 'expertises');
+    $query->addExpression("GROUP_CONCAT(DISTINCT focus_term.field_elife_title_value ORDER BY focus.delta ASC SEPARATOR '|')", 'focuses');
+    $query->addExpression("GROUP_CONCAT(DISTINCT organism_term.field_elife_title_value ORDER BY organism.delta ASC SEPARATOR '|')", 'organisms');
+    $query->addExpression("CASE ptype.field_elife_pp_type_value WHEN 'deputy-editor' THEN 'leadership' WHEN 'editor-in-chief' THEN 'leadership' WHEN 'staff' THEN 'executive' WHEN 'directors' THEN 'director' ELSE ptype.field_elife_pp_type_value END", 'ptype');
     $query->addField('lname', 'field_elife_pp_last_name_value', 'name_last');
     $query->addExpression('SUBSTRING(TRIM(fname.field_elife_pp_first_name_value), 1, 1)', 'name_initial');
     $query->addField('fname', 'field_elife_pp_first_name_value', 'name_first');
     $query->addField('orcid', 'field_elife_pp_orcid_value', 'orcid_id');
     $query->addField('profile', 'field_elife_pp_profile_value', 'profile_description');
     $query->addField('interest', 'field_elife_pp_interest_value', 'interest_value');
+    $query->addField('fm', 'uri', 'photo_uri');
+    $query->addExpression("CONCAT(fname.field_elife_pp_first_name_value, ' ', lname.field_elife_pp_last_name_value)", 'photo_alt');
 
     $query->condition('n.type', 'elife_person_profile');
     $query->groupBy('n.nid');
@@ -49,6 +55,7 @@ class JCMSPersonNode extends SqlBase {
     $query->groupBy('ptype.field_elife_pp_type_value');
     $query->groupBy('profile.field_elife_pp_profile_value');
     $query->groupBy('interest.field_elife_pp_interest_value');
+    $query->groupBy('fm.fid');
 
     return $query;
   }
@@ -66,10 +73,12 @@ class JCMSPersonNode extends SqlBase {
       'orcid_id' => $this->t('ORCID'),
       'person_id' => $this->t('Person ID'),
       'expertises' => $this->t('Subjects of expertise'),
-      'focus_ids' => $this->t('Research Focus IDs'),
-      'organism_ids' => $this->t('Organism Focus IDs'),
+      'focuses' => $this->t('Research focuses'),
+      'organisms' => $this->t('Research organisms'),
       'profile_description' => $this->t('Profile description'),
       'interest_value' => $this->t('Competing interest'),
+      'photo_uri' => $this->t('Photo URI'),
+      'photo_alt' => $this->t('Photo alt'),
     ];
 
     return $fields;

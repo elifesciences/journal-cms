@@ -23,8 +23,14 @@ class JCMSImage extends ProcessPluginBase {
     list($image, $alt) = $value;
 
     if (!empty($image) && !empty($alt)) {
-      $source = drupal_get_path('module', 'jcms_migrate') . '/migration_assets/images/' . $image;
-      if ($uri = file_unmanaged_copy($source)) {
+      if (strpos($image, 'public://') === 0) {
+        $source = DRUPAL_ROOT . '/../scripts/legacy_cms_files/' . preg_replace('~^public://~', '', $image);
+      }
+      else {
+        $source = drupal_get_path('module', 'jcms_migrate') . '/migration_assets/images/' . $image;
+      }
+      if (file_exists($source)) {
+        $uri = file_unmanaged_copy($source, NULL, FILE_EXISTS_REPLACE);
         $file = \Drupal::entityTypeManager()->getStorage('file')->create(['uri' => $uri]);
         $file->save();
         return [

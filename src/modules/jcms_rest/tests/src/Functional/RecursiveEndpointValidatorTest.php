@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use eLife\ApiValidator\MessageValidator\JsonMessageValidator;
 use eLife\ApiValidator\SchemaFinder\PuliSchemaFinder;
+use Symfony\Component\HttpFoundation\Response;
 use Webmozart\Json\JsonDecoder;
 use \Puli\GeneratedPuliFactory;
 
@@ -69,6 +70,12 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
         'application/vnd.elife.labs-experiment-list+json;version=1',
         'application/vnd.elife.labs-experiment+json;version=1',
       ],
+      [
+        '/people',
+        'id',
+        'application/vnd.elife.person-list+json;version=1',
+        'application/vnd.elife.person+json;version=1',
+      ],
     ];
   }
 
@@ -77,12 +84,12 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
    * @dataProvider dataProvider
    * @param string $endpoint
    * @param string $id_key
-   * @param string $mime_type_list
-   * @param string $mime_type_item
+   * @param string $media_type_list
+   * @param string $media_type_item
    */
-  public function testValidEndpointsRecursively(string $endpoint, string $id_key, string $mime_type_list, string $mime_type_item) {
+  public function testValidEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, string $media_type_item) {
     $request = new Request('GET', $endpoint . '?per-page=1', [
-      'Accept' => $mime_type_list,
+      'Accept' => $media_type_list,
     ]);
 
     $response = $this->client->send($request);
@@ -90,7 +97,7 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
     $total = $data->total;
 
     $request = new Request('GET', $endpoint . '?per-page=' . $total, [
-      'Accept' => $mime_type_list,
+      'Accept' => $media_type_list,
     ]);
 
     $response = $this->client->send($request);
@@ -101,10 +108,11 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
 
     foreach ($data->items as $item) {
       $request = new Request('GET', $endpoint . '/' . $item->{$id_key}, [
-        'Accept' => $mime_type_item
+        'Accept' => $media_type_item,
       ]);
 
       $response = $this->client->send($request);
+      $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
       $json_decoder = new JsonDecoder();
       $messageValidator = new FakeHttpsMessageValidator(new JsonMessageValidator(new PuliSchemaFinder($this->resourceRepository), $json_decoder), $json_decoder);
       $messageValidator->validate($response);

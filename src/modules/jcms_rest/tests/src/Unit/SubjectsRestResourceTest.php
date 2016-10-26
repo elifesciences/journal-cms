@@ -6,7 +6,6 @@ use Drupal\Tests\UnitTestCase;
 use Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource;
 use \Mockery as m;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class SubjectsRestResourceTest
@@ -151,111 +150,6 @@ class SubjectsRestResourceTest extends UnitTestCase {
     // Don't just test the response, test the data.
     $actual = $response->getContent();
     $expected = '{"total":0,"items":[]}';
-    $this->assertEquals($expected, $actual);
-  }
-
-  /**
-   * @test
-   * @covers \Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::get
-   * @covers \Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::getRequestOptions
-   * @group  journal-cms-tests
-   */
-  public function testGetHasSubjectsDefaultOptions() {
-    // Make the query,
-    $this->queryFactory->shouldReceive('get')->andReturn($this->query);
-    $this->query->shouldReceive('condition')->andReturn($this->query);
-    $this->query->shouldReceive('count')->andReturn($this->query);
-    $this->query->shouldReceive('execute')->once()->andReturn(1);
-    // The request should return a Request object.
-    $this->requestStack->shouldReceive('getCurrentRequest')
-      ->andReturn(new Request());
-    $this->query->shouldReceive('range')->andReturn($this->query);
-    $this->query->shouldReceive('sort')->andReturn($this->query);
-    $this->query->shouldReceive('execute')->once()->andReturn([15]);
-    // Load the terms.
-    $this->entityManager->shouldReceive('loadMultiple')
-      ->once()
-      ->andReturn([15 => $this->createItem()]);
-    // MAke the call.
-    $response = $this->resource->get();
-    // Test we have the correct response.
-    $this->assertInstanceOf('Symfony\Component\HttpFoundation\JsonResponse', $response);
-    // Don't just test the response, test the data.
-    $actual = $response->getContent();
-    $expected = '{"total":1,"items":[{"id":"15","name":"Biochemistry","image":{"alt":"Biochemistry alt","sizes":{"2:1":{"900":"\u0022http:\/\/journal-cms.local\/sites\/default\/files\/styles\/crop_2x1_1800x900\/public\/plant-biology.png?itok=c-fmlMss","1800":"\u0022http:\/\/journal-cms.local\/sites\/default\/files\/styles\/crop_2x1_1800x900\/public\/plant-biology.png?itok=c-fmlMss"},"16:9":{"250":"\u0022http:\/\/journal-cms.local\/sites\/default\/files\/styles\/crop_2x1_1800x900\/public\/plant-biology.png?itok=c-fmlMss","500":"\u0022http:\/\/journal-cms.local\/sites\/default\/files\/styles\/crop_2x1_1800x900\/public\/plant-biology.png?itok=c-fmlMss"},"1:1":{"70":"\u0022http:\/\/journal-cms.local\/sites\/default\/files\/styles\/crop_2x1_1800x900\/public\/plant-biology.png?itok=c-fmlMss","140":"\u0022http:\/\/journal-cms.local\/sites\/default\/files\/styles\/crop_2x1_1800x900\/public\/plant-biology.png?itok=c-fmlMss"}}},"impactStatement":"Biochemistry impact statement"}]}';
-    $this->assertEquals($expected, $actual);
-  }
-
-  /**
-   * @test
-   * @covers \Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::getRequestOptions
-   * @group  journal-cms-tests
-   */
-  public function testGetRequestOptionsDefault() {
-    // The request should return a default Request object.
-    $this->requestStack->shouldReceive('getCurrentRequest')
-      ->andReturn(new Request);
-    $expected = [
-      'page' => 1,
-      'per-page' => 20,
-      'order' => 'desc',
-    ];
-    $actual = $this->resource->getRequestOptions();
-    $this->assertEquals($expected, $actual);
-  }
-
-  /**
-   * @test
-   * @covers \Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::getRequestOptions
-   * @group  journal-cms-tests
-   */
-  public function testGetRequestOptionsDefaultModified() {
-    $query = [
-      'page' => 1888,
-      'per-page' => 1967,
-      'order' => 'asc',
-    ];
-    // The request should return a Request object with different query values.
-    $this->requestStack->shouldReceive('getCurrentRequest')
-      ->andReturn(new Request($query));
-    $expected = [
-      'page' => 1888,
-      'per-page' => 1967,
-      'order' => 'asc',
-    ];
-    $actual = $this->resource->getRequestOptions();
-    $this->assertEquals($expected, $actual);
-  }
-
-  /**
-   * @test
-   * @covers \Drupal\jcms_rest\Plugin\rest\resource\SubjectsRestResource::getItem
-   * @group  journal-cms-tests
-   */
-  public function testGetItem() {
-    $expected = [
-      'id' => '15',
-      'name' => 'Biochemistry',
-      'image' => [
-        'alt' => 'Biochemistry alt',
-        'sizes' => [
-          '2:1' => [
-            900 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-            1800 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-          ],
-          '16:9' => [
-            250 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-            500 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-          ],
-          '1:1' => [
-            70 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-            140 => '"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss',
-          ],
-        ],
-      ],
-      'impactStatement' => 'Biochemistry impact statement',
-    ];
-    $actual = $this->resource->getItem($this->createItem());
     $this->assertEquals($expected, $actual);
   }
 

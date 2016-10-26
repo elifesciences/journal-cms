@@ -1,9 +1,9 @@
-uuid: 65fe5712-358e-4b73-9ffc-5dfda12d287d
+uuid: c8e0b49e-da04-45f9-804b-87998bf853bc
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: wMzYdAU_zrsssbiqt3N9kXLNYIn70cKTZ9MaoUWy3tM
+  default_config_hash: mM7oLZQyTqdHL4kAU54F_FYz9NI6CzgjIQxtlCcNe0s
 id: jcms_people_db
 migration_tags: null
 migration_group: jcms_migrate
@@ -49,6 +49,7 @@ process:
     -
       plugin: jcms_split_paragraphs
       source: profile_description
+      strip_keywords: true
     -
       plugin: jcms_content
       multiple: true
@@ -56,16 +57,24 @@ process:
     plugin: jcms_research_details
     source:
       - expertises
-      - focus_ids
-      - organism_ids
-  field_person_competing/value: interest_value
+      - focuses
+      - organisms
+      - profile_description
+  field_person_competing/value:
+    plugin: jcms_filter_html
+    source: interest_value
   field_person_competing/format:
     plugin: default_value
     default_value: basic_html
+  field_image:
+    plugin: jcms_image
+    source:
+      - photo_uri
+      - photo_alt
 destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
     - jcms_subjects_json
-    - jcms_research_focuses_db
-    - jcms_research_organisms_db
+    - jcms_research_focuses_json
+    - jcms_research_organisms_json

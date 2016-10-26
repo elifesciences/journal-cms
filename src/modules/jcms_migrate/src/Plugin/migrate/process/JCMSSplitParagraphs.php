@@ -25,7 +25,9 @@ class JCMSSplitParagraphs extends ProcessPluginBase {
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     if (!empty($value)) {
       $dom = new DomDocument();
+      libxml_use_internal_errors(TRUE);
       $dom->loadHTML('<?xml encoding="UTF-8"><html><body>' . $value . '</body></html>');
+      libxml_clear_errors();
       $xpath = new DomXPath($dom);
       $children = $xpath->query('//body/*');
       $paragraphs = [];
@@ -37,6 +39,11 @@ class JCMSSplitParagraphs extends ProcessPluginBase {
         }
         $innerHTML = trim($this->checkMarkup($innerHTML, 'basic_html'));
         if (!empty($innerHTML)) {
+          if (isset($this->configuration['strip_keywords']) && $this->configuration['strip_keywords'] === TRUE) {
+            if (preg_match('/(keywords|major subject area)/i', $innerHTML)) {
+              break;
+            }
+          }
           $paragraphs[] = [
             'type' => 'paragraph',
             'text' => $innerHTML,

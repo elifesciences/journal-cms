@@ -1,0 +1,41 @@
+uuid: 6fa226ec-9634-43ee-9af8-969144b91fd6
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: uObTBhkk1W6qrT2FK3LJQEIwoX43Cp29vLksqJFyEpg
+id: jcms_research_organisms_json
+migration_tags: null
+migration_group: jcms_migrate
+label: 'JSON feed of research organisms'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: json
+  urls: modules/custom/jcms_migrate/migration_assets/research_organisms.json
+  item_selector: 0
+  fields:
+    -
+      name: id
+      label: 'Research organism ID'
+      selector: id
+    -
+      name: name
+      label: 'Research organism'
+      selector: name
+  ids:
+    id:
+      type: string
+process:
+  id: id
+  label: name
+  vid:
+    plugin: default_value
+    default_value: research_organisms
+  name: name
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:taxonomy_term'
+migration_dependencies: {  }
