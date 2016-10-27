@@ -1,0 +1,6 @@
+uuid: a6defba1-f146-4da1-9adf-20427b412fc3
+langcode: en
+status: true
+dependencies: {  }
+id: cv_item
+label: 'CV item'

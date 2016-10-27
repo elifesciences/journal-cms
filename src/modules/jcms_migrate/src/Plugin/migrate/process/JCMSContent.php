@@ -150,6 +150,16 @@ class JCMSContent extends ProcessPluginBase {
           'format' => 'basic_html',
         ];
         break;
+      case 'question':
+        $values['field_block_title'] = [
+          'value' => $value['question'],
+        ];
+        $content = [];
+        foreach ($value['answer'] as $item) {
+          $content[] = $this->processItemValue($item);
+        }
+        $values['field_block_question_answer'] = $content;
+        break;
     }
     $paragraph = Paragraph::create($values);
     $paragraph->save();

@@ -27,6 +27,8 @@ class PathMediaTypeMapper {
       '/subjects/{id}' => 'application/vnd.elife.subject+json',
       '/blog-articles' => 'application/vnd.elife.blog-article-list+json',
       '/blog-articles/{id}' => 'application/vnd.elife.blog-article+json',
+      '/interviews' => 'application/vnd.elife.interview-list+json',
+      '/interviews/{id}' => 'application/vnd.elife.interview+json',
     ];
     return $map;
   }

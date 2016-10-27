@@ -82,6 +82,12 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
         'application/vnd.elife.podcast-episode-list+json;version=1',
         'application/vnd.elife.podcast-episode+json;version=1',
       ],
+      [
+        '/interviews',
+        'id',
+        'application/vnd.elife.interview-list+json;version=1',
+        'application/vnd.elife.interview+json;version=1',
+      ],
     ];
   }
 

@@ -1,0 +1,18 @@
+uuid: 467e79c1-1a1c-46eb-aefb-72f086a1e1c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.interview
+id: node.interview.title
+field_name: title
+entity_type: node
+bundle: interview
+label: Title
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

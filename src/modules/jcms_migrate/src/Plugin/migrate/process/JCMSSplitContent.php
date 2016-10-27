@@ -98,7 +98,7 @@ class JCMSSplitContent extends ProcessPluginBase {
                 'text' => $child->ownerDocument->saveHTML($child),
               ];
           }
-          if (!empty($content_item)) {
+          if (!empty($content_item) && (empty($this->configuration['limit_types']) || in_array($content_item['type'], (array) $this->configuration['limit_types']))) {
             $content[] = $content_item;
           }
         }
@@ -110,7 +110,8 @@ class JCMSSplitContent extends ProcessPluginBase {
   }
 
   public function tidyHtml($string) {
-    $string = str_replace('&nbsp;', ' ', $string);
+    $string = htmlspecialchars_decode(htmlentities($string, ENT_NOQUOTES, 'UTF-8', FALSE), ENT_NOQUOTES);
+    $string = preg_replace(['/&(nbsp|#xA0);/', '~<(/?)strong>~'], [' ', '<$1b>'], $string);
     $string = $this->stripImgAnchor($string);
     $string = $this->captionConvert($string);
     $string = $this->youtubeConvert($string);
@@ -161,13 +162,13 @@ class JCMSSplitContent extends ProcessPluginBase {
   }
 
   public function captionConvert($string) {
-    preg_match_all("/\\[caption[^\\]]+\\](?P<img_start><img .*src=\"[^\"]+\"[^>\\/]*)(?P<img_end>\\s*[\\/]?>)(?P<caption>.*)\\[\\/caption\\]/", $string, $matches, PREG_SET_ORDER);
+    preg_match_all("/\\[caption[^\\]]*\\](?P<img_start><img .*src=\"[^\"]+\"[^>\\/]*)(?P<img_end>\\s*[\\/]?>)(?P<caption>.*)\\[\\/caption\\]/", $string, $matches, PREG_SET_ORDER);
     if (!empty($matches)) {
       $search = [];
       $replace = [];
       foreach ($matches as $match) {
         $search[] = "/" . preg_quote($match[0], "/") . "/";
-        $replace[] = $match['img_start'] . ' caption="' . trim($match['caption']) . '"' . $match['img_end'];
+        $replace[] = preg_replace(['/\s\s+/', '~(/)?>~'], [' ', '$1>'], $match['img_start'] . ' caption="' . trim($match['caption']) . '"' . $match['img_end']);
       }
       $string = preg_replace($search, $replace, $string);
     }
@@ -247,7 +248,7 @@ class JCMSSplitContent extends ProcessPluginBase {
         $html = $child->ownerDocument->saveHTML($child);
         $html = str_replace('&nbsp;', ' ', $html);
         $html = $this->checkMarkup($html, 'basic_html');
-        $innerHTML .= trim($html);
+        $innerHTML .= $html;
       }
     }
     return $innerHTML;

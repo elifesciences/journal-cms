@@ -3,9 +3,9 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\Component\Utility\Random;
+use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Provides a resource to get view modes by entity and bundle.
@@ -96,7 +96,7 @@ class PodcastEpisodesItemRestResource extends AbstractRestResourceBase {
       return $response;
     }
 
-    throw new NotFoundHttpException(t('Podcast episode with ID @id was not found', ['@id' => $number]));
+    throw new JCMSNotFoundHttpException(t('Podcast episode with ID @id was not found', ['@id' => $number]), NULL, 'application/problem+json');
   }
 
   /**

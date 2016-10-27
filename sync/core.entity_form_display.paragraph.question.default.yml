@@ -1,0 +1,36 @@
+uuid: 23717d23-5a49-4147-84a8-4ca79698d6e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.question.field_block_question_answer
+    - field.field.paragraph.question.field_block_title
+    - paragraphs.paragraphs_type.question
+  module:
+    - paragraphs
+id: paragraph.question.default
+targetEntityType: paragraph
+bundle: question
+mode: default
+content:
+  field_block_question_answer:
+    type: entity_reference_paragraphs
+    weight: 1
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+    third_party_settings: {  }
+  field_block_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+hidden:
+  created: true
+  status: true
+  uid: true

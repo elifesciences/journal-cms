@@ -1,0 +1,52 @@
+uuid: 84fdf728-cbd9-4542-aacf-98b90e2f1d22
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: bZRAk0o0eGLpX61NkGxw8e4ECOUvROXB4BmNi5iV0UI
+id: jcms_interviews_db
+migration_tags: null
+migration_group: jcms_migrate
+label: 'Legacy interviews'
+source:
+  plugin: jcms_interview_node
+process:
+  type:
+    plugin: default_value
+    default_value: interview
+  title: title
+  uid:
+    plugin: default_value
+    default_value: 1
+  created: created
+  field_person_preferred_name:
+    plugin: concat
+    source:
+      - name_first
+      - name_last
+    delimiter: ' '
+  field_person_index_name:
+    plugin: concat
+    source:
+      - name_last
+      - name_first
+    delimiter: ', '
+  field_interview_cv:
+    plugin: jcms_cv_items
+    source:
+      - cv_dates
+      - cv_texts
+    delimiter: '|'
+  field_impact_statement:
+    plugin: jcms_filter_html
+    source: summary
+  field_content:
+    -
+      plugin: jcms_split_interview_content
+      source: content
+    -
+      plugin: jcms_content
+      multiple: true
+destination:
+  plugin: 'entity:node'
+migration_dependencies: null

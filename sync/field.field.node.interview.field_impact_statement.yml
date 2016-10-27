@@ -1,0 +1,21 @@
+uuid: 49dfc7cb-d060-432d-9b98-48e2cde2f371
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_impact_statement
+    - node.type.interview
+  module:
+    - text
+id: node.interview.field_impact_statement
+field_name: field_impact_statement
+entity_type: node
+bundle: interview
+label: 'Impact statement'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
