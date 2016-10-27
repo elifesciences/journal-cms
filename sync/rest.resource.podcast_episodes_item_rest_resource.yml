@@ -5,13 +5,12 @@ dependencies:
   module:
     - basic_auth
     - jcms_rest
-    - serialization
 id: podcast_episodes_item_rest_resource
 plugin_id: podcast_episodes_item_rest_resource
 granularity: method
 configuration:
   GET:
     supported_formats:
-      - json
+      - jcms_json
     supported_auth:
       - basic_auth

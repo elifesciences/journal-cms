@@ -49,8 +49,19 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     return [
       $id_key => !is_null($id) ? $id : substr($entity->uuid(), -8),
       'title' => $entity->getTitle(),
-      'published' => \Drupal::service('date.formatter')->format($entity->getCreatedTime(), 'html_datetime'),
+      'published' => $this->formatDate($entity->getCreatedTime()),
     ];
+  }
+
+  /**
+   * Format date.
+   *
+   * @param null|int $date
+   * @return mixed
+   */
+  protected function formatDate($date = NULL) {
+    $date = is_null($date) ? time() : $date;
+    return \Drupal::service('date.formatter')->format($date, 'html_datetime');
   }
 
   /**
@@ -100,9 +111,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * @param \Drupal\Core\Field\FieldItemListInterface $data
    * @param bool $required
    * @param array|string $size_types
+   * @param bool $bump
    * @return array
    */
-  protected function processFieldImage(FieldItemListInterface $data, $required = FALSE, $size_types = ['banner', 'thumbnail']) {
+  protected function processFieldImage(FieldItemListInterface $data, $required = FALSE, $size_types = ['banner', 'thumbnail'], $bump = FALSE) {
     if ($required || $data->count()) {
       $image = $this->getImageSizes($size_types);
 
@@ -121,7 +133,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         }
       }
 
-      if (count($image) === 1) {
+      if ($bump && count($image) === 1) {
         $keys = array_keys($image);
         $image = $image[$keys[0]];
       }

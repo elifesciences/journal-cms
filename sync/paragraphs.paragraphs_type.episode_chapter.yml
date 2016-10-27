@@ -1,0 +1,6 @@
+uuid: 1bb85f7d-e8bb-4088-8156-9032388dd4e7
+langcode: en
+status: true
+dependencies: {  }
+id: episode_chapter
+label: 'Episode chapter'

@@ -70,7 +70,7 @@ class LabsExperimentsRestResource extends AbstractRestResourceBase {
     $item = $this->processDefault($node, (int) $node->get('field_experiment_number')->first()->getValue()['value'], 'number');
 
     // Image is required.
-    $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE);
+    $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE, 'thumbnail');
 
     // Impact statement is optional.
     if ($node->get('field_impact_statement')->count()) {

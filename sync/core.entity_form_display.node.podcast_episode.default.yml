@@ -3,18 +3,18 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.podcast_episode.field_episode_chapter
     - field.field.node.podcast_episode.field_episode_mp3
     - field.field.node.podcast_episode.field_episode_number
     - field.field.node.podcast_episode.field_image
     - field.field.node.podcast_episode.field_impact_statement
-    - field.field.node.podcast_episode.field_publication_date
     - field.field.node.podcast_episode.field_subjects
     - image.style.thumbnail
     - node.type.podcast_episode
   module:
-    - datetime
     - image
     - link
+    - paragraphs
     - path
     - text
 id: node.podcast_episode.default
@@ -26,6 +26,16 @@ content:
     type: datetime_timestamp
     weight: 2
     settings: {  }
+    third_party_settings: {  }
+  field_episode_chapter:
+    type: entity_reference_paragraphs
+    weight: 26
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
     third_party_settings: {  }
   field_episode_mp3:
     weight: 6
@@ -54,11 +64,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  field_publication_date:
-    weight: 7
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
   field_subjects:
     weight: 9
     settings:

@@ -1,0 +1,21 @@
+uuid: 61ed6093-d724-4d8c-af81-5d07baf9ab8a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_html
+    - paragraphs.paragraphs_type.episode_chapter
+  module:
+    - text
+id: paragraph.episode_chapter.field_block_html
+field_name: field_block_html
+entity_type: paragraph
+bundle: episode_chapter
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
