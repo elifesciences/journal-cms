@@ -143,7 +143,7 @@ class RamlSchemaValidationTest extends UnitTestCase {
     $data = json_decode($list_response->getBody()->getContents());
     $this->validateResponse($list_response);
     $this->assertEquals(200, $list_response->getStatusCode());
-    // To be added when generating content for other items than subjects.
+    // To be added when generating content for all items in the data provider.
     //$this->assertNotEmpty($data->items);
     foreach ($data->items as $item) {
       $item_response = $this->makeGuzzleRequest($http_method, $endpoint . '/' . $item->{$id_key}, $media_type_item);
