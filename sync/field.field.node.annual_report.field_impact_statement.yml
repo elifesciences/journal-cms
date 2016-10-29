@@ -1,0 +1,21 @@
+uuid: 5597c976-4acc-49de-a90f-2636a46db18f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_impact_statement
+    - node.type.annual_report
+  module:
+    - text
+id: node.annual_report.field_impact_statement
+field_name: field_impact_statement
+entity_type: node
+bundle: annual_report
+label: 'Impact statement'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

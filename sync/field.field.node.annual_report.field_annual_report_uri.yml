@@ -1,0 +1,23 @@
+uuid: e81eac78-115d-4537-bf74-469530929857
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_annual_report_uri
+    - node.type.annual_report
+  module:
+    - link
+id: node.annual_report.field_annual_report_uri
+field_name: field_annual_report_uri
+entity_type: node
+bundle: annual_report
+label: 'Annual report URI'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

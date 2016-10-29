@@ -1,0 +1,17 @@
+uuid: 1186d3ec-5b54-48cf-814d-8cdf571745ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.annual_report
+  module:
+    - user
+id: node.annual_report.teaser
+targetEntityType: node
+bundle: annual_report
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden: {  }
