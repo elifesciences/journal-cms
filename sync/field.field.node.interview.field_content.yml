@@ -1,0 +1,62 @@
+uuid: b6c8068b-5686-4e5e-bd3a-2239fc64508c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.interview
+    - paragraphs.paragraphs_type.paragraph
+    - paragraphs.paragraphs_type.question
+  module:
+    - entity_reference_revisions
+id: node.interview.field_content
+field_name: field_content
+entity_type: node
+bundle: interview
+label: Content
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      paragraph: paragraph
+      question: question
+    target_bundles_drag_drop:
+      blockquote:
+        weight: 12
+        enabled: false
+      cv_item:
+        weight: 13
+        enabled: false
+      image:
+        weight: 14
+        enabled: false
+      list:
+        weight: 15
+        enabled: false
+      list_item:
+        weight: 16
+        enabled: false
+      paragraph:
+        enabled: true
+        weight: 17
+      question:
+        enabled: true
+        weight: 18
+      research_details:
+        weight: 19
+        enabled: false
+      section:
+        weight: 20
+        enabled: false
+      table:
+        weight: 21
+        enabled: false
+      youtube:
+        weight: 22
+        enabled: false
+field_type: entity_reference_revisions

@@ -30,3 +30,5 @@ permissions:
   - 'restful get blog_articles_item_rest_resource'
   - 'view own field_subject_id'
   - 'view field_subject_id'
+  - 'restful get interviews_list_rest_resource'
+  - 'restful get interviews_item_rest_resource'

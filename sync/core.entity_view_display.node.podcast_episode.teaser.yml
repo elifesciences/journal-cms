@@ -22,6 +22,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_episode_chapter: true
   field_episode_chapters: true
   field_episode_mp3: true
   field_episode_number: true

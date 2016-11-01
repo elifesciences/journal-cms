@@ -183,6 +183,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
               unset($result_item);
             }
             break;
+          case 'question':
+            $result_item['question'] = $content_item->get('field_block_title')->first()->getValue()['value'];
+            $result_item['answer'] = $handle_paragraphs($content_item->get('field_block_question_answer'));
+            break;
           case 'image':
             if ($image = $content_item->get('field_block_image')->first()) {
               $image = $content_item->get('field_block_image')->first();

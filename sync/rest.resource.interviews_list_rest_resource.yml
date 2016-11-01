@@ -1,0 +1,16 @@
+uuid: aa4424be-0442-4213-92d0-6937740f620f
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - jcms_rest
+id: interviews_list_rest_resource
+plugin_id: interviews_list_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - jcms_json
+    supported_auth:
+      - basic_auth

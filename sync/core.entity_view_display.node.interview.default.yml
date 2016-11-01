@@ -1,0 +1,59 @@
+uuid: 83641ec7-573c-43d8-ab7e-8f0b86211cbf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.interview.field_content
+    - field.field.node.interview.field_impact_statement
+    - field.field.node.interview.field_interview_cv
+    - field.field.node.interview.field_person_index_name
+    - field.field.node.interview.field_person_preferred_name
+    - node.type.interview
+  module:
+    - entity_reference_revisions
+    - text
+    - user
+id: node.interview.default
+targetEntityType: node
+bundle: interview
+mode: default
+content:
+  field_content:
+    weight: 104
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+  field_impact_statement:
+    weight: 105
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_interview_cv:
+    type: entity_reference_revisions_entity_view
+    weight: 102
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_person_index_name:
+    weight: 101
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_person_preferred_name:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  links:
+    weight: 100
+hidden: {  }

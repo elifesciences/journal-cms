@@ -23,7 +23,7 @@ class JCMSSplitParagraphsTest extends MigrateProcessTestCase {
     $plugin = new TestJCMSSplitParagraphs(array(), 'jcms_split_paragraphs', array());
     $plugin->setStripKeywords($strip_keywords);
     $split_paragraphs = $plugin->transform($html, $this->migrateExecutable, $this->row, 'destinationproperty');
-    $this->assertSame($split_paragraphs, $expected_result);
+    $this->assertEquals($split_paragraphs, $expected_result);
   }
 
   public function transformDataProvider() {

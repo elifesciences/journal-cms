@@ -19,16 +19,18 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
      * @dataProvider transformDataProvider
      * @group  journal-cms-tests
      */
-    public function testTransform($html, $expected_result) {
-      $plugin = new JCMSSplitContent([], 'jcms_split_content', []);
+    public function testTransform($html, $limit_types, $expected_result) {
+      $plugin = new TestJCMSSplitContent([], 'jcms_split_content', []);
+      $plugin->setLimitTypes($limit_types);
       $split_content = $plugin->transform($html, $this->migrateExecutable, $this->row, 'destinationproperty');
-      $this->assertSame($expected_result, $split_content);
+      $this->assertEquals($expected_result, $split_content);
     }
 
     public function transformDataProvider() {
       return [
         [
           '<p>Paragraph 1</p><p>Paragraph 2</p>',
+          [],
           [
             ['type' => 'paragraph', 'text' => 'Paragraph 1'],
             ['type' => 'paragraph', 'text' => 'Paragraph 2'],
@@ -36,6 +38,7 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
         ],
         [
           '<p>Paragraph</p><table><tr><td>Table cell</td></tr></table><ul><li>Unordered list item 1</li><li>Unordered list item 2</li></ul><ol><li>Ordered list item</li></ol><p>Paragraph</p>',
+          [],
           [
             ['type' => 'paragraph', 'text' => 'Paragraph'],
             ['type' => 'table', 'html' => '<table><tr><td>Table cell</td></tr></table>'],
@@ -46,6 +49,7 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
         ],
         [
           '<p>Paragraph 1</p><p>&nbsp;</p><p>Paragraph 2</p>',
+          [],
           [
             ['type' => 'paragraph', 'text' => 'Paragraph 1'],
             ['type' => 'paragraph', 'text' => 'Paragraph 2'],
@@ -53,6 +57,7 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
         ],
         [
           '<p>Paragraph 1</p><img src="png/image.png" alt="Alt text" /><p>Paragraph 2</p>',
+          [],
           [
             ['type' => 'paragraph', 'text' => 'Paragraph 1'],
             ['type' => 'image', 'image' => 'png/image.png', 'alt' => 'Alt text'],
@@ -61,25 +66,65 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
         ],
         [
           '<div><a href="png/image.png"><img src="png/image.png"></a></div>',
+          [],
           [
             ['type' => 'image', 'image' => 'png/image.png'],
           ],
         ],
         [
           "[caption align=left]<img src=\"https://journal-cms.dev/image.jpg\" /> Image Caption[/caption]",
+          [],
           [
             ['type' => 'image', 'image' => 'https://journal-cms.dev/image.jpg', 'caption' => 'Image Caption'],
           ],
         ],
         [
           '<p>Paragraph 1</p><p><iframe allowfullscreen="" frameborder="0" height="315" src="//www.youtube.com/embed/Ykk0ELhUAxo" width="560"></iframe></p><p>Paragraph 2</p>',
+          [],
           [
             ['type' => 'paragraph', 'text' => 'Paragraph 1'],
             ['type' => 'youtube', 'id' => 'Ykk0ELhUAxo', 'width' => '560', 'height' => '315'],
             ['type' => 'paragraph', 'text' => 'Paragraph 2'],
           ],
         ],
+        [
+          '<p>Paragraph 1</p><p><iframe allowfullscreen="" frameborder="0" height="315" src="//www.youtube.com/embed/Ykk0ELhUAxo" width="560"></iframe></p><p>Paragraph 2</p>',
+          [
+            'paragraph',
+            'image',
+          ],
+          [
+            ['type' => 'paragraph', 'text' => 'Paragraph 1'],
+            ['type' => 'paragraph', 'text' => 'Paragraph 2'],
+          ],
+        ],
         // @todo - elife - nlisgo - add test for entity_id 249171 field_data_field_elife_n_text
+      ];
+    }
+
+    /**
+     * @test
+     * @covers ::captionConvert()
+     * @dataProvider captionConvertDataProvider
+     * @param $string
+     * @param $expected_result
+     */
+    public function testCaptionConvert($string, $expected_result) {
+      $plugin = new JCMSSplitContent([], 'jcms_split_content', []);
+      $caption_convert = $plugin->captionConvert($string);
+      $this->assertEquals($expected_result, $caption_convert);
+    }
+
+    public function captionConvertDataProvider() {
+      return [
+        [
+          "[caption align=left]<img src=\"https://journal-cms.dev/image.jpg\" /> Image Caption[/caption]",
+          "<img src=\"https://journal-cms.dev/image.jpg\" caption=\"Image Caption\"/>",
+        ],
+        [
+          "<p>[caption]<img alt=\"Monica Alandete-Saez\" src=\"/sites/default/files/monica_alandete-saez.jpg\" style=\"height:427px; width:320px\" title=\"Monica Alandete-Saez. Image credit: Mily Ron\">Monica Alandete-Saez. Image credit: Mily Ron[/caption]</p>",
+          "<p><img alt=\"Monica Alandete-Saez\" src=\"/sites/default/files/monica_alandete-saez.jpg\" style=\"height:427px; width:320px\" title=\"Monica Alandete-Saez. Image credit: Mily Ron\" caption=\"Monica Alandete-Saez. Image credit: Mily Ron\"></p>",
+        ],
       ];
     }
 
@@ -92,7 +137,7 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
     public function testNl2p($html, $expected_result) {
       $plugin = new JCMSSplitContent([], 'jcms_split_content', []);
       $nl2p = $plugin->nl2p($html);
-      $this->assertSame($expected_result, $nl2p);
+      $this->assertEquals($expected_result, $nl2p);
     }
 
     public function nl2pDataProvider() {
@@ -113,7 +158,7 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
     public function testYoutubeID($url, $expected_result) {
       $plugin = new JCMSSplitContent([], 'jcms_split_content', []);
       $youtube_id = $plugin->youtubeID($url);
-      $this->assertSame($expected_result, $youtube_id);
+      $this->assertEquals($expected_result, $youtube_id);
     }
 
     public function youtubeIDDataProvider() {
@@ -202,7 +247,7 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
     public function testYoutubeConvert($html, $expected_result) {
       $plugin = new JCMSSplitContent([], 'jcms_split_content', []);
       $convert_html = $plugin->youtubeConvert($html);
-      $this->assertSame($expected_result, $convert_html);
+      $this->assertEquals($expected_result, $convert_html);
     }
 
     public function youtubeConvertDataProvider() {
@@ -212,6 +257,21 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
           "<p><youtube id=\"Ykk0ELhUAxo\" width=\"560\" height=\"315\"/></p>",
         ],
       ];
+    }
+
+  }
+
+  class TestJCMSSplitContent extends JCMSSplitContent {
+    public function __construct() {
+    }
+
+    /**
+     * Set limit_types configuration.
+     *
+     * @param array $limit_types
+     */
+    public function setLimitTypes($limit_types) {
+      $this->configuration['limit_types'] = $limit_types;
     }
 
   }

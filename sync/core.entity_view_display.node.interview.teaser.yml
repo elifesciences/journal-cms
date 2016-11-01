@@ -1,0 +1,22 @@
+uuid: d819df64-e677-4265-9856-b456f10cb94c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.interview
+  module:
+    - user
+id: node.interview.teaser
+targetEntityType: node
+bundle: interview
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_content: true
+  field_impact_statement: true
+  field_interview_cv: true
+  field_person_index_name: true
+  field_person_preferred_name: true

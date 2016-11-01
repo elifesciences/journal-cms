@@ -1,0 +1,19 @@
+uuid: 6482da4e-c599-4e79-9bab-700485ee7b96
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_person_preferred_name
+    - node.type.interview
+id: node.interview.field_person_preferred_name
+field_name: field_person_preferred_name
+entity_type: node
+bundle: interview
+label: 'Interviewee preferred name'
+description: "Preferred name is generally the name that is used by the person for English-language publications.\r\nFor example:\r\n<ul>\r\n  <li>Randy Schekman</li>\r\n  <li>K. VijayRaghavan</li>\r\n  <li>Wenhui Li</li>\r\n</ul>"
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

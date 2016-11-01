@@ -2,12 +2,9 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\image\Entity\ImageStyle;
-use Drupal\rest\Plugin\ResourceBase;
-use Drupal\rest\ResourceResponse;
+use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Provides a resource to get view modes by entity and bundle.
@@ -103,7 +100,7 @@ class PeopleItemRestResource extends AbstractRestResourceBase {
       return $response;
     }
 
-    throw new NotFoundHttpException(t('Person with ID @id was not found', ['@id' => $id]));
+    throw new JCMSNotFoundHttpException(t('Person with ID @id was not found', ['@id' => $id]), NULL, 'application/problem+json');
   }
 
 }

@@ -1,0 +1,22 @@
+uuid: 88a3a9d4-a7b8-42fe-920f-ec0d4b632fce
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.interview
+id: node.interview.promote
+field_name: promote
+entity_type: node
+bundle: interview
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
