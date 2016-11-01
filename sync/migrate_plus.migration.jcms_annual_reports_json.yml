@@ -1,0 +1,64 @@
+uuid: 7d840227-c67e-4d75-a16f-2c70ac499c28
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: P57pPpI4yC5mAGb4gouN6hRpwYrc2uKw48q6gMjBwOY
+id: jcms_annual_reports_json
+migration_tags: null
+migration_group: jcms_migrate
+label: 'JSON feed of annual reports'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: json
+  urls: modules/custom/jcms_migrate/migration_assets/annual_reports.json
+  item_selector: 0
+  fields:
+    -
+      name: year
+      label: 'Annual report year'
+      selector: year
+    -
+      name: title
+      label: 'Annual report title'
+      selector: title
+    -
+      name: impact_statement
+      label: 'Annual report impact statement'
+      selector: impact_statement
+    -
+      name: image
+      label: 'Annual report image'
+      selector: image
+    -
+      name: uri
+      label: 'Annual report URI'
+      selector: uri
+  ids:
+    year:
+      type: string
+process:
+  id: year
+  label: title
+  type:
+    plugin: default_value
+    default_value: annual_report
+  title: title
+  uid:
+    plugin: default_value
+    default_value: 1
+  field_annual_report_year: year
+  field_impact_statement/value: impact_statement
+  field_impact_statement/format:
+    plugin: default_value
+    default_value: basic_html
+  field_image:
+    plugin: jcms_image
+    source:
+      - image
+      - title
+  field_annual_report_uri/uri: uri
+destination:
+  plugin: 'entity:node'
+migration_dependencies: {  }

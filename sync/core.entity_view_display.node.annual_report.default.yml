@@ -1,0 +1,56 @@
+uuid: 08ee50f8-9bb3-4962-bb57-060d738fc993
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.annual_report.field_annual_report_uri
+    - field.field.node.annual_report.field_annual_report_year
+    - field.field.node.annual_report.field_image
+    - field.field.node.annual_report.field_impact_statement
+    - node.type.annual_report
+  module:
+    - image
+    - link
+    - text
+    - user
+id: node.annual_report.default
+targetEntityType: node
+bundle: annual_report
+mode: default
+content:
+  field_annual_report_uri:
+    weight: 102
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  field_annual_report_year:
+    weight: 101
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_image:
+    weight: 104
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_impact_statement:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  links:
+    weight: 100
+hidden: {  }

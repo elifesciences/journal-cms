@@ -1,0 +1,23 @@
+uuid: d03a8255-4d8f-4bc4-b182-956464d1e46e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_annual_report_year
+    - node.type.annual_report
+id: node.annual_report.field_annual_report_year
+field_name: field_annual_report_year
+entity_type: node
+bundle: annual_report
+label: Year
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 2012
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

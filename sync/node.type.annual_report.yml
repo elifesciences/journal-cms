@@ -1,0 +1,17 @@
+uuid: aea33835-6f9d-4f4f-a671-4aafda19813b
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Annual report'
+type: annual_report
+description: ''
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: false
