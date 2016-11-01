@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.blockquote.field_block_citation
     - field.field.paragraph.blockquote.field_block_html
     - paragraphs.paragraphs_type.blockquote
   module:
@@ -13,13 +12,6 @@ targetEntityType: paragraph
 bundle: blockquote
 mode: default
 content:
-  field_block_citation:
-    weight: 1
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textarea
   field_block_html:
     weight: 2
     settings:

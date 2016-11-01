@@ -162,7 +162,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * @return array
    */
   protected function processFieldContent(FieldItemListInterface $data, $required = FALSE) {
-    $handle_paragraphs = function($content) use (&$handle_paragraphs) {
+    $handle_paragraphs = function($content, $list_flag = FALSE) use (&$handle_paragraphs) {
       $result = [];
       foreach ($content as $paragraph) {
         $content_item = $paragraph->get('entity')->getTarget()->getValue();
@@ -197,10 +197,13 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             }
             break;
           case 'blockquote':
-            $result_item['text'] = $content_item->get('field_block_html')->first()->getValue()['value'];
-            if ($content_item->get('field_block_citation')->count()) {
-              $result_item['citation'] = $content_item->get('field_block_citation')->first()->getValue()['value'];
-            }
+            $result_item['type'] = 'quote';
+            $result_item['text'] = [
+              [
+                'type' => 'paragraph',
+                'text' => $content_item->get('field_block_html')->first()->getValue()['value']
+              ],
+            ];
             break;
           case 'youtube':
             $result_item['id'] = $content_item->get('field_block_youtube_id')->first()->getValue()['value'];
@@ -208,11 +211,17 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             $result_item['height'] = (int) $content_item->get('field_block_youtube_height')->first()->getValue()['value'];
             break;
           case 'table':
-            $result_item['tables'] = [preg_replace('/\n/', '', $content_item->get('field_block_html')->first()->getValue()['value'])];
+            $table_content = preg_replace('/\n/', '', $content_item->get('field_block_html')->first()->getValue()['value']);
+            if (preg_match("/(<table[^>]*>(?:.|\n)*?<\/table>)/", $table_content)) {
+              $result_item['tables'] = [$table_content];
+            }
+            else {
+              $result_item['tables'] = ['<table>' . $table_content . '</table>'];
+            }
             break;
           case 'list':
             $result_item['prefix'] = $content_item->get('field_block_list_ordered')->first()->getValue()['value'] ? 'number' : 'bullet';
-            $result_item['items'] = $handle_paragraphs($content_item->get('field_block_list_items'));
+            $result_item['items'] = $handle_paragraphs($content_item->get('field_block_list_items'), TRUE);
             break;
           case 'list_item':
             $result_item = $content_item->get('field_block_html')->first()->getValue()['value'];
@@ -222,6 +231,9 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         }
 
         if (!empty($result_item)) {
+          if ($list_flag && $content_type != 'list_item') {
+            $result_item = [$result_item];
+          }
           $result[] = $result_item;
         }
       }
