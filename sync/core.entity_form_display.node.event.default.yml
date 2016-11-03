@@ -1,0 +1,70 @@
+uuid: dab215d4-286f-43a7-a85d-93f00133f97b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.event.field_content
+    - field.field.node.event.field_event_datetime
+    - field.field.node.event.field_event_timezone
+    - field.field.node.event.field_event_venue
+    - field.field.node.event.field_impact_statement
+    - node.type.event
+  module:
+    - datetime_range
+    - paragraphs
+    - text
+id: node.event.default
+targetEntityType: node
+bundle: event
+mode: default
+content:
+  field_content:
+    weight: 5
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+  field_event_datetime:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: daterange_default
+  field_event_timezone:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_event_venue:
+    type: entity_reference_paragraphs
+    weight: 4
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+    third_party_settings: {  }
+  field_impact_statement:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

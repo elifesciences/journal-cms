@@ -1,0 +1,19 @@
+uuid: 0b0b00d2-6eef-4f49-a48f-bf33ca6426e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_title_multiline
+    - paragraphs.paragraphs_type.venue
+id: paragraph.venue.field_block_title_multiline
+field_name: field_block_title_multiline
+entity_type: paragraph
+bundle: venue
+label: 'Venue name'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,35 @@
+uuid: 3fb14358-aafa-4726-9311-71f73502649c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_address
+    - paragraphs.paragraphs_type.venue
+  module:
+    - address
+id: paragraph.venue.field_block_address
+field_name: field_block_address
+entity_type: paragraph
+bundle: venue
+label: Address
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_countries: {  }
+  fields:
+    administrativeArea: administrativeArea
+    locality: locality
+    dependentLocality: dependentLocality
+    postalCode: postalCode
+    sortingCode: sortingCode
+    addressLine1: addressLine1
+    addressLine2: addressLine2
+    organization: '0'
+    givenName: '0'
+    additionalName: '0'
+    familyName: '0'
+  langcode_override: ''
+field_type: address

@@ -1,0 +1,21 @@
+uuid: bb16c29e-1291-4458-b13a-4470f4f7969e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_timezone
+    - node.type.event
+  module:
+    - options
+id: node.event.field_event_timezone
+field_name: field_event_timezone
+entity_type: node
+bundle: event
+label: Timezone
+description: 'Timezone for non-online events'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

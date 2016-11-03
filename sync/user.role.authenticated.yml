@@ -34,3 +34,5 @@ permissions:
   - 'restful get interviews_item_rest_resource'
   - 'restful get annual_reports_list_rest_resource'
   - 'restful get annual_reports_item_rest_resource'
+  - 'restful get events_list_rest_resource'
+  - 'restful get events_item_rest_resource'

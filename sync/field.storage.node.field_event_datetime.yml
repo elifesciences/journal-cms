@@ -1,24 +1,23 @@
-uuid: c93230b3-cae8-4fd8-bdd7-33a6bd1338c9
+uuid: d517ad7d-c0d9-4d6d-b28a-05979a23dd7c
 langcode: en
 status: true
 dependencies:
   module:
+    - datetime_range
     - field_permissions
-    - paragraphs
+    - node
 third_party_settings:
   field_permissions:
     permission_type: public
-id: paragraph.field_block_title
-field_name: field_block_title
-entity_type: paragraph
-type: string
+id: node.field_event_datetime
+field_name: field_event_datetime
+entity_type: node
+type: daterange
 settings:
-  max_length: 255
-  is_ascii: false
-  case_sensitive: false
-module: core
+  datetime_type: datetime
+module: datetime_range
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

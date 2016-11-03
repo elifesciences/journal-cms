@@ -1,0 +1,16 @@
+uuid: 13f29f9e-3654-4ff3-a3bf-0d1d3e665436
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - jcms_rest
+id: events_item_rest_resource
+plugin_id: events_item_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - jcms_json
+    supported_auth:
+      - basic_auth

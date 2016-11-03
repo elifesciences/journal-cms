@@ -1,0 +1,32 @@
+uuid: e0d8dadc-2e98-41eb-874e-7152792fe6bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.venue.field_block_address
+    - field.field.paragraph.venue.field_block_title_multiline
+    - paragraphs.paragraphs_type.venue
+  module:
+    - address
+id: paragraph.venue.default
+targetEntityType: paragraph
+bundle: venue
+mode: default
+content:
+  field_block_address:
+    weight: 2
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_block_title_multiline:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+hidden:
+  created: true
+  status: true
+  uid: true

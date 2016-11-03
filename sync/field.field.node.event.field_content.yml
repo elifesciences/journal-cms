@@ -1,0 +1,75 @@
+uuid: 36500987-ee14-47a7-937b-91dbe9b53a3a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.event
+    - paragraphs.paragraphs_type.blockquote
+    - paragraphs.paragraphs_type.image
+    - paragraphs.paragraphs_type.list
+    - paragraphs.paragraphs_type.paragraph
+    - paragraphs.paragraphs_type.question
+    - paragraphs.paragraphs_type.section
+    - paragraphs.paragraphs_type.table
+  module:
+    - entity_reference_revisions
+id: node.event.field_content
+field_name: field_content
+entity_type: node
+bundle: event
+label: Content
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      blockquote: blockquote
+      image: image
+      list: list
+      paragraph: paragraph
+      question: question
+      section: section
+      table: table
+    target_bundles_drag_drop:
+      blockquote:
+        enabled: true
+        weight: 13
+      cv_item:
+        weight: 14
+        enabled: false
+      episode_chapter:
+        weight: 15
+        enabled: false
+      image:
+        enabled: true
+        weight: 16
+      list:
+        enabled: true
+        weight: 17
+      list_item:
+        weight: 18
+        enabled: false
+      paragraph:
+        enabled: true
+        weight: 19
+      question:
+        enabled: true
+        weight: 20
+      research_details:
+        weight: 21
+        enabled: false
+      section:
+        enabled: true
+        weight: 22
+      table:
+        enabled: true
+        weight: 23
+      youtube:
+        weight: 24
+        enabled: false
+field_type: entity_reference_revisions
