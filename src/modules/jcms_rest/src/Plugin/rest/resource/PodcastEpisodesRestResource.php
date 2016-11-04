@@ -67,7 +67,7 @@ class PodcastEpisodesRestResource extends AbstractRestResourceBase {
    */
   public function getItem(EntityInterface $node) {
     /* @var Node $node */
-    $item = $this->processDefault($node, (int) $node->get('field_episode_number')->first()->getValue()['value'], 'number');
+    $item = $this->processDefault($node, (int) $node->get('field_episode_number')->getString(), 'number');
 
     // Image is optional.
     if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {

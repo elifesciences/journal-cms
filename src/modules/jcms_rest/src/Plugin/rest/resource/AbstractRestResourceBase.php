@@ -119,7 +119,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       $image = $this->getImageSizes($size_types);
 
       foreach ($image as $type => $image_sizes) {
-        $image_uri = $data->first()->get('entity')->getTarget()->get('uri')->first()->getValue()['value'];
+        $image_uri = $data->first()->get('entity')->getTarget()->get('uri')->getString();
         $image[$type]['alt'] = $data->first()->getValue()['alt'];
         foreach ($image_sizes['sizes'] as $ar => $sizes) {
           foreach ($sizes as $width => $height) {
@@ -172,28 +172,28 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         ];
         switch ($content_type) {
           case 'section':
-            $result_item['title'] = $content_item->get('field_block_title')->first()->getValue()['value'];
+            $result_item['title'] = $content_item->get('field_block_title')->getString();
             $result_item['content'] = $handle_paragraphs($content_item->get('field_block_content'));
             break;
           case 'paragraph':
-            if ($content_item->get('field_block_html')->first()) {
-              $result_item['text'] = $content_item->get('field_block_html')->first()->getValue()['value'];
+            if ($content_item->get('field_block_html')->count()) {
+              $result_item['text'] = $this->fieldValueFormatted($content_item->get('field_block_html'));
             }
             else {
               unset($result_item);
             }
             break;
           case 'question':
-            $result_item['question'] = $content_item->get('field_block_title')->first()->getValue()['value'];
+            $result_item['question'] = $content_item->get('field_block_title')->getString();
             $result_item['answer'] = $handle_paragraphs($content_item->get('field_block_question_answer'));
             break;
           case 'image':
             if ($image = $content_item->get('field_block_image')->first()) {
               $image = $content_item->get('field_block_image')->first();
               $result_item['alt'] = (string) $image->getValue()['alt'];
-              $result_item['uri'] = file_create_url($image->get('entity')->getTarget()->get('uri')->first()->getValue()['value']);
+              $result_item['uri'] = file_create_url($image->get('entity')->getTarget()->get('uri')->getString());
               if ($content_item->get('field_block_html')->count()) {
-                $result_item['title'] = $content_item->get('field_block_html')->first()->getValue()['value'];
+                $result_item['title'] = $this->fieldValueFormatted($content_item->get('field_block_html'));
               }
             }
             else {
@@ -205,30 +205,30 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             $result_item['text'] = [
               [
                 'type' => 'paragraph',
-                'text' => $content_item->get('field_block_html')->first()->getValue()['value']
+                'text' => $this->fieldValueFormatted($content_item->get('field_block_html')),
               ],
             ];
             break;
           case 'youtube':
-            $result_item['id'] = $content_item->get('field_block_youtube_id')->first()->getValue()['value'];
-            $result_item['width'] = (int) $content_item->get('field_block_youtube_width')->first()->getValue()['value'];
-            $result_item['height'] = (int) $content_item->get('field_block_youtube_height')->first()->getValue()['value'];
+            $result_item['id'] = $content_item->get('field_block_youtube_id')->getString();
+            $result_item['width'] = (int) $content_item->get('field_block_youtube_width')->getString();
+            $result_item['height'] = (int) $content_item->get('field_block_youtube_height')->getString();
             break;
           case 'table':
-            $table_content = preg_replace('/\n/', '', $content_item->get('field_block_html')->first()->getValue()['value']);
-            if (preg_match("/(<table[^>]*>(?:.|\n)*?<\/table>)/", $table_content)) {
-              $result_item['tables'] = [$table_content];
+            $table_content = preg_replace('/\n/', '', $this->fieldValueFormatted($content_item->get('field_block_html')));
+            if (preg_match("~(?P<table><table[^>]*>(?:.|\n)*?</table>)~", $table_content, $match)) {
+              $result_item['tables'] = [$match['table']];
             }
             else {
               $result_item['tables'] = ['<table>' . $table_content . '</table>'];
             }
             break;
           case 'list':
-            $result_item['prefix'] = $content_item->get('field_block_list_ordered')->first()->getValue()['value'] ? 'number' : 'bullet';
+            $result_item['prefix'] = $content_item->get('field_block_list_ordered')->getString() ? 'number' : 'bullet';
             $result_item['items'] = $handle_paragraphs($content_item->get('field_block_list_items'), TRUE);
             break;
           case 'list_item':
-            $result_item = $content_item->get('field_block_html')->first()->getValue()['value'];
+            $result_item = $this->fieldValueFormatted($content_item->get('field_block_html'));
             break;
           default:
             unset($result_item['type']);
@@ -263,7 +263,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       /* @var \Drupal\taxonomy\Entity\Term $term */
       foreach ($field_subjects->referencedEntities() as $term) {
         $subjects[] = [
-          'id' => $term->get('field_subject_id')->first()->getValue()['value'],
+          'id' => $term->get('field_subject_id')->getString(),
           'name' => $term->toLink()->getText(),
         ];
       }
@@ -293,6 +293,18 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     $request_options = $this->getRequestOptions();
     $query->range(($request_options['page'] - 1) * $request_options['per-page'], $request_options['per-page']);
     $query->sort($sort_by, $request_options['order']);
+  }
+
+  /**
+   * Prepare the value from formatted field.
+   *
+   * @param \Drupal\Core\Field\FieldItemListInterface $data
+   * @return mixed|null
+   */
+  protected function fieldValueFormatted(FieldItemListInterface $data) {
+    $view = $data->view();
+    unset($view['#theme']);
+    return render($view);
   }
 
 }

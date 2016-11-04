@@ -45,8 +45,8 @@ class InterviewsItemRestResource extends AbstractRestResourceBase {
       $response = $this->processDefault($node, $id);
 
       $response['interviewee']['name'] = [
-        'preferred' => $node->get('field_person_preferred_name')->first()->getValue()['value'],
-        'index' => $node->get('field_person_index_name')->first()->getValue()['value'],
+        'preferred' => $node->get('field_person_preferred_name')->getString(),
+        'index' => $node->get('field_person_index_name')->getString(),
       ];
 
       if ($node->get('field_interview_cv')->count()) {
@@ -54,15 +54,15 @@ class InterviewsItemRestResource extends AbstractRestResourceBase {
         foreach ($node->get('field_interview_cv') as $paragraph) {
           $cv_item = $paragraph->get('entity')->getTarget()->getValue();
           $response['interviewee']['cv'][] = [
-            'date' => $cv_item->get('field_cv_item_date')->first()->getValue()['value'],
-            'text' => $cv_item->get('field_block_html')->first()->getValue()['value'],
+            'date' => $cv_item->get('field_cv_item_date')->getString(),
+            'text' => $cv_item->get('field_block_html')->getString(),
           ];
         }
       }
 
       // Impact statement is optional.
       if ($node->get('field_impact_statement')->count()) {
-        $response['impactStatement'] = $node->get('field_impact_statement')->first()->getValue()['value'];
+        $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
       }
 
       if ($content = $this->processFieldContent($node->get('field_content'))) {

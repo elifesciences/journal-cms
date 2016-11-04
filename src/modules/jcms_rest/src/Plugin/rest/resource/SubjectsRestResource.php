@@ -64,13 +64,13 @@ class SubjectsRestResource extends AbstractRestResourceBase {
   public function getItem(EntityInterface $term) {
     /* @var Term $term */
     $item = [
-      'id' => $term->get('field_subject_id')->first()->getValue()['value'],
+      'id' => $term->get('field_subject_id')->getString(),
       'name' => $term->toLink()->getText(),
     ];
     $item['image'] = $this->processFieldImage($term->get('field_image'), TRUE);
 
     if ($term->get('field_impact_statement')->count()) {
-      $item['impactStatement'] = $term->get('field_impact_statement')->first()->getValue()['value'];
+      $item['impactStatement'] = $this->fieldValueFormatted($term->get('field_impact_statement'));
     }
     return $item;
   }

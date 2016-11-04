@@ -65,14 +65,14 @@ class LabsExperimentsRestResource extends AbstractRestResourceBase {
    */
   public function getItem(EntityInterface $node) {
     /* @var Node $node */
-    $item = $this->processDefault($node, (int) $node->get('field_experiment_number')->first()->getValue()['value'], 'number');
+    $item = $this->processDefault($node, (int) $node->get('field_experiment_number')->getString(), 'number');
 
     // Image is required.
     $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE, 'thumbnail');
 
     // Impact statement is optional.
     if ($node->get('field_impact_statement')->count()) {
-      $item['impactStatement'] = $node->get('field_impact_statement')->first()->getValue()['value'];
+      $item['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
     }
     return $item;
   }

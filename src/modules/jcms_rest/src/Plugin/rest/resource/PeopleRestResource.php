@@ -98,16 +98,16 @@ class PeopleRestResource extends AbstractRestResourceBase {
     /* @var Node $node */
     $item = [
       'id' => substr($node->uuid(), -8),
-      'type' => $node->get('field_person_type')->first()->getValue()['value'],
+      'type' => $node->get('field_person_type')->getString(),
       'name' => [
         'preferred' => $node->getTitle(),
-        'index' => $node->get('field_person_index_name')->first()->getValue()['value'],
+        'index' => $node->get('field_person_index_name')->getString(),
       ],
     ];
 
     // Orcid is optional.
     if ($node->get('field_person_orcid')->count()) {
-      $item['orcid'] = $node->get('field_person_orcid')->first()->getValue()['value'];
+      $item['orcid'] = $node->get('field_person_orcid')->getString();
     }
 
     // Image is optional.

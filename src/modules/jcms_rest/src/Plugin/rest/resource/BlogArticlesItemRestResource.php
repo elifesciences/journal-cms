@@ -51,7 +51,7 @@ class BlogArticlesItemRestResource extends AbstractRestResourceBase {
 
       // Impact statement is optional.
       if ($node->get('field_impact_statement')->count()) {
-        $response['impactStatement'] = $node->get('field_impact_statement')->first()->getValue()['value'];
+        $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
       }
 
       if ($content = $this->processFieldContent($node->get('field_content'))) {
