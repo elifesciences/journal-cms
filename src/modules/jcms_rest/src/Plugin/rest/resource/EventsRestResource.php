@@ -11,14 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
  * Provides a resource to get view modes by entity and bundle.
  *
  * @RestResource(
- *   id = "labs_experiments_list_rest_resource",
- *   label = @Translation("Labs experiments list rest resource"),
+ *   id = "events_list_rest_resource",
+ *   label = @Translation("Events list rest resource"),
  *   uri_paths = {
- *     "canonical" = "/labs-experiments"
+ *     "canonical" = "/events"
  *   }
  * )
  */
-class LabsExperimentsRestResource extends AbstractRestResourceBase {
+class EventsRestResource extends AbstractRestResourceBase {
 
   /**
    * Responds to GET requests.
@@ -34,7 +34,7 @@ class LabsExperimentsRestResource extends AbstractRestResourceBase {
     $base_query = \Drupal::entityQuery('node')
       ->condition('status', NODE_PUBLISHED)
       ->condition('changed', REQUEST_TIME, '<')
-      ->condition('type', 'labs_experiment');
+      ->condition('type', 'event');
     $count_query = clone $base_query;
     $items_query = clone $base_query;
     $response_data = [
@@ -43,7 +43,7 @@ class LabsExperimentsRestResource extends AbstractRestResourceBase {
     ];
     if ($total = $count_query->count()->execute()) {
       $response_data['total'] = (int) $total;
-      $this->filterPageAndOrder($items_query, 'field_experiment_number.value');
+      $this->filterPageAndOrder($items_query, 'field_event_datetime.value');
       $nids = $items_query->execute();
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
@@ -52,7 +52,7 @@ class LabsExperimentsRestResource extends AbstractRestResourceBase {
         }
       }
     }
-    $response = new JsonResponse($response_data, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.labs-experiment-list+json;version=1']);
+    $response = new JsonResponse($response_data, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.event-list+json;version=1']);
     return $response;
   }
 
@@ -65,10 +65,16 @@ class LabsExperimentsRestResource extends AbstractRestResourceBase {
    */
   public function getItem(EntityInterface $node) {
     /* @var Node $node */
-    $item = $this->processDefault($node, (int) $node->get('field_experiment_number')->first()->getValue()['value'], 'number');
+    $item = $this->processDefault($node);
+    unset($item['published']);
 
-    // Image is required.
-    $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE, 'thumbnail');
+    $item['starts'] = $this->formatDate(strtotime($node->get('field_event_datetime')->first()->getValue()['value']));
+    $item['ends'] = $this->formatDate(strtotime($node->get('field_event_datetime')->first()->getValue()['end_value']));
+
+    // Timezone is optional.
+    if ($node->get('field_event_timezone')->count()) {
+      $item['timezone'] = $node->get('field_event_timezone')->first()->getValue()['value'];
+    }
 
     // Impact statement is optional.
     if ($node->get('field_impact_statement')->count()) {

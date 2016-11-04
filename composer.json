@@ -47,7 +47,8 @@
     "puli/manager": "1.0.x-dev",
     "webmozart/json": "^1.3@dev",
     "justinrainbow/json-schema": "^2.0",
-    "drupal/field_permissions": "~8.1.0-beta1"
+    "drupal/field_permissions": "~8.1.0-beta1",
+    "drupal/address": "^8.1@RC"
   },
   "require-dev": {
     "drupal/drupal-extension": "~3.0",
@@ -118,6 +119,9 @@
       },
       "drupal/entity_reference_revisions": {
         "Support devel_generate, fatal error (2568187)": "https://www.drupal.org/files/issues/entity_reference_revisions-devel_generate-2568187-7-8.x.2.x.patch"
+      },
+      "drupal/address": {
+        "generateSampleValue": "https://www.drupal.org/files/issues/generatesamplevalue-2819251-4.patch"
       }
     }
   }

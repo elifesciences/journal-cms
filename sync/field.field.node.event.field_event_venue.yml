@@ -1,0 +1,66 @@
+uuid: 92132fea-e213-4974-a29b-069ef919adfd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_venue
+    - node.type.event
+    - paragraphs.paragraphs_type.venue
+  module:
+    - entity_reference_revisions
+id: node.event.field_event_venue
+field_name: field_event_venue
+entity_type: node
+bundle: event
+label: Venue
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      venue: venue
+    target_bundles_drag_drop:
+      venue:
+        enabled: true
+        weight: 14
+      blockquote:
+        weight: 15
+        enabled: false
+      cv_item:
+        weight: 16
+        enabled: false
+      episode_chapter:
+        weight: 17
+        enabled: false
+      image:
+        weight: 18
+        enabled: false
+      list:
+        weight: 19
+        enabled: false
+      list_item:
+        weight: 20
+        enabled: false
+      paragraph:
+        weight: 21
+        enabled: false
+      question:
+        weight: 22
+        enabled: false
+      research_details:
+        weight: 23
+        enabled: false
+      section:
+        weight: 24
+        enabled: false
+      table:
+        weight: 25
+        enabled: false
+      youtube:
+        weight: 26
+        enabled: false
+field_type: entity_reference_revisions
