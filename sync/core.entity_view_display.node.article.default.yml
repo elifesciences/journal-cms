@@ -1,0 +1,35 @@
+uuid: 21a660dd-4189-459b-8710-fa777c6b137f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.article.field_article_id
+    - field.field.node.article.field_article_json
+    - node.type.article
+  module:
+    - entity_reference_revisions
+    - user
+id: node.article.default
+targetEntityType: node
+bundle: article
+mode: default
+content:
+  field_article_id:
+    weight: 101
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_article_json:
+    type: entity_reference_revisions_entity_view
+    weight: 103
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden: {  }

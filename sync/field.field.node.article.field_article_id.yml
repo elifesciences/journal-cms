@@ -1,0 +1,23 @@
+uuid: b248d0ae-503d-4960-9253-e1bac9d88753
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_article_id
+    - node.type.article
+id: node.article.field_article_id
+field_name: field_article_id
+entity_type: node
+bundle: article
+label: 'Article ID'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

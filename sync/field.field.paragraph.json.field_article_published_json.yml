@@ -1,0 +1,21 @@
+uuid: fc24a084-2d93-467d-9594-295f20d248b4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_article_published_json
+    - paragraphs.paragraphs_type.json
+  module:
+    - jsonb
+id: paragraph.json.field_article_published_json
+field_name: field_article_published_json
+entity_type: paragraph
+bundle: json
+label: 'Published JSON'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json

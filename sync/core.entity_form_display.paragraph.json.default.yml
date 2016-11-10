@@ -1,0 +1,33 @@
+uuid: 3dfbb4e0-05d9-465e-967d-06b83e3b1851
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.json.field_article_published_json
+    - field.field.paragraph.json.field_article_unpublished_json
+    - paragraphs.paragraphs_type.json
+  module:
+    - jsonb
+id: paragraph.json.default
+targetEntityType: paragraph
+bundle: json
+mode: default
+content:
+  field_article_published_json:
+    weight: 0
+    settings:
+      rows: '5'
+      placeholder: ''
+    third_party_settings: {  }
+    type: jsonb_textarea
+  field_article_unpublished_json:
+    weight: 1
+    settings:
+      rows: '5'
+      placeholder: ''
+    third_party_settings: {  }
+    type: jsonb_textarea
+hidden:
+  created: true
+  status: true
+  uid: true

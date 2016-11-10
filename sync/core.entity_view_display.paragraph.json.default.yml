@@ -1,0 +1,30 @@
+uuid: 74ea0eec-15c6-43b6-9c10-1a74b26089a2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.json.field_article_published_json
+    - field.field.paragraph.json.field_article_unpublished_json
+    - paragraphs.paragraphs_type.json
+  module:
+    - jsonb
+id: paragraph.json.default
+targetEntityType: paragraph
+bundle: json
+mode: default
+content:
+  field_article_published_json:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: jsonb_default
+  field_article_unpublished_json:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: jsonb_default
+hidden:
+  created: true
+  uid: true

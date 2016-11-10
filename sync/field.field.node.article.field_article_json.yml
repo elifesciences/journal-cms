@@ -1,0 +1,57 @@
+uuid: 60614aa6-fc6d-47bb-8ca2-16a2f928ed27
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_article_json
+    - node.type.article
+    - paragraphs.paragraphs_type.json
+  module:
+    - entity_reference_revisions
+id: node.article.field_article_json
+field_name: field_article_json
+entity_type: node
+bundle: article
+label: 'Article JSON'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      json: json
+    target_bundles_drag_drop:
+      blockquote:
+        weight: 11
+        enabled: false
+      image:
+        weight: 12
+        enabled: false
+      json:
+        enabled: true
+        weight: 13
+      list:
+        weight: 14
+        enabled: false
+      list_item:
+        weight: 15
+        enabled: false
+      paragraph:
+        weight: 16
+        enabled: false
+      research_details:
+        weight: 17
+        enabled: false
+      section:
+        weight: 18
+        enabled: false
+      table:
+        weight: 19
+        enabled: false
+      youtube:
+        weight: 20
+        enabled: false
+field_type: entity_reference_revisions

@@ -35,7 +35,9 @@ module:
   image: 0
   inline_entity_form: 0
   jcms_migrate: 0
+  jcms_notifications: 0
   jcms_rest: 0
+  jsonb: 0
   link: 0
   menu_ui: 0
   migrate: 0
