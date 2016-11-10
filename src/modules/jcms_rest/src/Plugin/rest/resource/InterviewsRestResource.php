@@ -69,13 +69,13 @@ class InterviewsRestResource extends AbstractRestResourceBase {
     $item = $this->processDefault($node);
 
     $item['interviewee']['name'] = [
-      'preferred' => $node->get('field_person_preferred_name')->first()->getValue()['value'],
-      'index' => $node->get('field_person_index_name')->first()->getValue()['value'],
+      'preferred' => $node->get('field_person_preferred_name')->getString(),
+      'index' => $node->get('field_person_index_name')->getString(),
     ];
 
     // Impact statement is optional.
     if ($node->get('field_impact_statement')->count()) {
-      $item['impactStatement'] = $node->get('field_impact_statement')->first()->getValue()['value'];
+      $item['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
     }
 
     return $item;

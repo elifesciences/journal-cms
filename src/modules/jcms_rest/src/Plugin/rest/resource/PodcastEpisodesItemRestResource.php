@@ -58,7 +58,7 @@ class PodcastEpisodesItemRestResource extends AbstractRestResourceBase {
 
       // Impact statement is optional.
       if ($node->get('field_impact_statement')->count()) {
-        $response['impactStatement'] = $node->get('field_impact_statement')->first()->getValue()['value'];
+        $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
       }
 
       // Subjects are optional.
@@ -75,16 +75,16 @@ class PodcastEpisodesItemRestResource extends AbstractRestResourceBase {
           $count++;
           $chapter_values = [
             'number' => $count,
-            'title' => $chapter_item->get('field_block_title')->first()->getValue()['value'],
-            'time' => (int) $chapter_item->get('field_chapter_time')->first()->getValue()['value'],
+            'title' => $chapter_item->get('field_block_title')->getString(),
+            'time' => (int) $chapter_item->get('field_chapter_time')->getString(),
           ];
           if ($chapter_item->get('field_block_html')->count()) {
-            $chapter_values['impactStatement'] = $chapter_item->get('field_block_html')->first()->getValue()['value'];
+            $chapter_values['impactStatement'] = $this->fieldValueFormatted($chapter_item->get('field_block_html'));
           }
           if ($chapter_item->get('field_chapter_content')->count()) {
             $chapter_values['content'] = [];
             foreach ($chapter_item->get('field_chapter_content') as $content) {
-              $chapter_values['content'][] = $this->prepareDummyContent($content->getValue()['value']);
+              $chapter_values['content'][] = $this->prepareDummyContent($content->getString());
             }
           }
           $chapters[] = $chapter_values;

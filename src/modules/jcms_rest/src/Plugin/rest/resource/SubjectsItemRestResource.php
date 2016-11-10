@@ -48,7 +48,7 @@ class SubjectsItemRestResource extends AbstractRestResourceBase {
       $response['image'] = $this->processFieldImage($term->get('field_image'), TRUE);
 
       if ($term->get('field_impact_statement')->count()) {
-        $response['impactStatement'] = $term->get('field_impact_statement')->first()->getValue()['value'];
+        $response['impactStatement'] = $this->fieldValueFormatted($term->get('field_impact_statement'));
       }
 
       $response = new JsonResponse($response, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.subject+json;version=1']);

@@ -73,12 +73,12 @@ class EventsRestResource extends AbstractRestResourceBase {
 
     // Timezone is optional.
     if ($node->get('field_event_timezone')->count()) {
-      $item['timezone'] = $node->get('field_event_timezone')->first()->getValue()['value'];
+      $item['timezone'] = $node->get('field_event_timezone')->getString();
     }
 
     // Impact statement is optional.
     if ($node->get('field_impact_statement')->count()) {
-      $item['impactStatement'] = $node->get('field_impact_statement')->first()->getValue()['value'];
+      $item['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
     }
     return $item;
   }

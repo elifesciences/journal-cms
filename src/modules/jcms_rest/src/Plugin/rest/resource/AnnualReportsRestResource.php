@@ -67,7 +67,7 @@ class AnnualReportsRestResource extends AbstractRestResourceBase {
    */
   public function getItem(EntityInterface $node) {
     /* @var Node $node */
-    $item = $this->processDefault($node, (int) $node->get('field_annual_report_year')->first()->getValue()['value'], 'year');
+    $item = $this->processDefault($node, (int) $node->get('field_annual_report_year')->getString(), 'year');
     unset($item['published']);
 
     // uri is required.
@@ -75,7 +75,7 @@ class AnnualReportsRestResource extends AbstractRestResourceBase {
 
     // Impact statement is optional.
     if ($node->get('field_impact_statement')->count()) {
-      $item['impactStatement'] = $node->get('field_impact_statement')->first()->getValue()['value'];
+      $item['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
     }
 
     // Image is required.

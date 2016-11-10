@@ -50,19 +50,19 @@ class EventsItemRestResource extends AbstractRestResourceBase {
 
       // Timezone is optional.
       if ($node->get('field_event_timezone')->count()) {
-        $response['timezone'] = $node->get('field_event_timezone')->first()->getValue()['value'];
+        $response['timezone'] = $node->get('field_event_timezone')->getString();
       }
 
       // Impact statement is optional.
       if ($node->get('field_impact_statement')->count()) {
-        $response['impactStatement'] = $node->get('field_impact_statement')->first()->getValue()['value'];
+        $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
       }
 
       // Venue is optional.
       if ($node->get('field_event_venue')->count()) {
         $venue_field = $node->get('field_event_venue')->first()->get('entity')->getTarget()->getValue();
         $venue = [
-          'name' => array_values(array_filter(preg_split("(\r\n?|\n)", $venue_field->get('field_block_title_multiline')->first()->getValue()['value']))),
+          'name' => array_values(array_filter(preg_split("(\r\n?|\n)", $venue_field->get('field_block_title_multiline')->getString()))),
         ];
 
         // Venue address is optional.
