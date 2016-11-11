@@ -20,47 +20,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   id = "jcms_episode_chapter"
  * )
  */
-class JCMSEpisodeChapter extends ProcessPluginBase implements ContainerFactoryPluginInterface {
+class JCMSEpisodeChapter extends AbstractJCMSContainerFactoryPlugin {
 
   use JMCSCheckMarkupTrait;
-
-  /**
-   * The process plugin manager.
-   *
-   * @var \Drupal\migrate\Plugin\MigratePluginManager
-   */
-  protected $processPluginManager;
-
-  /**
-   * The migration plugin manager.
-   *
-   * @var \Drupal\migrate\Plugin\MigrationPluginManagerInterface
-   */
-  protected $migrationPluginManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, MigrationPluginManagerInterface $migration_plugin_manager, MigratePluginManager $process_plugin_manager) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->migrationPluginManager = $migration_plugin_manager;
-    $this->migration = $migration;
-    $this->processPluginManager = $process_plugin_manager;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration = NULL) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $migration,
-      $container->get('plugin.manager.migration'),
-      $container->get('plugin.manager.migrate.process')
-    );
-  }
 
   /**
    * {@inheritdoc}
@@ -84,11 +46,15 @@ class JCMSEpisodeChapter extends ProcessPluginBase implements ContainerFactoryPl
         ];
       }
 
-      if (!empty($value['articles'])) {
+      if (!empty($value['content'])) {
         $values['field_chapter_content'] = [];
-        foreach ($value['articles'] as $article) {
+        foreach ($value['content'] as $content) {
+          $value = $content['source'];
+          if ($content['type'] == 'collection') {
+            $value = 'collections/' . $this->migrationDestionationIDs('jcms_collections_db', $value, $migrate_executable, $row, $destination_property);
+          }
           $values['field_chapter_content'][] = [
-            'value' => $article,
+            'value' => $value,
           ];
         }
       }

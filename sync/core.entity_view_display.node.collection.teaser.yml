@@ -1,0 +1,24 @@
+uuid: cd020e6b-58e5-4140-9e67-d08ccc414e39
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.collection
+  module:
+    - user
+id: node.collection.teaser
+targetEntityType: node
+bundle: collection
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_collection_content: true
+  field_collection_podcasts: true
+  field_curators: true
+  field_image: true
+  field_impact_statement: true
+  field_subjects: true
+  field_subtitle: true

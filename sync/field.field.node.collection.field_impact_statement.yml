@@ -1,0 +1,21 @@
+uuid: a9f10bbe-0447-49d7-9d41-542cfce22f5e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_impact_statement
+    - node.type.collection
+  module:
+    - text
+id: node.collection.field_impact_statement
+field_name: field_impact_statement
+entity_type: node
+bundle: collection
+label: 'Impact statement'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

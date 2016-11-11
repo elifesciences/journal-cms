@@ -1,0 +1,16 @@
+uuid: 2edb6888-feca-441b-a236-959622948b25
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - jcms_rest
+id: interview_item_rest_resource
+plugin_id: interview_item_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - jcms_json
+    supported_auth:
+      - basic_auth

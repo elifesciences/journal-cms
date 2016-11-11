@@ -15,7 +15,10 @@ process:
     plugin: default_value
     default_value: 1
   created: created
-  field_impact_statement: summary
+  'field_impact_statement/value': summary
+  'field_impact_statement/format':
+    plugin: default_value
+    default_value: basic_html
   field_content:
     -
       plugin: jcms_split_content

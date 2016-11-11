@@ -1,0 +1,32 @@
+uuid: 48c6fed1-9363-49cc-b5a1-1de90aba88fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_collection_content
+    - node.type.article
+    - node.type.blog_article
+    - node.type.collection
+    - node.type.interview
+id: node.collection.field_collection_content
+field_name: field_collection_content
+entity_type: node
+bundle: collection
+label: Content
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      article: article
+      blog_article: blog_article
+      interview: interview
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: blog_article
+field_type: entity_reference

@@ -1,0 +1,48 @@
+id: jcms_collections_db
+label: Legacy collections
+migration_group: jcms_migrate
+source:
+  plugin: jcms_collection_node
+destination:
+  plugin: entity:node
+process:
+  # Hardcode the destination node type (bundle) as 'collection'.
+  type:
+    plugin: default_value
+    default_value: collection
+  title: title
+  uid:
+    plugin: default_value
+    default_value: 1
+  created: created
+  field_subtitle: sub_title
+  'field_impact_statement/value': summary
+  'field_impact_statement/format':
+    plugin: default_value
+    default_value: basic_html
+  field_curators:
+    -
+      plugin: explode
+      source: curators
+      delimiter: "|"
+    -
+      plugin: migration
+      migration: jcms_people_db
+  field_image:
+    plugin: jcms_image
+    source:
+      - photo_uri
+      - title
+  field_collection_content:
+    -
+      plugin: jcms_split_collection_content
+      source: content
+    -
+      plugin: jcms_collection_content
+      multiple: true
+
+migration_dependencies:
+  required:
+    - jcms_subjects_json
+    - jcms_people_db
+    - jcms_blog_articles_db

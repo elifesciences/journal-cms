@@ -57,34 +57,38 @@ class ArticleCrud {
   /**
    * Creates a new article node.
    *
-   * @param $article
+   * @param array $article
    *
    * @return \Drupal\Core\Entity\EntityInterface
    */
   public function createArticle(array $article) {
-    $config = [
-      'type' => 'json',
-      'field_article_unpublished_json' => [
-        'value' => $article['data']['unpublished'],
-      ],
-    ];
-    if ($article['data']['published']) {
-      $config['field_article_published_json'] = [
-        'value' => $article['data']['published'],
-      ];
-    }
-    $paragraph = Paragraph::create($config);
-    $paragraph->save();
     $node = Node::create([
       'type' => 'article',
       'title' => $article['id'],
     ]);
-    $node->field_article_json = [
-      [
-        'target_id' => $paragraph->id(),
-        'target_revision_id' => $paragraph->getRevisionId(),
-      ],
-    ];
+
+    if (!empty($article['data'])) {
+      $config = [
+        'type' => 'json',
+        'field_article_unpublished_json' => [
+          'value' => $article['data']['unpublished'],
+        ],
+      ];
+      if ($article['data']['published']) {
+        $config['field_article_published_json'] = [
+          'value' => $article['data']['published'],
+        ];
+      }
+      $paragraph = Paragraph::create($config);
+      $paragraph->save();
+      $node->field_article_json = [
+        [
+          'target_id' => $paragraph->id(),
+          'target_revision_id' => $paragraph->getRevisionId(),
+        ],
+      ];
+    }
+
     $node->save();
     return $node;
   }
@@ -122,23 +126,23 @@ class ArticleCrud {
   /**
    * Deletes an article node.
    *
-   * @param $id
+   * @param $node_id
    *
    * @return mixed
    */
-  public function deleteArticle(int $id) {
-    return $this->entityTypeManager->getStorage('node')->delete([$id]);
+  public function deleteArticle(int $node_id) {
+    return $this->entityTypeManager->getStorage('node')->delete([$node_id]);
   }
 
   /**
    * Checks if a node with the article ID already exists.
    *
-   * @param $article_id
+   * @param string $article_id
    *
    * @return int
    *   The node ID.
    */
-  public function nodeExists(int $article_id) {
+  public function nodeExists(string $article_id) {
     $query = \Drupal::entityQuery('node')
       ->condition('title', $article_id);
     $result = $query->execute();
