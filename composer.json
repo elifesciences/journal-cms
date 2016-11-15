@@ -31,6 +31,7 @@
     "drupal/field_collection": "~8.1.0-alpha1",
     "drupal/graphql": "~8.1.0",
     "drupal/inline_entity_form": "~8.1.0-alpha6",
+    "drupal/jsonb": "~8.1.0-beta1",
     "drupal/paragraphs": "~8.1.0",
     "drupal/unique_field": "~8.1.0@dev",
     "drupal-composer/drupal-project": "8.x-dev",
@@ -48,7 +49,8 @@
     "webmozart/json": "^1.3@dev",
     "justinrainbow/json-schema": "^2.0",
     "drupal/field_permissions": "~8.1.0-beta1",
-    "drupal/address": "^8.1@RC"
+    "drupal/address": "^8.1@RC",
+    "aws/aws-sdk-php": "~3.0"
   },
   "require-dev": {
     "drupal/drupal-extension": "~3.0",

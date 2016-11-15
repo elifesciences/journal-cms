@@ -1,0 +1,23 @@
+uuid: f23310be-c5b5-4fe0-bf5c-4f7c4df67764
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - jsonb
+    - paragraphs
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: paragraph.field_article_unpublished_json
+field_name: field_article_unpublished_json
+entity_type: paragraph
+type: json
+settings: {  }
+module: jsonb
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

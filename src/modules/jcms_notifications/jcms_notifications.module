@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Contains jcms_notifications.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function jcms_notifications_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the jcms_notifications module.
+    case 'help.page.jcms_notifications':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Integrates with Amazon SQS and Amazon SNS.') . '</p>';
+      return $output;
+    default:
+  }
+}

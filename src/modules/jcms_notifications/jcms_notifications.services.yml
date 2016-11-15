@@ -1,0 +1,9 @@
+services:
+  jcms_notifications.queue_service:
+    class: Drupal\jcms_notifications\QueueService
+  jcms_notifications.fetch_article_service:
+    class: Drupal\jcms_notifications\FetchArticleService
+    arguments: ["@http_client"]
+  jcms_notifications.article_crud_service:
+    class: Drupal\jcms_notifications\ArticleCrud
+    arguments: ["@jcms_notifications.fetch_article_service", "@entity_type.manager"]

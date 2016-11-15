@@ -7,4 +7,4 @@ dependencies:
   - migrate_plus
   - migrate_tools
   - filter
-package: eLife
+package: Journal CMS

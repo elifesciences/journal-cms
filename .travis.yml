@@ -18,6 +18,9 @@ mysql:
   encoding: utf8
 
 before_install:
+  - chmod +x $TRAVIS_BUILD_DIR/scripts/*
+  - sh $TRAVIS_BUILD_DIR/scripts/travis/travis-mysql-5_7.sh
+  - sh $TRAVIS_BUILD_DIR/scripts/travis/mysql-reset-root-password.sh
   - curl https://puli.io/installer | php
   - echo 'sendmail_path = /bin/true' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - composer --verbose self-update

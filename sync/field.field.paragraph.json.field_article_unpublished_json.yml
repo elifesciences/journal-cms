@@ -1,0 +1,21 @@
+uuid: 3074ee54-b2a7-40bc-bf5d-92706afe5e34
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_article_unpublished_json
+    - paragraphs.paragraphs_type.json
+  module:
+    - jsonb
+id: paragraph.json.field_article_unpublished_json
+field_name: field_article_unpublished_json
+entity_type: paragraph
+bundle: json
+label: 'Unpublished JSON'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json
