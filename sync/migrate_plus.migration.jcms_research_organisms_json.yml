@@ -5,6 +5,7 @@ dependencies: {  }
 _core:
   default_config_hash: uObTBhkk1W6qrT2FK3LJQEIwoX43Cp29vLksqJFyEpg
 id: jcms_research_organisms_json
+class: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'JSON feed of research organisms'

@@ -5,6 +5,7 @@ dependencies: {  }
 _core:
   default_config_hash: gnIh0oXBidGxVdNtvwjeJbfZbruq13oYoul2hMQxu44
 id: jcms_subjects_json
+class: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'JSON feed of subjects'

@@ -5,6 +5,7 @@ dependencies: {  }
 _core:
   default_config_hash: bZRAk0o0eGLpX61NkGxw8e4ECOUvROXB4BmNi5iV0UI
 id: jcms_interviews_db
+class: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'Legacy interviews'

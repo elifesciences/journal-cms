@@ -5,6 +5,7 @@ dependencies: {  }
 _core:
   default_config_hash: mM7oLZQyTqdHL4kAU54F_FYz9NI6CzgjIQxtlCcNe0s
 id: jcms_people_db
+class: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'Legacy person profiles'

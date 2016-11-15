@@ -5,6 +5,7 @@ dependencies: {  }
 _core:
   default_config_hash: P57pPpI4yC5mAGb4gouN6hRpwYrc2uKw48q6gMjBwOY
 id: jcms_annual_reports_json
+class: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'JSON feed of annual reports'
