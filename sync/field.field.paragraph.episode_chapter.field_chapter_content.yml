@@ -1,19 +1,30 @@
-uuid: 7cd92336-b1ae-4ef2-9988-8d10226fe481
+uuid: 007d0ec0-d05f-44d5-bf44-6bc0dabc6682
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.paragraph.field_chapter_content
+    - node.type.article
+    - node.type.collection
     - paragraphs.paragraphs_type.episode_chapter
 id: paragraph.episode_chapter.field_chapter_content
 field_name: field_chapter_content
 entity_type: paragraph
 bundle: episode_chapter
 label: Content
-description: '@todo: This needs to be swapped out for an entity reference field for articles or collections'
+description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
-field_type: string
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      article: article
+      collection: collection
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: article
+field_type: entity_reference

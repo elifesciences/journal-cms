@@ -98,6 +98,7 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
             break;
           case 'article':
             $response['content'][] = $this->getArticleSnippet($content_node);
+            break;
           default:
         }
       }

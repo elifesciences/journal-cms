@@ -9,6 +9,7 @@ dependencies:
     - field.field.paragraph.episode_chapter.field_chapter_time
     - paragraphs.paragraphs_type.episode_chapter
   module:
+    - inline_entity_form
     - text
 id: paragraph.episode_chapter.default
 targetEntityType: paragraph
@@ -30,12 +31,17 @@ content:
     third_party_settings: {  }
     type: string_textfield
   field_chapter_content:
-    weight: 3
+    weight: 5
     settings:
-      size: 60
-      placeholder: ''
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: STARTS_WITH
+      override_labels: false
     third_party_settings: {  }
-    type: string_textfield
+    type: inline_entity_form_complex
   field_chapter_time:
     weight: 1
     settings:
