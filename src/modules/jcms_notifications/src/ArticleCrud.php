@@ -78,9 +78,6 @@ class ArticleCrud {
     $node = Node::create([
       'type' => 'article',
       'title' => $article['id'],
-      'field_article_id' => [
-        'value' => $article['id'],
-      ],
     ]);
     $node->field_article_json = [
       [
@@ -143,7 +140,7 @@ class ArticleCrud {
    */
   public function nodeExists(int $article_id) {
     $query = \Drupal::entityQuery('node')
-      ->condition('field_article_id', $article_id);
+      ->condition('title', $article_id);
     $result = $query->execute();
     return !empty($result) ? reset($result) : 0;
   }
