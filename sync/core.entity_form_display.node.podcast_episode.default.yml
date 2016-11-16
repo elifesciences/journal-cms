@@ -15,18 +15,12 @@ dependencies:
     - image
     - link
     - paragraphs
-    - path
     - text
 id: node.podcast_episode.default
 targetEntityType: node
 bundle: podcast_episode
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 2
-    settings: {  }
-    third_party_settings: {  }
   field_episode_chapter:
     type: entity_reference_paragraphs
     weight: 26
@@ -72,11 +66,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-  path:
-    type: path
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -84,15 +73,10 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 1
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
 hidden:
+  created: true
   field_episode_chapters: true
+  path: true
   promote: true
   sticky: true
+  uid: true

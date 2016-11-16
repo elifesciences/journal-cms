@@ -21,11 +21,6 @@ targetEntityType: node
 bundle: collection
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 10
-    settings: {  }
-    third_party_settings: {  }
   field_collection_content:
     weight: 36
     settings:
@@ -91,6 +86,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
+  created: true
   path: true
   promote: true
   sticky: true

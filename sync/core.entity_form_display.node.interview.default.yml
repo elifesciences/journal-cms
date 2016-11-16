@@ -11,18 +11,12 @@ dependencies:
     - node.type.interview
   module:
     - paragraphs
-    - path
     - text
 id: node.interview.default
 targetEntityType: node
 bundle: interview
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 1
-    settings: {  }
-    third_party_settings: {  }
   field_content:
     weight: 10
     settings:
@@ -64,23 +58,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-  path:
-    type: path
-    weight: 4
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 2
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 3
-    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 8
@@ -88,12 +65,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 0
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

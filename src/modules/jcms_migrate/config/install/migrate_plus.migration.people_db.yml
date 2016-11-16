@@ -28,19 +28,6 @@ process:
     delimiter: ", "
   field_person_type: ptype
   field_person_orcid: orcid_id
-  field_person_id:
-    -
-      plugin: concat
-      source:
-        - name_initial
-        - name_last
-    -
-      plugin: machine_name
-    -
-      plugin: dedupe_entity
-      entity_type: node
-      field: field_person_id
-      postfix: _
   field_person_profile:
     -
       plugin: jcms_split_paragraphs

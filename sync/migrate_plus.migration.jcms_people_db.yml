@@ -1,9 +1,9 @@
-uuid: 11faa324-7d76-4df1-826e-d726cf757709
+uuid: 16b66be1-371c-4bb4-aa13-18c81ffc0264
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: mM7oLZQyTqdHL4kAU54F_FYz9NI6CzgjIQxtlCcNe0s
+  default_config_hash: lmvQ9jYjklIWO0FDe0NBCIm1MtLA1QG2cnEsXWK6Hgw
 id: jcms_people_db
 class: null
 migration_tags: null
@@ -33,19 +33,6 @@ process:
     delimiter: ', '
   field_person_type: ptype
   field_person_orcid: orcid_id
-  field_person_id:
-    -
-      plugin: concat
-      source:
-        - name_initial
-        - name_last
-    -
-      plugin: machine_name
-    -
-      plugin: dedupe_entity
-      entity_type: node
-      field: field_person_id
-      postfix: _
   field_person_profile:
     -
       plugin: jcms_split_paragraphs
