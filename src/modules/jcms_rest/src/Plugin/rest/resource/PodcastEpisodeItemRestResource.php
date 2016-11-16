@@ -2,7 +2,6 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\Component\Utility\Random;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -84,8 +83,19 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
           }
           if ($chapter_item->get('field_chapter_content')->count()) {
             $chapter_values['content'] = [];
+            $collection_rest_resource = new CollectionListRestResource([], 'collection_list_rest_resource', [], $this->serializerFormats, $this->logger);
             foreach ($chapter_item->get('field_chapter_content') as $content) {
-              $chapter_values['content'][] = $this->prepareContent($content->getString());
+              /* @var \Drupal\node\Entity\Node $content_node */
+              $content_node = $content->get('entity')->getTarget()->getValue();
+              switch ($content_node->getType()) {
+                case 'collection':
+                  $chapter_values['content'][] = ['type' => 'collection'] + $collection_rest_resource->getItem($content_node);
+                  break;
+                case 'article':
+                  $chapter_values['content'][] = $this->getArticleSnippet($content_node);
+                  break;
+                default:
+              }
             }
           }
           $chapters[] = $chapter_values;

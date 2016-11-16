@@ -49,13 +49,22 @@ class JCMSEpisodeChapter extends AbstractJCMSContainerFactoryPlugin {
       if (!empty($value['content'])) {
         $values['field_chapter_content'] = [];
         foreach ($value['content'] as $content) {
-          $value = $content['source'];
-          if ($content['type'] == 'collection') {
-            $value = 'collections/' . $this->migrationDestionationIDs('jcms_collections_db', $value, $migrate_executable, $row, $destination_property);
+          switch ($content['type']) {
+            case 'collection':
+              $values['field_chapter_content'][] = ['target_id' => $this->migrationDestionationIDs('jcms_collections_db', $content['source'], $migrate_executable, $row, $destination_property)];
+              break;
+            case 'article':
+              $crud_service = \Drupal::service('jcms_notifications.article_crud_service');
+              if ($nid = $crud_service->nodeExists($content['source'])) {
+                $values['field_chapter_content'][] = ['target_id' => $nid];
+              }
+              else {
+                $node = $crud_service->createArticle(['id' => $content['source']]);
+                $values['field_chapter_content'][] = ['target_id' => $node->id()];
+              }
+              break;
+            default:
           }
-          $values['field_chapter_content'][] = [
-            'value' => $value,
-          ];
         }
       }
 
