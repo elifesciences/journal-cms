@@ -1,0 +1,74 @@
+uuid: 86a8aa2d-8639-44f9-9101-043a1479f771
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.collection.field_collection_content
+    - field.field.node.collection.field_collection_podcasts
+    - field.field.node.collection.field_curators
+    - field.field.node.collection.field_image
+    - field.field.node.collection.field_impact_statement
+    - field.field.node.collection.field_subjects
+    - field.field.node.collection.field_subtitle
+    - node.type.collection
+  module:
+    - image
+    - text
+    - user
+id: node.collection.default
+targetEntityType: node
+bundle: collection
+mode: default
+content:
+  field_collection_content:
+    weight: 106
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_collection_podcasts:
+    weight: 107
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_curators:
+    weight: 105
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_image:
+    weight: 103
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_impact_statement:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_subjects:
+    weight: 104
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_subtitle:
+    weight: 101
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  links:
+    weight: 100
+hidden: {  }

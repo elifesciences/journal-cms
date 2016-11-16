@@ -1,0 +1,28 @@
+uuid: be629f78-aa88-4ad0-9bd6-8b5a8f97bd7c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_collection_podcasts
+    - node.type.collection
+    - node.type.podcast_episode
+id: node.collection.field_collection_podcasts
+field_name: field_collection_podcasts
+entity_type: node
+bundle: collection
+label: 'Podcast episodes'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      podcast_episode: podcast_episode
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

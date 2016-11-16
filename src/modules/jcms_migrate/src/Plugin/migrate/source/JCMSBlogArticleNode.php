@@ -27,9 +27,12 @@ class JCMSBlogArticleNode extends SqlBase {
     $query->addField('text', 'field_elife_n_text_summary', 'summary');
 
     $query->condition('vocab.machine_name', 'elife_n_category');
-    $query->condition('term.name', ['news from eLife', 'in the news'], 'IN');
+    $query->condition('term.name', ['early careers', 'events', 'news from eLife', 'in the news'], 'IN');
     $query->condition('n.title', 'Press package: %', 'NOT LIKE');
     $query->condition('n.type', 'elife_news_article');
+    $query->groupBy('n.nid');
+    $query->groupBy('text.field_elife_n_text_value');
+    $query->groupBy('text.field_elife_n_text_summary');
 
     return $query;
   }

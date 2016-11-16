@@ -30,7 +30,7 @@
     "drupal/entity_reference_revisions": "8.1.x-dev",
     "drupal/field_collection": "~8.1.0-alpha1",
     "drupal/graphql": "~8.1.0",
-    "drupal/inline_entity_form": "~8.1.0-alpha6",
+    "drupal/inline_entity_form": "~8.1.0-beta1",
     "drupal/jsonb": "~8.1.0-beta1",
     "drupal/paragraphs": "~8.1.0",
     "drupal/unique_field": "~8.1.0@dev",
@@ -115,9 +115,6 @@
       },
       "drupal/core": {
         "CommandLineOrUnsafeMethodTest::testHttpMethod failures": "https://www.drupal.org/files/issues/options_trace_error-2776367-3.patch"
-      },
-      "drupal/restui": {
-        "Handle core 8.2.x changing REST configuration to use configuration entities": "https://www.drupal.org/files/issues/handle_core_8_2_x-2758563-12.patch"
       },
       "drupal/entity_reference_revisions": {
         "Support devel_generate, fatal error (2568187)": "https://www.drupal.org/files/issues/entity_reference_revisions-devel_generate-2568187-7-8.x.2.x.patch"

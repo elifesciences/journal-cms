@@ -5,7 +5,7 @@ namespace Drupal\jcms_migrate\Plugin\migrate\source;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 
 /**
- * Source plugin for perosn content.
+ * Source plugin for person content.
  *
  * @MigrateSource(
  *   id = "jcms_person_node"

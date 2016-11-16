@@ -13,9 +13,15 @@
         "title": "Going back in time",
         "time": 36,
         "impact_statement": "Fragments of ancient proteins are preserved in ostrich eggshells",
-        "articles": [
-          "17092",
-          "20877"
+        "content": [
+          {
+            "type": "article",
+            "source": "17092"
+          },
+          {
+            "type": "article",
+            "source": "20877"
+          }
         ]
       },
       {
@@ -23,8 +29,11 @@
         "title": "Good listeners",
         "time": 391,
         "impact_statement": "Exploring the neuroscience of the cocktail party effect",
-        "articles": [
-          "16747"
+        "content": [
+          {
+            "type": "article",
+            "source": "16747"
+          }
         ]
       },
       {
@@ -32,8 +41,11 @@
         "title": "Great expectations",
         "time": 720,
         "impact_statement": "The drug rapamycin increases life expectancy in middle-aged mice",
-        "articles": [
-          "16351"
+        "content": [
+          {
+            "type": "article",
+            "source": "16351"
+          }
         ]
       },
       {
@@ -41,8 +53,11 @@
         "title": "Net gains",
         "time": 1059,
         "impact_statement": "Modelling the effectiveness of bednets against mosquitoes and malaria",
-        "articles": [
-          "16090"
+        "content": [
+          {
+            "type": "article",
+            "source": "16090"
+          }
         ]
       },
       {
@@ -50,8 +65,11 @@
         "title": "Dry spells",
         "time": 1380,
         "impact_statement": "The ways that plants respond to drought can be changed",
-        "articles": [
-          "13768"
+        "content": [
+          {
+            "type": "article",
+            "source": "13768"
+          }
         ]
       }
     ]
@@ -70,8 +88,11 @@
         "title": "Tall story",
         "time": 31,
         "impact_statement": "A large scale study reveals how human height has changed in the last 100 years",
-        "articles": [
-          "13410"
+        "content": [
+          {
+            "type": "article",
+            "source": "13410"
+          }
         ]
       },
       {
@@ -79,8 +100,11 @@
         "title": "Joint secrets",
         "time": 348,
         "impact_statement": "Zebrafish have lubricated joints similar to those in humans and other land animals",
-        "articles": [
-          "16415"
+        "content": [
+          {
+            "type": "article",
+            "source": "16415"
+          }
         ]
       },
       {
@@ -88,8 +112,11 @@
         "title": "Seeing things clearly",
         "time": 679,
         "impact_statement": "Birds tune their light sensitive cells to maximise the number of colours they see",
-        "articles": [
-          "15675"
+        "content": [
+          {
+            "type": "article",
+            "source": "15675"
+          }
         ]
       },
       {
@@ -97,8 +124,11 @@
         "title": "Making the effort",
         "time": 998,
         "impact_statement": "Travel motivates chimpanzees to use tools",
-        "articles": [
-          "16371"
+        "content": [
+          {
+            "type": "article",
+            "source": "16371"
+          }
         ]
       },
       {
@@ -106,8 +136,11 @@
         "title": "In the open",
         "time": 1333,
         "impact_statement": "Researchers can benefit from making their research findings freely available online",
-        "articles": [
-          "16800"
+        "content": [
+          {
+            "type": "article",
+            "source": "16800"
+          }
         ]
       }
     ]
@@ -126,8 +159,11 @@
         "title": "Green drug factories",
         "time": 36,
         "impact_statement": "A new way to produce a malaria drug using tobacco plants",
-        "articles": [
-          "13664"
+        "content": [
+          {
+            "type": "article",
+            "source": "13664"
+          }
         ]
       },
       {
@@ -135,8 +171,11 @@
         "title": "Lost generation",
         "time": 359,
         "impact_statement": "Is science at risk of losing talented researchers to other professions?",
-        "articles": [
-          "17393"
+        "content": [
+          {
+            "type": "article",
+            "source": "17393"
+          }
         ]
       },
       {
@@ -144,8 +183,11 @@
         "title": "Secrets of flight",
         "time": 787,
         "impact_statement": "Honeybees adjust the position of their antennae as they fly",
-        "articles": [
-          "14449"
+        "content": [
+          {
+            "type": "article",
+            "source": "14449"
+          }
         ]
       },
       {
@@ -153,8 +195,11 @@
         "title": "On the move",
         "time": 1121,
         "impact_statement": "How humans have migrated around Africa in the last 10,000 years",
-        "articles": [
-          "15266"
+        "content": [
+          {
+            "type": "article",
+            "source": "15266"
+          }
         ]
       },
       {
@@ -162,8 +207,11 @@
         "title": "Thinking of pain",
         "time": 1471,
         "impact_statement": "Brain imaging reveals how we experience someone else’s pain",
-        "articles": [
-          "15166"
+        "content": [
+          {
+            "type": "article",
+            "source": "15166"
+          }
         ]
       }
     ]
@@ -182,9 +230,15 @@
         "title": "Building barriers",
         "time": 33,
         "impact_statement": "How stem cells help parasitic worms to thrive in their host",
-        "articles": [
-          "12473",
-          "15957"
+        "content": [
+          {
+            "type": "article",
+            "source": "12473"
+          },
+          {
+            "type": "article",
+            "source": "15957"
+          }
         ]
       },
       {
@@ -192,8 +246,11 @@
         "title": "Going global",
         "time": 392,
         "impact_statement": "Genetics reveals how an 11,000 year-old dog cancer has spread around the world",
-        "articles": [
-          "14552"
+        "content": [
+          {
+            "type": "article",
+            "source": "14552"
+          }
         ]
       },
       {
@@ -201,8 +258,11 @@
         "title": "New hope for epilepsy",
         "time": 743,
         "impact_statement": "Drugs that block the hormone oestrogen have the potential to treat seizures",
-        "articles": [
-          "12917"
+        "content": [
+          {
+            "type": "article",
+            "source": "12917"
+          }
         ]
       },
       {
@@ -210,8 +270,11 @@
         "title": "Training the next generation",
         "time": 1107,
         "impact_statement": "University students gain hands-on experience of a new DNA sequencing technology",
-        "articles": [
-          "14258"
+        "content": [
+          {
+            "type": "article",
+            "source": "14258"
+          }
         ]
       },
       {
@@ -219,9 +282,15 @@
         "title": "Gut feeling",
         "time": 1408,
         "impact_statement": "Microbes in the gut influence the social behaviour of mice",
-        "articles": [
-          "13442",
-          "17052"
+        "content": [
+          {
+            "type": "article",
+            "source": "13442"
+          },
+          {
+            "type": "article",
+            "source": "17052"
+          }
         ]
       }
     ]
@@ -240,8 +309,11 @@
         "title": "Gender divide",
         "time": 35,
         "impact_statement": "The guts of male and female fruit flies age differently",
-        "articles": [
-          "10956"
+        "content": [
+          {
+            "type": "article",
+            "source": "10956"
+          }
         ]
       },
       {
@@ -249,8 +321,11 @@
         "title": "Feeling better",
         "time": 363,
         "impact_statement": "An artificial fingertip can recreate a sense of touch",
-        "articles": [
-          "09148"
+        "content": [
+          {
+            "type": "article",
+            "source": "09148"
+          }
         ]
       },
       {
@@ -258,8 +333,11 @@
         "title": "Why did plagues stop?",
         "time": 675,
         "impact_statement": "DNA from 18th century teeth reveals plague secrets",
-        "articles": [
-          "12994"
+        "content": [
+          {
+            "type": "article",
+            "source": "12994"
+          }
         ]
       },
       {
@@ -267,8 +345,11 @@
         "title": "Following the food chain",
         "time": 960,
         "impact_statement": "Genomics can track antibiotic resistance during beef production",
-        "articles": [
-          "13195"
+        "content": [
+          {
+            "type": "article",
+            "source": "13195"
+          }
         ]
       },
       {
@@ -276,8 +357,11 @@
         "title": "Risk assessment",
         "time": 1272,
         "impact_statement": "An early warning system for dengue fever",
-        "articles": [
-          "11285"
+        "content": [
+          {
+            "type": "article",
+            "source": "11285"
+          }
         ]
       }
     ]
@@ -296,8 +380,11 @@
         "title": "Food for thought",
         "time": 32,
         "impact_statement": "Moving meal times can disrupt learning and memory",
-        "articles": [
-          "09460"
+        "content": [
+          {
+            "type": "article",
+            "source": "09460"
+          }
         ]
       },
       {
@@ -305,8 +392,11 @@
         "title": "Beneath the surface",
         "time": 368,
         "impact_statement": "X-rays can reveal the internal anatomical details of certain fossils",
-        "articles": [
-          "12129"
+        "content": [
+          {
+            "type": "article",
+            "source": "12129"
+          }
         ]
       },
       {
@@ -314,8 +404,11 @@
         "title": "Up in the air",
         "time": 676,
         "impact_statement": "Burst muscle capacity is the key to maneuverability for hummingbirds",
-        "articles": [
-          "11159"
+        "content": [
+          {
+            "type": "article",
+            "source": "11159"
+          }
         ]
       },
       {
@@ -323,8 +416,11 @@
         "title": "Decisions decisions",
         "time": 965,
         "impact_statement": "Two trained monkeys and a gambling task",
-        "articles": [
-          "09418"
+        "content": [
+          {
+            "type": "article",
+            "source": "09418"
+          }
         ]
       },
       {
@@ -332,8 +428,11 @@
         "title": "Going back in time",
         "time": 1313,
         "impact_statement": "Neural stem cells in injured axolotls behave like embryonic cells",
-        "articles": [
-          "10230"
+        "content": [
+          {
+            "type": "article",
+            "source": "10230"
+          }
         ]
       }
     ]
@@ -352,9 +451,15 @@
         "title": "Feel the heat",
         "time": 34,
         "impact_statement": "Mosquitos identify human targets by detecting body heat.",
-        "articles": [
-          "11750",
-          "12838"
+        "content": [
+          {
+            "type": "article",
+            "source": "11750"
+          },
+          {
+            "type": "article",
+            "source": "12838"
+          }
         ]
       },
       {
@@ -362,9 +467,15 @@
         "title": "For one night only",
         "time": 319,
         "impact_statement": "How can more than 100 different species of coral spawn at the same time?",
-        "articles": [
-          "09991",
-          "12936"
+        "content": [
+          {
+            "type": "article",
+            "source": "09991"
+          },
+          {
+            "type": "article",
+            "source": "12936"
+          }
         ]
       },
       {
@@ -372,9 +483,15 @@
         "title": "Have no fear",
         "time": 638,
         "impact_statement": "Male rats and female rats respond to stress in different ways.",
-        "articles": [
-          "11352",
-          "13119"
+        "content": [
+          {
+            "type": "article",
+            "source": "11352"
+          },
+          {
+            "type": "article",
+            "source": "13119"
+          }
         ]
       },
       {
@@ -382,9 +499,15 @@
         "title": "An evolutionary conundrum",
         "time": 950,
         "impact_statement": "How can natural selection favor the evolution of non-reproductive worker ants?",
-        "articles": [
-          "08918",
-          "12721"
+        "content": [
+          {
+            "type": "article",
+            "source": "08918"
+          },
+          {
+            "type": "article",
+            "source": "12721"
+          }
         ]
       },
       {
@@ -392,8 +515,11 @@
         "title": "The eyes have it",
         "time": 1295,
         "impact_statement": "Newts can undergo as many as 19 lens regeneration events.",
-        "articles": [
-          "09594"
+        "content": [
+          {
+            "type": "article",
+            "source": "09594"
+          }
         ]
       }
     ]
@@ -412,8 +538,11 @@
         "title": "Friends or foe?",
         "time": 33,
         "impact_statement": "Why do the bacteria in deep-sea mussels have so many toxin-like genes?",
-        "articles": [
-          "07966"
+        "content": [
+          {
+            "type": "article",
+            "source": "07966"
+          }
         ]
       },
       {
@@ -421,9 +550,15 @@
         "title": "Dark materials in the lung",
         "time": 367,
         "impact_statement": "The elemental carbon in cigarette smoke causes inflammation and emphysema in the lung.",
-        "articles": [
-          "09623",
-          "11709"
+        "content": [
+          {
+            "type": "article",
+            "source": "09623"
+          },
+          {
+            "type": "article",
+            "source": "11709"
+          }
         ]
       },
       {
@@ -431,8 +566,11 @@
         "title": "Highs and lows",
         "time": 731,
         "impact_statement": "A mathematical model has been used to explore different approaches to minimizing antibiotic resistance.",
-        "articles": [
-          "10559"
+        "content": [
+          {
+            "type": "article",
+            "source": "10559"
+          }
         ]
       },
       {
@@ -440,8 +578,11 @@
         "title": "Sleep on it",
         "time": 1064,
         "impact_statement": "A nap during the day helps with the retention of important memories.",
-        "articles": [
-          "07903"
+        "content": [
+          {
+            "type": "article",
+            "source": "07903"
+          }
         ]
       },
       {
@@ -449,8 +590,11 @@
         "title": "Now you see it",
         "time": 1352,
         "impact_statement": "Unconscious perception does not exist.",
-        "articles": [
-          "09651"
+        "content": [
+          {
+            "type": "article",
+            "source": "09651"
+          }
         ]
       }
     ]
@@ -469,8 +613,11 @@
         "title": "Model behaviour",
         "time": 35,
         "impact_statement": "Exploring the links between the chickenpox vaccination and shingles.",
-        "articles": [
-          "07116"
+        "content": [
+          {
+            "type": "article",
+            "source": "07116"
+          }
         ]
       },
       {
@@ -478,8 +625,11 @@
         "title": "Sounds good",
         "time": 376,
         "impact_statement": "Some bats rely on the detection of acoustic shadows to locate their prey.",
-        "articles": [
-          "07404"
+        "content": [
+          {
+            "type": "article",
+            "source": "07404"
+          }
         ]
       },
       {
@@ -487,8 +637,11 @@
         "title": "Catch me if you can",
         "time": 644,
         "impact_statement": "Small animals can escape larger predators by exploiting their ability to turn more rapidly.",
-        "articles": [
-          "06487"
+        "content": [
+          {
+            "type": "article",
+            "source": "06487"
+          }
         ]
       },
       {
@@ -496,8 +649,11 @@
         "title": "Good and bad parents",
         "time": 937,
         "impact_statement": "The quality of parenting received by young beetles influences how they look after their own larvae.",
-        "articles": [
-          "07340"
+        "content": [
+          {
+            "type": "article",
+            "source": "07340"
+          }
         ]
       },
       {
@@ -505,8 +661,11 @@
         "title": "A close look at Parkinson's",
         "time": 1214,
         "impact_statement": "The distribution of brain atrophy in patients with Parkinson's Disease has a network structure.",
-        "articles": [
-          "08440"
+        "content": [
+          {
+            "type": "article",
+            "source": "08440"
+          }
         ]
       },
       {
@@ -514,9 +673,15 @@
         "title": "Stress and depression",
         "time": 1489,
         "impact_statement": "The region of the brain that links stress and depression has been identified.",
-        "articles": [
-          "08752",
-          "10829"
+        "content": [
+          {
+            "type": "article",
+            "source": "08752"
+          },
+          {
+            "type": "article",
+            "source": "10829"
+          }
         ]
       }
     ]
@@ -535,8 +700,11 @@
         "title": "<em>Homo naledi</em>, a new species of the genus <em>Homo</em> from the Dinaledi Chamber, South Africa",
         "time": 0,
         "impact_statement": "",
-        "articles": [
-          "09560"
+        "content": [
+          {
+            "type": "article",
+            "source": "09560"
+          }
         ]
       },
       {
@@ -544,8 +712,11 @@
         "title": "Geological and taphonomic context for the new hominin species <em>Homo naledi</em> from the Dinaledi Chamber, South Africa",
         "time": 0,
         "impact_statement": "",
-        "articles": [
-          "09561"
+        "content": [
+          {
+            "type": "article",
+            "source": "09561"
+          }
         ]
       },
       {
@@ -553,8 +724,11 @@
         "title": "Human evolution: The many mysteries of <em>Homo naledi</em>",
         "time": 0,
         "impact_statement": "",
-        "articles": [
-          "10627"
+        "content": [
+          {
+            "type": "article",
+            "source": "10627"
+          }
         ]
       }
     ]
@@ -573,9 +747,15 @@
         "title": "A neurological compass",
         "time": 35,
         "impact_statement": "Neurons in worms can sense the earth's magnetic field.",
-        "articles": [
-          "07493",
-          "09666"
+        "content": [
+          {
+            "type": "article",
+            "source": "07493"
+          },
+          {
+            "type": "article",
+            "source": "09666"
+          }
         ]
       },
       {
@@ -583,8 +763,11 @@
         "title": "Mutations go it alone",
         "time": 367,
         "impact_statement": "How hyper-loading might make cancers kill themselves.",
-        "articles": [
-          "06907"
+        "content": [
+          {
+            "type": "article",
+            "source": "06907"
+          }
         ]
       },
       {
@@ -592,8 +775,11 @@
         "title": "Getting into shape",
         "time": 698,
         "impact_statement": "Sperm DNA must undergo major changes before mitosis.",
-        "articles": [
-          "07378"
+        "content": [
+          {
+            "type": "article",
+            "source": "07378"
+          }
         ]
       },
       {
@@ -601,8 +787,11 @@
         "title": "Mapping mosquitos",
         "time": 1053,
         "impact_statement": "Closing in on Dengue fever and chikungunya fever.",
-        "articles": [
-          "08347"
+        "content": [
+          {
+            "type": "article",
+            "source": "08347"
+          }
         ]
       }
     ]
@@ -621,8 +810,11 @@
         "title": "Listen up!",
         "time": 36,
         "impact_statement": "What causes tinnitus and hyperacusis?",
-        "articles": [
-          "06576"
+        "content": [
+          {
+            "type": "article",
+            "source": "06576"
+          }
         ]
       },
       {
@@ -630,8 +822,11 @@
         "title": "Forever young",
         "time": 386,
         "impact_statement": "How do salamanders survive repeated amputation of their limbs?",
-        "articles": [
-          "05505"
+        "content": [
+          {
+            "type": "article",
+            "source": "05505"
+          }
         ]
       },
       {
@@ -639,8 +834,11 @@
         "title": "Check mate",
         "time": 700,
         "impact_statement": "Mice use ultrasound to communicate during courtship.",
-        "articles": [
-          "06203"
+        "content": [
+          {
+            "type": "article",
+            "source": "06203"
+          }
         ]
       },
       {
@@ -648,8 +846,11 @@
         "title": "It takes two",
         "time": 1010,
         "impact_statement": "Flies get to grips with acoustic duetting.",
-        "articles": [
-          "07277"
+        "content": [
+          {
+            "type": "article",
+            "source": "07277"
+          }
         ]
       },
       {
@@ -657,9 +858,15 @@
         "title": "Chemical harpoons",
         "time": 1307,
         "impact_statement": "Covalent bonds help bacteria stick to tissue.",
-        "articles": [
-          "06638",
-          "08710"
+        "content": [
+          {
+            "type": "article",
+            "source": "06638"
+          },
+          {
+            "type": "article",
+            "source": "08710"
+          }
         ]
       }
     ]
@@ -678,9 +885,15 @@
         "title": "How do babies feel pain?",
         "time": 29,
         "impact_statement": "Functional MRI suggests that infants and adults experience pain in very similar ways.",
-        "articles": [
-          "06356",
-          "07552"
+        "content": [
+          {
+            "type": "article",
+            "source": "06356"
+          },
+          {
+            "type": "article",
+            "source": "07552"
+          }
         ]
       },
       {
@@ -688,8 +901,11 @@
         "title": "A cast of thousands",
         "time": 351,
         "impact_statement": "More than 2000 students have helped shed new light on the genomics of bacteriophages.",
-        "articles": [
-          "06416"
+        "content": [
+          {
+            "type": "article",
+            "source": "06416"
+          }
         ]
       },
       {
@@ -697,9 +913,15 @@
         "title": "Clicking into place",
         "time": 706,
         "impact_statement": "Porpoises use a sophisticated sonar system to locate and track prey.",
-        "articles": [
-          "05651",
-          "07690"
+        "content": [
+          {
+            "type": "article",
+            "source": "05651"
+          },
+          {
+            "type": "article",
+            "source": "07690"
+          }
         ]
       },
       {
@@ -707,8 +929,11 @@
         "title": "Food on the brain",
         "time": 1021,
         "impact_statement": "Researchers have discovered a neural code for food abundance.",
-        "articles": [
-          "06259"
+        "content": [
+          {
+            "type": "article",
+            "source": "06259"
+          }
         ]
       },
       {
@@ -716,9 +941,15 @@
         "title": "Need not apply",
         "time": 1316,
         "impact_statement": "Zebrafish can make their own sunscreen.",
-        "articles": [
-          "05919",
-          "07961"
+        "content": [
+          {
+            "type": "article",
+            "source": "05919"
+          },
+          {
+            "type": "article",
+            "source": "07961"
+          }
         ]
       }
     ]
@@ -737,9 +968,15 @@
         "title": "Protecting against herpes",
         "time": 32,
         "impact_statement": "Researchers have made a breakthrough in the search for a vaccine.",
-        "articles": [
-          "06054",
-          "06883"
+        "content": [
+          {
+            "type": "article",
+            "source": "06054"
+          },
+          {
+            "type": "article",
+            "source": "06883"
+          }
         ]
       },
       {
@@ -747,8 +984,11 @@
         "title": "Sudden impact",
         "time": 406,
         "impact_statement": "What can experiments on flies teach us about traumatic brain injuries?",
-        "articles": [
-          "04790"
+        "content": [
+          {
+            "type": "article",
+            "source": "04790"
+          }
         ]
       },
       {
@@ -756,8 +996,11 @@
         "title": "Biology in a brewery",
         "time": 793,
         "impact_statement": "Where there's beer, there's bacteria.",
-        "articles": [
-          "04634"
+        "content": [
+          {
+            "type": "article",
+            "source": "04634"
+          }
         ]
       },
       {
@@ -765,8 +1008,11 @@
         "title": "The wild frontier",
         "time": 1070,
         "impact_statement": "Researchers have discovered a neural code for food abundance.",
-        "articles": [
-          "collections/natural-history-model-organisms"
+        "content": [
+          {
+            "type": "collection",
+            "source": 250659
+          }
         ]
       },
       {
@@ -774,8 +1020,11 @@
         "title": "A social network",
         "time": 1390,
         "impact_statement": "Watching what happens in the brain of a rat during a social interaction.",
-        "articles": [
-          "03614"
+        "content": [
+          {
+            "type": "article",
+            "source": "03614"
+          }
         ]
       }
     ]
@@ -794,9 +1043,15 @@
         "title": "Taking a close look at TB",
         "time": 38,
         "impact_statement": "Whole genome sequencing is providing new insights into the spread of different lineages of TB.",
-        "articles": [
-          "05166",
-          "06782"
+        "content": [
+          {
+            "type": "article",
+            "source": "05166"
+          },
+          {
+            "type": "article",
+            "source": "06782"
+          }
         ]
       },
       {
@@ -804,9 +1059,15 @@
         "title": "There is more to a handshake than meets the eye",
         "time": 381,
         "impact_statement": "Sniffing our hand after a handshake may allow us to detect chemical signals produced by others.",
-        "articles": [
-          "05154",
-          "06758"
+        "content": [
+          {
+            "type": "article",
+            "source": "05154"
+          },
+          {
+            "type": "article",
+            "source": "06758"
+          }
         ]
       },
       {
@@ -814,8 +1075,11 @@
         "title": "Safety first",
         "time": 611,
         "impact_statement": "What are the side effects when Tenofovir gel is used as a prophylactic against HIV?",
-        "articles": [
-          "04525"
+        "content": [
+          {
+            "type": "article",
+            "source": "04525"
+          }
         ]
       },
       {
@@ -823,8 +1087,11 @@
         "title": "The division of labour in ants",
         "time": 889,
         "impact_statement": "Neuroscientists are studying the link between genetics and social behaviour in ants.",
-        "articles": [
-          "04775"
+        "content": [
+          {
+            "type": "article",
+            "source": "04775"
+          }
         ]
       },
       {
@@ -832,8 +1099,11 @@
         "title": "What baboons can tell us",
         "time": 1196,
         "impact_statement": "Researchers are exploring the genetic architecture of gene expression in baboons and other primates.",
-        "articles": [
-          "04729"
+        "content": [
+          {
+            "type": "article",
+            "source": "04729"
+          }
         ]
       }
     ]
@@ -852,8 +1122,11 @@
         "title": "Remote controlled sperm",
         "time": 36,
         "impact_statement": "Light can be used to control the motility of sperm.",
-        "articles": [
-          "05161"
+        "content": [
+          {
+            "type": "article",
+            "source": "05161"
+          }
         ]
       },
       {
@@ -861,8 +1134,11 @@
         "title": "Heating up in a hurry",
         "time": 330,
         "impact_statement": "Specially protected messenger RNA molecules allow hibernating squirrels to warm up quickly.",
-        "articles": [
-          "04517"
+        "content": [
+          {
+            "type": "article",
+            "source": "04517"
+          }
         ]
       },
       {
@@ -870,9 +1146,15 @@
         "title": "A second body clock",
         "time": 663,
         "impact_statement": "Dopamine drives an \"ultradian\" clock with a period of around four hours in mice.",
-        "articles": [
-          "05105",
-          "06351"
+        "content": [
+          {
+            "type": "article",
+            "source": "05105"
+          },
+          {
+            "type": "article",
+            "source": "06351"
+          }
         ]
       },
       {
@@ -880,8 +1162,11 @@
         "title": "Modelling molecules",
         "time": 926,
         "impact_statement": "Learning more about how enzymes work could lead to the design of new enzymes.",
-        "articles": [
-          "02777"
+        "content": [
+          {
+            "type": "article",
+            "source": "02777"
+          }
         ]
       },
       {
@@ -889,8 +1174,11 @@
         "title": "How stress causes infertility",
         "time": 1219,
         "impact_statement": "Switching off the RFRP3 gene in the hypothalamus prevents stress-induced infertility in rats.",
-        "articles": [
-          "04316"
+        "content": [
+          {
+            "type": "article",
+            "source": "04316"
+          }
         ]
       }
     ]
@@ -909,8 +1197,11 @@
         "title": "Repeat performances",
         "time": 39,
         "impact_statement": "The Reproducibility Project: Cancer Biology will replicate selected experiments from 50 high-impact papers in preclinical cancer biology research.",
-        "articles": [
-          "04333"
+        "content": [
+          {
+            "type": "article",
+            "source": "04333"
+          }
         ]
       },
       {
@@ -918,8 +1209,11 @@
         "title": "The one and only",
         "time": 424,
         "impact_statement": "It may be possible to use one drug, rather than several, to tackle viral infections.",
-        "articles": [
-          "03830"
+        "content": [
+          {
+            "type": "article",
+            "source": "03830"
+          }
         ]
       },
       {
@@ -927,9 +1221,15 @@
         "title": "Off the wall",
         "time": 735,
         "impact_statement": "Some bacteria can survive and thrive despite not having a cell wall.",
-        "articles": [
-          "04629",
-          "05427"
+        "content": [
+          {
+            "type": "article",
+            "source": "04629"
+          },
+          {
+            "type": "article",
+            "source": "05427"
+          }
         ]
       },
       {
@@ -937,9 +1237,15 @@
         "title": "Spreading far and wide",
         "time": 1082,
         "impact_statement": "The genes responsible for antibiotics can spread between all three of the domains of life.",
-        "articles": [
-          "04266",
-          "05244"
+        "content": [
+          {
+            "type": "article",
+            "source": "04266"
+          },
+          {
+            "type": "article",
+            "source": "05244"
+          }
         ]
       },
       {
@@ -947,9 +1253,15 @@
         "title": "Fatal attraction",
         "time": 1380,
         "impact_statement": "A beetle pheromone that lures nematode worms to an insect host can also stop their development or even kill them outright.",
-        "articles": [
-          "03229",
-          "05259"
+        "content": [
+          {
+            "type": "article",
+            "source": "03229"
+          },
+          {
+            "type": "article",
+            "source": "05259"
+          }
         ]
       },
       {
@@ -957,8 +1269,11 @@
         "title": "Niche work",
         "time": 1677,
         "impact_statement": "When an epithelial stem cell divides, why does one of the new cells remain a stem cell while the other becomes a specialized cell?",
-        "articles": [
-          "04437"
+        "content": [
+          {
+            "type": "article",
+            "source": "04437"
+          }
         ]
       }
     ]
@@ -977,8 +1292,11 @@
         "title": "Preparing for pandemics",
         "time": 39,
         "impact_statement": "Researchers are exploring new ways to assess the risks posed to humans by non-human influenza viruses.",
-        "articles": [
-          "03883"
+        "content": [
+          {
+            "type": "article",
+            "source": "03883"
+          }
         ]
       },
       {
@@ -986,8 +1304,11 @@
         "title": "Food for thought",
         "time": 400,
         "impact_statement": "How do we know when we have eaten too much?",
-        "articles": [
-          "04402"
+        "content": [
+          {
+            "type": "article",
+            "source": "04402"
+          }
         ]
       },
       {
@@ -995,8 +1316,11 @@
         "title": "Missed connections",
         "time": 736,
         "impact_statement": "The role of cannabinoid receptors in the development of the brain is becoming clearer.",
-        "articles": [
-          "03159"
+        "content": [
+          {
+            "type": "article",
+            "source": "03159"
+          }
         ]
       },
       {
@@ -1004,9 +1328,15 @@
         "title": "HIV's hidden reservoir",
         "time": 1102,
         "impact_statement": "HIV-1 DNA could be a biomarker for disease progression.",
-        "articles": [
-          "03821",
-          "04742"
+        "content": [
+          {
+            "type": "article",
+            "source": "03821"
+          },
+          {
+            "type": "article",
+            "source": "04742"
+          }
         ]
       },
       {
@@ -1014,8 +1344,11 @@
         "title": "Regulation rules",
         "time": 1434,
         "impact_statement": "Different forms of regulation can lead to the formation of similar physical features.",
-        "articles": [
-          "03728"
+        "content": [
+          {
+            "type": "article",
+            "source": "03728"
+          }
         ]
       }
     ]
@@ -1034,9 +1367,15 @@
         "title": "The spread of ebola",
         "time": 36,
         "impact_statement": "Changes in lifestyles mean than new outbreaks of Ebola virus disease are likely to be very different from previous outbreaks.",
-        "articles": [
-          "04395",
-          "04565"
+        "content": [
+          {
+            "type": "article",
+            "source": "04395"
+          },
+          {
+            "type": "article",
+            "source": "04565"
+          }
         ]
       },
       {
@@ -1044,8 +1383,11 @@
         "title": "Paying the price",
         "time": 428,
         "impact_statement": "A set of 149 papers that were retracted due to misconduct had been funded to the tune of $58m by the NIH.",
-        "articles": [
-          "02956"
+        "content": [
+          {
+            "type": "article",
+            "source": "02956"
+          }
         ]
       },
       {
@@ -1053,8 +1395,11 @@
         "title": "The acid test",
         "time": 795,
         "impact_statement": "Why do some yeast cells grow old whereas others do not?",
-        "articles": [
-          "03504"
+        "content": [
+          {
+            "type": "article",
+            "source": "03504"
+          }
         ]
       },
       {
@@ -1062,8 +1407,11 @@
         "title": "Keep it clean",
         "time": 1151,
         "impact_statement": "A suppression hierarchy determines the order in which a fly cleans the different parts of its body.",
-        "articles": [
-          "02951"
+        "content": [
+          {
+            "type": "article",
+            "source": "02951"
+          }
         ]
       },
       {
@@ -1071,9 +1419,15 @@
         "title": "Two against one",
         "time": 1527,
         "impact_statement": "Bacteria and fungal cells join forces to cause rice seedling blight.",
-        "articles": [
-          "03007",
-          "04603"
+        "content": [
+          {
+            "type": "article",
+            "source": "03007"
+          },
+          {
+            "type": "article",
+            "source": "04603"
+          }
         ]
       }
     ]
@@ -1092,8 +1446,11 @@
         "title": "What's in a face?",
         "time": 34,
         "impact_statement": "Using a combination of computer vision and machine learning to analyze photographs of faces can assist in the diagnosis of rare genetic disorders.",
-        "articles": [
-          "02020"
+        "content": [
+          {
+            "type": "article",
+            "source": "02020"
+          }
         ]
       },
       {
@@ -1101,8 +1458,11 @@
         "title": "Sight for sore eyes",
         "time": 316,
         "impact_statement": "Viewing a visual stimulus whilst running helps mice that have lost their sight in one eye to make a near-complete recovery.",
-        "articles": [
-          "02798"
+        "content": [
+          {
+            "type": "article",
+            "source": "02798"
+          }
         ]
       },
       {
@@ -1110,8 +1470,11 @@
         "title": "Hybrid approach",
         "time": 745,
         "impact_statement": "How do different species remain distinct if they can mate with each other to produce hybrid offspring?",
-        "articles": [
-          "02535"
+        "content": [
+          {
+            "type": "article",
+            "source": "02535"
+          }
         ]
       },
       {
@@ -1119,8 +1482,11 @@
         "title": "A tale of two domains",
         "time": 1080,
         "impact_statement": "Why does too little MeCP2 cause Rett syndrome, while too much causes MECP2 duplication syndrome?",
-        "articles": [
-          "02676"
+        "content": [
+          {
+            "type": "article",
+            "source": "02676"
+          }
         ]
       },
       {
@@ -1128,8 +1494,11 @@
         "title": "Making the most of gene drives",
         "time": 1415,
         "impact_statement": "Gene drives could be used to eradicate diseases and support sustainable agriculture, but they must be handled with care.",
-        "articles": [
-          "03401"
+        "content": [
+          {
+            "type": "article",
+            "source": "03401"
+          }
         ]
       }
     ]
@@ -1148,9 +1517,15 @@
         "title": "Open and closed",
         "time": 38,
         "impact_statement": "Why don't we bite our tongues when we chew?",
-        "articles": [
-          "02511",
-          "03235"
+        "content": [
+          {
+            "type": "article",
+            "source": "02511"
+          },
+          {
+            "type": "article",
+            "source": "03235"
+          }
         ]
       },
       {
@@ -1158,8 +1533,11 @@
         "title": "Small consolation",
         "time": 361,
         "impact_statement": "The immune response triggered by eczema may reduce the risk of skin cancer.",
-        "articles": [
-          "01888"
+        "content": [
+          {
+            "type": "article",
+            "source": "01888"
+          }
         ]
       },
       {
@@ -1167,9 +1545,15 @@
         "title": "Catch me if you can",
         "time": 706,
         "impact_statement": "How the parasite that causes sleeping sickness keeps one step ahead of its host.",
-        "articles": [
-          "02324",
-          "03176"
+        "content": [
+          {
+            "type": "article",
+            "source": "02324"
+          },
+          {
+            "type": "article",
+            "source": "03176"
+          }
         ]
       },
       {
@@ -1177,19 +1561,22 @@
         "title": "Finding a missing link",
         "time": 1030,
         "impact_statement": "A protein complex called TSET sheds light on the evolution of trafficking pathways.",
-        "articles": [
-          "02866",
-          "03128"
+        "content": [
+          {
+            "type": "article",
+            "source": "02866"
+          },
+          {
+            "type": "article",
+            "source": "03128"
+          }
         ]
       },
       {
         "number": 5,
         "title": "Open access, impact factors and more",
         "time": 1288,
-        "impact_statement": "eLife editor-in-chief Randy Schekman discusses scientific publishing.",
-        "articles": [
-          ""
-        ]
+        "impact_statement": "eLife editor-in-chief Randy Schekman discusses scientific publishing."
       }
     ]
   },
@@ -1207,9 +1594,15 @@
         "title": "Getting to grips with pain",
         "time": 40,
         "impact_statement": "Drugs could treat neuropathic pain more effectively if they targeted more than one type of ion channel.",
-        "articles": [
-          "02370",
-          "02615"
+        "content": [
+          {
+            "type": "article",
+            "source": "02370"
+          },
+          {
+            "type": "article",
+            "source": "02615"
+          }
         ]
       },
       {
@@ -1217,9 +1610,15 @@
         "title": "Target practice",
         "time": 423,
         "impact_statement": "Viruses have been used to deliver two types of nucleases into cells for targeted gene editing.",
-        "articles": [
-          "01911",
-          "02904"
+        "content": [
+          {
+            "type": "article",
+            "source": "01911"
+          },
+          {
+            "type": "article",
+            "source": "02904"
+          }
         ]
       },
       {
@@ -1227,8 +1626,11 @@
         "title": "All change in the pancreas",
         "time": 813,
         "impact_statement": "Generating different types of hormone secreting cells from human tissue sources could lead to new treatments for diabetes.",
-        "articles": [
-          "01846"
+        "content": [
+          {
+            "type": "article",
+            "source": "01846"
+          }
         ]
       },
       {
@@ -1236,9 +1638,15 @@
         "title": "Life goes on",
         "time": 1127,
         "impact_statement": "Learning more about the genes that allow flatworms to regenerate organs and tissue after amputation.",
-        "articles": [
-          "02238",
-          "02517"
+        "content": [
+          {
+            "type": "article",
+            "source": "02238"
+          },
+          {
+            "type": "article",
+            "source": "02517"
+          }
         ]
       },
       {
@@ -1246,8 +1654,11 @@
         "title": "Old before their time",
         "time": 1459,
         "impact_statement": "A protein that regulates metabolism in worms also helps to protect them from the effects of aging.",
-        "articles": [
-          "01730"
+        "content": [
+          {
+            "type": "article",
+            "source": "01730"
+          }
         ]
       }
     ]
@@ -1266,9 +1677,15 @@
         "title": "Vive la résistance",
         "time": 41,
         "impact_statement": "Single mutations in three genes can increase the ability of E. coli to survive ionizing radiation by a factor of 1000.",
-        "articles": [
-          "01322",
-          "02387"
+        "content": [
+          {
+            "type": "article",
+            "source": "01322"
+          },
+          {
+            "type": "article",
+            "source": "02387"
+          }
         ]
       },
       {
@@ -1276,8 +1693,11 @@
         "title": "Buzz off",
         "time": 373,
         "impact_statement": "Male flies rub chemicals called TAGs onto female flies during mating to make them less attractive to other males.",
-        "articles": [
-          "01751"
+        "content": [
+          {
+            "type": "article",
+            "source": "01751"
+          }
         ]
       },
       {
@@ -1285,9 +1705,15 @@
         "title": "A twist in the tail",
         "time": 726,
         "impact_statement": "The Hawaiian bobtail squid and V. fischeri bacteria are the best of friends.",
-        "articles": [
-          "01579",
-          "02386"
+        "content": [
+          {
+            "type": "article",
+            "source": "01579"
+          },
+          {
+            "type": "article",
+            "source": "02386"
+          }
         ]
       },
       {
@@ -1295,8 +1721,11 @@
         "title": "Up in the air",
         "time": 1051,
         "impact_statement": "The receptors that allow insects to smell various chemicals probably evolved around the time they developed the ability to fly.",
-        "articles": [
-          "02115"
+        "content": [
+          {
+            "type": "article",
+            "source": "02115"
+          }
         ]
       }
     ]
@@ -1315,9 +1744,15 @@
         "title": "And so to sleep",
         "time": 36,
         "impact_statement": "A protein called RYE – short for Redeye - has a central role in the regulation of sleep.",
-        "articles": [
-          "01473",
-          "02087"
+        "content": [
+          {
+            "type": "article",
+            "source": "01473"
+          },
+          {
+            "type": "article",
+            "source": "02087"
+          }
         ]
       },
       {
@@ -1325,8 +1760,11 @@
         "title": "Flexible friends",
         "time": 376,
         "impact_statement": "Chaperones are proteins that help other proteins to fold properly, and being flexible makes them better at this task.",
-        "articles": [
-          "01584"
+        "content": [
+          {
+            "type": "article",
+            "source": "01584"
+          }
         ]
       },
       {
@@ -1334,8 +1772,11 @@
         "title": "Twisting and turning",
         "time": 713,
         "impact_statement": "Bacteria employ a sophisticated method to ensure that they swim in a particular direction.",
-        "articles": [
-          "01916"
+        "content": [
+          {
+            "type": "article",
+            "source": "01916"
+          }
         ]
       },
       {
@@ -1343,8 +1784,11 @@
         "title": "The mystery of orphan genes",
         "time": 1052,
         "impact_statement": "Orphan genes appear and disappear quite quickly in Drosophila, leaving the total number of genes roughly constant.",
-        "articles": [
-          "01311"
+        "content": [
+          {
+            "type": "article",
+            "source": "01311"
+          }
         ]
       },
       {
@@ -1352,9 +1796,15 @@
         "title": "Lost in music",
         "time": 1401,
         "impact_statement": "Songbirds stop listening to themselves when they start to sing.",
-        "articles": [
-          "01833",
-          "02289"
+        "content": [
+          {
+            "type": "article",
+            "source": "01833"
+          },
+          {
+            "type": "article",
+            "source": "02289"
+          }
         ]
       }
     ]
@@ -1373,9 +1823,15 @@
         "title": "Lost at sea",
         "time": 41,
         "impact_statement": "Over half of all shark and ray species are “threatened or near threatened” according to new estimates.",
-        "articles": [
-          "00590",
-          "02199"
+        "content": [
+          {
+            "type": "article",
+            "source": "00590"
+          },
+          {
+            "type": "article",
+            "source": "02199"
+          }
         ]
       },
       {
@@ -1383,8 +1839,11 @@
         "title": "Why rats don't rat on other rats",
         "time": 375,
         "impact_statement": "A rat will help another rat if it is familiar with that type of rat, even if it has not met the actual rat before.",
-        "articles": [
-          "01385"
+        "content": [
+          {
+            "type": "article",
+            "source": "01385"
+          }
         ]
       },
       {
@@ -1392,8 +1851,11 @@
         "title": "Complex problem solved",
         "time": 699,
         "impact_statement": "Researchers have worked out the structure of a protein complex that is involved in the destruction of T helper cells by HIV.",
-        "articles": [
-          "01754"
+        "content": [
+          {
+            "type": "article",
+            "source": "01754"
+          }
         ]
       },
       {
@@ -1401,8 +1863,11 @@
         "title": "Into the maize",
         "time": 1014,
         "impact_statement": "The pathogen that causes corn smut in maize employs a sophisticated strategy to increase its virulence.",
-        "articles": [
-          "01355"
+        "content": [
+          {
+            "type": "article",
+            "source": "01355"
+          }
         ]
       },
       {
@@ -1410,9 +1875,15 @@
         "title": "Evolution at work in ants",
         "time": 1341,
         "impact_statement": "The body shapes of queen ants and worker ants have evolved in different ways to reflect their different roles.",
-        "articles": [
-          "01539",
-          "02088"
+        "content": [
+          {
+            "type": "article",
+            "source": "01539"
+          },
+          {
+            "type": "article",
+            "source": "02088"
+          }
         ]
       }
     ]
@@ -1431,9 +1902,15 @@
         "title": "Resistant to change",
         "time": 40,
         "impact_statement": "Resistance to antimicrobial drugs is not driven solely by the excessive use of these drugs.",
-        "articles": [
-          "01229",
-          "01809"
+        "content": [
+          {
+            "type": "article",
+            "source": "01229"
+          },
+          {
+            "type": "article",
+            "source": "01809"
+          }
         ]
       },
       {
@@ -1441,9 +1918,15 @@
         "title": "Awakened by a sleeping pill",
         "time": 377,
         "impact_statement": "Why do some patients with severe brain injury become more alert after treatment with the sleeping pill zolpidem?",
-        "articles": [
-          "01157",
-          "01658"
+        "content": [
+          {
+            "type": "article",
+            "source": "01157"
+          },
+          {
+            "type": "article",
+            "source": "01658"
+          }
         ]
       },
       {
@@ -1451,9 +1934,15 @@
         "title": "Life is sweet",
         "time": 706,
         "impact_statement": "How is the brain able to tell the difference between natural sugar and artificial sweetener?",
-        "articles": [
-          "01462",
-          "01928"
+        "content": [
+          {
+            "type": "article",
+            "source": "01462"
+          },
+          {
+            "type": "article",
+            "source": "01928"
+          }
         ]
       },
       {
@@ -1461,8 +1950,11 @@
         "title": "Public goods dilemmas",
         "time": 1041,
         "impact_statement": "Mathematical biologists are exploring the origins of cooperation in microbes.",
-        "articles": [
-          "01169"
+        "content": [
+          {
+            "type": "article",
+            "source": "01169"
+          }
         ]
       },
       {
@@ -1470,8 +1962,11 @@
         "title": "Change of expression",
         "time": 1375,
         "impact_statement": "Rapid changes in the genes for transfer RNA have been observed in experiments on yeast.",
-        "articles": [
-          "01339"
+        "content": [
+          {
+            "type": "article",
+            "source": "01339"
+          }
         ]
       }
     ]
@@ -1490,9 +1985,15 @@
         "title": "Gently does it for crystallography",
         "time": 39,
         "impact_statement": "Very cold weak electron beams have been used to collect large numbers of diffraction patterns from protein microcrystals.",
-        "articles": [
-          "01345",
-          "01662"
+        "content": [
+          {
+            "type": "article",
+            "source": "01345"
+          },
+          {
+            "type": "article",
+            "source": "01662"
+          }
         ]
       },
       {
@@ -1500,8 +2001,11 @@
         "title": "If your blood gets too acidic you will die",
         "time": 357,
         "impact_statement": "Carbon dioxide could be involved in processes as diverse as breathing, hearing and reproduction.",
-        "articles": [
-          "01213"
+        "content": [
+          {
+            "type": "article",
+            "source": "01213"
+          }
         ]
       },
       {
@@ -1509,9 +2013,15 @@
         "title": "A gut feeling about arthritis",
         "time": 699,
         "impact_statement": "The gut microbiota of patients with rheumatoid arthritis is enriched in microbes belonging to the Prevotella genus.",
-        "articles": [
-          "01202",
-          "01608"
+        "content": [
+          {
+            "type": "article",
+            "source": "01202"
+          },
+          {
+            "type": "article",
+            "source": "01608"
+          }
         ]
       },
       {
@@ -1519,8 +2029,11 @@
         "title": "How the brain moves on",
         "time": 1025,
         "impact_statement": "In individuals with a missing hand, the area of the brain responsible for that hand learns to control the remaining hand or the residual limb.",
-        "articles": [
-          "01273"
+        "content": [
+          {
+            "type": "article",
+            "source": "01273"
+          }
         ]
       },
       {
@@ -1528,8 +2041,11 @@
         "title": "Why do rodents have cone-shaped whiskers?",
         "time": 2126,
         "impact_statement": "Conical whiskers allow mammals that live in tunnels and other enclosed spaces to learn more about their surroundings.",
-        "articles": [
-          "01350"
+        "content": [
+          {
+            "type": "article",
+            "source": "01350"
+          }
         ]
       }
     ]
@@ -1548,9 +2064,15 @@
         "title": "Sperm BerserKers",
         "time": 76,
         "impact_statement": "Human sperm cells rely on an unusual type of potassium ion channel.",
-        "articles": [
-          "01009",
-          "01469"
+        "content": [
+          {
+            "type": "article",
+            "source": "01009"
+          },
+          {
+            "type": "article",
+            "source": "01469"
+          }
         ]
       },
       {
@@ -1558,8 +2080,11 @@
         "title": "A microbial clock",
         "time": 420,
         "impact_statement": "Measurements of bacteria could have applications in forensic science.",
-        "articles": [
-          "01104"
+        "content": [
+          {
+            "type": "article",
+            "source": "01104"
+          }
         ]
       },
       {
@@ -1567,8 +2092,11 @@
         "title": "Welcome to Melainabacteria",
         "time": 777,
         "impact_statement": "Researchers have found evidence for a new phylum of bacteria.",
-        "articles": [
-          "01102"
+        "content": [
+          {
+            "type": "article",
+            "source": "01102"
+          }
         ]
       },
       {
@@ -1576,9 +2104,15 @@
         "title": "Tracking single stem cells",
         "time": 1153,
         "impact_statement": "The epithelium that lines our airways is maintained by a population of basal cells.",
-        "articles": [
-          "00966",
-          "01541"
+        "content": [
+          {
+            "type": "article",
+            "source": "00966"
+          },
+          {
+            "type": "article",
+            "source": "01541"
+          }
         ]
       },
       {
@@ -1586,8 +2120,11 @@
         "title": "Chimpanzees get conceptual",
         "time": 1505,
         "impact_statement": "The use of metaphorical concepts is not unique to humans.",
-        "articles": [
-          "00932"
+        "content": [
+          {
+            "type": "article",
+            "source": "00932"
+          }
         ]
       }
     ]
@@ -1606,9 +2143,15 @@
         "title": "How flatworms regenerate tissue",
         "time": 49,
         "impact_statement": "How are organisms such as planarians able to grow new heads and tails?",
-        "articles": [
-          "00247",
-          "00533"
+        "content": [
+          {
+            "type": "article",
+            "source": "00247"
+          },
+          {
+            "type": "article",
+            "source": "00533"
+          }
         ]
       },
       {
@@ -1616,9 +2159,15 @@
         "title": "The evolution of photosynthesis",
         "time": 414,
         "impact_statement": "Computational techniques have shed fresh light on how C4 photosynthesis evolved from C3 photosynthesis.",
-        "articles": [
-          "00961",
-          "01403"
+        "content": [
+          {
+            "type": "article",
+            "source": "00961"
+          },
+          {
+            "type": "article",
+            "source": "01403"
+          }
         ]
       },
       {
@@ -1626,8 +2175,11 @@
         "title": "Social interactions in mice",
         "time": 814,
         "impact_statement": "Mice that grow up in environments with lots of stimuli are less social and more territorial than mice that grow up in more spartan surroundings.",
-        "articles": [
-          "00759"
+        "content": [
+          {
+            "type": "article",
+            "source": "00759"
+          }
         ]
       },
       {
@@ -1635,9 +2187,15 @@
         "title": "Undead cells and cell death at a distance",
         "time": 1003,
         "impact_statement": "Cells undergoing programmed cell death release signals that trigger apoptosis in distant cells.",
-        "articles": [
-          "01004",
-          "01388"
+        "content": [
+          {
+            "type": "article",
+            "source": "01004"
+          },
+          {
+            "type": "article",
+            "source": "01388"
+          }
         ]
       },
       {
@@ -1645,8 +2203,11 @@
         "title": "Turning transcription on and off in single cells",
         "time": 2126,
         "impact_statement": "How much steroid is needed to switch on a single gene?",
-        "articles": [
-          "00750"
+        "content": [
+          {
+            "type": "article",
+            "source": "00750"
+          }
         ]
       }
     ]
@@ -1665,9 +2226,15 @@
         "title": "The cocktail party effect",
         "time": 44,
         "impact_statement": "Neuroscientists are getting closer to understanding how people can distinguish where different sounds come from in noisy environments.",
-        "articles": [
-          "00699",
-          "01136"
+        "content": [
+          {
+            "type": "article",
+            "source": "00699"
+          },
+          {
+            "type": "article",
+            "source": "01136"
+          }
         ]
       },
       {
@@ -1675,8 +2242,11 @@
         "title": "Turning on pseudogenes",
         "time": 421,
         "impact_statement": "Researchers have discovered a role for pseudogenes – which are thought to be dead genes – in regulating the immune response.",
-        "articles": [
-          "00762"
+        "content": [
+          {
+            "type": "article",
+            "source": "00762"
+          }
         ]
       },
       {
@@ -1684,9 +2254,15 @@
         "title": "Looking into blindness",
         "time": 841,
         "impact_statement": "Experiments with stem cells are shedding new light on the genetic origins of one of the most common forms of inherited blindness.",
-        "articles": [
-          "00824",
-          "01291"
+        "content": [
+          {
+            "type": "article",
+            "source": "00824"
+          },
+          {
+            "type": "article",
+            "source": "01291"
+          }
         ]
       },
       {
@@ -1694,9 +2270,15 @@
         "title": "How genes influence our response to the flu vaccine",
         "time": 1285,
         "impact_statement": "Changes in gene expression could be used to predict whether individuals will respond successfully to the influenza vaccine.",
-        "articles": [
-          "00299",
-          "00899"
+        "content": [
+          {
+            "type": "article",
+            "source": "00299"
+          },
+          {
+            "type": "article",
+            "source": "00899"
+          }
         ]
       },
       {
@@ -1704,9 +2286,15 @@
         "title": "Stem cells and tropical diseases",
         "time": 2126,
         "impact_statement": "Genetic techniques are providing new insights into the origins of schistosomiasis, a tropical disease that is caused by parasitic flatworms.",
-        "articles": [
-          "00768",
-          "01115"
+        "content": [
+          {
+            "type": "article",
+            "source": "00768"
+          },
+          {
+            "type": "article",
+            "source": "01115"
+          }
         ]
       }
     ]
@@ -1725,8 +2313,11 @@
         "title": "Plants performing arithmetic division",
         "time": 44,
         "impact_statement": "Plants use chemical reactions to calculate the rate at which they can use up their stores of starch during the night and still have some left at sunrise.",
-        "articles": [
-          "00669"
+        "content": [
+          {
+            "type": "article",
+            "source": "00669"
+          }
         ]
       },
       {
@@ -1734,8 +2325,11 @@
         "title": "The evolutionary dynamics of cancer",
         "time": 418,
         "impact_statement": "A mathematical model has predicted that cancer drugs given in combination are more effective than the same drugs given in sequence.",
-        "articles": [
-          "00747"
+        "content": [
+          {
+            "type": "article",
+            "source": "00747"
+          }
         ]
       },
       {
@@ -1743,9 +2337,15 @@
         "title": "Why blood vessels don't grow in the retina",
         "time": 890,
         "impact_statement": "Researchers have identified a receptor that prevents blood vessels forming in the outer retina—a process that can lead to blindness—by sequestering a crucial growth factor.",
-        "articles": [
-          "00324",
-          "00948"
+        "content": [
+          {
+            "type": "article",
+            "source": "00324"
+          },
+          {
+            "type": "article",
+            "source": "00948"
+          }
         ]
       },
       {
@@ -1753,8 +2353,11 @@
         "title": "Single-molecule measurements in the immune system",
         "time": 1342,
         "impact_statement": "Single-molecule measurements in living cells have revealed that a single foreign peptide is able to activate a single T cell.",
-        "articles": [
-          "00778"
+        "content": [
+          {
+            "type": "article",
+            "source": "00778"
+          }
         ]
       },
       {
@@ -1762,10 +2365,19 @@
         "title": "And there's more",
         "time": 1672,
         "impact_statement": "eLife features editor Peter Rodgers discusses a topical Point of View article by Ian Boyd, chief scientific adviser to the Department of the Environment, Food and Rural Affairs in the UK, plus research articles on a sensor for measuring extracellular ammonium and a study of the evolution of gene regulation in yeast.",
-        "articles": [
-          "01061",
-          "00800",
-          "00603"
+        "content": [
+          {
+            "type": "article",
+            "source": "01061"
+          },
+          {
+            "type": "article",
+            "source": "00800"
+          },
+          {
+            "type": "article",
+            "source": "00603"
+          }
         ]
       }
     ]
@@ -1784,9 +2396,15 @@
         "title": "The origins of multicellularity",
         "time": 62,
         "impact_statement": "Extremely low concentrations of a molecule produced by bacteria can cause single-celled organisms to form colonies, which suggests that bacteria might have influenced the origin of multicellularity in animals",
-        "articles": [
-          "00013",
-          "00242"
+        "content": [
+          {
+            "type": "article",
+            "source": "00013"
+          },
+          {
+            "type": "article",
+            "source": "00242"
+          }
         ]
       },
       {
@@ -1794,9 +2412,15 @@
         "title": "What modern sequencing technology can tell us about the potato famines of the 1840s",
         "time": 460,
         "impact_statement": "The strain of P. infestans that caused the Great Famine in the late 1840s has been identified by sequencing the genomes of samples collected in the 19th century.",
-        "articles": [
-          "00731",
-          "00954"
+        "content": [
+          {
+            "type": "article",
+            "source": "00731"
+          },
+          {
+            "type": "article",
+            "source": "00954"
+          }
         ]
       },
       {
@@ -1804,8 +2428,11 @@
         "title": "All about eLife",
         "time": 901,
         "impact_statement": "eLife deputy editor Fiona Watt explains why eLife was launched and what it hopes to achieve.",
-        "articles": [
-          "00799"
+        "content": [
+          {
+            "type": "article",
+            "source": "00799"
+          }
         ]
       },
       {
@@ -1813,9 +2440,15 @@
         "title": "A receptor for the hepatitis B and D viruses",
         "time": 1323,
         "impact_statement": "The identification of a functional receptor for the hepatitis B and D viruses could lead to new strategies for tackling these diseases.",
-        "articles": [
-          "00049",
-          "00301"
+        "content": [
+          {
+            "type": "article",
+            "source": "00049"
+          },
+          {
+            "type": "article",
+            "source": "00301"
+          }
         ]
       },
       {
@@ -1823,9 +2456,15 @@
         "title": "The effect of fog on car drivers",
         "time": 1743,
         "impact_statement": "Virtual reality experiments show that motorists slow down when driving in fog, but they speed up when visibility is reduced equally at all distances.",
-        "articles": [
-          "00031",
-          "00281"
+        "content": [
+          {
+            "type": "article",
+            "source": "00031"
+          },
+          {
+            "type": "article",
+            "source": "00281"
+          }
         ]
       },
       {
@@ -1833,8 +2472,11 @@
         "title": "The evolution of chromatin",
         "time": 2126,
         "impact_statement": "Similarities between the chromatin in archaea and eukaryotes suggest that it might have been involved in gene regulation before its role in DNA packaging evolved.",
-        "articles": [
-          "00078"
+        "content": [
+          {
+            "type": "article",
+            "source": "00078"
+          }
         ]
       }
     ]

@@ -2,10 +2,12 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\Component\Utility\Random;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\node\Entity\Node;
 use Drupal\rest\Plugin\ResourceBase;
 
 abstract class AbstractRestResourceBase extends ResourceBase {
@@ -37,6 +39,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     ],
   ];
 
+  protected $defaultSortBy = 'created';
+
   /**
    * Process default values.
    *
@@ -46,11 +50,23 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * @return array
    */
   protected function processDefault(EntityInterface $entity, $id = NULL, $id_key = 'id') {
-    return [
+
+    $defaults = [
       $id_key => !is_null($id) ? $id : substr($entity->uuid(), -8),
       'title' => $entity->getTitle(),
-      'published' => $this->formatDate($entity->getCreatedTime()),
     ];
+
+    $sort_by = self::getSortBy();
+    switch ($sort_by) {
+      case 'created':
+        $defaults['published'] = $this->formatDate($entity->getCreatedTime());
+        break;
+      case 'changed':
+        $defaults['updated'] = $this->formatDate($entity->getRevisionCreationTime());
+        break;
+    }
+
+    return $defaults;
   }
 
   /**
@@ -289,10 +305,43 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * @param \Drupal\Core\Entity\Query\QueryInterface $query
    * @param string
    */
-  protected function filterPageAndOrder(QueryInterface &$query, $sort_by = 'created') {
+  protected function filterPageAndOrder(QueryInterface &$query, $sort_by = NULL) {
+    $sort_by = $this->setSortBy($sort_by);
+
     $request_options = $this->getRequestOptions();
     $query->range(($request_options['page'] - 1) * $request_options['per-page'], $request_options['per-page']);
     $query->sort($sort_by, $request_options['order']);
+  }
+
+  /**
+   * Set the "sort by" field.
+   *
+   * @param string|null|bool $sort_by
+   * @param bool $force
+   * @return string
+   */
+  protected function setSortBy($sort_by = NULL, $force = FALSE) {
+    static $cache = NULL;
+
+    if ($force || is_null($cache)) {
+      if (!is_null($sort_by)) {
+        $cache = $sort_by;
+      }
+      else {
+        $cache = $this->defaultSortBy;
+      }
+    }
+
+    return $cache;
+  }
+
+  /**
+   * Get the "sort by" field.
+   *
+   * @return string
+   */
+  protected function getSortBy() {
+    return $this->setSortBy();
   }
 
   /**
@@ -305,6 +354,94 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     $view = $data->view();
     unset($view['#theme']);
     return render($view);
+  }
+
+  /**
+   * Get the article snippet from article node.
+   *
+   * @param \Drupal\node\Entity\Node $node
+   * @return array
+   */
+  protected function getArticleSnippet(Node $node) {
+    // @todo - elife - nlisgo - output json values from node.
+    return $this->dummyArticle($node->getTitle());
+  }
+
+  /**
+   * Get a dummy article.
+   *
+   * @param string $article_id
+   * @return array
+   */
+  protected function dummyArticle(string $article_id) {
+    $random = new Random();
+
+    // Generate a random name.
+    $names = function($preferred_only = FALSE) use ($random) {
+      $names = [ucfirst($random->word(rand(4, 9))), ucfirst($random->word(rand(4, 9)))];
+      if ($preferred_only) {
+        return implode(' ', $names);
+      }
+      else {
+        return [
+          'preferred' => implode(' ', $names),
+          'index' => implode(', ', array_reverse($names)),
+        ];
+      }
+    };
+
+    // Select a single random item from array.
+    $random_item = function ($array) {
+      shuffle($array);
+      return $array[0];
+    };
+
+    $content = [
+      'type' => $random_item(['correction', 'editorial', 'feature', 'insight', 'research-advance', 'research-article', 'research-exchange', 'retraction', 'registered-report', 'replication-study', 'short-report', 'tools-resources']),
+      'status' => $random_item(['poa', 'vor']),
+      'id' => $article_id,
+      'version' => rand(1, 3),
+      'doi' => '10.7554/eLife.' . $article_id,
+      'authorLine' => $names(TRUE) . $random_item(['', ' et al']),
+      'title' => $random->sentences(3),
+      'published' => $this->formatDate(),
+      'statusDate' => $this->formatDate(),
+      'volume' => rand(1, 5),
+      'elocationId' => 'e' . $article_id,
+      'pdf' => 'https://elifesciences.org/content/%d/e' . $article_id . '.pdf',
+    ];
+
+    // Insert the volume number into pdf url.
+    $content['pdf'] = sprintf($content['pdf'], $content['volume']);
+
+    // Optionally display impact statement.
+    if (rand(0, 2) > 0) {
+      $content['impactStatement'] = $random->sentences(4);
+    }
+
+    // Optionally display dummy image.
+    if (rand(0, 2) === 0) {
+      $content['image'] = $this->dummyThumbnail();
+    }
+
+    return $content;
+  }
+
+  /**
+   * Get a dummy thumbnail.
+   *
+   * @return array
+   */
+  protected function dummyThumbnail() {
+    $image = $this->getImageSizes('thumbnail');
+    $image['thumbnail']['alt'] = '';
+    foreach ($image['thumbnail']['sizes'] as $ar => $sizes) {
+      foreach ($sizes as $width => $height) {
+        $image['thumbnail']['sizes'][$ar][$width] = 'https://placehold.it/' . $width . 'x' . $height;
+      }
+    }
+
+    return $image;
   }
 
 }

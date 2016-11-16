@@ -7,4 +7,5 @@ dependencies:
   - migrate_plus
   - migrate_tools
   - filter
+  - jcms_notifications
 package: Journal CMS

@@ -1,0 +1,104 @@
+uuid: 11ece541-1476-479f-ac6b-cc216f29141a
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: XpCOOLEFydpF2Qqs0DZVBKnz5HINmkw7cAN4JBF_R6I
+id: jcms_collections_json
+class: null
+migration_tags: null
+migration_group: jcms_migrate
+label: 'JSON feed of collections'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: json
+  urls: modules/custom/jcms_migrate/migration_assets/collections.json
+  item_selector: 0
+  fields:
+    -
+      name: title
+      label: 'Collection title'
+      selector: title
+    -
+      name: sub_title
+      label: 'Collection title'
+      selector: sub_title
+    -
+      name: createc
+      label: 'Collection publication date'
+      selector: created
+    -
+      name: impact_statement
+      label: 'Collection impact statement'
+      selector: impact_statement
+    -
+      name: image
+      label: 'Collection image'
+      selector: image
+    -
+      name: subjects
+      label: 'Collection subjects'
+      selector: subjects
+    -
+      name: subjects
+      label: 'Collection subjects'
+      selector: subjects
+    -
+      name: curators
+      label: 'Collection curators'
+      selector: curators
+    -
+      name: content
+      label: 'Collection content'
+      selector: content
+    -
+      name: podcasts
+      label: 'Collection podcasts'
+      selector: podcasts
+  ids:
+    title:
+      type: string
+process:
+  id: title
+  label: title
+  type:
+    plugin: default_value
+    default_value: collection
+  title: title
+  uid:
+    plugin: default_value
+    default_value: 1
+  created: created
+  field_subtitle: sub_title
+  field_impact_statement/value: impact_statement
+  field_impact_statement/format:
+    plugin: default_value
+    default_value: basic_html
+  field_image:
+    plugin: jcms_image
+    source:
+      - image
+      - title
+  field_subjects:
+    plugin: migration
+    migration: jcms_subjects_json
+    source: subjects
+  field_curators:
+    plugin: migration
+    migration: jcms_people_db
+    source: curators
+  field_collection_podcasts:
+    plugin: migration
+    migration: jcms_podcast_episodes_json
+    source: podcasts
+  field_collection_content:
+    plugin: jcms_collection_content
+    source: content
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - jcms_subjects_json
+    - jcms_people_db
+    - jcms_interviews_db

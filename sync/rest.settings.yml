@@ -1,35 +1,35 @@
 resources:
-  labs_experiments_item_rest_resource:
+  labs_experiment_item_rest_resource:
     GET:
       supported_formats:
         - json
       supported_auth:
         - basic_auth
-  labs_experiments_list_rest_resource:
+  labs_experiment_list_rest_resource:
     GET:
       supported_formats:
         - json
       supported_auth:
         - basic_auth
-  subjects_list_rest_resource:
+  subject_list_rest_resource:
     GET:
       supported_formats:
         - jcms_json
       supported_auth:
         - basic_auth
-  subjects_item_rest_resource:
+  subject_item_rest_resource:
     GET:
       supported_formats:
         - jcms_json
       supported_auth:
         - basic_auth
-  podcast_episodes_list_rest_resource:
+  podcast_episode_list_rest_resource:
     GET:
       supported_formats:
         - json
       supported_auth:
         - basic_auth
-  podcast_episodes_item_rest_resource:
+  podcast_episode_item_rest_resource:
     GET:
       supported_formats:
         - json
@@ -41,7 +41,7 @@ resources:
         - json
       supported_auth:
         - basic_auth
-  person_rest_resource:
+  person_item_rest_resource:
     GET:
       supported_formats:
         - json
