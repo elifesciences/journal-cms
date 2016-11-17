@@ -28,7 +28,6 @@ module:
   field_ui: 0
   file: 0
   filter: 0
-  graphql: 0
   hal: 0
   help: 0
   history: 0
@@ -58,6 +57,7 @@ module:
   shortcut: 0
   system: 0
   taxonomy: 0
+  telephone: 0
   text: 0
   toolbar: 0
   tour: 0

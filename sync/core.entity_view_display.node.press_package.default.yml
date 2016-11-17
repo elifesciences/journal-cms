@@ -1,0 +1,51 @@
+uuid: 4228dfbc-5fbd-452a-aca3-26aa5a0a09ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.press_package.field_content
+    - field.field.node.press_package.field_impact_statement
+    - field.field.node.press_package.field_media_contact
+    - field.field.node.press_package.field_related_content
+    - node.type.press_package
+  module:
+    - entity_reference_revisions
+    - text
+    - user
+id: node.press_package.default
+targetEntityType: node
+bundle: press_package
+mode: default
+content:
+  field_content:
+    weight: 102
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+  field_impact_statement:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_media_contact:
+    type: entity_reference_revisions_entity_view
+    weight: 104
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_related_content:
+    weight: 103
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  links:
+    weight: 100
+hidden: {  }

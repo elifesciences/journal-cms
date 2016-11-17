@@ -1,0 +1,59 @@
+uuid: c17ba37b-69d7-430a-9cff-53175fdec657
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Ak98z85FX2vq-FY-6A5oOs1t4P9aGmYDV3isX2tJ_nc
+id: jcms_press_packages_db
+class: null
+migration_tags: null
+migration_group: jcms_migrate
+label: 'Legacy Press packages'
+source:
+  plugin: jcms_press_package_node
+process:
+  type:
+    plugin: default_value
+    default_value: press_package
+  title: press_title
+  uid:
+    plugin: default_value
+    default_value: 1
+  created: created
+  field_impact_statement/value:
+    plugin: jcms_press_package_content
+    source: content
+    section: summary
+  field_impact_statement/format:
+    plugin: default_value
+    default_value: basic_html
+  field_content:
+    -
+      plugin: jcms_press_package_content
+      source: content
+    -
+      plugin: jcms_split_content
+    -
+      plugin: jcms_content
+      multiple: true
+  field_related_content:
+    -
+      plugin: jcms_press_package_content
+      source: content
+      section: relatedContent
+    -
+      plugin: jcms_collection_content
+      multiple: true
+  field_media_contact:
+    -
+      plugin: jcms_press_package_content
+      source: content
+      section: mediaContacts
+    -
+      plugin: jcms_media_contact
+      multiple: true
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - jcms_subjects_json

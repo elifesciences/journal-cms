@@ -1,0 +1,21 @@
+uuid: 2640349b-9ec5-4988-b61a-ea61006b437a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_phone_number
+    - paragraphs.paragraphs_type.media_contact
+  module:
+    - telephone
+id: paragraph.media_contact.field_block_phone_number
+field_name: field_block_phone_number
+entity_type: paragraph
+bundle: media_contact
+label: 'Phone number'
+description: "Phone number in E.164 format.\r\n\r\nFor example:\r\n<ul>\r\n<li>+447700900415</li>\r\n<li>+12025550182;ext=555</li>\r\n</ul>"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

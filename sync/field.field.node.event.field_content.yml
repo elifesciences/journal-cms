@@ -12,6 +12,7 @@ dependencies:
     - paragraphs.paragraphs_type.question
     - paragraphs.paragraphs_type.section
     - paragraphs.paragraphs_type.table
+    - paragraphs.paragraphs_type.youtube
   module:
     - entity_reference_revisions
 id: node.event.field_content
@@ -28,48 +29,58 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      blockquote: blockquote
-      image: image
-      list: list
       paragraph: paragraph
-      question: question
+      image: image
+      youtube: youtube
+      blockquote: blockquote
+      list: list
       section: section
       table: table
+      question: question
     target_bundles_drag_drop:
-      blockquote:
-        enabled: true
-        weight: 13
-      cv_item:
-        weight: 14
-        enabled: false
-      episode_chapter:
-        weight: 15
-        enabled: false
-      image:
-        enabled: true
-        weight: 16
-      list:
-        enabled: true
-        weight: 17
-      list_item:
-        weight: 18
-        enabled: false
       paragraph:
         enabled: true
-        weight: 19
-      question:
+        weight: -31
+      image:
         enabled: true
-        weight: 20
-      research_details:
-        weight: 21
-        enabled: false
+        weight: -30
+      youtube:
+        enabled: true
+        weight: -29
+      blockquote:
+        enabled: true
+        weight: -28
+      list:
+        enabled: true
+        weight: -27
       section:
         enabled: true
-        weight: 22
+        weight: -26
       table:
         enabled: true
-        weight: 23
-      youtube:
-        weight: 24
+        weight: -25
+      question:
+        enabled: true
+        weight: -24
+      cv_item:
+        weight: -23
+        enabled: false
+      episode_chapter:
+        weight: -22
+        enabled: false
+      media_contact:
+        weight: -21
+        enabled: false
+      list_item:
+        weight: -20
+        enabled: false
+      json:
+        weight: -19
+        enabled: false
+      research_details:
+        weight: -18
+        enabled: false
+      venue:
+        weight: -17
         enabled: false
 field_type: entity_reference_revisions

@@ -8,6 +8,7 @@ use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\rest\Plugin\ResourceBase;
 
 abstract class AbstractRestResourceBase extends ResourceBase {
@@ -424,6 +425,33 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       $content['image'] = $this->dummyThumbnail();
     }
 
+    if (rand(0, 2) > 0) {
+      $subjects = [
+        ['id' => 'plant-biology', 'name' => 'Plant Biology'],
+        ['id' => 'neuroscience', 'name' => 'Neuroscience'],
+        ['id' => 'microbiology-infectious-disease', 'name' => 'Microbiology and Infectious Disease'],
+        ['id' => 'immunology', 'name' => 'Immunology'],
+        ['id' => 'human-biology-medicine', 'name' => 'Human Biology and Medicine'],
+        ['id' => 'genomics-evolutionary-biology', 'name' => 'Genomics and Evolutionary Biology'],
+        ['id' => 'genes-chromosomes', 'name' => 'Genes and Chromosomes'],
+        ['id' => 'epidemiology-global-health', 'name' => 'Epidemiology and Global Health'],
+        ['id' => 'ecology', 'name' => 'Ecology'],
+        ['id' => 'developmental-biology-stem-cells', 'name' => 'Developmental Biology and Stem Cells'],
+        ['id' => 'computational-systems-biology', 'name' => 'Computational and Systems Biology'],
+        ['id' => 'cell-biology', 'name' => 'Cell Biology'],
+        ['id' => 'cancer-biology', 'name' => 'Cancer Biology'],
+        ['id' => 'biophysics-structural-biology', 'name' => 'Biophysics and Structural Biology'],
+        ['id' => 'biochemistry', 'name' => 'Biochemistry'],
+      ];
+
+      shuffle($subjects);
+      $subjects = array_slice($subjects, 0, rand(1, 3));
+      foreach ($subjects as $k => $subject) {
+        $subjects[$k] = array_intersect_key($subject, array_flip(['id', 'name']));
+      }
+      $content['subjects'] = array_values($subjects);
+    }
+
     return $content;
   }
 
@@ -442,6 +470,85 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     }
 
     return $image;
+  }
+
+  /**
+   * Get subject list from articles array.
+   *
+   * @param array $articles
+   * @return array
+   */
+  protected function subjectsFromArticles($articles) {
+    $subjects = [];
+    foreach ($articles as $article) {
+      if (!empty($article['subjects'])) {
+        foreach ($article['subjects'] as $subject) {
+          if (!isset($subjects[$subject['id']])) {
+            $subjects[$subject['id']] = $subject;
+          }
+        }
+      }
+    }
+
+    return array_values($subjects);
+  }
+
+  /**
+   * Convert venue paragraph into array prepared for response.
+   *
+   * @param \Drupal\paragraphs\Entity\Paragraph $venue_field
+   * @return array
+   */
+  protected function getVenue(Paragraph $venue_field) {
+      $venue = [
+        'name' => array_values(array_filter(preg_split("(\r\n?|\n)", $venue_field->get('field_block_title_multiline')->getString()))),
+      ];
+
+      // Venue address is optional.
+      if ($venue_field->get('field_block_address')->count()) {
+        $locale = 'en';
+        /* @var \CommerceGuys\Addressing\AddressInterface $address  */
+        $address = $venue_field->get('field_block_address')->first();
+        $postal_label_formatter = \Drupal::service('address.postal_label_formatter');
+        $postal_label_formatter->setOriginCountryCode('no_origin');
+        $postal_label_formatter->setLocale($locale);
+        $components = [
+          'streetAddress' => ['getAddressLine1', 'getAddressLine2'],
+          'locality' => ['getLocality', 'getDependentLocality'],
+          'area' => ['getAdministrativeArea'],
+        ];
+
+        $venue['address'] = [
+          'formatted' => explode("\n", $postal_label_formatter->format($address)),
+          'components' => [],
+        ];
+
+        foreach ($components as $section => $methods) {
+          $values = [];
+          foreach ($methods as $method) {
+            if ($value = $address->{$method}()) {
+              $values[] = $value;
+            }
+          }
+
+          if (!empty($values)) {
+            $venue['address']['components'][$section] = $values;
+          }
+        }
+
+        $country_repository = \Drupal::service('address.country_repository');
+        $countries = $country_repository->getList($locale);
+        $venue['address']['components']['country'] = $countries[$address->getCountryCode()];
+
+        if ($postal_code = $address->getPostalCode()) {
+          $venue['address']['components']['postalCode'] = $postal_code;
+        }
+        elseif ($postal_code = $address->getSortingCode()) {
+          $venue['address']['components']['postalCode'] = $postal_code;
+        }
+      }
+
+      return $venue;
   }
 
 }

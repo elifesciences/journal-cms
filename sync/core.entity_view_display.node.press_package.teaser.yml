@@ -1,0 +1,17 @@
+uuid: 24265100-a95e-4e33-a698-d9bd6fc2944b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.press_package
+  module:
+    - user
+id: node.press_package.teaser
+targetEntityType: node
+bundle: press_package
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden: {  }

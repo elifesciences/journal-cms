@@ -9,7 +9,7 @@ id: paragraph.venue.field_block_title_multiline
 field_name: field_block_title_multiline
 entity_type: paragraph
 bundle: venue
-label: 'Venue name'
+label: 'Place name'
 description: ''
 required: true
 translatable: false

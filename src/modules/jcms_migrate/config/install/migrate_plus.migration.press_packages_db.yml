@@ -1,0 +1,53 @@
+id: jcms_press_packages_db
+label: Legacy Press packages
+migration_group: jcms_migrate
+source:
+  plugin: jcms_press_package_node
+destination:
+  plugin: entity:node
+process:
+  # Hardcode the destination node type (bundle) as 'press_package'.
+  type:
+    plugin: default_value
+    default_value: press_package
+  title: press_title
+  uid:
+    plugin: default_value
+    default_value: 1
+  created: created
+  'field_impact_statement/value':
+    plugin: jcms_press_package_content
+    source: content
+    section: summary
+  'field_impact_statement/format':
+    plugin: default_value
+    default_value: basic_html
+  field_content:
+    -
+      plugin: jcms_press_package_content
+      source: content
+    -
+      plugin: jcms_split_content
+    -
+      plugin: jcms_content
+      multiple: true
+  field_related_content:
+    -
+      plugin: jcms_press_package_content
+      source: content
+      section: relatedContent
+    -
+      plugin: jcms_collection_content
+      multiple: true
+  field_media_contact:
+    -
+      plugin: jcms_press_package_content
+      source: content
+      section: mediaContacts
+    -
+      plugin: jcms_media_contact
+      multiple: true
+
+migration_dependencies:
+  required:
+    - jcms_subjects_json

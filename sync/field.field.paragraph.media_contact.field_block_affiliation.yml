@@ -1,0 +1,72 @@
+uuid: 21a50cb0-2a4d-4d86-9dc6-37468eae5a3e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_affiliation
+    - paragraphs.paragraphs_type.media_contact
+    - paragraphs.paragraphs_type.venue
+  module:
+    - entity_reference_revisions
+id: paragraph.media_contact.field_block_affiliation
+field_name: field_block_affiliation
+entity_type: paragraph
+bundle: media_contact
+label: Affiliation
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      venue: venue
+    target_bundles_drag_drop:
+      media_contact:
+        weight: 16
+        enabled: false
+      blockquote:
+        weight: 17
+        enabled: false
+      cv_item:
+        weight: 18
+        enabled: false
+      episode_chapter:
+        weight: 19
+        enabled: false
+      image:
+        weight: 20
+        enabled: false
+      json:
+        weight: 21
+        enabled: false
+      list:
+        weight: 22
+        enabled: false
+      list_item:
+        weight: 23
+        enabled: false
+      paragraph:
+        weight: 24
+        enabled: false
+      question:
+        weight: 25
+        enabled: false
+      research_details:
+        weight: 26
+        enabled: false
+      section:
+        weight: 27
+        enabled: false
+      table:
+        weight: 28
+        enabled: false
+      venue:
+        enabled: true
+        weight: 29
+      youtube:
+        weight: 30
+        enabled: false
+field_type: entity_reference_revisions

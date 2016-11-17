@@ -53,8 +53,8 @@ content:
     type: entity_reference_paragraphs
     weight: 10
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'Profile item'
+      title_plural: 'Profile items'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
@@ -68,8 +68,8 @@ content:
     type: entity_reference_paragraphs
     weight: 11
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'Research details'
+      title_plural: 'Research details'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default

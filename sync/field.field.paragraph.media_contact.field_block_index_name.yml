@@ -1,0 +1,19 @@
+uuid: 860620dc-bb37-46f7-978c-06fe057e5d7e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_index_name
+    - paragraphs.paragraphs_type.media_contact
+id: paragraph.media_contact.field_block_index_name
+field_name: field_block_index_name
+entity_type: paragraph
+bundle: media_contact
+label: 'Index name'
+description: "This is the name that should be used for indexing people.\r\n\r\nFor example:\r\n<ul>\r\n  <li>Schekman, Randy</li>\r\n  <li>VijayRaghavan, Krishnaswamy</li>\r\n  <li>Wenhui Li</li>\r\n</ul>"
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

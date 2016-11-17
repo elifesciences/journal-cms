@@ -14,8 +14,6 @@ use Drupal\migrate\Row;
  */
 class JCMSSplitInterviewContent extends JCMSSplitContent {
 
-  use JMCSCheckMarkupTrait;
-
   /**
    * {@inheritdoc}
    */

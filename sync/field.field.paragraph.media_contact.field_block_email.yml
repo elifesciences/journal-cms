@@ -1,0 +1,19 @@
+uuid: 2ffb0042-ec08-4799-9eb4-98b632a7d44c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_email
+    - paragraphs.paragraphs_type.media_contact
+id: paragraph.media_contact.field_block_email
+field_name: field_block_email
+entity_type: paragraph
+bundle: media_contact
+label: Email
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

@@ -1,0 +1,72 @@
+uuid: 437316c3-d1eb-4e6c-92ff-d7821264bca1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_contact
+    - node.type.press_package
+    - paragraphs.paragraphs_type.media_contact
+  module:
+    - entity_reference_revisions
+id: node.press_package.field_media_contact
+field_name: field_media_contact
+entity_type: node
+bundle: press_package
+label: 'Media contact'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      media_contact: media_contact
+    target_bundles_drag_drop:
+      media_contact:
+        enabled: true
+        weight: 16
+      blockquote:
+        weight: 17
+        enabled: false
+      cv_item:
+        weight: 18
+        enabled: false
+      episode_chapter:
+        weight: 19
+        enabled: false
+      image:
+        weight: 20
+        enabled: false
+      json:
+        weight: 21
+        enabled: false
+      list:
+        weight: 22
+        enabled: false
+      list_item:
+        weight: 23
+        enabled: false
+      paragraph:
+        weight: 24
+        enabled: false
+      question:
+        weight: 25
+        enabled: false
+      research_details:
+        weight: 26
+        enabled: false
+      section:
+        weight: 27
+        enabled: false
+      table:
+        weight: 28
+        enabled: false
+      venue:
+        weight: 29
+        enabled: false
+      youtube:
+        weight: 30
+        enabled: false
+field_type: entity_reference_revisions
