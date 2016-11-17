@@ -12,18 +12,12 @@ dependencies:
   module:
     - image
     - paragraphs
-    - path
     - text
 id: node.labs_experiment.default
 targetEntityType: node
 bundle: labs_experiment
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
   field_content:
     type: entity_reference_paragraphs
     weight: 4
@@ -54,11 +48,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  path:
-    type: path
-    weight: 6
-    settings: {  }
-    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 1
@@ -66,14 +55,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 5
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
 hidden:
+  created: true
+  path: true
   promote: true
   sticky: true
+  uid: true

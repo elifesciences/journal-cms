@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.node.person.field_image
     - field.field.node.person.field_person_competing
-    - field.field.node.person.field_person_id
     - field.field.node.person.field_person_index_name
     - field.field.node.person.field_person_orcid
     - field.field.node.person.field_person_profile
@@ -16,18 +15,12 @@ dependencies:
   module:
     - image
     - paragraphs
-    - path
     - text
 id: node.person.default
 targetEntityType: node
 bundle: person
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 4
-    settings: {  }
-    third_party_settings: {  }
   field_image:
     weight: 7
     settings:
@@ -42,13 +35,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  field_person_id:
-    weight: 1
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
   field_person_index_name:
     weight: 2
     settings:
@@ -88,11 +74,6 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 5
-    settings: {  }
-    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -100,14 +81,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 3
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
 hidden:
+  created: true
+  path: true
   promote: true
   sticky: true
+  uid: true
