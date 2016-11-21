@@ -3,7 +3,7 @@
 namespace Drupal\jcms_rest\Routing;
 
 use Drupal\Core\Routing\RouteFilterInterface;
-use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
+use Drupal\jcms_rest\Exception\JcmsNotAcceptableHttpException;
 use Drupal\jcms_rest\PathMediaTypeMapper;
 use Symfony\Component\HttpFoundation\AcceptHeader;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,7 +63,7 @@ class JcmsRestResourceRouteFilter implements RouteFilterInterface {
     // We do not throw a
     // \Symfony\Component\Routing\Exception\ResourceNotFoundException here
     // because we don't want to return a 404 status code, but rather a 406.
-    throw new JCMSNotAcceptableHttpException("No route found for the specified accept header $accept_header.", NULL, $acceptable_media_type);
+    throw new JcmsNotAcceptableHttpException("No route found for the specified accept header $accept_header.", NULL, $acceptable_media_type);
   }
 
 }
