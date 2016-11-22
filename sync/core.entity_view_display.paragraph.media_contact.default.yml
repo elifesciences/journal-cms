@@ -1,0 +1,55 @@
+uuid: 1fb4d35d-79c1-4b87-ac9a-d22d34a49f28
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.media_contact.field_block_affiliation
+    - field.field.paragraph.media_contact.field_block_email
+    - field.field.paragraph.media_contact.field_block_index_name
+    - field.field.paragraph.media_contact.field_block_phone_number
+    - field.field.paragraph.media_contact.field_block_preferred_name
+    - paragraphs.paragraphs_type.media_contact
+  module:
+    - entity_reference_revisions
+id: paragraph.media_contact.default
+targetEntityType: paragraph
+bundle: media_contact
+mode: default
+content:
+  field_block_affiliation:
+    type: entity_reference_revisions_entity_view
+    weight: 4
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_block_email:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_block_index_name:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_block_phone_number:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_block_preferred_name:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+hidden:
+  created: true
+  uid: true

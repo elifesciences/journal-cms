@@ -1,0 +1,22 @@
+uuid: ed63baf0-b96d-49f3-af21-1af76b55f672
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - paragraphs
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: paragraph.field_block_email
+field_name: field_block_email
+entity_type: paragraph
+type: email
+settings: {  }
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

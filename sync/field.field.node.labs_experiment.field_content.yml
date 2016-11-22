@@ -9,6 +9,7 @@ dependencies:
     - paragraphs.paragraphs_type.image
     - paragraphs.paragraphs_type.list
     - paragraphs.paragraphs_type.paragraph
+    - paragraphs.paragraphs_type.question
     - paragraphs.paragraphs_type.section
     - paragraphs.paragraphs_type.table
     - paragraphs.paragraphs_type.youtube
@@ -28,36 +29,58 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      blockquote: blockquote
-      image: image
-      section: section
       paragraph: paragraph
+      image: image
       youtube: youtube
       list: list
+      section: section
+      blockquote: blockquote
       table: table
+      question: question
     target_bundles_drag_drop:
-      blockquote:
-        enabled: true
-        weight: 5
-      image:
-        enabled: true
-        weight: 6
-      section:
-        enabled: true
-        weight: 6
       paragraph:
         enabled: true
-        weight: 7
+        weight: -31
+      image:
+        enabled: true
+        weight: -30
       youtube:
         enabled: true
-        weight: 8
+        weight: -29
       list:
         enabled: true
-        weight: 11
-      list_item:
-        weight: 12
-        enabled: false
+        weight: -28
+      section:
+        enabled: true
+        weight: -27
+      blockquote:
+        enabled: true
+        weight: -26
       table:
         enabled: true
-        weight: 15
+        weight: -25
+      question:
+        enabled: true
+        weight: -24
+      list_item:
+        weight: -23
+        enabled: false
+      media_contact:
+        weight: -22
+        enabled: false
+      cv_item:
+        weight: -21
+        enabled: false
+      episode_chapter:
+        weight: -20
+        enabled: false
+      json:
+        weight: -19
+        enabled: false
+      research_details:
+        weight: -18
+        enabled: false
+      venue:
+        weight: -17
+        enabled: false
 field_type: entity_reference_revisions

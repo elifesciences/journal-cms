@@ -127,9 +127,7 @@ class JCMSSplitContent extends ProcessPluginBase {
     $string = preg_replace(["/(<img [^>]*>)/", "/(<table[^>]*>)/", "/(<ul[^>]*>)/", "/(<ol[^>]*>)/", "/(<iframe[^>]*>)/"], "\n\n$1", $string);
     $string = preg_replace(["/(<img [^>]*>)/", "~(</table>)~", "~(</ul>)~", "~(</ol>)~", "~(</iframe>)~"], "$1\n\n", $string);
 
-    $delimiter = '||||';
-    $string = preg_replace("/\\s*\\n\\n+\\s*/i", $delimiter, $string);
-    $split = explode($delimiter, $string);
+    $split = preg_split("~\\s*\\n+\\s*~", $string);
     foreach ($split as $k => $item) {
       $item = trim($item);
       if (empty($item)) {
@@ -251,7 +249,7 @@ class JCMSSplitContent extends ProcessPluginBase {
         $innerHTML .= $html;
       }
     }
-    return $innerHTML;
+    return preg_replace(["~([^\\s])<a ~", "~([^\\s])<(sub|sup|b|i)>~", "~</(a|sub|sup|b|i)>([A-z0-9\\(])~"], ['$1 <a ', '$1 $2', '</a> $1'], $innerHTML);
   }
 
 }

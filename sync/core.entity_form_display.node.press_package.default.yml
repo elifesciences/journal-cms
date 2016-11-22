@@ -1,0 +1,71 @@
+uuid: 35f67790-984a-4e66-8e0c-8db711aff081
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.press_package.field_content
+    - field.field.node.press_package.field_impact_statement
+    - field.field.node.press_package.field_media_contact
+    - field.field.node.press_package.field_related_content
+    - node.type.press_package
+  module:
+    - inline_entity_form
+    - paragraphs
+    - text
+id: node.press_package.default
+targetEntityType: node
+bundle: press_package
+mode: default
+content:
+  field_content:
+    weight: 27
+    settings:
+      title: 'Content item'
+      title_plural: 'Content items'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+  field_impact_statement:
+    weight: 26
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_media_contact:
+    type: entity_reference_paragraphs
+    weight: 29
+    settings:
+      title: 'Media contact'
+      title_plural: 'Media contacts'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+    third_party_settings: {  }
+  field_related_content:
+    weight: 28
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: STARTS_WITH
+      override_labels: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+  title:
+    type: string_textfield
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

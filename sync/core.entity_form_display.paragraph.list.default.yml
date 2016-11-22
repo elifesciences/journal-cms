@@ -17,8 +17,8 @@ content:
     type: entity_reference_paragraphs
     weight: 1
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'List item'
+      title_plural: 'List items'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default

@@ -29,7 +29,6 @@
     "drupal/config_installer": "~8.1",
     "drupal/entity_reference_revisions": "8.1.x-dev",
     "drupal/field_collection": "~8.1.0-alpha1",
-    "drupal/graphql": "~8.1.0",
     "drupal/inline_entity_form": "~8.1.0-beta1",
     "drupal/jsonb": "~8.1.0-beta1",
     "drupal/paragraphs": "~8.1.0",
@@ -39,8 +38,8 @@
     "drupal/migrate_tools": "~8.2.0@dev",
     "drupal/migrate_manifest": "^8.1",
     "drupal/restui": "8.1.x-dev",
-    "drupal/ctools": "8.3.0-alpha26",
-    "drupal/services": "8.4.0-alpha3",
+    "drupal/ctools": "~8.3.0-alpha27",
+    "drupal/services": "~8.4.0-beta2",
     "puli/cli": "1.0.x-dev",
     "puli/composer-plugin": "dev-master",
     "symfony-cmf/routing": "^1.4",
@@ -50,7 +49,8 @@
     "justinrainbow/json-schema": "^2.0",
     "drupal/field_permissions": "~8.1.0-beta1",
     "drupal/address": "^8.1@RC",
-    "aws/aws-sdk-php": "~3.0"
+    "aws/aws-sdk-php": "~3.0",
+    "giggsey/libphonenumber-for-php": "^7.7"
   },
   "require-dev": {
     "drupal/drupal-extension": "~3.0",

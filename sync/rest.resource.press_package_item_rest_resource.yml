@@ -1,0 +1,16 @@
+uuid: 3bdd1914-9701-4627-b6c4-efd81e92be7b
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - jcms_rest
+id: press_package_item_rest_resource
+plugin_id: press_package_item_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - jcms_json
+    supported_auth:
+      - basic_auth
