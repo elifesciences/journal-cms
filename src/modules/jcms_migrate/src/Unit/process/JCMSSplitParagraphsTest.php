@@ -19,9 +19,9 @@ class JCMSSplitParagraphsTest extends MigrateProcessTestCase {
    * @dataProvider transformDataProvider
    * @group  journal-cms-tests
    */
-  public function testTransform($html, $strip_keywords, $expected_result) {
+  public function testTransform($html, $strip_regex, $break_regex, $expected_result) {
     $plugin = new TestJCMSSplitParagraphs(array(), 'jcms_split_paragraphs', array());
-    $plugin->setStripKeywords($strip_keywords);
+    $plugin->setStripRegex($strip_regex, $break_regex);
     $split_paragraphs = $plugin->transform($html, $this->migrateExecutable, $this->row, 'destinationproperty');
     $this->assertEquals($split_paragraphs, $expected_result);
   }
@@ -31,6 +31,7 @@ class JCMSSplitParagraphsTest extends MigrateProcessTestCase {
       [
         '<p>Paragraph 1</p><p>Paragraph 2</p>',
         NULL,
+        NULL,
         [
           ['type' => 'paragraph', 'text' => 'Paragraph 1'],
           ['type' => 'paragraph', 'text' => 'Paragraph 2'],
@@ -38,6 +39,7 @@ class JCMSSplitParagraphsTest extends MigrateProcessTestCase {
       ],
       [
         '<p>Paragraph 1</p><p>Paragraph 2</p><p>Keywords</p><p>Paragraph 4</p>',
+        "",
         FALSE,
         [
           ['type' => 'paragraph', 'text' => 'Paragraph 1'],
@@ -48,14 +50,17 @@ class JCMSSplitParagraphsTest extends MigrateProcessTestCase {
       ],
       [
         '<p>Paragraph 1</p><p>Paragraph 2</p><p>Keywords</p><p>Paragraph 4</p>',
-        TRUE,
+        '(keywords|major subject area)',
+        FALSE,
         [
           ['type' => 'paragraph', 'text' => 'Paragraph 1'],
           ['type' => 'paragraph', 'text' => 'Paragraph 2'],
+          ['type' => 'paragraph', 'text' => 'Paragraph 4'],
         ],
       ],
       [
         '<p>Paragraph 1</p><p>Paragraph 2</p><p>Paragraph 3</p><p>Major subject area(s)</p><p>Paragraph 5</p><p>Keywords</p><p>Paragraph 7</p>',
+        '(keywords|major subject area)',
         TRUE,
         [
           ['type' => 'paragraph', 'text' => 'Paragraph 1'],
@@ -73,21 +78,21 @@ class TestJCMSSplitParagraphs extends JCMSSplitParagraphs {
   }
 
   /**
-   * Set strip_keywords configuration.
+   * Set strip_regex configuration.
    *
-   * @param NULL|bool $strip_keywords
+   * @param string|NULL $strip_regex
+   * @param bool|NULL $break
    */
-  public function setStripKeywords($strip_keywords = TRUE) {
-    if (is_null($strip_keywords)) {
-      if (isset($this->configuration['strip_keywords'])) {
-        unset($this->configuration['strip_keywords']);
+  public function setStripRegex($strip_regex, $break = FALSE) {
+    if (is_null($strip_regex)) {
+      if (isset($this->configuration['strip_regex'])) {
+        unset($this->configuration['strip_regex']);
+        unset($this->configuration['break_regex']);
       }
     }
-    elseif (!empty($strip_keywords)) {
-      $this->configuration['strip_keywords'] = TRUE;
-    }
     else {
-      $this->configuration['strip_keywords'] = FALSE;
+      $this->configuration['strip_regex'] = $strip_regex;
+      $this->configuration['break_regex'] = ($break === FALSE) ? FALSE : TRUE;
     }
   }
 

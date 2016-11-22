@@ -32,7 +32,8 @@ process:
     -
       plugin: jcms_split_paragraphs
       source: profile_description
-      strip_keywords: true
+      strip_regex: "(keywords|major subject area)"
+      break_regex: true
     -
       plugin: jcms_content
       multiple: true

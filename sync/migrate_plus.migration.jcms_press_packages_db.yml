@@ -1,9 +1,9 @@
-uuid: c17ba37b-69d7-430a-9cff-53175fdec657
+uuid: 4c5b6f6e-6225-4105-a0ae-81a842cd23e2
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: Ak98z85FX2vq-FY-6A5oOs1t4P9aGmYDV3isX2tJ_nc
+  default_config_hash: T1DeCZcUvGm0vHTmIZQfCxVJZz1GIVpd_cknbO8gx9U
 id: jcms_press_packages_db
 class: null
 migration_tags: null
@@ -51,6 +51,17 @@ process:
       section: mediaContacts
     -
       plugin: jcms_media_contact
+      multiple: true
+  field_press_package_about:
+    -
+      plugin: jcms_press_package_content
+      source: content
+      section: about
+    -
+      plugin: jcms_split_paragraphs
+      strip_regex: '*elife.*'
+    -
+      plugin: jcms_content
       multiple: true
 destination:
   plugin: 'entity:node'
