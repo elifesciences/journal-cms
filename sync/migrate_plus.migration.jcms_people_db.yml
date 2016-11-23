@@ -1,9 +1,9 @@
-uuid: c43539a9-5d33-499e-9183-78b41ec83a25
+uuid: 4a2a7b3a-0f09-4afe-9eef-3640a4661f79
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: lmvQ9jYjklIWO0FDe0NBCIm1MtLA1QG2cnEsXWK6Hgw
+  default_config_hash: jUkI4j8eAF8mM0RLlbdF8g8beyiVf8j3IchD72Iz2LU
 id: jcms_people_db
 class: null
 migration_tags: null
@@ -37,7 +37,8 @@ process:
     -
       plugin: jcms_split_paragraphs
       source: profile_description
-      strip_keywords: true
+      strip_regex: '(keywords|major subject area)'
+      break_regex: true
     -
       plugin: jcms_content
       multiple: true

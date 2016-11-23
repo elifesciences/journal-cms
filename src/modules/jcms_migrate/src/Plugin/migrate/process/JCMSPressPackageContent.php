@@ -21,7 +21,7 @@ class JCMSPressPackageContent extends ProcessPluginBase {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    $section = (isset($this->configuration['section']) && in_array($this->configuration['section'], ['summary', 'relatedContent', 'mediaContacts'])) ? $this->configuration['section'] : 'content';
+    $section = (isset($this->configuration['section']) && in_array($this->configuration['section'], ['summary', 'relatedContent', 'mediaContacts', 'about'])) ? $this->configuration['section'] : 'content';
     $breakup = $this->breakupContent($value);
 
     return $breakup[$section];
@@ -36,6 +36,7 @@ class JCMSPressPackageContent extends ProcessPluginBase {
       'content' => preg_replace("~^(.*)<[^>]+>\\s*Reference.*~s", '$1', $content),
       'relatedContent' => NULL,
       'mediaContacts' => NULL,
+      'about' => NULL,
     ];
 
     if (strpos($breakup['content'], '<strong>') !== FALSE && strpos($breakup['content'], '<strong>') < 50) {
@@ -62,12 +63,18 @@ class JCMSPressPackageContent extends ProcessPluginBase {
       }
     }
 
-    if (preg_match("~(?P<media_contacts>Media contacts.*>\s*About)~s", $content, $match)) {
+    if (preg_match("~(?P<media_contacts>Media contacts.*>\\s*About)~s", $content, $match)) {
       $split = preg_split("~\\s*\\n+\\s*~i", trim(strip_tags($match['media_contacts'])));
       $split = array_slice($split, 1, count($split) - 2);
       if ($contacts = $this->breakupMediaContacts($split)) {
         $breakup['mediaContacts'] = $contacts;
       }
+    }
+
+    if (preg_match("~(?P<about>>\\s*about( elife)?\\s*<.*<p>.*</p>.*<p>.*)~si", $content, $match)) {
+      $split = preg_split("~\\s*\\n+\\s*~i", trim($match['about']));
+      $split = array_slice($split, 1, count($split) - 1);
+      $breakup['about'] = implode("\n\n", $split);
     }
 
     return $breakup;

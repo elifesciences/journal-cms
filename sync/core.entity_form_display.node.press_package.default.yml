@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.press_package.field_content
     - field.field.node.press_package.field_impact_statement
     - field.field.node.press_package.field_media_contact
+    - field.field.node.press_package.field_press_package_about
     - field.field.node.press_package.field_related_content
     - node.type.press_package
   module:
@@ -40,6 +41,16 @@ content:
     settings:
       title: 'Media contact'
       title_plural: 'Media contacts'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+    third_party_settings: {  }
+  field_press_package_about:
+    type: entity_reference_paragraphs
+    weight: 30
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default

@@ -39,9 +39,14 @@ class JCMSSplitParagraphs extends ProcessPluginBase {
         }
         $innerHTML = trim($this->checkMarkup($innerHTML, 'basic_html'));
         if (!empty($innerHTML)) {
-          if (isset($this->configuration['strip_keywords']) && $this->configuration['strip_keywords'] === TRUE) {
-            if (preg_match('/(keywords|major subject area)/i', $innerHTML)) {
-              break;
+          if (!empty($this->configuration['strip_regex'])) {
+            if (preg_match('/' . $this->configuration['strip_regex'] . '/i', $innerHTML)) {
+              if (isset($this->configuration['break_regex']) && $this->configuration['break_regex'] === TRUE) {
+                break;
+              }
+              else {
+                continue;
+              }
             }
           }
           $paragraphs[] = [

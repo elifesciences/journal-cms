@@ -47,6 +47,17 @@ process:
     -
       plugin: jcms_media_contact
       multiple: true
+  field_press_package_about:
+    -
+      plugin: jcms_press_package_content
+      source: content
+      section: about
+    -
+      plugin: jcms_split_paragraphs
+      strip_regex: ".*elife.*"
+    -
+      plugin: jcms_content
+      multiple: true
 
 migration_dependencies:
   required:

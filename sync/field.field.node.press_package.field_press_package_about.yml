@@ -1,0 +1,72 @@
+uuid: cf2dbc79-8c26-41e3-a622-1713f7d6b521
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_press_package_about
+    - node.type.press_package
+    - paragraphs.paragraphs_type.paragraph
+  module:
+    - entity_reference_revisions
+id: node.press_package.field_press_package_about
+field_name: field_press_package_about
+entity_type: node
+bundle: press_package
+label: About
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      paragraph: paragraph
+    target_bundles_drag_drop:
+      blockquote:
+        weight: 16
+        enabled: false
+      cv_item:
+        weight: 17
+        enabled: false
+      episode_chapter:
+        weight: 18
+        enabled: false
+      image:
+        weight: 19
+        enabled: false
+      json:
+        weight: 20
+        enabled: false
+      list:
+        weight: 21
+        enabled: false
+      list_item:
+        weight: 22
+        enabled: false
+      media_contact:
+        weight: 23
+        enabled: false
+      paragraph:
+        enabled: true
+        weight: 24
+      question:
+        weight: 25
+        enabled: false
+      research_details:
+        weight: 26
+        enabled: false
+      section:
+        weight: 27
+        enabled: false
+      table:
+        weight: 28
+        enabled: false
+      venue:
+        weight: 29
+        enabled: false
+      youtube:
+        weight: 30
+        enabled: false
+field_type: entity_reference_revisions
