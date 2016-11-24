@@ -1,0 +1,23 @@
+uuid: fd50fb77-af3a-44c6-b37a-f99a5803bb25
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_community_list
+    - node.type.interview
+id: node.interview.field_community_list
+field_name: field_community_list
+entity_type: node
+bundle: interview
+label: 'Promote to community list'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.event.field_community_list
     - field.field.node.event.field_content
     - field.field.node.event.field_event_datetime
     - field.field.node.event.field_event_timezone
@@ -20,6 +21,15 @@ targetEntityType: node
 bundle: event
 mode: default
 content:
+  field_community_list:
+    weight: 107
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
   field_content:
     weight: 102
     label: above

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.article.field_article_json
+    - field.field.node.article.field_community_list
     - node.type.article
   module:
     - entity_reference_revisions
@@ -21,6 +22,15 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+  field_community_list:
+    weight: 104
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
   links:
     weight: 100
 hidden: {  }

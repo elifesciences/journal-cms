@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.collection.field_collection_content
     - field.field.node.collection.field_collection_podcasts
+    - field.field.node.collection.field_community_list
     - field.field.node.collection.field_curators
     - field.field.node.collection.field_image
     - field.field.node.collection.field_impact_statement
@@ -34,6 +35,15 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_community_list:
+    weight: 108
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
   field_curators:
     weight: 105
     label: above

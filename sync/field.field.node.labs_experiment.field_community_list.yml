@@ -1,0 +1,23 @@
+uuid: 58ebb573-3a19-4fc5-8611-0dd0c13f50d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_community_list
+    - node.type.labs_experiment
+id: node.labs_experiment.field_community_list
+field_name: field_community_list
+entity_type: node
+bundle: labs_experiment
+label: 'Promote to community list'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

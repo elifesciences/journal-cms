@@ -1,0 +1,23 @@
+uuid: 0f89ca9b-4df6-45e2-bde6-944f4211a31e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_community_list
+    - node.type.podcast_episode
+id: node.podcast_episode.field_community_list
+field_name: field_community_list
+entity_type: node
+bundle: podcast_episode
+label: 'Promote to community list'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

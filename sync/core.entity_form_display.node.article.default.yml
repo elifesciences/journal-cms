@@ -4,12 +4,19 @@ status: true
 dependencies:
   config:
     - field.field.node.article.field_article_json
+    - field.field.node.article.field_community_list
     - node.type.article
 id: node.article.default
 targetEntityType: node
 bundle: article
 mode: default
 content:
+  field_community_list:
+    weight: 26
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
   title:
     type: string_textfield
     weight: -5
