@@ -40,3 +40,4 @@ permissions:
   - 'restful get collection_item_rest_resource'
   - 'restful get press_package_list_rest_resource'
   - 'restful get press_package_item_rest_resource'
+  - 'restful get community_list_rest_resource'

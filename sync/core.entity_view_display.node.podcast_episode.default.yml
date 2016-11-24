@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.podcast_episode.field_community_list
     - field.field.node.podcast_episode.field_episode_chapter
     - field.field.node.podcast_episode.field_episode_mp3
     - field.field.node.podcast_episode.field_episode_number
@@ -21,6 +22,15 @@ targetEntityType: node
 bundle: podcast_episode
 mode: default
 content:
+  field_community_list:
+    weight: 111
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
   field_episode_chapter:
     type: entity_reference_revisions_entity_view
     weight: 110

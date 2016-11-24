@@ -1,9 +1,9 @@
-uuid: 4c5b6f6e-6225-4105-a0ae-81a842cd23e2
+uuid: 7fe36c0e-e583-4092-92bb-6007c86fc3f1
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: T1DeCZcUvGm0vHTmIZQfCxVJZz1GIVpd_cknbO8gx9U
+  default_config_hash: gG5V3Fbn-ayfEZ50Nx8itLOxxiO0h97KBEId7sMIjbM
 id: jcms_press_packages_db
 class: null
 migration_tags: null
@@ -59,7 +59,7 @@ process:
       section: about
     -
       plugin: jcms_split_paragraphs
-      strip_regex: '*elife.*'
+      strip_regex: '.*elife.*'
     -
       plugin: jcms_content
       multiple: true

@@ -1,0 +1,16 @@
+uuid: 21100594-bf67-453d-b005-b9da7b358772
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - jcms_rest
+id: community_list_rest_resource
+plugin_id: community_list_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - jcms_json
+    supported_auth:
+      - basic_auth

@@ -112,6 +112,12 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
         'application/vnd.elife.press-package-list+json;version=1',
         'application/vnd.elife.press-package+json;version=1',
       ],
+      [
+        '/community',
+        'type',
+        'application/vnd.elife.community-list+json;version=1',
+        NULL,
+      ],
     ];
   }
 
@@ -121,9 +127,9 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
    * @param string $endpoint
    * @param string $id_key
    * @param string $media_type_list
-   * @param string $media_type_item
+   * @param string|NULL $media_type_item
    */
-  public function testValidEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, string $media_type_item) {
+  public function testValidEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, $media_type_item) {
     $request = new Request('GET', $endpoint . '?per-page=1', [
       'Accept' => $media_type_list,
     ]);
@@ -143,9 +149,28 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
     $messageValidator->validate($response);
 
     foreach ($data->items as $item) {
-      $request = new Request('GET', $endpoint . '/' . $item->{$id_key}, [
-        'Accept' => $media_type_item,
-      ]);
+      if ($id_key != 'type') {
+        $request = new Request('GET', $endpoint . '/' . $item->{$id_key}, [
+          'Accept' => $media_type_item,
+        ]);
+      }
+      elseif (isset($item->{$id_key}) && in_array($item->{$id_key}, ['blog-article', 'collection', 'event', 'interview', 'labs-experiment', 'podcast-episode'])) {
+        switch ($item->{$id_key}) {
+          case 'podcast-episode':
+          case 'labs-experiment':
+            $id = $item->number;
+            break;
+          default:
+            $id = $item->id;
+        }
+
+        $request = new Request('GET', $item->{$id_key} . 's/' . $id, [
+          'Accept' => 'application/vnd.elife.' . $item->{$id_key} . '+json;version=1',
+        ]);
+      }
+      else {
+        continue;
+      }
 
       $response = $this->client->send($request);
       $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());

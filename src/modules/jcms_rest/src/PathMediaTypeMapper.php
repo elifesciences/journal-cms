@@ -37,6 +37,7 @@ class PathMediaTypeMapper {
       '/collections/{id}' => 'application/vnd.elife.collection+json',
       '/press-packages' => 'application/vnd.elife.press-package-list+json',
       '/press-packages/{id}' => 'application/vnd.elife.press-package+json',
+      '/community' => 'application/vnd.elife.community-list+json',
     ];
     return $map;
   }

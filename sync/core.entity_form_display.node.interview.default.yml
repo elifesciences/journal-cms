@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.interview.field_community_list
     - field.field.node.interview.field_content
     - field.field.node.interview.field_impact_statement
     - field.field.node.interview.field_interview_cv
@@ -17,6 +18,12 @@ targetEntityType: node
 bundle: interview
 mode: default
 content:
+  field_community_list:
+    weight: 26
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
   field_content:
     weight: 10
     settings:
