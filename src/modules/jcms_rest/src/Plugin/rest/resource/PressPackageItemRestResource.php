@@ -100,6 +100,10 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
         }
       }
 
+      if ($about = $this->processFieldContent($node->get('field_press_package_about'))) {
+        $response['about'] = $about;
+      }
+
       $response = new JsonResponse($response, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.press-package+json;version=1']);
       return $response;
     }

@@ -405,6 +405,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       'doi' => '10.7554/eLife.' . $article_id,
       'authorLine' => $names(TRUE) . $random_item(['', ' et al']),
       'title' => $random->sentences(3),
+      'stage' => 'published',
       'published' => $this->formatDate(),
       'statusDate' => $this->formatDate(),
       'volume' => rand(1, 5),
