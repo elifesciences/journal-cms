@@ -15,6 +15,7 @@ content:
   links:
     weight: 100
 hidden:
+  field_community_list: true
   field_content: true
   field_event_datetime: true
   field_event_timezone: true

@@ -15,6 +15,7 @@ content:
   links:
     weight: 100
 hidden:
+  field_community_list: true
   field_content: true
   field_impact_statement: true
   field_interview_cv: true
