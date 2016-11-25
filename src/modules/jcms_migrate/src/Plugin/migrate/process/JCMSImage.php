@@ -19,10 +19,9 @@ class JCMSImage extends ProcessPluginBase {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-
     list($image, $alt) = $value;
 
-    if (!empty($image) && !empty($alt)) {
+    if (!empty($image)) {
       if (strpos($image, 'public://') === 0) {
         $source = DRUPAL_ROOT . '/../scripts/legacy_cms_files/' . preg_replace('~^public://~', '', $image);
       }
@@ -35,7 +34,7 @@ class JCMSImage extends ProcessPluginBase {
         $file->save();
         return [
           'target_id' => $file->id(),
-          'alt' => $alt,
+          'alt' => $alt ?: '',
         ];
       }
     }

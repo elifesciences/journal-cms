@@ -1,27 +1,27 @@
-uuid: 0c3ae8c0-898a-4b46-9d06-14a55aab0dcc
+uuid: 58c1e8fc-4632-4a9e-a41f-86c7b518d40c
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.article.field_article_json
-    - field.field.node.article.field_community_list
-    - field.field.node.article.field_image
-    - field.field.node.article.field_subjects
+    - field.field.node.cover.field_cover_content
+    - field.field.node.cover.field_image
     - image.style.thumbnail
-    - node.type.article
+    - node.type.cover
   module:
     - image
-id: node.article.default
+id: node.cover.default
 targetEntityType: node
-bundle: article
+bundle: cover
 mode: default
 content:
-  field_community_list:
-    weight: 26
+  field_cover_content:
+    weight: 28
     settings:
-      display_label: true
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: boolean_checkbox
+    type: entity_reference_autocomplete
   field_image:
     weight: 27
     settings:
@@ -38,8 +38,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_article_json: true
-  field_subjects: true
   path: true
   promote: true
   sticky: true

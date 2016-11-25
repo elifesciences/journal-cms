@@ -20,6 +20,12 @@ class JCMSCollectionContent extends AbstractJCMSContainerFactoryPlugin {
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     if (!empty($value)) {
       if (!isset($this->configuration['multiple']) || $this->configuration['multiple'] === FALSE) {
+        if (is_string($value)) {
+          if (strpos($value, '{') === FALSE) {
+            $value = '{' . $value . '}';
+          }
+          $value = json_decode($value, TRUE);
+        }
         return $this->processItemValue($value['type'], $value['source'], $migrate_executable, $row, $destination_property);
       }
       else {
@@ -41,6 +47,9 @@ class JCMSCollectionContent extends AbstractJCMSContainerFactoryPlugin {
         break;
       case 'blog_article':
         return $this->migrationDestionationIDs('jcms_blog_articles_db', $source, $migrate_executable, $row, $destination_property);
+        break;
+      case 'podcast_episode':
+        return $this->migrationDestionationIDs('jcms_podcast_episodes_json', $source, $migrate_executable, $row, $destination_property);
         break;
       case 'article':
         $crud_service = \Drupal::service('jcms_notifications.article_crud_service');

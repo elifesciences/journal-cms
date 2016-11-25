@@ -1,0 +1,40 @@
+uuid: a782d992-fd67-4190-846d-7c08684613ea
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cover_content
+    - node.type.article
+    - node.type.blog_article
+    - node.type.collection
+    - node.type.cover
+    - node.type.event
+    - node.type.interview
+    - node.type.labs_experiment
+    - node.type.podcast_episode
+id: node.cover.field_cover_content
+field_name: field_cover_content
+entity_type: node
+bundle: cover
+label: 'Related content'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      article: article
+      blog_article: blog_article
+      collection: collection
+      event: event
+      interview: interview
+      labs_experiment: labs_experiment
+      podcast_episode: podcast_episode
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: article
+field_type: entity_reference
