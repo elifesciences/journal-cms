@@ -17,6 +17,7 @@ content:
 hidden:
   field_collection_content: true
   field_collection_podcasts: true
+  field_community_list: true
   field_curators: true
   field_image: true
   field_impact_statement: true

@@ -15,6 +15,7 @@ content:
   links:
     weight: 100
 hidden:
+  field_community_list: true
   field_content: true
   field_experiment_number: true
   field_image: true

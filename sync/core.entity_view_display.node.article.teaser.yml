@@ -17,3 +17,4 @@ content:
 hidden:
   field_article_id: true
   field_article_json: true
+  field_community_list: true

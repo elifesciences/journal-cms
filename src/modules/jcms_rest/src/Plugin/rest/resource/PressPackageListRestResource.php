@@ -93,11 +93,12 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
    * Apply filter for subjects by amending query.
    *
    * @param \Drupal\Core\Entity\Query\QueryInterface $query
-   *
-   * @todo - elife - nlisgo - Allow filter by subject on article.
    */
   protected function filterSubjects(QueryInterface &$query) {
     $subjects = $this->getRequestOption('subject');
+    if (!empty($subjects)) {
+      $query->condition('field_related_content.entity.field_subjects.entity.field_subject_id.value', $subjects, 'IN');
+    }
   }
 
 }
