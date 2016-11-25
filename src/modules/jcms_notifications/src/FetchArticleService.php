@@ -73,7 +73,7 @@ class FetchArticleService {
    */
   protected function makeRequest(string $id, $unpublished = FALSE) {
     $auth_key = 'jcms_article_auth_' . ($unpublished ? 'unpublished' : 'published');
-    $options = ['auth' => Settings::get($auth_key)];
+    $options = ['auth' => Settings::get($auth_key), 'http_errors' => FALSE];
     $url = $this->formatUrl($id, $this->endpoint);
     $response = $this->client->get($url, $options);
     if ($response instanceof ResponseInterface) {
