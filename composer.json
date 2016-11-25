@@ -50,7 +50,8 @@
     "drupal/field_permissions": "~8.1.0-beta1",
     "drupal/address": "^8.1@RC",
     "aws/aws-sdk-php": "~3.0",
-    "giggsey/libphonenumber-for-php": "^7.7"
+    "giggsey/libphonenumber-for-php": "^7.7",
+    "drupal/entityqueue": "~8.1.0-alpha4"
   },
   "require-dev": {
     "drupal/drupal-extension": "~3.0",

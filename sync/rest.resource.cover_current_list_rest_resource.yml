@@ -1,0 +1,16 @@
+uuid: 8968a7a7-657d-44a1-9551-45a7cbace09e
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - jcms_rest
+id: cover_current_list_rest_resource
+plugin_id: cover_current_list_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - jcms_json
+    supported_auth:
+      - basic_auth
