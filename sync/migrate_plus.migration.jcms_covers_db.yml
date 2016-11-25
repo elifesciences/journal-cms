@@ -1,0 +1,37 @@
+uuid: dd692adc-9568-4a26-b5c5-30da12c0ab94
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: m1NT8GO92kCOrEbA205FENhvqhCc8qFfN1PyIVt0Wu8
+id: jcms_covers_db
+class: null
+migration_tags: null
+migration_group: jcms_migrate
+label: 'Legacy covers'
+source:
+  plugin: jcms_cover_node
+process:
+  type:
+    plugin: default_value
+    default_value: cover
+  title: title
+  uid:
+    plugin: default_value
+    default_value: 1
+  created: created
+  field_image:
+    plugin: jcms_image
+    source:
+      - photo_uri
+      - photo_alt
+  field_cover_content:
+    plugin: jcms_collection_content
+    source: related
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - jcms_subjects_json
+    - jcms_blog_articles_db
+    - jcms_podcast_episodes_json

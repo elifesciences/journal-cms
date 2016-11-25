@@ -1,19 +1,19 @@
-uuid: 00f851c3-7c4c-49a1-99bd-406c552f8a2b
+uuid: dea129b9-f16d-4f1b-82e7-b205f3735897
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_image
-    - node.type.labs_experiment
+    - node.type.article
   module:
     - image
-id: node.labs_experiment.field_image
+id: node.article.field_image
 field_name: field_image
 entity_type: node
-bundle: labs_experiment
+bundle: article
 label: Image
 description: ''
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''

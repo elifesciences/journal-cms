@@ -1,0 +1,31 @@
+id: jcms_covers_db
+label: Legacy covers
+migration_group: jcms_migrate
+source:
+  plugin: jcms_cover_node
+destination:
+  plugin: entity:node
+process:
+  # Hardcode the destination node type (bundle) as 'cover'.
+  type:
+    plugin: default_value
+    default_value: cover
+  title: title
+  uid:
+    plugin: default_value
+    default_value: 1
+  created: created
+  field_image:
+    plugin: jcms_image
+    source:
+      - photo_uri
+      - photo_alt
+  field_cover_content:
+    plugin: jcms_collection_content
+    source: related
+
+migration_dependencies:
+  required:
+    - jcms_subjects_json
+    - jcms_blog_articles_db
+    - jcms_podcast_episodes_json

@@ -5,10 +5,12 @@ dependencies:
   config:
     - field.field.node.article.field_article_json
     - field.field.node.article.field_community_list
+    - field.field.node.article.field_image
     - field.field.node.article.field_subjects
     - node.type.article
   module:
     - entity_reference_revisions
+    - image
     - user
 id: node.article.default
 targetEntityType: node
@@ -32,6 +34,14 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+  field_image:
+    weight: 106
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   field_subjects:
     weight: 105
     label: above
