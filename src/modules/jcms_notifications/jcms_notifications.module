@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_help().
@@ -20,4 +21,28 @@ function jcms_notifications_help($route_name, RouteMatchInterface $route_match) 
       return $output;
     default:
   }
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function jcms_notifications_node_insert(EntityInterface $entity) {
+  $service = \Drupal::service('jcms_notifications.node_crud_notification_service');
+  $service->action($entity);
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function jcms_notifications_node_update(EntityInterface $entity) {
+  $service = \Drupal::service('jcms_notifications.node_crud_notification_service');
+  $service->action($entity);
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function jcms_notifications_node_delete(EntityInterface $entity) {
+  $service = \Drupal::service('jcms_notifications.node_crud_notification_service');
+  $service->action($entity);
 }

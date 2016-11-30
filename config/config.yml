@@ -282,6 +282,7 @@ pre_provision_scripts:
   - "../../../../scripts/pre-provision.sh"
 post_provision_scripts:
   - "../../../../scripts/post-provision.sh"
+  - "../../../../scripts/go-aws.sh"
 
 # MySQL Configuration.
 mysql_root_password: root

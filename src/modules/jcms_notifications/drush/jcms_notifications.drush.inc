@@ -49,5 +49,6 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       }
     }
   }
-  drush_print(dt('Imported ' . $count . ' articles.'));
+  drush_print(dt('Imported !count articles.', array('!count' => $count)));
 }
+

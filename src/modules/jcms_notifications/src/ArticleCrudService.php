@@ -7,11 +7,11 @@ use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
- * Class ArticleCrud.
+ * Class ArticleCrudService.
  *
  * @package Drupal\jcms_notifications
  */
-class ArticleCrud {
+class ArticleCrudService {
 
   /**
    * @var \Drupal\jcms_notifications\FetchArticleService
@@ -24,7 +24,7 @@ class ArticleCrud {
   protected $entityTypeManager;
 
   /**
-   * ArticleCrud constructor.
+   * ArticleCrudService constructor.
    *
    * @param \Drupal\jcms_notifications\FetchArticleService $fetch_article
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
