@@ -41,3 +41,5 @@ permissions:
   - 'restful get press_package_list_rest_resource'
   - 'restful get press_package_item_rest_resource'
   - 'restful get community_list_rest_resource'
+  - 'restful get cover_list_rest_resource'
+  - 'restful get cover_current_list_rest_resource'

@@ -1,0 +1,33 @@
+uuid: 1c77ce2c-18dc-4a58-8d5d-eb8e8ad949ea
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.covers
+  module:
+    - inline_entity_form
+id: entity_subqueue.covers.default
+targetEntityType: entity_subqueue
+bundle: covers
+mode: default
+content:
+  items:
+    type: inline_entity_form_complex
+    weight: 5
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -10
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

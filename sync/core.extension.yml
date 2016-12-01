@@ -22,6 +22,7 @@ module:
   dynamic_page_cache: 0
   editor: 0
   entity_reference_revisions: 0
+  entityqueue: 0
   field: 0
   field_collection: 0
   field_permissions: 0
