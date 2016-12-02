@@ -35,6 +35,7 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
   $count = 0;
   while (TRUE) {
     $message = $queue_service->getMessage();
+    drush_print(dt('Received message !message', ['!message' => var_export($message, true)]));
     // If this isn't a long running process and the message is null.
     if ($message === NULL && !$lrp) {
       break;
@@ -44,7 +45,9 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       if ($id) {
         $article = $fetch_service->getArticle($id);
         $crud_service->crudArticle($article);
+        drush_print(dt('Processed message !message_id', ['!message_id' => $message->getMessageId()]));
         $queue_service->deleteMessage($message);
+        drush_print(dt('Deleted from the queue message !message_id', ['!message_id' => $message->getMessageId()]));
         $count++;
       }
     }

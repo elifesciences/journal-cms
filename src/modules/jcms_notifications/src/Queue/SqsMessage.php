@@ -23,14 +23,21 @@ final class SqsMessage implements QueueItem {
   }
 
   /**
-   * Id or Number.
+   * Identifier for the SQS message
+   */
+  public function getMessageId() : string {
+    return $this->messageId;
+  }
+
+  /**
+   * Id or Number identifying the single entity the notification is related to.
    */
   public function getId() : string {
     return $this->id;
   }
 
   /**
-   * Type (Article, Collection, Event etc.).
+   * Type ('article', 'collection', 'event', etc.).
    */
   public function getType() : string {
     return $this->type;
