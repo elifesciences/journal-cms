@@ -1,0 +1,33 @@
+uuid: 53201e41-6d18-491b-8641-c4f65a9ba9ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.highlighted_podcast_chapters
+  module:
+    - inline_entity_form
+id: entity_subqueue.highlighted_podcast_chapters.default
+targetEntityType: entity_subqueue
+bundle: highlighted_podcast_chapters
+mode: default
+content:
+  items:
+    type: inline_entity_form_complex
+    weight: 5
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+      allow_new: false
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -10
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

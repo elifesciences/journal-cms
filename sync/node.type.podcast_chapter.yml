@@ -1,0 +1,17 @@
+uuid: 10df66e1-4de7-4c8b-8ca6-c4e53ef55809
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Podcast chapter'
+type: podcast_chapter
+description: ''
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: false

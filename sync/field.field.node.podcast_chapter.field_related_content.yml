@@ -1,20 +1,20 @@
-uuid: 007d0ec0-d05f-44d5-bf44-6bc0dabc6682
+uuid: d684871e-393c-4489-ab47-4d5be639aca3
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_chapter_content
+    - field.storage.node.field_related_content
     - node.type.article
     - node.type.collection
-    - paragraphs.paragraphs_type.episode_chapter
-id: paragraph.episode_chapter.field_chapter_content
-field_name: field_chapter_content
-entity_type: paragraph
-bundle: episode_chapter
-label: Content
+    - node.type.podcast_chapter
+id: node.podcast_chapter.field_related_content
+field_name: field_related_content
+entity_type: node
+bundle: podcast_chapter
+label: 'Related content'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

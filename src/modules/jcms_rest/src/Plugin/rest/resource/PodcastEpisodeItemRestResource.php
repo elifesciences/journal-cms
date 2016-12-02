@@ -2,6 +2,8 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\Core\Database\Database;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -68,39 +70,10 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       }
 
       if ($node->get('field_episode_chapter')->count()) {
-        $chapters = [];
-        $count = 0;
-        foreach ($node->get('field_episode_chapter') as $chapter) {
-          $chapter_item = $chapter->get('entity')->getTarget()->getValue();
-          $count++;
-          $chapter_values = [
-            'number' => $count,
-            'title' => $chapter_item->get('field_block_title')->getString(),
-            'time' => (int) $chapter_item->get('field_chapter_time')->getString(),
-          ];
-          if ($chapter_item->get('field_block_html')->count()) {
-            $chapter_values['impactStatement'] = $this->fieldValueFormatted($chapter_item->get('field_block_html'));
-          }
-          if ($chapter_item->get('field_chapter_content')->count()) {
-            $chapter_values['content'] = [];
-            $collection_rest_resource = new CollectionListRestResource([], 'collection_list_rest_resource', [], $this->serializerFormats, $this->logger);
-            foreach ($chapter_item->get('field_chapter_content') as $content) {
-              /* @var \Drupal\node\Entity\Node $content_node */
-              $content_node = $content->get('entity')->getTarget()->getValue();
-              switch ($content_node->getType()) {
-                case 'collection':
-                  $chapter_values['content'][] = ['type' => 'collection'] + $collection_rest_resource->getItem($content_node);
-                  break;
-                case 'article':
-                  $chapter_values['content'][] = $this->getArticleSnippet($content_node);
-                  break;
-                default:
-              }
-            }
-          }
-          $chapters[] = $chapter_values;
+        $response['chapters'] = [];
+        foreach ($node->get('field_episode_chapter')->referencedEntities() as $chapter) {
+          $response['chapters'][] = $this->getChapterItem($chapter, 0);
         }
-        $response['chapters'] = $chapters;
       }
 
       $response = new JsonResponse($response, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.podcast-episode+json;version=1']);
@@ -130,6 +103,58 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
     }
 
     return $content;
+  }
+
+  /**
+   * Takes a chapter node and builds an item from it.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $node
+   * @param NULL|int $number
+   *
+   * @return array
+   */
+  public function getChapterItem(EntityInterface $node, $number = NULL) {
+    /* @var Node $node */
+    static $count = 0;
+    $count++;
+
+    if ($number === 0) {
+      $number_query = Database::getConnection()->select('node__field_episode_chapter', 'ec');
+      $number_query->addExpression('ec.delta');
+      $number_query->innerJoin('node__field_episode_chapter', 'ec2', 'ec2.entity_id = ec.entity_id AND ec2.delta <= ec.delta');
+      $number_query->condition('ec.field_episode_chapter_target_id', $node->id());
+      if ($result = $number_query->countQuery()->execute()->fetchField()) {
+        $number = $result;
+      }
+    }
+
+    $chapter_values = [
+      'number' => $number ?: $count,
+      'title' => $node->getTitle(),
+      'time' => (int) $node->get('field_podcast_chapter_time')->getString(),
+    ];
+    if ($node->get('field_impact_statement')->count()) {
+      $chapter_values['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
+    }
+    if ($node->get('field_related_content')->count()) {
+      $chapter_values['content'] = [];
+      $collection_rest_resource = new CollectionListRestResource([], 'collection_list_rest_resource', [], $this->serializerFormats, $this->logger);
+      foreach ($node->get('field_related_content') as $content) {
+        /* @var \Drupal\node\Entity\Node $content_node */
+        $content_node = $content->get('entity')->getTarget()->getValue();
+        switch ($content_node->getType()) {
+          case 'collection':
+            $chapter_values['content'][] = ['type' => 'collection'] + $collection_rest_resource->getItem($content_node);
+            break;
+          case 'article':
+            $chapter_values['content'][] = $this->getArticleSnippet($content_node);
+            break;
+          default:
+        }
+      }
+    }
+
+    return $chapter_values;
   }
 
 }
