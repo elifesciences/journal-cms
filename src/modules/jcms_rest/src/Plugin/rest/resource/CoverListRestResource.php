@@ -71,29 +71,7 @@ class CoverListRestResource extends AbstractRestResourceBase {
    * @return array
    */
   public function getItem(EntityInterface $node) {
-    /* @var Node $node */
-    /* @var Node $related */
-    $related = $node->get('field_cover_content')->first()->get('entity')->getTarget()->getValue();
-    $rest_resource = [
-      'blog_article' => new BlogArticleListRestResource([], 'blog_article_list_rest_resource', [], $this->serializerFormats, $this->logger),
-      'collection' => new CollectionListRestResource([], 'collection_list_rest_resource', [], $this->serializerFormats, $this->logger),
-      'event' => new EventListRestResource([], 'event_list_rest_resource', [], $this->serializerFormats, $this->logger),
-      'interview' => new InterviewListRestResource([], 'interview_list_rest_resource', [], $this->serializerFormats, $this->logger),
-      'labs_experiment' => new LabsExperimentListRestResource([], 'labs_experiment_list_rest_resource', [], $this->serializerFormats, $this->logger),
-      'podcast_episode' => new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger),
-    ];
-
-    $cover_values = [
-      'title' => $node->getTitle(),
-      'image' => $this->processFieldImage($node->get('field_image'), TRUE),
-    ];
-
-    if ($related->getType() == 'article') {
-      return $cover_values + $this->getArticleSnippet($related);
-    }
-    else {
-      return ['type' => str_replace('_', '-', $related->getType())] + $cover_values + $rest_resource[$related->getType()]->getItem($related);
-    }
+    return $this->getEntityQueueItem($node, $node->get('field_cover_content'));
   }
 
   /**

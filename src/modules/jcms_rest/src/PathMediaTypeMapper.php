@@ -38,6 +38,9 @@ class PathMediaTypeMapper {
       '/press-packages' => 'application/vnd.elife.press-package-list+json',
       '/press-packages/{id}' => 'application/vnd.elife.press-package+json',
       '/community' => 'application/vnd.elife.community-list+json',
+      '/covers' => 'application/vnd.elife.cover-list+json',
+      '/covers/current' => 'application/vnd.elife.cover-current-list+json',
+      '/highlighted/magazine' => 'application/vnd.elife.highlighted-magazine-list+json',
     ];
     return $map;
   }

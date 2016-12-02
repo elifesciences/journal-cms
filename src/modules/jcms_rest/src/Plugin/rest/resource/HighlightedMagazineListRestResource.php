@@ -10,14 +10,14 @@ use Symfony\Component\HttpFoundation\Response;
  * Provides a resource to get view modes by entity and bundle.
  *
  * @RestResource(
- *   id = "cover_current_list_rest_resource",
- *   label = @Translation("Cover current list rest resource"),
+ *   id = "highlighted_magazine_list_rest_resource",
+ *   label = @Translation("Highlighted magazine list rest resource"),
  *   uri_paths = {
- *     "canonical" = "/covers/current"
+ *     "canonical" = "/highlighted/magazine"
  *   }
  * )
  */
-class CoverCurrentListRestResource extends AbstractRestResourceBase {
+class HighlightedMagazineListRestResource extends AbstractRestResourceBase {
 
   /**
    * Responds to GET requests.
@@ -34,19 +34,18 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
       'items' => [],
     ];
 
-    $cover_rest_resource = new CoverListRestResource([], 'cover_list_rest_resource', [], $this->serializerFormats, $this->logger);
-    foreach (EntitySubqueue::load('covers')->get('items') as $item) {
+    foreach (EntitySubqueue::load('highlighted_magazine_articles')->get('items') as $item) {
       /* @var \Drupal\node\Entity\Node $item_node */
       $item_node = $item->get('entity')->getTarget()->getValue();
-      // @todo - elife - nlisgo - some of the migrated covers did not retain images.
-      if ($item_node->isPublished() && $item_node->get('field_image')->count()) {
-        $response_data['items'][] = $cover_rest_resource->getItem($item_node);
+      // Unpublishing highlighted content doesn't seem to remove the items from the results.
+      if ($item_node->isPublished()) {
+        $response_data['items'][] = $this->getEntityQueueItem($item_node, $item_node->get('field_magazine_article'));
       }
     }
 
     $response_data = ['total' => count($response_data['items'])] + $response_data;
 
-    $response = new JsonResponse($response_data, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.cover-current-list+json;version=1']);
+    $response = new JsonResponse($response_data, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.highlighted-magazine-list+json;version=1']);
     return $response;
   }
 

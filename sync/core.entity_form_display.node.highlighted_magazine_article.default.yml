@@ -1,22 +1,29 @@
-uuid: 58c1e8fc-4632-4a9e-a41f-86c7b518d40c
+uuid: 78c284e3-84b6-47f2-9308-157e20977da1
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.cover.field_cover_content
-    - field.field.node.cover.field_image
+    - field.field.node.highlighted_magazine_article.field_image
+    - field.field.node.highlighted_magazine_article.field_magazine_article
     - image.style.thumbnail
-    - node.type.cover
+    - node.type.highlighted_magazine_article
   module:
     - image
     - inline_entity_form
-id: node.cover.default
+id: node.highlighted_magazine_article.default
 targetEntityType: node
-bundle: cover
+bundle: highlighted_magazine_article
 mode: default
 content:
-  field_cover_content:
-    weight: 28
+  field_image:
+    weight: 31
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_magazine_article:
+    weight: 32
     settings:
       form_mode: default
       label_singular: ''
@@ -27,13 +34,6 @@ content:
       override_labels: false
     third_party_settings: {  }
     type: inline_entity_form_complex
-  field_image:
-    weight: 27
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   title:
     type: string_textfield
     weight: -5
