@@ -35,12 +35,12 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
   $count = 0;
   while (TRUE) {
     $message = $queue_service->getMessage();
-    drush_print(dt('Received message !message', ['!message' => var_export($message, true)]));
     // If this isn't a long running process and the message is null.
     if ($message === NULL && !$lrp) {
       break;
     }
     if ($message !== NULL) {
+      drush_print(dt('Received message !message', ['!message' => var_export($message, true)]));
       $id = $message->getId();
       if ($id) {
         $article = $fetch_service->getArticle($id);
