@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.podcast_episode.field_subjects
     - node.type.podcast_episode
   module:
-    - entity_reference_revisions
     - image
     - link
     - text
@@ -32,13 +31,12 @@ content:
     third_party_settings: {  }
     type: boolean
   field_episode_chapter:
-    type: entity_reference_revisions_entity_view
-    weight: 110
+    weight: 112
     label: above
     settings:
-      view_mode: default
-      link: ''
+      link: true
     third_party_settings: {  }
+    type: entity_reference_label
   field_episode_mp3:
     weight: 104
     label: above

@@ -85,3 +85,4 @@ process:
 migration_dependencies:
   required:
     - jcms_subjects_json
+    - jcms_collections_db

@@ -2,16 +2,9 @@
 
 namespace Drupal\jcms_migrate\Plugin\migrate\process;
 
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\migrate\MigrateExecutableInterface;
-use Drupal\migrate\Plugin\migrate\process\Migration;
-use Drupal\migrate\Plugin\MigratePluginManager;
-use Drupal\migrate\Plugin\MigrationInterface;
-use Drupal\migrate\Plugin\MigrationPluginManagerInterface;
-use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
-use Drupal\paragraphs\Entity\Paragraph;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\node\Entity\Node;
 
 /**
  * Process the episode chapter values into paragraphs.
@@ -30,49 +23,45 @@ class JCMSEpisodeChapter extends AbstractJCMSContainerFactoryPlugin {
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     if (!empty($value)) {
       $values = [
-        'type' => 'episode_chapter',
-        'field_block_title' => [
-          'value' => $this->checkMarkup($value['title']),
-        ],
-        'field_chapter_time' => [
+        'type' => 'podcast_chapter',
+        'title' => $this->checkMarkup($value['title']),
+        'field_podcast_chapter_time' => [
           'value' => $value['time'],
         ],
       ];
 
       if (!empty($value['impact_statement'])) {
-        $values['field_block_html'] = [
+        $values['field_impact_statement'] = [
           'value' => $this->checkMarkup($value['impact_statement']),
           'format' => 'basic_html',
         ];
       }
 
       if (!empty($value['content'])) {
-        $values['field_chapter_content'] = [];
+        $values['field_related_content'] = [];
         foreach ($value['content'] as $content) {
           switch ($content['type']) {
             case 'collection':
-              $values['field_chapter_content'][] = ['target_id' => $this->migrationDestionationIDs('jcms_collections_db', $content['source'], $migrate_executable, $row, $destination_property)];
+              $values['field_related_content'][] = ['target_id' => $this->migrationDestionationIDs('jcms_collections_db', $content['source'], $migrate_executable, $row, $destination_property)];
               break;
             case 'article':
               $crud_service = \Drupal::service('jcms_notifications.article_crud_service');
-              if ($nid = $crud_service->nodeExists($content['source'])) {
-                $values['field_chapter_content'][] = ['target_id' => $nid];
+              if ($article_nid = $crud_service->nodeExists($content['source'])) {
+                $values['field_related_content'][] = ['target_id' => $article_nid];
               }
               else {
-                $node = $crud_service->createArticle(['id' => $content['source']]);
-                $values['field_chapter_content'][] = ['target_id' => $node->id()];
+                $article = $crud_service->createArticle(['id' => $content['source']]);
+                $values['field_related_content'][] = ['target_id' => $article->id()];
               }
               break;
             default:
           }
         }
       }
-
-      $paragraph = Paragraph::create($values);
-      $paragraph->save();
+      $node = Node::create($values);
+      $node->save();
       return [
-        'target_id' => $paragraph->id(),
-        'target_revision_id' => $paragraph->getRevisionId(),
+        'target_id' => $node->id(),
       ];
     }
     return NULL;

@@ -115,7 +115,8 @@
         "PHP Warning: Invalid argument supplied for foreach() in unique_field.module": "https://www.drupal.org/files/issues/php_warning_invalid-2721645-2.patch"
       },
       "drupal/core": {
-        "CommandLineOrUnsafeMethodTest::testHttpMethod failures": "https://www.drupal.org/files/issues/options_trace_error-2776367-3.patch"
+        "CommandLineOrUnsafeMethodTest::testHttpMethod failures": "https://www.drupal.org/files/issues/options_trace_error-2776367-3.patch",
+        "View output is not used for autocomplete display": "https://www.drupal.org/files/issues/2174633-76-entity-reference-views.patch"
       },
       "drupal/entity_reference_revisions": {
         "Support devel_generate, fatal error (2568187)": "https://www.drupal.org/files/issues/entity_reference_revisions-devel_generate-2568187-7-8.x.2.x.patch"

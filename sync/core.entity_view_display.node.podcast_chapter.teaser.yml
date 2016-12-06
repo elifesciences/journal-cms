@@ -1,0 +1,17 @@
+uuid: 88f79524-156b-4870-9a38-37e61f82685b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.podcast_chapter
+  module:
+    - user
+id: node.podcast_chapter.teaser
+targetEntityType: node
+bundle: podcast_chapter
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden: {  }
