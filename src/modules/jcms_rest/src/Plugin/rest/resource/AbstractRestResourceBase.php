@@ -552,4 +552,38 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       return $venue;
   }
 
+  /**
+   * Takes a node and builds an item from it.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $node
+   * @param \Drupal\Core\Field\FieldItemListInterface $related_field
+   *
+   * @return array
+   */
+  public function getEntityQueueItem(EntityInterface $node, FieldItemListInterface $related_field) {
+    /* @var Node $node */
+    /* @var Node $related */
+    $related = $related_field->first()->get('entity')->getTarget()->getValue();
+    $rest_resource = [
+      'blog_article' => new BlogArticleListRestResource([], 'blog_article_list_rest_resource', [], $this->serializerFormats, $this->logger),
+      'collection' => new CollectionListRestResource([], 'collection_list_rest_resource', [], $this->serializerFormats, $this->logger),
+      'event' => new EventListRestResource([], 'event_list_rest_resource', [], $this->serializerFormats, $this->logger),
+      'interview' => new InterviewListRestResource([], 'interview_list_rest_resource', [], $this->serializerFormats, $this->logger),
+      'labs_experiment' => new LabsExperimentListRestResource([], 'labs_experiment_list_rest_resource', [], $this->serializerFormats, $this->logger),
+      'podcast_episode' => new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger),
+    ];
+
+    $item_values = [
+      'title' => $node->getTitle(),
+      'image' => $this->processFieldImage($node->get('field_image'), TRUE),
+    ];
+
+    if ($related->getType() == 'article') {
+      return $item_values + $this->getArticleSnippet($related);
+    }
+    else {
+      return ['type' => str_replace('_', '-', $related->getType())] + $item_values + $rest_resource[$related->getType()]->getItem($related);
+    }
+  }
+
 }

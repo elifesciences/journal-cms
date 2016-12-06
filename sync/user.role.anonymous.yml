@@ -43,3 +43,4 @@ permissions:
   - 'restful get community_list_rest_resource'
   - 'restful get cover_list_rest_resource'
   - 'restful get cover_current_list_rest_resource'
+  - 'restful get highlighted_magazine_list_rest_resource'

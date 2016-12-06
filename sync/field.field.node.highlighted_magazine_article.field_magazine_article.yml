@@ -1,0 +1,28 @@
+uuid: 6309cb21-186b-4fac-b54d-13d46eb1389f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_magazine_article
+    - node.type.article
+    - node.type.highlighted_magazine_article
+id: node.highlighted_magazine_article.field_magazine_article
+field_name: field_magazine_article
+entity_type: node
+bundle: highlighted_magazine_article
+label: Article
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      article: article
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

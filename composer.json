@@ -122,6 +122,9 @@
       },
       "drupal/address": {
         "generateSampleValue": "https://www.drupal.org/files/issues/generatesamplevalue-2819251-4.patch"
+      },
+      "drupal/entityqueue": {
+        "Entity deletion does not remove the reference from queue": "https://www.drupal.org/files/issues/entityqueue-remove_entity_from_queue_on_delete.patch"
       }
     }
   }

@@ -1,0 +1,17 @@
+uuid: f595ed9c-9911-4930-8406-8cd6f6574f6c
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Highlighted magazine article'
+type: highlighted_magazine_article
+description: ''
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: false
