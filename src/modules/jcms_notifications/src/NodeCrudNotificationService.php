@@ -54,42 +54,42 @@ class NodeCrudNotificationService {
   public function entityTypeMap() {
     return [
       'annual_report' => [
-        'type' => 'annual-reports',
+        'type' => 'annual-report',
         'key' => 'year',
         'field' => 'field_annual_report_year',
       ],
       'blog_article' => [
-        'type' => 'blog-articles',
+        'type' => 'blog-article',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'collection' => [
-        'type' => 'collections',
+        'type' => 'collection',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'event' => [
-        'type' => 'events',
+        'type' => 'event',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'interview' => [
-        'type' => 'interviews',
+        'type' => 'interview',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'person' => [
-        'type' => 'people',
+        'type' => 'person',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'podcast_episode' => [
-        'type' => 'podcast-episodes',
+        'type' => 'podcast-episode',
         'key' => 'number',
         'field' => 'field_episode_number',
       ],
       'subjects' => [
-        'type' => 'subjects',
+        'type' => 'subject',
         'key' => 'id',
         'field' => 'field_subject_id',
       ],
