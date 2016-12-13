@@ -51,6 +51,9 @@ class ArticleCrudService {
         $node = $this->updateArticle($article);
       }
     }
+    else {
+      $node = $this->createArticle($article);
+    }
     return $node;
   }
 
@@ -88,7 +91,6 @@ class ArticleCrudService {
         ],
       ];
     }
-
     $node->save();
     return $node;
   }
