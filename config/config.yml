@@ -195,11 +195,12 @@ postgresql_users:
     priv: "ALL"
 
 # Comment out any extra utilities you don't want to install. If you don't want
-# to install *any* extras, make set this value to an empty set, e.g. `[]`.
+# to install *any* extras, set this value to an empty set, e.g. `[]`.
 installed_extras:
   - adminer
   # - blackfire
   # - drupalconsole
+  - drush
   # - elasticsearch
   # - java
   - mailhog
@@ -211,6 +212,7 @@ installed_extras:
   # - ruby
   # - selenium
   # - solr
+  # - upload-progress
   - varnish
   # - xdebug
   # - xhprof
@@ -232,7 +234,7 @@ ruby_install_gems: []
 # You can configure almost anything else on the server in the rest of this file.
 extra_security_enabled: false
 
-drush_version: "master"
+drush_version: "8.x"
 drush_keep_updated: true
 drush_composer_cli_options: "--prefer-dist --no-interaction"
 
@@ -252,7 +254,8 @@ firewall_log_dropped_packets: false
 
 # PHP Configuration. Currently-supported versions: 5.6, 7.0.
 # To use 5.6, see: http://docs.drupalvm.com/en/latest/other/php-56/
-php_version: "7.0"
+php_version: "7.1"
+php_install_recommends: no
 php_memory_limit: "256M"
 php_display_errors: "On"
 php_display_startup_errors: "On"
@@ -323,7 +326,7 @@ php_xdebug_idekey: PHPSTORM
 php_xdebug_max_nesting_level: 256
 
 # Solr Configuration (if enabled above).
-solr_version: "5.5.2"
+solr_version: "5.5.3"
 solr_xms: "64M"
 solr_xmx: "128M"
 

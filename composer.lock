@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2904f21ec874e0daddb06b3cb3912f8f",
-    "content-hash": "75ced1bcfbdae27930840173cbc777d4",
+    "hash": "3bc1ea1231a8a24175b6531c8ecf35ba",
+    "content-hash": "6f5aec733fd864eccf87abda122d28d2",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1707,7 +1707,8 @@
             "type": "drupal-core",
             "extra": {
                 "patches_applied": {
-                    "CommandLineOrUnsafeMethodTest::testHttpMethod failures": "https://www.drupal.org/files/issues/options_trace_error-2776367-3.patch"
+                    "CommandLineOrUnsafeMethodTest::testHttpMethod failures": "https://www.drupal.org/files/issues/options_trace_error-2776367-3.patch",
+                    "View output is not used for autocomplete display": "https://www.drupal.org/files/issues/2174633-76-entity-reference-views.patch"
                 }
             },
             "autoload": {
@@ -1812,7 +1813,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/entityqueue-8.x-1.0-alpha4.zip",
-                "reference": null,
+                "reference": "5b6c2ae88b5c26665f7293e732cd880badcb9c97",
                 "shasum": null
             },
             "require": {
@@ -1822,6 +1823,9 @@
             "extra": {
                 "branch-alias": {
                     "dev-8.x-1.x": "8.1.x-dev"
+                },
+                "patches_applied": {
+                    "Entity deletion does not remove the reference from queue": "https://www.drupal.org/files/issues/entityqueue-remove_entity_from_queue_on_delete.patch"
                 }
             },
             "notification-url": "https://packagist.drupal-composer.org/downloads/",
@@ -2497,6 +2501,45 @@
                 "orm"
             ],
             "time": "2016-10-03 21:25:17"
+        },
+        {
+            "name": "geerlingguy/drupal-vm",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geerlingguy/drupal-vm.git",
+                "reference": "519033a09e16fda8361eddddb8e712e59be72892"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/519033a09e16fda8361eddddb8e712e59be72892",
+                "reference": "519033a09e16fda8361eddddb8e712e59be72892",
+                "shasum": ""
+            },
+            "type": "vm",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeff Geerling",
+                    "homepage": "http://www.jeffgeerling.com"
+                },
+                {
+                    "name": "Oskar Schöldström",
+                    "homepage": "http://oxy.fi"
+                }
+            ],
+            "description": "A VM for local Drupal development, built with Vagrant + Ansible",
+            "homepage": "https://www.drupalvm.com",
+            "keywords": [
+                "drupal",
+                "vagrant",
+                "virtual machine",
+                "vm"
+            ],
+            "time": "2016-12-10 16:57:46"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
@@ -7462,45 +7505,6 @@
                 "scraper"
             ],
             "time": "2015-11-05 12:58:44"
-        },
-        {
-            "name": "geerlingguy/drupal-vm",
-            "version": "3.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/geerlingguy/drupal-vm.git",
-                "reference": "835ffe54f262663fd896fcc4880a5b217a309bda"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/835ffe54f262663fd896fcc4880a5b217a309bda",
-                "reference": "835ffe54f262663fd896fcc4880a5b217a309bda",
-                "shasum": ""
-            },
-            "type": "project",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jeff Geerling",
-                    "homepage": "http://www.jeffgeerling.com"
-                },
-                {
-                    "name": "Oskar Schöldström",
-                    "homepage": "http://oxy.fi"
-                }
-            ],
-            "description": "A VM for local Drupal development, built with Vagrant + Ansible",
-            "homepage": "https://www.drupalvm.com",
-            "keywords": [
-                "drupal",
-                "vagrant",
-                "virtual machine",
-                "vm"
-            ],
-            "time": "2016-11-07 18:46:35"
         },
         {
             "name": "hamcrest/hamcrest-php",
