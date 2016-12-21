@@ -11,3 +11,7 @@ services:
   jcms_article.article_crud:
     class: Drupal\jcms_article\ArticleCrud
     arguments: ["@entity_type.manager"]
+
+  jcms_article.fetch_article:
+    class: Drupal\jcms_article\FetchArticle
+    arguments: ["@http_client"]

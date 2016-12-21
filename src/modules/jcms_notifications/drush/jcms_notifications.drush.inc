@@ -9,20 +9,72 @@
  * Implements hook_drush_command().
  */
 function jcms_notifications_drush_command() {
-  $items = array();
-  $items['article-import'] = array(
-    'description' => 'Imports articles from Lax.',
-    'drupal dependencies' => array('jcms_notifications'),
-    'aliases' => array('ai'),
-    'arguments' => array(
+  $items = [];
+  $items['article-import'] = [
+    'description' => 'Imports articles from Lax via SQS.',
+    'drupal dependencies' => ['jcms_notifications'],
+    'aliases' => ['ai'],
+    'arguments' => [
       'lrp' => 'Long running process or not. Defaults to false.',
-    ),
-    'examples' => array(
+    ],
+    'examples' => [
       'drush article-import 1' => 'Import articles from Lax as a long running process.',
       'drush article-import' => 'Import articles from Lax and return a message when finished.',
-    ),
-  );
+    ],
+  ];
+  $items['article-import-all'] = [
+    'description' => 'Imports all articles from Lax.',
+    'options' => [
+      'limit' => 'Limit on the number of items to process in each import.',
+      'skip-updates' => 'Do not attempt to update articles that exist already.',
+    ],
+    'drupal dependencies' => ['jcms_notifications'],
+    'aliases' => ['aia'],
+    'examples' => [
+      'drush article-import-all' => 'Import all articles from Lax and return a message when finished.',
+      'drush article-import-all --limit=500' => 'Import first 500 articles from Lax and return a message when finished.',
+      'drush article-import-all --skip-updates' => 'Import all articles from Lax, but skip over articles that exist already, and return a message when finished.',
+    ],
+  ];
   return $items;
+}
+
+/**
+ * Callback function drush_jcms_notifications_article_import_all().
+ */
+function drush_jcms_notifications_article_import_all() {
+  $fetch_service = \Drupal::service('jcms_article.fetch_article');
+  $fetch_versions_service = \Drupal::service('jcms_article.fetch_article_versions');
+  $crud_service = \Drupal::service('jcms_article.article_crud');
+  drush_print(dt('Fetching all article IDs. This may take a few minutes.'));
+  $limit = drush_get_option('limit') ? (int) drush_get_option('limit') : NULL;
+  if (!empty($limit)) {
+    $fetch_service->setLimit($limit);
+  }
+  $ids = $fetch_service->getAllArticleIDs();
+  drush_print(dt('Received !count article IDs to process.', ['!count' => count($ids)]));
+  if ($ids) {
+    $time_start = microtime(TRUE);
+    foreach ($ids as $num => $id) {
+      $articleVersions = $fetch_versions_service->getArticleVersions($id);
+      if (drush_get_option('skip-updates')) {
+        $crud_service->skipUpdates();
+      }
+      $crud_service->crudArticle($articleVersions);
+      drush_print(dt('Processed article !article_id (!num of !count)', [
+        '!article_id' => $id,
+        '!num' => $num + 1,
+        '!count' => count($ids),
+      ]));
+    }
+    $time_end = microtime(TRUE);
+    $time = round($time_end - $time_start, 0);
+    drush_print(dt('Processed !count articles in !minutes minutes !seconds seconds.', [
+      '!count' => count($ids),
+      '!minutes' => floor($time / 60),
+      '!seconds' => round($time % 60),
+    ]));
+  }
 }
 
 /**
@@ -40,7 +92,7 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       break;
     }
     if ($message !== NULL) {
-      drush_print(dt('Received message !message', ['!message' => var_export($message, true)]));
+      drush_print(dt('Received message !message', ['!message' => var_export($message, TRUE)]));
       $id = $message->getId();
       if ($id) {
         $articleVersions = $fetch_service->getArticleVersions($id);
@@ -52,6 +104,6 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       }
     }
   }
-  drush_print(dt('Imported !count articles.', array('!count' => $count)));
+  drush_print(dt('Imported !count articles.', ['!count' => $count]));
 }
 

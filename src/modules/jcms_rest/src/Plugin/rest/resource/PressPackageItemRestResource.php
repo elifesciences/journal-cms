@@ -53,9 +53,14 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
         $response['content'] = $content;
       }
 
-      $response['relatedContent'] = [];
+      $related_content = [];
       foreach ($node->get('field_related_content') as $related) {
-        $response['relatedContent'][] = $this->getArticleSnippet($related->get('entity')->getTarget()->getValue());
+        if ($article = $this->getArticleSnippet($related->get('entity')->getTarget()->getValue())) {
+          $related_content[] = $article;
+        }
+      }
+      if (!empty($related_content)) {
+        $response['relatedContent'] = $related_content;
       }
 
       // Subjects is optional.
