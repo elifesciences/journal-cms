@@ -4,24 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cee5b39d88c4fc34dc17eaf2761c909b",
-    "content-hash": "2237cccd4b42c73f227403240d7c6bfd",
+    "hash": "337f33d413e58c4055bcbc35db95a164",
+    "content-hash": "597b55a381590830fc3c8e7ec3bf9b81",
     "packages": [
         {
             "name": "geerlingguy/drupal-vm",
-            "version": "3.3.2",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geerlingguy/drupal-vm.git",
-                "reference": "d1288ddb1322c14275d53a93f364c83df0ec7e38"
+                "reference": "519033a09e16fda8361eddddb8e712e59be72892"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/d1288ddb1322c14275d53a93f364c83df0ec7e38",
-                "reference": "d1288ddb1322c14275d53a93f364c83df0ec7e38",
+                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/519033a09e16fda8361eddddb8e712e59be72892",
+                "reference": "519033a09e16fda8361eddddb8e712e59be72892",
                 "shasum": ""
             },
-            "type": "project",
+            "type": "vm",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -44,7 +44,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2016-10-06 17:57:07"
+            "time": "2016-12-10 16:57:46"
         }
     ],
     "packages-dev": [],
