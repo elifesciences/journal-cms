@@ -22,14 +22,14 @@ set -e
 start() {
   printf "Starting '$NAME'... "
   start-stop-daemon --start --background -m --oknodo --pidfile /var/run/${NAME}.pid --exec ${APPBIN}
-  aws sns create-topic --name=annual-reports --endpoint=http://localhost:4100
-  aws sns create-topic --name=blog-articles --endpoint=http://localhost:4100
-  aws sns create-topic --name=collections --endpoint=http://localhost:4100
-  aws sns create-topic --name=events --endpoint=http://localhost:4100
-  aws sns create-topic --name=interviews --endpoint=http://localhost:4100
-  aws sns create-topic --name=people --endpoint=http://localhost:4100
-  aws sns create-topic --name=podcast-episodes --endpoint=http://localhost:4100
-  aws sns create-topic --name=subjects --endpoint=http://localhost:4100
+  aws sns create-topic --name=annual-report --endpoint=http://localhost:4100
+  aws sns create-topic --name=blog-article --endpoint=http://localhost:4100
+  aws sns create-topic --name=collection --endpoint=http://localhost:4100
+  aws sns create-topic --name=event --endpoint=http://localhost:4100
+  aws sns create-topic --name=interview --endpoint=http://localhost:4100
+  aws sns create-topic --name=person --endpoint=http://localhost:4100
+  aws sns create-topic --name=podcast-episode --endpoint=http://localhost:4100
+  aws sns create-topic --name=subject --endpoint=http://localhost:4100
   aws sqs create-queue --queue-name journal-cms--queue-local --endpoint=http://localhost:4100
 }
 
