@@ -31,7 +31,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     'thumbnail' => [
       '16:9' => [
         250 => '141',
-        500 => '282',
+        500 => '281',
       ],
       '1:1' => [
         70 => '70',
