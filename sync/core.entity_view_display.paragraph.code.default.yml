@@ -1,0 +1,21 @@
+uuid: 4cff8a94-6837-48b9-a34f-0b3364655e4e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.code.field_block_code
+    - paragraphs.paragraphs_type.code
+id: paragraph.code.default
+targetEntityType: paragraph
+bundle: code
+mode: default
+content:
+  field_block_code:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+hidden:
+  created: true
+  uid: true

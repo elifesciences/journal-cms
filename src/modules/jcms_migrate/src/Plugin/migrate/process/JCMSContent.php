@@ -160,6 +160,11 @@ class JCMSContent extends ProcessPluginBase {
         }
         $values['field_block_question_answer'] = $content;
         break;
+      case 'code':
+        $values['field_block_code'] = [
+          'value' => $value['code'],
+        ];
+        break;
     }
     $paragraph = Paragraph::create($values);
     $paragraph->save();

@@ -78,7 +78,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    */
   protected function formatDate($date = NULL) {
     $date = is_null($date) ? time() : $date;
-    return \Drupal::service('date.formatter')->format($date, 'html_datetime');
+    return \Drupal::service('date.formatter')->format($date, 'api_datetime');
   }
 
   /**
@@ -239,6 +239,9 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             else {
               $result_item['tables'] = ['<table>' . $table_content . '</table>'];
             }
+            break;
+          case 'code':
+            $result_item['code'] = $content_item->get('field_block_code')->getString();
             break;
           case 'list':
             $result_item['prefix'] = $content_item->get('field_block_list_ordered')->getString() ? 'number' : 'bullet';

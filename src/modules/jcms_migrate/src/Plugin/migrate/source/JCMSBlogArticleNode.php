@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_migrate\Plugin\migrate\source;
 
+use Drupal\Core\Database\Query\Condition;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 
 /**
@@ -19,15 +20,18 @@ class JCMSBlogArticleNode extends SqlBase {
   public function query() {
     $query = $this->select('node', 'n')
       ->fields('n', ['nid', 'title', 'created', 'status']);
-    $query->innerJoin('field_data_field_elife_n_category', 'category', 'category.entity_id = n.nid');
-    $query->innerJoin('taxonomy_term_data', 'term', 'term.tid = category.field_elife_n_category_tid');
-    $query->innerJoin('taxonomy_vocabulary', 'vocab', 'vocab.vid = term.vid');
-    $query->innerJoin('field_data_field_elife_n_text', 'text' , 'text.entity_id = n.nid');
+    $query->leftJoin('field_data_field_elife_n_category', 'category', 'category.entity_id = n.nid');
+    $query->leftJoin('taxonomy_term_data', 'term', 'term.tid = category.field_elife_n_category_tid');
+    $query->leftJoin('taxonomy_vocabulary', 'vocab', "vocab.vid = term.vid AND vocab.machine_name = 'elife_n_category'");
+    $query->leftJoin('field_data_field_elife_n_text', 'text' , 'text.entity_id = n.nid');
     $query->addField('text', 'field_elife_n_text_value', 'content');
     $query->addField('text', 'field_elife_n_text_summary', 'summary');
 
-    $query->condition('vocab.machine_name', 'elife_n_category');
-    $query->condition('term.name', ['early careers', 'events', 'news from eLife', 'in the news'], 'IN');
+    $db_or = new Condition('OR');
+    $db_or->condition('term.name', ['early careers', 'events', 'news from eLife', 'in the news'], 'IN');
+    // Some source articles having not been assigned a category, should we assume they need to be migrated here?
+    $db_or->isNull('term.name');
+    $query->condition($db_or);
     $query->condition('n.title', 'Press package: %', 'NOT LIKE');
     $query->condition('n.type', 'elife_news_article');
     $query->groupBy('n.nid');

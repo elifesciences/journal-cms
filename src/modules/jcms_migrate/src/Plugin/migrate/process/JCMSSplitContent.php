@@ -62,6 +62,15 @@ class JCMSSplitContent extends ProcessPluginBase {
                 'html' => trim($dom->saveHTML($child)),
               ];
               break;
+            case 'code':
+              $innerHTML = $this->DOMnodeInnerHTML($child);
+              if (!empty($innerHTML)) {
+                $content_item = [
+                  'type' => 'code',
+                  'code' => base64_decode($innerHTML),
+                ];
+              }
+              break;
             case 'img':
               $content_item = [
                 'type' => 'image',
@@ -112,6 +121,7 @@ class JCMSSplitContent extends ProcessPluginBase {
   public function tidyHtml($string) {
     $string = htmlspecialchars_decode(htmlentities($string, ENT_NOQUOTES, 'UTF-8', FALSE), ENT_NOQUOTES);
     $string = preg_replace(['/&(nbsp|#xA0);/', '~<(/?)strong>~'], [' ', '<$1b>'], $string);
+    $string = $this->codeConvert($string);
     $string = $this->stripImgAnchor($string);
     $string = $this->captionConvert($string);
     $string = $this->youtubeConvert($string);
@@ -124,8 +134,8 @@ class JCMSSplitContent extends ProcessPluginBase {
     // Remove all p and div tags and introduce line breaks.
     $string = preg_replace(['/<p[^>]*>/', '/<\/p>/', '/<div[^>]*>/', '/<\/div>/'], "\n\n", $string);
     // Introduce line breaks before and after img, table, ul and ol.
-    $string = preg_replace(["/(<img [^>]*>)/", "/(<table[^>]*>)/", "/(<ul[^>]*>)/", "/(<ol[^>]*>)/", "/(<iframe[^>]*>)/"], "\n\n$1", $string);
-    $string = preg_replace(["/(<img [^>]*>)/", "~(</table>)~", "~(</ul>)~", "~(</ol>)~", "~(</iframe>)~"], "$1\n\n", $string);
+    $string = preg_replace(["/(<img [^>]*>)/", "/(<table[^>]*>)/", "/(<ul[^>]*>)/", "/(<ol[^>]*>)/", "/(<iframe[^>]*>)/", "/(<code[^>]*>)/"], "\n\n$1", $string);
+    $string = preg_replace(["/(<img [^>]*>)/", "~(</table>)~", "~(</ul>)~", "~(</ol>)~", "~(</iframe>)~", "~(</code>)~"], "$1\n\n", $string);
 
     $split = preg_split("~\\s*\\n+\\s*~", $string);
     foreach ($split as $k => $item) {
@@ -134,7 +144,7 @@ class JCMSSplitContent extends ProcessPluginBase {
         unset($split[$k]);
       }
       else {
-        if (!preg_match('/^(<img|<table|<ol|<ul|<youtube)/', $item)) {
+        if (!preg_match('/^(<img|<table|<ol|<ul|<youtube|<code)/', $item)) {
           $item = '<p>' . $item . '</p>';
         }
         $split[$k] = $item;
@@ -167,6 +177,20 @@ class JCMSSplitContent extends ProcessPluginBase {
       foreach ($matches as $match) {
         $search[] = "/" . preg_quote($match[0], "/") . "/";
         $replace[] = preg_replace(['/\s\s+/', '~(/)?>~'], [' ', '$1>'], $match['img_start'] . ' caption="' . trim($match['caption']) . '"' . $match['img_end']);
+      }
+      $string = preg_replace($search, $replace, $string);
+    }
+    return $string;
+  }
+
+  public function codeConvert($string) {
+    preg_match_all("~<code[^>]*>(?P<code>.*?)</code>~s", $string, $matches, PREG_SET_ORDER);
+    if (!empty($matches)) {
+      $search = [];
+      $replace = [];
+      foreach ($matches as $match) {
+        $search[] = "~" . preg_quote($match[0]) . "~";
+        $replace[] = "<code>" . base64_encode(trim($match['code'])) . "</code>";
       }
       $string = preg_replace($search, $replace, $string);
     }
