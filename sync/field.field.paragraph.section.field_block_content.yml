@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.paragraph.field_block_content
     - paragraphs.paragraphs_type.blockquote
+    - paragraphs.paragraphs_type.code
     - paragraphs.paragraphs_type.image
     - paragraphs.paragraphs_type.list
     - paragraphs.paragraphs_type.paragraph
@@ -36,6 +37,7 @@ settings:
       blockquote: blockquote
       table: table
       question: question
+      code: code
     target_bundles_drag_drop:
       paragraph:
         enabled: true
@@ -61,16 +63,16 @@ settings:
       question:
         enabled: true
         weight: -24
-      list_item:
+      code:
+        enabled: true
         weight: -23
-        enabled: false
-      media_contact:
+      list_item:
         weight: -22
         enabled: false
-      cv_item:
+      media_contact:
         weight: -21
         enabled: false
-      episode_chapter:
+      cv_item:
         weight: -20
         enabled: false
       json:

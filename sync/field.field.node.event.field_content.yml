@@ -6,6 +6,7 @@ dependencies:
     - field.storage.node.field_content
     - node.type.event
     - paragraphs.paragraphs_type.blockquote
+    - paragraphs.paragraphs_type.code
     - paragraphs.paragraphs_type.image
     - paragraphs.paragraphs_type.list
     - paragraphs.paragraphs_type.paragraph
@@ -37,6 +38,7 @@ settings:
       section: section
       table: table
       question: question
+      code: code
     target_bundles_drag_drop:
       paragraph:
         enabled: true
@@ -62,10 +64,10 @@ settings:
       question:
         enabled: true
         weight: -24
-      cv_item:
+      code:
+        enabled: true
         weight: -23
-        enabled: false
-      episode_chapter:
+      cv_item:
         weight: -22
         enabled: false
       media_contact:

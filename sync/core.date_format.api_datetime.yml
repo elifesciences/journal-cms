@@ -1,0 +1,8 @@
+uuid: b5bdac47-0fa9-4f9c-9413-e61df728f9e7
+langcode: en
+status: true
+dependencies: {  }
+id: api_datetime
+label: 'API Datetime'
+locked: false
+pattern: 'Y-m-d\TH:i:s\Z'

@@ -98,6 +98,17 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
             ['type' => 'paragraph', 'text' => 'Paragraph 2'],
           ],
         ],
+        [
+          "We have turned on markdown as a format for our articles that you can request by setting your header to <code>text/plain</code>. We are not exactly sure how this might be useful, but we think it’s pretty cool anyway, and we hope it can be of benefit to those looking at markdown as a potential tool for the future of scholarly communication.\n\nHere is an example call:\n<pre><code>curl --header \"Accept:text/plain\"  \\n-L http://elife.elifesciences.org/content/2/e00334\n</code></pre>",
+          [],
+          [
+            ['type' => 'paragraph', 'text' => 'We have turned on markdown as a format for our articles that you can request by setting your header to'],
+            ['type' => 'code', 'code' => 'text/plain'],
+            ['type' => 'paragraph', 'text' => '. We are not exactly sure how this might be useful, but we think it’s pretty cool anyway, and we hope it can be of benefit to those looking at markdown as a potential tool for the future of scholarly communication.'],
+            ['type' => 'paragraph', 'text' => 'Here is an example call:'],
+            ['type' => 'code', 'code' => 'curl --header "Accept:text/plain"  \\n-L http://elife.elifesciences.org/content/2/e00334'],
+          ]
+        ],
         // @todo - elife - nlisgo - add test for entity_id 249171 field_data_field_elife_n_text
       ];
     }
@@ -124,6 +135,28 @@ namespace Drupal\Tests\jcms_migrate\Unit\process {
         [
           "<p>[caption]<img alt=\"Monica Alandete-Saez\" src=\"/sites/default/files/monica_alandete-saez.jpg\" style=\"height:427px; width:320px\" title=\"Monica Alandete-Saez. Image credit: Mily Ron\">Monica Alandete-Saez. Image credit: Mily Ron[/caption]</p>",
           "<p><img alt=\"Monica Alandete-Saez\" src=\"/sites/default/files/monica_alandete-saez.jpg\" style=\"height:427px; width:320px\" title=\"Monica Alandete-Saez. Image credit: Mily Ron\" caption=\"Monica Alandete-Saez. Image credit: Mily Ron\"></p>",
+        ],
+      ];
+    }
+
+    /**
+     * @test
+     * @covers ::codeConvert()
+     * @dataProvider codeConvertDataProvider
+     * @param $string
+     * @param $expected_result
+     */
+    public function testCodeConvert($string, $expected_result) {
+      $plugin = new JCMSSplitContent([], 'jcms_split_content', []);
+      $caption_convert = $plugin->codeConvert($string);
+      $this->assertEquals($expected_result, $caption_convert);
+    }
+
+    public function codeConvertDataProvider() {
+      return [
+        [
+          "<code>Some code\n\nto display</code>",
+          "<code>U29tZSBjb2RlCgp0byBkaXNwbGF5</code>",
         ],
       ];
     }
