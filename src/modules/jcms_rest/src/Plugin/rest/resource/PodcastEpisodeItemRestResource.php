@@ -124,7 +124,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       $number_query->innerJoin('node__field_episode_chapter', 'ec2', 'ec2.entity_id = ec.entity_id AND ec2.delta <= ec.delta');
       $number_query->condition('ec.field_episode_chapter_target_id', $node->id());
       if ($result = $number_query->countQuery()->execute()->fetchField()) {
-        $number = $result;
+        $number = (int) $result;
       }
     }
 
