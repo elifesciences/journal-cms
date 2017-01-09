@@ -46,7 +46,7 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
 
     $response_data = ['total' => count($response_data['items'])] + $response_data;
 
-    $response = new JsonResponse($response_data, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.cover-current-list+json;version=1']);
+    $response = new JsonResponse($response_data, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.cover-list+json;version=1']);
     return $response;
   }
 

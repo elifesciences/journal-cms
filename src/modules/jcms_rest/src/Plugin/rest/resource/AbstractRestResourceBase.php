@@ -578,15 +578,19 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
     $item_values = [
       'title' => $node->getTitle(),
-      'image' => $this->processFieldImage($node->get('field_image'), TRUE),
+      'image' => $this->processFieldImage($node->get('field_image'), TRUE, 'banner', TRUE),
+      'item' => [],
     ];
 
     if ($related->getType() == 'article') {
-      return $item_values + $this->getArticleSnippet($related);
+      $item_values['item'] = $this->getArticleSnippet($related);
     }
     else {
-      return ['type' => str_replace('_', '-', $related->getType())] + $item_values + $rest_resource[$related->getType()]->getItem($related);
+      $item_values['item']['type'] = str_replace('_', '-', $related->getType());
+      $item_values['item'] += $rest_resource[$related->getType()]->getItem($related);
     }
+
+    return $item_values;
   }
 
 }
