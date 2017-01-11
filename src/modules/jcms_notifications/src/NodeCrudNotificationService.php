@@ -54,42 +54,52 @@ class NodeCrudNotificationService {
   public function entityTypeMap() {
     return [
       'annual_report' => [
-        'type' => 'annual-report',
+        'type' => 'annual-reports',
         'key' => 'year',
         'field' => 'field_annual_report_year',
       ],
       'blog_article' => [
-        'type' => 'blog-article',
+        'type' => 'blog-articles',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'collection' => [
-        'type' => 'collection',
+        'type' => 'collections',
+        'key' => 'id',
+        'field' => 'uuid_last_8',
+      ],
+      'cover' => [
+        'type' => 'covers',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'event' => [
-        'type' => 'event',
+        'type' => 'events',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'interview' => [
-        'type' => 'interview',
+        'type' => 'interviews',
+        'key' => 'id',
+        'field' => 'uuid_last_8',
+      ],
+      'labs_experiment' => [
+        'type' => 'labs-experiments',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'person' => [
-        'type' => 'person',
+        'type' => 'people',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'podcast_episode' => [
-        'type' => 'podcast-episode',
+        'type' => 'podcast-episodes',
         'key' => 'number',
         'field' => 'field_episode_number',
       ],
-      'subjects' => [
-        'type' => 'subject',
+      'subject' => [
+        'type' => 'subjects',
         'key' => 'id',
         'field' => 'field_subject_id',
       ],
