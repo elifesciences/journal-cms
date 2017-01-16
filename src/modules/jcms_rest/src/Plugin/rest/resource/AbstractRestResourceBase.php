@@ -145,7 +145,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
               str_replace(':', 'x', $ar),
               $width . 'x' . $height,
             ];
-            $image[$type]['sizes'][$ar][$width] = ImageStyle::load(implode('_', $image_style))->buildUrl($image_uri);
+            $loaded_style = ImageStyle::load(implode('_', $image_style));
+            if ($loaded_style && $image_uri) {
+              $image[$type]['sizes'][$ar][$width] = $loaded_style->buildUrl($image_uri);
+            }
           }
         }
       }
