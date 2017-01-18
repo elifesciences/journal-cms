@@ -4,6 +4,7 @@ namespace Drupal\jcms_notifications;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Class ArticlePresave.
@@ -161,6 +162,45 @@ class ArticlePresave {
         $this->getNode()->set('status', 0);
       }
     }
+  }
+
+  /**
+   * Sets the article subjects on the article as taxonomy terms.
+   */
+  public function setSubjectTerms() {
+    if ($this->nodeIsValid()) {
+      $id = $this->getArticleIdFromNode();
+      $article = $this->getArticleById($id);
+      // Whether new or not, set the published date.
+      $json = json_decode($article['data']['unpublished']);
+      if ($json['subjects']) {
+        foreach ($json['subjects'] as $subject) {
+          if (isset($subject['id'])) {
+            $tid = $this->loadTermIdByIdField($subject['id']);
+            if ($tid) {
+              $this->getNode()->get('field_subjects')->appendItem(['target_id' => $tid]);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Returns a taxonomy term ID, loading the term by its string ID field.
+   *
+   * @param string $id
+   *
+   * @return int
+   */
+  public function loadTermIdByIdField(string $id) : int {
+    $tid = 0;
+    $query = \Drupal::entityQuery('term')->condition('field_subject_id', $id);
+    $tids = $query->execute();
+    if ($tids) {
+      $tid = reset($tids);
+    }
+    return $tid;
   }
 
 }
