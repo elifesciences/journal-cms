@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_migrate\Plugin\migrate\process;
 
+use Drupal\jcms_article\Entity\ArticleVersions;
 use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\Row;
 
@@ -52,12 +53,13 @@ class JCMSCollectionContent extends AbstractJCMSContainerFactoryPlugin {
         return $this->migrationDestionationIDs('jcms_podcast_episodes_json', $source, $migrate_executable, $row, $destination_property);
         break;
       case 'article':
-        $crud_service = \Drupal::service('jcms_notifications.article_crud_service');
-        if ($nid = $crud_service->nodeExists($source)) {
+        $crud_service = \Drupal::service('jcms_article.article_crud');
+        if ($nid = $crud_service->getNodeIdByArticleId($source)) {
           return $nid;
         }
         else {
-          $node = $crud_service->createArticle(['id' => $source]);
+          $article_versions = new ArticleVersions($source);
+          $node = $crud_service->createArticle($article_versions);
           return $node->id();
         }
         break;

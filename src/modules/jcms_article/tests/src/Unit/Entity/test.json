@@ -1,0 +1,108 @@
+{
+  "versions": [
+    {
+      "stage": "published",
+      "authorLine": "Maria Lim et al",
+      "title": "Neuroendocrine modulation sustains the C. elegans forward motor state",
+      "copyright": {
+        "license": "CC-BY-4.0",
+        "statement": "This article is distributed under the terms of the Creative Commons Attribution License permitting unrestricted use and redistribution provided that the original author and source are credited.",
+        "holder": "Lim et al"
+      },
+      "version": 1,
+      "type": "research-article",
+      "doi": "10.7554/eLife.19887",
+      "volume": 5,
+      "status": "poa",
+      "versionDate": "2016-11-18T00:00:00Z",
+      "researchOrganisms": [
+        "C. elegans"
+      ],
+      "published": "2016-11-18T00:00:00Z",
+      "statusDate": "2016-11-18T00:00:00Z",
+      "pdf": "https://publishing-cdn.elifesciences.org/19887/elife-19887-v1.pdf",
+      "subjects": [
+        {
+          "name": "Developmental Biology and Stem Cells",
+          "id": "developmental-biology-stem-cells"
+        },
+        {
+          "name": "Neuroscience",
+          "id": "neuroscience"
+        }
+      ],
+      "elocationId": "e19887",
+      "id": "19887"
+    },
+    {
+      "stage": "published",
+      "id": "19887",
+      "authorLine": "Maria A Lim et al",
+      "title": "Neuroendocrine modulation sustains the <i>C. elegans</i> forward motor state",
+      "impactStatement": "RID is a descending peptidergic neuron that sustains the forward motor state.",
+      "copyright": {
+        "license": "CC-BY-4.0",
+        "statement": "This article is distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use and redistribution provided that the original author and source are credited.",
+        "holder": "Lim et al"
+      },
+      "type": "research-article",
+      "doi": "10.7554/eLife.19887",
+      "volume": 5,
+      "status": "vor",
+      "versionDate": "2016-11-23T15:25:50Z",
+      "researchOrganisms": [
+        "C. elegans"
+      ],
+      "version": 2,
+      "published": "2016-11-18T00:00:00Z",
+      "statusDate": "2016-11-23T15:25:50Z",
+      "pdf": "https://publishing-cdn.elifesciences.org/19887/elife-19887-v2.pdf",
+      "subjects": [
+        {
+          "name": "Neuroscience",
+          "id": "neuroscience"
+        },
+        {
+          "name": "Developmental Biology and Stem Cells",
+          "id": "developmental-biology-stem-cells"
+        }
+      ],
+      "elocationId": "e19887"
+    },
+    {
+      "stage": "preview",
+      "id": "19887",
+      "elocationId": "e19887",
+      "subjects": [
+        {
+          "name": "Neuroscience",
+          "id": "neuroscience"
+        },
+        {
+          "name": "Developmental Biology and Stem Cells",
+          "id": "developmental-biology-stem-cells"
+        }
+      ],
+      "pdf": "https://publishing-cdn.elifesciences.org/19887/elife-19887-v3.pdf",
+      "published": "2016-11-18T00:00:00Z",
+      "version": 3,
+      "researchOrganisms": [
+        "C. elegans"
+      ],
+      "status": "vor",
+      "doi": "10.7554/eLife.19887",
+      "type": "research-article",
+      "copyright": {
+        "license": "CC-BY-4.0",
+        "statement": "This article is distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use and redistribution provided that the original author and source are credited.",
+        "holder": "Lim et al"
+      },
+      "impactStatement": "RID is a descending peptidergic neuron that sustains the forward motor state.",
+      "title": "Neuroendocrine modulation sustains the <i>C. elegans</i> forward motor state",
+      "authorLine": "Maria A Lim et al",
+      "volume": 5
+    }
+  ],
+  "accepted": "2016-11-14",
+  "received": "2016-07-21"
+}

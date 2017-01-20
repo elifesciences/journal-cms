@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_migrate\Plugin\migrate\process;
 
+use Drupal\jcms_article\Entity\ArticleVersions;
 use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\Row;
 use Drupal\node\Entity\Node;
@@ -45,12 +46,13 @@ class JCMSEpisodeChapter extends AbstractJCMSContainerFactoryPlugin {
               $values['field_related_content'][] = ['target_id' => $this->migrationDestionationIDs('jcms_collections_db', $content['source'], $migrate_executable, $row, $destination_property)];
               break;
             case 'article':
-              $crud_service = \Drupal::service('jcms_notifications.article_crud_service');
-              if ($article_nid = $crud_service->nodeExists($content['source'])) {
+              $crud_service = \Drupal::service('jcms_article.article_crud');
+              if ($article_nid = $crud_service->getNodeIdByArticleId($content['source'])) {
                 $values['field_related_content'][] = ['target_id' => $article_nid];
               }
               else {
-                $article = $crud_service->createArticle(['id' => $content['source']]);
+                $article_versions = new ArticleVersions($content['source']);
+                $article = $crud_service->createArticle($article_versions);
                 $values['field_related_content'][] = ['target_id' => $article->id()];
               }
               break;

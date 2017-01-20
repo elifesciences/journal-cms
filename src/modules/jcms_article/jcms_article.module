@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Contains jcms_article.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_help().
+ */
+function jcms_article_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the jcms_article module.
+    case 'help.page.jcms_article':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Article functionality.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function jcms_article_node_presave(EntityInterface $entity) {
+  if ($entity->bundle() != 'article') {
+    return NULL;
+  }
+  $node_presave = \Drupal::service('jcms_article.hooks.node_presave');
+  $node_presave->addJsonFields($entity);
+  $node_presave->setPublishedStatus($entity);
+  $node_presave->setPublishedDate($entity);
+  $node_presave->setSubjectTerms($entity);
+}

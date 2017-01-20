@@ -31,4 +31,4 @@ $settings['jcms_sqs_queue'] = 'journal-cms--queue-local';
 // Production template is 'arn:aws:sns:us-east-1:512686554592:bus-%s--dev'.
 $settings['jcms_sns_topic_template'] = 'arn:aws:sns:local:000000000000:%s';
 $settings['jcms_sqs_region'] = 'us-east-1';
-$settings['jcms_articles_endpoint'] = 'http://end2end--gateway.elifesciences.org/articles/{id}/versions';
+$settings['jcms_articles_endpoint'] = 'https://prod--gateway.elifesciences.org/articles/%s/versions';

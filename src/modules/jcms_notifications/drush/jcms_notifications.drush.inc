@@ -30,8 +30,8 @@ function jcms_notifications_drush_command() {
  */
 function drush_jcms_notifications_article_import($lrp = FALSE) {
   $queue_service = \Drupal::service('jcms_notifications.queue_service');
-  $fetch_service = \Drupal::service('jcms_notifications.fetch_article_service');
-  $crud_service = \Drupal::service('jcms_notifications.article_crud_service');
+  $fetch_service = \Drupal::service('jcms_article.fetch_article_versions');
+  $crud_service = \Drupal::service('jcms_article.article_crud');
   $count = 0;
   while (TRUE) {
     $message = $queue_service->getMessage();
@@ -43,8 +43,8 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       drush_print(dt('Received message !message', ['!message' => var_export($message, true)]));
       $id = $message->getId();
       if ($id) {
-        $article = $fetch_service->getArticle($id);
-        $crud_service->crudArticle($article);
+        $articleVersions = $fetch_service->getArticleVersions($id);
+        $crud_service->crudArticle($articleVersions);
         drush_print(dt('Processed message !message_id', ['!message_id' => $message->getMessageId()]));
         $queue_service->deleteMessage($message);
         drush_print(dt('Deleted from the queue message !message_id', ['!message_id' => $message->getMessageId()]));
