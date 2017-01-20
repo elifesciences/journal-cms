@@ -65,13 +65,17 @@ final class NodePresave {
   public function setPublishedDate(EntityInterface $entity) {
     $id = $entity->label();
     $article = $this->getArticleById($id);
-    // Use the published JSON if no unpublished exists.
-    $version = $article->getLatestUnpublishedVersionJson() ?: $article->getLatestPublishedVersionJson();
-    $json = json_decode($version);
-    if (property_exists($json, 'versionDate')) {
-      $date = strtotime($json->versionDate);
-      $entity->set('created', $date);
+    // Set the published date if there's a published version.
+    $version = $article->getLatestPublishedVersionJson() ?: '';
+    if (!$version) {
+      return NULL;
     }
+    $json = json_decode($version);
+    if (!property_exists($json, 'published')) {
+      return NULL;
+    }
+    $date = strtotime($json->published);
+    $entity->set('created', $date);
   }
 
   /**
@@ -80,17 +84,9 @@ final class NodePresave {
   public function setPublishedStatus(EntityInterface $entity) {
     $id = $entity->label();
     $article = $this->getArticleById($id);
-    // Use the published JSON if no unpublished exists.
-    $version = $article->getLatestUnpublishedVersionJson() ?: $article->getLatestPublishedVersionJson();
-    $json = json_decode($version);
-    if (property_exists($json, 'stage')) {
-      if ($json->stage == 'published') {
-        $entity->set('status', 1);
-      }
-      else {
-        $entity->set('status', 0);
-      }
-    }
+    // If there's a published version, set to published.
+    $status = $article->getLatestPublishedVersionJson() ? 1 : 0;
+    $entity->set('status', $status);
   }
 
   /**
@@ -99,8 +95,8 @@ final class NodePresave {
   public function setSubjectTerms(EntityInterface $entity) {
     $id = $entity->label();
     $article = $this->getArticleById($id);
-    // Use the published JSON if no unpublished exists.
-    $version = $article->getLatestUnpublishedVersionJson() ?: $article->getLatestPublishedVersionJson();
+    // Use the unpublished JSON if no published exists.
+    $version = $article->getLatestPublishedVersionJson() ?: $article->getLatestUnpublishedVersionJson();
     $json = json_decode($version);
     if (property_exists($json, 'subjects')) {
       // Unset the terms first.
@@ -169,7 +165,8 @@ final class NodePresave {
    */
   private function loadTermIdByIdField(string $id): int {
     $tid = 0;
-    $query = \Drupal::entityQuery('taxonomy_term')->condition('field_subject_id', $id);
+    $query = \Drupal::entityQuery('taxonomy_term')
+      ->condition('field_subject_id', $id);
     $tids = $query->execute();
     if ($tids) {
       $tid = reset($tids);

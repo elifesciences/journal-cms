@@ -34,6 +34,7 @@ module:
   history: 0
   image: 0
   inline_entity_form: 0
+  jcms_article: 0
   jcms_migrate: 0
   jcms_notifications: 0
   jcms_rest: 0

@@ -38,13 +38,22 @@ class ArticleCrud {
    */
   public function crudArticle(ArticleVersions $articleVersions) {
     $node = NULL;
-    if ($nid = $this->getNodeIdByArticleId($articleVersions->getId())) {
-      if ($articleVersions->getAction() == ArticleVersions::DELETE) {
-        $node = $this->deleteArticle($nid);
+    $nid = $this->getNodeIdByArticleId($articleVersions->getId());
+    $action = $articleVersions->getAction();
+    // If we have a node with the requested article ID.
+    if ($nid) {
+      // Delete it.
+      if ($action == ArticleVersions::DELETE) {
+        $node = $this->deleteArticle($articleVersions);
       }
+      // Update it.
       else {
         $node = $this->updateArticle($articleVersions);
       }
+    }
+    // Create a new node if we have no node ID with the article ID requested.
+    else {
+      $node = $this->createArticle($articleVersions);
     }
     return $node;
   }
@@ -120,11 +129,12 @@ class ArticleCrud {
   /**
    * Deletes an article node.
    *
-   * @param $node_id
+   * @param \Drupal\jcms_article\Entity\ArticleVersions $articleVersions
    *
    * @return mixed
    */
-  public function deleteArticle(int $node_id) {
+  public function deleteArticle(ArticleVersions $articleVersions) {
+    $node_id = $this->getNodeIdByArticleId($articleVersions->getId());
     return $this->entityTypeManager->getStorage('node')->delete([$node_id]);
   }
 

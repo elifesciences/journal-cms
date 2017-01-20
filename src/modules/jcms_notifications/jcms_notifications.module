@@ -24,17 +24,6 @@ function jcms_notifications_help($route_name, RouteMatchInterface $route_match) 
 }
 
 /**
- * Implements hook_node_presave().
- */
-function jcms_notifications_node_presave(EntityInterface $entity) {
-  $article_data_service = \Drupal::service('jcms_notifications.node_mapper');
-  $article_data_service->setNode($entity);
-  $article_data_service->addJsonFields();
-  $article_data_service->setPublishedStatus();
-  $article_data_service->setPublishedDate();
-}
-
-/**
  * Implements hook_node_insert().
  */
 function jcms_notifications_node_insert(EntityInterface $entity) {
