@@ -1,0 +1,13 @@
+services:
+
+  jcms_article.fetch_article_versions:
+    class: Drupal\jcms_article\FetchArticleVersions
+    arguments: ["@http_client"]
+
+  jcms_article.hooks.node_presave:
+    class: Drupal\jcms_article\Hooks\NodePresave
+    arguments: ["@jcms_article.fetch_article_versions"]
+
+  jcms_article.article_crud:
+    class: Drupal\jcms_article\ArticleCrud
+    arguments: ["@entity_type.manager"]

@@ -3,16 +3,6 @@ services:
     class: Drupal\jcms_notifications\QueueService
   jcms_notifications.notification_service:
     class: Drupal\jcms_notifications\NotificationService
-  jcms_notifications.fetch_article_service:
-    class: Drupal\jcms_notifications\FetchArticleService
-    arguments: ["@http_client"]
-  jcms_notifications.article_crud_service:
-    class: Drupal\jcms_notifications\ArticleCrudService
-    arguments: ["@jcms_notifications.fetch_article_service", "@entity_type.manager"]
   jcms_notifications.node_crud_notification_service:
     class: Drupal\jcms_notifications\NodeCrudNotificationService
     arguments: ["@jcms_notifications.notification_service"]
-  jcms_notifications.node_mapper:
-    class: Drupal\jcms_notifications\ArticlePresave
-    arguments: ["@jcms_notifications.fetch_article_service"]
-
