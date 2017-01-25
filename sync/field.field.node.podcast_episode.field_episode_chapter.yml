@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_episode_chapter
+    - node.type.podcast_chapter
     - node.type.podcast_episode
 id: node.podcast_episode.field_episode_chapter
 field_name: field_episode_chapter
@@ -19,7 +20,7 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      podcast_episode: podcast_episode
+      podcast_chapter: podcast_chapter
     sort:
       field: _none
     auto_create: false

@@ -34,10 +34,10 @@ content:
       form_mode: default
       label_singular: ''
       label_plural: ''
-      allow_existing: true
+      allow_new: true
       match_operator: CONTAINS
       override_labels: false
-      allow_new: false
+      allow_existing: false
     third_party_settings: {  }
     type: inline_entity_form_complex
   field_episode_mp3:
