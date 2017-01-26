@@ -39,7 +39,8 @@ final class ArticleVersions {
    * @param string $json
    * @param int $action
    */
-  public function __construct(string $id, string $json = '', int $action = self::WRITE) {
+  public function __construct(string $id, string $json, int $action = self::WRITE) {
+    $json = $json ?: '{}';
     if (!$this->isValidJson($json)) {
       throw new \InvalidArgumentException('JSON error: ' . json_last_error_msg());
     }

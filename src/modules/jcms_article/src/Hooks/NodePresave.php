@@ -98,7 +98,7 @@ final class NodePresave {
     // Use the unpublished JSON if no published exists.
     $version = $article->getLatestPublishedVersionJson() ?: $article->getLatestUnpublishedVersionJson();
     $json = json_decode($version);
-    if (property_exists($json, 'subjects')) {
+    if (is_object($json) && property_exists($json, 'subjects')) {
       // Unset the terms first.
       $entity->set('field_subjects', []);
       foreach ($json->subjects as $subject) {
@@ -126,9 +126,8 @@ final class NodePresave {
     // Store the published JSON if no unpublished exists.
     $unpublished = $article->getLatestUnpublishedVersionJson() ?: $published;
     $paragraph->set('field_article_unpublished_json', $unpublished);
-    if ($published) {
-      $paragraph->set('field_article_published_json', $published);
-    }
+    $paragraph->set('field_article_published_json', $published);
+    $paragraph->save();
     $entity->field_article_json = [
       [
         'target_id' => $paragraph->id(),
