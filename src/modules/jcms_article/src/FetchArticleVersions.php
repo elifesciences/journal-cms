@@ -60,7 +60,7 @@ final class FetchArticleVersions {
    */
   function requestArticleVersions(string $id): ResponseInterface {
     $options = [
-      'auth' => Settings::get('jcms_article_auth_unpublished'),
+      'headers' => ['Authorization' => Settings::get('jcms_article_auth_unpublished'),],
       'http_errors' => FALSE,
     ];
     $url = $this->formatUrl($id, $this->endpoint);
