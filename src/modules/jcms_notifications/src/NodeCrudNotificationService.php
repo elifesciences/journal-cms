@@ -32,15 +32,16 @@ class NodeCrudNotificationService {
    */
   public function action(EntityInterface $entity) {
     $bundle = $entity->bundle();
-    $types = array_keys($this->entityTypeMap());
-    if (in_array($bundle, $types)) {
+    $bundles = array_keys($this->entityTypeMap());
+    if (in_array($bundle, $bundles)) {
       $node_data = $this->entityTypeMap()[$bundle];
+      $topic = $node_data['topic'];
       $key = $node_data['key'];
       $field_name = $node_data['field'];
       $id = $this->getIdFromEntity($entity, $field_name);
       $type = $node_data['type'];
       $message = ['type' => $type, $key => $id];
-      $this->notificationService->sendNotification($message);
+      $this->notificationService->sendNotification($topic, $message);
     }
   }
 
@@ -54,52 +55,62 @@ class NodeCrudNotificationService {
   public function entityTypeMap() {
     return [
       'annual_report' => [
-        'type' => 'annual-reports',
+        'topic' => 'annual-reports',
+        'type' => 'annual-report',
         'key' => 'year',
         'field' => 'field_annual_report_year',
       ],
       'blog_article' => [
-        'type' => 'blog-articles',
+        'topic' => 'blog-articles',
+        'type' => 'blog-article',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'collection' => [
-        'type' => 'collections',
+        'topic' => 'collections',
+        'type' => 'collection',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'cover' => [
-        'type' => 'covers',
+        'topic' => 'covers',
+        'type' => 'cover',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'event' => [
-        'type' => 'events',
+        'topic' => 'events',
+        'type' => 'event',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'interview' => [
-        'type' => 'interviews',
+        'topic' => 'interviews',
+        'type' => 'interview',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'labs_experiment' => [
-        'type' => 'labs-experiments',
+        'topic' => 'labs-experiments',
+        'type' => 'labs-experiment',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'person' => [
-        'type' => 'people',
+        'topic' => 'people',
+        'type' => 'person',
         'key' => 'id',
         'field' => 'uuid_last_8',
       ],
       'podcast_episode' => [
-        'type' => 'podcast-episodes',
+        'topic' => 'podcast-episodes',
+        'type' => 'podcast-episode',
         'key' => 'number',
         'field' => 'field_episode_number',
       ],
       'subject' => [
-        'type' => 'subjects',
+        'topic' => 'subjects',
+        'type' => 'subject',
         'key' => 'id',
         'field' => 'field_subject_id',
       ],

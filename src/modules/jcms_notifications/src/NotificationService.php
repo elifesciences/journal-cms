@@ -47,12 +47,13 @@ class NotificationService {
   /**
    * Sends a notification message to SNS.
    *
+   * @param string $topic
    * @param array $message
    *
    * @return \Aws\Result
    */
-  public function sendNotification(array $message) {
-    $topic_arn = sprintf($this->topicArn, $message['type']);
+  public function sendNotification(string $topic, array $message) {
+    $topic_arn = sprintf($this->topicArn, $topic);
     return $this->snsClient->publish([
       'TopicArn' => $topic_arn,
       'Message' => json_encode($message),
