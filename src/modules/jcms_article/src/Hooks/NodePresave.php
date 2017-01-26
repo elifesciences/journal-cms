@@ -129,6 +129,12 @@ final class NodePresave {
     if ($published) {
       $paragraph->set('field_article_published_json', $published);
     }
+    $entity->field_article_json = [
+      [
+        'target_id' => $paragraph->id(),
+        'target_revision_id' => $paragraph->getRevisionId(),
+      ],
+    ];
   }
 
   /**
@@ -152,8 +158,12 @@ final class NodePresave {
       ],
     ]);
     $paragraph->save();
-    $pid = $paragraph->id();
-    $entity->set('field_article_json', ['target_id' => $pid]);
+    $entity->field_article_json = [
+      [
+        'target_id' => $paragraph->id(),
+        'target_revision_id' => $paragraph->getRevisionId(),
+      ],
+    ];
   }
 
   /**
