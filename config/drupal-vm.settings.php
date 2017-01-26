@@ -32,3 +32,4 @@ $settings['jcms_sqs_queue'] = 'journal-cms--queue-local';
 $settings['jcms_sns_topic_template'] = 'arn:aws:sns:local:000000000000:%s';
 $settings['jcms_sqs_region'] = 'us-east-1';
 $settings['jcms_articles_endpoint'] = 'https://prod--gateway.elifesciences.org/articles/%s/versions';
+$settings['jcms_all_articles_endpoint'] = 'https://prod--gateway.elifesciences.org/articles';

@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_article;
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\jcms_article\Entity\ArticleVersions;
 use Drupal\node\Entity\Node;
@@ -70,20 +71,7 @@ class ArticleCrud {
       'type' => 'article',
       'title' => $articleVersions->getId(),
     ]);
-    $published = $articleVersions->getLatestPublishedVersionJson();
-    // Store the published JSON if no unpublished exists.
-    $unpublished = $articleVersions->getLatestUnpublishedVersionJson() ?: $published;
-    $config = [
-      'type' => 'json',
-      'field_article_unpublished_json' => [
-        'value' => $unpublished,
-      ],
-      'field_article_published_json' => [
-        'value' => $published,
-      ],
-    ];
-    $paragraph = Paragraph::create($config);
-    $paragraph->save();
+    $paragraph = $this->createParagraph($node, $articleVersions);
     $node->field_article_json = [
       [
         'target_id' => $paragraph->id(),
@@ -107,6 +95,31 @@ class ArticleCrud {
       return NULL;
     }
     $node = Node::load($nid);
+    if ($node->get('field_article_json')->getValue()) {
+      $paragraph = $this->updateParagraph($node, $articleVersions);
+    }
+    else {
+      $paragraph = $this->createParagraph($node, $articleVersions);
+    }
+    $node->field_article_json = [
+      [
+        'target_id' => $paragraph->id(),
+        'target_revision_id' => $paragraph->getRevisionId(),
+      ],
+    ];
+    $node->save();
+    return $node;
+  }
+
+  /**
+   * Updates an existing paragraph.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $node
+   * @param \Drupal\jcms_article\Entity\ArticleVersions $articleVersions
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   */
+  public function updateParagraph(EntityInterface $node, ArticleVersions $articleVersions) {
     $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
     $paragraph = Paragraph::load($pid);
     $published = $articleVersions->getLatestPublishedVersionJson();
@@ -116,14 +129,33 @@ class ArticleCrud {
     $paragraph->set('field_article_published_json', $published);
     $paragraph->setNewRevision();
     $paragraph->save();
-    $node->field_article_json = [
-      [
-        'target_id' => $paragraph->id(),
-        'target_revision_id' => $paragraph->getRevisionId(),
+    return $paragraph;
+  }
+
+  /**
+   * Creates a new paragraph.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $node
+   * @param \Drupal\jcms_article\Entity\ArticleVersions $articleVersions
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   */
+  public function createParagraph(EntityInterface $node, ArticleVersions $articleVersions) {
+    $published = $articleVersions->getLatestPublishedVersionJson();
+    // Store the published JSON if no unpublished exists.
+    $unpublished = $articleVersions->getLatestUnpublishedVersionJson() ?: $published;
+    $config = [
+      'type' => 'json',
+      'field_article_unpublished_json' => [
+        'value' => $unpublished,
+      ],
+      'field_article_published_json' => [
+        'value' => $published,
       ],
     ];
-    $node->save();
-    return $node;
+    $paragraph = Paragraph::create($config);
+    $paragraph->save();
+    return $paragraph;
   }
 
   /**
