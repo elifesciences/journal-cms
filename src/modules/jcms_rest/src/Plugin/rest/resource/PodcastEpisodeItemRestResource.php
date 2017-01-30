@@ -137,20 +137,26 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       $chapter_values['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
     }
     if ($node->get('field_related_content')->count()) {
-      $chapter_values['content'] = [];
+      $chapter_content = [];
       $collection_rest_resource = new CollectionListRestResource([], 'collection_list_rest_resource', [], $this->serializerFormats, $this->logger);
       foreach ($node->get('field_related_content') as $content) {
         /* @var \Drupal\node\Entity\Node $content_node */
         $content_node = $content->get('entity')->getTarget()->getValue();
         switch ($content_node->getType()) {
           case 'collection':
-            $chapter_values['content'][] = ['type' => 'collection'] + $collection_rest_resource->getItem($content_node);
+            $chapter_content[] = ['type' => 'collection'] + $collection_rest_resource->getItem($content_node);
             break;
           case 'article':
-            $chapter_values['content'][] = $this->getArticleSnippet($content_node);
+            if ($article = $this->getArticleSnippet($content_node)) {
+              $chapter_content[] = $article;
+            }
             break;
           default:
         }
+      }
+
+      if (!empty($chapter_content)) {
+        $chapter_values['content'] = $chapter_content;
       }
     }
 

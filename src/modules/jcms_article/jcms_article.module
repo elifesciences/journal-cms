@@ -34,6 +34,6 @@ function jcms_article_node_presave(EntityInterface $entity) {
   $node_presave = \Drupal::service('jcms_article.hooks.node_presave');
   $node_presave->addJsonFields($entity);
   $node_presave->setPublishedStatus($entity);
-  $node_presave->setPublishedDate($entity);
+  $node_presave->setStatusDate($entity);
   $node_presave->setSubjectTerms($entity);
 }

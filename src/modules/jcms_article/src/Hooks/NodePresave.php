@@ -41,7 +41,12 @@ final class NodePresave {
    * @return \Drupal\jcms_article\Entity\ArticleVersions|null
    */
   public function getArticleById($id) {
+    // If there is no stored article data.
     if (!self::$articleData) {
+      self::$articleData = $this->fetchArticleVersions->getArticleVersions($id);
+    }
+    // If there is stored article data but the ID doesn't match the request ID.
+    elseif (self::$articleData->getJsonObject()->id != $id) {
       self::$articleData = $this->fetchArticleVersions->getArticleVersions($id);
     }
     return self::$articleData;
@@ -60,9 +65,9 @@ final class NodePresave {
   }
 
   /**
-   * Sets the published date on the node.
+   * Sets the status date (the date article became VOR or POA) on the node.
    */
-  public function setPublishedDate(EntityInterface $entity) {
+  public function setStatusDate(EntityInterface $entity) {
     $id = $entity->label();
     $article = $this->getArticleById($id);
     // Set the published date if there's a published version.
@@ -71,10 +76,10 @@ final class NodePresave {
       return NULL;
     }
     $json = json_decode($version);
-    if (!property_exists($json, 'published')) {
+    if (!property_exists($json, 'statusDate')) {
       return NULL;
     }
-    $date = strtotime($json->published);
+    $date = strtotime($json->statusDate);
     $entity->set('created', $date);
   }
 

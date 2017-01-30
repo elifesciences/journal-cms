@@ -42,7 +42,9 @@ class HighlightedPodcastListRestResource extends AbstractRestResourceBase {
       $item_node = $item->get('entity')->getTarget()->getValue();
       // Unpublishing highlighted content doesn't seem to remove the items from the results.
       if ($item_node->isPublished()) {
-        $response_data['items'][] = $this->getEntityQueueItem($item_node, $item_node->get('field_podcast_chapter'));
+        if ($item = $this->getEntityQueueItem($item_node, $item_node->get('field_podcast_chapter'))) {
+          $response_data['items'][] = $item;
+        }
       }
     }
 

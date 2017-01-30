@@ -32,8 +32,8 @@ class JCMSCollectionNode extends SqlBase {
     $query->addField('impact', 'field_elife_c_text_value', 'summary');
     $query->addField('fm', 'uri', 'photo_uri');
     $query->addExpression("GROUP_CONCAT(DISTINCT curators.field_elife_c_curators_target_id ORDER BY curators.delta ASC SEPARATOR '|')", 'curators');
-    $query->addExpression("GROUP_CONCAT(IF(an.type = 'elife_news_article', CONCAT('blog_article|', an.nid), IF(an.type = 'elife_article_reference', CONCAT('article|', SUBSTRING_INDEX(an.title, ':', 1)), an.type)) ORDER BY articles.delta SEPARATOR '||')", "content");
-    $query->addExpression("GROUP_CONCAT(SUBSTRING_INDEX(rn.title, ':', 1) ORDER BY related.delta ASC)", 'related');
+    $query->addExpression("GROUP_CONCAT(DISTINCT IF(an.type = 'elife_news_article', CONCAT('blog_article|', an.nid), IF(an.type = 'elife_article_reference', CONCAT('article|', SUBSTRING_INDEX(an.title, ':', 1)), an.type)) ORDER BY articles.delta SEPARATOR '||')", "content");
+    $query->addExpression("GROUP_CONCAT(DISTINCT SUBSTRING_INDEX(rn.title, ':', 1) ORDER BY related.delta ASC)", 'related');
 
     $query->condition('n.type', 'elife_collection');
     $query->groupBy('n.nid');

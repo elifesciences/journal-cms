@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_article;
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\jcms_article\Entity\ArticleVersions;
 use Drupal\node\Entity\Node;
@@ -21,12 +22,27 @@ class ArticleCrud {
   protected $entityTypeManager;
 
   /**
+   * Flag set to TRUE to skip updating articles.
+   *
+   * @var bool
+   */
+  protected $skipUpdates = FALSE;
+
+  /**
    * ArticleCrud constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    */
   public function __construct(EntityTypeManager $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * Set the flag to skip updating articles.
+   *
+   */
+  public function skipUpdates() {
+    $this->skipUpdates = TRUE;
   }
 
   /**
@@ -47,7 +63,7 @@ class ArticleCrud {
         $node = $this->deleteArticle($articleVersions);
       }
       // Update it.
-      else {
+      elseif (!$this->skipUpdates) {
         $node = $this->updateArticle($articleVersions);
       }
     }
@@ -70,20 +86,7 @@ class ArticleCrud {
       'type' => 'article',
       'title' => $articleVersions->getId(),
     ]);
-    $published = $articleVersions->getLatestPublishedVersionJson();
-    // Store the published JSON if no unpublished exists.
-    $unpublished = $articleVersions->getLatestUnpublishedVersionJson() ?: $published;
-    $config = [
-      'type' => 'json',
-      'field_article_unpublished_json' => [
-        'value' => $unpublished,
-      ],
-      'field_article_published_json' => [
-        'value' => $published,
-      ],
-    ];
-    $paragraph = Paragraph::create($config);
-    $paragraph->save();
+    $paragraph = $this->createParagraph($node, $articleVersions);
     $node->field_article_json = [
       [
         'target_id' => $paragraph->id(),
@@ -107,6 +110,31 @@ class ArticleCrud {
       return NULL;
     }
     $node = Node::load($nid);
+    if ($node->get('field_article_json')->getValue()) {
+      $paragraph = $this->updateParagraph($node, $articleVersions);
+    }
+    else {
+      $paragraph = $this->createParagraph($node, $articleVersions);
+    }
+    $node->field_article_json = [
+      [
+        'target_id' => $paragraph->id(),
+        'target_revision_id' => $paragraph->getRevisionId(),
+      ],
+    ];
+    $node->save();
+    return $node;
+  }
+
+  /**
+   * Updates an existing paragraph.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $node
+   * @param \Drupal\jcms_article\Entity\ArticleVersions $articleVersions
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   */
+  public function updateParagraph(EntityInterface $node, ArticleVersions $articleVersions) {
     $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
     $paragraph = Paragraph::load($pid);
     $published = $articleVersions->getLatestPublishedVersionJson();
@@ -116,14 +144,33 @@ class ArticleCrud {
     $paragraph->set('field_article_published_json', $published);
     $paragraph->setNewRevision();
     $paragraph->save();
-    $node->field_article_json = [
-      [
-        'target_id' => $paragraph->id(),
-        'target_revision_id' => $paragraph->getRevisionId(),
+    return $paragraph;
+  }
+
+  /**
+   * Creates a new paragraph.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $node
+   * @param \Drupal\jcms_article\Entity\ArticleVersions $articleVersions
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   */
+  public function createParagraph(EntityInterface $node, ArticleVersions $articleVersions) {
+    $published = $articleVersions->getLatestPublishedVersionJson();
+    // Store the published JSON if no unpublished exists.
+    $unpublished = $articleVersions->getLatestUnpublishedVersionJson() ?: $published;
+    $config = [
+      'type' => 'json',
+      'field_article_unpublished_json' => [
+        'value' => $unpublished,
+      ],
+      'field_article_published_json' => [
+        'value' => $published,
       ],
     ];
-    $node->save();
-    return $node;
+    $paragraph = Paragraph::create($config);
+    $paragraph->save();
+    return $paragraph;
   }
 
   /**
@@ -150,6 +197,29 @@ class ArticleCrud {
     $query = \Drupal::entityQuery('node')->condition('title', $articleId);
     $result = $query->execute();
     return !empty($result) ? reset($result) : 0;
+  }
+
+  /**
+   * Get article snippet from node.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $node
+   * @param bool $preview
+   * @return bool|mixed
+   */
+  public function getArticle(EntityInterface $node, $preview = FALSE) {
+    $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
+    $paragraph = Paragraph::load($pid);
+    if ($preview) {
+      return json_decode($paragraph->get('field_article_unpublished_json')->getString());
+    }
+    else {
+      if ($paragraph->get('field_article_published_json')->getValue()) {
+        return json_decode($paragraph->get('field_article_published_json')->getString());
+      }
+      else {
+        return FALSE;
+      }
+    }
   }
 
 }

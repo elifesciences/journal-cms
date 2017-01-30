@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\jcms_article\ArticleCrud;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\rest\Plugin\ResourceBase;
@@ -370,113 +371,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * @return array
    */
   protected function getArticleSnippet(Node $node) {
-    // @todo - elife - nlisgo - output json values from node.
-    return $this->dummyArticle($node->getTitle());
-  }
-
-  /**
-   * Get a dummy article.
-   *
-   * @param string $article_id
-   * @return array
-   */
-  protected function dummyArticle(string $article_id) {
-    $random = new Random();
-
-    // Generate a random name.
-    $names = function($preferred_only = FALSE) use ($random) {
-      $names = [ucfirst($random->word(rand(4, 9))), ucfirst($random->word(rand(4, 9)))];
-      if ($preferred_only) {
-        return implode(' ', $names);
-      }
-      else {
-        return [
-          'preferred' => implode(' ', $names),
-          'index' => implode(', ', array_reverse($names)),
-        ];
-      }
-    };
-
-    // Select a single random item from array.
-    $random_item = function ($array) {
-      shuffle($array);
-      return $array[0];
-    };
-
-    $content = [
-      'type' => $random_item(['correction', 'editorial', 'feature', 'insight', 'research-advance', 'research-article', 'research-exchange', 'retraction', 'registered-report', 'replication-study', 'short-report', 'tools-resources']),
-      'status' => $random_item(['poa', 'vor']),
-      'id' => $article_id,
-      'version' => rand(1, 3),
-      'doi' => '10.7554/eLife.' . $article_id,
-      'authorLine' => $names(TRUE) . $random_item(['', ' et al']),
-      'title' => $random->sentences(3),
-      'stage' => 'published',
-      'published' => $this->formatDate(),
-      'statusDate' => $this->formatDate(),
-      'volume' => rand(1, 5),
-      'elocationId' => 'e' . $article_id,
-      'pdf' => 'https://elifesciences.org/content/%d/e' . $article_id . '.pdf',
-    ];
-
-    // Insert the volume number into pdf url.
-    $content['pdf'] = sprintf($content['pdf'], $content['volume']);
-
-    // Optionally display impact statement.
-    if (rand(0, 2) > 0) {
-      $content['impactStatement'] = $random->sentences(4);
-    }
-
-    // Optionally display dummy image.
-    if (rand(0, 2) === 0) {
-      $content['image'] = $this->dummyThumbnail();
-    }
-
-    if (rand(0, 2) > 0) {
-      $subjects = [
-        ['id' => 'plant-biology', 'name' => 'Plant Biology'],
-        ['id' => 'neuroscience', 'name' => 'Neuroscience'],
-        ['id' => 'microbiology-infectious-disease', 'name' => 'Microbiology and Infectious Disease'],
-        ['id' => 'immunology', 'name' => 'Immunology'],
-        ['id' => 'human-biology-medicine', 'name' => 'Human Biology and Medicine'],
-        ['id' => 'genomics-evolutionary-biology', 'name' => 'Genomics and Evolutionary Biology'],
-        ['id' => 'genes-chromosomes', 'name' => 'Genes and Chromosomes'],
-        ['id' => 'epidemiology-global-health', 'name' => 'Epidemiology and Global Health'],
-        ['id' => 'ecology', 'name' => 'Ecology'],
-        ['id' => 'developmental-biology-stem-cells', 'name' => 'Developmental Biology and Stem Cells'],
-        ['id' => 'computational-systems-biology', 'name' => 'Computational and Systems Biology'],
-        ['id' => 'cell-biology', 'name' => 'Cell Biology'],
-        ['id' => 'cancer-biology', 'name' => 'Cancer Biology'],
-        ['id' => 'biophysics-structural-biology', 'name' => 'Biophysics and Structural Biology'],
-        ['id' => 'biochemistry', 'name' => 'Biochemistry'],
-      ];
-
-      shuffle($subjects);
-      $subjects = array_slice($subjects, 0, rand(1, 3));
-      foreach ($subjects as $k => $subject) {
-        $subjects[$k] = array_intersect_key($subject, array_flip(['id', 'name']));
-      }
-      $content['subjects'] = array_values($subjects);
-    }
-
-    return $content;
-  }
-
-  /**
-   * Get a dummy thumbnail.
-   *
-   * @return array
-   */
-  protected function dummyThumbnail() {
-    $image = $this->getImageSizes('thumbnail');
-    $image['thumbnail']['alt'] = '';
-    foreach ($image['thumbnail']['sizes'] as $ar => $sizes) {
-      foreach ($sizes as $width => $height) {
-        $image['thumbnail']['sizes'][$ar][$width] = 'https://placehold.it/' . $width . 'x' . $height;
-      }
-    }
-
-    return $image;
+    $crud_service = \Drupal::service('jcms_article.article_crud');
+    return $crud_service->getArticle($node);
   }
 
   /**
@@ -488,10 +384,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   protected function subjectsFromArticles($articles) {
     $subjects = [];
     foreach ($articles as $article) {
-      if (!empty($article['subjects'])) {
-        foreach ($article['subjects'] as $subject) {
-          if (!isset($subjects[$subject['id']])) {
-            $subjects[$subject['id']] = $subject;
+      if (property_exists($article, 'subjects') && !empty($article->subjects)) {
+        foreach ($article->subjects as $subject) {
+          if (!isset($subjects[$subject->id])) {
+            $subjects[$subject->id] = $subject;
           }
         }
       }
@@ -564,7 +460,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * @param \Drupal\Core\Entity\EntityInterface $node
    * @param \Drupal\Core\Field\FieldItemListInterface $related_field
    *
-   * @return array
+   * @return array|bool
    */
   public function getEntityQueueItem(EntityInterface $node, FieldItemListInterface $related_field) {
     /* @var Node $node */
@@ -582,15 +478,20 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     $item_values = [
       'title' => $node->getTitle(),
       'image' => $this->processFieldImage($node->get('field_image'), TRUE, 'banner', TRUE),
-      'item' => [],
     ];
 
     if ($related->getType() == 'article') {
-      $item_values['item'] = $this->getArticleSnippet($related);
+      if ($article = $this->getArticleSnippet($related)) {
+        $item_values['item'] = $article;
+      }
     }
     else {
       $item_values['item']['type'] = str_replace('_', '-', $related->getType());
       $item_values['item'] += $rest_resource[$related->getType()]->getItem($related);
+    }
+
+    if (empty($item_values['item'])) {
+      return FALSE;
     }
 
     return $item_values;

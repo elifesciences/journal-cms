@@ -55,7 +55,9 @@ class CoverListRestResource extends AbstractRestResourceBase {
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
         foreach ($nodes as $node) {
-          $response_data['items'][] = $this->getItem($node);
+          if ($item = $this->getItem($node)) {
+            $response_data['items'][] = $item;
+          }
         }
       }
     }
