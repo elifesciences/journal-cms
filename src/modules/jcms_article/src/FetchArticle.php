@@ -68,7 +68,9 @@ class FetchArticle {
    */
   function requestArticle(string $id): ResponseInterface {
     $options = [
-      'auth' => Settings::get('jcms_article_auth_unpublished'),
+      'headers' => [
+        'Authorization' => Settings::get('jcms_article_auth_unpublished'),
+      ],
       'http_errors' => FALSE,
     ];
     $url = $this->formatUrl($id, $this->endpoint);
@@ -104,11 +106,17 @@ class FetchArticle {
     $articles = [];
     $endpoint = Settings::get('jcms_all_articles_endpoint');
     if ($endpoint) {
-      $auth_key = 'jcms_article_auth_unpublished';
       $stop = FALSE;
       $page = 1;
+      $per_page = 100;
+      $options = [
+        'headers' => [
+          'Authorization' => Settings::get('jcms_article_auth_unpublished'),
+        ],
+        'http_errors' => FALSE,
+      ];
       while (!$stop) {
-        $response = $this->client->get($endpoint, ['auth' => Settings::get($auth_key), 'http_errors' => FALSE, 'query' => ['page' => $page]]);
+        $response = $this->client->get($endpoint, $options + ['query' => ['per-page' => $per_page, 'page' => $page]]);
         if ($response instanceof ResponseInterface) {
           $body = $response->getBody()->getContents();
           $json = json_decode($body, TRUE);
