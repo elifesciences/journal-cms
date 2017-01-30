@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "geerlingguy/drupal-vm",
-            "version": "4.0.0",
+            "version": "4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geerlingguy/drupal-vm.git",
-                "reference": "519033a09e16fda8361eddddb8e712e59be72892"
+                "reference": "68feefa163f2d25e9668af9ac33eab9b151ac8a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/519033a09e16fda8361eddddb8e712e59be72892",
-                "reference": "519033a09e16fda8361eddddb8e712e59be72892",
+                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/68feefa163f2d25e9668af9ac33eab9b151ac8a6",
+                "reference": "68feefa163f2d25e9668af9ac33eab9b151ac8a6",
                 "shasum": ""
             },
             "type": "vm",
@@ -44,7 +44,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2016-12-10 16:57:46"
+            "time": "2016-12-30 22:05:07"
         }
     ],
     "packages-dev": [],
