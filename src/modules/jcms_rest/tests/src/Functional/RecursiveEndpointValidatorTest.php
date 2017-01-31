@@ -31,7 +31,7 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
     // Using Puli CLI as a Composer dependency means the class
     // "Puli\GeneratedPuliFactory" is not found by the autoloader. In this case,
     // we load it in manually.
-    $this->projectRoot = realpath(__DIR__ . '/../../../../..');
+    $this->projectRoot = realpath(__DIR__ . '/../../../../../..');
     if (!class_exists('Puli\GeneratedPuliFactory')) {
       if (file_exists($this->projectRoot . '/.puli/GeneratedPuliFactory.php')) {
         require_once($this->projectRoot . '/.puli/GeneratedPuliFactory.php');
