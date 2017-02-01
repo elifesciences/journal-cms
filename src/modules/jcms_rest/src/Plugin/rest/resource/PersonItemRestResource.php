@@ -71,23 +71,39 @@ class PersonItemRestResource extends AbstractRestResourceBase {
         if ($research_details_field->get('field_research_expertises')->count()) {
           $research['expertises'] = [];
           $research['focuses'] = [];
+          $expertises = [
+            'id' => [],
+            'name' => [],
+          ];
           foreach ($research_details_field->get('field_research_expertises') as $expertise) {
-            $research['expertises'][] = [
-              'id' => $expertise->get('entity')->getValue()->get('field_subject_id')->getString(),
-              'name' => $expertise->get('entity')->getValue()->toLink()->getText(),
-            ];
+            $expertise_id = $expertise->get('entity')->getValue()->get('field_subject_id')->getString();
+            $expertise_name = $expertise->get('entity')->getValue()->toLink()->getText();
+            if (!in_array($expertise_id, $expertises['id']) && !in_array($expertise_name, $expertises['name'])) {
+              $research['expertises'][] = [
+                'id' => $expertise_id,
+                'name' => $expertise_name,
+              ];
+              $expertises['id'][] = $expertise_id;
+              $expertises['name'][] = $expertise_name;
+            }
           }
         }
         if ($research_details_field->get('field_research_focuses')->count()) {
           $research['focuses'] = [];
           foreach ($research_details_field->get('field_research_focuses') as $focus) {
-            $research['focuses'][] = $focus->get('entity')->getValue()->toLink()->getText();
+            $focus_text = $focus->get('entity')->getValue()->toLink()->getText();
+            if (in_array($focus_text, $research['focuses'])) {
+              $research['focuses'][] = $focus_text;
+            }
           }
         }
         if ($research_details_field->get('field_research_organisms')->count()) {
           $research['organisms'] = [];
           foreach ($research_details_field->get('field_research_organisms') as $organism) {
-            $research['organisms'][] = $organism->get('entity')->getValue()->toLink()->getText();
+            $organism_text = $organism->get('entity')->getValue()->toLink()->getText();
+            if (in_array($organism_text, $research['organisms'])) {
+              $research['organisms'][] = $organism_text;
+            }
           }
         }
 

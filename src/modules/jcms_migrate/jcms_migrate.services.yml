@@ -1,0 +1,5 @@
+services:
+  jcms_migrate.jcms_migrate_event_subscriber:
+    class: Drupal\jcms_migrate\EventSubscriber\JCMSMIgrateEventSubscriber
+    tags:
+      - { name: event_subscriber }

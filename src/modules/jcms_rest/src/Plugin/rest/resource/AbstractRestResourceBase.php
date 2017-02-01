@@ -463,6 +463,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * @return array|bool
    */
   public function getEntityQueueItem(EntityInterface $node, FieldItemListInterface $related_field) {
+    if (empty($related_field->first()->get('entity')->getTarget())) {
+      return FALSE;
+    }
+
     /* @var Node $node */
     /* @var Node $related */
     $related = $related_field->first()->get('entity')->getTarget()->getValue();
@@ -486,8 +490,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       }
     }
     else {
-      $item_values['item']['type'] = str_replace('_', '-', $related->getType());
-      $item_values['item'] += $rest_resource[$related->getType()]->getItem($related);
+      if (!empty($rest_resource[$related->getType()])) {
+        $item_values['item']['type'] = str_replace('_', '-', $related->getType());
+        $item_values['item'] += $rest_resource[$related->getType()]->getItem($related);
+      }
     }
 
     if (empty($item_values['item'])) {

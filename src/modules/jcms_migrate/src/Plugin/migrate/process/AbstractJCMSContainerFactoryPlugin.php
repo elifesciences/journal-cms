@@ -79,6 +79,10 @@ abstract class AbstractJCMSContainerFactoryPlugin extends ProcessPluginBase impl
       $dest_values = [];
       foreach ($values as $value) {
         if ($dest_value = $migration->transform([$value], $migrate_executable, $row, $destination_property)) {
+          if (!is_array($dest_value)) {
+            $dest_value = [$dest_value];
+          }
+
           if (!$multiple) {
             return $dest_value[0];
           }

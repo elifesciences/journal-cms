@@ -84,28 +84,6 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
   }
 
   /**
-   * Prepare snippet of article or collection.
-   *
-   * @todo - elife - nlisgo - swap out for actual article snippets.
-   *
-   * @param string $content_id
-   * @return array
-   */
-  public function prepareContent($content_id) {
-    // Display collection snippet.
-    if (preg_match('~^collections/(?P<id>[0-9]+)~', $content_id, $match)) {
-      $collection_rest_resource = new CollectionListRestResource([], 'collection_list_rest_resource', [], $this->serializerFormats, $this->logger);
-      $content = ['type' => 'collection'] + $collection_rest_resource->getItem(Node::load($match['id']));
-    }
-    // Prepare dummy article snippet.
-    else {
-      $content = $this->dummyArticle($content_id);
-    }
-
-    return $content;
-  }
-
-  /**
    * Takes a chapter node and builds an item from it.
    *
    * @param \Drupal\Core\Entity\EntityInterface $node
