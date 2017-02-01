@@ -52,7 +52,9 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
         foreach ($nodes as $node) {
-          $response_data['items'][] = $this->getItem($node);
+          if ($item = $this->getItem($node)) {
+            $response_data['items'][] = $item;
+          }
         }
       }
     }
@@ -65,7 +67,7 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
    *
    * @param \Drupal\Core\Entity\EntityInterface $node
    *
-   * @return array
+   * @return array|bool
    */
   public function getItem(EntityInterface $node) {
     /* @var Node $node */
@@ -78,7 +80,13 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
 
     $articles = [];
     foreach ($node->get('field_related_content') as $related) {
-      $articles[] = $this->getArticleSnippet($related->get('entity')->getTarget()->getValue());
+      if ($article = $this->getArticleSnippet($related->get('entity')->getTarget()->getValue())) {
+        $articles[] = $article;
+      }
+    }
+
+    if (empty($articles)) {
+      return FALSE;
     }
 
     $subjects = $this->subjectsFromArticles($articles);

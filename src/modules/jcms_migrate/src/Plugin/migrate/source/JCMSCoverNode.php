@@ -3,6 +3,7 @@
 namespace Drupal\jcms_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\migrate\Row;
 
 /**
  * Source plugin for cover content.
@@ -30,6 +31,7 @@ class JCMSCoverNode extends SqlBase {
     $query->addField('fm', 'uri', 'photo_uri');
     $query->addField('im', 'field_elife_image_alt', 'photo_alt');
     $query->addExpression("CASE an.type WHEN 'elife_article_reference' THEN CONCAT('\"type\": \"article\", \"source\": \"', aid.field_elife_a_article_id_value, '\"') WHEN 'elife_podcast' THEN CONCAT('\"type\": \"podcast_episode\", \"source\": \"', en.field_elife_p_episode_number_value, '\"') WHEN 'elife_news_article' THEN CONCAT('\"type\": \"blog_article\", \"source\": \"', an.nid, '\"') ELSE '' END", 'related');
+    $query->orderBy('n.created', 'DESC');
 
     return $query;
   }
@@ -61,6 +63,20 @@ class JCMSCoverNode extends SqlBase {
         'alias' => 'n',
       ],
     ];
+  }
+
+  /**
+   * (@inheritdoc}
+   */
+  public function prepareRow(Row $row) {
+    $row->setDestinationProperty('counter', $this->rowNo());
+    return parent::prepareRow($row);
+  }
+
+  protected function rowNo() {
+    static $co = 0;
+    $co++;
+    return $co;
   }
 
 }
