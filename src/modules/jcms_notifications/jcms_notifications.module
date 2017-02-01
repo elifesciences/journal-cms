@@ -27,22 +27,22 @@ function jcms_notifications_help($route_name, RouteMatchInterface $route_match) 
  * Implements hook_node_insert().
  */
 function jcms_notifications_node_insert(EntityInterface $entity) {
-  $notification_service = \Drupal::service('jcms_notifications.node_crud_notification_service');
-  $notification_service->action($entity);
+  $notification_service = \Drupal::service('jcms_notifications.notification_storage');
+  $notification_service->saveNotificationNid($entity->id());
 }
 
 /**
  * Implements hook_node_update().
  */
 function jcms_notifications_node_update(EntityInterface $entity) {
-  $service = \Drupal::service('jcms_notifications.node_crud_notification_service');
-  $service->action($entity);
+  $notification_service = \Drupal::service('jcms_notifications.notification_storage');
+  $notification_service->saveNotificationNid($entity->id());
 }
 
 /**
  * Implements hook_node_delete().
  */
 function jcms_notifications_node_delete(EntityInterface $entity) {
-  $service = \Drupal::service('jcms_notifications.node_crud_notification_service');
-  $service->action($entity);
+  $notification_service = \Drupal::service('jcms_notifications.notification_storage');
+  $notification_service->saveNotificationNid($entity->id());
 }

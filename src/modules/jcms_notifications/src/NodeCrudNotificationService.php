@@ -3,13 +3,14 @@
 namespace Drupal\jcms_notifications;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\jcms_notifications\Notification\BusOutgoingMessage;
 
 /**
  * Class NodeCrudNotificationService
  *
  * @package Drupal\jcms_notifications
  */
-class NodeCrudNotificationService {
+final class NodeCrudNotificationService {
 
   /**
    * @var \Drupal\jcms_notifications\NotificationService
@@ -26,23 +27,31 @@ class NodeCrudNotificationService {
   }
 
   /**
-   * Main class method - sends a notification based on the node type.
+   * Sends an SNS notification based on the node type.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
+   *
+   * @return \Drupal\jcms_notifications\Notification\BusOutgoingMessage
    */
-  public function action(EntityInterface $entity) {
+  public function sendMessage(EntityInterface $entity): BusOutgoingMessage {
+    $sns_message = $this->getMessageFromNode($entity);
+    $this->notificationService->sendNotification($sns_message);
+    return $sns_message;
+  }
+
+  /**
+   * Takes a node object and returns an BusOutgoingMessage.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *
+   * @return \Drupal\jcms_notifications\Notification\BusOutgoingMessage
+   */
+  public function getMessageFromNode(EntityInterface $entity): BusOutgoingMessage {
     $bundle = $entity->bundle();
-    $bundles = array_keys($this->entityTypeMap());
-    if (in_array($bundle, $bundles)) {
-      $node_data = $this->entityTypeMap()[$bundle];
-      $topic = $node_data['topic'];
-      $key = $node_data['key'];
-      $field_name = $node_data['field'];
-      $id = $this->getIdFromEntity($entity, $field_name);
-      $type = $node_data['type'];
-      $message = ['type' => $type, $key => $id];
-      $this->notificationService->sendNotification($topic, $message);
-    }
+    $data = $this->entityTypeMap()[$bundle];
+    $field_name = $data['field'];
+    $id = $this->getIdFromEntity($entity, $field_name);
+    return new BusOutgoingMessage($id, $data['key'], $data['topic'], $data['type']);
   }
 
   /**
@@ -52,7 +61,7 @@ class NodeCrudNotificationService {
    *
    * @return array
    */
-  public function entityTypeMap() {
+  public function entityTypeMap(): array {
     return [
       'annual_report' => [
         'topic' => 'annual-reports',

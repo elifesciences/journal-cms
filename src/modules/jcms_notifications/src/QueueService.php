@@ -12,7 +12,7 @@ use Drupal\jcms_notifications\Queue\SqsMessage;
  *
  * @package Drupal\jcms_notifications
  */
-class QueueService {
+final class QueueService {
 
   /**
    * @var \Aws\Sqs\SqsClient

@@ -1,0 +1,26 @@
+<?php
+
+function jcms_notifications_schema() {
+  $schema['jcms_notifications'] = [
+    'description' => 'The base table for nodes.',
+    'fields' => [
+      'notification_id' => [
+        'description' => 'The primary identifier for a notification.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'node_id' => [
+        'description' => 'The primary identifier for a node.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+    ],
+    'indexes' => [
+      'nid' => ['node_id'],
+    ],
+    'primary key' => ['notification_id'],
+  ];
+  return $schema;
+}
