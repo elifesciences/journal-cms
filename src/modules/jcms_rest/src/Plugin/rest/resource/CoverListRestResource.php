@@ -40,7 +40,7 @@ class CoverListRestResource extends AbstractRestResourceBase {
       ->exists('field_image');
 
     $this->filterSubjects($base_query);
-    // @todo - elife - nlisgo - allow filter by date range
+    $this->filterDateRange($base_query, 'field_cover_content.entity.created');
 
     $count_query = clone $base_query;
     $items_query = clone $base_query;
@@ -50,7 +50,7 @@ class CoverListRestResource extends AbstractRestResourceBase {
     ];
     if ($total = $count_query->count()->execute()) {
       $response_data['total'] = (int) $total;
-      $this->filterPageAndOrder($items_query);
+      $this->filterPageAndOrder($items_query, 'field_cover_content.entity.created');
       $nids = $items_query->execute();
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {

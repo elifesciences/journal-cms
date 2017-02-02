@@ -61,7 +61,7 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
       return $response;
     }
 
-    throw new JCMSNotFoundHttpException(t('Lab experiment with ID @id was not found', ['@id' => $number]), NULL, 'application/problem+json');
+    throw new JCMSNotFoundHttpException(t('Lab experiment with ID @id was not found', ['@id' => $number]));
   }
 
 }
