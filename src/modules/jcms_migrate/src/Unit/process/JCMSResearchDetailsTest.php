@@ -96,6 +96,24 @@ class JCMSResearchDetailsTest extends MigrateProcessTestCase {
         "<p>Chris' research has had a substantial impact across diverse biomedical areas. The SMART domain database has been a major organisational principle that has proved to be of benefit across all of cellular and molecular biology; his evolutionary genomics research has provided guiding principles in differentiating genes that are similar – and those that are different – between model organisms and humans; his demonstration that approximately 8.2% of the human genome is functional demarcates the experiments necessary to fully understand transcriptional regulation; and, his evolutionary studies on non-coding RNAs provided the justification required for many that these contribute greatly to biological complexity. Chris is Deputy Director of the Medical Research Council (MRC) Functional Genomics Unit, is an Associate Faculty Member of the Wellcome Trust Sanger Institute, and is Professor of Genomics at the University of Oxford. He holds grants from the MRC, Parkinson's UK, Wellcome Trust, and the European Research Council (Advanced Grant).</p>",
         [],
       ],
+      [
+        "<p>Vijay&#x2019;s research aims to understand motor- and olfactory- circuit assembly: from deciphering how each component is made, interacts, and stabilises into functioning in the animal to allow behaviour in the real world. Related to the development of network function is its maintenance in the mature animal; another aspect of the work in the laboratory addresses how mature neurons and muscles are maintained. The laboratory uses a genetic approach, mainly using the fruit fly but also collaborating with those using mouse and cell-culture. VijayRaghavan is Secretary to the Government of India in the Ministry of Science and Technology in the Department of Biotechnology. He temporarily holds additional charge of the Department of Biotechnology. VijayRaghavan&#x2019;s research continues at the National Centre for Biological Sciences (NCBS) of the Tata Institute of Fundamental Research (TIFR) in Bangalore, India, where he is Distinguished Professor. He studied engineering at the Indian Institute of Technology, Kanpur. His doctoral work was at TIFR, Mumbai and postdoctoral work at the California Institute of Technology. VijayRaghavan is a Fellow of the Royal Society, a Foreign Associate of the US National Academy of Sciences and a Foreign Associate of the European Molecular Biology Organization.</p>\n\n<p>&nbsp;</p>\n\n<p><strong>Keywords:&nbsp;</strong>Developmental biology; neurogenetics; neurobiology; genetic basis of behavior</p>\n",
+        [
+          'developmental biology',
+          'neurogenetics',
+          'neurobiology',
+          'genetic basis of behavior',
+        ],
+      ],
+      [
+        "<p>Ian Baldwin&nbsp;studied biology and chemistry at Dartmouth College in Hanover, New Hampshire and graduated 1981 with an AB. In 1989, he received a PhD in Chemical Ecology from Cornell University, in the Section of Neurobiology and Behavior. He was an Assistant (1989), Associate (1993) and Full Professor (1996) in the Department of Biology at SUNY Buffalo. In 1996 he became the Founding Director of the Max Planck Institute for Chemical Ecology, where he now heads of the Department of Molecular Ecology. In 1999 he was appointed Honorary Professor at Friedrich Schiller University in Jena, Germany. In 2002 he founded the International Max Planck Research School at the Max Planck Institute in Jena. Baldwin's scientific work is devoted to understanding the traits that allow plants to survive in the real world. To achieve this, he has developed a molecular toolbox for the native tobacco, Nicotiana attenuata (coyote tobacco) and a graduate program that trains &#x201C;genome-enabled field biologists&#x201D; to combine genomic and molecular genetic tools with field work to understand the genes that matter for plant-herbivore, -pollinator, -plant, -microbial interactions under real-world conditions. He has also been a driver behind the open-access publication efforts of the Max Planck Society.</p>\n\n<p>&nbsp;</p>\n\n<p><strong>Keywords:&nbsp;</strong>Plant biology; evolution and&nbsp;ecology;&nbsp;secondary metabolism; organismic level gene function</p>",
+        [
+          'plant biology',
+          'evolution and ecology',
+          'secondary metabolism',
+          'organismic level gene function',
+        ],
+      ],
     ];
   }
 

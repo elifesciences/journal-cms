@@ -4,12 +4,28 @@
     "name": "anopheles gambiae"
   },
   {
+    "id": "<i>arabidopsis thaliana</i>",
+    "name": "<i>arabidopsis thaliana</i>"
+  },
+  {
     "id": "<i>aspergillus</i>",
     "name": "<i>aspergillus</i>"
   },
   {
     "id": "<i>b. distachyon</i>",
     "name": "<i>B. distachyon</i>"
+  },
+  {
+    "id": "bats",
+    "name": "bats"
+  },
+  {
+    "id": "birds",
+    "name": "birds"
+  },
+  {
+    "id": "<i>brachypodium distachyon</i>",
+    "name": "<i>brachypodium distachyon</i>"
   },
   {
     "id": "<i>c. elegans</i>",
@@ -32,12 +48,12 @@
     "name": "cardiac regneration"
   },
   {
-    "id": "chick",
-    "name": "chick"
+    "id": "chichlids",
+    "name": "chichlids"
   },
   {
-    "id": "cichlids",
-    "name": "cichlids"
+    "id": "chick",
+    "name": "chick"
   },
   {
     "id": "congenital heart diseases",
@@ -64,8 +80,20 @@
     "name": "enterococci"
   },
   {
+    "id": "forest",
+    "name": "forest"
+  },
+  {
+    "id": "fungi",
+    "name": "fungi"
+  },
+  {
     "id": "<i>glomus</i>",
     "name": "<i>glomus</i>"
+  },
+  {
+    "id": "grassland",
+    "name": "grassland"
   },
   {
     "id": "human",
@@ -108,8 +136,16 @@
     "name": "maize"
   },
   {
+    "id": "mammalian cells",
+    "name": "mammalian cells"
+  },
+  {
     "id": "mammalian heart",
     "name": "mammalian heart"
+  },
+  {
+    "id": "mammals",
+    "name": "mammals"
   },
   {
     "id": "<i>medicago</i>",
@@ -122,6 +158,14 @@
   {
     "id": "mouse",
     "name": "mouse"
+  },
+  {
+    "id": "mycobacterium smegmatis",
+    "name": "mycobacterium smegmatis"
+  },
+  {
+    "id": "mycobacterium tuberculosis",
+    "name": "mycobacterium tuberculosis"
   },
   {
     "id": "<i>myxococcus xanthus</i>",
@@ -144,8 +188,20 @@
     "name": "other mammals"
   },
   {
-    "id": "p. aeruginosa",
-    "name": "P. aeruginosa"
+    "id": "<i>p. aeruginosa</i>",
+    "name": "<i>P. aeruginosa</i>"
+  },
+  {
+    "id": "<i>p. falciparum</i>",
+    "name": "<i>P. falciparum</i>"
+  },
+  {
+    "id": "planaria",
+    "name": "planaria"
+  },
+  {
+    "id": "plant seeds",
+    "name": "plant seeds"
   },
   {
     "id": "plants",
@@ -168,8 +224,8 @@
     "name": "<i>pseudomonas</i>"
   },
   {
-    "id": "r. palustris",
-    "name": "R. palustris"
+    "id": "<i>r. palustris</i>",
+    "name": "<i>R. palustris</i>"
   },
   {
     "id": "rat",
@@ -186,6 +242,10 @@
   {
     "id": "<i>s. cerevisiae</i>",
     "name": "<i>S. cerevisiae</i>"
+  },
+  {
+    "id": "seed plants",
+    "name": "seed plants"
   },
   {
     "id": "soybean",
