@@ -170,7 +170,7 @@ class JCMSResearchDetails extends AbstractJCMSContainerFactoryPlugin {
 
     if (preg_match('/^.*keywords(?P<focuses>.*)$/', $profile, $match)) {
       $delimiter = '||';
-      $found = trim($match['focuses']);
+      $found = trim(preg_replace('/\s*:/', '', $match['focuses']));
 
       $map = [
         'arabidopsis, brachypodium, natural variation, developmental cell biology' => 'arabidopsis;brachypodium;natural variation;developmental cell biology',
