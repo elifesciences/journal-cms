@@ -70,6 +70,11 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
     $this->setSortBy('created', TRUE);
     $item = $this->processDefault($node, (int) $node->get('field_episode_number')->getString(), 'number');
 
+    // Impact statement is optional.
+    if ($node->get('field_impact_statement')->count()) {
+      $item['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
+    }
+
     // Image is optional.
     if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {
       $item['image'] = $image;
