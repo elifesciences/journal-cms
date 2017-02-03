@@ -112,7 +112,7 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
       $response = new JsonResponse($response, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.press-package+json;version=1']);
       return $response;
     }
-    throw new JCMSNotFoundHttpException(t('Blog article with ID @id was not found', ['@id' => $id]), NULL, 'application/problem+json');
+    throw new JCMSNotFoundHttpException(t('Blog article with ID @id was not found', ['@id' => $id]));
   }
 
 }

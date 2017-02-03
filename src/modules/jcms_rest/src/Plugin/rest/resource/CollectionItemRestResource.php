@@ -116,7 +116,7 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
       return $response;
     }
 
-    throw new JCMSNotFoundHttpException(t('Collection with ID @id was not found', ['@id' => $id]), NULL, 'application/problem+json');
+    throw new JCMSNotFoundHttpException(t('Collection with ID @id was not found', ['@id' => $id]));
   }
 
 }

@@ -60,7 +60,7 @@ class AnnualReportItemRestResource extends AbstractRestResourceBase {
       return $response;
     }
 
-    throw new JCMSNotFoundHttpException(t('Annual report with ID @id was not found', ['@id' => $year]), NULL, 'application/problem+json');
+    throw new JCMSNotFoundHttpException(t('Annual report with ID @id was not found', ['@id' => $year]));
   }
 
 }

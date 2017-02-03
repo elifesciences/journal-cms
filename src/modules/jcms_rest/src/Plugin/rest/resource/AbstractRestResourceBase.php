@@ -2,12 +2,15 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use Drupal\Component\Utility\Random;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\jcms_article\ArticleCrud;
+use Drupal\jcms_rest\Exception\JCMSBadRequestHttpException;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\rest\Plugin\ResourceBase;
@@ -18,6 +21,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     'per-page' => 10,
     'page' => 1,
     'order' => 'desc',
+    'start-date' => '2000-01-01',
+    'end-date' => '2999-12-31',
   ];
 
   protected static $requestOptions = [];
@@ -105,6 +110,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         'per-page' => (int) $request->query->get('per-page', $this->defaultOptions['per-page']),
         'order' => $request->query->get('order', $this->defaultOptions['order']),
         'subject' => (array) $request->query->get('subject', $this->defaultOptions['subject']),
+        'start-date' => $request->query->get('start-date', $this->defaultOptions['start-date']),
+        'end-date' => $request->query->get('end-date', $this->defaultOptions['end-date']),
       ];
     }
     return $this::$requestOptions;
@@ -319,6 +326,33 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     $request_options = $this->getRequestOptions();
     $query->range(($request_options['page'] - 1) * $request_options['per-page'], $request_options['per-page']);
     $query->sort($sort_by, $request_options['order']);
+  }
+
+  /**
+   * Apply filter for date range by amending query.
+   *
+   * @param \Drupal\Core\Entity\Query\QueryInterface $query
+   * @param string $field
+   */
+  protected function filterDateRange(QueryInterface &$query, $field = 'created') {
+    $start_date = DateTimeImmutable::createFromFormat('Y-m-d', $originalStartDate = $this->getRequestOption('start-date'), new DateTimeZone('Z'));
+    $end_date = DateTimeImmutable::createFromFormat('Y-m-d', $originalEndDate = $this->getRequestOption('end-date'), new DateTimeZone('Z'));
+
+    if (!$start_date || $start_date->format('Y-m-d') !== $this->getRequestOption('start-date')) {
+      throw new JCMSBadRequestHttpException(t('Invalid start date'));
+    } elseif (!$end_date || $end_date->format('Y-m-d') !== $this->getRequestOption('end-date')) {
+      throw new JCMSBadRequestHttpException(t('Invalid end date'));
+    }
+
+    $start_date = $start_date->setTime(0, 0, 0);
+    $end_date = $end_date->setTime(23, 59, 59);
+
+    if ($end_date < $start_date) {
+      throw new JCMSBadRequestHttpException(t('End date must be on or after start date'));
+    }
+
+    $query->condition($field, $start_date->getTimestamp(), '>=');
+    $query->condition($field, $end_date->getTimestamp(), '<=');
   }
 
   /**
