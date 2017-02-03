@@ -332,6 +332,10 @@
     "name": "bacterial pathogens"
   },
   {
+    "id": "bacterial surface proteins",
+    "name": "bacterial surface proteins"
+  },
+  {
     "id": "bacterial systems biology",
     "name": "bacterial systems biology"
   },
@@ -838,6 +842,10 @@
   {
     "id": "cognitive neuroscience and psychology",
     "name": "cognitive neuroscience and psychology"
+  },
+  {
+    "id": "coiled coils",
+    "name": "coiled coils"
   },
   {
     "id": "collective behavior",
@@ -1614,6 +1622,10 @@
   {
     "id": "high-resolution imaging",
     "name": "high-resolution imaging"
+  },
+  {
+    "id": "hindbrain",
+    "name": "hindbrain"
   },
   {
     "id": "hippocampus",
@@ -2736,6 +2748,10 @@
     "name": "organogenesis"
   },
   {
+    "id": "origins and evolution of folded proteins",
+    "name": "origins and evolution of folded proteins"
+  },
+  {
     "id": "ornithology",
     "name": "ornithology"
   },
@@ -3360,8 +3376,8 @@
     "name": "secretory pathway"
   },
   {
-    "id": "segmentation, hindbrain",
-    "name": "segmentation, hindbrain"
+    "id": "segmentation",
+    "name": "segmentation"
   },
   {
     "id": "sensorimotor",
@@ -3838,6 +3854,10 @@
   {
     "id": "translational neuromodeling",
     "name": "translational neuromodeling"
+  },
+  {
+    "id": "transmembrane signal tranduction",
+    "name": "transmembrane signal tranduction"
   },
   {
     "id": "triglyceride metabolism",
