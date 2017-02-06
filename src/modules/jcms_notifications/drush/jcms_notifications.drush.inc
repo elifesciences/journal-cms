@@ -5,6 +5,8 @@
  * Drush commands for the module.
  */
 
+use GuzzleHttp\Exception\RequestException;
+
 /**
  * Implements hook_drush_command().
  */
@@ -95,12 +97,26 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       drush_print(dt('Received message !message', ['!message' => var_export($message, TRUE)]));
       $id = $message->getId();
       if ($id) {
-        $articleVersions = $fetch_service->getArticleVersions($id);
-        $crud_service->crudArticle($articleVersions);
-        drush_print(dt('Processed message !message_id', ['!message_id' => $message->getMessageId()]));
-        $queue_service->deleteMessage($message);
-        drush_print(dt('Deleted from the queue message !message_id', ['!message_id' => $message->getMessageId()]));
-        $count++;
+        try {
+          $articleVersions = $fetch_service->getArticleVersions($id);
+          $crud_service->crudArticle($articleVersions);
+          drush_print(dt('Processed message !message_id', ['!message_id' => $message->getMessageId()]));
+        }
+        catch (Exception $e) {
+          $e_message = "Message: {$e->getMessage()}\n";
+          $e_line = "Line: {$e->getLine()}\n";
+          $e_trace = "Trace: {$e->getTraceAsString()}\n";
+          $error = $e_message . $e_line . $e_trace;
+          error_log($error);
+          if (!$e instanceof RequestException) {
+            throw $e;
+          }
+        }
+        finally {
+          $queue_service->deleteMessage($message);
+          drush_print(dt('Deleted from the queue message !message_id', ['!message_id' => $message->getMessageId()]));
+          $count++;
+        }
       }
     }
   }
