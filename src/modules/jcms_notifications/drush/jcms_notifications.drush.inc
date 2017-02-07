@@ -36,6 +36,20 @@ function jcms_notifications_drush_command() {
       'drush article-import-all --skip-updates' => 'Import all articles from Lax, but skip over articles that exist already, and return a message when finished.',
     ],
   ];
+  $items['send-notifications'] = [
+    'description' => 'Gets notifications from the database and send them to SNS.',
+    'options' => [
+      'iterations' => 'Limit on the number of iterations made then terminate.',
+      'sleep' => 'The amount of time in seconds to sleep before iterating over the notifications table again (defaults to 30 seconds).',
+    ],
+    'drupal dependencies' => ['jcms_notifications'],
+    'aliases' => ['sendn'],
+    'examples' => [
+      'drush send-notifications' => 'Long running process that iterates infinitely over the notifications table .',
+      'drush send-notifications --iterations=20' => 'Iterate over the notifications table 20 times then stop.',
+      'drush send-notifications --sleep=10' => 'Sleep for 10 seconds after each iteration.',
+    ],
+  ];
   return $items;
 }
 
@@ -107,3 +121,34 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
   drush_print(dt('Imported !count articles.', ['!count' => $count]));
 }
 
+/**
+ * Callback function drush_jcms_notifications_get_notifications().
+ */
+function drush_jcms_notifications_send_notifications() {
+  $storage = \Drupal::service('jcms_notifications.notification_storage');
+  $sns_crud = \Drupal::service('jcms_notifications.node_crud_notification_service');
+  $iterations = drush_get_option('iterations') ?: NULL;
+  $sleep = drush_get_option('sleep') ?: 30;
+  $i = 0;
+  while(TRUE) {
+    if ($iterations) {
+      if ($i >= $iterations) {
+        drush_print(dt('Finished after !iterations iterations.', ['!iterations' => $iterations]));
+        break;
+      }
+      $i++;
+    }
+    // Read the table, get the IDs.
+    $notifications = $storage->getNotificationNids();
+    // Iterate through them.
+    $nodes = node_load_multiple($notifications);
+    $nids = [];
+    foreach ($nodes as $node) {
+      $nids[] = $node->id();
+      $sns_crud->sendMessage($node);
+      drush_print(dt('Sent notification for !nid', ['!nid' => $node->id()]));
+    }
+    $storage->deleteNotificationNids($nids);
+    sleep($sleep);
+  }
+}
