@@ -1,0 +1,8 @@
+name: Journal CMS (Article fragment)
+type: module
+description: Article fragment integration with Lax.
+core: 8.x
+package: Journal CMS
+dependencies:
+  - jcms_article
+  - image

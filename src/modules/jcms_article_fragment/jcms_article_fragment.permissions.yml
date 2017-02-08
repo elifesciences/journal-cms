@@ -1,0 +1,33 @@
+add article fragment entities:
+  title: 'Create new Article fragment entities'
+
+administer article fragment entities:
+  title: 'Administer Article fragment entities'
+  description: 'Allow to access the administration form to configure Article fragment entities.'
+  restrict access: true
+
+#delete article fragment entities:
+#  title: 'Delete Article fragment entities'
+
+edit article fragment entities:
+  title: 'Edit Article fragment entities'
+
+access article fragment overview:
+  title: 'Access the Article fragment overview page'
+
+view published article fragment entities:
+  title: 'View published Article fragment entities'
+
+view unpublished article fragment entities:
+  title: 'View unpublished Article fragment entities'
+
+view all article fragment revisions:
+  title: 'View all Article fragment revisions'
+
+revert all article fragment revisions:
+  title: 'Revert all Article fragment revisions'
+  description: 'Role requires permission <em>view Article fragment revisions</em> and <em>edit rights</em> for article fragment entities in question or <em>administer article fragment entities</em>.'
+
+#delete all article fragment revisions:
+#  title: 'Delete all revisions'
+#  description: 'Role requires permission to <em>view Article fragment revisions</em> and <em>delete rights</em> for article fragment entities in question or <em>administer article fragment entities</em>.'
