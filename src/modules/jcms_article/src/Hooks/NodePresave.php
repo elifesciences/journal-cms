@@ -46,7 +46,7 @@ final class NodePresave {
       self::$articleData = $this->fetchArticleVersions->getArticleVersions($id);
     }
     // If there is stored article data but the ID doesn't match the request ID.
-    elseif (self::$articleData->getJsonObject()->id != $id) {
+    elseif (isset(self::$articleData->getJsonObject()->id) && self::$articleData->getJsonObject()->id != $id) {
       self::$articleData = $this->fetchArticleVersions->getArticleVersions($id);
     }
     return self::$articleData;
