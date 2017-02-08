@@ -182,7 +182,11 @@ class ArticleCrud {
    */
   public function deleteArticle(ArticleVersions $articleVersions) {
     $node_id = $this->getNodeIdByArticleId($articleVersions->getId());
-    return $this->entityTypeManager->getStorage('node')->delete([$node_id]);
+    $node = $this->entityTypeManager->getStorage('node')->load($node_id);
+    if (!$node) {
+      return NULL;
+    }
+    return $this->entityTypeManager->getStorage('node')->delete([$node]);
   }
 
   /**
