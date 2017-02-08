@@ -3,6 +3,7 @@
 namespace Drupal\jcms_notifications;
 
 use Drupal\Core\Database\Driver\mysql\Connection;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Class MysqlNotificationStorage.
@@ -21,7 +22,7 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
    *
    * @var \Drupal\Core\Database\Driver\mysql\Connection
    */
-  protected $connection;
+  private $connection;
 
   /**
    * MysqlNotificationStorage constructor.
@@ -35,8 +36,13 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
   /**
    * @inheritdoc
    */
-  public function saveNotificationNid(int $nodeId) {
-    return $this->connection->insert(self::TABLE)->fields(['node_id'], [$nodeId])->execute();
+  public function saveNotificationNid(EntityInterface $entity) {
+    $whitelist_bundles = array_keys(NodeCrudNotificationService::ENTITY_TYPE_MAP);
+    if (!in_array($entity->bundle(), $whitelist_bundles)) {
+      return NULL;
+    }
+    $id = $entity->id();
+    return $this->connection->insert(self::TABLE)->fields(['node_id'], [$id])->execute();
   }
 
   /**

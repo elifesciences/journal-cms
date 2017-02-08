@@ -28,7 +28,7 @@ function jcms_notifications_help($route_name, RouteMatchInterface $route_match) 
  */
 function jcms_notifications_node_insert(EntityInterface $entity) {
   $notification_service = \Drupal::service('jcms_notifications.notification_storage');
-  $notification_service->saveNotificationNid($entity->id());
+  $notification_service->saveNotificationNid($entity);
 }
 
 /**
@@ -36,7 +36,7 @@ function jcms_notifications_node_insert(EntityInterface $entity) {
  */
 function jcms_notifications_node_update(EntityInterface $entity) {
   $notification_service = \Drupal::service('jcms_notifications.notification_storage');
-  $notification_service->saveNotificationNid($entity->id());
+  $notification_service->saveNotificationNid($entity);
 }
 
 /**
@@ -44,5 +44,5 @@ function jcms_notifications_node_update(EntityInterface $entity) {
  */
 function jcms_notifications_node_delete(EntityInterface $entity) {
   $notification_service = \Drupal::service('jcms_notifications.notification_storage');
-  $notification_service->saveNotificationNid($entity->id());
+  $notification_service->saveNotificationNid($entity);
 }

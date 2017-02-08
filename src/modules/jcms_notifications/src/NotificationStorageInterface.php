@@ -2,6 +2,8 @@
 
 namespace Drupal\jcms_notifications;
 
+use Drupal\Core\Entity\EntityInterface;
+
 /**
  * Class MysqlNotificationStorage.
  *
@@ -12,11 +14,11 @@ interface NotificationStorageInterface {
   /**
    * Saves a node ID for notifications.
    *
-   * @param int $nodeId
+   * @param \Drupal\Core\Entity\EntityInterface $entity
    *
    * @return int|null
    */
-  public function saveNotificationNid(int $nodeId);
+  public function saveNotificationNid(EntityInterface $entity);
 
   /**
    * Gets the node IDs from the notifications table then deletes them.

@@ -156,8 +156,8 @@ function drush_jcms_notifications_send_notifications() {
     }
     // Read the table, get the IDs.
     $notifications = $storage->getNotificationNids();
-    // Iterate through them.
     $nodes = node_load_multiple($notifications);
+    // Iterate through them.
     $nids = [];
     foreach ($nodes as $node) {
       $nids[] = $node->id();
