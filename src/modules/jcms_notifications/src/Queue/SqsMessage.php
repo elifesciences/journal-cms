@@ -49,4 +49,5 @@ final class SqsMessage implements QueueItem {
   public function getReceipt() : string {
     return $this->receipt;
   }
+
 }
