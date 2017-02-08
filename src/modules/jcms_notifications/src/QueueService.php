@@ -110,7 +110,7 @@ class QueueService {
       $id = $body['id'] ?? 0;
       $type = 'article';
       $receipt = $message['ReceiptHandle'] ?? '';
-      if ($message_id && $id && $receipt) {
+      if ($message_id && $receipt) {
         return new SqsMessage($message_id, $id, $type, $receipt);
       }
     }
