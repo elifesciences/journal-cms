@@ -48,7 +48,7 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
     $query->addField(self::TABLE, 'node_id');
     $result = $query->execute();
     foreach ($result->fetchAll() as $row) {
-      $id = $row->nid;
+      $id = $row->node_id;
       $ids[$id] = $id;
     }
     return $ids;
