@@ -5,7 +5,6 @@ dependencies: {  }
 _core:
   default_config_hash: pjqNBnldmofYUyvMnFJNCvT_KvRqwTIwQAKoplPjU1I
 id: jcms_collections_db
-class: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'Legacy collections'

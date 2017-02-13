@@ -5,7 +5,6 @@ dependencies: {  }
 _core:
   default_config_hash: v6KL2YdByqbZVL6Ec0-60YSiDZrBQ9K1pSfAze8Y6qs
 id: jcms_podcast_episodes_json
-class: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'JSON feed of podcast episodes'

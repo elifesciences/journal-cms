@@ -5,7 +5,6 @@ dependencies: {  }
 _core:
   default_config_hash: R6RuaVfT3NXnEdfRsMg_UW_UEBTcBHqcdn2UJWRrLqY
 id: jcms_blog_articles_db
-class: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'Legacy Blog articles'
