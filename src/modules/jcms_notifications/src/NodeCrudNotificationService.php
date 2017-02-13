@@ -13,6 +13,74 @@ use Drupal\jcms_notifications\Notification\BusOutgoingMessage;
 final class NodeCrudNotificationService {
 
   /**
+   * A map of data types and ID keys array keyed by content type machine name.
+   *
+   * If any of these change please update config/aws/goaws and re-provision.
+   */
+  const ENTITY_TYPE_MAP = [
+    'annual_report' => [
+      'topic' => 'annual-reports',
+      'type' => 'annual-report',
+      'key' => 'year',
+      'field' => 'field_annual_report_year',
+    ],
+    'blog_article' => [
+      'topic' => 'blog-articles',
+      'type' => 'blog-article',
+      'key' => 'id',
+      'field' => 'uuid_last_8',
+    ],
+    'collection' => [
+      'topic' => 'collections',
+      'type' => 'collection',
+      'key' => 'id',
+      'field' => 'uuid_last_8',
+    ],
+    'cover' => [
+      'topic' => 'covers',
+      'type' => 'cover',
+      'key' => 'id',
+      'field' => 'uuid_last_8',
+    ],
+    'event' => [
+      'topic' => 'events',
+      'type' => 'event',
+      'key' => 'id',
+      'field' => 'uuid_last_8',
+    ],
+    'interview' => [
+      'topic' => 'interviews',
+      'type' => 'interview',
+      'key' => 'id',
+      'field' => 'uuid_last_8',
+    ],
+    'labs_experiment' => [
+      'topic' => 'labs-experiments',
+      'type' => 'labs-experiment',
+      'key' => 'id',
+      'field' => 'uuid_last_8',
+    ],
+    'person' => [
+      'topic' => 'people',
+      'type' => 'person',
+      'key' => 'id',
+      'field' => 'uuid_last_8',
+    ],
+    'podcast_episode' => [
+      'topic' => 'podcast-episodes',
+      'type' => 'podcast-episode',
+      'key' => 'number',
+      'field' => 'field_episode_number',
+    ],
+    'subject' => [
+      'topic' => 'subjects',
+      'type' => 'subject',
+      'key' => 'id',
+      'field' => 'field_subject_id',
+    ],
+  ];
+
+  /**
    * @var \Drupal\jcms_notifications\NotificationService
    */
   protected $notificationService;
@@ -48,82 +116,10 @@ final class NodeCrudNotificationService {
    */
   public function getMessageFromNode(EntityInterface $entity): BusOutgoingMessage {
     $bundle = $entity->bundle();
-    $data = $this->entityTypeMap()[$bundle];
+    $data = self::ENTITY_TYPE_MAP[$bundle];
     $field_name = $data['field'];
     $id = $this->getIdFromEntity($entity, $field_name);
     return new BusOutgoingMessage($id, $data['key'], $data['topic'], $data['type']);
-  }
-
-  /**
-   * A map of data types and ID keys array keyed by content type machine name.
-   *
-   * If any of these change please update config/aws/goaws and re-provision.
-   *
-   * @return array
-   */
-  public function entityTypeMap(): array {
-    return [
-      'annual_report' => [
-        'topic' => 'annual-reports',
-        'type' => 'annual-report',
-        'key' => 'year',
-        'field' => 'field_annual_report_year',
-      ],
-      'blog_article' => [
-        'topic' => 'blog-articles',
-        'type' => 'blog-article',
-        'key' => 'id',
-        'field' => 'uuid_last_8',
-      ],
-      'collection' => [
-        'topic' => 'collections',
-        'type' => 'collection',
-        'key' => 'id',
-        'field' => 'uuid_last_8',
-      ],
-      'cover' => [
-        'topic' => 'covers',
-        'type' => 'cover',
-        'key' => 'id',
-        'field' => 'uuid_last_8',
-      ],
-      'event' => [
-        'topic' => 'events',
-        'type' => 'event',
-        'key' => 'id',
-        'field' => 'uuid_last_8',
-      ],
-      'interview' => [
-        'topic' => 'interviews',
-        'type' => 'interview',
-        'key' => 'id',
-        'field' => 'uuid_last_8',
-      ],
-      'labs_experiment' => [
-        'topic' => 'labs-experiments',
-        'type' => 'labs-experiment',
-        'key' => 'id',
-        'field' => 'uuid_last_8',
-      ],
-      'person' => [
-        'topic' => 'people',
-        'type' => 'person',
-        'key' => 'id',
-        'field' => 'uuid_last_8',
-      ],
-      'podcast_episode' => [
-        'topic' => 'podcast-episodes',
-        'type' => 'podcast-episode',
-        'key' => 'number',
-        'field' => 'field_episode_number',
-      ],
-      'subject' => [
-        'topic' => 'subjects',
-        'type' => 'subject',
-        'key' => 'id',
-        'field' => 'field_subject_id',
-      ],
-    ];
   }
 
   /**
