@@ -1,0 +1,18 @@
+uuid: acc37820-cb74-43fc-a465-dca21ad4159f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.highlight_list
+  module:
+    - user
+id: node.highlight_list.teaser
+targetEntityType: node
+bundle: highlight_list
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_highlight_items: true

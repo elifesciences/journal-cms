@@ -1,0 +1,42 @@
+uuid: e09e47f8-b8d9-4a7a-b72f-f74af6ce4e03
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_highlight_item
+    - node.type.article
+    - node.type.blog_article
+    - node.type.collection
+    - node.type.event
+    - node.type.highlight_item
+    - node.type.interview
+    - node.type.labs_experiment
+    - node.type.podcast_chapter
+    - node.type.podcast_episode
+id: node.highlight_item.field_highlight_item
+field_name: field_highlight_item
+entity_type: node
+bundle: highlight_item
+label: Content
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      article: article
+      blog_article: blog_article
+      collection: collection
+      event: event
+      interview: interview
+      labs_experiment: labs_experiment
+      podcast_chapter: podcast_chapter
+      podcast_episode: podcast_episode
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: article
+field_type: entity_reference

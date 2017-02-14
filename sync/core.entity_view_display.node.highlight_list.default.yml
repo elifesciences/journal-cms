@@ -1,0 +1,24 @@
+uuid: 877103e3-0af4-4535-91eb-14b42dcbfd35
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.highlight_list.field_highlight_items
+    - node.type.highlight_list
+  module:
+    - user
+id: node.highlight_list.default
+targetEntityType: node
+bundle: highlight_list
+mode: default
+content:
+  field_highlight_items:
+    weight: 101
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  links:
+    weight: 100
+hidden: {  }

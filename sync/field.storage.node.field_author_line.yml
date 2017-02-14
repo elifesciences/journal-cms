@@ -1,4 +1,4 @@
-uuid: a0578a83-5897-41ab-bf1a-f78fd6f53286
+uuid: 42e32242-7812-4d3f-a3dc-8b8cdf484abe
 langcode: en
 status: true
 dependencies:
@@ -8,12 +8,14 @@ dependencies:
 third_party_settings:
   field_permissions:
     permission_type: public
-id: node.field_magazine_article
-field_name: field_magazine_article
+id: node.field_author_line
+field_name: field_author_line
 entity_type: node
-type: entity_reference
+type: string
 settings:
-  target_type: node
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
 module: core
 locked: false
 cardinality: 1

@@ -1,13 +1,13 @@
-uuid: ccf07b1d-617e-4456-aa7d-d9f83e79cbe3
+uuid: 1408c571-24df-4476-a770-9a69f2445134
 langcode: en
 status: true
 dependencies:
   config:
-    - node.type.highlighted_magazine_article
-id: node.highlighted_magazine_article.promote
+    - node.type.highlight_list
+id: node.highlight_list.promote
 field_name: promote
 entity_type: node
-bundle: highlighted_magazine_article
+bundle: highlight_list
 label: 'Promoted to front page'
 description: ''
 required: false

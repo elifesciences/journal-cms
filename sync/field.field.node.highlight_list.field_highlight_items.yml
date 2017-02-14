@@ -1,16 +1,16 @@
-uuid: 6309cb21-186b-4fac-b54d-13d46eb1389f
+uuid: 063a2e73-5ee8-43e8-8b7d-3b95a155db4a
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_magazine_article
-    - node.type.article
-    - node.type.highlighted_magazine_article
-id: node.highlighted_magazine_article.field_magazine_article
-field_name: field_magazine_article
+    - field.storage.node.field_highlight_items
+    - node.type.highlight_item
+    - node.type.highlight_list
+id: node.highlight_list.field_highlight_items
+field_name: field_highlight_items
 entity_type: node
-bundle: highlighted_magazine_article
-label: Article
+bundle: highlight_list
+label: Items
 description: ''
 required: true
 translatable: false
@@ -20,7 +20,7 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      article: article
+      highlight_item: highlight_item
     sort:
       field: _none
     auto_create: false

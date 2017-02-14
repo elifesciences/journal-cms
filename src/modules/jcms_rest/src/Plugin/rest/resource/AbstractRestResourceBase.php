@@ -487,10 +487,11 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    *
    * @param \Drupal\Core\Entity\EntityInterface $node
    * @param \Drupal\Core\Field\FieldItemListInterface $related_field
+   * @param bool $image
    *
    * @return array|bool
    */
-  public function getEntityQueueItem(EntityInterface $node, FieldItemListInterface $related_field) {
+  public function getEntityQueueItem(EntityInterface $node, FieldItemListInterface $related_field, $image = TRUE) {
     if (empty($related_field->first()->get('entity')->getTarget())) {
       return FALSE;
     }
@@ -505,17 +506,25 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       'interview' => new InterviewListRestResource([], 'interview_list_rest_resource', [], $this->serializerFormats, $this->logger),
       'labs_experiment' => new LabsExperimentListRestResource([], 'labs_experiment_list_rest_resource', [], $this->serializerFormats, $this->logger),
       'podcast_episode' => new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger),
+      'podcast_chapter' => new PodcastEpisodeItemRestResource([], 'podcast_episode_item_rest_resource', [], $this->serializerFormats, $this->logger),
     ];
 
     $item_values = [
       'title' => $node->getTitle(),
-      'image' => $this->processFieldImage($node->get('field_image'), TRUE, 'banner', TRUE),
     ];
+
+    if ($image) {
+      $item_values['image'] = $this->processFieldImage($node->get('field_image'), TRUE, 'banner', TRUE);
+    }
 
     if ($related->getType() == 'article') {
       if ($article = $this->getArticleSnippet($related)) {
         $item_values['item'] = $article;
       }
+    }
+    elseif ($related->getType() == 'podcast_chapter') {
+      $item_values['item']['type'] = 'podcast-episode-chapter';
+      $item_values['item'] += $rest_resource[$related->getType()]->getChapterItem($related, 0, TRUE);
     }
     else {
       if (!empty($rest_resource[$related->getType()])) {

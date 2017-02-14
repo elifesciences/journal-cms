@@ -40,7 +40,7 @@ class PathMediaTypeMapper {
       '/community' => 'application/vnd.elife.community-list+json',
       '/covers' => 'application/vnd.elife.cover-list+json',
       '/covers/current' => 'application/vnd.elife.cover-list+json',
-      '/highlighted/magazine' => 'application/vnd.elife.highlighted-magazine-list+json',
+      '/highlights/{list}' => 'application/vnd.elife.highlights+json',
     ];
     return $map;
   }

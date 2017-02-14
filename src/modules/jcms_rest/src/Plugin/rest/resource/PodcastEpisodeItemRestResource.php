@@ -88,20 +88,22 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
    *
    * @param \Drupal\Core\Entity\EntityInterface $node
    * @param NULL|int $number
+   * @param bool $add_episode
    *
    * @return array
    */
-  public function getChapterItem(EntityInterface $node, $number = NULL) {
+  public function getChapterItem(EntityInterface $node, $number = NULL, $add_episode = FALSE) {
     /* @var Node $node */
     static $count = 0;
     $count++;
 
+    $query = Database::getConnection()->select('node__field_episode_chapter', 'ec');
+    $query->addField('ec',  'delta');
+    $query->innerJoin('node__field_episode_chapter', 'ec2', 'ec2.entity_id = ec.entity_id AND ec2.delta <= ec.delta');
+    $query->condition('ec.field_episode_chapter_target_id', $node->id());
+
     if ($number === 0) {
-      $number_query = Database::getConnection()->select('node__field_episode_chapter', 'ec');
-      $number_query->addExpression('ec.delta');
-      $number_query->innerJoin('node__field_episode_chapter', 'ec2', 'ec2.entity_id = ec.entity_id AND ec2.delta <= ec.delta');
-      $number_query->condition('ec.field_episode_chapter_target_id', $node->id());
-      if ($result = $number_query->countQuery()->execute()->fetchField()) {
+      if ($result = $query->countQuery()->execute()->fetchField()) {
         $number = (int) $result;
       }
     }
@@ -135,6 +137,18 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
 
       if (!empty($chapter_content)) {
         $chapter_values['content'] = $chapter_content;
+      }
+    }
+
+    if ($add_episode) {
+      $chapter_values = ['chapter' => $chapter_values];
+      $query->addField('ec', 'entity_id');
+      $query->range(0, 1);
+      if ($result = $query->execute()->fetchObject()) {
+        /* @var \Drupal\node\Entity\Node $episode */
+        $episode = \Drupal\node\Entity\Node::load($result->entity_id);
+        $podcast_episode_list = new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger);
+        $chapter_values['episode'] = $podcast_episode_list->getItem($episode);
       }
     }
 

@@ -142,13 +142,16 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
    * @param string|NULL $media_type_item
    */
   public function testValidEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, $media_type_item) {
-    $request = new Request('GET', $endpoint . '?per-page=1', [
+    $total = 1;
+    $request = new Request('GET', $endpoint . '?per-page=' . $total, [
       'Accept' => $media_type_list,
     ]);
 
     $response = $this->client->send($request);
     $data = \GuzzleHttp\json_decode($response->getBody()->getContents());
-    $total = $data->total;
+    if (!empty($data->total)) {
+      $total = $data->total;
+    }
 
     $request = new Request('GET', $endpoint . '?per-page=' . $total, [
       'Accept' => $media_type_list,
@@ -160,7 +163,18 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
     $messageValidator = new FakeHttpsMessageValidator(new JsonMessageValidator(new PuliSchemaFinder($this->resourceRepository), $json_decoder), $json_decoder);
     $messageValidator->validate($response);
 
-    foreach ($data->items as $item) {
+    if (isset($data->items)) {
+      $items = $data->items;
+    }
+    else {
+      $items = $data;
+    }
+
+    foreach ($items as $item) {
+      if (isset($item->item)) {
+        $item = $item->item;
+      }
+
       if ($id_key != 'type') {
         $request = new Request('GET', $endpoint . '/' . $item->{$id_key}, [
           'Accept' => $media_type_item,

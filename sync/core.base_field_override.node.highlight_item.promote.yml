@@ -1,13 +1,13 @@
-uuid: 81b461ba-28ea-4c54-96cd-f47e2edec603
+uuid: 61b8f269-4825-4163-b66c-383a0e00d4c9
 langcode: en
 status: true
 dependencies:
   config:
-    - node.type.highlighted_podcast_chapter
-id: node.highlighted_podcast_chapter.promote
+    - node.type.highlight_item
+id: node.highlight_item.promote
 field_name: promote
 entity_type: node
-bundle: highlighted_podcast_chapter
+bundle: highlight_item
 label: 'Promoted to front page'
 description: ''
 required: false
