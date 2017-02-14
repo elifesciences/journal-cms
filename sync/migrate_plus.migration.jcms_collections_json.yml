@@ -5,7 +5,6 @@ dependencies: {  }
 _core:
   default_config_hash: XpCOOLEFydpF2Qqs0DZVBKnz5HINmkw7cAN4JBF_R6I
 id: jcms_collections_json
-class: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'JSON feed of collections'

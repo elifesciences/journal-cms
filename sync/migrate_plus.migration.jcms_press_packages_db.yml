@@ -5,7 +5,6 @@ dependencies: {  }
 _core:
   default_config_hash: gG5V3Fbn-ayfEZ50Nx8itLOxxiO0h97KBEId7sMIjbM
 id: jcms_press_packages_db
-class: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'Legacy Press packages'

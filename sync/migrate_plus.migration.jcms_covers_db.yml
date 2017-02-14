@@ -5,7 +5,6 @@ dependencies: {  }
 _core:
   default_config_hash: m1NT8GO92kCOrEbA205FENhvqhCc8qFfN1PyIVt0Wu8
 id: jcms_covers_db
-class: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'Legacy covers'
