@@ -20,11 +20,6 @@ final class NodePresave {
   private $fetchArticleVersions;
 
   /**
-   * @var string
-   */
-  private static $articleData;
-
-  /**
    * NodePresave constructor.
    *
    * @param \Drupal\jcms_article\FetchArticleVersions $fetch_article_versions
@@ -41,35 +36,26 @@ final class NodePresave {
    * @return \Drupal\jcms_article\Entity\ArticleVersions|null
    */
   public function getArticleById($id) {
-    // If there is no stored article data.
-    if (!self::$articleData) {
-      self::$articleData = $this->fetchArticleVersions->getArticleVersions($id);
-    }
-    // If there is stored article data but the ID doesn't match the request ID.
-    elseif (isset(self::$articleData->getJsonObject()->id) && self::$articleData->getJsonObject()->id != $id) {
-      self::$articleData = $this->fetchArticleVersions->getArticleVersions($id);
-    }
-    return self::$articleData;
+    return $this->fetchArticleVersions->getArticleVersions($id);
   }
 
   /**
    * Adds the JSON fields to the node.
    */
-  public function addJsonFields(EntityInterface $entity) {
+  public function addJsonFields(EntityInterface $entity, $article) {
     if ($entity->get('field_article_json')->getValue()) {
-      $this->updateJsonParagraph($entity);
+      $this->updateJsonParagraph($entity, $article);
     }
     else {
-      $this->createJsonParagraph($entity);
+      $this->createJsonParagraph($entity, $article);
     }
   }
 
   /**
    * Sets the status date (the date article became VOR or POA) on the node.
    */
-  public function setStatusDate(EntityInterface $entity) {
+  public function setStatusDate(EntityInterface $entity, $article) {
     $id = $entity->label();
-    $article = $this->getArticleById($id);
     // Set the published date if there's a published version.
     $version = $article->getLatestPublishedVersionJson() ?: '';
     if (!$version) {
@@ -86,9 +72,8 @@ final class NodePresave {
   /**
    * Sets the published status of the node.
    */
-  public function setPublishedStatus(EntityInterface $entity) {
+  public function setPublishedStatus(EntityInterface $entity, $article) {
     $id = $entity->label();
-    $article = $this->getArticleById($id);
     // If there's a published version, set to published.
     $status = $article->getLatestPublishedVersionJson() ? 1 : 0;
     $entity->set('status', $status);
@@ -97,9 +82,8 @@ final class NodePresave {
   /**
    * Sets the article subjects on the article as taxonomy terms.
    */
-  public function setSubjectTerms(EntityInterface $entity) {
+  public function setSubjectTerms(EntityInterface $entity, $article) {
     $id = $entity->label();
-    $article = $this->getArticleById($id);
     // Use the unpublished JSON if no published exists.
     $version = $article->getLatestPublishedVersionJson() ?: $article->getLatestUnpublishedVersionJson();
     $json = json_decode($version);
@@ -122,9 +106,8 @@ final class NodePresave {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    */
-  private function updateJsonParagraph(EntityInterface $entity) {
+  private function updateJsonParagraph(EntityInterface $entity, $article) {
     $id = $entity->label();
-    $article = $this->getArticleById($id);
     $pid = $entity->get('field_article_json')->getValue()[0]['target_id'];
     $paragraph = Paragraph::load($pid);
     $published = $article->getLatestPublishedVersionJson();
@@ -146,9 +129,8 @@ final class NodePresave {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    */
-  private function createJsonParagraph(EntityInterface $entity) {
+  private function createJsonParagraph(EntityInterface $entity, $article) {
     $id = $entity->label();
-    $article = $this->getArticleById($id);
     $published = $article->getLatestPublishedVersionJson();
     // Store the published JSON if no unpublished exists.
     $unpublished = $article->getLatestUnpublishedVersionJson() ?: $published;
