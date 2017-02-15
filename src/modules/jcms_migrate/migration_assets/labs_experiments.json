@@ -551,7 +551,18 @@
       },
       {
         "type": "paragraph",
-        "text": "[REFERENCES]"
+        "text": "References:"
+      },
+      {
+        "type": "list",
+        "ordered": 1,
+        "items": [
+          "Hanson, R. M., Prilusky, J., Renjian, Z., Nakane, T. &amp; Sussman, J. L. JSmol and the Next-Generation Web-Based Representation of 3D Molecular Structure as Applied to Proteopedia. Israel J. Chem. 53, 207-216 (2013).",
+          "Prilusky, J., Hodis, E. &amp; Sussman, J. L. in Macromolecular Crystallography:&nbsp; Deciphering the Structure, Function and Dynamics of Biological Molecules Vol. XIV NATO Science for Peace and Security Series A: Chemistry and Biology (eds M.A. Carrondo &amp; P. Spadon)&nbsp; 149-161 (Springer, 2012).",
+          "Prilusky, J., Hodis, E., Canner, D., Decatur, W. A., Oberholser, K., Martz, E., Berchanski, A., Harel, M. &amp; Sussman, J. L. Proteopedia: A status report on the collaborative, 3D web-encyclopedia of proteins and other biomolecules. J. Struct. Biol. 175, 244-252 (2011).",
+          "Hodis, E., Prilusky, J., Martz, E., Silman, I., Moult, J. &amp; Sussman, J. L. Proteopedia – a scientific ‘wiki’ bridging the rift between 3D structure and function of biomacromolecules. Genome Biol. 9, R121 (2008).",
+          "Thomas, C., Moraga, I., Levin, D., Krutzik, P. O., Podoplelova, Y., Trejo, A., Lee, C., Yarden, G., Vleck, S., Glenn, J. S., Nolan, G. P., Piehler, J., Schreiber, G. &amp; Garcia, K. C. Structural linkage between ligand discrimination and receptor activation by type I interferons. Cell 146, 621-632 (2011)."
+        ]
       }
     ]
   }

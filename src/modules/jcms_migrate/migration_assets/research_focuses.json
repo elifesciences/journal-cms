@@ -332,6 +332,10 @@
     "name": "bacterial pathogens"
   },
   {
+    "id": "bacterial physiology",
+    "name": "bacterial physiology"
+  },
+  {
     "id": "bacterial surface proteins",
     "name": "bacterial surface proteins"
   },
@@ -752,6 +756,10 @@
     "name": "chromatin"
   },
   {
+    "id": "chromatin assembly and disassembly",
+    "name": "chromatin assembly and disassembly"
+  },
+  {
     "id": "chromatin biology",
     "name": "chromatin biology"
   },
@@ -1030,6 +1038,10 @@
   {
     "id": "differentiation of pluripotent cells",
     "name": "differentiation of pluripotent cells"
+  },
+  {
+    "id": "dna packaging",
+    "name": "DNA packaging"
   },
   {
     "id": "dna recombination",
@@ -1630,6 +1642,10 @@
   {
     "id": "hippocampus",
     "name": "hippocampus"
+  },
+  {
+    "id": "histone chaperones",
+    "name": "histone chaperones"
   },
   {
     "id": "histones",
@@ -3218,6 +3234,10 @@
   {
     "id": "regulatory networks",
     "name": "regulatory networks"
+  },
+  {
+    "id": "regulatory rnas",
+    "name": "regulatory RNAs"
   },
   {
     "id": "reinforcement learning",
