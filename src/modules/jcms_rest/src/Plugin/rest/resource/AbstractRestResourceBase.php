@@ -57,20 +57,14 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * @return array
    */
   protected function processDefault(EntityInterface $entity, $id = NULL, $id_key = 'id') {
-
     $defaults = [
       $id_key => !is_null($id) ? $id : substr($entity->uuid(), -8),
       'title' => $entity->getTitle(),
+      'published' => $this->formatDate($entity->getCreatedTime()),
     ];
 
-    $sort_by = self::getSortBy();
-    switch ($sort_by) {
-      case 'created':
-        $defaults['published'] = $this->formatDate($entity->getCreatedTime());
-        break;
-      case 'changed':
-        $defaults['updated'] = $this->formatDate($entity->getRevisionCreationTime());
-        break;
+    if ($entity->getRevisionCreationTime() > $entity->getCreatedTime()) {
+      $defaults['updated'] = $this->formatDate($entity->getRevisionCreationTime());
     }
 
     return $defaults;
