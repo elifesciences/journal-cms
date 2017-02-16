@@ -53,7 +53,8 @@
     "aws/aws-sdk-php": "~3.0",
     "giggsey/libphonenumber-for-php": "^7.7",
     "drupal/entityqueue": "~1.0-alpha4",
-    "geerlingguy/drupal-vm": "^4.0"
+    "geerlingguy/drupal-vm": "^4.0",
+    "elife/bus-sdk": "dev-master"
   },
   "require-dev": {
     "drupal/drupal-extension": "~3.0",

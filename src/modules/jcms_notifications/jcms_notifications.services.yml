@@ -9,4 +9,8 @@ services:
   jcms_notifications.notification_storage:
     class: Drupal\jcms_notifications\MysqlNotificationStorage
     arguments: ['@database']
+  jcms_notifications.limit_service:
+    class: eLife\Bus\Limit\MemoryLimit
+    factory: ['eLife\Bus\Limit\MemoryLimit', 'mb']
+    arguments: [128]
 
