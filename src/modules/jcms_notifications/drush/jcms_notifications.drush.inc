@@ -159,8 +159,8 @@ function drush_jcms_notifications_send_notifications() {
     $nids = [];
     foreach ($nodes as $node) {
       $nids[] = $node->id();
-      $sns_crud->sendMessage($node);
-      drush_print(dt('Sent notification for !nid', ['!nid' => $node->id()]));
+      $busMessage = $sns_crud->sendMessage($node);
+      drush_print(dt('Sent notification !message (nid: !nid)', ['!message' => $busMessage->getMessageJson(), '!nid' => $node->id()]));
     }
     $storage->deleteNotificationNids($nids);
     sleep($sleep);
