@@ -37,6 +37,7 @@
     "drupal/migrate_plus": "~3.0-beta1",
     "drupal/migrate_tools": "~2.0@dev",
     "drupal/migrate_manifest": "^1",
+    "drupal/redis": "~1.0-beta1",
     "drupal/restui": "1.x-dev",
     "drupal/ctools": "~3.0-alpha27",
     "drupal/services": "~4.0-beta2",

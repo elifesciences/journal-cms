@@ -43,6 +43,7 @@ module:
   paragraphs: 0
   path: 0
   quickedit: 0
+  redis: 0
   rest: 0
   restui: 0
   serialization: 0
