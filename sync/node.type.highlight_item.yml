@@ -1,4 +1,4 @@
-uuid: f595ed9c-9911-4930-8406-8cd6f6574f6c
+uuid: 9b31e2fb-b3e1-417a-9932-aefac3f7d078
 langcode: en
 status: true
 dependencies:
@@ -8,8 +8,8 @@ third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
-name: 'Highlighted magazine article'
-type: highlighted_magazine_article
+name: 'Highlight item'
+type: highlight_item
 description: ''
 help: ''
 new_revision: false

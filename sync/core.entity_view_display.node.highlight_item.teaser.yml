@@ -1,19 +1,20 @@
-uuid: 34c552f8-18ef-48ef-b4e8-b96797dcfe35
+uuid: f3ce76af-8c44-45c9-b5f4-c6ebb445dda7
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - node.type.highlighted_magazine_article
+    - node.type.highlight_item
   module:
     - user
-id: node.highlighted_magazine_article.teaser
+id: node.highlight_item.teaser
 targetEntityType: node
-bundle: highlighted_magazine_article
+bundle: highlight_item
 mode: teaser
 content:
   links:
     weight: 100
 hidden:
+  field_author_line: true
+  field_highlight_item: true
   field_image: true
-  field_magazine_article: true

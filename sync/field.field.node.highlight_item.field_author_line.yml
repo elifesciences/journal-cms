@@ -1,0 +1,19 @@
+uuid: db5b9bf9-164d-4c0d-a5f0-cfa5505f2d32
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_author_line
+    - node.type.highlight_item
+id: node.highlight_item.field_author_line
+field_name: field_author_line
+entity_type: node
+bundle: highlight_item
+label: 'Author line'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

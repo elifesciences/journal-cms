@@ -1,33 +1,39 @@
-uuid: df94a439-3763-4530-aac4-54881185b153
+uuid: bd22ecbd-1689-4720-9627-9a2595369012
 langcode: en
 status: true
 dependencies:
   config:
-    - entityqueue.entity_queue.highlighted_magazine_articles
+    - field.field.node.highlight_list.field_highlight_items
+    - node.type.highlight_list
   module:
     - inline_entity_form
-id: entity_subqueue.highlighted_magazine_articles.default
-targetEntityType: entity_subqueue
-bundle: highlighted_magazine_articles
+id: node.highlight_list.default
+targetEntityType: node
+bundle: highlight_list
 mode: default
 content:
-  items:
-    type: inline_entity_form_complex
-    weight: 5
+  field_highlight_items:
+    weight: 1
     settings:
       form_mode: default
       label_singular: ''
       label_plural: ''
       allow_new: true
-      allow_existing: true
       match_operator: CONTAINS
       override_labels: false
+      allow_existing: false
     third_party_settings: {  }
+    type: inline_entity_form_complex
   title:
     type: string_textfield
-    weight: -10
+    weight: 0
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

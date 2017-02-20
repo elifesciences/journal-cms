@@ -1,12 +1,12 @@
-uuid: 1f442a05-dee1-4a91-b01a-3fba947e884f
+uuid: 2f20c6c5-491a-4391-806a-18a520d3f8cd
 langcode: en
 status: true
 dependencies:
   module:
     - basic_auth
     - jcms_rest
-id: highlighted_podcast_list_rest_resource
-plugin_id: highlighted_podcast_list_rest_resource
+id: highlight_list_rest_resource
+plugin_id: highlight_list_rest_resource
 granularity: method
 configuration:
   GET:

@@ -1,19 +1,19 @@
-uuid: 70739fd9-dd77-4927-a4a6-a0ba93c4fe34
+uuid: 520797af-d896-444c-af8b-209b75b16b30
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_image
-    - node.type.highlighted_magazine_article
+    - node.type.highlight_item
   module:
     - image
-id: node.highlighted_magazine_article.field_image
+id: node.highlight_item.field_image
 field_name: field_image
 entity_type: node
-bundle: highlighted_magazine_article
+bundle: highlight_item
 label: Image
 description: ''
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -22,7 +22,7 @@ settings:
   file_extensions: 'png gif jpg jpeg'
   max_filesize: ''
   max_resolution: ''
-  min_resolution: 1800x900
+  min_resolution: 500x281
   alt_field: true
   alt_field_required: false
   title_field: false
