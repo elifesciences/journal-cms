@@ -34,8 +34,8 @@ content:
   field_image:
     weight: 34
     settings:
-      progress_indicator: throbber
       preview_image_style: thumbnail
+      progress_indicator: bar
     third_party_settings: {  }
     type: image_image
   field_impact_statement:

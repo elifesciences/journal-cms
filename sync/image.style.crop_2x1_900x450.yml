@@ -1,14 +1,16 @@
 uuid: 056dd992-6295-4936-aee4-1e8ded074e47
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - focal_point
 name: crop_2x1_900x450
 label: crop_2x1_900x450
 effects:
-  fdf17eaf-42dd-4096-9ffc-e5968a25d0d1:
-    uuid: fdf17eaf-42dd-4096-9ffc-e5968a25d0d1
-    id: image_scale_and_crop
-    weight: 1
+  7ada9afa-5e7c-41c5-9d8e-1d911f9090c8:
+    uuid: 7ada9afa-5e7c-41c5-9d8e-1d911f9090c8
+    id: focal_point_scale_and_crop
+    weight: 2
     data:
       width: 900
       height: 450

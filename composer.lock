@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b46151e2d6aad77b077c340afe34bd29",
+    "content-hash": "68e8634d1c3333008ce36371a0f3097e",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1612,7 +1612,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/address-8.x-1.0-rc4.zip",
-                "reference": null,
+                "reference": "8.x-1.0-rc4",
                 "shasum": "541b020ce839dd9c75374e213c1131d9c1f6f52d"
             },
             "require": {
@@ -1729,7 +1729,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/config_devel-8.x-1.0.zip",
-                "reference": null,
+                "reference": "8.x-1.0",
                 "shasum": "148d408827c570e725b08d7e4c1c46d321dc1efa"
             },
             "require": {
@@ -2237,7 +2237,8 @@
             "extra": {
                 "patches_applied": {
                     "CommandLineOrUnsafeMethodTest::testHttpMethod failures": "https://www.drupal.org/files/issues/options_trace_error-2776367-3.patch",
-                    "View output is not used for autocomplete display": "https://www.drupal.org/files/issues/2174633-76-entity-reference-views.patch"
+                    "View output is not used for autocomplete display": "https://www.drupal.org/files/issues/2174633-76-entity-reference-views.patch",
+                    "Number widget validation can break AJAX actions": "https://www.drupal.org/files/issues/drupal-fix_number_widget_errorElement-2614250-30.patch"
                 }
             },
             "autoload": {
@@ -2262,6 +2263,61 @@
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
             "time": "2017-02-01T17:03:36+00:00"
+        },
+        {
+            "name": "drupal/crop",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/crop",
+                "reference": "8.x-1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/crop-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "c59b10336821f0ef99f6d2770a72c400e167d979"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "require-dev": {
+                "drupal/media_entity": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0",
+                    "datestamp": "1468356239"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Drupal Media Team",
+                    "homepage": "https://www.drupal.org/user/3260690"
+                },
+                {
+                    "name": "slashrsm",
+                    "homepage": "https://www.drupal.org/user/744628"
+                },
+                {
+                    "name": "woprrr",
+                    "homepage": "https://www.drupal.org/user/858604"
+                }
+            ],
+            "description": "Provides storage and API for image crops.",
+            "homepage": "https://www.drupal.org/project/crop",
+            "support": {
+                "source": "http://cgit.drupalcode.org/crop",
+                "issues": "https://www.drupal.org/project/issues/crop"
+            }
         },
         {
             "name": "drupal/ctools",
@@ -2553,6 +2609,103 @@
             }
         },
         {
+            "name": "drupal/field_validation",
+            "version": "1.0.0-alpha5",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/field_validation",
+                "reference": "8.x-1.0-alpha5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/field_validation-8.x-1.0-alpha5.zip",
+                "reference": "8.x-1.0-alpha5",
+                "shasum": "7c3e56d4fe4de25349d15319d531ff9d24a620a7"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha5",
+                    "datestamp": "1465497239"
+                },
+                "patches_applied": {
+                    "2 unique fields in the same ruleset - only one works": "https://www.drupal.org/files/issues/2_unique_fields_in_the-2854615-3.patch"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "aegirone",
+                    "homepage": "https://www.drupal.org/user/2720511"
+                },
+                {
+                    "name": "g089h515r806",
+                    "homepage": "https://www.drupal.org/user/174740"
+                }
+            ],
+            "description": "Field validation.",
+            "homepage": "https://www.drupal.org/project/field_validation",
+            "support": {
+                "source": "http://cgit.drupalcode.org/field_validation"
+            }
+        },
+        {
+            "name": "drupal/focal_point",
+            "version": "1.0.0-beta4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/focal_point",
+                "reference": "8.x-1.0-beta4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/focal_point-8.x-1.0-beta4.zip",
+                "reference": "8.x-1.0-beta4",
+                "shasum": "5c196948872af0621f1004d07c7d5aec583c11db"
+            },
+            "require": {
+                "drupal/core": "*",
+                "drupal/crop": "^1.0.0-alpha2"
+            },
+            "require-dev": {
+                "drupal/crop": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta4",
+                    "datestamp": "1479749360"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "bleen",
+                    "homepage": "https://www.drupal.org/user/77375"
+                }
+            ],
+            "description": "Allows users to specify the focal point of an image for use during cropping.",
+            "homepage": "https://www.drupal.org/project/focal_point",
+            "support": {
+                "source": "http://cgit.drupalcode.org/focal_point"
+            }
+        },
+        {
             "name": "drupal/inline_entity_form",
             "version": "1.0.0-beta1",
             "source": {
@@ -2820,7 +2973,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/paragraphs-8.x-1.1.zip",
-                "reference": null,
+                "reference": "8.x-1.1",
                 "shasum": "c678e5704a98c6a0549e415412da081cfeb03a00"
             },
             "require": {
@@ -2884,7 +3037,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/redis-8.x-1.0-beta1.zip",
-                "reference": null,
+                "reference": "8.x-1.0-beta1",
                 "shasum": "c52dfdc675e95f04266e4ddd7c603c23f217e1f8"
             },
             "require": {
@@ -3038,71 +3191,6 @@
                 "source": "http://cgit.drupalcode.org/services",
                 "issues": "https://www.drupal.org/project/issues/services"
             }
-        },
-        {
-            "name": "drupal/unique_field",
-            "version": "dev-1.x",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/unique_field",
-                "reference": "aa3f9d858903081022dce55959c45992ee84aae9"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.x-dev",
-                    "datestamp": "1447676641"
-                },
-                "patches_applied": {
-                    "PHP Warning: Invalid argument supplied for foreach() in unique_field.module": "https://www.drupal.org/files/issues/php_warning_invalid-2721645-2.patch"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Logesh waran",
-                    "homepage": "https://www.drupal.org/user/3180685"
-                },
-                {
-                    "name": "Pravin Ajaaz",
-                    "homepage": "https://www.drupal.org/user/2910049"
-                },
-                {
-                    "name": "arithmetric",
-                    "homepage": "https://www.drupal.org/user/162305"
-                },
-                {
-                    "name": "immanuel.paul",
-                    "homepage": "https://www.drupal.org/user/3197807"
-                },
-                {
-                    "name": "rakesh.gectcr",
-                    "homepage": "https://www.drupal.org/user/1177822"
-                },
-                {
-                    "name": "sidhees",
-                    "homepage": "https://www.drupal.org/user/2983289"
-                },
-                {
-                    "name": "utiks",
-                    "homepage": "https://www.drupal.org/user/3408446"
-                }
-            ],
-            "description": "An attempt to port unique field module to drupal 8",
-            "homepage": "https://www.drupal.org/project/unique_field",
-            "support": {
-                "source": "http://cgit.drupalcode.org/unique_field"
-            },
-            "time": "2015-11-16 12:20:22"
         },
         {
             "name": "drush/drush",
@@ -8567,7 +8655,7 @@
             ],
             "description": "Various blocks, pages, and functions for developers.",
             "homepage": "http://drupal.org/project/devel",
-            "time": "2016-10-01T14:05:48+00:00"
+            "time": "2016-10-01 14:05:48"
         },
         {
             "name": "drupal/drupal-driver",
@@ -8688,31 +8776,6 @@
             "time": "2016-06-30T21:12:18+00:00"
         },
         {
-            "name": "elife/api",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "93af6986f6779df8f2edbd8773721d9a6ec48543"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/93af6986f6779df8f2edbd8773721d9a6ec48543",
-                "reference": "93af6986f6779df8f2edbd8773721d9a6ec48543",
-                "shasum": ""
-            },
-            "require": {
-                "puli/composer-plugin": "^1.0-beta9"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "eLife Sciences API specification",
-            "time": "2017-02-16 08:14:59"
-        },
-        {
             "name": "elife/api-validator",
             "version": "dev-master",
             "source": {
@@ -8757,7 +8820,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API validator",
-            "time": "2017-01-19T08:31:34+00:00"
+            "time": "2017-01-19 08:31:34"
         },
         {
             "name": "fabpot/goutte",
@@ -10248,7 +10311,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/entity_reference_revisions": 20,
-        "drupal/unique_field": 20,
         "drupal-composer/drupal-project": 20,
         "drupal/migrate_tools": 20,
         "drupal/restui": 20,
@@ -10258,6 +10320,8 @@
         "webmozart/json": 20,
         "drupal/address": 5,
         "elife/bus-sdk": 20,
+        "drupal/field_validation": 15,
+        "drupal/focal_point": 10,
         "drupal/devel": 20,
         "elife/api": 20,
         "elife/api-validator": 20

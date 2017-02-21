@@ -1,0 +1,195 @@
+<?php
+/**
+ * @file
+ * JCMS admin module file.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\Node;
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function jcms_admin_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  if ($entity_type->id() == 'node') {
+    switch ($bundle) {
+      case 'annual_report':
+        $fields['field_annual_report_year']->setDefaultValueCallback('_jcms_admin_default_value_annual_report_year');
+        $fields['field_annual_report_uri']->setDefaultValueCallback('_jcms_admin_default_value_annual_report_uri');
+        break;
+      case 'labs_experiment':
+        $fields['field_experiment_number']->setDefaultValueCallback('_jcms_admin_default_value_labs_experiment_number');
+        break;
+      case 'podcast_episode':
+        $fields['field_episode_number']->setDefaultValueCallback('_jcms_admin_default_value_podcast_episode_number');
+        break;
+    }
+  }
+}
+
+/**
+ * Get default value for annual_report:title
+ *
+ * @return string
+ */
+function _jcms_admin_default_value_annual_report_title() {
+  return t('The eLife Sciences :year Annual Report', [':year' => _jcms_admin_default_value_annual_report_year()]);
+}
+
+/**
+ * Get default value for annual_report:field_annual_report_uri
+ *
+ * @return array
+ */
+function _jcms_admin_default_value_annual_report_uri() {
+  return ['uri' => sprintf('https://%d.elifesciences.org', _jcms_admin_default_value_annual_report_year())];
+}
+
+/**
+ * Get default value for annual_report:field_annual_report_year
+ *
+ * @return int
+ */
+function _jcms_admin_default_value_annual_report_year() {
+  return _jcms_admin_field_integer_next('field_annual_report_year', date('Y'), 'annual_report');
+}
+
+/**
+ * Get default value for labs_experiment:field_experiment_number
+ *
+ * @return int
+ */
+function _jcms_admin_default_value_labs_experiment_number() {
+  return _jcms_admin_field_integer_next('field_experiment_number', 1, 'labs_experiment');
+}
+
+/**
+ * Get default value for podcast_episode:field_episode_number
+ *
+ * @return int
+ */
+function _jcms_admin_default_value_podcast_episode_number() {
+  return _jcms_admin_field_integer_next('field_episode_number', 1, 'podcast_episode');
+}
+
+/**
+ * Get next value for field.
+ *
+ * @param string $field_name
+ * @param null|int|string $default
+ * @param null|string $content_type
+ * @param string $sort_order
+ * @param int|string $increment
+ * @return int
+ */
+function _jcms_admin_field_integer_next(string $field_name, $default = NULL, $content_type = NULL, $sort_order = 'DESC', $increment = 1) {
+  $query = Drupal::entityQuery('node')
+    ->sort($field_name, $sort_order)
+    ->range(0, 1);
+
+  if ($content_type) {
+    $query->condition('type', $content_type);
+  }
+
+  $nids = $query->execute();
+
+  if (!empty($nids)) {
+    $nid = reset($nids);
+    $node = Node::load($nid);
+    return (int) $node->get($field_name)->getString() + $increment;
+  }
+  elseif ($default) {
+    return (int) $default;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function jcms_admin_form_node_annual_report_form_alter(&$form, FormStateInterface $form_state) {
+  $form['title']['widget'][0]['value']['#default_value'] = _jcms_admin_default_value_annual_report_title();
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function jcms_admin_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  switch ($form_id) {
+    case 'node_article_form':
+    case 'node_article_edit_form':
+      $form['#validate'][] = '_jcms_admin_form_node_article_form_validate';
+      break;
+    case 'node_highlight_list_form':
+    case 'node_highlight_list_edit_form':
+      $form['#validate'][] = '_jcms_admin_form_node_highlight_list_form_validate';
+      break;
+  }
+}
+
+/**
+ * Validation function for node_highlight_list_form and node_highlight_list_edit_form.
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function _jcms_admin_form_node_highlight_list_form_validate($form, FormStateInterface $form_state) {
+  $node = $form_state->getFormObject()->getEntity();
+  if (!empty($form_state->getValue('title'))) {
+    $title = $form_state->getValue('title')[0]['value'];
+    if (!preg_match('/^[a-z0-9-]+$/', $title)) {
+      $form_state->setErrorByName('title', t('Highlight list title %title is not valid.', ['%title' => $title]));
+    }
+    if (!_jcms_admin_node_title_unique($title, $node, 'highlight_list')) {
+      $form_state->setErrorByName('title', t('Highlight list title %title is already in use.', ['%title' => $title]));
+    }
+  }
+}
+
+/**
+ * Validation function for node_article_form and node_article_edit_form.
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function _jcms_admin_form_node_article_form_validate($form, FormStateInterface $form_state) {
+  $node = $form_state->getFormObject()->getEntity();
+  if (!empty($form_state->getValue('title'))) {
+    $title = $form_state->getValue('title')[0]['value'];
+    if (!preg_match('/^[0-9]{5}$/', $title)) {
+      $form_state->setErrorByName('title', t('Article title %title is not valid.', ['%title' => $title]));
+    }
+    if (!_jcms_admin_node_title_unique($title, $node, 'article')) {
+      $form_state->setErrorByName('title', t('Article title %title is already in use.', ['%title' => $title]));
+    }
+  }
+}
+
+/**
+ * Check if node title is unique.
+ *
+ * @param string $title
+ * @param Node|NULL $node
+ * @param string|NULL $content_type
+ * @return bool
+ */
+function _jcms_admin_node_title_unique($title, $node, $content_type = NULL) {
+  $properties = ['title' => $title];
+  if (is_string($content_type)) {
+    $properties['type'] = $content_type;
+  }
+
+  $nodes = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadByProperties($properties);
+
+  if ($node instanceof Node) {
+    unset($nodes[$node->id()]);
+  }
+
+  if (!empty($nodes)) {
+    return FALSE;
+  }
+
+  return TRUE;
+}
