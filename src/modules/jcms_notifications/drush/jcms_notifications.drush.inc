@@ -142,10 +142,11 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
 function drush_jcms_notifications_send_notifications() {
   $storage = \Drupal::service('jcms_notifications.notification_storage');
   $sns_crud = \Drupal::service('jcms_notifications.node_crud_notification_service');
+  $limit_service = \Drupal::service('jcms_notifications.limit_service');
   $iterations = drush_get_option('iterations') ?: NULL;
   $sleep = drush_get_option('sleep') ?: 30;
   $i = 0;
-  while(TRUE) {
+  while (!$limit_service()) {
     if ($iterations) {
       if ($i >= $iterations) {
         drush_print(dt('Finished after !iterations iterations.', ['!iterations' => $iterations]));
@@ -166,4 +167,5 @@ function drush_jcms_notifications_send_notifications() {
     $storage->deleteNotificationNids($nids);
     sleep($sleep);
   }
+  drush_print(dt('Exiting because of limits reached.'));
 }
