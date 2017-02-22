@@ -100,8 +100,9 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
   $queue_service = \Drupal::service('jcms_notifications.queue_service');
   $fetch_service = \Drupal::service('jcms_article.fetch_article_versions');
   $crud_service = \Drupal::service('jcms_article.article_crud');
+  $limit_service = \Drupal::service('jcms_notifications.limit_service');
   $count = 0;
-  while (TRUE) {
+  while (!$limit_service()) {
     $message = $queue_service->getMessage();
     // If this isn't a long running process and the message is null.
     if ($message === NULL && !$lrp) {
@@ -141,10 +142,11 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
 function drush_jcms_notifications_send_notifications() {
   $storage = \Drupal::service('jcms_notifications.notification_storage');
   $sns_crud = \Drupal::service('jcms_notifications.node_crud_notification_service');
+  $limit_service = \Drupal::service('jcms_notifications.limit_service');
   $iterations = drush_get_option('iterations') ?: NULL;
   $sleep = drush_get_option('sleep') ?: 30;
   $i = 0;
-  while(TRUE) {
+  while (!$limit_service()) {
     if ($iterations) {
       if ($i >= $iterations) {
         drush_print(dt('Finished after !iterations iterations.', ['!iterations' => $iterations]));
@@ -165,4 +167,5 @@ function drush_jcms_notifications_send_notifications() {
     $storage->deleteNotificationNids($nids);
     sleep($sleep);
   }
+  drush_print(dt('Exiting because of limits reached.'));
 }

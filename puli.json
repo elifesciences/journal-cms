@@ -13,10 +13,13 @@
             "install-path": "vendor/asm89/stack-cors",
             "installer": "composer"
         },
+        "aws/aws-sdk-php": {
+            "install-path": "vendor/aws/aws-sdk-php",
+            "installer": "composer"
+        },
         "beberlei/assert": {
             "install-path": "vendor/beberlei/assert",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "behat/behat": {
             "install-path": "vendor/behat/behat",
@@ -63,6 +66,22 @@
             "installer": "composer",
             "env": "dev"
         },
+        "commerceguys/addressing": {
+            "install-path": "vendor/commerceguys/addressing",
+            "installer": "composer"
+        },
+        "commerceguys/enum": {
+            "install-path": "vendor/commerceguys/enum",
+            "installer": "composer"
+        },
+        "commerceguys/intl": {
+            "install-path": "vendor/commerceguys/intl",
+            "installer": "composer"
+        },
+        "commerceguys/zone": {
+            "install-path": "vendor/commerceguys/zone",
+            "installer": "composer"
+        },
         "composer/installers": {
             "install-path": "vendor/composer/installers",
             "installer": "composer"
@@ -79,8 +98,20 @@
             "install-path": "vendor/consolidation/output-formatters",
             "installer": "composer"
         },
+        "crell/api-problem": {
+            "install-path": "vendor/crell/api-problem",
+            "installer": "composer"
+        },
         "cweagans/composer-patches": {
             "install-path": "vendor/cweagans/composer-patches",
+            "installer": "composer"
+        },
+        "dflydev/dot-access-configuration": {
+            "install-path": "vendor/dflydev/dot-access-configuration",
+            "installer": "composer"
+        },
+        "dflydev/dot-access-data": {
+            "install-path": "vendor/dflydev/dot-access-data",
             "installer": "composer"
         },
         "dflydev/placeholder-resolver": {
@@ -113,8 +144,7 @@
         },
         "doctrine/instantiator": {
             "install-path": "vendor/doctrine/instantiator",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "doctrine/lexer": {
             "install-path": "vendor/doctrine/lexer",
@@ -126,6 +156,10 @@
         },
         "drupal-composer/drupal-scaffold": {
             "install-path": "vendor/drupal-composer/drupal-scaffold",
+            "installer": "composer"
+        },
+        "drupal/address": {
+            "install-path": "web/modules/contrib/address",
             "installer": "composer"
         },
         "drupal/admin_toolbar": {
@@ -142,6 +176,18 @@
         },
         "drupal/console": {
             "install-path": "vendor/drupal/console",
+            "installer": "composer"
+        },
+        "drupal/console-core": {
+            "install-path": "vendor/drupal/console-core",
+            "installer": "composer"
+        },
+        "drupal/console-en": {
+            "install-path": "vendor/drupal/console-en",
+            "installer": "composer"
+        },
+        "drupal/console-extend-plugin": {
+            "install-path": "vendor/drupal/console-extend-plugin",
             "installer": "composer"
         },
         "drupal/core": {
@@ -171,16 +217,24 @@
             "install-path": "web/modules/contrib/entity_reference_revisions",
             "installer": "composer"
         },
+        "drupal/entityqueue": {
+            "install-path": "web/modules/contrib/entityqueue",
+            "installer": "composer"
+        },
         "drupal/field_collection": {
             "install-path": "web/modules/contrib/field_collection",
             "installer": "composer"
         },
-        "drupal/graphql": {
-            "install-path": "web/modules/contrib/graphql",
+        "drupal/field_permissions": {
+            "install-path": "web/modules/contrib/field_permissions",
             "installer": "composer"
         },
         "drupal/inline_entity_form": {
             "install-path": "web/modules/contrib/inline_entity_form",
+            "installer": "composer"
+        },
+        "drupal/jsonb": {
+            "install-path": "web/modules/contrib/jsonb",
             "installer": "composer"
         },
         "drupal/migrate_manifest": {
@@ -197,6 +251,10 @@
         },
         "drupal/paragraphs": {
             "install-path": "web/modules/contrib/paragraphs",
+            "installer": "composer"
+        },
+        "drupal/redis": {
+            "install-path": "web/modules/contrib/redis",
             "installer": "composer"
         },
         "drupal/restui": {
@@ -225,22 +283,33 @@
         },
         "elife/api": {
             "install-path": "vendor/elife/api",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
+        },
+        "elife/api-client": {
+            "install-path": "vendor/elife/api-client",
+            "installer": "composer"
+        },
+        "elife/api-sdk": {
+            "install-path": "vendor/elife/api-sdk",
+            "installer": "composer"
         },
         "elife/api-validator": {
             "install-path": "vendor/elife/api-validator",
             "installer": "composer",
             "env": "dev"
         },
+        "elife/bus-sdk": {
+            "install-path": "vendor/elife/bus-sdk",
+            "installer": "composer"
+        },
+        "elife/logging-sdk": {
+            "install-path": "vendor/elife/logging-sdk",
+            "installer": "composer"
+        },
         "fabpot/goutte": {
             "install-path": "vendor/fabpot/goutte",
             "installer": "composer",
             "env": "dev"
-        },
-        "fubhy/graphql-php": {
-            "install-path": "vendor/fubhy/graphql-php",
-            "installer": "composer"
         },
         "gabordemooij/redbean": {
             "install-path": "vendor/gabordemooij/redbean",
@@ -248,8 +317,15 @@
         },
         "geerlingguy/drupal-vm": {
             "install-path": "vendor/geerlingguy/drupal-vm",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
+        },
+        "giggsey/libphonenumber-for-php": {
+            "install-path": "vendor/giggsey/libphonenumber-for-php",
+            "installer": "composer"
+        },
+        "giggsey/locale": {
+            "install-path": "vendor/giggsey/locale",
+            "installer": "composer"
         },
         "guzzle/guzzle": {
             "install-path": "vendor/guzzle/guzzle",
@@ -299,6 +375,18 @@
             "installer": "composer",
             "env": "dev"
         },
+        "jms/metadata": {
+            "install-path": "vendor/jms/metadata",
+            "installer": "composer"
+        },
+        "jms/parser-lib": {
+            "install-path": "vendor/jms/parser-lib",
+            "installer": "composer"
+        },
+        "jms/serializer": {
+            "install-path": "vendor/jms/serializer",
+            "installer": "composer"
+        },
         "justinrainbow/json-schema": {
             "install-path": "vendor/justinrainbow/json-schema",
             "installer": "composer"
@@ -317,8 +405,20 @@
             "installer": "composer",
             "env": "dev"
         },
+        "monolog/monolog": {
+            "install-path": "vendor/monolog/monolog",
+            "installer": "composer"
+        },
+        "mtdowling/jmespath.php": {
+            "install-path": "vendor/mtdowling/jmespath.php",
+            "installer": "composer"
+        },
         "nikic/php-parser": {
             "install-path": "vendor/nikic/php-parser",
+            "installer": "composer"
+        },
+        "ocramius/package-versions": {
+            "install-path": "vendor/ocramius/package-versions",
             "installer": "composer"
         },
         "padraic/humbug_get_contents": {
@@ -337,12 +437,16 @@
             "install-path": "vendor/pear/console_table",
             "installer": "composer"
         },
+        "phpcollection/phpcollection": {
+            "install-path": "vendor/phpcollection/phpcollection",
+            "installer": "composer"
+        },
         "phpdocumentor/reflection-docblock": {
             "install-path": "vendor/phpdocumentor/reflection-docblock",
             "installer": "composer"
         },
-        "phpseclib/phpseclib": {
-            "install-path": "vendor/phpseclib/phpseclib",
+        "phpoption/phpoption": {
+            "install-path": "vendor/phpoption/phpoption",
             "installer": "composer"
         },
         "phpspec/php-diff": {
@@ -537,6 +641,10 @@
             "install-path": "vendor/symfony/event-dispatcher",
             "installer": "composer"
         },
+        "symfony/expression-language": {
+            "install-path": "vendor/symfony/expression-language",
+            "installer": "composer"
+        },
         "symfony/filesystem": {
             "install-path": "vendor/symfony/filesystem",
             "installer": "composer"
@@ -616,6 +724,10 @@
         },
         "twig/twig": {
             "install-path": "vendor/twig/twig",
+            "installer": "composer"
+        },
+        "webflo/drupal-finder": {
+            "install-path": "vendor/webflo/drupal-finder",
             "installer": "composer"
         },
         "webmozart/assert": {
