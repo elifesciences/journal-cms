@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains jcms_article_fragment.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function jcms_article_fragment_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the jcms_article_fragment module.
+    case 'help.page.jcms_article_fragment':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Article fragment integration with Lax.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
