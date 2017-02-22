@@ -26,6 +26,21 @@ $settings['trusted_host_patterns'] = [
   '^journal\-cms\.local$',
 ];
 
+if (!drupal_installation_attempted()) {
+  $settings['cache']['default'] = 'cache.backend.redis';
+  $settings['redis.connection']['interface'] = 'PhpRedis';
+  $settings['redis.connection']['host'] = '127.0.0.1';
+  // Always set the fast backend for bootstrap, discover and config, otherwise
+  // this gets lost when redis is enabled.
+  $settings['cache']['bins']['bootstrap'] = 'cache.backend.chainedfast';
+  $settings['cache']['bins']['discovery'] = 'cache.backend.chainedfast';
+  $settings['cache']['bins']['config'] = 'cache.backend.chainedfast';
+  $settings['container_yamls'][] = 'modules/redis/example.services.yml';
+}
+else {
+  error_log('Redis cache backend is unavailable.');
+}
+
 $settings['jcms_sqs_endpoint'] = 'http://localhost:4100';
 $settings['jcms_sqs_queue'] = 'journal-cms--queue-local';
 // Production template is 'arn:aws:sns:us-east-1:512686554592:bus-%s--dev'.

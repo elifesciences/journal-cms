@@ -210,7 +210,7 @@ installed_extras:
   # - newrelic
   # - nodejs
   - pimpmylog
-  # - redis
+  - redis
   # - ruby
   # - selenium
   # - solr
