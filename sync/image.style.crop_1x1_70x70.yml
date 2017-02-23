@@ -1,14 +1,16 @@
 uuid: b0511225-8ecd-4257-8c31-a2a558c39862
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - focal_point
 name: crop_1x1_70x70
 label: crop_1x1_70x70
 effects:
-  78837303-c200-41b5-a470-ab4b169de90f:
-    uuid: 78837303-c200-41b5-a470-ab4b169de90f
-    id: image_scale_and_crop
-    weight: 1
+  edf29003-8cdd-4bc8-ab27-121eda26ddf5:
+    uuid: edf29003-8cdd-4bc8-ab27-121eda26ddf5
+    id: focal_point_scale_and_crop
+    weight: 2
     data:
       width: 70
       height: 70

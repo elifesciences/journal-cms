@@ -13,9 +13,7 @@ label: 'Episode number'
 description: ''
 required: true
 translatable: true
-default_value:
-  -
-    value: 1
+default_value: {  }
 default_value_callback: ''
 settings:
   min: 1

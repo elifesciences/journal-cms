@@ -10,6 +10,7 @@ module:
   config: 0
   config_devel: 0
   contextual: 0
+  crop: 0
   ctools: 0
   datetime: 0
   datetime_range: 0
@@ -22,11 +23,14 @@ module:
   field_collection: 0
   field_permissions: 0
   field_ui: 0
+  field_validation: 0
   file: 0
   filter: 0
+  focal_point: 0
   help: 0
   image: 0
   inline_entity_form: 0
+  jcms_admin: 0
   jcms_article: 0
   jcms_article_fragment: 0
   jcms_migrate: 0

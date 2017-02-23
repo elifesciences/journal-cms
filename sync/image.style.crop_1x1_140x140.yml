@@ -1,14 +1,16 @@
 uuid: 745308c0-a5a5-477a-895a-8118518c4cae
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - focal_point
 name: crop_1x1_140x140
 label: crop_1x1_140x140
 effects:
-  9fd550c4-a618-40c6-92a0-8b640b183e1b:
-    uuid: 9fd550c4-a618-40c6-92a0-8b640b183e1b
-    id: image_scale_and_crop
-    weight: 1
+  28424f21-6dda-4591-bba3-81e73de49ab2:
+    uuid: 28424f21-6dda-4591-bba3-81e73de49ab2
+    id: focal_point_scale_and_crop
+    weight: 2
     data:
       width: 140
       height: 140

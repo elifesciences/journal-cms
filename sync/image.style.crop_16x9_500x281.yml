@@ -1,14 +1,16 @@
 uuid: ac993daa-3d32-4041-a6e5-d5307bb756fb
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - focal_point
 name: crop_16x9_500x281
 label: crop_16x9_500x281
 effects:
-  08f01519-802f-4aba-b1cd-a86c323bd5b9:
-    uuid: 08f01519-802f-4aba-b1cd-a86c323bd5b9
-    id: image_scale_and_crop
-    weight: 1
+  fda675d0-50f5-41f4-a77f-67bfa42e8048:
+    uuid: fda675d0-50f5-41f4-a77f-67bfa42e8048
+    id: focal_point_scale_and_crop
+    weight: 2
     data:
       width: 500
       height: 281

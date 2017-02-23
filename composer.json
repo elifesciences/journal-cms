@@ -32,7 +32,6 @@
     "drupal/inline_entity_form": "~1.0-beta1",
     "drupal/jsonb": "~1.0-beta1",
     "drupal/paragraphs": "~1.0",
-    "drupal/unique_field": "~1.0@dev",
     "drupal-composer/drupal-project": "8.x-dev",
     "drupal/migrate_plus": "~3.0-beta1",
     "drupal/migrate_tools": "~2.0@dev",
@@ -54,7 +53,9 @@
     "giggsey/libphonenumber-for-php": "^7.7",
     "drupal/entityqueue": "~1.0-alpha4",
     "geerlingguy/drupal-vm": "^4.0",
-    "elife/bus-sdk": "dev-master"
+    "elife/bus-sdk": "dev-master",
+    "drupal/field_validation": "^1.0@alpha",
+    "drupal/focal_point": "^1.0@beta"
   },
   "require-dev": {
     "drupal/drupal-extension": "~3.0",
@@ -118,13 +119,17 @@
       },
       "drupal/core": {
         "CommandLineOrUnsafeMethodTest::testHttpMethod failures": "https://www.drupal.org/files/issues/options_trace_error-2776367-3.patch",
-        "View output is not used for autocomplete display": "https://www.drupal.org/files/issues/2174633-76-entity-reference-views.patch"
+        "View output is not used for autocomplete display": "https://www.drupal.org/files/issues/2174633-76-entity-reference-views.patch",
+        "Number widget validation can break AJAX actions": "https://www.drupal.org/files/issues/drupal-fix_number_widget_errorElement-2614250-30.patch"
       },
       "drupal/entity_reference_revisions": {
         "Support devel_generate, fatal error (2568187)": "https://www.drupal.org/files/issues/entity_reference_revisions-devel_generate-2568187-7-8.x.2.x.patch"
       },
       "drupal/address": {
         "generateSampleValue": "https://www.drupal.org/files/issues/generatesamplevalue-2819251-4.patch"
+      },
+      "drupal/field_validation": {
+        "2 unique fields in the same ruleset - only one works": "https://www.drupal.org/files/issues/2_unique_fields_in_the-2854615-3.patch"
       }
     }
   }

@@ -16,3 +16,5 @@ permissions:
   14: 'access site in maintenance mode'
   21: 'administer taxonomy'
   22: 'view the administration theme'
+  23: 'update covers entityqueue'
+  24: 'manipulate entityqueues'
