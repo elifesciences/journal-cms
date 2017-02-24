@@ -4,3 +4,4 @@ status: true
 dependencies: {  }
 id: section
 label: Section
+behavior_plugins: {  }

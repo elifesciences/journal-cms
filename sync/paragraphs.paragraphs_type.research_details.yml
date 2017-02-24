@@ -4,3 +4,4 @@ status: true
 dependencies: {  }
 id: research_details
 label: 'Research details'
+behavior_plugins: {  }
