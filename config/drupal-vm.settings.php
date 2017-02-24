@@ -25,6 +25,39 @@ $databases['legacy_cms']['default'] = [
 $settings['trusted_host_patterns'] = [
   '^journal\-cms\.local$',
 ];
+  
+if (class_exists(\Composer\Autoload\ClassLoader::class)) {
+  $loader = new \Composer\Autoload\ClassLoader();
+  $loader->addPsr4('Drupal\\redis\\', 'modules/redis/src');
+  $loader->register();
+  $settings['bootstrap_container_definition'] = [
+    'parameters' => [],
+    'services' => [
+      'cache.container' => [
+        'class' => 'Drupal\redis\Cache\PhpRedis',
+        'factory' => ['@cache.backend.redis', 'get'],
+        'arguments' => ['container', '@redis', '@cache_tags_provider.container', '@serialization.phpserialize'],
+      ],
+      'cache_tags_provider.container' => [
+        'class' => 'Drupal\redis\Cache\RedisCacheTagsChecksum',
+        'arguments' => ['@redis.factory'],
+      ],
+      'redis' => [
+        'class' => 'Redis',
+      ],
+      'cache.backend.redis' => [
+        'class' => 'Drupal\redis\Cache\CacheBackendFactory',
+        'arguments' => ['@redis.factory', '@cache_tags_provider.container', '@serialization.phpserialize'],
+      ],
+      'redis.factory' => [
+        'class' => 'Drupal\redis\ClientFactory',
+      ],
+      'serialization.phpserialize' => [
+        'class' => 'Drupal\Component\Serialization\PhpSerialize',
+      ],
+    ],
+  ];
+}
 
 if (!drupal_installation_attempted()) {
   $settings['cache']['default'] = 'cache.backend.redis';
