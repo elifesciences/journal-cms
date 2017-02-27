@@ -34,6 +34,7 @@ class JCMSBlogArticleNode extends SqlBase {
     $query->condition($db_or);
     $query->condition('n.title', 'Press package: %', 'NOT LIKE');
     $query->condition('n.type', 'elife_news_article');
+    $query->condition('n.status', 1);
     $query->groupBy('n.nid');
     $query->groupBy('text.field_elife_n_text_value');
     $query->groupBy('text.field_elife_n_text_summary');

@@ -153,7 +153,7 @@ class JCMSResearchDetailsTest extends MigrateProcessTestCase {
       ],
       [
         'cytoskeleton - membrane interplay',
-        'cytoskeleton - membrane interplay',
+        'cytoskeleton-membrane interplay',
       ],
       [
         'protein nucleic acid interactions',

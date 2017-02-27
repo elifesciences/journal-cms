@@ -6,6 +6,8 @@ use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
 use Drupal\paragraphs\Entity\Paragraph;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 
 /**
  * Process the content values into paragraphs.
@@ -212,13 +214,19 @@ class JCMSContent extends ProcessPluginBase {
   }
 
   function getFile($filename) {
-    $headers = get_headers($filename);
-    $status = (int) substr($headers[0], 9, 3);
-    if ($status === 200) {
-      return file_get_contents($filename);
-    }
+    $guzzle = new Client();
+    try {
+      $response = $guzzle->get($filename, ['timeout' => 5, 'http_errors' => FALSE]);
+      if ($response->getStatusCode() == 200) {
+        return $response->getBody()->getContents();
+      }
 
-    return FALSE;
+      error_log(sprintf("File %s didn't download. (return code %d)", $filename, $response->getStatusCode()));
+      return FALSE;
+    }
+    catch (ConnectException $e) {
+      error_log(sprintf("File %s didn't download. (%s)", $filename, $e->getMessage()));
+    }
   }
 
 }

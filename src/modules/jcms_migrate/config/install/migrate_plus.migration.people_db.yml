@@ -10,6 +10,7 @@ process:
   type:
     plugin: default_value
     default_value: person
+  status: status
   title:
     plugin: concat
     source:
