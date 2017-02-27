@@ -368,6 +368,10 @@
     "name": "behavioural neuroscience"
   },
   {
+    "id": "biochemical neuroscience",
+    "name": "biochemical neuroscience"
+  },
+  {
     "id": "biochemical signal transduction networks",
     "name": "biochemical signal transduction networks"
   },
@@ -952,6 +956,10 @@
     "name": "cryo-EM"
   },
   {
+    "id": "crystallography",
+    "name": "crystallography"
+  },
+  {
     "id": "cyclic peptides",
     "name": "cyclic peptides"
   },
@@ -976,8 +984,8 @@
     "name": "cytoskeleton"
   },
   {
-    "id": "cytoskeleton - membrane interplay",
-    "name": "cytoskeleton - membrane interplay"
+    "id": "cytoskeleton-membrane interplay",
+    "name": "cytoskeleton-membrane interplay"
   },
   {
     "id": "deafness",
@@ -1126,6 +1134,10 @@
   {
     "id": "ecology and evolution of microbial communities",
     "name": "ecology and evolution of microbial communities"
+  },
+  {
+    "id": "electron microscopy",
+    "name": "electron microscopy"
   },
   {
     "id": "electron tomography",
@@ -3056,6 +3068,10 @@
     "name": "protein degradation"
   },
   {
+    "id": "protein evolution",
+    "name": "protein evolution"
+  },
+  {
     "id": "protein folding",
     "name": "protein folding"
   },
@@ -3098,6 +3114,10 @@
   {
     "id": "protein quality control",
     "name": "protein quality control"
+  },
+  {
+    "id": "protein science and biochemistry",
+    "name": "protein science and biochemistry"
   },
   {
     "id": "protein secretion",
