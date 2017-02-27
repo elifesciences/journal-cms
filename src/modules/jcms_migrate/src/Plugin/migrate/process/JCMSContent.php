@@ -19,9 +19,15 @@ class JCMSContent extends ProcessPluginBase {
   use JMCSCheckMarkupTrait;
 
   /**
+   * @var \Drupal\migrate\Row
+   */
+  protected $row;
+
+  /**
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
+    $this->row = $row;
     if (!empty($value)) {
       if (!isset($this->configuration['multiple']) || $this->configuration['multiple'] === FALSE) {
         return $this->processItemValue($value);
@@ -29,13 +35,34 @@ class JCMSContent extends ProcessPluginBase {
       else {
         $items = [];
         foreach ($value as $val) {
-          $items[] = $this->processItemValue($val);
+          if ($item = $this->processItemValue($val)) {
+            $items[] = $this->processItemValue($val);
+          }
         }
         return $items;
       }
     }
 
     return NULL;
+  }
+
+  /**
+   * @return \Drupal\migrate\Row
+   */
+  private function getRow() {
+    return $this->row;
+  }
+
+  private function imagePath($type = NULL, $time = NULL) {
+    $destination = $this->getRow()->getDestination();
+    if (!$type) {
+      $type = (!empty($destination['vid'])) ? $destination['vid'] : $destination['type'];
+    }
+    if (!$time) {
+      $time = (!empty($destination['created'])) ? $destination['created'] : time();
+    }
+    $folder = $type . '/' . date('Y-m', $time) . '/';
+    return 'public://iiif/' . $folder;
   }
 
   private function processItemValue($value, $type = NULL) {
@@ -98,13 +125,18 @@ class JCMSContent extends ProcessPluginBase {
           $source = NULL;
         }
 
+        $image_path = $this->imagePath('content');
         if ($source && file_exists($source)) {
-          $uri = file_unmanaged_copy($source, NULL, FILE_EXISTS_REPLACE);
+          file_prepare_directory($image_path, FILE_CREATE_DIRECTORY);
+          $new_filename = JCMSImage::transliteration(basename($source));
+          $uri = file_unmanaged_copy($source, $image_path . $new_filename, FILE_EXISTS_REPLACE);
           $file = \Drupal::entityTypeManager()->getStorage('file')->create(['uri' => $uri]);
           $file->save();
         }
         elseif (preg_match('/^http/', $image) && $data = $this->getFile($image)) {
-          $file = file_save_data($data, 'public://' . basename($image), FILE_EXISTS_REPLACE);
+          $new_filename = JCMSImage::transliteration(basename($image));
+          file_prepare_directory($image_path, FILE_CREATE_DIRECTORY);
+          $file = file_save_data($data, $image_path . $new_filename, FILE_EXISTS_REPLACE);
         }
         else {
           $file = NULL;
@@ -116,6 +148,9 @@ class JCMSContent extends ProcessPluginBase {
           if (!empty($value['alt'])) {
             $values['field_block_image']['alt'] = $value['alt'];
           }
+        }
+        else {
+          $values = NULL;
         }
         break;
       case 'table':
@@ -166,12 +201,14 @@ class JCMSContent extends ProcessPluginBase {
         ];
         break;
     }
-    $paragraph = Paragraph::create($values);
-    $paragraph->save();
-    return [
-      'target_id' => $paragraph->id(),
-      'target_revision_id' => $paragraph->getRevisionId(),
-    ];
+    if (!empty($values)) {
+      $paragraph = Paragraph::create($values);
+      $paragraph->save();
+      return [
+        'target_id' => $paragraph->id(),
+        'target_revision_id' => $paragraph->getRevisionId(),
+      ];
+    }
   }
 
   function getFile($filename) {
