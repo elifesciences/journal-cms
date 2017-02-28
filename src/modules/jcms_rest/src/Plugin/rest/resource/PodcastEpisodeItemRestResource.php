@@ -5,8 +5,8 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
+use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -76,7 +76,8 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
         }
       }
 
-      $response = new JsonResponse($response, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.podcast-episode+json;version=1']);
+      $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+      $response->addCacheableDependency($node);
       return $response;
     }
 

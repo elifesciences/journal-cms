@@ -2,13 +2,9 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\image\Entity\ImageStyle;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
-use Drupal\rest\Plugin\ResourceBase;
-use Drupal\rest\ResourceResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Provides a resource to get view modes by entity and bundle.
@@ -17,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   id = "subject_item_rest_resource",
  *   label = @Translation("Subject item rest resource"),
  *   uri_paths = {
- *     "canonical" = "subjects/{id}"
+ *     "canonical" = "/subjects/{id}"
  *   }
  * )
  */
@@ -51,7 +47,8 @@ class SubjectItemRestResource extends AbstractRestResourceBase {
         $response['impactStatement'] = $this->fieldValueFormatted($term->get('field_impact_statement'));
       }
 
-      $response = new JsonResponse($response, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.subject+json;version=1']);
+      $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+      $response->addCacheableDependency($term);
       return $response;
     }
 
