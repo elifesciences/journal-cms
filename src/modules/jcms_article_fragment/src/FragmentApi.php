@@ -39,11 +39,15 @@ class FragmentApi {
    *
    * @return \GuzzleHttp\Psr7\Response
    */
-  public function postImageFragment(int $imageFid, string $articleId): Response {
+  public function postImageFragment(int $imageFid, string $articleId, string $alt = ''): Response {
     $endpoint = sprintf(Settings::get('jcms_article_fragment_images_endpoint'), $articleId);
-    $payload = $this->getPayLoad($imageFid);
+    $payload = $this->getPayLoad($imageFid, $alt);
     $response = $this->client->post($endpoint, [
       'body' => $payload,
+      'headers' => [
+        'Authorization' => Settings::get('jcms_article_auth_unpublished'),
+        'Content-Type' => 'application/json',
+      ],
       'http_errors' => TRUE,
     ]);
     return $response;
@@ -68,26 +72,33 @@ class FragmentApi {
    * Gets the JSON payload for the fragment.
    *
    * @param int $imageFid
+   * @param string $alt
    *
    * @return string
    */
-  public function getPayLoad(int $imageFid): string {
+  public function getPayLoad(int $imageFid, string $alt = ''): string {
     $images = [
       'image' => [
         'banner' => [
-          '2:1' => [
-            900 => $this->getImageUri($imageFid, 'crop_2x1_900x450'),
-            1800 => $this->getImageUri($imageFid, 'crop_2x1_1800x900'),
+          'alt' => $alt,
+          'sizes' => [
+            '2:1' => [
+              900 => $this->getImageUri($imageFid, 'crop_2x1_900x450'),
+              1800 => $this->getImageUri($imageFid, 'crop_2x1_1800x900'),
+            ],
           ],
         ],
         'thumbnail' => [
-          '16:9' => [
-            250 => $this->getImageUri($imageFid, 'crop_16x9_250x141'),
-            500 => $this->getImageUri($imageFid, 'crop_16x9_500x281'),
-          ],
-          '1:1' => [
-            70 => $this->getImageUri($imageFid, 'crop_1x1_70x70'),
-            140 => $this->getImageUri($imageFid, 'crop_1x1_140x140'),
+          'alt' => $alt,
+          'sizes' => [
+            '16:9' => [
+              250 => $this->getImageUri($imageFid, 'crop_16x9_250x141'),
+              500 => $this->getImageUri($imageFid, 'crop_16x9_500x281'),
+            ],
+            '1:1' => [
+              70 => $this->getImageUri($imageFid, 'crop_1x1_70x70'),
+              140 => $this->getImageUri($imageFid, 'crop_1x1_140x140'),
+            ],
           ],
         ],
       ],
