@@ -69,8 +69,9 @@ class ArticleFragmentForm extends ContentEntityForm {
       $this->setImageFragment($form_state);
     }
     catch (\Exception $e) {
-      drupal_set_message(t('An error occurred saving this fragment: !error', ['!error' => $e->getMessage()]), 'error');
-      $e_message = "Message: {$e->getMessage()}\n";
+      $full_message = $e->getResponse()->getBody()->getContents();
+      drupal_set_message(t('An error occurred saving this fragment: @error', ['@error' => $full_message]), 'error');
+      $e_message = "Message: $full_message\n";
       $e_line = "Line: {$e->getLine()}\n";
       $e_trace = "Trace: {$e->getTraceAsString()}\n";
       $error = $e_message . $e_line . $e_trace;
@@ -116,7 +117,8 @@ class ArticleFragmentForm extends ContentEntityForm {
     $values = $form_state->getValues();
     $article_id = $values['name'][0]['value'] ?? '';
     $fid = $values['image'][0]['fids'][0] ?? 0;
-    $this->api->postImageFragment($fid, $article_id);
+    $alt = $values['image'][0]['alt'] ?? '';
+    $this->api->postImageFragment($fid, $article_id, $alt);
   }
 
 }
