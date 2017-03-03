@@ -3,7 +3,7 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -56,7 +56,8 @@ class AnnualReportItemRestResource extends AbstractRestResourceBase {
       // Image is required.
       $response['image'] = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail', TRUE);
 
-      $response = new JsonResponse($response, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.annual-report+json;version=1']);
+      $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+      $response->addCacheableDependency($node);
       return $response;
     }
 

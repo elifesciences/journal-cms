@@ -3,7 +3,7 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -64,7 +64,8 @@ class BlogArticleItemRestResource extends AbstractRestResourceBase {
         $response['subjects'] = $subjects;
       }
 
-      $response = new JsonResponse($response, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.blog-article+json;version=1']);
+      $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+      $response->addCacheableDependency($node);
       return $response;
     }
     throw new JCMSNotFoundHttpException(t('Blog article with ID @id was not found', ['@id' => $id]));

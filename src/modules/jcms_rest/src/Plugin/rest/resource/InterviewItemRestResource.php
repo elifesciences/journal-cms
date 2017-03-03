@@ -3,7 +3,7 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -69,7 +69,8 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
         $response['content'] = $content;
       }
 
-      $response = new JsonResponse($response, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.interview+json;version=1']);
+      $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+      $response->addCacheableDependency($node);
       return $response;
     }
 

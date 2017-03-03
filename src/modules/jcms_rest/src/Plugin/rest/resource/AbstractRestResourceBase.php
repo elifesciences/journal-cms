@@ -4,13 +4,12 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Drupal\Component\Utility\Random;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\image\Entity\ImageStyle;
-use Drupal\jcms_article\ArticleCrud;
 use Drupal\jcms_rest\Exception\JCMSBadRequestHttpException;
+use Drupal\jcms_rest\PathMediaTypeMapper;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\rest\Plugin\ResourceBase;
@@ -389,7 +388,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   protected function fieldValueFormatted(FieldItemListInterface $data) {
     $view = $data->view();
     unset($view['#theme']);
-    return render($view);
+    return \Drupal::service('renderer')->renderPlain($view);
   }
 
   /**
@@ -538,6 +537,42 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     }
 
     return $item_values;
+  }
+
+  /**
+   * Returns the endpoint from the rest resource "canonical" annotation.
+   *
+   * @return string
+   * @throws \Exception
+   */
+  function getEndpoint(): string {
+    $r = new \ReflectionClass(static::class);
+    $annotation = $r->getDocComment();
+    preg_match("/\"canonical\" = \"(.+)\"/", $annotation, $endpoint);
+    if (!$endpoint) {
+      throw new \Exception('Canonical URI not found in rest resource.');
+    }
+    return $endpoint[1];
+  }
+
+  /**
+   * Gets the content type for the current rest resource.
+   *
+   * @param int $version
+   *
+   * @return string
+   * @throws \Exception
+   * @todo Handle this in the response object optionally.
+   * @todo Handle versioning properly.
+   */
+  public function getContentType(int $version = 1): string {
+    $endpoint = $this->getEndpoint();
+    $mapper = new PathMediaTypeMapper();
+    $content_type = $mapper->getMediaTypeByPath($endpoint);
+    if (!$content_type) {
+      throw new \Exception('Content type not found for specified rest resource.');
+    }
+    return $content_type . ';version=' . $version;
   }
 
 }

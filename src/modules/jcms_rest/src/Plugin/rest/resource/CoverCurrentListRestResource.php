@@ -3,7 +3,7 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\entityqueue\Entity\EntitySubqueue;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -46,7 +46,8 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
 
     $response_data = ['total' => count($response_data['items'])] + $response_data;
 
-    $response = new JsonResponse($response_data, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.cover-list+json;version=1']);
+    // @todo Add cacheable dependencies whenever I know how this works.
+    $response = new JCMSRestResponse($response_data, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
     return $response;
   }
 

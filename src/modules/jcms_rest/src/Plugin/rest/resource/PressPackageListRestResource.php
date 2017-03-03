@@ -4,8 +4,8 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
+use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -45,6 +45,7 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
       'total' => 0,
       'items' => [],
     ];
+    $nodes = [];
     if ($total = $count_query->count()->execute()) {
       $response_data['total'] = (int) $total;
       $this->filterPageAndOrder($items_query);
@@ -58,7 +59,8 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
         }
       }
     }
-    $response = new JsonResponse($response_data, Response::HTTP_OK, ['Content-Type' => 'application/vnd.elife.press-package-list+json;version=1']);
+    $response = new JCMSRestResponse($response_data, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+    $response->addCacheableDependencies($nodes);
     return $response;
   }
 
