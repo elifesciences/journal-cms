@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_help().
@@ -20,5 +21,36 @@ function jcms_article_fragment_help($route_name, RouteMatchInterface $route_matc
       return $output;
 
     default:
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function jcms_article_fragment_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (in_array($form_id, ['article_fragment_add_form', 'article_fragment_edit_form'])) {
+    $form['banner_image']['#states'] = array(
+      // Only show this field when the 'toggle_me' checkbox is enabled.
+      'visible' => array(
+        ':input[name="use_as_banner[value]"]' => array('checked' => FALSE),
+      ),
+    );
+  }
+  $form['#validate'][] = '_jcms_article_fragment_crud_form_validate';
+}
+
+/**
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function _jcms_article_fragment_crud_form_validate(array &$form, FormStateInterface $form_state) {
+  $thumb_image = $form_state->getValue('image')[0]['fids'] ?? [];
+  $use_as_banner = $form_state->getValue('use_as_banner')['value'] ?? 0;
+  $banner_image = $form_state->getValue('banner_image')[0]['fids'] ?? [];
+  if (!$thumb_image && $banner_image) {
+    $form_state->setErrorByName('image', t('You must upload a thumbnail with a banner image.'));
+  }
+  if ($use_as_banner && $banner_image) {
+    $form_state->setErrorByName('banner_image', t('You must either upload a banner or image or use the the thumbnail image as the banner image.'));
   }
 }

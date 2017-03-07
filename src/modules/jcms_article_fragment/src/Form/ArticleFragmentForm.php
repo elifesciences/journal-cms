@@ -116,9 +116,12 @@ class ArticleFragmentForm extends ContentEntityForm {
   public function setImageFragment(FormStateInterface $form_state) {
     $values = $form_state->getValues();
     $article_id = $values['name'][0]['value'] ?? '';
-    $fid = $values['image'][0]['fids'][0] ?? 0;
-    $alt = $values['image'][0]['alt'] ?? '';
-    $this->api->postImageFragment($fid, $article_id, $alt);
+    $thumb_fid = $values['image'][0]['fids'][0] ?? 0;
+    $thumb_alt = $values['image'][0]['alt'] ?? '';
+    $banner_fid = $values['banner_image'][0]['fids'][0] ?? 0;
+    $banner_alt = $values['banner_image'][0]['alt'] ?? '';
+    $use_thumb_as_banner = $values['use_as_banner']['value'] ?? 0;
+    $this->api->postImageFragment($article_id, $thumb_fid, $thumb_alt, $banner_fid, $banner_alt, $use_thumb_as_banner);
   }
 
 }
