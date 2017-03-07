@@ -13,6 +13,7 @@ use Drupal\jcms_rest\PathMediaTypeMapper;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\rest\Plugin\ResourceBase;
+use Drupal\user\Entity\User;
 
 abstract class AbstractRestResourceBase extends ResourceBase {
 
@@ -573,6 +574,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       throw new \Exception('Content type not found for specified rest resource.');
     }
     return $content_type . ';version=' . $version;
+  }
+
+  public function viewUnpublished() {
+    return \Drupal::currentUser()->hasPermission('view latest version');
   }
 
 }

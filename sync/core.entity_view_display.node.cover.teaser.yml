@@ -12,6 +12,8 @@ targetEntityType: node
 bundle: cover
 mode: teaser
 content:
+  content_moderation_control:
+    weight: -20
   links:
     weight: 100
 hidden:

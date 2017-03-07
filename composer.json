@@ -55,7 +55,8 @@
     "geerlingguy/drupal-vm": "^4.0",
     "elife/bus-sdk": "dev-master",
     "drupal/field_validation": "^1.0@alpha",
-    "drupal/focal_point": "^1.0@beta"
+    "drupal/focal_point": "^1.0@beta",
+    "drupal/diff": "^1.0@RC"
   },
   "require-dev": {
     "drupal/drupal-extension": "~3.0",

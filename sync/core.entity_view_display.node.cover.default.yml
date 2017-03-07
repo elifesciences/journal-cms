@@ -14,6 +14,8 @@ targetEntityType: node
 bundle: cover
 mode: default
 content:
+  content_moderation_control:
+    weight: -20
   field_cover_content:
     weight: 103
     label: above

@@ -8,3 +8,4 @@ scripts/legacy_cms_files/
 vendor/
 web/
 build/
+/console/cache

@@ -2,4 +2,6 @@ name: Journal CMS (Admin)
 type: module
 description: Admin improvements.
 core: 8.x
+dependencies:
+  - content_moderation
 package: Journal CMS
