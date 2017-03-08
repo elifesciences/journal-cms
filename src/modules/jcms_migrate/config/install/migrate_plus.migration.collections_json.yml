@@ -17,7 +17,7 @@ source:
       label: 'Collection title'
       selector: sub_title
     -
-      name: createc
+      name: created
       label: 'Collection publication date'
       selector: created
     -
@@ -28,10 +28,6 @@ source:
       name: image
       label: 'Collection image'
       selector: image
-    -
-      name: subjects
-      label: 'Collection subjects'
-      selector: subjects
     -
       name: subjects
       label: 'Collection subjects'

@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * JCMS migrate module file.
+ */
+
+use Drupal\Core\Database\Query\AlterableInterface;
+
+/**
+ * Implements hook_query_TAG_alter().
+ */
+function jcms_migrate_query_random_alter(AlterableInterface $query) {
+  $query->orderRandom();
+}

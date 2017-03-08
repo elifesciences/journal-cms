@@ -302,3 +302,16 @@ function jcms_admin_entity_subqueue_presave(EntityInterface $entity) {
       ]));
   }
 }
+
+/**
+ * Implements hook_node_delete().
+ */
+function jcms_admin_node_delete(EntityInterface $entity) {
+  if ($entity->bundle() != 'highlight_list') {
+    return NULL;
+  }
+  // Delete orphaned highlight item nodes.
+  foreach ($entity->get('field_highlight_items')->referencedEntities() as $item) {
+    $item->delete();
+  }
+}

@@ -1,0 +1,51 @@
+uuid: 6e2ea7ec-cfff-475c-bb7f-b14a2aac9c37
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: _kv29nnA_PCsTqxdWTSBcjXtG2slKb5eYBQYeJebWGg
+id: jcms_highlight_lists_json
+migration_tags: null
+migration_group: jcms_migrate
+label: 'JSON feed of highlight lists'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: json
+  urls: modules/custom/jcms_migrate/migration_assets/highlight_lists.json
+  item_selector: 0
+  fields:
+    -
+      name: title
+      label: 'Highlight list title'
+      selector: title
+    -
+      name: content
+      label: 'Highlight list content'
+      selector: content
+  ids:
+    title:
+      type: string
+process:
+  id: title
+  label: title
+  type:
+    plugin: default_value
+    default_value: highlight_list
+  title: title
+  uid:
+    plugin: default_value
+    default_value: 1
+  field_highlight_items:
+    plugin: jcms_highlight_list_content
+    source: content
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - jcms_blog_articles_db
+    - jcms_collections_db
+    - jcms_collections_json
+    - jcms_interviews_db
+    - jcms_labs_experiments_json
+    - jcms_podcast_episodes_json

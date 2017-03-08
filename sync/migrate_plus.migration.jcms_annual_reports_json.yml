@@ -1,9 +1,9 @@
-uuid: a41d95a2-bd17-40b8-b644-99b5e17f2012
+uuid: fb37d841-ad3d-4482-ac10-b6f1407ad724
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: cqDV6s9paLtfx1AC7EPb6y3j43xSOBwtiAGnMWuxl3g
+  default_config_hash: P57pPpI4yC5mAGb4gouN6hRpwYrc2uKw48q6gMjBwOY
 id: jcms_annual_reports_json
 migration_tags: null
 migration_group: jcms_migrate
