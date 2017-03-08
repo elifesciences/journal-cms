@@ -146,5 +146,181 @@
         "source": 328658
       }
     ]
+  },
+  {
+    "title": "Reproducibility Project",
+    "sub_title": "Cancer Biology",
+    "impact_statement": "The Reproducibility Project: Cancer Biology is a collaboration between the <a href=\"http://centerforopenscience.org/\">Center for Open Science</a> and <a href=\"https://www.scienceexchange.com/\">Science Exchange</a> to independently replicate selected results from a substantial number of <a href=\"https://osf.io/e81xl/wiki/studies\">high-profile papers</a> in the field of cancer biology. For each paper a Registered Report detailing the proposed experimental designs and protocols for the replications is peer reviewed and published prior to data collection. The results of these experiments are now being published in a Replication Study for each paper. <a href=\"https://osf.io/e81xl\">The project</a> will provide evidence about reproducibility in cancer biology, and an opportunity to identify factors that influence reproducibility more generally.",
+    "created": "2014-12-10 00:00:00",
+    "image": "collections/test-tubes-blue-large.png",
+    "curators": [
+      248001
+    ],
+    "content": [
+      {
+        "type": "article",
+        "source": "07072"
+      },
+      {
+        "type": "article",
+        "source": "21253"
+      },
+      {
+        "type": "article",
+        "source": "06959"
+      },
+      {
+        "type": "article",
+        "source": "17584"
+      },
+      {
+        "type": "article",
+        "source": "06847"
+      },
+      {
+        "type": "article",
+        "source": "17044"
+      },
+      {
+        "type": "article",
+        "source": "04586"
+      },
+      {
+        "type": "article",
+        "source": "18173"
+      },
+      {
+        "type": "article",
+        "source": "04180"
+      },
+      {
+        "type": "article",
+        "source": "21634"
+      },
+      {
+        "type": "article",
+        "source": "22661"
+      },
+      {
+        "type": "article",
+        "source": "22915"
+      },
+      {
+        "type": "article",
+        "source": "22662"
+      },
+      {
+        "type": "article",
+        "source": "23383"
+      },
+      {
+        "type": "article",
+        "source": "23383"
+      },
+      {
+        "type": "article",
+        "source": "13620"
+      },
+      {
+        "type": "article",
+        "source": "11414"
+      },
+      {
+        "type": "article",
+        "source": "10860"
+      },
+      {
+        "type": "article",
+        "source": "12470"
+      },
+      {
+        "type": "article",
+        "source": "12626"
+      },
+      {
+        "type": "article",
+        "source": "09462"
+      },
+      {
+        "type": "article",
+        "source": "11566"
+      },
+      {
+        "type": "article",
+        "source": "11999"
+      },
+      {
+        "type": "article",
+        "source": "09976"
+      },
+      {
+        "type": "article",
+        "source": "10012"
+      },
+      {
+        "type": "article",
+        "source": "07383"
+      },
+      {
+        "type": "article",
+        "source": "08245"
+      },
+      {
+        "type": "article",
+        "source": "08997"
+      },
+      {
+        "type": "article",
+        "source": "07301"
+      },
+      {
+        "type": "article",
+        "source": "06434"
+      },
+      {
+        "type": "article",
+        "source": "07420"
+      },
+      {
+        "type": "article",
+        "source": "04796"
+      },
+      {
+        "type": "article",
+        "source": "06938"
+      },
+      {
+        "type": "article",
+        "source": "04186"
+      },
+      {
+        "type": "article",
+        "source": "04363"
+      },
+      {
+        "type": "article",
+        "source": "04024"
+      },
+      {
+        "type": "article",
+        "source": "04105"
+      },
+      {
+        "type": "article",
+        "source": "04034"
+      },
+      {
+        "type": "article",
+        "source": "04037"
+      },
+      {
+        "type": "article",
+        "source": "04333"
+      },
+      {
+        "type": "article",
+        "source": "03981"
+      }
+    ]
   }
 ]
