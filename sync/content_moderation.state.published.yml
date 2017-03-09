@@ -1,0 +1,11 @@
+uuid: 49f1b3ee-9164-4fa2-b3b9-cfd3cac494e6
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: xXNQquMx-xkHje0RYjdxm2eUzMEr3qaOYHa-qaimATE
+id: published
+label: Published
+published: true
+default_revision: true
+weight: -9

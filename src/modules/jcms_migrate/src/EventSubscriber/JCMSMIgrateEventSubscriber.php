@@ -23,15 +23,17 @@ class JCMSMIgrateEventSubscriber implements EventSubscriberInterface {
   public function onPostRowSave(MigratePostRowSaveEvent $event) {
     if ($event->getMigration()->id() == 'jcms_covers_db') {
       if ($event->getRow()->getDestinationProperty('counter') <= 3) {
-        $subqueue = EntitySubqueue::load('covers');
-        $items = ($subqueue->get('items')) ? $subqueue->get('items')->getValue() : [];
-        if (count($items) < 3) {
-          $ids = $event->getDestinationIdValues();
-          $items[] = [
-            'target_id' => $ids[0],
-          ];
-          $subqueue->set('items', $items);
-          $subqueue->save();
+        foreach (['covers', 'covers_preview'] as $subqueue_id) {
+          $subqueue = EntitySubqueue::load($subqueue_id);
+          $items = ($subqueue->get('items')) ? $subqueue->get('items')->getValue() : [];
+          if (count($items) < 3) {
+            $ids = $event->getDestinationIdValues();
+            $items[] = [
+              'target_id' => $ids[0],
+            ];
+            $subqueue->set('items', $items);
+            $subqueue->save();
+          }
         }
       }
     }

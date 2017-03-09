@@ -4,8 +4,11 @@
  * JCMS admin module file.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\entityqueue\Entity\EntitySubqueue;
 use Drupal\node\Entity\Node;
 
 /**
@@ -112,9 +115,37 @@ function jcms_admin_form_node_annual_report_form_alter(&$form, FormStateInterfac
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function jcms_admin_form_entity_subqueue_covers_preview_edit_form_alter(&$form, FormStateInterface $form_state) {
+  $max_weight = 0;
+  foreach ($form as $key => $value) {
+    $value = (array) $value;
+    if (!empty($value['#weight'])) {
+      $max_weight = max($max_weight, $value['#weight']);
+    }
+  }
+  $form['covers_active_publish'] = [
+    '#title' => t('Publish items'),
+    '#type' => 'checkbox',
+    '#description' => t('Tick this box to transfer the active items (1 - 3) to the current covers list.'),
+    '#default_value' => FALSE,
+    '#weight' => ++$max_weight,
+  ];
+  $form['covers_active_reset'] = [
+    '#title' => t('Reset items'),
+    '#type' => 'checkbox',
+    '#description' => t('Tick this box to discard draft covers and reset the list to the current cover items.'),
+    '#default_value' => FALSE,
+    '#weight' => ++$max_weight,
+  ];
+  array_unshift($form['actions']['submit']['#submit'], '_jcms_admin_form_entity_subqueue_covers_preview_edit_form_submit');
+}
+
+/**
  * Implements hook_form_alter().
  */
-function jcms_admin_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   switch ($form_id) {
     case 'node_article_form':
     case 'node_article_edit_form':
@@ -125,6 +156,32 @@ function jcms_admin_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $for
       $form['#validate'][] = '_jcms_admin_form_node_highlight_list_form_validate';
       break;
   }
+}
+
+/**
+ * Submit function for entity_subqueue_covers_preview_edit_form.
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function _jcms_admin_form_entity_subqueue_covers_preview_edit_form_submit($form, FormStateInterface $form_state) {
+  _jcms_admin_covers_active('publish', $form_state->getValue('covers_active_publish', 0));
+  _jcms_admin_covers_active('reset', $form_state->getValue('covers_active_reset', 0));
+}
+
+/**
+ * Store and retrieve values from form submission: entity_subqueue_covers_preview_edit_form.
+ *
+ * @param string $key
+ * @param mixed|NULL $value
+ * @return mixed|NULL
+ */
+function _jcms_admin_covers_active($key, $value = NULL) {
+  static $values = [];
+  if (!is_null($value)) {
+    $values[$key] = $value;
+  }
+  return $values[$key] ?? $value;
 }
 
 /**
@@ -192,4 +249,56 @@ function _jcms_admin_node_title_unique($title, $node, $content_type = NULL) {
   }
 
   return TRUE;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function jcms_admin_entity_subqueue_presave(EntityInterface $entity) {
+  if ($entity->bundle() != 'covers_preview') {
+    return NULL;
+  }
+  if (_jcms_admin_covers_active('publish')) {
+    $items = ($entity->get('items')) ? $entity->get('items')->getValue() : [];
+    $items = array_splice($items, 0, $entity->get('field_covers_active_items')->getString());
+    foreach ($items as $item) {
+      $node = Node::load($item['target_id']);
+      $moderation_info = \Drupal::service('content_moderation.moderation_information');
+      if (!$moderation_info->isLatestRevision($node)) {
+        $latest = $moderation_info->getLatestRevision($node->getEntityTypeId(), $node->id());
+        $latest->moderation_state->target_id = 'published';
+        $latest->save();
+      }
+      else {
+        $node->moderation_state->target_id = 'published';
+        $node->save();
+      }
+    }
+    $subqueue = EntitySubqueue::load('covers');
+    $subqueue->set('items', $items);
+    drupal_set_message(\Drupal::translation()->formatPlural(count($items),
+      '%number active item has been published to the current covers list from preview list.',
+      '%number active item(s) have been published to the current covers list from preview list.',
+      [
+        '%number' => count($items),
+      ]));
+    $subqueue->save();
+  }
+  if (_jcms_admin_covers_active('reset')) {
+    $subqueue = EntitySubqueue::load('covers');
+    $items = ($subqueue->get('items')) ? $subqueue->get('items')->getValue() : [];
+    $entity->set('field_covers_active_items', 3);
+    foreach ($items as $item) {
+      $node = Node::load($item['target_id']);
+      $node->moderation_state->target_id = 'published';
+      $node->save();
+    }
+    $entity->set('items', $items);
+    drupal_set_message(\Drupal::translation()->formatPlural(count($items),
+      'The covers preview list has been reset to %number item from current list.',
+      'The covers preview list has been reset to %number items from current list.',
+      [
+        '%number' => count($items),
+      ]));
+  }
 }

@@ -1,0 +1,21 @@
+uuid: dbc907b5-d094-4d74-b449-d777ddaba67c
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.covers_preview
+    - field.field.entity_subqueue.covers_preview.field_covers_active_items
+id: entity_subqueue.covers_preview.default
+targetEntityType: entity_subqueue
+bundle: covers_preview
+mode: default
+content:
+  field_covers_active_items:
+    weight: 1
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+hidden: {  }

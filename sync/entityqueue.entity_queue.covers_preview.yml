@@ -1,0 +1,25 @@
+uuid: 2793ab55-f2b1-417f-9837-a3f8dd779b7a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: covers_preview
+label: 'Covers preview'
+handler: simple
+handler_configuration: {  }
+entity_settings:
+  target_type: node
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      cover: cover
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+queue_settings:
+  min_size: 1
+  max_size: 0
+  act_as_queue: false
+  reverse_in_admin: false
