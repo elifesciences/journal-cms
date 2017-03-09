@@ -1,9 +1,9 @@
-uuid: a7639a4f-d579-463b-8f2f-c2b5cd9f61c4
+uuid: 3d90e965-f6b3-45d8-86b1-9451787ed084
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: XpCOOLEFydpF2Qqs0DZVBKnz5HINmkw7cAN4JBF_R6I
+  default_config_hash: ilS2A24oeS9kwV6e2zl9TC7Yy9g_RWWKO01lyFRXz38
 id: jcms_collections_json
 migration_tags: null
 migration_group: jcms_migrate
@@ -24,7 +24,7 @@ source:
       label: 'Collection title'
       selector: sub_title
     -
-      name: createc
+      name: created
       label: 'Collection publication date'
       selector: created
     -
@@ -35,10 +35,6 @@ source:
       name: image
       label: 'Collection image'
       selector: image
-    -
-      name: subjects
-      label: 'Collection subjects'
-      selector: subjects
     -
       name: subjects
       label: 'Collection subjects'

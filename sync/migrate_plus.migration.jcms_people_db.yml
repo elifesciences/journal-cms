@@ -1,9 +1,9 @@
-uuid: eeb554ed-6c1d-43ad-b51d-c0ce23cd6f82
+uuid: b42d179e-9683-4cf0-864a-7705d3e5d3af
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: jUkI4j8eAF8mM0RLlbdF8g8beyiVf8j3IchD72Iz2LU
+  default_config_hash: OTVlZTDzJpX4pEYVF5yERX1_ntsB7VlLGTxzPd_pfQk
 id: jcms_people_db
 migration_tags: null
 migration_group: jcms_migrate
