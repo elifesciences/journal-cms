@@ -6,11 +6,11 @@ if [[ ! -e /etc/init.d/goaws ]]; then
     command version go >/dev/null 2>&1 || { sudo apt install golang-go -y >&2; }
     export GOPATH=$HOME/go
     export PATH=$PATH:$GOPATH/bin
-    # Get GoAWS, move to bin.
-    go get github.com/p4tin/goaws
-    mv $GOPATH/bin/goaws /usr/bin/goaws
+    # Get GoAWS, move to bin. Using fork to ensure we build from a working commit.
+    go get github.com/elifesciences/goaws
+    sudo mv $GOPATH/bin/goaws /usr/bin/goaws
     # Make GoAWS a startup task.
-    cp /var/www/journal-cms/config/aws/goaws /etc/init.d/goaws
+    sudo cp /var/www/journal-cms/config/aws/goaws /etc/init.d/goaws
     sudo chmod +x /etc/init.d/goaws
     sudo update-rc.d goaws defaults
     # Download, install and configure AWS CLI.
