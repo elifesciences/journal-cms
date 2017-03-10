@@ -7,7 +7,6 @@
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Session\AccountInterface;
 use Drupal\entityqueue\Entity\EntitySubqueue;
 use Drupal\node\Entity\Node;
 

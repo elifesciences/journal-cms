@@ -112,6 +112,7 @@ apache_vhost_php_fpm_parameters: |
 # View the geerlingguy.apache Ansible Role README for more options.
 apache_vhosts:
   - servername: "{{ drupal_domain }}"
+    serveralias: "*.vagrantshare.com"
     documentroot: "{{ drupal_core_path }}"
     extra_parameters: "{{ apache_vhost_php_fpm_parameters }}"
 
@@ -144,7 +145,7 @@ apache_mods_enabled:
 # here. Set the 'is_php' property for document roots that contain PHP apps like
 # Drupal.
 nginx_hosts:
-  - server_name: "{{ drupal_domain }}"
+  - server_name: "{{ drupal_domain }} *.vagrantshare.com"
     root: "{{ drupal_core_path }}"
     is_php: true
 
