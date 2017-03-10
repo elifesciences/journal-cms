@@ -7,12 +7,13 @@ dependencies:
     - field.field.node.event.field_content
     - field.field.node.event.field_event_datetime
     - field.field.node.event.field_event_timezone
-    - field.field.node.event.field_event_venue
+    - field.field.node.event.field_event_uri
     - field.field.node.event.field_impact_statement
     - node.type.event
   module:
     - datetime_range
     - entity_reference_revisions
+    - link
     - options
     - text
     - user
@@ -53,14 +54,17 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: list_default
-  field_event_venue:
-    type: entity_reference_revisions_entity_view
-    weight: 105
+  field_event_uri:
+    weight: 108
     label: above
     settings:
-      view_mode: default
-      link: ''
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
     third_party_settings: {  }
+    type: link
   field_impact_statement:
     weight: 104
     label: above

@@ -6,6 +6,7 @@ dependencies:
     - field.storage.node.field_content
     - node.type.event
     - paragraphs.paragraphs_type.blockquote
+    - paragraphs.paragraphs_type.button
     - paragraphs.paragraphs_type.code
     - paragraphs.paragraphs_type.image
     - paragraphs.paragraphs_type.list
@@ -21,8 +22,8 @@ field_name: field_content
 entity_type: node
 bundle: event
 label: Content
-description: ''
-required: true
+description: 'If you have supplied a value for ''Event URI'' then this content block will be ignored.'
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -32,6 +33,7 @@ settings:
     target_bundles:
       paragraph: paragraph
       image: image
+      button: button
       youtube: youtube
       blockquote: blockquote
       list: list
@@ -42,47 +44,50 @@ settings:
     target_bundles_drag_drop:
       paragraph:
         enabled: true
-        weight: -31
+        weight: -33
       image:
         enabled: true
-        weight: -30
+        weight: -32
+      button:
+        enabled: true
+        weight: -31
       youtube:
         enabled: true
-        weight: -29
+        weight: -30
       blockquote:
         enabled: true
-        weight: -28
+        weight: -29
       list:
         enabled: true
-        weight: -27
+        weight: -28
       section:
         enabled: true
-        weight: -26
+        weight: -27
       table:
         enabled: true
-        weight: -25
+        weight: -26
       question:
         enabled: true
-        weight: -24
+        weight: -25
       code:
         enabled: true
-        weight: -23
+        weight: -24
       cv_item:
-        weight: -22
+        weight: -23
         enabled: false
       media_contact:
-        weight: -21
+        weight: -22
         enabled: false
       list_item:
-        weight: -20
+        weight: -21
         enabled: false
       json:
-        weight: -19
+        weight: -20
         enabled: false
       research_details:
-        weight: -18
+        weight: -19
         enabled: false
       venue:
-        weight: -17
+        weight: -18
         enabled: false
 field_type: entity_reference_revisions

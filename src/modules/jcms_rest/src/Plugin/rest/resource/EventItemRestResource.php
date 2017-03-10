@@ -58,12 +58,12 @@ class EventItemRestResource extends AbstractRestResourceBase {
         $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
       }
 
-      // Venue is optional.
-      if ($node->get('field_event_venue')->count()) {
-        $response['venue'] = $this->getVenue($node->get('field_event_venue')->first()->get('entity')->getTarget()->getValue());
+      // URI is optional.
+      if ($node->get('field_event_uri')->count()) {
+        $response['uri'] = $node->get('field_event_uri')->first()->getValue()['uri'];
       }
-
-      if ($content = $this->processFieldContent($node->get('field_content'))) {
+      // Content is optional, only display if there is no Event URI.
+      elseif ($content = $this->processFieldContent($node->get('field_content'))) {
         $response['content'] = $content;
       }
 

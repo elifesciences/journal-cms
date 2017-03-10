@@ -255,6 +255,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
           case 'list_item':
             $result_item = $this->fieldValueFormatted($content_item->get('field_block_html'));
             break;
+          case 'button':
+            $result_item['text'] = $content_item->get('field_block_button')->first()->getValue()['title'];
+            $result_item['uri'] = $content_item->get('field_block_button')->first()->getValue()['uri'];
+            break;
           default:
             unset($result_item['type']);
         }

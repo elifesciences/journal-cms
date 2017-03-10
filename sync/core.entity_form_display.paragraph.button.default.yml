@@ -1,0 +1,26 @@
+uuid: a7250e76-3eb4-49ca-ac3b-f8b7eba3d101
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.button.field_block_button
+    - paragraphs.paragraphs_type.button
+  module:
+    - content_moderation
+    - link
+id: paragraph.button.default
+targetEntityType: paragraph
+bundle: button
+mode: default
+content:
+  field_block_button:
+    weight: 6
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+hidden:
+  created: true
+  status: true
+  uid: true
