@@ -19,7 +19,7 @@ class JCMSBlogArticleNode extends SqlBase {
    */
   public function query() {
     $query = $this->select('node', 'n')
-      ->fields('n', ['nid', 'title', 'created', 'status']);
+      ->fields('n', ['nid', 'title', 'created', 'status', 'uuid']);
     $query->leftJoin('field_data_field_elife_n_category', 'category', 'category.entity_id = n.nid');
     $query->leftJoin('taxonomy_term_data', 'term', 'term.tid = category.field_elife_n_category_tid');
     $query->leftJoin('taxonomy_vocabulary', 'vocab', "vocab.vid = term.vid AND vocab.machine_name = 'elife_n_category'");
@@ -34,7 +34,7 @@ class JCMSBlogArticleNode extends SqlBase {
     $query->condition($db_or);
     $query->condition('n.title', 'Press package: %', 'NOT LIKE');
     $query->condition('n.type', 'elife_news_article');
-    $query->condition('n.status', 1);
+    $query->condition('n.status', NODE_PUBLISHED);
     $query->groupBy('n.nid');
     $query->groupBy('text.field_elife_n_text_value');
     $query->groupBy('text.field_elife_n_text_summary');
@@ -48,6 +48,7 @@ class JCMSBlogArticleNode extends SqlBase {
   public function fields() {
     $fields = [
       'nid' => $this->t('Legacy ID'),
+      'uuid' => $this->t('UUID'),
       'title' => $this->t('Title'),
       'created' => $this->t('Created timestamp'),
       'status' => $this->t('Published'),

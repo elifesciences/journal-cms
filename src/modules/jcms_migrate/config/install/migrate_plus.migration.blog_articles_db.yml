@@ -11,6 +11,7 @@ process:
     plugin: default_value
     default_value: blog_article
   title: title
+  uuid: uuid
   uid:
     plugin: default_value
     default_value: 1

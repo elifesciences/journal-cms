@@ -18,7 +18,7 @@ class JCMSInterviewNode extends SqlBase {
    */
   public function query() {
     $query = $this->select('node', 'n')
-      ->fields('n', ['nid', 'title', 'created', 'status']);
+      ->fields('n', ['nid', 'title', 'created', 'status', 'uuid']);
     $query->innerJoin('field_data_field_elife_i_first_name', 'first_name', 'first_name.entity_id = n.nid');
     $query->innerJoin('field_data_field_elife_i_last_name', 'last_name', 'last_name.entity_id = n.nid');
     $query->innerJoin('field_data_field_elife_i_text', 'text' , 'text.entity_id = n.nid');
@@ -39,6 +39,7 @@ class JCMSInterviewNode extends SqlBase {
     $query->groupBy('text.field_elife_i_text_summary');
 
     $query->condition('n.type', 'elife_early_careers_interview');
+    $query->condition('n.status', NODE_PUBLISHED);
 
     return $query;
   }
@@ -49,6 +50,7 @@ class JCMSInterviewNode extends SqlBase {
   public function fields() {
     $fields = [
       'nid' => $this->t('Legacy ID'),
+      'uuid' => $this->t('UUID'),
       'title' => $this->t('Title'),
       'created' => $this->t('Created timestamp'),
       'status' => $this->t('Published'),

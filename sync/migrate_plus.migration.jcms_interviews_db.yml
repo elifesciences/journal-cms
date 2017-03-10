@@ -15,6 +15,7 @@ process:
     plugin: default_value
     default_value: interview
   title: title
+  uuid: uuid
   uid:
     plugin: default_value
     default_value: 1

@@ -20,6 +20,10 @@ source:
       label: 'Collection title'
       selector: title
     -
+      name: uuid
+      label: 'Collection uuid'
+      selector: uuid
+    -
       name: sub_title
       label: 'Collection title'
       selector: sub_title
@@ -61,6 +65,7 @@ process:
     plugin: default_value
     default_value: collection
   title: title
+  uuid: uuid
   uid:
     plugin: default_value
     default_value: 1

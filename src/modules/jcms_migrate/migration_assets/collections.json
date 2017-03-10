@@ -1,6 +1,7 @@
 [
   {
     "title": "Early-career researchers",
+    "uuid": "294c0c99-ce9a-4443-9555-16dafecda514",
     "sub_title": "A collection of interviews",
     "impact_statement": "In a series of interviews with early-career researchers, we explore how they became interested in science, what they are working on at present, and what they hope to achieve in the future.",
     "created": "2014-07-10 14:07:39",
@@ -105,6 +106,7 @@
   },
   {
     "title": "Working Lives",
+    "uuid": "199f541d-4c2d-4cd3-a04d-d96f88b9994b",
     "sub_title": "Exploring the wealth of job opportunities available after a life sciences PhD",
     "impact_statement": "The skills and knowledge gained during a life science PhD open up a wide range of career possibilities. In this series of interviews, we talk to graduates in the early stages of their careers to find out how their time in research has helped them build their working lives.",
     "created": "2016-05-09 09:07:20",
@@ -149,6 +151,7 @@
   },
   {
     "title": "Reproducibility Project",
+    "uuid": "36ad1261-20db-42ef-8309-30049b1e83d1",
     "sub_title": "Cancer Biology",
     "impact_statement": "The Reproducibility Project: Cancer Biology is a collaboration between the <a href=\"http://centerforopenscience.org/\">Center for Open Science</a> and <a href=\"https://www.scienceexchange.com/\">Science Exchange</a> to independently replicate selected results from a substantial number of <a href=\"https://osf.io/e81xl/wiki/studies\">high-profile papers</a> in the field of cancer biology. For each paper a Registered Report detailing the proposed experimental designs and protocols for the replications is peer reviewed and published prior to data collection. The results of these experiments are now being published in a Replication Study for each paper. <a href=\"https://osf.io/e81xl\">The project</a> will provide evidence about reproducibility in cancer biology, and an opportunity to identify factors that influence reproducibility more generally.",
     "created": "2014-12-10 00:00:00",

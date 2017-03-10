@@ -18,7 +18,7 @@ class JCMSCollectionNode extends SqlBase {
    */
   public function query() {
     $query = $this->select('node', 'n')
-      ->fields('n', ['nid', 'title', 'created', 'status']);
+      ->fields('n', ['nid', 'title', 'created', 'status', 'uuid']);
     $query->leftJoin('field_data_field_elife_c_sub_title', 'sub_title', 'sub_title.entity_id = n.nid');
     $query->leftJoin('field_data_field_elife_c_image', 'photo', 'photo.entity_id = n.nid');
     $query->leftJoin('file_managed', 'fm', 'fm.fid = photo.field_elife_c_image_fid');
@@ -36,6 +36,7 @@ class JCMSCollectionNode extends SqlBase {
     $query->addExpression("GROUP_CONCAT(DISTINCT SUBSTRING_INDEX(rn.title, ':', 1) ORDER BY related.delta ASC)", 'related');
 
     $query->condition('n.type', 'elife_collection');
+    $query->condition('n.status', NODE_PUBLISHED);
     $query->groupBy('n.nid');
     $query->groupBy('curators.entity_id');
     $query->groupBy('sub_title.field_elife_c_sub_title_value');
@@ -51,6 +52,7 @@ class JCMSCollectionNode extends SqlBase {
   public function fields() {
     $fields = [
       'nid' => $this->t('Legacy ID'),
+      'uuid' => $this->t('UUID'),
       'title' => $this->t('Name'),
       'sub_title' => $this->t('Sub title'),
       'created' => $this->t('Created timestamp'),

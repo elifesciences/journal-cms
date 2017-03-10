@@ -18,7 +18,7 @@ class JCMSPersonNode extends SqlBase {
    */
   public function query() {
     $query = $this->select('node', 'n')
-      ->fields('n', ['nid', 'title', 'created', 'status']);
+      ->fields('n', ['nid', 'title', 'created', 'status', 'uuid']);
     $query->innerJoin('field_data_field_elife_pp_last_name', 'lname', 'lname.entity_id = n.nid');
     $query->innerJoin('field_data_field_elife_pp_first_name', 'fname', 'fname.entity_id = n.nid');
     // Don't migrate the early careers profiles, for now.
@@ -48,6 +48,7 @@ class JCMSPersonNode extends SqlBase {
     $query->addExpression("CONCAT(fname.field_elife_pp_first_name_value, ' ', lname.field_elife_pp_last_name_value)", 'photo_alt');
 
     $query->condition('n.type', 'elife_person_profile');
+    $query->condition('n.status', NODE_PUBLISHED);
     $query->groupBy('n.nid');
     $query->groupBy('lname.field_elife_pp_last_name_value');
     $query->groupBy('fname.field_elife_pp_first_name_value');
@@ -66,6 +67,7 @@ class JCMSPersonNode extends SqlBase {
   public function fields() {
     $fields = [
       'nid' => $this->t('Legacy ID'),
+      'uuid' => $this->t('UUID'),
       'title' => $this->t('Name'),
       'created' => $this->t('Created timestamp'),
       'status' => $this->t('Published'),
