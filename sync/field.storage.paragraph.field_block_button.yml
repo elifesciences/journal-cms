@@ -1,22 +1,20 @@
-uuid: c72a2d62-e212-47c3-b509-2d75e3e0314f
+uuid: df31b3c4-4db5-4db5-bd9c-b6f7d1fc977b
 langcode: en
 status: true
 dependencies:
   module:
-    - entity_reference_revisions
     - field_permissions
-    - node
+    - link
     - paragraphs
 third_party_settings:
   field_permissions:
     permission_type: public
-id: node.field_event_venue
-field_name: field_event_venue
-entity_type: node
-type: entity_reference_revisions
-settings:
-  target_type: paragraph
-module: entity_reference_revisions
+id: paragraph.field_block_button
+field_name: field_block_button
+entity_type: paragraph
+type: link
+settings: {  }
+module: link
 locked: false
 cardinality: 1
 translatable: true

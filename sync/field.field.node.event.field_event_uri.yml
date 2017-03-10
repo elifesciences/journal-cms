@@ -1,0 +1,23 @@
+uuid: 760d46c6-1970-4566-a08a-452d4610e8e9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_uri
+    - node.type.event
+  module:
+    - link
+id: node.event.field_event_uri
+field_name: field_event_uri
+entity_type: node
+bundle: event
+label: 'Event URI'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link
