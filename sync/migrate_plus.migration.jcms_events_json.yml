@@ -1,0 +1,79 @@
+uuid: 65d01015-7976-4b36-ad2f-47382643426e
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: f1KG5B_fNYCeYmEOFL1EoF8daJ24RXFTSy6NOa7A4pY
+id: jcms_events_json
+migration_tags: null
+migration_group: jcms_migrate
+label: 'JSON feed of events'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: json
+  urls: modules/custom/jcms_migrate/migration_assets/events.json
+  item_selector: 0
+  fields:
+    -
+      name: title
+      label: 'Event title'
+      selector: title
+    -
+      name: created
+      label: 'Event created date'
+      selector: created
+    -
+      name: starts
+      label: 'Event start date'
+      selector: starts
+    -
+      name: ends
+      label: 'Event end date'
+      selector: ends
+    -
+      name: impact_statement
+      label: 'Event impact statement'
+      selector: impact_statement
+    -
+      name: timezone
+      label: 'Event timezone'
+      selector: timezone
+    -
+      name: uri
+      label: 'Event uri'
+      selector: uri
+    -
+      name: content
+      label: 'Event content'
+      selector: content
+  ids:
+    title:
+      type: string
+process:
+  id: title
+  label: title
+  type:
+    plugin: default_value
+    default_value: event
+  title: title
+  uid:
+    plugin: default_value
+    default_value: 1
+  field_event_datetime/value: starts
+  field_event_datetime/end_value: ends
+  field_event_timezone: timezone
+  field_event_uri/uri: uri
+  field_impact_statement/value: impact_statement
+  field_impact_statement/format:
+    plugin: default_value
+    default_value: basic_html
+  field_content:
+    plugin: jcms_content
+    source: content
+  created:
+    plugin: transform_date
+    source: created
+destination:
+  plugin: 'entity:node'
+migration_dependencies: {  }

@@ -202,6 +202,12 @@ class JCMSContent extends ProcessPluginBase {
           'value' => $value['code'],
         ];
         break;
+      case 'button':
+        $values['field_block_button'] = [
+          'uri' => $value['uri'],
+          'title' => $value['title'],
+        ];
+        break;
     }
     if (!empty($values)) {
       $paragraph = Paragraph::create($values);

@@ -7,11 +7,13 @@ dependencies:
     - field.field.node.event.field_content
     - field.field.node.event.field_event_datetime
     - field.field.node.event.field_event_timezone
-    - field.field.node.event.field_event_venue
+    - field.field.node.event.field_event_uri
     - field.field.node.event.field_impact_statement
     - node.type.event
   module:
+    - content_moderation
     - datetime_range
+    - link
     - paragraphs
     - text
 id: node.event.default
@@ -20,7 +22,7 @@ bundle: event
 mode: default
 content:
   field_community_list:
-    weight: 26
+    weight: 6
     settings:
       display_label: true
     third_party_settings: {  }
@@ -33,6 +35,7 @@ content:
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
   field_event_datetime:
@@ -45,16 +48,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
-  field_event_venue:
-    type: entity_reference_paragraphs
+  field_event_uri:
     weight: 4
     settings:
-      title: Venu
-      title_plural: Venues
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
+    type: link_default
   field_impact_statement:
     weight: 1
     settings:
