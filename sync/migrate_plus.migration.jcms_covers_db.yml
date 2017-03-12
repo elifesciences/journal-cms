@@ -28,6 +28,9 @@ process:
   field_cover_content:
     plugin: jcms_collection_content
     source: related
+  'moderation_state/target_id':
+    plugin: default_value
+    default_value: 'published'
 destination:
   plugin: 'entity:node'
 migration_dependencies:

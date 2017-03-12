@@ -29,14 +29,30 @@ class JCMSImage extends ProcessPluginBase {
     $this->row = $row;
     list($image, $alt) = $value;
     $destination_path = $this->imagePath();
+    $row_source = $row->getSource();
+    $source = NULL;
 
-    if (!empty($image)) {
-      if (strpos($image, 'public://') === 0) {
-        $source = DRUPAL_ROOT . '/../scripts/legacy_cms_files/' . preg_replace('~^public://~', '', $image);
+    // Allow cover images to be drawn from the migration_assets/images/covers folder.
+    if ($row_source['plugin'] == 'jcms_cover_node' && !empty($row_source['related'])) {
+      $related = json_decode('{' . $row_source['related'] . '}', TRUE);
+      if ($related['type'] == 'article') {
+        $images = glob(drupal_get_path('module', 'jcms_migrate') . '/migration_assets/images/covers/' . $related['source'] . '-*');
+        if (!empty($images)) {
+          $source = reset($images);
+        }
       }
-      else {
-        $source = drupal_get_path('module', 'jcms_migrate') . '/migration_assets/images/' . $image;
+    }
+
+    if (!empty($image) || !empty($source)) {
+      if (empty($source)) {
+        if (strpos($image, 'public://') === 0) {
+          $source = DRUPAL_ROOT . '/../scripts/legacy_cms_files/' . preg_replace('~^public://~', '', $image);
+        }
+        else {
+          $source = drupal_get_path('module', 'jcms_migrate') . '/migration_assets/images/' . $image;
+        }
       }
+
       if (file_exists($source)) {
         file_prepare_directory($destination_path, FILE_CREATE_DIRECTORY);
         $new_filename = self::transliteration(basename($source));
