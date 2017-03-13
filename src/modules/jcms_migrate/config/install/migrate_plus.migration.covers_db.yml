@@ -3,6 +3,7 @@ label: Legacy covers
 migration_group: jcms_migrate
 source:
   plugin: jcms_cover_node
+  track_changes: true
 destination:
   plugin: entity:node
 process:

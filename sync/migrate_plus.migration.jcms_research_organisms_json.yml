@@ -10,6 +10,7 @@ migration_group: jcms_migrate
 label: 'JSON feed of research organisms'
 source:
   plugin: url
+  track_changes: true
   data_fetcher_plugin: file
   data_parser_plugin: json
   urls: modules/custom/jcms_migrate/migration_assets/research_organisms.json
