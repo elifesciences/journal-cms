@@ -1,61 +1,6 @@
 [
   {
     "number": 1,
-    "title": "Experimental eLife Lens search page",
-    "date": "2015-04-01 11:32",
-    "image": "labs/elife_lens_search_page.png",
-    "alt": "eLife Lens search",
-    "content": [
-      {
-        "type": "paragraph",
-        "text": "Today on <a href=\"/labs\">eLife Labs</a> we are launching a small demo of a <a href=\"http://lens.elifesciences.org\">search interface</a> that brings together some elements of eLife Lens and some of the native power of a technology called <a href=\"https://www.elastic.co\">elasticsearch</a>. Head over to the <a href=\"http://lens.elifesciences.org\">demo</a> to try it out now. We are going to use feedback and usage stats to determine whether we can bring any features from this kind of demo over to our main site."
-      },
-      {
-        "type": "paragraph",
-        "text": "This demo does comes with a couple of strong caveats, it does not update regularly with eLife articles, but only contains a snapshot of eLife content published up to the 26th of March. It also needs javascript enabled."
-      },
-      {
-        "type": "paragraph",
-        "text": "Beyond those constraints we have tried a few interesting things with this search interface. The most interesting thing is going on behind the scenes where we have indexed each paragraphs of each article, allowing for contextual results to be returned. The hope here is to be able, at some point, to link those paragraphs in to the lens view of the article, allowing you to go straight to the part of the document that looks interesting to you."
-      },
-      {
-        "type": "paragraph",
-        "text": "We have added some type-ahead suggestions based on popular search queries."
-      },
-      {
-        "type": "paragraph",
-        "text": "There are a couple of ways of applying filters to the search and there is also a quick way to look at how many results there are for a given search term under each filter."
-      },
-      {
-        "type": "paragraph",
-        "text": "We are gong to be seeing how the back end performs, and hopefully learning what works and what doesn’t through usage."
-      },
-      {
-        "type": "paragraph",
-        "text": "You can read a bit more about <a href=\"/eLife-news/elife-labs-pages-now-live\">eLife Labs</a> and we would love to hear <a href=\"mailto:staff@elifesciences.org\">what you think</a>."
-      },
-      {
-        "type": "image",
-        "image": "labs/elife_lens_contextual.png",
-        "alt": "contextual search results",
-        "text": "contextual search results"
-      },
-      {
-        "type": "image",
-        "image": "labs/elife_lens_typeahead.png",
-        "alt": "type ahead search results",
-        "text": "type ahead search results"
-      },
-      {
-        "type": "image",
-        "image": "labs/elife_lens_search_filters.png",
-        "alt": "filters showing frequency of search term in filter",
-        "text": "filters showing frequency of search term in filter"
-      }
-    ]
-  },
-  {
-    "number": 2,
     "title": "Toward publishing reproducible computation with Binder",
     "date": "2016-05-13 16:25",
     "image": "labs/binder_post_binder_homepage.png",
@@ -97,7 +42,7 @@
           },
           {
             "type": "paragraph",
-            "text": "Several open-source tools can be used to help address the challenges of sharing and reproducing scientific analyses. The <a href=\"http://jupyter.org\">Jupyter notebook</a> is a coding environment that runs in a web browser and lets users create computational “narrative documents” that combine code, data, figures, and text in a single interactive, executable document. These notebooks are easy to write, support many programming languages, and are already being used in science, journalism, and education."
+            "text": "Several open-source tools can be used to help address the challenges of sharing and reproducing scientific analyses. The <a href=\"http://jupyter.org\">Jupyter notebook</a> is a coding environment that runs in a web browser and lets users create computational \"narrative documents\" that combine code, data, figures, and text in a single interactive, executable document. These notebooks are easy to write, support many programming languages, and are already being used in science, journalism, and education."
           },
           {
             "type": "image",
@@ -106,7 +51,7 @@
           },
           {
             "type": "paragraph",
-            "text": "<a href=\"https://github.com/\">GitHub</a> is a website for collaborative code development, built on top of the version-control system git. GitHub makes it easy to track changes to code over time, especially when multiple contributors are working on the same project. Putting data, code, and notebooks into a GitHub “repository” is a terrific way to share and organize scientific analyses."
+            "text": "<a href=\"https://github.com/\">GitHub</a> is a website for collaborative code development, built on top of the version-control system git. GitHub makes it easy to track changes to code over time, especially when multiple contributors are working on the same project. Putting data, code, and notebooks into a GitHub \"repository\" is a terrific way to share and organize scientific analyses."
           },
           {
             "type": "image",
@@ -192,7 +137,7 @@
     ]
   },
   {
-    "number": 3,
+    "number": 2,
     "title": "The International Image Interoperability Framework (IIIF) for science publishers",
     "date": "2016-05-16 90:42",
     "image": "labs/fig1_iiifcolection.jpg",
@@ -338,7 +283,7 @@
             "content": [
               {
                 "type": "paragraph",
-                "text": "In the words of the IIIF, the Presentation API “specifies a web service that returns JSON-LD structured documents that together describe the structure and layout of a digitized object.” Expressed more simply, the Presentation API provides just enough metadata to drive viewer application. In the IIIF world, these structured documents are known as manifests."
+                "text": "In the words of the IIIF, the Presentation API \"specifies a web service that returns JSON-LD structured documents that together describe the structure and layout of a digitized object.\" Expressed more simply, the Presentation API provides just enough metadata to drive viewer application. In the IIIF world, these structured documents are known as manifests."
               },
               {
                 "type": "image",
@@ -352,7 +297,7 @@
               },
               {
                 "type": "table",
-                "html": "<table><tbody><tr><td>Task</td><td>URL and Comments</td></tr><tr><td>Viewing an IIIF manifest</td><td><p><a href=\"http://wellcomelibrary.org/iiif/b20432033/manifest\">http://wellcomelibrary.org/iiif/b20432033/manifest</a></p><p>This shows us the manifest for the Zebrafish embryo image we looked at via the image API (see above).</p></td></tr><tr><td>Opening a manifest in the Universal Viewer</td><td><p><a href=\"http://wellcomelibrary.org/item/b20432033\">http://wellcomelibrary.org/item/b20432033</a></p><p>The Wellcome Library has implemented the Universal Viewer (UV) (<a href=\"https://github.com/UniversalViewer/universalviewer\">https://github.com/UniversalViewer/universalviewer</a>) as its IIIF viewer.  To view this object, open up the following URL: [Insert URL here]</p></td></tr><tr><td><p>Viewing an item in a different IIIF viewer</p></td><td><p>Another strength of IIIF is that you can choose whichever IIIF-compliant viewer you like to render your images.</p><p>Here we will view the Zebrafish image in the Mirador IIIF viewer, developed by Stanford.</p><p><a href=\"http://projectmirador.org/demo/\">http://projectmirador.org/demo/</a></p><p>Click “Add new object from URL - and paste in <a href=\"http://wellcomelibrary.org/iiif/b20432033/manifest\">http://wellcomelibrary.org/iiif/b20432033/manifest</a></p></td></tr></tbody></table>"
+                "html": "<table><tbody><tr><td>Task</td><td>URL and Comments</td></tr><tr><td>Viewing an IIIF manifest</td><td><p><a href=\"http://wellcomelibrary.org/iiif/b20432033/manifest\">http://wellcomelibrary.org/iiif/b20432033/manifest</a></p><p>This shows us the manifest for the Zebrafish embryo image we looked at via the image API (see above).</p></td></tr><tr><td>Opening a manifest in the Universal Viewer</td><td><p><a href=\"http://wellcomelibrary.org/item/b20432033\">http://wellcomelibrary.org/item/b20432033</a></p><p>The Wellcome Library has implemented the Universal Viewer (UV) (<a href=\"https://github.com/UniversalViewer/universalviewer\">https://github.com/UniversalViewer/universalviewer</a>) as its IIIF viewer.  To view this object, open up the following URL: [Insert URL here]</p></td></tr><tr><td><p>Viewing an item in a different IIIF viewer</p></td><td><p>Another strength of IIIF is that you can choose whichever IIIF-compliant viewer you like to render your images.</p><p>Here we will view the Zebrafish image in the Mirador IIIF viewer, developed by Stanford.</p><p><a href=\"http://projectmirador.org/demo/\">http://projectmirador.org/demo/</a></p><p>Click \"Add new object from URL - and paste in <a href=\"http://wellcomelibrary.org/iiif/b20432033/manifest\">http://wellcomelibrary.org/iiif/b20432033/manifest</a></p></td></tr></tbody></table>"
               },
               {
                 "type": "paragraph",
@@ -420,7 +365,7 @@
                 "items": [
                   "Finding all comments made by a particular person",
                   "Finding all tags within a particular collection",
-                  "Finding all the highlights that contain the term “cholera” in annotations made on the Wellcome Library’s Medical Officer of Health reports"
+                  "Finding all the highlights that contain the term \"cholera\" in annotations made on the Wellcome Library’s Medical Officer of Health reports"
                 ]
               },
               {
@@ -460,7 +405,7 @@
     ]
   },
   {
-    "number": 4,
+    "number": 3,
     "title": "Presenting Proteopedia for sharing macromolecule concepts online",
     "date": "2016-06-29 09:33",
     "impact_statement": "At eLife, we promote emerging tools that support publishing online to help improve excellence in science. We are delighted to showcase Proteopedia, a tool for sharing knowledge about the structure and function of proteins, DNA, and other macromolecules on the web, developed by scientists at the Weizmann Institute of Science in Israel.",
@@ -562,6 +507,192 @@
           "Prilusky, J., Hodis, E., Canner, D., Decatur, W. A., Oberholser, K., Martz, E., Berchanski, A., Harel, M. &amp; Sussman, J. L. Proteopedia: A status report on the collaborative, 3D web-encyclopedia of proteins and other biomolecules. J. Struct. Biol. 175, 244-252 (2011).",
           "Hodis, E., Prilusky, J., Martz, E., Silman, I., Moult, J. &amp; Sussman, J. L. Proteopedia – a scientific ‘wiki’ bridging the rift between 3D structure and function of biomacromolecules. Genome Biol. 9, R121 (2008).",
           "Thomas, C., Moraga, I., Levin, D., Krutzik, P. O., Podoplelova, Y., Trejo, A., Lee, C., Yarden, G., Vleck, S., Glenn, J. S., Nolan, G. P., Piehler, J., Schreiber, G. &amp; Garcia, K. C. Structural linkage between ligand discrimination and receptor activation by type I interferons. Cell 146, 621-632 (2011)."
+        ]
+      }
+    ]
+  },
+  {
+    "number": 4,
+    "title": "Hack Cambridge Recurse entries: eXplore, Knowledge Direct, SciChat",
+    "date": "2017-02-27 17:40",
+    "impact_statement": "We are delighted to showcase three projects entered for the eLife prize at <a href=\"https://elifesciences.org/elife-news/innovation-imagining-tools-future-hack-cambridge-recurse\">Hack Cambridge Recurse</a>: eXplore, Knowledge Direct and SciChat. The winner of the eLife prize was eXplore. These hackathon projects are still early stage, and each team welcomes contributions and feedback via the respective GitHub repositories.",
+    "image": "labs/knowledge_direct.png",
+    "alt": "eXplore, Knowledge Direct, SciChat",
+    "content": [
+      {
+        "type": "section",
+        "title": "eXplore",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Team members:"
+          },
+          {
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "Charlotte Guzzo – PhD student in Biological Sciences, Sanger Institute, University of Cambridge",
+              "Will Jones – PhD student in Mathematical Genomics and Medicine, University of Cambridge",
+              "Patrick Short – PhD student in Mathematical Genomics and Medicine, University of Cambridge"
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Most genetic data holders do not have a background in genetics and do not understand scientific papers. They often wish to know how research relates to them specifically and what the key takeaways are. Charlotte, Will and Patrick were interested in enabling the non-expert reader to fully appreciate their genomic data by accessing content that is relevant to them and easily understandable, without being restricted to information provided by third-party data providers. According to team eXplore, this is particularly important in engaging public opinion and encouraging participation in research."
+          },
+          {
+            "type": "paragraph",
+            "text": "At Hack Cambridge, the eXplore team aimed to offer a reading experience that is tailored to each individual user’s genotype and explains the key points and limitations in plain language. Using the eLife Lens API, they designed a tool that personalises the reader’s experience when exploring scientific information. To demonstrate proof of concept, the team wrote a simple article on how genetics impacts taste preferences. Using a team member’s own genetic data from 23andMe, they delivered personalised information about a gene variant when it was mentioned in the text."
+          },
+          {
+            "type": "youtube",
+            "id": "RKUurAF5sdI",
+            "height": "352",
+            "width": "624"
+          },
+          {
+            "type": "paragraph",
+            "text": "Figure 1. A video demonstration of eXplore. Source: <a href=\"https://youtu.be/RKUurAF5sdI\">https://youtu.be/RKUurAF5sdI</a>"
+          },
+          {
+            "type": "paragraph",
+            "text": "As well as developing more curated reports to help users understand the literature, the team would like to empower users further by helping them to navigate the references themselves and critically review the literature. To do that, they are planning to work on a Chrome extension that would highlight key points in a scientific paper, and mark the parts directly related to the user’s genotype. Using the extension, users would be able to explore research articles cited in the curated reports and immediately find the content that is relevant to their genotype."
+          },
+          {
+            "type": "paragraph",
+            "text": "The eXplore team welcomes contributions from scientists willing to develop reports and from developers willing to help with developing the pipeline and data integration. You can explore the roadmap and get in touch with the team via their GitHub page."
+          },
+          {
+            "type": "paragraph",
+            "text": "\"The eLife prize was very aligned with what drives us as scientists. Making science communication open to all is something we had been discussing for a while, and we felt strongly about working on a project that would make scientific research more approachable and relevant to everyone. The most valuable part of the weekend was to work together in such a focused way and to meet brilliant participants from all over the world.\" – The eXplore team"
+          },
+          {
+            "type": "paragraph",
+            "text": "Resources used for the hack:"
+          },
+          {
+            "type": "paragraph",
+            "text": "The <a href=\"https://github.com/elifesciences/lens\">eLife Lens API</a> was used to display the prototype; the <a href=\"https://api.23andme.com/\">23andMe API</a> was used to pull data from 23andMe users; and the <a href=\"https://www.ncbi.nlm.nih.gov/pmc/tools/developers/\">PubMed Central API</a> was used to retrieve scientific papers containing specific single nucleotide polymorphisms for the curated reports. The team used Python/node.js to write the program."
+          },
+          {
+            "type": "paragraph",
+            "text": "Source code: <a href+\"https://github.com/pjshort/eXplore/\">https://github.com/pjshort/eXplore/</a>"
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "title": "Knowledge Direct",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Team members:"
+          },
+          {
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "Jack Hughes – Undergraduate in Computer Science, University of Birmingham",
+              "Jeremy Minton – PhD student in Mathematics, University of Cambridge",
+              "Veronika Siska – PhD student in Computational Biology, University of Cambridge",
+              "Veronika Siska – PhD student in Computational Biology, University of Cambridge"
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Entering a new academic field, or researching beyond your comfort zone, can be challenging. Existing literature search tools present the most relevant publications, but without any guidance as to the background or context required to understand the material or its significance in full. Further, constructing efficient and targeted searches using keywords requires a degree of familiarity with the field already. The researchers in the Knowledge Direct team have previously found conducting a literature review to be time consuming, painful and frustrating. Beyond the inconvenience, they think the traditional literature discovery process is inefficient, limits deeper collaborations and prevents amateur contributions in research."
+          },
+          {
+            "type": "paragraph",
+            "text": "At Hack Cambridge, the team wanted to help researchers become familiar with new fields much quicker by collecting metrics to construct an efficient path through the literature. To this end, they developed Knowledge Direct, a literature search engine to get you from what you know, to what you want to know, as efficiently as possible. This web application produces a network of publications, identifies your current knowledge, and presents a path through the literature to help you become familiar with a new field. It helps the user to understand a collaborator’s publication or check key publications for a literature review quickly and efficiently."
+          },
+          {
+            "type": "image",
+            "image": "labs/knowledge_direct_screenshots.png",
+            "alt": "Knowledge Direct screenshots"
+          },
+          {
+            "type": "paragraph",
+            "text": "Figure 2. The Knowledge Direct interface (demo). The user searches for and selects papers that they have already read. Next, they click on the map next to an article from a new field they would like to explore. The result is the most efficient pathway through the literature that builds familiarity from what the user already understands to the desired endpoint article."
+          },
+          {
+            "type": "paragraph",
+            "text": "For the Knowledge Direct team, Hack Cambridge Recurse was an opportunity to learn about a selection of machine-learning techniques and produce a web application. When asked what led her to attend the hackathon, Veronika said: \"Most importantly, I just really love overnight coding: it's intense and engaging. I also got to work on the initial, most exciting phase of a completely new project, which is a rare occasion during a PhD. Finally, I was hoping to learn something new – in this case, handling publication data and applying techniques from network science to a real problem.\""
+          },
+          {
+            "type": "paragraph",
+            "text": "For the future, the application could be taken forward as either a digital service or an open-source project. In order to achieve either of these, developing the underlying network construction would be essential. The Knowledge Direct team encourages interested contributors to get in touch via the GitHub repository."
+          },
+          {
+            "type": "paragraph",
+            "text": "Resources used for the hack:"
+          },
+          {
+            "type": "paragraph",
+            "text": "The <a href=\"https://www.ncbi.nlm.nih.gov/pmc/tools/developers/\">PubMed Central API</a> was used to access a large body of academic literature."
+          },
+          {
+            "type": "paragraph",
+            "text": "Source code: <a href=\"https://github.com/knowledge-direct/knowledge-direct\">https://github.com/knowledge-direct/knowledge-direct</a>"
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "title": "Hack Cambridge Recurse entry: SciChat",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Team members:"
+          },
+          {
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "Nils Eling – PhD in Molecular Biology, University of Cambridge, Cancer Research UK",
+              "Omar Wagih – PhD student in Computational Biology, University of Cambridge, European Bioinformatics Institute (EMBL-EBI)",
+              "Raghd Rostom – PhD student in Molecular Biology, Wellcome Trust Sanger Institute, University of Cambridge",
+              "Dimitrios Vitsios – PhD student in Bioinformatics, University of Cambridge, European Bioinformatics Institute (EMBL-EBI)"
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "The complex nature of modern scientific findings makes them difficult to communicate beyond an expert, scientific audience. In addition, opportunities for the public to interact with experts are limited. Nil, Omar, Raghd and Dimitrios believe that everyone should benefit from the outcome of scientific studies."
+          },
+          {
+            "type": "paragraph",
+            "text": "At Hack Cambridge, the team developed SciChat to bridge the often large gap between the general public and scientific research. SciChat is a live-chat tool that connects members of the public with scientists in areas of interest using simple tags. Members of the general public can very easily and anonymously be paired with corresponding scientists through a live one-to-one chat where they can discuss the topic of interest in an informal, conversational manner. The platform also helps scientists learn how to communicate their findings in an understandable fashion."
+          },
+          {
+            "type": "youtube",
+            "id": "PdNuhiDcmUM",
+            "height": "352",
+            "width": "624"
+          },
+          {
+            "type": "paragraph",
+            "text": "Figure 3. A video demonstration of SciChat. Source: <a href=\"https://www.youtube.com/watch?v=PdNuhiDcmUM\">https://www.youtube.com/watch?v=PdNuhiDcmUM</a>"
+          },
+          {
+            "type": "paragraph",
+            "text": "The SciChat team is hoping to refine the current website by improving usability and integrating additional features. In addition to connecting scientists with non-scientists, they hope to allow researchers from different fields to communicate with one another. Scientists would be able to display a profile including information about their research, along with links to publications and professional websites. The team would also like to add a reputation system, allowing academics to rate the engagement of the user they chatted with, and vice versa. Such data would allow the community to identify the most committed users, and would enable more sophisticated pairing. In addition to this, there could be potential to highlight trending topics and create user statistics, such as average rating and number of chats. The SciChat team welcomes contributors and can be contacted via the GitHub repository."
+          },
+          {
+            "type": "paragraph",
+            "text": "\"Despite working in the same field, all of us come from a variety of backgrounds ranging from cancer biology to computer engineering. The hackathon allowed us to engage in interdisciplinary thinking, while exposing ourselves to frameworks and APIs that were new to us. We believe that hackathons in general are one of the best environments to meet with brilliant people, collaborate within a group to achieve a goal in a limited timeframe, and to learn new technologies.\" – The SciChat team"
+          },
+          {
+            "type": "paragraph",
+            "text": "Resources used for the hack:"
+          },
+          {
+            "type": "paragraph",
+            "text": "The <a href=\"https://firebase.google.com/\">Google Firebase</a> cloud database was used as a backend for SciChat, and peer-to-peer browser technology, <a href=\"http://peerjs.com/\">PeerJS</a>, was used to power the chat engine. The logo and vector graphics used were modified from <a href=\"http://www.freepik.com/\">freepik</a>, and the user interface was custom-built based on <a href=\"http://getbootstrap.com/\">Bootstrap</a>."
+          },
+          {
+            "type": "paragraph",
+            "text": "Source code: <a href=\"https://github.com/omarwagih/scichat\">https://github.com/omarwagih/scichat</a>"
+          }
         ]
       }
     ]

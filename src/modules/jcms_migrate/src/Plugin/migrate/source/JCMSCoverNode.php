@@ -19,7 +19,7 @@ class JCMSCoverNode extends SqlBase {
    */
   public function query() {
     $query = $this->select('node', 'n')
-      ->fields('n', ['nid', 'title', 'created', 'status']);
+      ->fields('n', ['nid', 'title', 'created', 'status', 'uuid']);
     $query->innerJoin('field_data_field_elife_fm_reference', 'ref', 'ref.entity_id = n.nid');
     $query->innerJoin('node', 'an', 'an.nid = ref.field_elife_fm_reference_target_id');
     $query->innerJoin('field_data_field_elife_image', 'im', 'im.entity_id = n.nid');
@@ -27,7 +27,7 @@ class JCMSCoverNode extends SqlBase {
     $query->leftJoin('field_data_field_elife_p_episode_number', 'en', 'en.entity_id = an.nid');
     $query->leftJoin('field_data_field_elife_a_article_id', 'aid', 'aid.entity_id = an.nid');
     $query->condition('n.type', 'elife_cover');
-    $query->condition('n.status', 1);
+    $query->condition('n.status', NODE_PUBLISHED);
     $query->addField('fm', 'uri', 'photo_uri');
     $query->addField('im', 'field_elife_image_alt', 'photo_alt');
     $query->addExpression("CASE an.type WHEN 'elife_article_reference' THEN CONCAT('\"type\": \"article\", \"source\": \"', aid.field_elife_a_article_id_value, '\"') WHEN 'elife_podcast' THEN CONCAT('\"type\": \"podcast_episode\", \"source\": \"', en.field_elife_p_episode_number_value, '\"') WHEN 'elife_news_article' THEN CONCAT('\"type\": \"blog_article\", \"source\": \"', an.nid, '\"') ELSE '' END", 'related');
@@ -42,6 +42,7 @@ class JCMSCoverNode extends SqlBase {
   public function fields() {
     $fields = [
       'nid' => $this->t('Legacy ID'),
+      'uuid' => $this->t('UUID'),
       'title' => $this->t('Title'),
       'created' => $this->t('Created timestamp'),
       'status' => $this->t('Published'),

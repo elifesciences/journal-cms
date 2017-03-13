@@ -20,6 +20,10 @@ source:
       label: 'Event title'
       selector: title
     -
+      name: uuid
+      label: 'Event uuid'
+      selector: uuid
+    -
       name: created
       label: 'Event created date'
       selector: created
@@ -57,6 +61,7 @@ process:
     plugin: default_value
     default_value: event
   title: title
+  uuid: uuid
   uid:
     plugin: default_value
     default_value: 1

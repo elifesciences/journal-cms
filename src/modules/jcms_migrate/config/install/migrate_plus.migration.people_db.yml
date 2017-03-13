@@ -17,6 +17,7 @@ process:
       - name_first
       - name_last
     delimiter: " "
+  uuid: uuid
   uid:
     plugin: default_value
     default_value: 1
