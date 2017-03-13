@@ -10,6 +10,7 @@ migration_group: jcms_migrate
 label: 'Legacy interviews'
 source:
   plugin: jcms_interview_node
+  track_changes: true
 process:
   type:
     plugin: default_value

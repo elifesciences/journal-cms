@@ -19,5 +19,6 @@ hidden:
   field_content: true
   field_event_datetime: true
   field_event_timezone: true
+  field_event_uri: true
   field_event_venue: true
   field_impact_statement: true
