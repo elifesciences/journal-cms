@@ -17,6 +17,8 @@ use Drupal\migrate\Row;
  */
 class JCMSImage extends ProcessPluginBase {
 
+  use JMCSGetRemoteFileTrait;
+
   /**
    * @var \Drupal\migrate\Row
    */
@@ -29,19 +31,53 @@ class JCMSImage extends ProcessPluginBase {
     $this->row = $row;
     list($image, $alt) = $value;
     $destination_path = $this->imagePath();
+    $row_source = $row->getSource();
+    $source = NULL;
 
-    if (!empty($image)) {
-      if (strpos($image, 'public://') === 0) {
-        $source = DRUPAL_ROOT . '/../scripts/legacy_cms_files/' . preg_replace('~^public://~', '', $image);
+    // Allow cover images to be drawn from the public S3 bucket.
+    if ($row_source['plugin'] == 'jcms_cover_node' && !empty($row_source['related'])) {
+      $related = json_decode('{' . $row_source['related'] . '}', TRUE);
+      if ($related['type'] == 'article') {
+        $images = $this->s3ImageSearch('covers/' . $related['source'] . '-');
+        if (!empty($images)) {
+          $source = reset($images);
+        }
       }
-      else {
-        $source = drupal_get_path('module', 'jcms_migrate') . '/migration_assets/images/' . $image;
+    }
+
+    if (!empty($image) || !empty($source)) {
+      if (empty($source)) {
+        $s3_folders = [
+          'annual_reports',
+          'collections',
+          'covers',
+          'episodes',
+          'labs',
+          'subjects',
+        ];
+        if (preg_match('/^(' . implode('|', $s3_folders) . ')\//', $image) && $images = $this->s3ImageSearch($image)) {
+          $source = reset($images);
+        }
+        elseif (strpos($image, 'public://') === 0) {
+          $source = DRUPAL_ROOT . '/../scripts/legacy_cms_files/' . preg_replace('~^public://~', '', $image);
+        }
       }
-      if (file_exists($source)) {
+
+      if (preg_match('/^http/', $source) && $data = $this->getFile($source)) {
+        $new_filename = self::transliteration(basename($image));
+        file_prepare_directory($destination_path, FILE_CREATE_DIRECTORY);
+        $file = file_save_data($data, $destination_path . $new_filename, FILE_EXISTS_REPLACE);
+      }
+      elseif (file_exists($source)) {
         file_prepare_directory($destination_path, FILE_CREATE_DIRECTORY);
         $new_filename = self::transliteration(basename($source));
         $uri = file_unmanaged_copy($source, $destination_path . $new_filename, FILE_EXISTS_REPLACE);
         $file = \Drupal::entityTypeManager()->getStorage('file')->create(['uri' => $uri]);
+      }
+      else {
+        $file = NULL;
+      }
+      if (!empty($file)) {
         $file->save();
         return [
           'target_id' => $file->id(),

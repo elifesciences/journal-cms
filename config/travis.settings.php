@@ -10,3 +10,5 @@ $databases['default']['default'] = [
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',
 ];
+
+$settings['jcms_migrate_legacy_cms_images_bucket'] = 'prod-elife-legacy-cms-images';

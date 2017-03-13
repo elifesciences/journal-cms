@@ -1,5 +1,14 @@
+parameters:
+  jcms_migrate.s3_client.options:
+    credentials: false
+    region: eu-west-2
+    version: latest
+
 services:
   jcms_migrate.jcms_migrate_event_subscriber:
     class: Drupal\jcms_migrate\EventSubscriber\JCMSMIgrateEventSubscriber
     tags:
       - { name: event_subscriber }
+  jcms_migrate.s3_client:
+    class: Aws\S3\S3Client
+    arguments: ['%jcms_migrate.s3_client.options%']

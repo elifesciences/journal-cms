@@ -37,6 +37,9 @@ class JCMSMIgrateEventSubscriber implements EventSubscriberInterface {
               'target_id' => $ids[0],
             ];
             $subqueue->set('items', $items);
+            if ($subqueue_id == 'covers_preview') {
+              $subqueue->set('field_covers_active_items', count($items));
+            }
             $subqueue->save();
           }
         }
