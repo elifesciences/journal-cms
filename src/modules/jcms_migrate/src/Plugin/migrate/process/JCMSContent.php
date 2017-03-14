@@ -6,8 +6,6 @@ use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
 use Drupal\paragraphs\Entity\Paragraph;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ConnectException;
 
 /**
  * Process the content values into paragraphs.
@@ -19,6 +17,7 @@ use GuzzleHttp\Exception\ConnectException;
 class JCMSContent extends ProcessPluginBase {
 
   use JMCSCheckMarkupTrait;
+  use JMCSGetRemoteFileTrait;
 
   /**
    * @var \Drupal\migrate\Row
@@ -117,11 +116,19 @@ class JCMSContent extends ProcessPluginBase {
         }
         $image = $value['image'];
 
+        $s3_folders = [
+          'annual_reports',
+          'collections',
+          'covers',
+          'episodes',
+          'labs',
+          'subjects',
+        ];
         if (preg_match('/^http/', $image) && preg_match('/elifesciences\.org\/sites\/default\/files\/(?P<file>.*)/', $image, $match)) {
           $source = DRUPAL_ROOT . '/../scripts/legacy_cms_files/' . $match['file'];
         }
-        elseif (!preg_match('/^http/', $image)) {
-          $source = drupal_get_path('module', 'jcms_migrate') . '/migration_assets/images/' . $image;
+        elseif (preg_match('/^(' . implode('|', $s3_folders) . ')\//', $image) && $images = $this->s3ImageSearch($image)) {
+          $source = reset($images);
         }
         else {
           $source = NULL;
@@ -216,22 +223,6 @@ class JCMSContent extends ProcessPluginBase {
         'target_id' => $paragraph->id(),
         'target_revision_id' => $paragraph->getRevisionId(),
       ];
-    }
-  }
-
-  function getFile($filename) {
-    $guzzle = new Client();
-    try {
-      $response = $guzzle->get($filename, ['timeout' => 5, 'http_errors' => FALSE]);
-      if ($response->getStatusCode() == 200) {
-        return $response->getBody()->getContents();
-      }
-
-      error_log(sprintf("File %s didn't download. (return code %d)", $filename, $response->getStatusCode()));
-      return FALSE;
-    }
-    catch (ConnectException $e) {
-      error_log(sprintf("File %s didn't download. (%s)", $filename, $e->getMessage()));
     }
   }
 

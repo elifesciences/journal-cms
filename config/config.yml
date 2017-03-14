@@ -295,6 +295,8 @@ mysql_root_password: root
 mysql_slow_query_log_enabled: true
 mysql_slow_query_time: 2
 mysql_wait_timeout: 300
+mysql_max_allowed_packet: "128M"
+mysql_query_cache_size: "32M"
 adminer_install_filename: index.php
 
 # Node.js configuration (if enabled above).

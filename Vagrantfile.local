@@ -1,0 +1,3 @@
+config.vm.provider :virtualbox do |v|
+  v.customize ['guestproperty', 'set', :id, '/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold', 10000] 
+end
