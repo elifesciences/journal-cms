@@ -15,6 +15,22 @@
     {
       "type": "vcs",
       "url": "https://github.com/drupal-composer/drupal-project"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:thewilkybarkid/api-raml.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:thewilkybarkid/api-sdk-php.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:thewilkybarkid/api-validator-php.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:thewilkybarkid/bus-sdk-php.git"
     }
   ],
   "require": {
@@ -40,20 +56,16 @@
     "drupal/restui": "1.x-dev",
     "drupal/ctools": "~3.0-alpha27",
     "drupal/services": "~4.0-beta2",
-    "puli/cli": "1.0.x-dev",
-    "puli/composer-plugin": "dev-master",
     "symfony-cmf/routing": "^1.4",
     "satooshi/php-coveralls": "^1.0",
-    "puli/manager": "1.0.x-dev",
-    "webmozart/json": "^1.3@dev",
-    "justinrainbow/json-schema": "^2.0",
     "drupal/field_permissions": "~1.0-beta1",
     "drupal/address": "^1@RC",
     "aws/aws-sdk-php": "~3.0",
     "giggsey/libphonenumber-for-php": "^7.7",
     "drupal/entityqueue": "~1.0-alpha4",
     "geerlingguy/drupal-vm": "^4.0",
-    "elife/bus-sdk": "dev-master",
+    "elife/api-sdk": "dev-puli",
+    "elife/bus-sdk": "dev-puli",
     "drupal/field_validation": "^1.0@alpha",
     "drupal/focal_point": "^1.0@beta",
     "drupal/diff": "^1.0@RC"
@@ -69,8 +81,10 @@
     "mockery/mockery": "~0.9",
     "phpunit/phpcov": "2.*",
     "bossa/phpspec2-expect": "~1.0",
-    "elife/api": "dev-master",
-    "elife/api-validator": "dev-master"
+    "elife/api": "dev-puli",
+    "elife/api-validator": "dev-puli",
+    "justinrainbow/json-schema": "^5.1",
+    "mindplay/composer-locator": "^2.1"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

@@ -1,7 +1,6 @@
 .DS_Store
 .idea/
 .vagrant/
-.puli/
 config/local.settings.php
 scripts/legacy_cms.sql.gz
 scripts/legacy_cms_files/

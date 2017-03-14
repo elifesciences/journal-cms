@@ -2,15 +2,16 @@
 
 namespace Drupal\jcms_rest\Tests\Functional;
 
+use ComposerLocator;
 use Drupal\Tests\UnitTestCase;
+use eLife\ApiValidator\MessageValidator;
 use eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator;
 use eLife\ApiValidator\MessageValidator\JsonMessageValidator;
-use eLife\ApiValidator\SchemaFinder\PuliSchemaFinder;
+use eLife\ApiValidator\SchemaFinder\PathBasedSchemaFinder;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Puli\GeneratedPuliFactory;
-use Webmozart\Json\JsonDecoder;
 use GuzzleHttp\Client;
+use JsonSchema\Validator;
 
 /**
  * @group jcms_rest
@@ -25,20 +26,22 @@ class RamlSchemaValidationTest extends UnitTestCase {
 
   protected $projectRoot;
 
-  protected $resourceRepository;
+  /**
+   * @var MessageValidator
+   */
+  protected $validator;
 
   protected static $contentGenerated = FALSE;
 
   function setUp() {
     parent::setUp();
     $this->projectRoot = realpath(__DIR__ . '/../../../../../..');
-    if (!class_exists('Puli\GeneratedPuliFactory')) {
-      if (file_exists($this->projectRoot . '/.puli/GeneratedPuliFactory.php')) {
-        require_once($this->projectRoot . '/.puli/GeneratedPuliFactory.php');
-      }
-    }
-    // Setup Puli.
-    $this->resourceRepository = (new GeneratedPuliFactory)->createRepository();
+    $this->validator = new FakeHttpsMessageValidator(
+      new JsonMessageValidator(
+        new PathBasedSchemaFinder(ComposerLocator::getPath('elife/api').'/dist/model'),
+        new Validator()
+      )
+    );
     $this->client = new Client([
       'base_uri' => 'http://journal-cms.local/',
       'http_errors' => FALSE,
@@ -60,17 +63,6 @@ class RamlSchemaValidationTest extends UnitTestCase {
     ]);
     $response = $this->client->send($request);
     return $response;
-  }
-
-  /**
-   * Validates JSON data against RAML schemas.
-   *
-   * @param \GuzzleHttp\Psr7\Response $response
-   */
-  protected function validateResponse(Response $response) {
-    $json_decoder = new JsonDecoder();
-    $messageValidator = new FakeHttpsMessageValidator(new JsonMessageValidator(new PuliSchemaFinder($this->resourceRepository), $json_decoder), $json_decoder);
-    $messageValidator->validate($response);
   }
 
   /**
@@ -125,11 +117,11 @@ class RamlSchemaValidationTest extends UnitTestCase {
   public function testNoData(string $http_method, string $endpoint, string $id_key, string $media_type_list, string $media_type_item) {
     $this->markTestIncomplete('This test has not been implemented yet.');
     $list_response = $this->makeGuzzleRequest($http_method, $endpoint, $media_type_list);
-    $this->validateResponse($list_response);
+    $this->validator->validate($list_response);
     $this->assertEquals(200, $list_response->getStatusCode());
     $item_id = $id_key == 'number' ? 1234 : 'does-not-exist';
     $item_response = $this->makeGuzzleRequest($http_method, $endpoint . '/' . $item_id, $media_type_item);
-    $this->validateResponse($item_response);
+    $this->validator->validate($item_response);
     $this->assertEquals(404, $item_response->getStatusCode());
   }
 
@@ -148,13 +140,13 @@ class RamlSchemaValidationTest extends UnitTestCase {
     }
     $list_response = $this->makeGuzzleRequest($http_method, $endpoint, $media_type_list);
     $data = json_decode($list_response->getBody()->getContents());
-    $this->validateResponse($list_response);
+    $this->validator->validate($list_response);
     $this->assertEquals(200, $list_response->getStatusCode());
     // To be added when generating content for all items in the data provider.
     //$this->assertNotEmpty($data->items);
     foreach ($data->items as $item) {
       $item_response = $this->makeGuzzleRequest($http_method, $endpoint . '/' . $item->{$id_key}, $media_type_item);
-      $this->validateResponse($item_response);
+      $this->validator->validate($item_response);
       $this->assertEquals(200, $item_response->getStatusCode());
     }
   }
