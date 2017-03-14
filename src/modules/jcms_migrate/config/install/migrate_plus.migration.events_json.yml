@@ -45,6 +45,10 @@ source:
       name: content
       label: 'Event content'
       selector: content
+    -
+      name: uid
+      label: 'Event author'
+      selector: uid
   ids:
     title:
       type: string
@@ -60,8 +64,9 @@ process:
   title: title
   uuid: uuid
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   'field_event_datetime/value': starts
   'field_event_datetime/end_value': ends
   field_event_timezone: timezone
@@ -77,4 +82,6 @@ process:
     plugin: transform_date
     source: created
 
-migration_dependencies: {}
+migration_dependencies:
+  required:
+    - jcms_users_db

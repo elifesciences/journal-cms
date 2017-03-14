@@ -1,9 +1,9 @@
-uuid: 6e290a8e-c8e0-41d8-83c2-967ce4151568
+uuid: 597cdfde-9fff-484c-a5f0-9943919975c6
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: bZRAk0o0eGLpX61NkGxw8e4ECOUvROXB4BmNi5iV0UI
+  default_config_hash: Bc5fnb16Qezhf5iLex-FH-7MyyG63gfIQ_nmk4p00bk
 id: jcms_interviews_db
 migration_tags: null
 migration_group: jcms_migrate
@@ -18,8 +18,9 @@ process:
   title: title
   uuid: uuid
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   created: created
   field_person_preferred_name:
     plugin: concat
@@ -51,4 +52,6 @@ process:
       multiple: true
 destination:
   plugin: 'entity:node'
-migration_dependencies: null
+migration_dependencies:
+  required:
+    - jcms_users_db

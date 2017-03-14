@@ -14,8 +14,9 @@ process:
   title: title
   uuid: uuid
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   created: created
   'field_impact_statement/value': summary
   'field_impact_statement/format':
@@ -31,4 +32,5 @@ process:
 
 migration_dependencies:
   required:
+    - jcms_users_db
     - jcms_subjects_json

@@ -6,6 +6,7 @@ use Drupal\entityqueue\Entity\EntitySubqueue;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
+use Drupal\migrate\Event\MigratePreRowSaveEvent;
 use Drupal\node\Entity\Node;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

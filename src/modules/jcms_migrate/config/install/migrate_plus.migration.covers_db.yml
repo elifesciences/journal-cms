@@ -14,8 +14,9 @@ process:
   title: title
   uuid: uuid
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   created: created
   field_image:
     plugin: jcms_image
@@ -31,6 +32,7 @@ process:
 
 migration_dependencies:
   required:
+    - jcms_users_db
     - jcms_subjects_json
     - jcms_blog_articles_db
     - jcms_podcast_episodes_json

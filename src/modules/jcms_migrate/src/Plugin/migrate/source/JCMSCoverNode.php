@@ -19,7 +19,7 @@ class JCMSCoverNode extends SqlBase {
    */
   public function query() {
     $query = $this->select('node', 'n')
-      ->fields('n', ['nid', 'title', 'created', 'status', 'uuid']);
+      ->fields('n', ['nid', 'uid', 'title', 'created', 'status', 'uuid']);
     $query->innerJoin('field_data_field_elife_fm_reference', 'ref', 'ref.entity_id = n.nid');
     $query->innerJoin('node', 'an', 'an.nid = ref.field_elife_fm_reference_target_id');
     $query->innerJoin('field_data_field_elife_image', 'im', 'im.entity_id = n.nid');
@@ -42,6 +42,7 @@ class JCMSCoverNode extends SqlBase {
   public function fields() {
     $fields = [
       'nid' => $this->t('Legacy ID'),
+      'uid' => $this->t('Author ID'),
       'uuid' => $this->t('UUID'),
       'title' => $this->t('Title'),
       'created' => $this->t('Created timestamp'),

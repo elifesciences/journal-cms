@@ -37,6 +37,10 @@ source:
       name: content
       label: 'Experiment content'
       selector: content
+    -
+      name: uid
+      label: 'Experiment author'
+      selector: uid
   ids:
     number:
       type: string
@@ -51,8 +55,9 @@ process:
     default_value: labs_experiment
   title: title
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   field_experiment_number: number
   'field_impact_statement/value': impact_statement
   'field_impact_statement/format':
@@ -70,4 +75,6 @@ process:
     plugin: transform_date
     source: date
 
-migration_dependencies: {}
+migration_dependencies:
+  required:
+    - jcms_users_db

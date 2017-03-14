@@ -1,9 +1,9 @@
-uuid: db2ab907-3619-447f-9819-2690cac8422f
+uuid: aa3221b8-1215-4098-bfcf-a220abb9c02b
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: XDPlBp-4G5R7RkbcSBaVNA8TlyLBgnNfSQohQNOuUFQ
+  default_config_hash: M4FJYKAoSLutDuqTcqdXruOiEIB0b_OzNsiC748hWNA
 id: jcms_labs_experiments_json
 migration_tags: null
 migration_group: jcms_migrate
@@ -44,6 +44,10 @@ source:
       name: content
       label: 'Experiment content'
       selector: content
+    -
+      name: uid
+      label: 'Experiment author'
+      selector: uid
   ids:
     number:
       type: string
@@ -55,8 +59,9 @@ process:
     default_value: labs_experiment
   title: title
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   field_experiment_number: number
   field_impact_statement/value: impact_statement
   field_impact_statement/format:
@@ -75,4 +80,6 @@ process:
     source: date
 destination:
   plugin: 'entity:node'
-migration_dependencies: {  }
+migration_dependencies:
+  required:
+    - jcms_users_db

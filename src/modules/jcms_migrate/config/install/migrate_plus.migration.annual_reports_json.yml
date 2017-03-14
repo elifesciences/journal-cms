@@ -29,6 +29,10 @@ source:
       name: uri
       label: 'Annual report URI'
       selector: uri
+    -
+      name: uid
+      label: 'Annual report author'
+      selector: uid
   ids:
     year:
       type: string
@@ -43,8 +47,9 @@ process:
     default_value: annual_report
   title: title
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   field_annual_report_year: year
   'field_impact_statement/value': impact_statement
   'field_impact_statement/format':
@@ -57,4 +62,6 @@ process:
       - title
   'field_annual_report_uri/uri': uri
 
-migration_dependencies: {}
+migration_dependencies:
+  required:
+    - jcms_users_db

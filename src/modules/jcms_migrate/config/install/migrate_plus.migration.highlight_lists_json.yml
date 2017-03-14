@@ -17,6 +17,10 @@ source:
       name: content
       label: 'Highlight list content'
       selector: content
+    -
+      name: uid
+      label: 'Highlight list author'
+      selector: uid
   ids:
     title:
       type: string
@@ -31,14 +35,16 @@ process:
     default_value: highlight_list
   title: title
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   field_highlight_items:
     plugin: jcms_highlight_list_content
     source: content
 
 migration_dependencies:
   required:
+    - jcms_users_db
     - jcms_blog_articles_db
     - jcms_collections_db
     - jcms_collections_json

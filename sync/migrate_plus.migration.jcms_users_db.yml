@@ -1,0 +1,46 @@
+uuid: 35939aaf-effb-430c-a25c-d4340322763c
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: h4XzNbqRyMiaiAZ65JrnS7w_DTEfSyP6HwnjH7wsWjU
+id: jcms_users_db
+migration_tags: null
+migration_group: jcms_migrate
+label: 'Legacy users'
+source:
+  plugin: jcms_user
+  track_changes: true
+process:
+  name: name
+  created: created
+  login: login
+  access: access
+  mail: mail
+  pass: pass
+  status: status
+  langcode:
+    plugin: default_value
+    default_value: en
+  preferred_langcode:
+    plugin: default_value
+    default_value: en
+  preferred_admin_langcode:
+    plugin: default_value
+    default_value: en
+  timezone:
+    plugin: default_value
+    default_value: UTC
+  default_langcode:
+    plugin: default_value
+    default_value: 1
+  roles:
+    -
+      plugin: explode
+      source: roles
+      delimiter: ','
+    -
+      plugin: jcms_role
+destination:
+  plugin: 'entity:user'
+migration_dependencies: {  }
