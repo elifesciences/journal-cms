@@ -1,9 +1,9 @@
-uuid: e45743ac-7cfa-4ce8-8a7e-babceb3e367f
+uuid: 2c9c12af-40cd-4658-ac03-f4d756e1ec70
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: S24WxJg5lb0Fd5_nY4XfZhs8vgegfflXnSoSOHREw9Y
+  default_config_hash: t4WX6L2QGUs6g2L4x2ziu8wNDui8RH8TIWJpzoCB4u4
 id: jcms_research_focuses_json
 migration_tags: null
 migration_group: jcms_migrate
@@ -34,9 +34,6 @@ process:
     plugin: default_value
     default_value: research_focuses
   name: name
-  uid:
-    plugin: default_value
-    default_value: 1
 destination:
   plugin: 'entity:taxonomy_term'
 migration_dependencies: {  }

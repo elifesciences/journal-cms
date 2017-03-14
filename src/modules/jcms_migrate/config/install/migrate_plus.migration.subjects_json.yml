@@ -42,9 +42,6 @@ process:
     plugin: default_value
     default_value: subjects
   name: name
-  uid:
-    plugin: default_value
-    default_value: 1
   field_subject_id: id
   'field_impact_statement/value': impact_statement
   'field_impact_statement/format':

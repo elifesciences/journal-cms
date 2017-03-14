@@ -1,9 +1,9 @@
-uuid: 71e84eb5-1c4d-4681-a03f-46b279496e90
+uuid: 0b1de535-9742-4803-92f0-46e7f9b81bfa
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: sazLTqF-TiYn_I6yLTSxV_WBdZXDvEK5N5Gr6cBZgXI
+  default_config_hash: o8xpohlQXznN4_yrpq85rBnW25Oi7Ygaa4L_CPACyIg
 id: jcms_highlight_lists_json
 migration_tags: null
 migration_group: jcms_migrate
@@ -24,6 +24,10 @@ source:
       name: content
       label: 'Highlight list content'
       selector: content
+    -
+      name: uid
+      label: 'Highlight list author'
+      selector: uid
   ids:
     title:
       type: string
@@ -35,8 +39,9 @@ process:
     default_value: highlight_list
   title: title
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   field_highlight_items:
     plugin: jcms_highlight_list_content
     source: content
@@ -44,6 +49,7 @@ destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
+    - jcms_users_db
     - jcms_blog_articles_db
     - jcms_collections_db
     - jcms_collections_json

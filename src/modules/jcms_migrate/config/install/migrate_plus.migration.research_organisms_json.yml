@@ -30,8 +30,5 @@ process:
     plugin: default_value
     default_value: research_organisms
   name: name
-  uid:
-    plugin: default_value
-    default_value: 1
 
 migration_dependencies: {}

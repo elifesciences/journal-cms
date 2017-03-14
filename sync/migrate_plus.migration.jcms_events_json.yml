@@ -1,9 +1,9 @@
-uuid: 65d01015-7976-4b36-ad2f-47382643426e
+uuid: c2b06e0b-2813-41e5-a187-7d90d6acff22
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: f1KG5B_fNYCeYmEOFL1EoF8daJ24RXFTSy6NOa7A4pY
+  default_config_hash: 7VwaOCzvvSnzdTON67mjv6QUAys2jZZhUB9O6i2hV3w
 id: jcms_events_json
 migration_tags: null
 migration_group: jcms_migrate
@@ -52,6 +52,10 @@ source:
       name: content
       label: 'Event content'
       selector: content
+    -
+      name: uid
+      label: 'Event author'
+      selector: uid
   ids:
     title:
       type: string
@@ -64,8 +68,9 @@ process:
   title: title
   uuid: uuid
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   field_event_datetime/value: starts
   field_event_datetime/end_value: ends
   field_event_timezone: timezone
@@ -82,4 +87,6 @@ process:
     source: created
 destination:
   plugin: 'entity:node'
-migration_dependencies: {  }
+migration_dependencies:
+  required:
+    - jcms_users_db

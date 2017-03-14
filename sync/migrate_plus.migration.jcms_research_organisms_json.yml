@@ -1,9 +1,9 @@
-uuid: 633ce63b-d668-4da0-adce-c7e9bd95ca93
+uuid: 8c753551-59f1-47c9-b4e6-dc1e3a7c34e0
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: uObTBhkk1W6qrT2FK3LJQEIwoX43Cp29vLksqJFyEpg
+  default_config_hash: vqxpIMRXiS0vUmuEF9uXgmWwlyB9G8KHI7KfuV_rM9U
 id: jcms_research_organisms_json
 migration_tags: null
 migration_group: jcms_migrate
@@ -34,9 +34,6 @@ process:
     plugin: default_value
     default_value: research_organisms
   name: name
-  uid:
-    plugin: default_value
-    default_value: 1
 destination:
   plugin: 'entity:taxonomy_term'
 migration_dependencies: {  }

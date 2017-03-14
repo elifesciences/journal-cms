@@ -1,9 +1,9 @@
-uuid: 27515f5a-7831-4fb6-a3a9-fdb6f18b9bb7
+uuid: 34f1df51-8ec8-4ee7-ad6f-b0dc36c90003
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: m1NT8GO92kCOrEbA205FENhvqhCc8qFfN1PyIVt0Wu8
+  default_config_hash: hS-vmyY33coJBqFnYyJcyACkooRsi_Ib4dwhFaC3834
 id: jcms_covers_db
 migration_tags: null
 migration_group: jcms_migrate
@@ -18,8 +18,9 @@ process:
   title: title
   uuid: uuid
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   created: created
   field_image:
     plugin: jcms_image
@@ -36,6 +37,7 @@ destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
+    - jcms_users_db
     - jcms_subjects_json
     - jcms_blog_articles_db
     - jcms_podcast_episodes_json

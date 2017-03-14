@@ -1,9 +1,9 @@
-uuid: 3306b101-e581-4b83-9aeb-859c7ebb858e
+uuid: 1f6ea35a-2014-4723-b4ed-a89c2d0c3e32
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: gG5V3Fbn-ayfEZ50Nx8itLOxxiO0h97KBEId7sMIjbM
+  default_config_hash: snqqUNLAb4hF0g1u_mY3mS4JlX9EGuzPU_OzF8BeEj0
 id: jcms_press_packages_db
 migration_tags: null
 migration_group: jcms_migrate
@@ -18,8 +18,9 @@ process:
   title: press_title
   uuid: uuid
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   created: created
   field_impact_statement/value:
     plugin: jcms_press_package_content
@@ -68,4 +69,5 @@ destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
+    - jcms_users_db
     - jcms_subjects_json

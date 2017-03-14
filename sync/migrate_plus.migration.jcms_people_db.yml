@@ -1,9 +1,9 @@
-uuid: b00e9269-1876-4e73-a56d-f2a9c041631e
+uuid: c88a1667-a772-443e-a06e-2f0388a1eaf6
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: OTVlZTDzJpX4pEYVF5yERX1_ntsB7VlLGTxzPd_pfQk
+  default_config_hash: qXXv8qxY8eJia3fO22vNMvBdarbR9ox_eZt0n1jcXQU
 id: jcms_people_db
 migration_tags: null
 migration_group: jcms_migrate
@@ -24,8 +24,9 @@ process:
     delimiter: ' '
   uuid: uuid
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   created: created
   field_person_index_name:
     plugin: concat
@@ -66,6 +67,7 @@ destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
+    - jcms_users_db
     - jcms_subjects_json
     - jcms_research_focuses_json
     - jcms_research_organisms_json

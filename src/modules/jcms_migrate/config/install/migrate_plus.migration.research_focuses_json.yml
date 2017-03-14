@@ -30,8 +30,5 @@ process:
     plugin: default_value
     default_value: research_focuses
   name: name
-  uid:
-    plugin: default_value
-    default_value: 1
 
 migration_dependencies: {}

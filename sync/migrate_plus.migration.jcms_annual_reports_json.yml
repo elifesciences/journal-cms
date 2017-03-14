@@ -1,9 +1,9 @@
-uuid: bccd8d7d-2063-4c40-9a3d-74b348bb847f
+uuid: 1c330400-5e20-48a3-bbc4-5c63fdc0ba99
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: P57pPpI4yC5mAGb4gouN6hRpwYrc2uKw48q6gMjBwOY
+  default_config_hash: KbWmRL28FsVQXB75iN5a0pCJd_OqrYIJuyZ5N9Gpjq8
 id: jcms_annual_reports_json
 migration_tags: null
 migration_group: jcms_migrate
@@ -36,6 +36,10 @@ source:
       name: uri
       label: 'Annual report URI'
       selector: uri
+    -
+      name: uid
+      label: 'Annual report author'
+      selector: uid
   ids:
     year:
       type: string
@@ -47,8 +51,9 @@ process:
     default_value: annual_report
   title: title
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   field_annual_report_year: year
   field_impact_statement/value: impact_statement
   field_impact_statement/format:
@@ -62,4 +67,6 @@ process:
   field_annual_report_uri/uri: uri
 destination:
   plugin: 'entity:node'
-migration_dependencies: {  }
+migration_dependencies:
+  required:
+    - jcms_users_db

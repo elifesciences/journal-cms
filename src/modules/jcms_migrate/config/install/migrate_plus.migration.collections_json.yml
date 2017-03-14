@@ -49,6 +49,10 @@ source:
       name: podcasts
       label: 'Collection podcasts'
       selector: podcasts
+    -
+      name: uid
+      label: 'Collection author'
+      selector: uid
   ids:
     title:
       type: string
@@ -64,8 +68,9 @@ process:
   title: title
   uuid: uuid
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   created: created
   field_subtitle: sub_title
   'field_impact_statement/value': impact_statement
@@ -95,6 +100,7 @@ process:
 
 migration_dependencies:
   required:
+    - jcms_users_db
     - jcms_subjects_json
     - jcms_people_db
     - jcms_interviews_db

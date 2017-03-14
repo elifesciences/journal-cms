@@ -18,7 +18,7 @@ class JCMSCollectionNode extends SqlBase {
    */
   public function query() {
     $query = $this->select('node', 'n')
-      ->fields('n', ['nid', 'title', 'created', 'status', 'uuid']);
+      ->fields('n', ['nid', 'uid', 'title', 'created', 'status', 'uuid']);
     $query->leftJoin('field_data_field_elife_c_sub_title', 'sub_title', 'sub_title.entity_id = n.nid');
     $query->leftJoin('field_data_field_elife_c_image', 'photo', 'photo.entity_id = n.nid');
     $query->leftJoin('file_managed', 'fm', 'fm.fid = photo.field_elife_c_image_fid');
@@ -52,6 +52,7 @@ class JCMSCollectionNode extends SqlBase {
   public function fields() {
     $fields = [
       'nid' => $this->t('Legacy ID'),
+      'uid' => $this->t('Author ID'),
       'uuid' => $this->t('UUID'),
       'title' => $this->t('Name'),
       'sub_title' => $this->t('Sub title'),

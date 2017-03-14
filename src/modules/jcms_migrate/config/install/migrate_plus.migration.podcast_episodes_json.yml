@@ -45,6 +45,10 @@ source:
       name: chapters
       label: 'Episode chapters'
       selector: chapters
+    -
+      name: uid
+      label: 'Episode author'
+      selector: uid
   ids:
     number:
       type: string
@@ -59,8 +63,9 @@ process:
     default_value: podcast_episode
   title: title
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   field_episode_number: number
   'field_impact_statement/value': impact_statement
   'field_impact_statement/format':
@@ -85,6 +90,7 @@ process:
 
 migration_dependencies:
   required:
+    - jcms_users_db
     - jcms_subjects_json
     - jcms_collections_db
     - jcms_collections_json

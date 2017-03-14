@@ -1,9 +1,9 @@
-uuid: c63b003b-4fc5-414a-83a0-f7923027cf84
+uuid: 5abb3656-ef25-4611-9918-1d83c9def5c4
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: 6d-Div-GoXOJeN_6aKtodKY9vNBGNOk2dct9Vcy7cQA
+  default_config_hash: 5ZluW2eLmnk6G8-Wm_to6DMKGNjSv1JEMHCqnXfVrkQ
 id: jcms_podcast_episodes_json
 migration_tags: null
 migration_group: jcms_migrate
@@ -52,6 +52,10 @@ source:
       name: chapters
       label: 'Episode chapters'
       selector: chapters
+    -
+      name: uid
+      label: 'Episode author'
+      selector: uid
   ids:
     number:
       type: string
@@ -63,8 +67,9 @@ process:
     default_value: podcast_episode
   title: title
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   field_episode_number: number
   field_impact_statement/value: impact_statement
   field_impact_statement/format:
@@ -90,6 +95,7 @@ destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
+    - jcms_users_db
     - jcms_subjects_json
     - jcms_collections_db
     - jcms_collections_json

@@ -1,9 +1,9 @@
-uuid: 401f307a-2e3c-40c5-aa21-3f18dad93533
+uuid: a868e226-2c0e-4234-8456-7968fcc2c60e
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: ilS2A24oeS9kwV6e2zl9TC7Yy9g_RWWKO01lyFRXz38
+  default_config_hash: 7Ng5ACejLV0XZldlul0t7uCWmQOp81SR2W8vv7i8WtA
 id: jcms_collections_json
 migration_tags: null
 migration_group: jcms_migrate
@@ -56,6 +56,10 @@ source:
       name: podcasts
       label: 'Collection podcasts'
       selector: podcasts
+    -
+      name: uid
+      label: 'Collection author'
+      selector: uid
   ids:
     title:
       type: string
@@ -68,8 +72,9 @@ process:
   title: title
   uuid: uuid
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   created: created
   field_subtitle: sub_title
   field_impact_statement/value: impact_statement
@@ -100,6 +105,7 @@ destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
+    - jcms_users_db
     - jcms_subjects_json
     - jcms_people_db
     - jcms_interviews_db

@@ -20,8 +20,9 @@ process:
     delimiter: " "
   uuid: uuid
   uid:
-    plugin: default_value
-    default_value: 1
+    plugin: migration
+    migration: jcms_users_db
+    source: uid
   created: created
   field_person_index_name:
     plugin: concat
@@ -61,6 +62,7 @@ process:
 
 migration_dependencies:
   required:
+    - jcms_users_db
     - jcms_subjects_json
     - jcms_research_focuses_json
     - jcms_research_organisms_json
