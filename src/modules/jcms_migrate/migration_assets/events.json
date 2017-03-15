@@ -4,8 +4,8 @@
     "uuid": "b031456a-de9c-4050-9ea9-2ef1d555121c",
     "impact_statement": "How eLife is influencing the culture of peer review",
     "created": "2016-04-21",
-    "starts": "2016-04-22T20:00:00",
-    "ends": "2016-04-22T21:00:00",
+    "starts": "2017-09-22T20:00:00",
+    "ends": "2017-09-22T21:00:00",
     "timezone": "America/Los_Angeles",
     "uri": "https://crm.elifesciences.org/crm/civicrm/event/info?reset=1&id=27"
   },
@@ -13,9 +13,9 @@
     "title": "Changing peer review in cancer research: a seminar at Fred Hutch",
     "uuid": "0610c94b-a696-456d-89a3-85a9b806d74f",
     "impact_statement": "How eLife is influencing the culture of peer review",
-    "starts": "2016-04-22T20:00:00",
-    "ends": "2016-04-22T21:00:00",
-    "timezone": "America/Los_Angeles",
+    "starts": "2017-09-23T00:00:00",
+    "ends": "2017-09-25T00:00:00",
+    "timezone": "Europe/London",
     "content": [
       {
         "type": "paragraph",
@@ -34,8 +34,9 @@
         "text": "Plus free pizza and eLife t-shirts!"
       },
       {
-        "type": "paragraph",
-        "text": "All are welcome. Free to attend."
+        "type": "button",
+        "title": "All are welcome. Free to attend.",
+        "uri": "https://crm.elifesciences.org/crm/civicrm/event/info?reset=1&id=27"
       }
     ]
   }
