@@ -15,22 +15,6 @@
     {
       "type": "vcs",
       "url": "https://github.com/drupal-composer/drupal-project"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:thewilkybarkid/api-raml.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:thewilkybarkid/api-sdk-php.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:thewilkybarkid/api-validator-php.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:thewilkybarkid/bus-sdk-php.git"
     }
   ],
   "require": {
@@ -64,8 +48,7 @@
     "giggsey/libphonenumber-for-php": "^7.7",
     "drupal/entityqueue": "~1.0-alpha4",
     "geerlingguy/drupal-vm": "^4.0",
-    "elife/api-sdk": "dev-puli",
-    "elife/bus-sdk": "dev-puli",
+    "elife/bus-sdk": "dev-master",
     "drupal/field_validation": "^1.0@alpha",
     "drupal/focal_point": "^1.0@beta",
     "drupal/diff": "^1.0@RC"
@@ -81,8 +64,8 @@
     "mockery/mockery": "~0.9",
     "phpunit/phpcov": "2.*",
     "bossa/phpspec2-expect": "~1.0",
-    "elife/api": "dev-puli",
-    "elife/api-validator": "dev-puli",
+    "elife/api": "dev-master",
+    "elife/api-validator": "dev-master",
     "justinrainbow/json-schema": "^5.1",
     "mindplay/composer-locator": "^2.1"
   },
