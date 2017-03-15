@@ -235,14 +235,15 @@ class ArticleFragment extends RevisionableContentEntityBase implements ArticleFr
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['image'] = BaseFieldDefinition::create('image')
-      ->setLabel(t('Image'))
-      ->setDescription(t('Image field'))
+      ->setLabel(t('Thumbnail image'))
+      ->setDescription(t('Thumbnail image field'))
       ->setRevisionable(TRUE)
-      ->setRequired(TRUE)
+      ->setRequired(FALSE)
       ->setSettings([
         'file_directory' => 'article_fragments',
         'alt_field_required' => FALSE,
         'file_extensions' => 'png jpg jpeg gif jif tif tiff',
+        'min_resolution' => '1800x900'
       ])
       ->setDisplayOptions('view', array(
         'label' => 'hidden',
@@ -253,6 +254,44 @@ class ArticleFragment extends RevisionableContentEntityBase implements ArticleFr
         'label' => 'hidden',
         'type' => 'image_image',
         'weight' => 0,
+      ))
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['use_as_banner'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Use the thumbnail image as the banner image.'))
+      ->setRevisionable(TRUE)
+      ->setDefaultValue(FALSE)
+      ->setDisplayOptions('form', array(
+        'type' => 'boolean_checkbox',
+        'settings' => array(
+          'display_label' => TRUE,
+        ),
+        'weight' => 1,
+      ))
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['banner_image'] = BaseFieldDefinition::create('image')
+      ->setLabel(t('Banner image'))
+      ->setDescription(t('Banner image field'))
+      ->setRevisionable(TRUE)
+      ->setRequired(FALSE)
+      ->setSettings([
+        'file_directory' => 'article_fragments',
+        'alt_field_required' => FALSE,
+        'file_extensions' => 'png jpg jpeg gif jif tif tiff',
+        'min_resolution' => '1800x900'
+      ])
+      ->setDisplayOptions('view', array(
+        'label' => 'hidden',
+        'type' => 'default',
+        'weight' => 2,
+      ))
+      ->setDisplayOptions('form', array(
+        'label' => 'hidden',
+        'type' => 'image_image',
+        'weight' => 2,
       ))
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);

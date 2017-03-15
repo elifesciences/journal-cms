@@ -34,14 +34,18 @@ class FragmentApi {
   /**
    * Post the image fragment.
    *
-   * @param int $imageFid
    * @param string $articleId
+   * @param int    $thumbFid
+   * @param string $thumbAlt
+   * @param int    $bannerFid
+   * @param string $bannerAlt
+   * @param int    $useThumbAsBanner
    *
    * @return \GuzzleHttp\Psr7\Response
    */
-  public function postImageFragment(int $imageFid, string $articleId, string $alt = ''): Response {
+  public function postImageFragment(string $articleId, int $thumbFid, string $thumbAlt, int $bannerFid, string $bannerAlt, int $useThumbAsBanner): Response {
     $endpoint = sprintf(Settings::get('jcms_article_fragment_images_endpoint'), $articleId);
-    $payload = $this->getPayLoad($imageFid, $alt);
+    $payload = $this->getPayLoad($thumbFid, $thumbAlt, $bannerFid, $bannerAlt, $useThumbAsBanner);
     $response = $this->client->post($endpoint, [
       'body' => $payload,
       'headers' => [
@@ -71,38 +75,47 @@ class FragmentApi {
   /**
    * Gets the JSON payload for the fragment.
    *
-   * @param int $imageFid
-   * @param string $alt
+   * @param int    $thumbImageFid
+   * @param string $thumbAlt
+   * @param int    $bannerImageFid
+   * @param string $bannerAlt
+   * @param bool   $useThumbAsBanner
    *
    * @return string
    */
-  public function getPayLoad(int $imageFid, string $alt = ''): string {
+  public function getPayLoad(int $thumbImageFid, string $thumbAlt = '', int $bannerImageFid = 0, string $bannerAlt = '', bool $useThumbAsBanner = FALSE): string {
+    if ($useThumbAsBanner) {
+      $bannerImageFid = $thumbImageFid;
+      $bannerAlt = $thumbAlt;
+    }
     $images = [
       'image' => [
-        'banner' => [
-          'alt' => $alt,
-          'sizes' => [
-            '2:1' => [
-              900 => $this->getImageUri($imageFid, 'crop_2x1_900x450'),
-              1800 => $this->getImageUri($imageFid, 'crop_2x1_1800x900'),
-            ],
-          ],
-        ],
         'thumbnail' => [
-          'alt' => $alt,
+          'alt' => $thumbAlt,
           'sizes' => [
             '16:9' => [
-              250 => $this->getImageUri($imageFid, 'crop_16x9_250x141'),
-              500 => $this->getImageUri($imageFid, 'crop_16x9_500x281'),
+              250 => $this->getImageUri($thumbImageFid, 'crop_16x9_250x141'),
+              500 => $this->getImageUri($thumbImageFid, 'crop_16x9_500x281'),
             ],
             '1:1' => [
-              70 => $this->getImageUri($imageFid, 'crop_1x1_70x70'),
-              140 => $this->getImageUri($imageFid, 'crop_1x1_140x140'),
+              70 => $this->getImageUri($thumbImageFid, 'crop_1x1_70x70'),
+              140 => $this->getImageUri($thumbImageFid, 'crop_1x1_140x140'),
             ],
           ],
         ],
       ],
     ];
+    if ($bannerImageFid) {
+      $images['image']['banner'] = [
+        'alt' => $bannerAlt,
+        'sizes' => [
+          '2:1' => [
+            900 => $this->getImageUri($bannerImageFid, 'crop_2x1_900x450'),
+            1800 => $this->getImageUri($bannerImageFid, 'crop_2x1_1800x900'),
+          ],
+        ],
+      ];
+    }
     return json_encode($images);
   }
 
