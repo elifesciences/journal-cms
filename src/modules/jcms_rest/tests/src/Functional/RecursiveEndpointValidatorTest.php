@@ -2,15 +2,16 @@
 
 namespace Drupal\jcms_rest\Tests\Functional;
 
+use ComposerLocator;
 use Drupal\Tests\UnitTestCase;
+use eLife\ApiValidator\MessageValidator;
 use eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator;
+use eLife\ApiValidator\SchemaFinder\PathBasedSchemaFinder;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use eLife\ApiValidator\MessageValidator\JsonMessageValidator;
-use eLife\ApiValidator\SchemaFinder\PuliSchemaFinder;
+use JsonSchema\Validator;
 use Symfony\Component\HttpFoundation\Response;
-use Webmozart\Json\JsonDecoder;
-use \Puli\GeneratedPuliFactory;
 
 /**
  * Test to interrogate all items in a query to a list API endpoint.
@@ -21,24 +22,20 @@ use \Puli\GeneratedPuliFactory;
  */
 class RecursiveEndpointValidatorTest extends UnitTestCase {
 
-  private $projectRoot;
-
   private $client;
 
-  private $resourceRepository;
+  /**
+   * @var MessageValidator
+   */
+  private $validator;
 
   public function setUp() {
-    // Using Puli CLI as a Composer dependency means the class
-    // "Puli\GeneratedPuliFactory" is not found by the autoloader. In this case,
-    // we load it in manually.
-    $this->projectRoot = realpath(__DIR__ . '/../../../../../..');
-    if (!class_exists('Puli\GeneratedPuliFactory')) {
-      if (file_exists($this->projectRoot . '/.puli/GeneratedPuliFactory.php')) {
-        require_once($this->projectRoot . '/.puli/GeneratedPuliFactory.php');
-      }
-    }
-    // Setup Puli.
-    $this->resourceRepository = (new GeneratedPuliFactory)->createRepository();
+    $this->validator = new FakeHttpsMessageValidator(
+      new JsonMessageValidator(
+        new PathBasedSchemaFinder(ComposerLocator::getPath('elife/api').'/dist/model'),
+        new Validator()
+      )
+    );
     $this->client = new Client([
       'base_uri' => 'http://journal-cms.local/',
       'http_errors' => FALSE,
@@ -159,9 +156,7 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
 
     $response = $this->client->send($request);
     $data = \GuzzleHttp\json_decode($response->getBody()->getContents());
-    $json_decoder = new JsonDecoder();
-    $messageValidator = new FakeHttpsMessageValidator(new JsonMessageValidator(new PuliSchemaFinder($this->resourceRepository), $json_decoder), $json_decoder);
-    $messageValidator->validate($response);
+    $this->validator->validate($response);
 
     if (isset($data->items)) {
       $items = $data->items;
@@ -200,9 +195,7 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
 
       $response = $this->client->send($request);
       $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
-      $json_decoder = new JsonDecoder();
-      $messageValidator = new FakeHttpsMessageValidator(new JsonMessageValidator(new PuliSchemaFinder($this->resourceRepository), $json_decoder), $json_decoder);
-      $messageValidator->validate($response);
+      $this->validator->validate($response);
     }
   }
 
