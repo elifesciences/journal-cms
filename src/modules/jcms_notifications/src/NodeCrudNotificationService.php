@@ -102,7 +102,7 @@ final class NodeCrudNotificationService {
    * @return \Drupal\jcms_notifications\Notification\BusOutgoingMessage
    */
   public function sendMessage(EntityInterface $entity): BusOutgoingMessage {
-    $sns_message = $this->getMessageFromNode($entity);
+    $sns_message = $this->getMessageFromEntity($entity);
     $this->notificationService->sendNotification($sns_message);
     return $sns_message;
   }
@@ -114,7 +114,7 @@ final class NodeCrudNotificationService {
    *
    * @return \Drupal\jcms_notifications\Notification\BusOutgoingMessage
    */
-  public function getMessageFromNode(EntityInterface $entity): BusOutgoingMessage {
+  public function getMessageFromEntity(EntityInterface $entity): BusOutgoingMessage {
     $bundle = $entity->bundle();
     $data = self::ENTITY_TYPE_MAP[$bundle];
     $field_name = $data['field'];

@@ -1,8 +1,11 @@
 <?php
 
+use Drupal\jcms_notifications\MysqlNotificationStorage;
+use Drupal\Core\Database\Database;
+
 function jcms_notifications_schema() {
   $schema['jcms_notifications'] = [
-    'description' => 'The base table for nodes.',
+    'description' => 'The base table for notifications.',
     'fields' => [
       'notification_id' => [
         'description' => 'The primary identifier for a notification.',
@@ -10,17 +13,30 @@ function jcms_notifications_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE,
       ],
-      'node_id' => [
-        'description' => 'The primary identifier for a node.',
+      MysqlNotificationStorage::ID_FIELD => [
+        'description' => 'The primary identifier for a Drupal entity.',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
       ],
     ],
     'indexes' => [
-      'nid' => ['node_id'],
+      'entity_id' => [MysqlNotificationStorage::ID_FIELD],
     ],
     'primary key' => ['notification_id'],
   ];
   return $schema;
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Updates the node_id field to entity_id.
+ */
+function jcms_notifications_update_8101() {
+  $old_schema = jcms_notifications_schema();
+  $spec = $old_schema['jcms_notifications'][MysqlNotificationStorage::ID_FIELD];
+  $schema = Database::getConnection()->schema();
+  $schema->changeField(MysqlNotificationStorage::TABLE, 'node_id',
+    MysqlNotificationStorage::ID_FIELD, $spec);
 }

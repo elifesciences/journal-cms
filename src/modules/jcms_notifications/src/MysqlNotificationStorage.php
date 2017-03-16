@@ -18,6 +18,11 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
   const TABLE = 'jcms_notifications';
 
   /**
+   * Notification ID field name.
+   */
+  const ID_FIELD = 'entity_id';
+
+  /**
    * Drupal\Core\Database\Driver\mysql\Connection definition.
    *
    * @var \Drupal\Core\Database\Driver\mysql\Connection
@@ -36,25 +41,25 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
   /**
    * @inheritdoc
    */
-  public function saveNotificationNid(EntityInterface $entity) {
+  public function saveNotificationEntityId(EntityInterface $entity) {
     $whitelist_bundles = array_keys(NodeCrudNotificationService::ENTITY_TYPE_MAP);
     if (!in_array($entity->bundle(), $whitelist_bundles)) {
       return NULL;
     }
     $id = $entity->id();
-    return $this->connection->insert(self::TABLE)->fields(['node_id'], [$id])->execute();
+    return $this->connection->insert(self::TABLE)->fields([self::ID_FIELD], [$id])->execute();
   }
 
   /**
    * @inheritdoc
    */
-  public function getNotificationNids(): array {
+  public function getNotificationEntityIds(): array {
     $ids = [];
     $query = $this->connection->select(self::TABLE);
-    $query->addField(self::TABLE, 'node_id');
+    $query->addField(self::TABLE, self::ID_FIELD);
     $result = $query->execute();
     foreach ($result->fetchAll() as $row) {
-      $id = $row->node_id;
+      $id = $row->{self::ID_FIELD};
       $ids[$id] = $id;
     }
     return $ids;
@@ -63,18 +68,18 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
   /**
    * @inheritdoc
    */
-  public function deleteNotificationNid(int $nodeId) {
+  public function deleteNotificationEntityId(int $entityId) {
     $this->connection->delete(self::TABLE)
-      ->condition('node_id', $nodeId)
+      ->condition(self::ID_FIELD, $entityId)
       ->execute();
   }
 
   /**
    * @inheritdoc
    */
-  public function deleteNotificationNids(array $nodeIds) {
-    foreach ($nodeIds as $nid) {
-      $this->deleteNotificationNid($nid);
+  public function deleteNotificationEntityIds(array $entityIds) {
+    foreach ($entityIds as $id) {
+      $this->deleteNotificationEntityId($id);
     }
   }
 

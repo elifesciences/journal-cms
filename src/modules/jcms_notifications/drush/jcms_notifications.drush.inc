@@ -6,6 +6,8 @@
  */
 
 use GuzzleHttp\Exception\RequestException;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_drush_command().
@@ -43,6 +45,7 @@ function jcms_notifications_drush_command() {
     'options' => [
       'iterations' => 'Limit on the number of iterations made then terminate.',
       'sleep' => 'The amount of time in seconds to sleep before iterating over the notifications table again (defaults to 30 seconds).',
+      'delay' => 'The amount of time in seconds to sleep before sending the message after receiving and loading the entities (defaults to 2 seconds).',
     ],
     'drupal dependencies' => ['jcms_notifications'],
     'aliases' => ['sendn'],
@@ -50,6 +53,7 @@ function jcms_notifications_drush_command() {
       'drush send-notifications' => 'Long running process that iterates infinitely over the notifications table .',
       'drush send-notifications --iterations=20' => 'Iterate over the notifications table 20 times then stop.',
       'drush send-notifications --sleep=10' => 'Sleep for 10 seconds after each iteration.',
+      'drush send-notifications --delay=2' => 'Sleep for 2 seconds before sending.',
     ],
   ];
   return $items;
@@ -156,17 +160,19 @@ function drush_jcms_notifications_send_notifications() {
       $i++;
     }
     // Read the table, get the IDs.
-    $notifications = $storage->getNotificationNids();
-    $nodes = \Drupal\node\Entity\Node::loadMultiple($notifications);
+    $notifications = $storage->getNotificationEntityIds();
+    $nodes = Node::loadMultiple($notifications);
+    $terms = Term::loadMultiple($notifications);
+    $entities = array_merge($nodes, $terms);
     sleep($delay);
     // Iterate through them.
-    $nids = [];
-    foreach ($nodes as $node) {
-      $nids[] = $node->id();
-      $busMessage = $sns_crud->sendMessage($node);
-      drush_print(dt('[!date] Sent notification !message (nid: !nid)', ['!date' => date('c'), '!message' => $busMessage->getMessageJson(), '!nid' => $node->id()]));
+    $entity_ids = [];
+    foreach ($entities as $entity) {
+      $entity_ids[] = $entity->id();
+      $busMessage = $sns_crud->sendMessage($entity);
+      drush_print(dt('[!date] Sent notification !message (entity id: !eid)', ['!date' => date('c'), '!message' => $busMessage->getMessageJson(), '!eid' => $entity->id()]));
     }
-    $storage->deleteNotificationNids($nids);
+    $storage->deleteNotificationIds($entity_ids);
     sleep($sleep);
   }
   drush_print(dt('Exiting because of limits reached.'));

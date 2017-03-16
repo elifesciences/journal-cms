@@ -12,37 +12,37 @@ use Drupal\Core\Entity\EntityInterface;
 interface NotificationStorageInterface {
 
   /**
-   * Saves a node ID for notifications.
+   * Saves a entity ID for notifications.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *
    * @return int|null
    */
-  public function saveNotificationNid(EntityInterface $entity);
+  public function saveNotificationEntityId(EntityInterface $entity);
 
   /**
-   * Gets the node IDs from the notifications table then deletes them.
+   * Gets the entity IDs from the notifications table then deletes them.
    *
    * @return array
    */
-  public function getNotificationNids(): array;
+  public function getNotificationEntityIds(): array;
 
   /**
-   * Deletes a notification node ID.
+   * Deletes a notification entity ID.
    *
-   * @param int $nodeId
+   * @param int $entityId
    *
    * @return null
    */
-  public function deleteNotificationNid(int $nodeId);
+  public function deleteNotificationEntityId(int $entityId);
 
   /**
-   * Takes an array of node IDs and deletes them.
+   * Takes an array of entity IDs and deletes them.
    *
-   * @param array $nodeIds
+   * @param array $entityIds
    *
    * @return null
    */
-  public function deleteNotificationNids(array $nodeIds);
+  public function deleteNotificationEntityIds(array $entityIds);
 
 }
