@@ -86,3 +86,6 @@ $settings['jcms_articles_endpoint'] = $settings['jcms_gateway'] . '/articles/%s/
 $settings['jcms_article_fragment_images_endpoint'] = $settings['jcms_gateway'] . '/articles/%s/fragments/image';
 $settings['jcms_article_auth_unpublished'] = NULL;
 $settings['jcms_migrate_legacy_cms_images_bucket'] = 'prod-elife-legacy-cms-images';
+$settings['jcms_iiif_base_uri'] = 'https://prod--iiif.elifesciences.org/journal-cms:';
+// This folder should be relative to the sites/default/files folder.
+$settings['jcms_iiif_mount'] = 'iiif';
