@@ -13,7 +13,6 @@ use Drupal\jcms_rest\PathMediaTypeMapper;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\rest\Plugin\ResourceBase;
-use Drupal\user\Entity\User;
 
 abstract class AbstractRestResourceBase extends ResourceBase {
 
@@ -21,8 +20,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     'per-page' => 10,
     'page' => 1,
     'order' => 'desc',
+    'subject' => [],
     'start-date' => '2000-01-01',
     'end-date' => '2999-12-31',
+    'show' => 'all',
   ];
 
   protected static $requestOptions = [];
@@ -106,6 +107,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         'subject' => (array) $request->query->get('subject', $this->defaultOptions['subject']),
         'start-date' => $request->query->get('start-date', $this->defaultOptions['start-date']),
         'end-date' => $request->query->get('end-date', $this->defaultOptions['end-date']),
+        'show' => $request->query->get('show', $this->defaultOptions['show']),
       ];
     }
     return $this::$requestOptions;
@@ -327,12 +329,35 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   }
 
   /**
+   * Apply filter by show parameter: all, open or closed.
+   *
+   * @param \Drupal\Core\Entity\Query\QueryInterface $query
+   * @param string
+   */
+  protected function filterShow(QueryInterface &$query) {
+    $show_option = $this->getRequestOption('show');
+    $options = [
+      'closed' => 'end-date',
+      'open' => 'start-date',
+    ];
+
+    if (in_array($show_option, array_keys($options))) {
+      self::$requestOptions[$options[$show_option]] = date('Y-m-d');
+      $this->filterDateRange($query, 'field_event_datetime.end_value', FALSE);
+    }
+    elseif ($show_option != 'all') {
+      throw new JCMSBadRequestHttpException(t('Invalid show option'));
+    }
+  }
+
+  /**
    * Apply filter for date range by amending query.
    *
    * @param \Drupal\Core\Entity\Query\QueryInterface $query
    * @param string $field
+   * @param bool $timestamp
    */
-  protected function filterDateRange(QueryInterface &$query, $field = 'created') {
+  protected function filterDateRange(QueryInterface &$query, $field = 'created', $timestamp = TRUE) {
     $start_date = DateTimeImmutable::createFromFormat('Y-m-d', $originalStartDate = $this->getRequestOption('start-date'), new DateTimeZone('Z'));
     $end_date = DateTimeImmutable::createFromFormat('Y-m-d', $originalEndDate = $this->getRequestOption('end-date'), new DateTimeZone('Z'));
 
@@ -349,8 +374,14 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       throw new JCMSBadRequestHttpException(t('End date must be on or after start date'));
     }
 
-    $query->condition($field, $start_date->getTimestamp(), '>=');
-    $query->condition($field, $end_date->getTimestamp(), '<=');
+    if ($timestamp) {
+      $query->condition($field, $start_date->getTimestamp(), '>=');
+      $query->condition($field, $end_date->getTimestamp(), '<=');
+    }
+    else {
+      $query->condition($field, $start_date->format(DATETIME_DATETIME_STORAGE_FORMAT), '>=');
+      $query->condition($field, $end_date->format(DATETIME_DATETIME_STORAGE_FORMAT), '<=');
+    }
   }
 
   /**

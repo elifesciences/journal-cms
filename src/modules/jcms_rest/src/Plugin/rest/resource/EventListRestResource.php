@@ -45,6 +45,7 @@ class EventListRestResource extends AbstractRestResourceBase {
     if ($total = $count_query->count()->execute()) {
       $response_data['total'] = (int) $total;
       $this->filterPageAndOrder($items_query, 'field_event_datetime.value');
+      $this->filterShow($items_query);
       $nids = $items_query->execute();
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
