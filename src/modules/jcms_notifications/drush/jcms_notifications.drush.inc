@@ -145,6 +145,7 @@ function drush_jcms_notifications_send_notifications() {
   $limit_service = \Drupal::service('jcms_notifications.limit_service');
   $iterations = drush_get_option('iterations') ?: NULL;
   $sleep = drush_get_option('sleep') ?: 30;
+  $delay = drush_get_option('delay') ?: 2;
   $i = 0;
   while (!$limit_service()) {
     if ($iterations) {
@@ -157,6 +158,7 @@ function drush_jcms_notifications_send_notifications() {
     // Read the table, get the IDs.
     $notifications = $storage->getNotificationNids();
     $nodes = \Drupal\node\Entity\Node::loadMultiple($notifications);
+    sleep($delay);
     // Iterate through them.
     $nids = [];
     foreach ($nodes as $node) {
