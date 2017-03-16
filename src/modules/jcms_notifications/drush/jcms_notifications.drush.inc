@@ -109,12 +109,12 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       break;
     }
     if ($message !== NULL) {
-      drush_print(dt('Received message !message', ['!message' => var_export($message, TRUE)]));
+      drush_print(dt('[!date] Received message !message', ['!date' => date('c'), '!message' => var_export($message, TRUE)]));
       $id = $message->getId();
       try {
         $articleVersions = $fetch_service->getArticleVersions($id);
         $crud_service->crudArticle($articleVersions);
-        drush_print(dt('Processed message !message_id', ['!message_id' => $message->getMessageId()]));
+        drush_print(dt('[!date] Processed message !message_id', ['!date' => date('c'), '!message_id' => $message->getMessageId()]));
       }
       catch (Exception $e) {
         $e_message = "Message: {$e->getMessage()}\n";
@@ -128,7 +128,7 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       }
       finally {
         $queue_service->deleteMessage($message);
-        drush_print(dt('Deleted message !message_id from the queue', ['!message_id' => $message->getMessageId()]));
+        drush_print(dt('[!date] Deleted message !message_id from the queue', ['!date' => date('c'), '!message_id' => $message->getMessageId()]));
         $count++;
       }
     }
@@ -145,6 +145,7 @@ function drush_jcms_notifications_send_notifications() {
   $limit_service = \Drupal::service('jcms_notifications.limit_service');
   $iterations = drush_get_option('iterations') ?: NULL;
   $sleep = drush_get_option('sleep') ?: 30;
+  $delay = drush_get_option('delay') ?: 2;
   $i = 0;
   while (!$limit_service()) {
     if ($iterations) {
@@ -157,12 +158,13 @@ function drush_jcms_notifications_send_notifications() {
     // Read the table, get the IDs.
     $notifications = $storage->getNotificationNids();
     $nodes = \Drupal\node\Entity\Node::loadMultiple($notifications);
+    sleep($delay);
     // Iterate through them.
     $nids = [];
     foreach ($nodes as $node) {
       $nids[] = $node->id();
       $busMessage = $sns_crud->sendMessage($node);
-      drush_print(dt('Sent notification !message (nid: !nid)', ['!message' => $busMessage->getMessageJson(), '!nid' => $node->id()]));
+      drush_print(dt('[!date] Sent notification !message (nid: !nid)', ['!date' => date('c'), '!message' => $busMessage->getMessageJson(), '!nid' => $node->id()]));
     }
     $storage->deleteNotificationNids($nids);
     sleep($sleep);
