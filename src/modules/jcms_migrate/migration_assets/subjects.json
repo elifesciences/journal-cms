@@ -2,106 +2,106 @@
   {
     "id": "plant-biology",
     "name": "Plant Biology",
-    "impact_statement": "Plant Biology impact statement",
+    "impact_statement": "eLife publishes plant biology research including development, epigenetics, genomics, signalling, metabolism and plant–microbe interactions. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in plant biology.",
     "image": "subjects/elife-sciences-plant-biology-illustration.jpg",
-    "alt": "Plant Biology alt"
+    "alt": "Plant Biology"
   },
   {
     "id": "neuroscience",
     "name": "Neuroscience",
-    "impact_statement": "Neuroscience impact statement",
+    "impact_statement": "eLife publishes research including brain function, neuronal circuits, synapses, sensory processing and motor pattern generation. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in neuroscience.",
     "image": "subjects/elife-sciences-neuroscience-illustration.jpg",
-    "alt": "Neuroscience alt"
+    "alt": "Neuroscience"
   },
   {
     "id": "microbiology-infectious-disease",
     "name": "Microbiology and Infectious Disease",
-    "impact_statement": "Microbiology and Infectious Disease impact statement",
+    "impact_statement": "eLife publishes research covering virology, bacteriology and mycology. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the fields of microbiology and infectious disease.",
     "image": "subjects/elife-sciences-microbiology-and-infectious-disease-illustration.jpg",
-    "alt": "Microbiology and Infectious Disease alt"
+    "alt": "Microbiology and Infectious Disease"
   },
   {
     "id": "immunology",
     "name": "Immunology",
-    "impact_statement": "Immunology impact statement",
+    "impact_statement": "eLife publishes research spanning allergy, immunity and immunoregulation, inflammation and T-cell receptor signalling. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the field of immunology.",
     "image": "subjects/elife-sciences-immunology-illustration.jpg",
-    "alt": "Immunology alt"
+    "alt": "Immunology"
   },
   {
     "id": "human-biology-medicine",
     "name": "Human Biology and Medicine",
-    "impact_statement": "Human Biology and Medicine impact statement",
+    "impact_statement": "eLife publishes research in clinical and translational research, human genetics, cancer, diabetes and developmental disorders. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in human biology and medicine.",
     "image": "subjects/elife-sciences-human-biology-and-medicine-illustration.jpg",
-    "alt": "Human Biology and Medicine alt"
+    "alt": "Human Biology and Medicine"
   },
   {
     "id": "genomics-evolutionary-biology",
     "name": "Genomics and Evolutionary Biology",
-    "impact_statement": "Genomics and Evolutionary Biology impact statement",
+    "impact_statement": "eLife publishes research spanning adaptation, morphology, bioinformatics and comparative genomics. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the fields of genomics and/or evolutionary biology.",
     "image": "subjects/elife-sciences-genomics-and-evolutionary-biology-illustration.jpg",
-    "alt": "Genomics and Evolutionary Biology alt"
+    "alt": "Genomics and Evolutionary Biology"
   },
   {
     "id": "genes-chromosomes",
     "name": "Genes and Chromosomes",
-    "impact_statement": "Genes and Chromosomes impact statement",
+    "impact_statement": "eLife publishes research ranging from transcription and RNA processing to epigenetics and chromatin biology. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers interested in genes and chromosomes.",
     "image": "subjects/elife-sciences-genes-and-chromosomes-illustration.jpg",
-    "alt": "Genes and Chromosomes alt"
+    "alt": "Genes and Chromosomes"
   },
   {
     "id": "epidemiology-global-health",
     "name": "Epidemiology and Global Health",
-    "impact_statement": "Epidemiology and Global Health impact statement",
+    "impact_statement": "eLife publishes research spanning malaria, tuberculosis, trypanosomiasis, HIV/AIDS and drug discovery. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in epidemiology and global health.",
     "image": "subjects/elife-sciences-epidemiology-and-global-health-illustration.jpg",
-    "alt": "Epidemiology and Global Health alt"
+    "alt": "Epidemiology and Global Health"
   },
   {
     "id": "ecology",
     "name": "Ecology",
-    "impact_statement": "Ecology impact statement",
+    "impact_statement": "eLife publishes research ranging from chemical and microbial ecology to plant-insect interactions and extinction risk. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in ecology.",
     "image": "subjects/elife-sciences-ecology-illustration.jpg",
-    "alt": "Ecology alt"
+    "alt": "Ecology"
   },
   {
     "id": "developmental-biology-stem-cells",
     "name": "Developmental Biology and Stem Cells",
-    "impact_statement": "Developmental Biology and Stem Cells impact statement",
+    "impact_statement": "eLife publishes research on stem cells, differentiation, tissue assembly and regeneration. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the fields of developmental biology and stem cells.",
     "image": "subjects/elife-sciences-developmental-biology-and-stem-cells-illustration.jpg",
-    "alt": "Developmental Biology and Stem Cells alt"
+    "alt": "Developmental Biology and Stem Cells"
   },
   {
     "id": "computational-systems-biology",
     "name": "Computational and Systems Biology",
-    "impact_statement": "Computational and Systems Biology impact statement",
+    "impact_statement": "eLife publishes research involving the use of methods, models and software. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in computational and systems biology.",
     "image": "subjects/elife-sciences-computational-and-systems-biology-illustration.jpg",
-    "alt": "Computational and Systems Biology alt"
+    "alt": "Computational and Systems Biology"
   },
   {
     "id": "cell-biology",
     "name": "Cell Biology",
-    "impact_statement": "Cell Biology impact statement",
+    "impact_statement": "eLife publishes research spanning vesicle transport and signal transduction to cell cycle and cell polarity and fate. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in cell biology.",
     "image": "subjects/elife-sciences-cell-biology-illustration.jpg",
-    "alt": "Cell Biology alt"
+    "alt": "Cell Biology"
   },
   {
     "id": "cancer-biology",
     "name": "Cancer Biology",
-    "impact_statement": "Cancer Biology impact statement",
+    "impact_statement": "eLife publishes research into cancer spanning from oncogenes and tumor suppressors to metastasis and anticancer treatments. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in cancer biology.",
     "image": "subjects/elife-sciences-cancer-biology-illustration.jpg",
-    "alt": "Cancer Biology alt"
+    "alt": "Cancer Biology"
   },
   {
     "id": "biophysics-structural-biology",
     "name": "Biophysics and Structural Biology",
-    "impact_statement": "Biophysics and Structural Biology impact statement",
+    "impact_statement": "eLife publishes research that uses techniques including X-ray crystallography, cryo-EM and single-molecule methods. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the fields of biophysics and structural biology.",
     "image": "subjects/elife-sciences-biophysics-and-structural-biology-illustration.jpg",
-    "alt": "Biophysics and Structural Biology alt"
+    "alt": "Biophysics and Structural Biology"
   },
   {
     "id": "biochemistry",
     "name": "Biochemistry",
-    "impact_statement": "Biochemistry impact statement",
+    "impact_statement": "eLife publishes research spanning chemical biology and enzymology to metabolism and membrane proteins. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in biochemistry.",
     "image": "subjects/elife-sciences-biochemistry-illustration.jpg",
-    "alt": "Biochemistry alt"
+    "alt": "Biochemistry"
   }
 ]
