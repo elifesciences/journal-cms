@@ -32,6 +32,9 @@ function jcms_article_node_presave(EntityInterface $entity) {
     return NULL;
   }
   $node_presave = \Drupal::service('jcms_article.hooks.node_presave');
+  if (!empty($entity->migration)) {
+    $node_presave->forMigrationOnly();
+  }
   $article = $node_presave->getArticleById($entity->label());
   $node_presave->addJsonFields($entity, $article);
   $node_presave->setPublishedStatus($entity, $article);

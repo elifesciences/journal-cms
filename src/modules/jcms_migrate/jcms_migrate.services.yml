@@ -12,3 +12,7 @@ services:
   jcms_migrate.s3_client:
     class: Aws\S3\S3Client
     arguments: ['%jcms_migrate.s3_client.options%']
+
+  jcms_migrate.article_crud:
+    class: Drupal\jcms_migrate\ArticleCrud
+    arguments: ["@entity_type.manager"]

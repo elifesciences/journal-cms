@@ -137,7 +137,7 @@ class JCMSHighlightListContent extends AbstractJCMSContainerFactoryPlugin {
         return $chapter['target_id'];
         break;
       case 'article':
-        $crud_service = \Drupal::service('jcms_article.article_crud');
+        $crud_service = \Drupal::service('jcms_migrate.article_crud');
         if ($nid = $crud_service->getNodeIdByArticleId($source)) {
           return $nid;
         }

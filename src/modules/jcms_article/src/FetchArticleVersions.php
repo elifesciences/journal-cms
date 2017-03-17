@@ -36,6 +36,17 @@ final class FetchArticleVersions {
   }
 
   /**
+   * Allow an alternate endpoint to be set.
+   *
+   * @param $endpoint
+   */
+  public function setEndpoint($endpoint) {
+    if (!empty($endpoint)) {
+      $this->endpoint = $endpoint;
+    }
+  }
+
+  /**
    * Gets article versions by ID.
    *
    * @param string $id
