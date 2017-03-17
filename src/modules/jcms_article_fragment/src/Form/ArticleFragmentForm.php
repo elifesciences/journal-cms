@@ -75,7 +75,13 @@ class ArticleFragmentForm extends ContentEntityForm {
     }
     catch (\Exception $e) {
       $full_message = $e->getResponse()->getBody()->getContents();
-      drupal_set_message(t('An error occurred saving this fragment: @error', ['@error' => $full_message]), 'error');
+      if ($e->getResponse()->getStatusCode() == 404) {
+        $id = $form_state->getValue('name')[0]['value'] ?? '';
+        drupal_set_message(t('An article with the ID @id was not found.', ['@id' => $id]), 'error');
+      }
+      else {
+        drupal_set_message(t('An error occurred saving this fragment: @error', ['@error' => $full_message]), 'error');
+      }
       $e_message = "Message: $full_message\n";
       $e_line = "Line: {$e->getLine()}\n";
       $e_trace = "Trace: {$e->getTraceAsString()}\n";
