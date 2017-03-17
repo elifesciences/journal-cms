@@ -132,6 +132,10 @@ class ArticleFragmentForm extends ContentEntityForm {
     $banner_fid = $values['banner_image'][0]['fids'][0] ?? 0;
     $banner_alt = $values['banner_image'][0]['alt'] ?? '';
     $use_thumb_as_banner = $values['use_as_banner']['value'] ?? 0;
+    if (!$thumb_fid) {
+      drupal_set_message("No thumbnail image was specified, so this fragment has not been saved to Lax.");
+      return;
+    }
     $this->api->postImageFragment($article_id, $thumb_fid, $thumb_alt, $banner_fid, $banner_alt, $use_thumb_as_banner);
   }
 
