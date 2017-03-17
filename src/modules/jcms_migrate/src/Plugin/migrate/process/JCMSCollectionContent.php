@@ -53,7 +53,7 @@ class JCMSCollectionContent extends AbstractJCMSContainerFactoryPlugin {
         return $this->migrationDestionationIDs('jcms_podcast_episodes_json', $source, $migrate_executable, $row, $destination_property);
         break;
       case 'article':
-        $crud_service = \Drupal::service('jcms_article.article_crud');
+        $crud_service = \Drupal::service('jcms_migrate.article_crud');
         if ($nid = $crud_service->getNodeIdByArticleId($source)) {
           return $nid;
         }

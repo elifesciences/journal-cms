@@ -34,7 +34,7 @@
     "drupal/paragraphs": "~1.0",
     "drupal-composer/drupal-project": "8.x-dev",
     "drupal/migrate_plus": "~3.0-beta1",
-    "drupal/migrate_tools": "~2.0@dev",
+    "drupal/migrate_tools": "^2.0",
     "drupal/migrate_manifest": "^1",
     "drupal/redis": "~1.0-beta1",
     "drupal/restui": "1.x-dev",
@@ -109,9 +109,6 @@
       ]
     },
     "patches": {
-      "drupal/config_installer": {
-        "array_diff warning during profile installation": "https://www.drupal.org/files/issues/config_installer-array-warning-2760923-2.patch"
-      },
       "drupal/core": {
         "CommandLineOrUnsafeMethodTest::testHttpMethod failures": "https://www.drupal.org/files/issues/options_trace_error-2776367-3.patch",
         "View output is not used for autocomplete display": "https://www.drupal.org/files/issues/2174633-76-entity-reference-views.patch",

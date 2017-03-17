@@ -3,6 +3,7 @@
 namespace Drupal\jcms_article\Hooks;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Site\Settings;
 use Drupal\jcms_article\FetchArticleVersions;
 use Drupal\paragraphs\Entity\Paragraph;
 
@@ -168,6 +169,13 @@ final class NodePresave {
       $tid = reset($tids);
     }
     return $tid;
+  }
+
+  /**
+   * Set alternative endpoint if we are fetching for migration only.
+   */
+  public function forMigrationOnly() {
+    $this->fetchArticleVersions->setEndpoint(Settings::get('jcms_articles_endpoint_for_migration'));
   }
 
 }

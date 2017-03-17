@@ -45,6 +45,7 @@ process:
 migration_dependencies:
   required:
     - jcms_users_db
+    - jcms_subjects_json
     - jcms_blog_articles_db
     - jcms_collections_db
     - jcms_collections_json
