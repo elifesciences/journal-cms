@@ -64,6 +64,11 @@ class ArticleFragmentForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
+    // Check if an entity with this ID already exists.
+    if (!$this->entityIsUnique($form_state)) {
+      drupal_set_message(t('An article fragment with this ID already exists.'), 'error');
+      return;
+    }
     // Post image fragment to Lax.
     try {
       $this->setImageFragment($form_state);
@@ -122,6 +127,25 @@ class ArticleFragmentForm extends ContentEntityForm {
     $banner_alt = $values['banner_image'][0]['alt'] ?? '';
     $use_thumb_as_banner = $values['use_as_banner']['value'] ?? 0;
     $this->api->postImageFragment($article_id, $thumb_fid, $thumb_alt, $banner_fid, $banner_alt, $use_thumb_as_banner);
+  }
+
+  /**
+   * Checks for other article fragments with this ID.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $formState
+   *
+   * @return bool
+   */
+  public function entityIsUnique(FormStateInterface $formState) {
+    $id = $formState->getValue('name')[0]['value'] ?? '';
+    if (!$id) {
+      return FALSE;
+    }
+    $query = \Drupal::entityQuery('article_fragment')->condition('name', $id)->execute();
+    if (!$query) {
+      return TRUE;
+    }
+    return FALSE;
   }
 
 }
