@@ -123,6 +123,9 @@
       },
       "drupal/field_validation": {
         "2 unique fields in the same ruleset - only one works": "https://www.drupal.org/files/issues/2_unique_fields_in_the-2854615-3.patch"
+      },
+      "drupal/inline_entity_form": {
+        "Field name/label disappears when I create a new entity inline": "https://www.drupal.org/files/issues/inline_entity_form-no_label_required_field_with_no_entries-2842744.patch"
       }
     }
   }

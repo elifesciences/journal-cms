@@ -10,6 +10,7 @@ dependencies:
     - image.style.thumbnail
     - node.type.article
   module:
+    - content_moderation
     - image
 id: node.article.default
 targetEntityType: node
@@ -17,13 +18,13 @@ bundle: article
 mode: default
 content:
   field_community_list:
-    weight: 26
+    weight: 2
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
   field_image:
-    weight: 27
+    weight: 1
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -31,7 +32,7 @@ content:
     type: image_image
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     settings:
       size: 60
       placeholder: ''

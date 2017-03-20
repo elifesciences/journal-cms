@@ -270,11 +270,22 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             break;
           case 'paragraph':
             if ($content_item->get('field_block_html')->count()) {
-              $result_item['text'] = $this->fieldValueFormatted($content_item->get('field_block_html'));
+              // Split paragraphs in the UI into separate paragraph blocks.
+              $texts = preg_split('/(\n)+/', $this->fieldValueFormatted($content_item->get('field_block_html')));
+              foreach ($texts as $text) {
+                $text = trim($text);
+                $loop_result_item = $result_item;
+                if (!empty($text)) {
+                  $loop_result_item['text'] = $text;
+                  if ($list_flag && $content_type != 'list_item') {
+                    $loop_result_item = [$loop_result_item];
+                  }
+                  $result[] = $loop_result_item;
+                }
+              }
             }
-            else {
-              unset($result_item);
-            }
+
+            unset($result_item);
             break;
           case 'question':
             $result_item['question'] = $content_item->get('field_block_title')->getString();
@@ -493,7 +504,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   protected function fieldValueFormatted(FieldItemListInterface $data) {
     $view = $data->view();
     unset($view['#theme']);
-    return \Drupal::service('renderer')->renderPlain($view);
+    $output = \Drupal::service('renderer')->renderPlain($view);
+    return str_replace(chr(194) . chr(160), ' ', $output);
   }
 
   /**

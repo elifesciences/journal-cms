@@ -13,7 +13,9 @@ label: Time
 description: 'Number of seconds into the episode that the chapter begins'
 required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: 0
 default_value_callback: ''
 settings:
   min: 0
