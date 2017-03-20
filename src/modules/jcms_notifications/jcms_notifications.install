@@ -35,7 +35,7 @@ function jcms_notifications_schema() {
  */
 function jcms_notifications_update_8101() {
   $old_schema = jcms_notifications_schema();
-  $spec = $old_schema['jcms_notifications'][MysqlNotificationStorage::ID_FIELD];
+  $spec = $old_schema['jcms_notifications']['fields'][MysqlNotificationStorage::ID_FIELD];
   $schema = Database::getConnection()->schema();
   $schema->changeField(MysqlNotificationStorage::TABLE, 'node_id',
     MysqlNotificationStorage::ID_FIELD, $spec);
