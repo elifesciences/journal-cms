@@ -60,13 +60,17 @@ class FragmentApi {
   /**
    * Get an image style URL from a file ID.
    *
-   * @param $imageFid
-   * @param $imageStyle
+   * @param int    $imageFid
+   * @param string $imageStyle
    *
    * @return string
+   * @throws \Exception
    */
   public function getImageUri(int $imageFid, string $imageStyle): string {
     $file = File::load($imageFid);
+    if (!$file) {
+      throw new \Exception("Couldn't load specified file.");
+    }
     $path = $file->getFileUri();
     $url = ImageStyle::load($imageStyle)->buildUrl($path);
     return $url;

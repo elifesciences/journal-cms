@@ -64,13 +64,24 @@ class ArticleFragmentForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
+    // Check if an entity with this ID already exists.
+    if (!$this->entityIsUnique($form_state)) {
+      drupal_set_message(t('An article fragment with this ID already exists.'), 'error');
+      return;
+    }
     // Post image fragment to Lax.
     try {
       $this->setImageFragment($form_state);
     }
     catch (\Exception $e) {
       $full_message = $e->getResponse()->getBody()->getContents();
-      drupal_set_message(t('An error occurred saving this fragment: @error', ['@error' => $full_message]), 'error');
+      if ($e->getResponse()->getStatusCode() == 404) {
+        $id = $form_state->getValue('name')[0]['value'] ?? '';
+        drupal_set_message(t('An article with the ID @id was not found.', ['@id' => $id]), 'error');
+      }
+      else {
+        drupal_set_message(t('An error occurred saving this fragment: @error', ['@error' => $full_message]), 'error');
+      }
       $e_message = "Message: $full_message\n";
       $e_line = "Line: {$e->getLine()}\n";
       $e_trace = "Trace: {$e->getTraceAsString()}\n";
@@ -121,7 +132,30 @@ class ArticleFragmentForm extends ContentEntityForm {
     $banner_fid = $values['banner_image'][0]['fids'][0] ?? 0;
     $banner_alt = $values['banner_image'][0]['alt'] ?? '';
     $use_thumb_as_banner = $values['use_as_banner']['value'] ?? 0;
+    if (!$thumb_fid) {
+      drupal_set_message("No thumbnail image was specified, so this fragment has not been saved to Lax.");
+      return;
+    }
     $this->api->postImageFragment($article_id, $thumb_fid, $thumb_alt, $banner_fid, $banner_alt, $use_thumb_as_banner);
+  }
+
+  /**
+   * Checks for other article fragments with this ID.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $formState
+   *
+   * @return bool
+   */
+  public function entityIsUnique(FormStateInterface $formState) {
+    $id = $formState->getValue('name')[0]['value'] ?? '';
+    if (!$id) {
+      return FALSE;
+    }
+    $query = \Drupal::entityQuery('article_fragment')->condition('name', $id)->execute();
+    if (!$query) {
+      return TRUE;
+    }
+    return FALSE;
   }
 
 }
