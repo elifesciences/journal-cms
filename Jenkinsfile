@@ -15,6 +15,7 @@ elifePipeline {
             {
                 builderDeployRevision 'journal-cms--end2end', commit
                 builderSmokeTests 'journal-cms--end2end', '/srv/journal-cms'
+                builderCmd 'journal-cms--end2end', 'cd /srv/journal-cms/web; ../vendor/bin/drush article-import-all --limit=25'
             },
             'two'
         )
