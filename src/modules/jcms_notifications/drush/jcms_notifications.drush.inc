@@ -172,7 +172,7 @@ function drush_jcms_notifications_send_notifications() {
       $busMessage = $sns_crud->sendMessage($entity);
       drush_print(dt('[!date] Sent notification !message (entity id: !eid)', ['!date' => date('c'), '!message' => $busMessage->getMessageJson(), '!eid' => $entity->id()]));
     }
-    $storage->deleteNotificationIds($entity_ids);
+    $storage->deleteNotificationEntityIds($entity_ids);
     sleep($sleep);
   }
   drush_print(dt('Exiting because of limits reached.'));
