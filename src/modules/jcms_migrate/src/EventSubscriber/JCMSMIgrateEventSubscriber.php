@@ -3,6 +3,7 @@
 namespace Drupal\jcms_migrate\EventSubscriber;
 
 use Drupal\entityqueue\Entity\EntitySubqueue;
+use Drupal\jcms_article\Entity\ArticleVersions;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
@@ -54,44 +55,33 @@ class JCMSMIgrateEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\migrate\Event\MigrateImportEvent $event
    */
   public function onMigrateImport(MigrateImportEvent $event) {
-    // Set 2 of each content type as a community item at random.
-    $limit = 2;
-    $types = [
-      'article',
-      'blog_article',
-      'collection',
-      'event',
-      'interview',
-      'labs_experiment',
-      'podcast_episode',
-    ];
-
-    foreach ($types as $type) {
-      $query = \Drupal::entityQuery('node')
-        ->condition('status', NODE_PUBLISHED)
-        ->condition('type', $type);
-
-      $new_query = clone $query;
-
-      $query->condition('field_community_list.value', 1);
-      $count = $query->count()->execute();
-
-      if ($count < $limit) {
-        $new_limit = $limit - $count;
-
-        $new_query->condition('field_community_list.value', 0);
-        $new_query->range(0, $new_limit);
-        $new_query->addTag('random');
-
-        $nids = $new_query->execute();
-
-        if ($nids) {
-          $nodes = Node::loadMultiple($nids);
-          foreach ($nodes as $node) {
-            $node->set('field_community_list', 1);
-            $node->save();
+    // Set community list items to those on: https://elifesciences.org/collections/early-career-researchers
+    $community_list = file_get_contents(drupal_get_path('module', 'jcms_migrate') . '/migration_assets/community.json');
+    $community_list = json_decode($community_list);
+    foreach ($community_list as $community_item) {
+      switch ($community_item->type) {
+        case 'article':
+          $crud_service = \Drupal::service('jcms_migrate.article_crud');
+          if ($nid = $crud_service->getNodeIdByArticleId($community_item->source)) {
+            $item = Node::load($nid);
           }
-        }
+          else {
+            $article_versions = new ArticleVersions($community_item->source);
+            $item = $crud_service->createArticle($article_versions);
+          }
+          break;
+        default:
+          if ($items = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['uuid' => $community_item->source])) {
+            $item = current($items);
+          }
+          else {
+            $item = FALSE;
+          }
+      }
+
+      if (!empty($item)) {
+        $item->set('field_community_list', 1);
+        $item->save();
       }
     }
   }
