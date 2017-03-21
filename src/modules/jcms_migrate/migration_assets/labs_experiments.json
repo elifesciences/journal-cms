@@ -8,7 +8,7 @@
     "content": [
       {
         "type": "section",
-        "title": "eLife is looking to innovate in all aspects of scientific publishing to support excellence in science and we’re pleased to bring attention to a new and exciting open-source project called Binder, created by scientists at HHMI’s Janelia Research Campus.",
+        "title": "eLife is looking to innovate in all aspects of scientific publishing to support excellence in science and we're pleased to bring attention to a new and exciting open-source project called Binder, created by scientists at HHMI's Janelia Research Campus.",
         "content": [
           {
             "type": "paragraph",
@@ -26,7 +26,7 @@
         "content": [
           {
             "type": "paragraph",
-            "text": "Developers of Binder, at HHMI’s Janelia Research Campus"
+            "text": "Developers of Binder, at HHMI's Janelia Research Campus"
           },
           {
             "type": "paragraph",
@@ -60,7 +60,7 @@
           },
           {
             "type": "paragraph",
-            "text": "But just providing our code, data, and notebooks alongside a paper isn’t enough — what ran on my machine might not run on yours. We can share our computer configurations, but setting up a new machine the exact same way can be challenging and unreliable."
+            "text": "But just providing our code, data, and notebooks alongside a paper isn't enough — what ran on my machine might not run on yours. We can share our computer configurations, but setting up a new machine the exact same way can be challenging and unreliable."
           },
           {
             "type": "paragraph",
@@ -87,7 +87,7 @@
           },
           {
             "type": "paragraph",
-            "text": "To make this work, Binder uses existing, robust tools wherever possible. Along with Jupyter and GitHub, Binder leverages two open-source projects under the hood to manage computational environments — <a href=\"https://www.docker.com/\">Docker</a> builds the environments from a project’s dependencies, and <a href=\"http://kubernetes.io/\">Kubernetes</a> schedules resources for these environments across a cloud compute cluster."
+            "text": "To make this work, Binder uses existing, robust tools wherever possible. Along with Jupyter and GitHub, Binder leverages two open-source projects under the hood to manage computational environments — <a href=\"https://www.docker.com/\">Docker</a> builds the environments from a project's dependencies, and <a href=\"http://kubernetes.io/\">Kubernetes</a> schedules resources for these environments across a cloud compute cluster."
           },
           {
             "type": "paragraph",
@@ -100,7 +100,7 @@
           },
           {
             "type": "paragraph",
-            "text": "We’ve also seen Binder used in domains we didn’t expect. Outside of science publications, Binder has been used to make <a href=\"https://github.com/BuzzFeedNews/2015-11-refugees-in-the-united-states\">analyses for news stories</a> more reproducible, and even to make <a href=\"https://github.com/data-8/textbook\">an entire book on data science</a> executable. It’s also become a popular way to run courses or tutorial sessions, because students can <a href=\"https://github.com/glouppe/tutorials-scikit-learn\">launch tutorials straight from their web browsers</a>, without wasting precious time configuring dependencies. Physicists at CERN use it to showcase demos of their <a href=\"https://www.github.com/cernphsft/rootbinder\">ROOT analysis framework</a>."
+            "text": "We've also seen Binder used in domains we didn't expect. Outside of science publications, Binder has been used to make <a href=\"https://github.com/BuzzFeedNews/2015-11-refugees-in-the-united-states\">analyses for news stories</a> more reproducible, and even to make <a href=\"https://github.com/data-8/textbook\">an entire book on data science</a> executable. It's also become a popular way to run courses or tutorial sessions, because students can <a href=\"https://github.com/glouppe/tutorials-scikit-learn\">launch tutorials straight from their web browsers</a>, without wasting precious time configuring dependencies. Physicists at CERN use it to showcase demos of their <a href=\"https://www.github.com/cernphsft/rootbinder\">ROOT analysis framework</a>."
           }
         ]
       },
@@ -110,15 +110,15 @@
         "content": [
           {
             "type": "paragraph",
-            "text": "With more than 1200 reproducible environments already built by its users, Binder has proven useful and we’re excited by its potential — but much work remains, both on Binder itself and the underlying technologies, especially for making it better suited to scientific publishing."
+            "text": "With more than 1200 reproducible environments already built by its users, Binder has proven useful and we're excited by its potential — but much work remains, both on Binder itself and the underlying technologies, especially for making it better suited to scientific publishing."
           },
           {
             "type": "paragraph",
-            "text": "Here are a couple of directions we’re excited about:"
+            "text": "Here are a couple of directions we're excited about:"
           },
           {
             "type": "paragraph",
-            "text": "We currently maintain a public Binder deployment, hosted by our lab at HHMI Janelia Research Campus and running on Google Compute Engine, designed for open source and open science. But we’ve recently made it easy for others to deploy custom versions of Binder on their own compute infrastructure. We hope this can provide a way for publishers to deploy and host Binders with guaranteed availability for their readers."
+            "text": "We currently maintain a public Binder deployment, hosted by our lab at HHMI Janelia Research Campus and running on Google Compute Engine, designed for open source and open science. But we've recently made it easy for others to deploy custom versions of Binder on their own compute infrastructure. We hope this can provide a way for publishers to deploy and host Binders with guaranteed availability for their readers."
           },
           {
             "type": "paragraph",
@@ -145,7 +145,7 @@
     "content": [
       {
         "type": "section",
-        "title": "We are pleased to introduce the IIIF, a community-driven image framework with well-defined application program interfaces (APIs) for making the world’s image repositories interoperable and accessible.",
+        "title": "We are pleased to introduce the IIIF, a community-driven image framework with well-defined application program interfaces (APIs) for making the world's image repositories interoperable and accessible.",
         "content": [
           {
             "type": "paragraph",
@@ -153,7 +153,7 @@
           },
           {
             "type": "paragraph",
-            "text": "Based around the IIIF framework, the Wellcome Trust’s new <a href=\"https://dlcs.gitbooks.io/book/content/overview.html\">Digital Library Cloud Service (DLCS)</a> is a cloud-based infrastructure that seeks to provide fast, scalable, and widely available services for the delivery of images in rich and engaging ways."
+            "text": "Based around the IIIF framework, the Wellcome Trust's new <a href=\"https://dlcs.gitbooks.io/book/content/overview.html\">Digital Library Cloud Service (DLCS)</a> is a cloud-based infrastructure that seeks to provide fast, scalable, and widely available services for the delivery of images in rich and engaging ways."
           },
           {
             "type": "paragraph",
@@ -205,7 +205,7 @@
           },
           {
             "type": "section",
-            "title": "The Wellcome Library’s DLCS",
+            "title": "The Wellcome Library's DLCS",
             "content": [
               {
                 "type": "paragraph",
@@ -323,7 +323,7 @@
               },
               {
                 "type": "paragraph",
-                "text": "The IIIF Authentication API is an interaction pattern that a client viewer can implement to allow a user to gain access to images. This is essential because different institutions will have different existing authentication and authorisation mechanisms, and IIIF needs to work with all of them. This API can be used in various ways, from a simple click-through option (when the server doesn't need to establish the user’s identity), to full delegated authentication, in which access requests are passed back to the authentication application of the organisation hosting those images."
+                "text": "The IIIF Authentication API is an interaction pattern that a client viewer can implement to allow a user to gain access to images. This is essential because different institutions will have different existing authentication and authorisation mechanisms, and IIIF needs to work with all of them. This API can be used in various ways, from a simple click-through option (when the server doesn't need to establish the user's identity), to full delegated authentication, in which access requests are passed back to the authentication application of the organisation hosting those images."
               },
               {
                 "type": "paragraph",
@@ -335,7 +335,7 @@
               },
               {
                 "type": "table",
-                "html": "<table><tbody><tr><td>Task</td><td><p>URL and Comments</p></td></tr><tr><td><p>Click-through licence</p></td><td><p><a href=\"http://wellcomelibrary.org/item/b18170183\">http://wellcomelibrary.org/item/b18170183</a></p><div><p>Here, because this archive may contain personal data, we ask users to agree not to misuse any such data.</p></div></td></tr><tr><td><p>Delegated authentication</p></td><td><p><a href=\"http://wellcomelibrary.org/item/b16728701\">http://wellcomelibrary.org/item/b16728701</a></p><div><p>The Wellcome Library holds some clinical images, the access to which is limited for health professionals.  When you try to view this image, you are directed back to the Wellcome Library’s CAS server.</p></div></td></tr></tbody></table>"
+                "html": "<table><tbody><tr><td>Task</td><td><p>URL and Comments</p></td></tr><tr><td><p>Click-through licence</p></td><td><p><a href=\"http://wellcomelibrary.org/item/b18170183\">http://wellcomelibrary.org/item/b18170183</a></p><div><p>Here, because this archive may contain personal data, we ask users to agree not to misuse any such data.</p></div></td></tr><tr><td><p>Delegated authentication</p></td><td><p><a href=\"http://wellcomelibrary.org/item/b16728701\">http://wellcomelibrary.org/item/b16728701</a></p><div><p>The Wellcome Library holds some clinical images, the access to which is limited for health professionals.  When you try to view this image, you are directed back to the Wellcome Library's CAS server.</p></div></td></tr></tbody></table>"
               },
               {
                 "type": "paragraph",
@@ -365,7 +365,7 @@
                 "items": [
                   "Finding all comments made by a particular person",
                   "Finding all tags within a particular collection",
-                  "Finding all the highlights that contain the term \"cholera\" in annotations made on the Wellcome Library’s Medical Officer of Health reports"
+                  "Finding all the highlights that contain the term \"cholera\" in annotations made on the Wellcome Library's Medical Officer of Health reports"
                 ]
               },
               {
@@ -374,7 +374,7 @@
               },
               {
                 "type": "table",
-                "html": "<table><tbody><tr><td>Task</td><td><p>URL and Comments</p></td></tr><tr><td><p>Find term x in a specific document</p></td><td><p><a href=\"http://wellcomelibrary.org/annoservices/search/b19956435?q=london\">http://wellcomelibrary.org/annoservices/search/b19956435?q=london</a></p><p>The annotations returned include contextual information and enough location information for a viewer to render highlights:</p><p><a href=\"http://wellcomelibrary.org/item/b19956435#?cv=24&amp;h=london\">http://wellcomelibrary.org/item/b19956435#?cv=24&amp;h=london</a></p></td></tr><tr><td>Find term in annotations made by a particular user</td><td><p><a href=\"http://wellcomelibrary.org/annoservices/search/b19956435?q=london&amp;user=wellcome:87678\">http://wellcomelibrary.org/annoservices/search/b19956435?q=london&amp;user=wellcome:87678</a></p></td></tr><tr><td><p>Find user X’s identifications of people within a particular region of a photograph between two dates</p></td><td><p><a href=\"http://wellcomelibrary.org/annoservices/search/canvas-123454321?motivation=identifying&amp;user=wellcome:87678&amp;box=200,200,1000,1000&amp;date=2016-01-01/2016-02-01\">http://wellcomelibrary.org/annoservices/search/canvas-123454321?motivation=identifying&amp;user=wellcome:87678&amp;box=200,200,1000,1000&amp;date=2016-01-01/2016-02-01</a></p></td></tr></tbody></table>"
+                "html": "<table><tbody><tr><td>Task</td><td><p>URL and Comments</p></td></tr><tr><td><p>Find term x in a specific document</p></td><td><p><a href=\"http://wellcomelibrary.org/annoservices/search/b19956435?q=london\">http://wellcomelibrary.org/annoservices/search/b19956435?q=london</a></p><p>The annotations returned include contextual information and enough location information for a viewer to render highlights:</p><p><a href=\"http://wellcomelibrary.org/item/b19956435#?cv=24&amp;h=london\">http://wellcomelibrary.org/item/b19956435#?cv=24&amp;h=london</a></p></td></tr><tr><td>Find term in annotations made by a particular user</td><td><p><a href=\"http://wellcomelibrary.org/annoservices/search/b19956435?q=london&amp;user=wellcome:87678\">http://wellcomelibrary.org/annoservices/search/b19956435?q=london&amp;user=wellcome:87678</a></p></td></tr><tr><td><p>Find user X's identifications of people within a particular region of a photograph between two dates</p></td><td><p><a href=\"http://wellcomelibrary.org/annoservices/search/canvas-123454321?motivation=identifying&amp;user=wellcome:87678&amp;box=200,200,1000,1000&amp;date=2016-01-01/2016-02-01\">http://wellcomelibrary.org/annoservices/search/canvas-123454321?motivation=identifying&amp;user=wellcome:87678&amp;box=200,200,1000,1000&amp;date=2016-01-01/2016-02-01</a></p></td></tr></tbody></table>"
               },
               {
                 "type": "paragraph",
@@ -392,11 +392,11 @@
             "content": [
               {
                 "type": "paragraph",
-                "text": "Given both the flexibility and richness of IIIF APIs, it is surprising that many STM publishers have not rushed to embrace this new standard for publishing images on the web. This could be due to a lack of awareness, a sense that IIIF was only relevant to open-access articles, and perhaps uncertainty as to how it could be applied to these publishers’ needs."
+                "text": "Given both the flexibility and richness of IIIF APIs, it is surprising that many STM publishers have not rushed to embrace this new standard for publishing images on the web. This could be due to a lack of awareness, a sense that IIIF was only relevant to open-access articles, and perhaps uncertainty as to how it could be applied to these publishers' needs."
               },
               {
                 "type": "paragraph",
-                "text": "The ambition behind the IIIF is to enable richer access to the world’s images. Hopefully, more STM publishers will be encouraged to make their image-based material available in this way."
+                "text": "The ambition behind the IIIF is to enable richer access to the world's images. Hopefully, more STM publishers will be encouraged to make their image-based material available in this way."
               }
             ]
           }
@@ -434,15 +434,15 @@
       },
       {
         "type": "paragraph",
-        "text": "There are already around 90 Interactive 3D Complements (<a href=\"http://proteopedia.org/w/I3DC\">I3DC</a>) in Proteopedia articles, which serve as complements to published papers in scientific journals. A link within the publication to an I3DC in Proteopedia enables readers to rotate molecular scenes with the same initial orientation, color schemes, and labeling as figures in the publication. Links to the I3DC in Proteopedia can be placed in the text of the publication, and/or in the online text file included on the journal website as supplementary material. The I3DC has a link directly back to the original journal article. It is not visible to the public until the online version of the article appears on the journal’s website."
+        "text": "There are already around 90 Interactive 3D Complements (<a href=\"http://proteopedia.org/w/I3DC\">I3DC</a>) in Proteopedia articles, which serve as complements to published papers in scientific journals. A link within the publication to an I3DC in Proteopedia enables readers to rotate molecular scenes with the same initial orientation, color schemes, and labeling as figures in the publication. Links to the I3DC in Proteopedia can be placed in the text of the publication, and/or in the online text file included on the journal website as supplementary material. The I3DC has a link directly back to the original journal article. It is not visible to the public until the online version of the article appears on the journal's website."
       },
       {
         "type": "paragraph",
-        "text": "All the I3DCs are listed at <a href=\"http://proteopedia.org/w/Proteopedia:I3DC\">Proteopedia:I3DC</a>. Here is an example of one I3DC, which is complementary to a paper in Cell: ‘<a href=\"http://proteopedia.org/w/Journal:Cell:1\">Structural linkage between ligand discrimination and receptor activation by type I interferons</a>’<sup>5</sup> (Fig. 1). By clicking the green links embedded in the text, the reader can change the position and representation on the 3D structure in the applet, obtaining a view that complements and enhances the concept described in words in the paper. "
+        "text": "All the I3DCs are listed at <a href=\"http://proteopedia.org/w/Proteopedia:I3DC\">Proteopedia:I3DC</a>. Here is an example of one I3DC, which is complementary to a paper in Cell: '<a href=\"http://proteopedia.org/w/Journal:Cell:1\">Structural linkage between ligand discrimination and receptor activation by type I interferons</a>'<sup>5</sup> (Fig. 1). By clicking the green links embedded in the text, the reader can change the position and representation on the 3D structure in the applet, obtaining a view that complements and enhances the concept described in words in the paper. "
       },
       {
         "type": "image",
-        "caption": "Fig. 1. Example of an I3DC in Proteopedia, ‘<a href=\"http://proteopedia.org/w/Journal:Cell:1\">Structural linkage between ligand discrimination and receptor activation by type I interferons</a>’, linking to a paper in Cell<sup>5</sup>.",
+        "text": "Fig. 1. Example of an I3DC in Proteopedia, '<a href=\"http://proteopedia.org/w/Journal:Cell:1\">Structural linkage between ligand discrimination and receptor activation by type I interferons</a>', linking to a paper in Cell<sup>5</sup>.",
         "image": "labs/proteopedia_fig_1_cell.png",
         "alt": "Structural linkage between ligand discrimination and receptor activation by type I interferons."
       },
@@ -452,7 +452,7 @@
       },
       {
         "type": "paragraph",
-        "text": "The text creation is done very simply via the use of <a href=\"https://www.mediawiki.org/wiki/Manual:Tools\">MediaWiki Tools</a>. The actual creation of the figures is via the user-friendly Graphical User Interface ‘<a href=\"http://proteopedia.org/w/Scene_authoring_tools\">scene authoring tools</a>’ (SATs) front end for the popular <a href=\"http://jmol.sourceforge.net/\">Jmol/JSmol</a> web-based molecular visualization tool. In addition to the text describing the media wiki and SATs tools, there is a <a href=\"http://proteopedia.org/w/Proteopedia:Video_Guide\">Proteopedia:Video Guide</a> that contains seven short videos to help users quickly learn how to create Proteopedia pages."
+        "text": "The text creation is done very simply via the use of <a href=\"https://www.mediawiki.org/wiki/Manual:Tools\">MediaWiki Tools</a>. The actual creation of the figures is via the user-friendly Graphical User Interface '<a href=\"http://proteopedia.org/w/Scene_authoring_tools\">scene authoring tools</a>' (SATs) front end for the popular <a href=\"http://jmol.sourceforge.net/\">Jmol/JSmol</a> web-based molecular visualization tool. In addition to the text describing the media wiki and SATs tools, there is a <a href=\"http://proteopedia.org/w/Proteopedia:Video_Guide\">Proteopedia:Video Guide</a> that contains seven short videos to help users quickly learn how to create Proteopedia pages."
       },
       {
         "type": "paragraph",
@@ -464,25 +464,25 @@
       },
       {
         "type": "image",
-        "caption": "Fig. 2. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Tutorial:How_do_we_get_the_oxygen_we_breathe\">Tutorial:How do we get the oxygen we breathe</a>’",
+        "text": "Fig. 2. A user-contributed page in Proteopedia: '<a href=\"http://proteopedia.org/w/Tutorial:How_do_we_get_the_oxygen_we_breathe\">Tutorial:How do we get the oxygen we breathe</a>'",
         "image": "labs/proteopedia_fig_2_tutorial_how_we_breathe.png",
         "alt": "How to get the oxygen we breathe."
       },
       {
         "type": "image",
-        "caption": "Fig. 3. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Group:SMART:A_Physical_Model_of_the_%CE%B22-Adrenergic_Receptor\">Physical Model of the β2-Adrenergic Receptor</a>’",
+        "text": "Fig. 3. A user-contributed page in Proteopedia: '<a href=\"http://proteopedia.org/w/Group:SMART:A_Physical_Model_of_the_%CE%B22-Adrenergic_Receptor\">Physical Model of the β2-Adrenergic Receptor</a>'",
         "image": "labs/proteopedia_fig_3_b2_andrenergic_receptor.png",
         "alt": "A physical model of the β2-Adrenergic Receptor."
       },
       {
         "type": "image",
-        "caption": "Fig. 4. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/HIV-1_protease\">HIV-1 Protease</a>’",
+        "text": "Fig. 4. A user-contributed page in Proteopedia: '<a href=\"http://proteopedia.org/w/HIV-1_protease\">HIV-1 Protease</a>'",
         "image": "labs/proteopedia_fig_4_hiv_1_protease.png",
         "alt": "HIV-1 protease."
       },
       {
         "type": "image",
-        "caption": "Fig. 5. A user-contributed page in Proteopedia: ‘<a href=\"http://proteopedia.org/w/Ribosome\">Ribosome</a>’",
+        "text": "Fig. 5. A user-contributed page in Proteopedia: '<a href=\"http://proteopedia.org/w/Ribosome\">Ribosome</a>'",
         "image": "labs/proteopedia_fig_5_ribosome.png",
         "alt": "Ribsome."
       },
@@ -505,7 +505,7 @@
           "Hanson, R. M., Prilusky, J., Renjian, Z., Nakane, T. &amp; Sussman, J. L. JSmol and the Next-Generation Web-Based Representation of 3D Molecular Structure as Applied to Proteopedia. Israel J. Chem. 53, 207-216 (2013).",
           "Prilusky, J., Hodis, E. &amp; Sussman, J. L. in Macromolecular Crystallography:&nbsp; Deciphering the Structure, Function and Dynamics of Biological Molecules Vol. XIV NATO Science for Peace and Security Series A: Chemistry and Biology (eds M.A. Carrondo &amp; P. Spadon)&nbsp; 149-161 (Springer, 2012).",
           "Prilusky, J., Hodis, E., Canner, D., Decatur, W. A., Oberholser, K., Martz, E., Berchanski, A., Harel, M. &amp; Sussman, J. L. Proteopedia: A status report on the collaborative, 3D web-encyclopedia of proteins and other biomolecules. J. Struct. Biol. 175, 244-252 (2011).",
-          "Hodis, E., Prilusky, J., Martz, E., Silman, I., Moult, J. &amp; Sussman, J. L. Proteopedia – a scientific ‘wiki’ bridging the rift between 3D structure and function of biomacromolecules. Genome Biol. 9, R121 (2008).",
+          "Hodis, E., Prilusky, J., Martz, E., Silman, I., Moult, J. &amp; Sussman, J. L. Proteopedia – a scientific 'wiki' bridging the rift between 3D structure and function of biomacromolecules. Genome Biol. 9, R121 (2008).",
           "Thomas, C., Moraga, I., Levin, D., Krutzik, P. O., Podoplelova, Y., Trejo, A., Lee, C., Yarden, G., Vleck, S., Glenn, J. S., Nolan, G. P., Piehler, J., Schreiber, G. &amp; Garcia, K. C. Structural linkage between ligand discrimination and receptor activation by type I interferons. Cell 146, 621-632 (2011)."
         ]
       }
@@ -542,7 +542,7 @@
           },
           {
             "type": "paragraph",
-            "text": "At Hack Cambridge, the eXplore team aimed to offer a reading experience that is tailored to each individual user’s genotype and explains the key points and limitations in plain language. Using the eLife Lens API, they designed a tool that personalises the reader’s experience when exploring scientific information. To demonstrate proof of concept, the team wrote a simple article on how genetics impacts taste preferences. Using a team member’s own genetic data from 23andMe, they delivered personalised information about a gene variant when it was mentioned in the text."
+            "text": "At Hack Cambridge, the eXplore team aimed to offer a reading experience that is tailored to each individual user's genotype and explains the key points and limitations in plain language. Using the eLife Lens API, they designed a tool that personalises the reader's experience when exploring scientific information. To demonstrate proof of concept, the team wrote a simple article on how genetics impacts taste preferences. Using a team member's own genetic data from 23andMe, they delivered personalised information about a gene variant when it was mentioned in the text."
           },
           {
             "type": "youtube",
@@ -556,7 +556,7 @@
           },
           {
             "type": "paragraph",
-            "text": "As well as developing more curated reports to help users understand the literature, the team would like to empower users further by helping them to navigate the references themselves and critically review the literature. To do that, they are planning to work on a Chrome extension that would highlight key points in a scientific paper, and mark the parts directly related to the user’s genotype. Using the extension, users would be able to explore research articles cited in the curated reports and immediately find the content that is relevant to their genotype."
+            "text": "As well as developing more curated reports to help users understand the literature, the team would like to empower users further by helping them to navigate the references themselves and critically review the literature. To do that, they are planning to work on a Chrome extension that would highlight key points in a scientific paper, and mark the parts directly related to the user's genotype. Using the extension, users would be able to explore research articles cited in the curated reports and immediately find the content that is relevant to their genotype."
           },
           {
             "type": "paragraph",
@@ -576,7 +576,7 @@
           },
           {
             "type": "paragraph",
-            "text": "Source code: <a href+\"https://github.com/pjshort/eXplore/\">https://github.com/pjshort/eXplore/</a>"
+            "text": "Source code: <a href=\"https://github.com/pjshort/eXplore/\">https://github.com/pjshort/eXplore/</a>"
           }
         ]
       },
@@ -604,7 +604,7 @@
           },
           {
             "type": "paragraph",
-            "text": "At Hack Cambridge, the team wanted to help researchers become familiar with new fields much quicker by collecting metrics to construct an efficient path through the literature. To this end, they developed Knowledge Direct, a literature search engine to get you from what you know, to what you want to know, as efficiently as possible. This web application produces a network of publications, identifies your current knowledge, and presents a path through the literature to help you become familiar with a new field. It helps the user to understand a collaborator’s publication or check key publications for a literature review quickly and efficiently."
+            "text": "At Hack Cambridge, the team wanted to help researchers become familiar with new fields much quicker by collecting metrics to construct an efficient path through the literature. To this end, they developed Knowledge Direct, a literature search engine to get you from what you know, to what you want to know, as efficiently as possible. This web application produces a network of publications, identifies your current knowledge, and presents a path through the literature to help you become familiar with a new field. It helps the user to understand a collaborator's publication or check key publications for a literature review quickly and efficiently."
           },
           {
             "type": "image",

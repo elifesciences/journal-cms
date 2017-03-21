@@ -121,6 +121,7 @@ class JCMSContent extends ProcessPluginBase {
           'collections',
           'covers',
           'episodes',
+          'events',
           'labs',
           'subjects',
         ];

@@ -1,42 +1,82 @@
 [
   {
-    "title": "Changing peer review in cancer research: a seminar at Fred Hutch (external)",
-    "uuid": "b031456a-de9c-4050-9ea9-2ef1d555121c",
-    "impact_statement": "How eLife is influencing the culture of peer review",
-    "created": "2016-04-21",
-    "starts": "2017-09-22T20:00:00",
-    "ends": "2017-09-22T21:00:00",
-    "timezone": "America/Los_Angeles",
-    "uri": "https://crm.elifesciences.org/crm/civicrm/event/info?reset=1&id=27"
+    "title": "Changing the culture of peer review, at Carnegie Science",
+    "uuid": "6c3b934d-ed77-41dc-a3da-d183e9933ce1",
+    "created": "2017-03-09T14:07:51",
+    "starts": "2017-04-04T15:00:00",
+    "ends": "2017-04-04T15:00:00",
+    "timezone": "Europe/London",
+    "uri": "https://crm.elifesciences.org/crm/civicrm/event/register?id=37&reset=1&_ga=1.265773254.878287495.1392905552"
   },
   {
-    "title": "Changing peer review in cancer research: a seminar at Fred Hutch",
-    "uuid": "0610c94b-a696-456d-89a3-85a9b806d74f",
-    "impact_statement": "How eLife is influencing the culture of peer review",
-    "starts": "2017-09-23T00:00:00",
-    "ends": "2017-09-25T00:00:00",
+    "title": "Achieving independence: Advice for new faculty",
+    "uuid": "b6955685-4c30-428a-922a-4a86a556f73d",
+    "created": "2017-02-02T15:41:26",
+    "starts": "2017-03-29T16:00:00",
+    "ends": "2017-03-29T17:00:00",
     "timezone": "Europe/London",
     "content": [
       {
         "type": "paragraph",
-        "text": "Please join us for lunch and a discussion on peer review at eLife – the open-access journal for outstanding research backed by the Howard Hughes Medical Institute, the Max Planck Society, and the Wellcome Trust."
+        "text": "Our next upcoming webinar in the #ECRwednesday series titled 'Advice for new faculty' will tackle the issues involved when moving from postdoc to group leader. What are all the demands on your time? What should you prioritise? How do you juggle the various elements (grants, people, research)? What training should you get as a postdoc to prepare for this? Our panel will discuss their experiences and offer advice for someone about to make the move or in their first months/years in a new position. This will include the following:"
       },
       {
-        "type": "paragraph",
-        "text": "At eLife, working scientists, including Jon Cooper, Sue Biggins and Wenying Shou, make initial decisions and oversee the review process, which emphasises quality, speed, transparency, and saving time for authors."
-      },
-      {
-        "type": "paragraph",
-        "text": "Join us to learn how eLife is changing the culture of peer review, and more about what eLife publishes in life sciences research."
-      },
-      {
-        "type": "paragraph",
-        "text": "Plus free pizza and eLife t-shirts!"
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Examples of routes to independence from people who’ve got there. This will include a focus on those without the typical CNS CVs, that have found different routes to independence (e.g. not just applying for faculty, but going to new institutes, starting up programs, moving countries into different systems.)",
+          "How to get the position / tips from hirers. Here they'll look at what hirers and funders look for in applications and interviews, beyond the publication record, interview skills, grantsmanship.",
+          "Advice for new faculty - how to juggle it all",
+          "Achieving a work-life balance",
+          "Embracing change and adversity (includes juggling family commitments, moving countries, dealing with failed applications and building a support network)"
+        ]
       },
       {
         "type": "button",
-        "title": "All are welcome. Free to attend.",
-        "uri": "https://crm.elifesciences.org/crm/civicrm/event/info?reset=1&id=27"
+        "title": "Register now",
+        "uri": "https://attendee.gotowebinar.com/register/6693354378027267588"
+      },
+      {
+        "type": "section",
+        "title": "Meet the speakers",
+        "content": [
+          {
+            "type": "image",
+            "image": "events/babak-momeni.jpg",
+            "text": "Babak Monmei, Assistant Professor, Boston College"
+          },
+          {
+            "type": "paragraph",
+            "text": "Babak started his career as an electrical engineer (BSc EE ‘99 and MSc EE ’01, Sharif University of Technology). He then ventured into integrated optics and photonics (MS Physics ’07 and PhD EE ’07, Georgia Institute of Technology) and worked on developing synthetic optical materials to build on-chip spectrometers. Intrigued by the potentials and challenges of biology, in 2009 he joined the Shou lab at the Fred Hutchinson Cancer Research Center where his research is currently focused on microbial communities. Throughout his career, the motivation has been the same simple curiosity to figure out how things work and then to use that knowledge to build new things."
+          },
+          {
+            "type": "image",
+            "image": "events/lilach-sheiner.jpg",
+            "text": "Lilach Sheiner, Royal Society of Edinburgh Personal Research Fellow, Wellcome Trust Centre for Molecular Parasitology Group Leader"
+          },
+          {
+            "type": "paragraph",
+            "text": "Dr Sheiner is a molecular parasitologist and a Royal Society of Edinburgh Personal Research Fellow. Originally from Israel she completed a PhD in Switzerland and a Postdoc in the US. She started a PI position at the Welcome Trust Centre for Molecular Parasitology at the University of Glasgow in 2013."
+          },
+          {
+            "type": "image",
+            "image": "events/scott-dixon.jpg",
+            "text": "Scott Dixon, Assistant Professor, Department of Biology, Stanford University"
+          },
+          {
+            "type": "paragraph",
+            "text": "Scott is from Ottawa, Canada and started his lab in the Department of Biology at Stanford in 2014. His lab studies cell death and metabolism in mammalian cells."
+          },
+          {
+            "type": "image",
+            "image": "events/christopher-hammell.jpg",
+            "text": "Christopher Hammell, Associate Professor, Cold Spring Harbor Laboratory (CSHL)"
+          },
+          {
+            "type": "paragraph",
+            "text": "Christopher is a developmental biologist that runs a lab at Cold Spring Harbor Laboratory. He works on two major foci: How the precise timing of gene expression contributes to cell fate specification and how simple animal models can be used to decipher the normal functions of neuropsychiatric risk genes."
+          }
+        ]
       }
     ]
   }
