@@ -38,7 +38,7 @@ class JCMSRestResponse extends JsonResponse implements CacheableResponseInterfac
   public function addDefaultCacheableDependencies() {
     $build = [
       '#cache' => [
-        'contexts' => ['url.query_args'],
+        'contexts' => ['url', 'user.permissions'],
       ],
     ];
     $cache_metadata = CacheableMetadata::createFromRenderArray($build);
