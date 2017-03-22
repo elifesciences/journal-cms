@@ -19,7 +19,7 @@ If you have been given the legacy database and files then move them to the follo
 
 There are alternative files which can be used for some of the migrated content. They are available at:
 
-- https://s3.eu-west-2.amazonaws.com/prod-elife-legacy-cms-images/
+- https://s3.us-east-1.amazonaws.com/prod-elife-legacy-cms-images/
 
 But if you want to reduce the time to migrate these files you can download them to:
 
