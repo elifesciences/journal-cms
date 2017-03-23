@@ -22,7 +22,7 @@ set -e
 start() {
   printf "Starting '$NAME'... "
   start-stop-daemon --start --background -m --oknodo --pidfile /var/run/${NAME}.pid --exec ${APPBIN}
-  # If these topics change please update them in /src/modules/jcms_notifications/src/NodeCrudNotificationService.php.
+  # If these topics change please update them in /src/modules/jcms_notifications/src/EntityCrudNotificationService.php.
   aws sns create-topic --name=annual-reports --endpoint=http://localhost:4100
   aws sns create-topic --name=blog-articles --endpoint=http://localhost:4100
   aws sns create-topic --name=collections --endpoint=http://localhost:4100
