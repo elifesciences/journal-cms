@@ -6,11 +6,11 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_notifications\Notification\BusOutgoingMessage;
 
 /**
- * Class NodeCrudNotificationService
+ * Class EntityCrudNotificationService
  *
  * @package Drupal\jcms_notifications
  */
-final class NodeCrudNotificationService {
+final class EntityCrudNotificationService {
 
   /**
    * A map of data types and ID keys array keyed by content type machine name.
@@ -72,7 +72,7 @@ final class NodeCrudNotificationService {
       'key' => 'number',
       'field' => 'field_episode_number',
     ],
-    'subject' => [
+    'subjects' => [
       'topic' => 'subjects',
       'type' => 'subject',
       'key' => 'id',
@@ -86,7 +86,7 @@ final class NodeCrudNotificationService {
   protected $notificationService;
 
   /**
-   * NodeCrudNotificationService constructor.
+   * EntityCrudNotificationService constructor.
    *
    * @param \Drupal\jcms_notifications\NotificationService $notification_service
    */

@@ -3,8 +3,8 @@ services:
     class: Drupal\jcms_notifications\QueueService
   jcms_notifications.notification_service:
     class: Drupal\jcms_notifications\NotificationService
-  jcms_notifications.node_crud_notification_service:
-    class: Drupal\jcms_notifications\NodeCrudNotificationService
+  jcms_notifications.entity_crud_notification_service:
+    class: Drupal\jcms_notifications\EntityCrudNotificationService
     arguments: ["@jcms_notifications.notification_service"]
   jcms_notifications.notification_storage:
     class: Drupal\jcms_notifications\MysqlNotificationStorage

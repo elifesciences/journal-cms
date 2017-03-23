@@ -23,9 +23,11 @@ interface NotificationStorageInterface {
   /**
    * Gets the entity IDs from the notifications table then deletes them.
    *
+   * @param string $entityType
+   *
    * @return array
    */
-  public function getNotificationEntityIds(): array;
+  public function getNotificationEntityIds(string $entityType): array;
 
   /**
    * Deletes a notification entity ID.

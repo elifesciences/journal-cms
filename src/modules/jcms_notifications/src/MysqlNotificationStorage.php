@@ -18,7 +18,12 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
   const TABLE = 'jcms_notifications';
 
   /**
-   * Notification ID field name.
+   * Entity type field name.
+   */
+  const ENTITY_TYPE_FIELD = 'entity_type';
+
+  /**
+   * Entity ID field name.
    */
   const ID_FIELD = 'entity_id';
 
@@ -42,20 +47,22 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
    * @inheritdoc
    */
   public function saveNotificationEntityId(EntityInterface $entity) {
-    $whitelist_bundles = array_keys(NodeCrudNotificationService::ENTITY_TYPE_MAP);
+    $whitelist_bundles = array_keys(EntityCrudNotificationService::ENTITY_TYPE_MAP);
     if (!in_array($entity->bundle(), $whitelist_bundles)) {
       return NULL;
     }
     $id = $entity->id();
-    return $this->connection->insert(self::TABLE)->fields([self::ID_FIELD], [$id])->execute();
+    $entity_type = $entity->getEntityTypeId();
+    return $this->connection->insert(self::TABLE)->fields([self::ID_FIELD => $id, self::ENTITY_TYPE_FIELD => $entity_type])->execute();
   }
 
   /**
    * @inheritdoc
    */
-  public function getNotificationEntityIds(): array {
+  public function getNotificationEntityIds(string $entityType = 'node'): array {
     $ids = [];
     $query = $this->connection->select(self::TABLE);
+    $query->condition(self::ENTITY_TYPE_FIELD, $entityType);
     $query->addField(self::TABLE, self::ID_FIELD);
     $result = $query->execute();
     foreach ($result->fetchAll() as $row) {

@@ -1,10 +1,11 @@
 <?php
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\jcms_notifications\MysqlNotificationStorage;
 use Drupal\Core\Database\Database;
 
 function jcms_notifications_schema() {
-  $schema['jcms_notifications'] = [
+  $schema[MysqlNotificationStorage::TABLE] = [
     'description' => 'The base table for notifications.',
     'fields' => [
       'notification_id' => [
@@ -12,6 +13,13 @@ function jcms_notifications_schema() {
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => TRUE,
+      ],
+      MysqlNotificationStorage::ENTITY_TYPE_FIELD => [
+        'type' => 'varchar_ascii',
+        'not null' => TRUE,
+        'default' => 'node',
+        'length' => EntityTypeInterface::ID_MAX_LENGTH,
+        'description' => 'The entity_type of the Drupal entity.',
       ],
       MysqlNotificationStorage::ID_FIELD => [
         'description' => 'The primary identifier for a Drupal entity.',
@@ -31,7 +39,7 @@ function jcms_notifications_schema() {
 /**
  * Implements hook_update_N().
  *
- * Updates the node_id field to entity_id.
+ * Updates the entity_type field to entity_id.
  */
 function jcms_notifications_update_8101() {
   $old_schema = jcms_notifications_schema();
@@ -39,4 +47,18 @@ function jcms_notifications_update_8101() {
   $schema = Database::getConnection()->schema();
   $schema->changeField(MysqlNotificationStorage::TABLE, 'node_id',
     MysqlNotificationStorage::ID_FIELD, $spec);
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Add the entity_type field to jcms_notifications.
+ */
+function jcms_notifications_update_8102() {
+  // Flush all entries as we don't know which entity_type the records belong to.
+  Database::getConnection()->truncate('jcms_notifications')->execute();
+  $old_schema = jcms_notifications_schema();
+  $spec = $old_schema['jcms_notifications']['fields'][MysqlNotificationStorage::ENTITY_TYPE_FIELD];
+  $schema = Database::getConnection()->schema();
+  $schema->addField(MysqlNotificationStorage::TABLE, MysqlNotificationStorage::ENTITY_TYPE_FIELD, $spec);
 }
