@@ -1,0 +1,19 @@
+uuid: 45416a6b-c9e7-4701-a1d3-63aa6145257d
+langcode: en
+status: true
+dependencies: {  }
+name: paragraph_media_contact
+label: 'paragraph media_contact validation'
+entity_type: paragraph
+bundle: media_contact
+field_validation_rules:
+  cad6388c-736f-46f6-bf6e-0b75fcb3c6bf:
+    uuid: cad6388c-736f-46f6-bf6e-0b75fcb3c6bf
+    id: regex_field_validation_rule
+    title: 'Phone number in E.164 format'
+    weight: 2
+    field_name: field_block_phone_number
+    column: value
+    error_message: 'The phone number must be a valid E.164 value'
+    data:
+      setting: '/^\+[0-9]{8,15}(;ext=[0-9]+)?$/'

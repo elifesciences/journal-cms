@@ -33,7 +33,6 @@ settings:
       image: image
       youtube: youtube
       list: list
-      section: section
       blockquote: blockquote
       table: table
       question: question
@@ -52,8 +51,8 @@ settings:
         enabled: true
         weight: -28
       section:
-        enabled: true
         weight: -27
+        enabled: false
       blockquote:
         enabled: true
         weight: -26
@@ -83,5 +82,8 @@ settings:
         enabled: false
       venue:
         weight: -17
+        enabled: false
+      button:
+        weight: 18
         enabled: false
 field_type: entity_reference_revisions

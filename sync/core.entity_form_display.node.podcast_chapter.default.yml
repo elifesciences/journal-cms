@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.podcast_chapter.field_related_content
     - node.type.podcast_chapter
   module:
+    - content_moderation
     - inline_entity_form
     - text
 id: node.podcast_chapter.default
@@ -32,12 +33,12 @@ content:
     weight: 3
     settings:
       form_mode: default
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
+      override_labels: true
+      label_singular: 'article or collection'
+      label_plural: 'articles or collections'
       allow_existing: true
       match_operator: CONTAINS
-      override_labels: false
+      allow_new: false
     third_party_settings: {  }
     type: inline_entity_form_complex
   title:

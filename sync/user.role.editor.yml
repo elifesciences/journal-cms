@@ -43,8 +43,6 @@ permissions:
   51: 'create highlight_item content'
   52: 'delete any highlight_item content'
   53: 'edit any highlight_item content'
-  54: 'create highlight_list content'
-  55: 'delete any highlight_list content'
   56: 'edit any highlight_list content'
   57: 'create interview content'
   58: 'delete any interview content'
