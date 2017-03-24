@@ -1,4 +1,6 @@
 resources:
+  ping_rest_resource:
+    GET:
   labs_experiment_item_rest_resource:
     GET:
       supported_formats:
