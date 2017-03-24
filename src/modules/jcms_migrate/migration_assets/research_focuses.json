@@ -556,6 +556,10 @@
     "name": "cancer epidemiology and prevention"
   },
   {
+    "id": "cancer formation",
+    "name": "cancer formation"
+  },
+  {
     "id": "cancer genomics",
     "name": "cancer genomics"
   },
@@ -630,6 +634,10 @@
   {
     "id": "cell cycle",
     "name": "cell cycle"
+  },
+  {
+    "id": "cell cycle control",
+    "name": "cell cycle control"
   },
   {
     "id": "cell death",
