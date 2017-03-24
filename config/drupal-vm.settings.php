@@ -89,3 +89,4 @@ $settings['jcms_migrate_legacy_cms_images_bucket'] = 'prod-elife-legacy-cms-imag
 $settings['jcms_iiif_base_uri'] = 'https://prod--iiif.elifesciences.org/journal-cms:';
 // This folder should be relative to the sites/default/files folder.
 $settings['jcms_iiif_mount'] = 'iiif';
+$settings['jcms_rest_cache_max_age'] = 0;
