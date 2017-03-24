@@ -2,8 +2,10 @@
 
 namespace Drupal\jcms_rest\Response;
 
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableResponseInterface;
+use Drupal\Core\Site\Settings;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\Core\Cache\CacheableResponseTrait;
 
@@ -39,6 +41,7 @@ class JCMSRestResponse extends JsonResponse implements CacheableResponseInterfac
     $build = [
       '#cache' => [
         'contexts' => ['url', 'user.permissions'],
+        'max-age' => Settings::get('jcms_rest_cache_max_age', Cache::PERMANENT),
       ],
     ];
     $cache_metadata = CacheableMetadata::createFromRenderArray($build);
