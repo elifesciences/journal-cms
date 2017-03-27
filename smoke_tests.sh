@@ -4,6 +4,9 @@ set -ex
 local_hostname=$(hostname)
 hostname=${1:-$local_hostname}
 
+echo "Ping"
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/ping") == 200 ]
+
 echo "Homepage"
 [ $(curl --write-out %{http_code} --silent --output /dev/null "$hostname") == 200 ]
 
