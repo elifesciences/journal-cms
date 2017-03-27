@@ -26,7 +26,7 @@ class PingController extends ControllerBase implements ContainerInjectionInterfa
    */
   public function siteStatus() {
     $response = new Response(self::SITE_STATUS_RESPONSE);
-    $response->headers->set('Content-Type', 'text/plain');
+    $response->headers->set('Content-Type', 'text/plain; charset=UTF-8');
     return $response;
   }
 
