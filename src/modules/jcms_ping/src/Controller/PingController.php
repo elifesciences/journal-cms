@@ -2,14 +2,12 @@
 
 namespace Drupal\jcms_ping\Controller;
 
-use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Description.
+ * Controller to handle a ping request for journal-cms.
  */
-class PingController extends ControllerBase implements ContainerInjectionInterface {
+class PingController {
 
   /**
    * String sent in responses, to verify site status.
