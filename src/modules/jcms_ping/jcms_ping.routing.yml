@@ -1,0 +1,8 @@
+jcms_ping.check.json:
+  path: '/ping'
+  defaults:
+    _controller: \Drupal\jcms_ping\Controller\PingController::siteStatus
+  options:
+    no_cache: TRUE
+  requirements:
+    _access: 'TRUE'
