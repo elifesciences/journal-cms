@@ -47,6 +47,3 @@ script:
   - cd $TRAVIS_BUILD_DIR
   - mkdir -p $TRAVIS_BUILD_DIR/build/logs
   - $TRAVIS_BUILD_DIR/vendor/bin/phpunit -c $TRAVIS_BUILD_DIR/phpunit.xml.dist
-
-after_success:
-  - travis_retry $TRAVIS_BUILD_DIR/vendor/bin/coveralls -v
