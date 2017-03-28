@@ -25,6 +25,7 @@ class PingController {
   public function siteStatus() {
     $response = new Response(self::SITE_STATUS_RESPONSE);
     $response->headers->set('Content-Type', 'text/plain; charset=UTF-8');
+    $response->headers->set('Cache-Control', 'must-revalidate, no-cache, no-store, private');
     return $response;
   }
 
