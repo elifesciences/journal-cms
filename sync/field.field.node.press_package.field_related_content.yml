@@ -11,7 +11,7 @@ field_name: field_related_content
 entity_type: node
 bundle: press_package
 label: 'Related content'
-description: ''
+description: 'Manuscript ID (e.g. 00666)'
 required: true
 translatable: false
 default_value: {  }

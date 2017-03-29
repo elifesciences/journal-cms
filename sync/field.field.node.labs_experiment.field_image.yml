@@ -11,7 +11,7 @@ id: node.labs_experiment.field_image
 field_name: field_image
 entity_type: node
 bundle: labs_experiment
-label: Image
+label: 'Image (banner)'
 description: ''
 required: true
 translatable: true

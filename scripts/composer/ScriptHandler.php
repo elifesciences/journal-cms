@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \eLifeDrupalProject\composer\ScriptHandler.
+ * Contains \JCMSDrupalProject\composer\ScriptHandler.
  */
 
-namespace eLifeDrupalProject\composer;
+namespace JCMSDrupalProject\composer;
 
 use Composer\Script\Event;
 use DrupalProject\composer\ScriptHandler as DrupalScriptHandler;

@@ -3103,20 +3103,14 @@
         },
         {
             "name": "drupal/paragraphs",
-            "version": "1.1.0",
+            "version": "dev-1.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/paragraphs",
-                "reference": "8.x-1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/paragraphs-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "c678e5704a98c6a0549e415412da081cfeb03a00"
+                "reference": "ae21d1a63be7bd2f7d7319a7a7614510329c8a5e"
             },
             "require": {
-                "drupal/core": "~8.0",
+                "drupal/core": "*",
                 "drupal/entity_reference_revisions": "*"
             },
             "require-dev": {
@@ -3133,8 +3127,11 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1487331784"
+                    "version": "8.x-1.1+9-dev",
+                    "datestamp": "1489573684"
+                },
+                "patches_applied": {
+                    "Empty required fields not providing meaningful error messages": "https://www.drupal.org/files/issues/empty_required_fields-2788607-70.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3151,6 +3148,10 @@
                     "homepage": "https://www.drupal.org/user/514222"
                 },
                 {
+                    "name": "Primsi",
+                    "homepage": "https://www.drupal.org/user/282629"
+                },
+                {
                     "name": "jeroen.b",
                     "homepage": "https://www.drupal.org/user/1853532"
                 },
@@ -3163,7 +3164,8 @@
             "homepage": "https://www.drupal.org/project/paragraphs",
             "support": {
                 "source": "http://cgit.drupalcode.org/paragraphs"
-            }
+            },
+            "time": "2017-03-27 16:03:30"
         },
         {
             "name": "drupal/redis",
@@ -9635,6 +9637,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/entity_reference_revisions": 20,
+        "drupal/paragraphs": 20,
         "drupal-composer/drupal-project": 20,
         "drupal/restui": 20,
         "drupal/address": 5,

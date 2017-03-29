@@ -101,10 +101,7 @@ class PersonListRestResource extends AbstractRestResourceBase {
     $item = [
       'id' => substr($node->uuid(), -8),
       'type' => $node->get('field_person_type')->getString(),
-      'name' => [
-        'preferred' => $node->getTitle(),
-        'index' => $node->get('field_person_index_name')->getString(),
-      ],
+      'name' => $this->processPeopleNames($node->getTitle(), $node->get('field_person_index_name')),
     ];
 
     // Orcid is optional.

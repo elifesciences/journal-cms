@@ -73,12 +73,7 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
         $response['mediaContacts'] = [];
         foreach ($node->get('field_media_contact') as $media_contact) {
           $media_contact_item = $media_contact->get('entity')->getTarget()->getValue();
-          $media_contact_values = [
-            'name' => [
-              'preferred' => $media_contact_item->get('field_block_preferred_name')->getString(),
-              'index' => $media_contact_item->get('field_block_index_name')->getString(),
-            ],
-          ];
+          $media_contact_values['name'] = $this->processPeopleNames($media_contact_item->get('field_block_preferred_name')->getString(), $media_contact_item->get('field_block_index_name'));
 
           // Media contact email is optional.
           if ($media_contact_item->get('field_block_email')->count()) {

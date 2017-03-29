@@ -4,4 +4,5 @@ status: true
 dependencies: {  }
 id: table
 label: Table
+icon_uuid: null
 behavior_plugins: {  }

@@ -696,4 +696,18 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     return \Drupal::currentUser()->hasPermission('view latest version');
   }
 
+  /**
+   * Process people names.
+   *
+   * @param string $preferred_name
+   * @param FieldItemListInterface $index_name
+   * @return array
+   */
+  public function processPeopleNames(string $preferred_name, FieldItemListInterface $index_name) {
+    return [
+      'preferred' => $preferred_name,
+      'index' => ($index_name->count()) ? $index_name->getString() : preg_replace('/^(?P<first_names>.*)\s+(?P<last_name>[^\s]+)$/', '$2, $1', $name['preferred']),
+    ];
+  }
+
 }

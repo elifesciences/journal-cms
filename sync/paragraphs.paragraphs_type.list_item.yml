@@ -4,4 +4,5 @@ status: true
 dependencies: {  }
 id: list_item
 label: 'List item'
+icon_uuid: null
 behavior_plugins: {  }

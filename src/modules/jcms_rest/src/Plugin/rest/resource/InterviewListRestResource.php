@@ -70,10 +70,7 @@ class InterviewListRestResource extends AbstractRestResourceBase {
     /* @var Node $node */
     $item = $this->processDefault($node);
 
-    $item['interviewee']['name'] = [
-      'preferred' => $node->get('field_person_preferred_name')->getString(),
-      'index' => $node->get('field_person_index_name')->getString(),
-    ];
+    $item['interviewee']['name'] = $this->processPeopleNames($node->get('field_person_preferred_name')->getString(), $node->get('field_person_index_name'));
 
     // Impact statement is optional.
     if ($node->get('field_impact_statement')->count()) {

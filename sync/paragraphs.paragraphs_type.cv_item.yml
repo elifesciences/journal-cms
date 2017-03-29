@@ -4,4 +4,5 @@ status: true
 dependencies: {  }
 id: cv_item
 label: 'CV item'
+icon_uuid: null
 behavior_plugins: {  }

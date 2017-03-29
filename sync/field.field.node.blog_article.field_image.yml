@@ -11,7 +11,7 @@ id: node.blog_article.field_image
 field_name: field_image
 entity_type: node
 bundle: blog_article
-label: Image
+label: 'Image (banner)'
 description: ''
 required: false
 translatable: true

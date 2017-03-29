@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_content
     - node.type.interview
+    - paragraphs.paragraphs_type.image
     - paragraphs.paragraphs_type.paragraph
     - paragraphs.paragraphs_type.question
   module:
@@ -23,40 +24,56 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      paragraph: paragraph
       question: question
+      paragraph: paragraph
+      image: image
     target_bundles_drag_drop:
-      blockquote:
-        weight: 12
-        enabled: false
-      cv_item:
-        weight: 13
-        enabled: false
-      image:
-        weight: 14
-        enabled: false
-      list:
-        weight: 15
-        enabled: false
-      list_item:
-        weight: 16
-        enabled: false
-      paragraph:
-        enabled: true
-        weight: 17
       question:
         enabled: true
-        weight: 18
+        weight: -33
+      paragraph:
+        enabled: true
+        weight: -32
+      image:
+        enabled: true
+        weight: -31
+      blockquote:
+        weight: -30
+        enabled: false
+      cv_item:
+        weight: -29
+        enabled: false
+      list:
+        weight: -28
+        enabled: false
+      list_item:
+        weight: -27
+        enabled: false
+      button:
+        weight: -26
+        enabled: false
+      code:
+        weight: -25
+        enabled: false
       research_details:
-        weight: 19
+        weight: -24
         enabled: false
       section:
-        weight: 20
+        weight: -23
         enabled: false
       table:
-        weight: 21
+        weight: -22
+        enabled: false
+      json:
+        weight: -21
         enabled: false
       youtube:
-        weight: 22
+        weight: -20
+        enabled: false
+      media_contact:
+        weight: -19
+        enabled: false
+      venue:
+        weight: -18
         enabled: false
 field_type: entity_reference_revisions
