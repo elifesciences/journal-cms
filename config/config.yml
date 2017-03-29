@@ -218,7 +218,7 @@ installed_extras:
   # - tideways
   # - upload-progress
   - varnish
-  # - xdebug
+  - xdebug
   # - xhprof
 
 # Add any extra apt or yum packages you would like installed.

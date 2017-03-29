@@ -11,7 +11,7 @@ id: node.annual_report.field_image
 field_name: field_image
 entity_type: node
 bundle: annual_report
-label: Image
+label: 'Image (thumbnail)'
 description: ''
 required: true
 translatable: true

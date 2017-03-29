@@ -11,7 +11,7 @@ id: node.cover.field_image
 field_name: field_image
 entity_type: node
 bundle: cover
-label: Image
+label: 'Image (banner)'
 description: ''
 required: true
 translatable: true

@@ -3,6 +3,7 @@
 namespace Drupal\jcms_rest\Tests\Functional;
 
 use ComposerLocator;
+use Drupal\Driver\Exception\Exception;
 use Drupal\Tests\UnitTestCase;
 use eLife\ApiValidator\MessageValidator;
 use eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator;
@@ -139,31 +140,7 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
    * @param string|NULL $media_type_item
    */
   public function testValidEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, $media_type_item) {
-    $total = 1;
-    $request = new Request('GET', $endpoint . '?per-page=' . $total, [
-      'Accept' => $media_type_list,
-    ]);
-
-    $response = $this->client->send($request);
-    $data = \GuzzleHttp\json_decode($response->getBody()->getContents());
-    if (!empty($data->total)) {
-      $total = $data->total;
-    }
-
-    $request = new Request('GET', $endpoint . '?per-page=' . $total, [
-      'Accept' => $media_type_list,
-    ]);
-
-    $response = $this->client->send($request);
-    $data = \GuzzleHttp\json_decode($response->getBody()->getContents());
-    $this->validator->validate($response);
-
-    if (isset($data->items)) {
-      $items = $data->items;
-    }
-    else {
-      $items = $data;
-    }
+    $items = $this->gatherListItems($endpoint, $media_type_list);
 
     foreach ($items as $item) {
       if (isset($item->item)) {
@@ -197,6 +174,36 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
       $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
       $this->validator->validate($response);
     }
+  }
+
+  function gatherListItems(string $endpoint, string $media_type_list) {
+    $all_items = [];
+    $per_page = 50;
+    $page = 1;
+    do {
+      $request = new Request('GET', $endpoint . '?per-page=' . $per_page . '&page=' . $page, [
+        'Accept' => $media_type_list,
+      ]);
+
+      $response = $this->client->send($request);
+      $data = \GuzzleHttp\json_decode($response->getBody()->getContents());
+      $this->validator->validate($response);
+
+      $items = isset($data->items) ? $data->items : $data;
+      if (!empty($items)) {
+        $all_items = array_merge($all_items, $items);
+      }
+
+      if (count($items) < $per_page) {
+        $page = -1;
+      }
+      else {
+        $page++;
+      }
+    }
+    while ($page > 0);
+
+    return $all_items;
   }
 
 }

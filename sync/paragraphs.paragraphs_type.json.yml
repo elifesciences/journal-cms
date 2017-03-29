@@ -4,4 +4,5 @@ status: true
 dependencies: {  }
 id: json
 label: JSON
+icon_uuid: null
 behavior_plugins: {  }

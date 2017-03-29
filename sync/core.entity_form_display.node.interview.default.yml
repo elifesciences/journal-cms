@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.interview.field_person_preferred_name
     - node.type.interview
   module:
+    - content_moderation
     - paragraphs
     - text
 id: node.interview.default
@@ -19,23 +20,24 @@ bundle: interview
 mode: default
 content:
   field_community_list:
-    weight: 26
+    weight: 6
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
   field_content:
-    weight: 10
+    weight: 4
     settings:
       title: 'Content item'
       title_plural: 'Content items'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
   field_impact_statement:
-    weight: 9
+    weight: 3
     settings:
       rows: 5
       placeholder: ''
@@ -43,23 +45,24 @@ content:
     type: text_textarea
   field_interview_cv:
     type: entity_reference_paragraphs
-    weight: 7
+    weight: 5
     settings:
       title: Paragraph
       title_plural: Paragraphs
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
   field_person_index_name:
-    weight: 6
+    weight: 1
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
   field_person_preferred_name:
-    weight: 5
+    weight: 0
     settings:
       size: 60
       placeholder: ''
@@ -67,7 +70,7 @@ content:
     type: string_textfield
   title:
     type: string_textfield
-    weight: 8
+    weight: 2
     settings:
       size: 60
       placeholder: ''

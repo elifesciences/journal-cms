@@ -4,4 +4,5 @@ status: true
 dependencies: {  }
 id: venue
 label: Venue
+icon_uuid: null
 behavior_plugins: {  }

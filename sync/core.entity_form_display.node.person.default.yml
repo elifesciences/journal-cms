@@ -13,6 +13,7 @@ dependencies:
     - image.style.thumbnail
     - node.type.person
   module:
+    - content_moderation
     - image
     - paragraphs
     - text
@@ -22,28 +23,28 @@ bundle: person
 mode: default
 content:
   field_image:
-    weight: 7
+    weight: 2
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
   field_person_competing:
-    weight: 9
+    weight: 5
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
   field_person_index_name:
-    weight: 2
+    weight: 1
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
   field_person_orcid:
-    weight: 8
+    weight: 4
     settings:
       size: 60
       placeholder: ''
@@ -51,28 +52,30 @@ content:
     type: string_textfield
   field_person_profile:
     type: entity_reference_paragraphs
-    weight: 10
+    weight: 6
     settings:
       title: 'Profile item'
       title_plural: 'Profile items'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
   field_person_type:
-    weight: 6
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
   field_research_details:
     type: entity_reference_paragraphs
-    weight: 11
+    weight: 7
     settings:
       title: 'Research details'
       title_plural: 'Research details'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
   title:
     type: string_textfield

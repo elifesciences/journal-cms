@@ -10,8 +10,8 @@ field_name: field_person_index_name
 entity_type: node
 bundle: interview
 label: 'Interviewee index name'
-description: "This is the name that should be used for indexing people.\r\n\r\nFor example:\r\n<ul>\r\n  <li>Schekman, Randy</li>\r\n  <li>VijayRaghavan, Krishnaswamy</li>\r\n  <li>Wenhui Li</li>\r\n</ul>"
-required: true
+description: "<em>Leave blank to autogenerate this value from the preferred name</em><br />This is the name that should be used for indexing people.\r\n\r\nFor example:\r\n<ul>\r\n  <li>Schekman, Randy</li>\r\n  <li>VijayRaghavan, Krishnaswamy</li>\r\n  <li>Wenhui Li</li>\r\n</ul>"
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''

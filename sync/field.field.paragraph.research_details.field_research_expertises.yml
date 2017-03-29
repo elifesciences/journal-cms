@@ -11,7 +11,7 @@ field_name: field_research_expertises
 entity_type: paragraph
 bundle: research_details
 label: Expertises
-description: ''
+description: 'Major subject areas'
 required: true
 translatable: false
 default_value: {  }

@@ -4,9 +4,12 @@
  * JCMS admin module file.
  */
 
+use Drupal\Core\Database\Query\Condition;
+use Drupal\Core\Database\Query\SelectInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Site\Settings;
 use Drupal\entityqueue\Entity\EntitySubqueue;
 use Drupal\node\Entity\Node;
 
@@ -138,7 +141,67 @@ function jcms_admin_form_entity_subqueue_covers_preview_edit_form_alter(&$form, 
     '#default_value' => FALSE,
     '#weight' => ++$max_weight,
   ];
-  array_unshift($form['actions']['submit']['#submit'], '_jcms_admin_form_entity_subqueue_covers_preview_edit_form_submit');
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      array_unshift($form['actions'][$action]['#submit'], '_jcms_admin_form_entity_subqueue_covers_preview_edit_form_submit');
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function jcms_admin_form_node_interview_form_alter(&$form, FormStateInterface $form_state) {
+  $max_weight = 0;
+  foreach ($form as $key => $value) {
+    $value = (array) $value;
+    if (!empty($value['#weight'])) {
+      $max_weight = max($max_weight, $value['#weight']);
+    }
+  }
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('status', NODE_PUBLISHED)
+    ->condition('changed', REQUEST_TIME, '<')
+    ->condition('type', 'collection')
+    ->addTag('interview_collections_filter');
+  $collection_nids = $query->execute();
+
+  if ($collections = Node::loadMultiple($collection_nids)) {
+    $form['interview_collections'] = [
+      '#title' => t('Add to collection'),
+      '#type' => 'checkboxes',
+      '#default_value' => [],
+      '#options' => [],
+      '#weight' => ++$max_weight,
+    ];
+    foreach ($collections as $collection) {
+      $form['interview_collections']['#options'][$collection->id()] = $collection->label();
+    }
+    foreach (array_keys($form['actions']) as $action) {
+      if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+        array_unshift($form['actions'][$action]['#submit'], '_jcms_admin_form_node_interview_form_submit');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_query_TAG_alter().
+ */
+function jcms_admin_query_interview_collections_filter_alter(SelectInterface $query) {
+  if ($whitelist = Settings::get('jcms_admin_interview_collections_whitelist')) {
+    $db_or = new Condition('OR');
+    foreach ($whitelist as $id) {
+      $db_or->condition('uuid', '%' . $id, 'LIKE');
+    }
+    $query->condition($db_or);
+  }
+  if ($blacklist = Settings::get('jcms_admin_interview_collections_blacklist')) {
+    foreach ($blacklist as $id) {
+      $query->condition('uuid', '%' . $id, 'NOT LIKE');
+    }
+  }
 }
 
 /**
@@ -197,18 +260,28 @@ function _jcms_admin_protect_id_field(&$form, $form_id) {
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
 function _jcms_admin_form_entity_subqueue_covers_preview_edit_form_submit($form, FormStateInterface $form_state) {
-  _jcms_admin_covers_active('publish', $form_state->getValue('covers_active_publish', 0));
-  _jcms_admin_covers_active('reset', $form_state->getValue('covers_active_reset', 0));
+  _jcms_admin_static_store('covers_active_publish', $form_state->getValue('covers_active_publish', 0));
+  _jcms_admin_static_store('covers_active_reset', $form_state->getValue('covers_active_reset', 0));
 }
 
 /**
- * Store and retrieve values from form submission: entity_subqueue_covers_preview_edit_form.
+ * Submit function for node_interview_form.
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function _jcms_admin_form_node_interview_form_submit($form, FormStateInterface $form_state) {
+  _jcms_admin_static_store('interview_collections', array_keys(array_filter($form_state->getValue('interview_collections', []))));
+}
+
+/**
+ * Store and retrieve values from form submission.
  *
  * @param string $key
  * @param mixed|NULL $value
  * @return mixed|NULL
  */
-function _jcms_admin_covers_active($key, $value = NULL) {
+function _jcms_admin_static_store($key, $value = NULL) {
   static $values = [];
   if (!is_null($value)) {
     $values[$key] = $value;
@@ -310,7 +383,7 @@ function jcms_admin_entity_subqueue_presave(EntityInterface $entity) {
   if ($entity->bundle() != 'covers_preview') {
     return NULL;
   }
-  if (_jcms_admin_covers_active('publish')) {
+  if (_jcms_admin_static_store('covers_active_publish')) {
     $items = ($entity->get('items')) ? $entity->get('items')->getValue() : [];
     $items = array_splice($items, 0, $entity->get('field_covers_active_items')->getString());
     foreach ($items as $item) {
@@ -336,7 +409,7 @@ function jcms_admin_entity_subqueue_presave(EntityInterface $entity) {
       ]));
     $subqueue->save();
   }
-  if (_jcms_admin_covers_active('reset')) {
+  if (_jcms_admin_static_store('covers_active_reset')) {
     $subqueue = EntitySubqueue::load('covers');
     $items = ($subqueue->get('items')) ? $subqueue->get('items')->getValue() : [];
     $entity->set('field_covers_active_items', 3);
@@ -370,6 +443,25 @@ function jcms_admin_node_delete(EntityInterface $entity) {
     // Delete orphaned highlight_item nodes.
     foreach ($entity->get('field_highlight_items')->referencedEntities() as $item) {
       $item->delete();
+    }
+  }
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function jcms_admin_node_insert(EntityInterface $entity) {
+  if ($entity->bundle() == 'interview') {
+    $collection_nids = _jcms_admin_static_store('interview_collections');
+    if (!empty($collection_nids) && $collections = Node::loadMultiple($collection_nids)) {
+      foreach ($collections as $collection) {
+        $content = $collection->get('field_collection_content')->getValue();
+        $content += [
+          'target_id' => $entity->id(),
+        ];
+        $collection->set('field_collection_content', $content);
+        $collection->save();
+      }
     }
   }
 }

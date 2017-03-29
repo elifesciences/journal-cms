@@ -9,6 +9,7 @@ dependencies:
     - image.style.thumbnail
     - node.type.highlight_item
   module:
+    - content_moderation
     - image
 id: node.highlight_item.default
 targetEntityType: node
@@ -16,7 +17,7 @@ bundle: highlight_item
 mode: default
 content:
   field_author_line:
-    weight: 1
+    weight: 2
     settings:
       size: 60
       placeholder: ''
@@ -31,7 +32,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
   field_image:
-    weight: 2
+    weight: 1
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail

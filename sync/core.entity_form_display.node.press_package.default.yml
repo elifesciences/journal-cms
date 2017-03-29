@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.press_package.field_related_content
     - node.type.press_package
   module:
+    - content_moderation
     - inline_entity_form
     - paragraphs
     - text
@@ -26,6 +27,7 @@ content:
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
   field_impact_statement:
@@ -44,6 +46,7 @@ content:
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
   field_press_package_about:
     type: entity_reference_paragraphs
@@ -54,17 +57,18 @@ content:
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
   field_related_content:
     weight: 28
     settings:
       form_mode: default
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
+      override_labels: true
+      label_singular: article
+      label_plural: articles
       allow_existing: true
       match_operator: STARTS_WITH
-      override_labels: false
+      allow_new: false
     third_party_settings: {  }
     type: inline_entity_form_complex
   title:

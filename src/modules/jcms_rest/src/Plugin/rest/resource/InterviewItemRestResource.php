@@ -44,10 +44,7 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
 
       $response = $this->processDefault($node, $id);
 
-      $response['interviewee']['name'] = [
-        'preferred' => $node->get('field_person_preferred_name')->getString(),
-        'index' => $node->get('field_person_index_name')->getString(),
-      ];
+      $response['interviewee']['name'] = $this->processPeopleNames($node->get('field_person_preferred_name')->getString(), $node->get('field_person_index_name'));
 
       if ($node->get('field_interview_cv')->count()) {
         $response['interviewee']['cv'] = [];
@@ -55,7 +52,7 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
           $cv_item = $paragraph->get('entity')->getTarget()->getValue();
           $response['interviewee']['cv'][] = [
             'date' => $cv_item->get('field_cv_item_date')->getString(),
-            'text' => $cv_item->get('field_block_html')->getString(),
+            'text' => $this->fieldValueFormatted($cv_item->get('field_block_html')),
           ];
         }
       }

@@ -11,7 +11,7 @@ id: node.highlight_item.field_image
 field_name: field_image
 entity_type: node
 bundle: highlight_item
-label: Image
+label: 'Image (thumbnail)'
 description: ''
 required: false
 translatable: true

@@ -4,4 +4,5 @@ status: true
 dependencies: {  }
 id: paragraph
 label: Paragraph
+icon_uuid: null
 behavior_plugins: {  }

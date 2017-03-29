@@ -31,7 +31,7 @@
     "drupal/field_collection": "~1.0-alpha1",
     "drupal/inline_entity_form": "~1.0-beta1",
     "drupal/jsonb": "~1.0-beta1",
-    "drupal/paragraphs": "~1.0",
+    "drupal/paragraphs": "1.x-dev",
     "drupal-composer/drupal-project": "8.x-dev",
     "drupal/migrate_plus": "~3.0-beta1",
     "drupal/migrate_tools": "^2.0",
@@ -83,10 +83,10 @@
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "post-install-cmd": [
       "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-      "eLifeDrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+      "JCMSDrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ],
     "post-update-cmd": [
-      "eLifeDrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+      "JCMSDrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ]
   },
   "extra": {
@@ -125,6 +125,9 @@
       },
       "drupal/inline_entity_form": {
         "Field name/label disappears when I create a new entity inline": "https://www.drupal.org/files/issues/inline_entity_form-no_label_required_field_with_no_entries-2842744.patch"
+      },
+      "drupal/paragraphs": {
+        "Empty required fields not providing meaningful error messages": "https://www.drupal.org/files/issues/empty_required_fields-2788607-70.patch"
       }
     }
   }
