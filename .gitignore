@@ -7,5 +7,4 @@ scripts/legacy_cms_files/
 scripts/legacy_cms_files_alt/
 vendor/
 web/
-build/
-/console
+console/

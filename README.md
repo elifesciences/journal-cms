@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/elifesciences/journal-cms/badge.svg?branch=develop)](https://coveralls.io/github/elifesciences/journal-cms?branch=develop)
+[![Build Status](https://travis-ci.org/elifesciences/journal-cms.svg?branch=develop)](https://travis-ci.org/elifesciences/journal-cms)
 
 ## Preparation
 
