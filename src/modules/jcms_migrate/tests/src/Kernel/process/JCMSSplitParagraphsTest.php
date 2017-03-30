@@ -1,9 +1,13 @@
 <?php
 
-namespace Drupal\Tests\jcms_migrate\Unit\process;
+namespace Drupal\Tests\jcms_migrate\Kernel\process;
 
+use Drupal\filter\Entity\FilterFormat;
 use Drupal\jcms_migrate\Plugin\migrate\process\JCMSSplitParagraphs;
-use Drupal\Tests\migrate\Unit\process\MigrateProcessTestCase;
+use Drupal\KernelTests\KernelTestBase;
+use Drupal\migrate\MigrateExecutableInterface;
+use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate\Row;
 
 /**
  * Tests the split paragraphs process plugin.
@@ -11,19 +15,43 @@ use Drupal\Tests\migrate\Unit\process\MigrateProcessTestCase;
  * @coversDefaultClass \Drupal\jcms_migrate\Plugin\migrate\process\JCMSSplitParagraphs
  * @group jcms_migrate
  */
-class JCMSSplitParagraphsTest extends MigrateProcessTestCase {
+class JCMSSplitParagraphsTest extends KernelTestBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static $modules = ['jcms_migrate', 'filter'];
+
+  protected function setUp() {
+    parent::setUp();
+
+    // Create basic HTML format.
+    $basic_format = FilterFormat::create([
+      'format' => 'basic_html',
+      'name' => 'Basic HTML',
+      'weight' => 1,
+      'filters' => [
+        'filter_html' => [
+          'weight' => -10,
+          'status' => 1,
+          'settings' => [
+            'allowed_html' => JCMSSplitContentTest::$allowedHtml,
+          ],
+        ],
+      ],
+    ]);
+    $basic_format->save();
+  }
 
   /**
    * @test
-   * @covers ::transform()
+   * @covers ::transform
    * @dataProvider transformDataProvider
    * @group  journal-cms-tests
    */
   public function testTransform($html, $strip_regex, $break_regex, $expected_result) {
-    $plugin = new TestJCMSSplitParagraphs(array(), 'jcms_split_paragraphs', array());
-    $plugin->setStripRegex($strip_regex, $break_regex);
-    $split_paragraphs = $plugin->transform($html, $this->migrateExecutable, $this->row, 'destinationproperty');
-    $this->assertEquals($split_paragraphs, $expected_result);
+    $split_content = $this->doTransform($html, $strip_regex, $break_regex);
+    $this->assertEquals($expected_result, $split_content);
   }
 
   public function transformDataProvider() {
@@ -71,11 +99,33 @@ class JCMSSplitParagraphsTest extends MigrateProcessTestCase {
     ];
   }
 
+  /**
+   * Transforms html into content blocks.
+   *
+   * @param array|string $value
+   *   Source html.
+   * @param string|NULL $strip_regex
+   *   Regex to strip from source html.
+   * @param bool|NULL $break
+   *   Set to TRUE if you wish to break after first match.
+   *
+   * @return array $actual
+   *   The content blocks based on the source html.
+   */
+  protected function doTransform($value, $strip_regex, $break = FALSE) {
+    $row = new Row();
+    $migration = $this->prophesize(MigrationInterface::class)->reveal();
+    $executable = $this->prophesize(MigrateExecutableInterface::class)->reveal();
+
+    $plugin = new TestJCMSSplitParagraphs([], 'jcms_split_paragraphs', [], $migration);
+    $plugin->setStripRegex($strip_regex, $break);
+    $actual = $plugin->transform($value, $executable, $row, 'destinationproperty');
+    return $actual;
+  }
+
 }
 
 class TestJCMSSplitParagraphs extends JCMSSplitParagraphs {
-  public function __construct() {
-  }
 
   /**
    * Set strip_regex configuration.

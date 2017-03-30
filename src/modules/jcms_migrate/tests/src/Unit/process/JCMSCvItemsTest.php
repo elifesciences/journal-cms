@@ -15,7 +15,7 @@ class JCMSCvItemsTest extends MigrateProcessTestCase {
 
   /**
    * @test
-   * @covers ::prepareCvItems()
+   * @covers ::prepareCvItems
    * @dataProvider prepareCvItemsDataProvider
    * @group  journal-cms-tests
    */
@@ -43,8 +43,6 @@ class JCMSCvItemsTest extends MigrateProcessTestCase {
 }
 
 class TestJCMSCvItems extends JCMSCvItems {
-  public function __construct() {
-  }
 
   /**
    * Set delimiter configuration.

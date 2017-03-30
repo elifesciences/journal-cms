@@ -273,7 +273,7 @@ class JCMSSplitContent extends ProcessPluginBase {
         $innerHTML .= $html;
       }
     }
-    return preg_replace(["~([^\\s])<a ~", "~([^\\s])<(sub|sup|b|i)>~", "~</(a|sub|sup|b|i)>([A-z0-9\\(])~"], ['$1 <a ', '$1 $2', '</a> $1'], $innerHTML);
+    return preg_replace(["~([^\\s])<a ~", "~([^\\s])<(sub|sup|b|i)>~", "~</(a|sub|sup|b|i)>([A-z0-9\\(])~"], ['$1 <a ', '$1 <$2>', '</$1> $2'], $innerHTML);
   }
 
 }

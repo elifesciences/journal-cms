@@ -16,7 +16,7 @@ filters:
     status: true
     weight: -10
     settings:
-      allowed_html: '<i> <sub> <sup> <span class> <del> <math> <a href> <b> <br> <table> <thead> <tbody> <tfoot> <tr class style> <th colspan rowspan class style> <td colspan rowspan class style>'
+      allowed_html: '<i> <sub> <sup> <span class> <del> <math> <a href> <b> <br> <table>'
       filter_html_help: true
       filter_html_nofollow: false
   filter_align:
