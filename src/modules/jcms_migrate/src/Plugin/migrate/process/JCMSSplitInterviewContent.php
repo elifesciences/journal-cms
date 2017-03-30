@@ -18,7 +18,7 @@ class JCMSSplitInterviewContent extends JCMSSplitContent {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    $this->configuration['limit_types'] = ['paragraph'];
+    $this->configuration['limit_types'] = ['paragraph', 'image'];
     $paragraphs = parent::transform($value, $migrate_executable, $row, $destination_property);
     $paragraphs = $this->processQuestions($paragraphs);
     return $paragraphs;
@@ -34,7 +34,10 @@ class JCMSSplitInterviewContent extends JCMSSplitContent {
     $paragraphs_with_questions = [];
     $paragraph_with_question = [];
     foreach ($paragraphs as $paragraph) {
-      if (preg_match('~^<(strong|b)>(?P<question>.*)</(strong|b)>(<br\s*/>\s*|<br>\s*|\s*)(?P<answer>.*)$~', $paragraph['text'], $match)) {
+      if ($paragraph['type'] == 'image') {
+        $paragraphs_with_questions[] = $paragraph;
+      }
+      elseif (preg_match('~^<(strong|b)>(?P<question>.*)</(strong|b)>(<br\s*/>\s*|<br>\s*|\s*)(?P<answer>.*)$~', $paragraph['text'], $match)) {
         if (!empty($paragraph_with_question['answer'])) {
           $paragraphs_with_questions[] = $paragraph_with_question;
         }

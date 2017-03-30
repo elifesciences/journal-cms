@@ -44,7 +44,7 @@ class JCMSResearchDetailsTest extends MigrateProcessTestCase {
 
   /**
    * @test
-   * @covers ::gatherFocusesFromProfile()
+   * @covers ::gatherFocusesFromProfile
    * @dataProvider gatherFocusesFromProfileDataProvider
    * @group  journal-cms-tests
    */
@@ -119,7 +119,7 @@ class JCMSResearchDetailsTest extends MigrateProcessTestCase {
 
   /**
    * @test
-   * @covers ::cleanupString()
+   * @covers ::cleanupString
    * @dataProvider cleanupStringBasicDataProvider
    * @group  journal-cms-tests
    */

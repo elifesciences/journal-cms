@@ -15,14 +15,13 @@ class JCMSPressPackageContentTest extends MigrateProcessTestCase {
 
   /**
    * @test
-   * @covers ::transform()
+   * @covers ::transform
    * @dataProvider breakupContentDataProvider
    * @group journal-cms-tests
    */
   public function testBreakupContent($content, $expected_result) {
     $plugin = new JCMSPressPackageContent([], 'jcms_split_collection_content', []);
     $breakup_content = $plugin->breakupContent($content);
-    // var_dump([$expected_result, array_intersect_key($breakup_content, array_flip(array_keys($expected_result)))]);
     $this->assertEquals($expected_result, array_intersect_key($breakup_content, array_flip(array_keys($expected_result))));
   }
 

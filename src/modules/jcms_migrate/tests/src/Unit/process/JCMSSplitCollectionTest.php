@@ -13,7 +13,7 @@ class JCMSSplitCollectionContentTest extends MigrateProcessTestCase {
 
   /**
    * @test
-   * @covers ::transform()
+   * @covers ::transform
    * @dataProvider transformDataProvider
    * @group  journal-cms-tests
    */
