@@ -11,12 +11,13 @@ elifePipeline {
 
     elifeMainlineOnly {
         stage 'End2end tests'
-        elifeEnd2EndTest(
-            {
-                builderDeployRevision 'journal-cms--end2end', commit
-                builderSmokeTests 'journal-cms--end2end', '/srv/journal-cms'
-            },
-            'two'
+        elifeSpectrum(
+            deploy: [
+                stackname: 'journal-cms--end2end',
+                revision: commit,
+                folder: '/srv/journal-cms'
+            ],
+            marker: 'journal_cms'
         )
 
         stage 'Approval'
