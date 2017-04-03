@@ -20,6 +20,11 @@ class JCMSBlogArticleNode extends SqlBase {
   protected $terms = ['early careers', 'events', 'news from eLife', 'in the news'];
 
   /**
+   * @var array
+   */
+  protected $excludeTerms = ['labs'];
+
+  /**
    * @var bool
    */
   protected $nullTerms = TRUE;
@@ -50,6 +55,21 @@ class JCMSBlogArticleNode extends SqlBase {
     $query->groupBy('n.nid');
     $query->groupBy('text.field_elife_n_text_value');
     $query->groupBy('text.field_elife_n_text_summary');
+
+    if (!empty($this->excludeTerms)) {
+      $exclude = $this->select('node', 'n');
+      $exclude->leftJoin('field_data_field_elife_n_category', 'category', 'category.entity_id = n.nid');
+      $exclude->leftJoin('taxonomy_term_data', 'term', 'term.tid = category.field_elife_n_category_tid');
+      $exclude->leftJoin('taxonomy_vocabulary', 'vocab', "vocab.vid = term.vid AND vocab.machine_name = 'elife_n_category'");
+      $exclude->condition('term.name', $this->excludeTerms, 'IN');
+      $exclude->condition('n.title', 'Press package: %', 'NOT LIKE');
+      $exclude->condition('n.type', 'elife_news_article');
+      $exclude->condition('n.status', NODE_PUBLISHED);
+      $exclude->addField('n', 'nid');
+      $exclude->groupBy('n.nid');
+      $excludes = $exclude->execute()->fetchAllKeyed();
+      $query->condition('n.nid', array_keys($excludes), 'NOT IN');
+    }
 
     return $query;
   }
