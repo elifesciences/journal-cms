@@ -15,6 +15,16 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
 class JCMSBlogArticleNode extends SqlBase {
 
   /**
+   * @var array
+   */
+  protected $terms = ['early careers', 'events', 'news from eLife', 'in the news'];
+
+  /**
+   * @var bool
+   */
+  protected $nullTerms = TRUE;
+
+  /**
    * {@inheritdoc}
    */
   public function query() {
@@ -28,9 +38,11 @@ class JCMSBlogArticleNode extends SqlBase {
     $query->addField('text', 'field_elife_n_text_summary', 'summary');
 
     $db_or = new Condition('OR');
-    $db_or->condition('term.name', ['early careers', 'events', 'news from eLife', 'in the news'], 'IN');
-    // Some source articles having not been assigned a category, should we assume they need to be migrated here?
-    $db_or->isNull('term.name');
+    $db_or->condition('term.name', $this->terms, 'IN');
+    if ($this->nullTerms) {
+      // Some source articles having not been assigned a category, should we assume they need to be migrated here?
+      $db_or->isNull('term.name');
+    }
     $query->condition($db_or);
     $query->condition('n.title', 'Press package: %', 'NOT LIKE');
     $query->condition('n.type', 'elife_news_article');

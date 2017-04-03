@@ -1,20 +1,16 @@
-uuid: f70a4675-d23f-4a67-9847-e7ffffa4e9fe
-langcode: en
-status: true
-dependencies: {  }
-_core:
-  default_config_hash: _Q89eKS9HvVFo-vI6oefKSbd8_qM7DQukyhiHHjR4WQ
-id: jcms_blog_articles_db
-migration_tags: null
+id: jcms_labs_experiments_db
+label: Legacy Labs Experiments
 migration_group: jcms_migrate
-label: 'Legacy Blog articles'
 source:
-  plugin: jcms_blog_article_node
+  plugin: jcms_labs_experiment_node
   track_changes: true
+destination:
+  plugin: entity:node
 process:
+  # Hardcode the destination node type (bundle) as 'labs_experiment'.
   type:
     plugin: default_value
-    default_value: blog_article
+    default_value: labs_experiment
   title: title
   uuid: uuid
   uid:
@@ -22,10 +18,14 @@ process:
     migration: jcms_users_db
     source: uid
   created: created
-  field_impact_statement/value: summary
-  field_impact_statement/format:
+  field_experiment_number: number
+  'field_impact_statement/value': summary
+  'field_impact_statement/format':
     plugin: default_value
     default_value: basic_html
+  field_image:
+    plugin: jcms_image
+    source: number
   field_content:
     -
       plugin: jcms_split_content
@@ -33,8 +33,7 @@ process:
     -
       plugin: jcms_content
       multiple: true
-destination:
-  plugin: 'entity:node'
+
 migration_dependencies:
   required:
     - jcms_users_db

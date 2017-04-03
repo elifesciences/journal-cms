@@ -50,5 +50,6 @@ migration_dependencies:
     - jcms_collections_db
     - jcms_collections_json
     - jcms_interviews_db
+    - jcms_labs_experiments_db
     - jcms_labs_experiments_json
     - jcms_podcast_episodes_json

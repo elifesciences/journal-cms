@@ -1,9 +1,9 @@
-uuid: 0b1de535-9742-4803-92f0-46e7f9b81bfa
+uuid: d90c2e3d-310f-4c6f-827c-5626a861744c
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: o8xpohlQXznN4_yrpq85rBnW25Oi7Ygaa4L_CPACyIg
+  default_config_hash: U5eris-KPj1Te4O6T3RBQwZgkOuM5Wp9zcTD5NGT3mU
 id: jcms_highlight_lists_json
 migration_tags: null
 migration_group: jcms_migrate
@@ -55,5 +55,6 @@ migration_dependencies:
     - jcms_collections_db
     - jcms_collections_json
     - jcms_interviews_db
+    - jcms_labs_experiments_db
     - jcms_labs_experiments_json
     - jcms_podcast_episodes_json

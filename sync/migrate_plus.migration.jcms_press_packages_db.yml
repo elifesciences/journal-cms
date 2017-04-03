@@ -1,9 +1,9 @@
-uuid: 1f6ea35a-2014-4723-b4ed-a89c2d0c3e32
+uuid: abb861fe-b563-4ca2-98d0-ea3437c53c72
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: snqqUNLAb4hF0g1u_mY3mS4JlX9EGuzPU_OzF8BeEj0
+  default_config_hash: 6zu1fT8sCzouds3NzYYmztuX8PdoDFldx3sxJantxAg
 id: jcms_press_packages_db
 migration_tags: null
 migration_group: jcms_migrate
