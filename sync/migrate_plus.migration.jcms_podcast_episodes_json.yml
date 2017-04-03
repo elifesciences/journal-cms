@@ -1,9 +1,9 @@
-uuid: 5abb3656-ef25-4611-9918-1d83c9def5c4
+uuid: b7946758-fce0-4453-b063-c27fab635103
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: 5ZluW2eLmnk6G8-Wm_to6DMKGNjSv1JEMHCqnXfVrkQ
+  default_config_hash: 57mBxJ3NA4z1w5lBOR6Fey5ADM0sbxMWa0eEKYrJ2bc
 id: jcms_podcast_episodes_json
 migration_tags: null
 migration_group: jcms_migrate

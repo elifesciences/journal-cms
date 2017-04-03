@@ -1,20 +1,20 @@
-uuid: 686878d1-ce5d-45f4-a3ae-b3d22b05efd1
+uuid: 0a59b3c6-df5e-46ca-aeef-b0a989e86809
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: y1RE_xFabcbB_catwDl8cB4pccAwfuZTvAFKNdG7Zos
-id: jcms_collections_db
+  default_config_hash: 8HVpiL7snvtI0QtnrBTh25umt3dqtC5Mblls2dFz6nM
+id: jcms_labs_experiments_db
 migration_tags: null
 migration_group: jcms_migrate
-label: 'Legacy collections'
+label: 'Legacy Labs Experiments'
 source:
-  plugin: jcms_collection_node
+  plugin: jcms_labs_experiment_node
   track_changes: true
 process:
   type:
     plugin: default_value
-    default_value: collection
+    default_value: labs_experiment
   title: title
   uuid: uuid
   uid:
@@ -22,30 +22,20 @@ process:
     migration: jcms_users_db
     source: uid
   created: created
-  field_subtitle: sub_title
+  field_experiment_number: number
   field_impact_statement/value: summary
   field_impact_statement/format:
     plugin: default_value
     default_value: basic_html
-  field_curators:
-    -
-      plugin: explode
-      source: curators
-      delimiter: '|'
-    -
-      plugin: migration
-      migration: jcms_people_db
   field_image:
     plugin: jcms_image
-    source:
-      - photo_uri
-      - title
-  field_collection_content:
+    source: number
+  field_content:
     -
-      plugin: jcms_split_collection_content
+      plugin: jcms_split_content
       source: content
     -
-      plugin: jcms_collection_content
+      plugin: jcms_content
       multiple: true
 destination:
   plugin: 'entity:node'
@@ -53,5 +43,3 @@ migration_dependencies:
   required:
     - jcms_users_db
     - jcms_subjects_json
-    - jcms_people_db
-    - jcms_blog_articles_db

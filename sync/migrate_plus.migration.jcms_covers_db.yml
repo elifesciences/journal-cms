@@ -1,9 +1,9 @@
-uuid: 34f1df51-8ec8-4ee7-ad6f-b0dc36c90003
+uuid: c1a07498-4a5b-47bc-b213-4568165b62ce
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: hS-vmyY33coJBqFnYyJcyACkooRsi_Ib4dwhFaC3834
+  default_config_hash: nEmevTiBuNKqWv0msn5-S9p9hg9XrYIzOqNTtaiakjU
 id: jcms_covers_db
 migration_tags: null
 migration_group: jcms_migrate

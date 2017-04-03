@@ -128,5 +128,20 @@
         "source": "random"
       }
     ]
+  },
+  {
+    "title": "community",
+    "content": [
+      {
+        "title": "inherit",
+        "type": "event",
+        "source": "Changing the culture of peer review, at Carnegie Science"
+      },
+      {
+        "title": "inherit",
+        "type": "event",
+        "source": "Achieving independence: Advice for new faculty"
+      }
+    ]
   }
 ]

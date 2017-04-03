@@ -3,7 +3,6 @@
 namespace Drupal\jcms_rest\Tests\Functional;
 
 use ComposerLocator;
-use Drupal\Driver\Exception\Exception;
 use Drupal\Tests\UnitTestCase;
 use eLife\ApiValidator\MessageValidator;
 use eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator;
@@ -23,6 +22,9 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class RecursiveEndpointValidatorTest extends UnitTestCase {
 
+  /**
+   * @var Client
+   */
   private $client;
 
   /**

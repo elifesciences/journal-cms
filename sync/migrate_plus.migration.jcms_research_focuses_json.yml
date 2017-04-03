@@ -1,9 +1,9 @@
-uuid: 2c9c12af-40cd-4658-ac03-f4d756e1ec70
+uuid: 568457fb-e69a-4ccc-bc15-96d3d3c37662
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: t4WX6L2QGUs6g2L4x2ziu8wNDui8RH8TIWJpzoCB4u4
+  default_config_hash: EnUe6HV8AAyHoFdJ-08apAfQ9lER3CSfudbcV6QJhwQ
 id: jcms_research_focuses_json
 migration_tags: null
 migration_group: jcms_migrate

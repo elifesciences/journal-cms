@@ -125,7 +125,7 @@ class JCMSContent extends ProcessPluginBase {
           'labs',
           'subjects',
         ];
-        if (preg_match('/^http/', $image) && preg_match('/elifesciences\.org\/sites\/default\/files\/(?P<file>.*)/', $image, $match)) {
+        if (preg_match('~^(http|/?sites/default/files/)~', $image) && preg_match('~(elifesciences\.org/|^/?)sites/default/files/(?P<file>.*)~', $image, $match)) {
           $source = DRUPAL_ROOT . '/../scripts/legacy_cms_files/' . $match['file'];
         }
         elseif (preg_match('/^(' . implode('|', $s3_folders) . ')\//', $image) && $images = $this->s3ImageSearch($image)) {
@@ -157,6 +157,12 @@ class JCMSContent extends ProcessPluginBase {
           ];
           if (!empty($value['alt'])) {
             $values['field_block_image']['alt'] = $value['alt'];
+          }
+          if (!empty($value['caption'])) {
+            $values['field_block_html'] = [
+              'value' => $this->checkMarkup($value['caption'], 'basic_html'),
+              'format' => 'basic_html',
+            ];
           }
         }
         else {
