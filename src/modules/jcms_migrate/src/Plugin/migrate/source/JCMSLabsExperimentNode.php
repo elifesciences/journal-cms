@@ -17,6 +17,11 @@ class JCMSLabsExperimentNode extends JCMSBlogArticleNode {
   protected $terms = ['labs'];
 
   /**
+   * @var array
+   */
+  protected $excludeTerms = [];
+
+  /**
    * @var bool
    */
   protected $nullTerms = FALSE;

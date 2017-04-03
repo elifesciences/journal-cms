@@ -47,6 +47,7 @@ class JCMSHighlightListContent extends AbstractJCMSContainerFactoryPlugin {
       $types = [
         'blog_article',
         'collection',
+        'event',
         'interview',
         'labs_experiement',
         'podcast_episode',
@@ -123,8 +124,14 @@ class JCMSHighlightListContent extends AbstractJCMSContainerFactoryPlugin {
           return $this->migrationDestionationIDs('jcms_collections_json', $source, $migrate_executable, $row, $destination_property);
         }
         break;
+      case 'event':
+        return $this->migrationDestionationIDs('jcms_events_json', $source, $migrate_executable, $row, $destination_property);
+        break;
       case 'interview':
         return $this->migrationDestionationIDs('jcms_interviews_db', $source, $migrate_executable, $row, $destination_property);
+        break;
+      case 'labs_experiment':
+        return $this->migrationDestionationIDs('jcms_labs_experiments_db', $source, $migrate_executable, $row, $destination_property);
         break;
       case 'podcast_episode':
         return $this->migrationDestionationIDs('jcms_podcast_episodes_json', $source, $migrate_executable, $row, $destination_property);

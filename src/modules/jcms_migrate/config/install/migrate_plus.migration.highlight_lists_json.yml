@@ -49,6 +49,7 @@ migration_dependencies:
     - jcms_blog_articles_db
     - jcms_collections_db
     - jcms_collections_json
+    - jcms_events_json
     - jcms_interviews_db
     - jcms_labs_experiments_db
     - jcms_labs_experiments_json
