@@ -86,7 +86,9 @@ class HighlightListRestResource extends AbstractRestResourceBase {
           if ($items = \Drupal\node\Entity\Node::loadMultiple(array_keys($results))) {
             $response = [];
             foreach ($items as $item) {
-              $response[] = $this->getHighlightItem($item);
+              if ($highlight = $this->getHighlightItem($item)) {
+                $response[] = $this->getHighlightItem($item);
+              }
             }
           }
         }
@@ -106,23 +108,29 @@ class HighlightListRestResource extends AbstractRestResourceBase {
    *
    * @param \Drupal\Core\Entity\EntityInterface $node
    *
-   * @return array
+   * @return array|bool
    */
   public function getHighlightItem(EntityInterface $node) {
     /* @var Node $node */
     $item = $this->getEntityQueueItem($node, $node->get('field_highlight_item'), FALSE);
 
-    // authorLine is optional.
-    if ($node->get('field_author_line')->count()) {
-      $item['authorLine'] = $node->get('field_author_line')->getString();
-    }
+    if ($item instanceof Node) {
 
-    // Image is optional.
-    if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail', TRUE)) {
-      $item['image'] = $image;
-    }
+      // authorLine is optional.
+      if ($node->get('field_author_line')->count()) {
+        $item['authorLine'] = $node->get('field_author_line')->getString();
+      }
 
-    return $item;
+      // Image is optional.
+      if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail', TRUE)) {
+        $item['image'] = $image;
+      }
+
+      return $item;
+    }
+    else {
+      return FALSE;
+    }
   }
 
 }

@@ -97,7 +97,9 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
             $response['content'][] = ['type' => 'interview'] + $interview_rest_resource->getItem($content_node);
             break;
           case 'article':
-            $response['content'][] = $this->getArticleSnippet($content_node);
+            if ($snippet = $this->getArticleSnippet($content_node)) {
+              $response['content'][] = $snippet;
+            }
             break;
           default:
         }
