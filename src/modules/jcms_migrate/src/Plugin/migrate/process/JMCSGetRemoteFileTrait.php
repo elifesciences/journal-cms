@@ -11,7 +11,7 @@ trait JMCSGetRemoteFileTrait {
     $guzzle = new Client();
     try {
       $options += [
-        'timeout' => 10,
+        'timeout' => 13,
         'http_errors' => FALSE,
       ];
       $response = $guzzle->get($filename, $options);
