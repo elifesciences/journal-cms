@@ -55,7 +55,7 @@ class JCMSImage extends ProcessPluginBase {
 
     // Allow labs experiment images to be drawn from the public S3 bucket.
     if ($row_source['plugin'] == 'jcms_labs_experiment_node' && !empty($row_source['uuid'])) {
-      $images = $this->s3ImageSearch('labs_experiment/' . substr($row_source['uuid'], -8) . '-');
+      $images = $this->s3ImageSearch('labs_experiments/' . substr($row_source['uuid'], -8) . '-');
       if (!empty($images)) {
         $source = reset($images);
       }

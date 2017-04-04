@@ -123,6 +123,7 @@ class JCMSContent extends ProcessPluginBase {
           'episodes',
           'events',
           'labs',
+          'labs_experiments',
           'subjects',
         ];
         if (preg_match('~^(http|/?sites/default/files/)~', $image) && preg_match('~(elifesciences\.org/|^/?)sites/default/files/(?P<file>.*)~', $image, $match)) {
