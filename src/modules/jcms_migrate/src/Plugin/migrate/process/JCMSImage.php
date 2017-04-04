@@ -80,7 +80,7 @@ class JCMSImage extends ProcessPluginBase {
       }
 
       if (preg_match('/^http/', $source) && $data = $this->getFile($source)) {
-        $new_filename = self::transliteration(basename($image));
+        $new_filename = self::transliteration(basename($source));
         file_prepare_directory($destination_path, FILE_CREATE_DIRECTORY);
         $file = file_save_data($data, $destination_path . $new_filename, FILE_EXISTS_REPLACE);
       }
