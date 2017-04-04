@@ -21,7 +21,7 @@ class JCMSPressPackageContent extends ProcessPluginBase {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    $section = (isset($this->configuration['section']) && in_array($this->configuration['section'], ['summary', 'relatedContent', 'mediaContacts', 'about'])) ? $this->configuration['section'] : 'content';
+    $section = (isset($this->configuration['section']) && in_array($this->configuration['section'], ['relatedContent', 'mediaContacts', 'about'])) ? $this->configuration['section'] : 'content';
     $breakup = $this->breakupContent($value);
 
     return $breakup[$section];
@@ -32,20 +32,11 @@ class JCMSPressPackageContent extends ProcessPluginBase {
     $content = preg_replace("~( ){2,}~", ' ', $content);
 
     $breakup = [
-      'summary' => NULL,
       'content' => preg_replace("~^(.*)<[^>]+>\\s*Reference.*~s", '$1', $content),
       'relatedContent' => NULL,
       'mediaContacts' => NULL,
       'about' => NULL,
     ];
-
-    if (strpos($breakup['content'], '<strong>') !== FALSE && strpos($breakup['content'], '<strong>') < 50) {
-      $summary_regex = "~^(.*<[^>]+>)(\s*<strong>\s*)(?P<summary>.*)(\s*</strong>\s*)(<\/[^>]+>\s*.*)~s";
-      if (preg_match($summary_regex, $breakup['content'], $match)) {
-        $breakup['summary'] = $match['summary'];
-        $breakup['content'] = preg_replace($summary_regex, '$1$5', $breakup['content']);
-      }
-    }
 
     if (preg_match_all("~10\\.7554/elife\\.(?P<article_id>[0-9]{5})~i", $content, $matches)) {
       $breakup['relatedContent'] = [];

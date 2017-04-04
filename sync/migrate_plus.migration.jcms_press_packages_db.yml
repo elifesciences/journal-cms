@@ -22,13 +22,6 @@ process:
     migration: jcms_users_db
     source: uid
   created: created
-  field_impact_statement/value:
-    plugin: jcms_press_package_content
-    source: content
-    section: summary
-  field_impact_statement/format:
-    plugin: default_value
-    default_value: basic_html
   field_content:
     -
       plugin: jcms_press_package_content
