@@ -10,7 +10,7 @@ field_name: field_block_title_multiline
 entity_type: paragraph
 bundle: venue
 label: 'Place name'
-description: ''
+description: 'One per line'
 required: true
 translatable: false
 default_value: {  }

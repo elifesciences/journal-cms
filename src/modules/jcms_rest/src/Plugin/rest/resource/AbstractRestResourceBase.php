@@ -261,8 +261,13 @@ abstract class AbstractRestResourceBase extends ResourceBase {
               $image = $content_item->get('field_block_image')->first();
               $result_item['alt'] = (string) $image->getValue()['alt'];
               $result_item['uri'] = file_create_url($image->get('entity')->getTarget()->get('uri')->getString());
+              $result_item['image'] = $this->processFieldImage($content_item->get('field_block_image'), TRUE, 'banner', TRUE);
+              $result_item['image'] = array_diff_key($result_item['image'], array_flip(['sizes']));
               if ($content_item->get('field_block_html')->count()) {
                 $result_item['title'] = $this->fieldValueFormatted($content_item->get('field_block_html'));
+              }
+              if ($content_item->get('field_block_attribution')->count()) {
+                $result_item['attribution'] = array_values(array_filter(preg_split("(\r\n?|\n)", $content_item->get('field_block_attribution')->getString())));
               }
             }
             else {

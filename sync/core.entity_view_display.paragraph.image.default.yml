@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.image.field_block_attribution
     - field.field.paragraph.image.field_block_html
     - field.field.paragraph.image.field_block_image
     - paragraphs.paragraphs_type.image
@@ -14,6 +15,12 @@ targetEntityType: paragraph
 bundle: image
 mode: default
 content:
+  field_block_attribution:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
   field_block_html:
     weight: 3
     label: above
