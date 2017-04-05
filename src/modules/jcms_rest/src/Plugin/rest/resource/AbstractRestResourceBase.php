@@ -7,16 +7,18 @@ use DateTimeZone;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Site\Settings;
 use Drupal\crop\Entity\Crop;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\jcms_rest\Exception\JCMSBadRequestHttpException;
+use Drupal\jcms_rest\JMCSImageUriTrait;
 use Drupal\jcms_rest\PathMediaTypeMapper;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\rest\Plugin\ResourceBase;
 
 abstract class AbstractRestResourceBase extends ResourceBase {
+
+  use JMCSImageUriTrait;
 
   protected $defaultOptions = [
     'per-page' => 10,
@@ -192,43 +194,6 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     }
 
     return [];
-  }
-
-  /**
-   * Get the IIIF or web path to the image.
-   *
-   * @param string $image_uri
-   * @param string $type
-   * @param null|string $filemime
-   * @return string
-   */
-  protected function processImageUri($image_uri, $type = 'source', $filemime = NULL) {
-    $iiif = Settings::get('jcms_iiif_base_uri');
-    if ($iiif) {
-      $iiif_mount = Settings::get('jcms_iiif_mount', '/');
-      $iiif_mount = trim($iiif_mount, '/');
-      $iiif_mount .= (!empty($iiif_mount)) ? '/' : '';
-      $image_uri = str_replace('public://' . $iiif_mount, '', $image_uri);
-      if ($type == 'source') {
-        switch ($filemime ?? \Drupal::service('file.mime_type.guesser')->guess($image_uri)) {
-          case 'image/gif':
-            $ext = 'gif';
-            break;
-          case 'image/png':
-            $ext = 'png';
-            break;
-          default:
-            $ext = 'jpg';
-        }
-        return $iiif . $image_uri . '/full/full/0/default.' . $ext;
-      }
-      else {
-        return $iiif . $image_uri;
-      }
-    }
-    else {
-      return file_create_url($image_uri);
-    }
   }
 
   /**
@@ -505,6 +470,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     $view = $data->view();
     unset($view['#theme']);
     $output = \Drupal::service('renderer')->renderPlain($view);
+    $output = preg_replace('/(<img [^>]*src=\")(\/[^\"]+)/', '$1' . \Drupal::request()->getSchemeAndHttpHost() . '$2', $output);
     return str_replace(chr(194) . chr(160), ' ', $output);
   }
 
