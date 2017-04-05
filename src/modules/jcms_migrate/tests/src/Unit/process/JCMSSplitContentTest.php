@@ -15,6 +15,32 @@ class JCMSSplitContentTest extends MigrateProcessTestCase {
 
   /**
    * @test
+   * @covers ::imgStyleDimensions
+   * @dataProvider imgStyleDimensionsDataProvider
+   * @param $string
+   * @param $expected_result
+   */
+  public function testImgStyleDimensions($string, $expected_result) {
+    $plugin = new JCMSSplitContent([], 'jcms_split_content', []);
+    $img_style_dimensions = $plugin->imgStyleDimensions($string);
+    $this->assertEquals($expected_result, $img_style_dimensions);
+  }
+
+  public function imgStyleDimensionsDataProvider() {
+    return [
+      [
+        "<img alt=\"Buz Barstow\" src=\"https://cdn.elifesciences.org/images/news/Buz_Barstow.jpg\" style=\"height:125px; width:100px\" />",
+        "<img alt=\"Buz Barstow\" src=\"https://cdn.elifesciences.org/images/news/Buz_Barstow.jpg\" width=\"100\" height=\"125\" style=\"height:125px; width:100px\" />",
+      ],
+      [
+        "<img alt=\"Buz Barstow\" width=\"110\" src=\"https://cdn.elifesciences.org/images/news/Buz_Barstow.jpg\" style=\"height:125px; width:100px\" />",
+        "<img alt=\"Buz Barstow\" width=\"110\" src=\"https://cdn.elifesciences.org/images/news/Buz_Barstow.jpg\" height=\"125\" style=\"height:125px; width:100px\" />",
+      ],
+    ];
+  }
+
+  /**
+   * @test
    * @covers ::captionConvert
    * @dataProvider captionConvertDataProvider
    * @param $string

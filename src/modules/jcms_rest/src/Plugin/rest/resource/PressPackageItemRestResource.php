@@ -69,8 +69,29 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
         $response['subjects'] = $subjects;
       }
 
+      // @todo - elife - nlisgo - expose this in a form in admin UI.
+      $response['mediaContacts'] = [
+        [
+          'name' => [
+            'preferred' => 'Emily Packer',
+            'index' => 'Packer, Emily',
+          ],
+          'emailAddresses' => [
+            'e.packer@elifesciences.org',
+          ],
+          'phoneNumbers' => [
+            '+441223855373',
+          ],
+          'affiliations' => [
+            [
+              'name' => [
+                'eLife',
+              ],
+            ],
+          ],
+        ],
+      ];
       if ($node->get('field_media_contact')->count()) {
-        $response['mediaContacts'] = [];
         foreach ($node->get('field_media_contact') as $media_contact) {
           $media_contact_item = $media_contact->get('entity')->getTarget()->getValue();
           $media_contact_values['name'] = $this->processPeopleNames($media_contact_item->get('field_block_preferred_name')->getString(), $media_contact_item->get('field_block_index_name'));

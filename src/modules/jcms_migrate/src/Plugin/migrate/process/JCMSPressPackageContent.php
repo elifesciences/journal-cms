@@ -94,21 +94,34 @@ class JCMSPressPackageContent extends ProcessPluginBase {
     };
 
     foreach ($contacts_combined as $contacts_item) {
-      if (preg_match("~^(?P<name>[^,]+),\\s+(?P<aff>.*)$~", $contacts_item, $match)) {
+      if (preg_match("~^\\s*about~i", $contacts_item)) {
+        break;
+      }
+      if (preg_match("~^(?P<name>[a-z0-9, -']*[a-z]+[a-z0-9, -']*)$~i", $contacts_item, $match)) {
+        $name = $match['name'];
+        if (preg_match("~^(?P<name>[^,]+),\\s+(?P<aff>.*)$~", $name, $match)) {
+          $name = $match['name'];
+          $aff = $match['aff'];
+        }
         if (!empty($contact) && $clean_contact = $clean_up($contact)) {
           $contacts[] = $clean_contact;
         }
         $contact = $default_contact;
         $contact['name'] = [
-          'preferred' => $match['name'],
-          'index' => preg_replace("~^(.*)\\s+([^\\s]+)$~", '$2, $1', trim($match['name'])),
+          'preferred' => $name,
+          'index' => preg_replace("~^(.*)\\s+([^\\s]+)$~", '$2, $1', trim($name)),
         ];
-        $contact['affiliations'] = [['name' => [trim($match['aff'])]]];
-        if (preg_match("~eLife~i", $match['aff'])) {
-          $contact['elife'] = TRUE;
+        if (!empty($aff)) {
+          $contact['affiliations'] = [['name' => [trim($aff)]]];
+          if (preg_match("~eLife~i", $aff)) {
+            $contact['elife'] = TRUE;
+          }
         }
       }
       elseif (preg_match("~@~", $contacts_item)) {
+        if (preg_match('/@elifesciences\.org/', $contacts_item)) {
+          $contact['elife'] = TRUE;
+        }
         $contact['emailAddresses'][] = trim($contacts_item);
       }
       else {
@@ -121,8 +134,14 @@ class JCMSPressPackageContent extends ProcessPluginBase {
           $phone_number = preg_replace("~#~", ';ext=', $phone_number);
           if (!empty($phone_number)) {
             $phone_util = PhoneNumberUtil::getInstance();
-            $phone_proto = $phone_util->parse($phone_number, 'GB');
-            $contact['phoneNumbers'][] = $phone_util->format($phone_proto, PhoneNumberFormat::E164);
+            foreach (['US', 'GB'] + $phone_util->getSupportedRegions() as $region) {
+              if ($phone_util->isPossibleNumber($phone_number, $region)) {
+                $phone_proto = $phone_util->parse($phone_number, $region);
+                $phone_util->getRegionCodeForNumber($phone_proto);
+                $contact['phoneNumbers'][] = $phone_util->format($phone_proto, PhoneNumberFormat::E164);
+                break;
+              }
+            }
           }
         }
       }

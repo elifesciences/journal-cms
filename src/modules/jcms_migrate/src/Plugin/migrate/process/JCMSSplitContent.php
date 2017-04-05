@@ -118,9 +118,16 @@ class JCMSSplitContent extends ProcessPluginBase {
     return NULL;
   }
 
+  /**
+   * Perform variations operations to tidy html.
+   *
+   * @param $string
+   * @return mixed|string
+   */
   public function tidyHtml($string) {
     $string = htmlspecialchars_decode(htmlentities($string, ENT_NOQUOTES, 'UTF-8', FALSE), ENT_NOQUOTES);
     $string = preg_replace(['/&(nbsp|#xA0);/', '~<(/?)strong>~'], [' ', '<$1b>'], $string);
+    $string = $this->imgStyleDimensions($string);
     $string = $this->codeConvert($string);
     $string = $this->stripImgAnchor($string);
     $string = $this->captionConvert($string);
@@ -130,6 +137,47 @@ class JCMSSplitContent extends ProcessPluginBase {
     return $string;
   }
 
+  /**
+   * Convert img width and height style values to img properties.
+   *
+   * @param $string
+   * @return mixed
+   */
+  public function imgStyleDimensions($string) {
+    if (preg_match_all('/(?P<img_with_style>(<img [^>]*)(style=\")(?P<style>[^\"]+))(\"[^>]*)/', $string, $matches, PREG_SET_ORDER)) {
+      $patterns = [];
+      $replaces = [];
+      foreach ($matches as $match) {
+        $styles = [];
+        preg_match_all('/^\s*(?P<name>[^:]+)(:\s*(?P<value>.+))?;\s*$/m', preg_replace(['/;\s*/', '/([^\s;])\s*$/'], [";\n", '$1;'], $match['style']), $style_matches, PREG_SET_ORDER);
+        foreach ($style_matches as $style_match) {
+          $styles[$style_match['name']] = isset($style_match['value']) ? $style_match['value'] : NULL;
+        }
+
+        $new_img = $match['img_with_style'];
+        foreach (['width', 'height'] as $dimension) {
+          if (isset($styles[$dimension]) && !preg_match("/ " . $dimension . "=\"/", $match['img_with_style'])) {
+            $new_img = preg_replace('/( style=\")/', sprintf(' %s="%d"$1', $dimension, (int) preg_replace('/[^0-9]/', '', $styles[$dimension])), $new_img);
+          }
+        }
+
+        if ($match['img_with_style'] != $new_img) {
+          $patterns[] = '/' . preg_quote($match['img_with_style'], '/') . '/';
+          $replaces[] = $new_img;
+        }
+      }
+      $string = preg_replace($patterns, $replaces, $string);
+    }
+
+    return $string;
+  }
+
+  /**
+   * Convert newline to paragraphs
+   *
+   * @param $string
+   * @return string
+   */
   public function nl2p($string) {
     // Remove all p and div tags and introduce line breaks.
     $string = preg_replace(['/<p[^>]*>/', '/<\/p>/', '/<div[^>]*>/', '/<\/div>/'], "\n\n", $string);
@@ -153,6 +201,12 @@ class JCMSSplitContent extends ProcessPluginBase {
     return implode("", $split);
   }
 
+  /**
+   * Strip anchor tags that wrap images.
+   *
+   * @param $string
+   * @return mixed
+   */
   public function stripImgAnchor($string) {
     preg_match_all("/(<a .*href=\")(?P<href>[^\"]*)([^>]*>)\\s*(?P<img_start><img .*src=\")(?P<src>[^\"]*)(?P<img_end>[^>]*>)\\s*(<\\/a>)/", $string, $matches, PREG_SET_ORDER);
     if (!empty($matches)) {
@@ -169,6 +223,12 @@ class JCMSSplitContent extends ProcessPluginBase {
     return $string;
   }
 
+  /**
+   * Prepare markup to introduce captions.
+   *
+   * @param $string
+   * @return mixed
+   */
   public function captionConvert($string) {
     preg_match_all("/\\[caption[^\\]]*\\](?P<img_start><img .*src=\"[^\"]+\"[^>\\/]*)(?P<img_end>\\s*[\\/]?>)(?P<caption>.*)\\[\\/caption\\]/", $string, $matches, PREG_SET_ORDER);
     if (!empty($matches)) {
@@ -183,6 +243,12 @@ class JCMSSplitContent extends ProcessPluginBase {
     return $string;
   }
 
+  /**
+   * Convert code to base64 string to preserve it.
+   *
+   * @param $string
+   * @return mixed
+   */
   public function codeConvert($string) {
     preg_match_all("~<code[^>]*>(?P<code>.*?)</code>~s", $string, $matches, PREG_SET_ORDER);
     if (!empty($matches)) {
@@ -197,6 +263,12 @@ class JCMSSplitContent extends ProcessPluginBase {
     return $string;
   }
 
+  /**
+   * Detect youtube videos.
+   *
+   * @param $string
+   * @return mixed
+   */
   public function youtubeConvert($string) {
     $matches = [];
     preg_match_all("~<iframe [^>]*src=\"(?P<url>[^\"]+)\"[^>]*>.*</iframe>~", $string, $matches, PREG_SET_ORDER);
@@ -226,6 +298,12 @@ class JCMSSplitContent extends ProcessPluginBase {
     return $string;
   }
 
+  /**
+   * Detect youtube ID.
+   *
+   * @param string $url
+   * @return string|NULL
+   */
   public function youtubeID($url) {
     if (preg_match('/(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|vi|e(?:mbed)?)\/|\S*?[?&]v=|\S*?[?&]vi=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $url, $match)) {
       return $match[1];
