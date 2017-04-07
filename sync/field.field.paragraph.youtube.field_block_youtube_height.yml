@@ -13,7 +13,9 @@ label: Height
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: 9
 default_value_callback: ''
 settings:
   min: null

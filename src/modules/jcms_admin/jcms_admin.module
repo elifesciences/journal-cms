@@ -12,6 +12,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\entityqueue\Entity\EntitySubqueue;
 use Drupal\node\Entity\Node;
+use Drush\Log\LogLevel;
+use Embed\Embed;
 
 /**
  * Implements hook_entity_bundle_field_info_alter().
@@ -373,6 +375,51 @@ function _jcms_admin_form_node_event_form_validate($form, FormStateInterface $fo
   }
   if (!$field_content && (empty($form_state->getValue('field_event_uri')) || empty($form_state->getValue('field_event_uri')[0]['uri']))) {
     $form_state->setErrorByName('field_content', t('Content and Event URI are both empty. One must be supplied.'));
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function jcms_admin_paragraph_presave(EntityInterface $entity) {
+  if ($entity->bundle() == 'youtube') {
+    // Store only the YouTube ID.
+    $youtube_id = preg_replace('/^(|.*[^a-zA-Z0-9_-])([a-zA-Z0-9_-]{11})(|[^a-zA-Z0-9_-].*)$/', '$2', $entity->get('field_block_youtube_id')->getString());
+    $entity->set('field_block_youtube_id', $youtube_id);
+    $dimensions = [];
+    try {
+      if ($info = Embed::create('https://www.youtube.com/watch?v=' . $youtube_id)) {
+        if (isset($info->getProviders()['opengraph'])) {
+          /* @var \Embed\Providers\OpenGraph $opengraph */
+          $opengraph = $info->getProviders()['opengraph'];
+          // Store width and height of video.
+          if ($opengraph->getWidth() && $opengraph->getHeight()) {
+            $dimensions = [
+              'width' => $opengraph->getWidth(),
+              'height' => $opengraph->getHeight(),
+            ];
+          }
+        }
+      }
+    }
+    catch (\Exception $e) {
+      drupal_set_message(t('YouTube could not be reached.'), LogLevel::WARNING);
+      $e_message = "Message: {$e->getMessage()}\n";
+      $e_line = "Line: {$e->getLine()}\n";
+      $e_trace = "Trace: {$e->getTraceAsString()}\n";
+      $error = $e_message . $e_line . $e_trace;
+      error_log($error);
+    }
+
+    if (empty($dimensions)) {
+      drupal_set_message(t('Details unavailable for YouTube ID @id. Using defaults.', ['@id' => $youtube_id]), LogLevel::WARNING);
+      $dimensions = [
+        'width' => 16,
+        'height' => 9,
+      ];
+    }
+    $entity->set('field_block_youtube_width', $dimensions['width']);
+    $entity->set('field_block_youtube_height', $dimensions['height']);
   }
 }
 
