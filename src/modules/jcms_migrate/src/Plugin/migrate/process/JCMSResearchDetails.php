@@ -127,6 +127,9 @@ class JCMSResearchDetails extends AbstractJCMSContainerFactoryPlugin {
         case 'Biochemistry':
           $subjects[$k] = 'biochemistry';
           break;
+        case 'cryoEM':
+          $subjects[$k] = 'cryo-EM';
+          break;
         default:
           unset($subjects[$k]);
       }
