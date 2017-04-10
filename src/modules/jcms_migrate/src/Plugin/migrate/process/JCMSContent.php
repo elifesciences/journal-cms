@@ -149,7 +149,6 @@ class JCMSContent extends ProcessPluginBase {
         ];
         break;
       case 'image':
-        // @todo - elife - nlisgo - switch to IIIF for images in content block.
         if (!empty($value['text'])) {
           $values['field_block_html'] = [
             'value' => $this->checkMarkup($value['text'], 'basic_html'),
