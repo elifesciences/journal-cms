@@ -182,23 +182,14 @@
     "chapters": [
       {
         "number": 1,
-        "title": "New footprints from Laetoli (Tanzania) provide evidence for marked body size variation in early hominins",
+        "title": "The full story",
         "time": 0,
-        "impact_statement": "",
+        "impact_statement": "Chris Smith from The Naked Scientists interviews Marco Cherin",
         "content": [
           {
             "type": "article",
             "source": "19568"
-          }
-        ],
-        "sidebar": "Footprints of the past: Hear the full story"
-      },
-      {
-        "number": 2,
-        "title": "These feet were made for walking",
-        "time": 0,
-        "impact_statement": "",
-        "content": [
+          },
           {
             "type": "article",
             "source": "22886"
@@ -1113,41 +1104,24 @@
     "chapters": [
       {
         "number": 1,
-        "title": "<em>Homo naledi</em>, a new species of the genus <em>Homo</em> from the Dinaledi Chamber, South Africa",
+        "title": "A new human species",
         "time": 0,
-        "impact_statement": "",
+        "impact_statement": "Chris Smith from the Naked Scientists interviews Lee Berger, John Hawks and Charles Misuba.",
         "content": [
           {
             "type": "article",
             "source": "09560"
-          }
-        ],
-        "sidebar": "Lee Berger, Charles Musiba and John Hawks talk about Homo naledi in the eLife Podcast"
-      },
-      {
-        "number": 2,
-        "title": "Geological and taphonomic context for the new hominin species <em>Homo naledi</em> from the Dinaledi Chamber, South Africa",
-        "time": 0,
-        "impact_statement": "",
-        "content": [
+          },
           {
             "type": "article",
             "source": "09561"
-          }
-        ],
-        "sidebar": "Lee Berger, Charles Musiba and John Hawks talk about Homo naledi in the eLife Podcast"
-      },
-      {
-        "number": 3,
-        "title": "Human evolution: The many mysteries of <em>Homo naledi</em>",
-        "time": 0,
-        "impact_statement": "",
-        "content": [
+          },
           {
             "type": "article",
             "source": "10627"
           }
-        ]
+        ],
+        "sidebar": "Lee Berger, Charles Musiba and John Hawks talk about <i>Homo naledi</i> in the eLife Podcast"
       }
     ]
   },
