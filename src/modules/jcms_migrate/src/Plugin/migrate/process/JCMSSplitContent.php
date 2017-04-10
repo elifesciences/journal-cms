@@ -76,11 +76,16 @@ class JCMSSplitContent extends ProcessPluginBase {
                 'type' => 'image',
                 'image' => $child->getAttribute('src'),
               ];
-              if ($alt = $child->getAttribute('alt')) {
-                $content_item['alt'] = $alt;
+              if (preg_match('/googleusercontent/', $content_item['image'])) {
+                unset($content_item);
               }
-              if ($caption = $child->getAttribute('caption')) {
-                $content_item['caption'] = $caption;
+              else {
+                if ($alt = $child->getAttribute('alt')) {
+                  $content_item['alt'] = $alt;
+                }
+                if ($caption = $child->getAttribute('caption')) {
+                  $content_item['caption'] = $caption;
+                }
               }
               break;
             case 'div':
