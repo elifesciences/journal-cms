@@ -1,5 +1,177 @@
 [
   {
+    "number": 37,
+    "title": "March 2017",
+    "date": "2017-04-03 04:10:37",
+    "image": "episodes/episode-37-elife-podcast-tmp.png",
+    "impact_statement": "In this episode we hear about helping people with paralysis to communicate, how exposing mice to nicotine can affect their sons, scaffold-building parasites, the origins of handedness and plain-language summaries of research.",
+    "mp3": "https://nakeddiscovery.com/download/audio/eLife_Podcast_03.17.mp3",
+    "subjects": [],
+    "chapters": [
+      {
+        "number": 1,
+        "title": "Brain power",
+        "time": 33,
+        "impact_statement": "Sensors on the surface of the brain help paralysed people to communicate",
+        "content": [
+          {
+            "type": "article",
+            "source": "18554"
+          }
+        ],
+        "sidebar": "Brain power: Listen to Jaimie Henderson talk about devices that help with paralysis to communicate"
+      },
+      {
+        "number": 2,
+        "title": "Like father, like son",
+        "time": 381,
+        "impact_statement": "Exposing male mice to nicotine can make their sons more resistant to nicotine and other drugs",
+        "content": [
+          {
+            "type": "article",
+            "source": "24771"
+          },
+          {
+            "type": "article",
+            "source": "25669"
+          }
+        ],
+        "sidebar": "Like father, like son: Listen to Oliver Rando discuss how exposing male mice to nicotine can affect their sons"
+      },
+      {
+        "number": 3,
+        "title": "Combatting toxoplasmosis",
+        "time": 746,
+        "impact_statement": "A parasite called <i>Toxoplasma gondii</i> builds a scaffold inside human and other animal cells to help it multiply and cause disease",
+        "content": [
+          {
+            "type": "article",
+            "source": "24119"
+          }
+        ],
+        "sidebar": "Combatting toxoplasmosis: Listen to Marcus Meissner talk about how the parasite multiplies in host cells"
+      },
+      {
+        "number": 4,
+        "title": "Left or right?",
+        "time": 1072,
+        "impact_statement": "Handedness has its origins in the spinal cord",
+        "content": [
+          {
+            "type": "article",
+            "source": "22784"
+          }
+        ],
+        "sidebar": "Left or right? Listen to Sebastian Ocklenburg talk about the origins of handedness in animals."
+      },
+      {
+        "number": 5,
+        "title": "Spread the word",
+        "time": 1394,
+        "impact_statement": "Plain-language summaries are making research more accessible to broader audiences",
+        "content": [
+          {
+            "type": "article",
+            "source": "25408"
+          },
+          {
+            "type": "article",
+            "source": "25410"
+          },
+          {
+            "type": "article",
+            "source": "25411"
+          },
+          {
+            "type": "article",
+            "source": "25412"
+          },
+          {
+            "type": "collection",
+            "source": 493062
+          }
+        ],
+        "sidebar": "Spread the word: Listen to Stuart and Sarah discuss plain-language summaries of research"
+      }
+    ]
+  },
+  {
+    "number": 36,
+    "title": "Febraury 2017",
+    "date": "2017-02-21 14:08:51",
+    "image": "episodes/episode-36-elife-podcast.png",
+    "impact_statement": "In this episode we hear about epilepsy, the sushi-belt model of transport in neurons, a mother in ancient Troy, the Amazon rainforest and bias in scientific reporting.",
+    "mp3": "https://nakeddiscovery.com/download/audio/eLife_Podcast_02.17.mp3",
+    "subjects": [],
+    "chapters": [
+      {
+        "number": 1,
+        "title": "Oxygen and epilepsy",
+        "time": 33,
+        "impact_statement": "Decreased blood flow in the brain is responsible for post-seizure symptoms in rats with epilepsy",
+        "content": [
+          {
+            "type": "article",
+            "source": "19352"
+          }
+        ],
+        "sidebar": "Oxygen and epilepsy: Listen to Cam Teskey talk about post-seizure symptoms"
+      },
+      {
+        "number": 2,
+        "title": "Testing the sushi-belt model",
+        "time": 375,
+        "impact_statement": "Simulations illuminate a tradeoff between speed and precision in the movement of proteins and other molecules around neurons",
+        "content": [
+          {
+            "type": "article",
+            "source": "20556"
+          }
+        ],
+        "sidebar": "Testing the sushi-belt model: Listen to Timothy O’Leary discuss transport in neurons"
+      },
+      {
+        "number": 3,
+        "title": "Lessons from Troy",
+        "time": 740,
+        "impact_statement": "Archaeological evidence suggests that a young woman from ancient Troy died from a pregnancy-related infection",
+        "content": [
+          {
+            "type": "article",
+            "source": "20983"
+          }
+        ],
+        "sidebar": "Lessons from Troy: Listen to Caitlin Pepperell discuss how the young woman died"
+      },
+      {
+        "number": 4,
+        "title": "Disturbing the carbon balance",
+        "time": 1051,
+        "impact_statement": "Climate affects the ability of the Amazon rainforest to store carbon after selective logging",
+        "content": [
+          {
+            "type": "article",
+            "source": "21394"
+          }
+        ],
+        "sidebar": "Disturbing the carbon balance: Listen to Camille Piponiot talk about how the rainforest recovers after logging"
+      },
+      {
+        "number": 5,
+        "title": "Distorting the facts",
+        "time": 1360,
+        "impact_statement": "A bias towards publishing positive results is making it harder to distinguish between true and false claims in science",
+        "content": [
+          {
+            "type": "article",
+            "source": "21451"
+          }
+        ],
+        "sidebar": "Distorting the facts: Listen to Kevin Gross talk about bias in scientific reporting"
+      }
+    ]
+  },
+  {
     "number": 35,
     "title": "Footprints of the past",
     "date": "2017-01-27 09:38:55",
@@ -10,23 +182,14 @@
     "chapters": [
       {
         "number": 1,
-        "title": "New footprints from Laetoli (Tanzania) provide evidence for marked body size variation in early hominins",
+        "title": "The full story",
         "time": 0,
-        "impact_statement": "",
+        "impact_statement": "Chris Smith from The Naked Scientists interviews Marco Cherin",
         "content": [
           {
             "type": "article",
             "source": "19568"
-          }
-        ],
-        "sidebar": "Footprints of the past: Hear the full story"
-      },
-      {
-        "number": 2,
-        "title": "These feet were made for walking",
-        "time": 0,
-        "impact_statement": "",
-        "content": [
+          },
           {
             "type": "article",
             "source": "22886"
@@ -941,41 +1104,24 @@
     "chapters": [
       {
         "number": 1,
-        "title": "<em>Homo naledi</em>, a new species of the genus <em>Homo</em> from the Dinaledi Chamber, South Africa",
+        "title": "A new human species",
         "time": 0,
-        "impact_statement": "",
+        "impact_statement": "Chris Smith from the Naked Scientists interviews Lee Berger, John Hawks and Charles Misuba.",
         "content": [
           {
             "type": "article",
             "source": "09560"
-          }
-        ],
-        "sidebar": "Lee Berger, Charles Musiba and John Hawks talk about Homo naledi in the eLife Podcast"
-      },
-      {
-        "number": 2,
-        "title": "Geological and taphonomic context for the new hominin species <em>Homo naledi</em> from the Dinaledi Chamber, South Africa",
-        "time": 0,
-        "impact_statement": "",
-        "content": [
+          },
           {
             "type": "article",
             "source": "09561"
-          }
-        ],
-        "sidebar": "Lee Berger, Charles Musiba and John Hawks talk about Homo naledi in the eLife Podcast"
-      },
-      {
-        "number": 3,
-        "title": "Human evolution: The many mysteries of <em>Homo naledi</em>",
-        "time": 0,
-        "impact_statement": "",
-        "content": [
+          },
           {
             "type": "article",
             "source": "10627"
           }
-        ]
+        ],
+        "sidebar": "Lee Berger, Charles Musiba and John Hawks talk about <i>Homo naledi</i> in the eLife Podcast"
       }
     ]
   },
@@ -2346,7 +2492,7 @@
       {
         "number": 5,
         "title": "Why do rodents have cone-shaped whiskers?",
-        "time": 2126,
+        "time": 1417,
         "impact_statement": "Conical whiskers allow mammals that live in tunnels and other enclosed spaces to learn more about their surroundings.",
         "content": [
           {
@@ -2518,7 +2664,7 @@
       {
         "number": 5,
         "title": "Turning transcription on and off in single cells",
-        "time": 2126,
+        "time": 1406,
         "impact_statement": "How much steroid is needed to switch on a single gene?",
         "content": [
           {
@@ -2606,7 +2752,7 @@
       {
         "number": 5,
         "title": "Stem cells and tropical diseases",
-        "time": 2126,
+        "time": 1647,
         "impact_statement": "Genetic techniques are providing new insights into the origins of schistosomiasis, a tropical disease that is caused by parasitic flatworms.",
         "content": [
           {
