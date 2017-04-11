@@ -28,6 +28,7 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+    region: content
   field_content:
     weight: 102
     label: above
@@ -36,6 +37,7 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
   field_image:
     weight: 103
     label: above
@@ -44,12 +46,14 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_impact_statement:
     weight: 101
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_subjects:
     weight: 104
     label: above
@@ -57,6 +61,8 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   links:
     weight: 100
+    region: content
 hidden: {  }

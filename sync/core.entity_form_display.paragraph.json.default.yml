@@ -20,6 +20,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: jsonb_textarea
+    region: content
   field_article_unpublished_json:
     weight: 1
     settings:
@@ -27,6 +28,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: jsonb_textarea
+    region: content
 hidden:
   created: true
   status: true

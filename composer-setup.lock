@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "337f33d413e58c4055bcbc35db95a164",
-    "content-hash": "597b55a381590830fc3c8e7ec3bf9b81",
+    "hash": "9e3418f57e144e9c28506efb885b9c72",
+    "content-hash": "df72ad46bf20877e05ade2616bd03ad2",
     "packages": [
         {
             "name": "geerlingguy/drupal-vm",
-            "version": "4.3.1",
+            "version": "4.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geerlingguy/drupal-vm.git",
-                "reference": "c583688403fd770299aa1516e8bd416243b6cc52"
+                "reference": "cb5ef2d9182b53c97dba57c5d926b46425adc3a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/c583688403fd770299aa1516e8bd416243b6cc52",
-                "reference": "c583688403fd770299aa1516e8bd416243b6cc52",
+                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/cb5ef2d9182b53c97dba57c5d926b46425adc3a3",
+                "reference": "cb5ef2d9182b53c97dba57c5d926b46425adc3a3",
                 "shasum": ""
             },
             "type": "vm",
@@ -44,7 +44,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2017-03-13 22:18:19"
+            "time": "2017-04-01 12:22:15"
         }
     ],
     "packages-dev": [],

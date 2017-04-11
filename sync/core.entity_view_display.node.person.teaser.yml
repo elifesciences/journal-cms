@@ -4,6 +4,13 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.person.field_image
+    - field.field.node.person.field_person_competing
+    - field.field.node.person.field_person_index_name
+    - field.field.node.person.field_person_orcid
+    - field.field.node.person.field_person_profile
+    - field.field.node.person.field_person_type
+    - field.field.node.person.field_research_details
     - node.type.person
   module:
     - user
@@ -14,6 +21,7 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
 hidden:
   field_image: true
   field_person_competing: true

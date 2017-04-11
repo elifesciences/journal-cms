@@ -434,17 +434,13 @@ function jcms_admin_entity_subqueue_presave(EntityInterface $entity) {
     $items = ($entity->get('items')) ? $entity->get('items')->getValue() : [];
     $items = array_splice($items, 0, $entity->get('field_covers_active_items')->getString());
     foreach ($items as $item) {
-      $node = Node::load($item['target_id']);
+      $latest = Node::load($item['target_id']);
       $moderation_info = \Drupal::service('content_moderation.moderation_information');
-      if (!$moderation_info->isLatestRevision($node)) {
-        $latest = $moderation_info->getLatestRevision($node->getEntityTypeId(), $node->id());
-        $latest->moderation_state->target_id = 'published';
-        $latest->save();
+      if (!$moderation_info->isLatestRevision($latest)) {
+        $latest = $moderation_info->getLatestRevision($latest->getEntityTypeId(), $latest->id());
       }
-      else {
-        $node->moderation_state->target_id = 'published';
-        $node->save();
-      }
+      $latest->set('moderation_state', 'published');
+      $latest->save();
     }
     $subqueue = EntitySubqueue::load('covers');
     $subqueue->set('items', $items);
@@ -462,7 +458,7 @@ function jcms_admin_entity_subqueue_presave(EntityInterface $entity) {
     $entity->set('field_covers_active_items', 3);
     foreach ($items as $item) {
       $node = Node::load($item['target_id']);
-      $node->moderation_state->target_id = 'published';
+      $node->set('moderation_state', 'published');
       $node->save();
     }
     $entity->set('items', $items);

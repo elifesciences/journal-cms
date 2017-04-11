@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.cover.field_cover_content
+    - field.field.node.cover.field_image
     - node.type.cover
   module:
     - user
@@ -14,8 +16,10 @@ mode: teaser
 content:
   content_moderation_control:
     weight: -20
+    region: content
   links:
     weight: 100
+    region: content
 hidden:
   field_cover_content: true
   field_image: true

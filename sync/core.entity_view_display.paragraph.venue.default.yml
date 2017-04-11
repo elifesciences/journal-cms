@@ -19,12 +19,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: address_default
+    region: content
   field_block_title_multiline:
     weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
 hidden:
   created: true
   uid: true

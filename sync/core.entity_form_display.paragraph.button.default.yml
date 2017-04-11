@@ -6,7 +6,6 @@ dependencies:
     - field.field.paragraph.button.field_block_button
     - paragraphs.paragraphs_type.button
   module:
-    - content_moderation
     - link
 id: paragraph.button.default
 targetEntityType: paragraph
@@ -20,6 +19,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
 hidden:
   created: true
   status: true

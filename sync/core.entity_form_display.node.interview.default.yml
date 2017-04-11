@@ -11,7 +11,6 @@ dependencies:
     - field.field.node.interview.field_person_preferred_name
     - node.type.interview
   module:
-    - content_moderation
     - paragraphs
     - text
 id: node.interview.default
@@ -25,6 +24,7 @@ content:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
   field_content:
     weight: 4
     settings:
@@ -36,6 +36,7 @@ content:
       default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
   field_impact_statement:
     weight: 3
     settings:
@@ -43,6 +44,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_interview_cv:
     type: entity_reference_paragraphs
     weight: 5
@@ -54,6 +56,7 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
   field_person_index_name:
     weight: 1
     settings:
@@ -61,6 +64,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_person_preferred_name:
     weight: 0
     settings:
@@ -68,6 +72,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   title:
     type: string_textfield
     weight: 2
@@ -75,6 +80,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   path: true

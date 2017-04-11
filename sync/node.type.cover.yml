@@ -3,18 +3,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - content_moderation
     - menu_ui
 third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
-  content_moderation:
-    enabled: true
-    allowed_moderation_states:
-      - published
-      - draft
-    default_moderation_state: draft
 name: Cover
 type: cover
 description: ''

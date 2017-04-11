@@ -21,7 +21,6 @@
     "composer/installers": "^1.0.20",
     "drupal-composer/drupal-scaffold": "^2.0.1",
     "cweagans/composer-patches": "~1.0",
-    "drupal/core": "^8.2",
     "drush/drush": "~8.0",
     "drupal/console": "~1.0",
     "drupal/admin_toolbar": "~1.0",
@@ -34,7 +33,7 @@
     "drupal/paragraphs": "1.x-dev",
     "drupal-composer/drupal-project": "8.x-dev",
     "drupal/migrate_plus": "~3.0-beta1",
-    "drupal/migrate_tools": "^2.0",
+    "drupal/migrate_tools": "~3.0-beta1",
     "drupal/migrate_manifest": "^1",
     "drupal/redis": "~1.0-beta1",
     "drupal/restui": "1.x-dev",
@@ -46,12 +45,14 @@
     "aws/aws-sdk-php": "~3.0",
     "giggsey/libphonenumber-for-php": "^7.7",
     "drupal/entityqueue": "~1.0-alpha4",
-    "geerlingguy/drupal-vm": "^4.0",
+    "geerlingguy/drupal-vm": "^4.4",
     "elife/bus-sdk": "dev-master",
     "drupal/field_validation": "^1.0@alpha",
     "drupal/focal_point": "^1.0@beta",
     "drupal/diff": "^1.0@RC",
-    "embed/embed": "^3.0"
+    "embed/embed": "^3.0",
+    "drupal/devel": "1.x-dev",
+    "drupal/core": "~8.3.0"
   },
   "require-dev": {
     "drupal/drupal-extension": "~3.0",
@@ -59,7 +60,6 @@
     "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
     "mikey179/vfsStream": "~1.2",
     "phpunit/phpunit": "~4.8",
-    "drupal/devel": "8.1.x-dev",
     "symfony/css-selector": "~2.8",
     "mockery/mockery": "~0.9",
     "phpunit/phpcov": "2.*",
@@ -111,9 +111,10 @@
     "patches": {
       "drupal/core": {
         "CommandLineOrUnsafeMethodTest::testHttpMethod failures": "https://www.drupal.org/files/issues/options_trace_error-2776367-3.patch",
-        "View output is not used for autocomplete display": "https://www.drupal.org/files/issues/2174633-76-entity-reference-views.patch",
+        "View output is not used for autocomplete display": "https://www.drupal.org/files/issues/2174633-135-entity-reference.patch",
         "Number widget validation can break AJAX actions": "https://www.drupal.org/files/issues/drupal-fix_number_widget_errorElement-2614250-30.patch",
-        "Use new Transliteration functionality in core for file names": "https://www.drupal.org/files/issues/drupal-use_new_transliteration-2492171-28.patch"
+        "Use new Transliteration functionality in core for file names": "https://www.drupal.org/files/issues/drupal-use_new_transliteration-2492171-28.patch",
+        "Unofficial content_moderation 8.2 to 8.3 upgrade path": "https://www.drupal.org/files/issues/unofficial-2846618-29.patch"
       },
       "drupal/entity_reference_revisions": {
         "Support devel_generate, fatal error (2568187)": "https://www.drupal.org/files/issues/entity_reference_revisions-devel_generate-2568187-7-8.x.2.x.patch"

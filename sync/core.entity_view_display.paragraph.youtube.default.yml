@@ -20,6 +20,7 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_integer
+    region: content
   field_block_youtube_id:
     weight: 1
     label: above
@@ -27,6 +28,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_block_youtube_width:
     weight: 2
     label: above
@@ -35,6 +37,7 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_integer
+    region: content
 hidden:
   created: true
   uid: true

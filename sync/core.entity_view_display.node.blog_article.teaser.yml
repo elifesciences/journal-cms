@@ -4,6 +4,11 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.blog_article.field_community_list
+    - field.field.node.blog_article.field_content
+    - field.field.node.blog_article.field_image
+    - field.field.node.blog_article.field_impact_statement
+    - field.field.node.blog_article.field_subjects
     - node.type.blog_article
   module:
     - user
@@ -14,6 +19,7 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
 hidden:
   field_community_list: true
   field_content: true

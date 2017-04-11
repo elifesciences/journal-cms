@@ -13,28 +13,31 @@ bundle: covers_preview
 mode: default
 content:
   field_covers_active_items:
-    weight: 6
+    weight: 2
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
   items:
-    type: jcms_inline_entity_form_complex
-    weight: 5
+    weight: 1
     settings:
       form_mode: default
-      label_singular: ''
-      label_plural: ''
+      override_labels: '1'
+      label_singular: cover
+      label_plural: covers
       allow_new: '1'
       allow_existing: '1'
       match_operator: CONTAINS
-      override_labels: 0
     third_party_settings: {  }
+    type: jcms_inline_entity_form_complex
+    region: content
   title:
     type: string_textfield
-    weight: -10
+    weight: 0
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden: {  }

@@ -21,6 +21,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_block_title:
     weight: 1
     label: above
@@ -28,6 +29,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
 hidden:
   created: true
   uid: true

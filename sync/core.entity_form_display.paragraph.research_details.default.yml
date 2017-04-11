@@ -20,6 +20,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_research_focuses:
     weight: 1
     settings:
@@ -28,6 +29,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_research_organisms:
     weight: 2
     settings:
@@ -36,6 +38,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
 hidden:
   created: true
   status: true

@@ -1,0 +1,46 @@
+uuid: e1851b34-86b4-4d08-a1c3-f584c91992fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.cover
+  module:
+    - content_moderation
+_core:
+  default_config_hash: Ghgleft8dw4jdQJNdoZgETzr0anBqsDMIdH9KIhHZI8
+id: editorial
+label: 'Editorial workflow'
+states:
+  draft:
+    label: Draft
+    weight: -5
+  published:
+    label: Published
+    weight: 0
+transitions:
+  create_new_draft:
+    label: 'Create New Draft'
+    from:
+      - draft
+      - published
+    to: draft
+    weight: 0
+  publish:
+    label: Publish
+    from:
+      - draft
+      - published
+    to: published
+    weight: 1
+type: content_moderation
+type_settings:
+  states:
+    draft:
+      published: false
+      default_revision: false
+    published:
+      published: true
+      default_revision: true
+  entity_types:
+    node:
+      - cover

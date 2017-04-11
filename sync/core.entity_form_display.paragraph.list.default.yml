@@ -23,12 +23,14 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
+    region: content
   field_block_list_ordered:
     weight: 0
     settings:
       display_label: false
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
 hidden:
   created: true
   status: true

@@ -16,6 +16,7 @@ mode: default
 content:
   content_moderation_control:
     weight: -20
+    region: content
   field_cover_content:
     weight: 103
     label: above
@@ -23,6 +24,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_image:
     weight: 102
     label: above
@@ -31,6 +33,8 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   links:
     weight: 100
+    region: content
 hidden: {  }

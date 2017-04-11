@@ -4,6 +4,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.article.field_article_json
+    - field.field.node.article.field_community_list
+    - field.field.node.article.field_image
+    - field.field.node.article.field_subjects
     - node.type.article
   module:
     - user
@@ -14,6 +18,7 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
 hidden:
   field_article_id: true
   field_article_json: true
