@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 
-grep -c SQLSTATE -
+exit "$(grep -c SQLSTATE -)"
