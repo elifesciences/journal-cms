@@ -26,12 +26,14 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
   field_impact_statement:
     weight: 101
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_media_contact:
     type: entity_reference_revisions_entity_view
     weight: 104
@@ -40,6 +42,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_press_package_about:
     type: entity_reference_revisions_entity_view
     weight: 105
@@ -48,6 +51,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_related_content:
     weight: 103
     label: above
@@ -55,6 +59,8 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   links:
     weight: 100
+    region: content
 hidden: {  }

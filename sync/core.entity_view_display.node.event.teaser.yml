@@ -4,6 +4,12 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.event.field_community_list
+    - field.field.node.event.field_content
+    - field.field.node.event.field_event_datetime
+    - field.field.node.event.field_event_timezone
+    - field.field.node.event.field_event_uri
+    - field.field.node.event.field_impact_statement
     - node.type.event
   module:
     - user
@@ -14,6 +20,7 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
 hidden:
   field_community_list: true
   field_content: true

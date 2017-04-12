@@ -4,6 +4,11 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.labs_experiment.field_community_list
+    - field.field.node.labs_experiment.field_content
+    - field.field.node.labs_experiment.field_experiment_number
+    - field.field.node.labs_experiment.field_image
+    - field.field.node.labs_experiment.field_impact_statement
     - node.type.labs_experiment
   module:
     - user
@@ -14,6 +19,7 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
 hidden:
   field_community_list: true
   field_content: true

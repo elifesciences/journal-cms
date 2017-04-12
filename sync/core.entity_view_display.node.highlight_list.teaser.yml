@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.highlight_list.field_highlight_items
     - node.type.highlight_list
   module:
     - user
@@ -14,5 +15,6 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
 hidden:
   field_highlight_items: true

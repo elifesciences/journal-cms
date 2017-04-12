@@ -19,6 +19,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_research_focuses:
     weight: 1
     label: above
@@ -26,6 +27,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_research_organisms:
     weight: 2
     label: above
@@ -33,6 +35,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
 hidden:
   created: true
   uid: true

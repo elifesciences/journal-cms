@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.podcast_chapter.field_related_content
     - node.type.podcast_chapter
   module:
-    - content_moderation
     - inline_entity_form
     - text
 id: node.podcast_chapter.default
@@ -23,12 +22,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_podcast_chapter_time:
     weight: 1
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
   field_related_content:
     weight: 3
     settings:
@@ -41,6 +42,7 @@ content:
       allow_new: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+    region: content
   title:
     type: string_textfield
     weight: 0
@@ -48,6 +50,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   path: true

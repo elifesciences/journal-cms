@@ -19,7 +19,7 @@ default_value: {  }
 default_value_callback: ''
 settings:
   file_directory: 'iiif/collection/[date:custom:Y]-[date:custom:m]'
-  file_extensions: 'png gif jpg jpeg'
+  file_extensions: 'png jpg jpeg'
   max_filesize: ''
   max_resolution: ''
   min_resolution: 1800x900

@@ -14,7 +14,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.collection
   module:
-    - content_moderation
     - image
     - inline_entity_form
     - text
@@ -35,6 +34,7 @@ content:
       allow_new: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+    region: content
   field_collection_podcasts:
     weight: 7
     settings:
@@ -43,12 +43,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_community_list:
     weight: 8
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
   field_curators:
     weight: 5
     settings:
@@ -57,6 +59,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_image:
     weight: 1
     settings:
@@ -64,6 +67,7 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
   field_impact_statement:
     weight: 3
     settings:
@@ -71,6 +75,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_subjects:
     weight: 4
     settings:
@@ -79,6 +84,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_subtitle:
     weight: 2
     settings:
@@ -86,6 +92,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   title:
     type: string_textfield
     weight: 0
@@ -93,6 +100,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   path: true

@@ -13,7 +13,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.podcast_episode
   module:
-    - content_moderation
     - image
     - inline_entity_form
     - link
@@ -29,6 +28,7 @@ content:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
   field_episode_chapter:
     weight: 5
     settings:
@@ -41,6 +41,7 @@ content:
       allow_existing: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+    region: content
   field_episode_mp3:
     weight: 4
     settings:
@@ -48,12 +49,14 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_episode_number:
     weight: 2
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
   field_image:
     weight: 1
     settings:
@@ -61,6 +64,7 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
   field_impact_statement:
     weight: 3
     settings:
@@ -68,6 +72,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_subjects:
     weight: 6
     settings:
@@ -76,6 +81,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   title:
     type: string_textfield
     weight: 0
@@ -83,6 +89,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   field_episode_chapters: true

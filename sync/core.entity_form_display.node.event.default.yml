@@ -11,7 +11,6 @@ dependencies:
     - field.field.node.event.field_impact_statement
     - node.type.event
   module:
-    - content_moderation
     - datetime_range
     - link
     - paragraphs
@@ -27,6 +26,7 @@ content:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
   field_content:
     weight: 5
     settings:
@@ -38,16 +38,19 @@ content:
       default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
   field_event_datetime:
     weight: 2
     settings: {  }
     third_party_settings: {  }
     type: daterange_default
+    region: content
   field_event_timezone:
     weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_event_uri:
     weight: 4
     settings:
@@ -55,6 +58,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_impact_statement:
     weight: 1
     settings:
@@ -62,6 +66,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   title:
     type: string_textfield
     weight: 0
@@ -69,6 +74,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   path: true

@@ -13,7 +13,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.person
   module:
-    - content_moderation
     - image
     - paragraphs
     - text
@@ -29,6 +28,7 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
   field_person_competing:
     weight: 5
     settings:
@@ -36,6 +36,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_person_index_name:
     weight: 1
     settings:
@@ -43,6 +44,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_person_orcid:
     weight: 4
     settings:
@@ -50,6 +52,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_person_profile:
     type: entity_reference_paragraphs
     weight: 6
@@ -61,11 +64,13 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
   field_person_type:
     weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_research_details:
     type: entity_reference_paragraphs
     weight: 7
@@ -77,6 +82,7 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: 0
@@ -84,6 +90,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   path: true

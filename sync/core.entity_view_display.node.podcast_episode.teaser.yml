@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.podcast_episode.field_community_list
+    - field.field.node.podcast_episode.field_episode_chapter
     - field.field.node.podcast_episode.field_episode_mp3
     - field.field.node.podcast_episode.field_episode_number
     - field.field.node.podcast_episode.field_image
@@ -21,6 +23,7 @@ content:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   field_community_list: true
   field_episode_chapter: true

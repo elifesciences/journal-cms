@@ -30,12 +30,14 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_person_competing:
     weight: 106
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_person_index_name:
     weight: 105
     label: above
@@ -43,6 +45,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_person_orcid:
     weight: 104
     label: above
@@ -50,6 +53,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_person_profile:
     type: entity_reference_revisions_entity_view
     weight: 107
@@ -58,12 +62,14 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_person_type:
     weight: 102
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: content
   field_research_details:
     type: entity_reference_revisions_entity_view
     weight: 108
@@ -72,6 +78,8 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   links:
     weight: 100
+    region: content
 hidden: {  }

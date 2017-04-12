@@ -9,7 +9,6 @@ dependencies:
     - image.style.thumbnail
     - paragraphs.paragraphs_type.image
   module:
-    - content_moderation
     - image
     - text
 id: paragraph.image.default
@@ -24,6 +23,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_block_html:
     weight: 3
     settings:
@@ -31,6 +31,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_block_image:
     weight: 2
     settings:
@@ -38,6 +39,7 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
 hidden:
   created: true
   status: true

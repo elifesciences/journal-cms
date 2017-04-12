@@ -4,6 +4,11 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.press_package.field_content
+    - field.field.node.press_package.field_impact_statement
+    - field.field.node.press_package.field_media_contact
+    - field.field.node.press_package.field_press_package_about
+    - field.field.node.press_package.field_related_content
     - node.type.press_package
   module:
     - user
@@ -14,6 +19,7 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
 hidden:
   field_content: true
   field_impact_statement: true

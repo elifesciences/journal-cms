@@ -4,6 +4,12 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.interview.field_community_list
+    - field.field.node.interview.field_content
+    - field.field.node.interview.field_impact_statement
+    - field.field.node.interview.field_interview_cv
+    - field.field.node.interview.field_person_index_name
+    - field.field.node.interview.field_person_preferred_name
     - node.type.interview
   module:
     - user
@@ -14,6 +20,7 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
 hidden:
   field_community_list: true
   field_content: true

@@ -4,6 +4,9 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.podcast_chapter.field_impact_statement
+    - field.field.node.podcast_chapter.field_podcast_chapter_time
+    - field.field.node.podcast_chapter.field_related_content
     - node.type.podcast_chapter
   module:
     - user
@@ -14,6 +17,7 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
 hidden:
   field_impact_statement: true
   field_podcast_chapter_time: true

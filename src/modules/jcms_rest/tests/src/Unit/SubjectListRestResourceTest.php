@@ -52,86 +52,6 @@ class SubjectListRestResourceTest extends UnitTestCase {
     $this->resource = new SubjectListRestResource(['configuration'], 'plugin_id', 'plugin_definition', ['serializer_formats'], m::mock('Psr\Log\LoggerInterface'));
   }
 
-  public function tearDown() {
-    $container = new ContainerBuilder();
-    \Drupal::setContainer($container);
-    m::close();
-  }
-
-  /**
-   * Helper method to return a mocked term entity.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface|static
-   */
-  protected function createItem() {
-    $term_values = [
-      'tid' => '15',
-      'vid' => 'subjects',
-      'uuid' => '2c4c9ae3-548d-4be9-8677-71f50039f55c',
-      'langcode' => 'en',
-      'name' => 'Biochemistry',
-      'description' => [
-        'value' => NULL,
-        'format' => NULL,
-      ],
-      'weight' => '0',
-      'changed' => '1472133100',
-      'default_langcode' => '1',
-      'field_image' => [
-        [
-          'target_id' => '34',
-          'alt' => 'Biochemistry alt',
-          'title' => NULL,
-          'width' => '1800',
-          'height' => '1350',
-        ],
-      ],
-      'field_impact_statement' => [
-        [
-          'value' => 'Biochemistry impact statement',
-          'format' => 'basic_html',
-        ],
-      ],
-      'field_subject_id' => [
-        [
-          'value' => 'biochemistry',
-        ],
-      ],
-    ];
-    $term = m::mock('Drupal\Core\Entity\EntityInterface')->makePartial();
-    // TID.
-    $term->shouldReceive('get')->andReturnSelf();
-    $term->shouldReceive('first')->andReturnSelf();
-    $term->shouldReceive('getValue')
-      ->once()
-      ->andReturn(['value' => $term_values['tid']]);
-    // Name.
-    $term->shouldReceive('toLink')->once()->andReturnSelf();
-    $term->shouldReceive('getText')->once()->andReturn($term_values['name']);
-    // Image.
-    $term->shouldReceive('getValue')
-      ->once()
-      ->andReturn(['alt' => $term_values['field_image'][0]['alt']]);
-    // Image URI.
-    $term->shouldReceive('getTarget')->andReturnSelf();
-    $term->shouldReceive('getValue')
-      ->once()
-      ->andReturn(['value' => 'public://plant-biology.png']);
-    // Image style.
-    $this->entityManager->shouldReceive('getEntityTypeFromClass')
-      ->andReturnSelf();
-    $this->entityManager->shouldReceive('getStorage')->andReturnSelf();
-    $this->entityManager->shouldReceive('load')->andReturnSelf();
-    $this->entityManager->shouldReceive('buildUrl')
-      ->andReturn('"http://journal-cms.local/sites/default/files/styles/crop_2x1_1800x900/public/plant-biology.png?itok=c-fmlMss');
-    // Impact statement.
-    $term->shouldReceive('count')->once()->andReturn(1);
-    $term->shouldReceive('getValue')
-      ->once()
-      ->andReturn(['value' => $term_values['field_impact_statement'][0]['value']]);
-    return $term;
-  }
-
   /**
    * @test
    * @covers \Drupal\jcms_rest\Plugin\rest\resource\SubjectListRestResource::get
@@ -139,10 +59,12 @@ class SubjectListRestResourceTest extends UnitTestCase {
    */
   public function testGetNoSubjects() {
     // Make the query.
-    $this->queryFactory->shouldReceive('get')->andReturn($this->query);
     $this->query->shouldReceive('condition')->andReturn($this->query);
     $this->query->shouldReceive('count')->andReturn($this->query);
-    $this->query->shouldReceive('execute')->andReturn(0);
+    $this->query->shouldReceive('execute');
+    $this->entityTypeManager->shouldReceive('getStorage')->andReturnSelf();
+    $this->entityTypeManager->shouldReceive('getQuery')->andReturn($this->query);
+    $this->entityTypeManager->shouldReceive('execute')->andReturn(0);
     // Run the method.
     $response = $this->resource->get();
     // Test we have the correct response.

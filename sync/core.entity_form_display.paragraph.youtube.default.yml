@@ -7,8 +7,6 @@ dependencies:
     - field.field.paragraph.youtube.field_block_youtube_id
     - field.field.paragraph.youtube.field_block_youtube_width
     - paragraphs.paragraphs_type.youtube
-  module:
-    - content_moderation
 id: paragraph.youtube.default
 targetEntityType: paragraph
 bundle: youtube
@@ -21,6 +19,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
 hidden:
   created: true
   field_block_youtube_height: true

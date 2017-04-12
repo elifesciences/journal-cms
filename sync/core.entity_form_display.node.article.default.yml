@@ -10,7 +10,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.article
   module:
-    - content_moderation
     - image
 id: node.article.default
 targetEntityType: node
@@ -23,6 +22,7 @@ content:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
   field_image:
     weight: 1
     settings:
@@ -30,6 +30,7 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
   title:
     type: string_textfield
     weight: 0
@@ -37,6 +38,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   field_article_json: true

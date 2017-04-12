@@ -148,7 +148,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         $filemime = $data->first()->get('entity')->getTarget()->get('filemime')->getString();
 
         $image[$type]['uri'] = $this->processImageUri($image_uri, 'info');
-        $image[$type]['alt'] = $data->first()->getValue()['alt'];
+        $image[$type]['alt'] = (string) $data->first()->getValue()['alt'];
         $image[$type]['source'] = [
           'mediaType' => $filemime,
           'uri' => $this->processImageUri($image_uri, 'source'),
@@ -167,21 +167,6 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             ->absoluteToRelative($crop->x->value, $crop->y->value, $image[$type]['size']['width'], $image[$type]['size']['height']);
 
           $image[$type]['focalPoint'] = $anchor;
-        }
-
-        // @todo - elife - nlisgo - this can be removed once IIIF is fully supported.
-        foreach ($image_sizes['sizes'] as $ar => $sizes) {
-          foreach ($sizes as $width => $height) {
-            $image_style = [
-              'crop',
-              str_replace(':', 'x', $ar),
-              $width . 'x' . $height,
-            ];
-            $loaded_style = ImageStyle::load(implode('_', $image_style));
-            if ($loaded_style && $image_uri) {
-              $image[$type]['sizes'][$ar][$width] = $loaded_style->buildUrl($image_uri);
-            }
-          }
         }
       }
 
@@ -258,9 +243,6 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             break;
           case 'image':
             if ($image = $content_item->get('field_block_image')->first()) {
-              $image = $content_item->get('field_block_image')->first();
-              $result_item['alt'] = (string) $image->getValue()['alt'];
-              $result_item['uri'] = file_create_url($image->get('entity')->getTarget()->get('uri')->getString());
               $result_item['image'] = $this->processFieldImage($content_item->get('field_block_image'), TRUE, 'banner', TRUE);
               $result_item['image'] = array_diff_key($result_item['image'], array_flip(['sizes']));
               if ($content_item->get('field_block_html')->count()) {

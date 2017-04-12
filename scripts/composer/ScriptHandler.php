@@ -16,7 +16,7 @@ class ScriptHandler extends DrupalScriptHandler {
   public static function createRequiredFiles(Event $event) {
     $fs = new Filesystem();
     $root = getcwd();
-    $drupal_root = static::getDrupalRoot($root);
+    $drupal_root = $root . '/web';
     $config_root = $root . '/config';
     $src_root = $root . '/src';
     parent::createRequiredFiles($event);

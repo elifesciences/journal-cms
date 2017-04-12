@@ -21,12 +21,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_block_html:
     weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_block_image:
     weight: 2
     label: above
@@ -35,6 +37,7 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
 hidden:
   created: true
   uid: true
