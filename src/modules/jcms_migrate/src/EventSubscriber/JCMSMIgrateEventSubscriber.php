@@ -50,11 +50,39 @@ class JCMSMIgrateEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Check if migration is complete.
+   *
+   * @return bool
+   */
+  protected function migrationComplete() {
+    $manager = \Drupal::service('plugin.manager.config_entity_migration');
+    $plugins = $manager->createInstances([]);
+    foreach ($plugins as $migration_id => $migration) {
+      $map = $migration->getIdMap();
+      $source_plugin = $migration->getSourcePlugin();
+      $source_rows = $source_plugin->count();
+      if ($source_rows >= 0) {
+        $unprocessed = $source_rows - $map->processedCount();
+        if ($unprocessed > 0) {
+          return FALSE;
+        }
+      }
+    }
+
+    return TRUE;
+  }
+
+  /**
    * Code to run after migration.
    *
    * @param \Drupal\migrate\Event\MigrateImportEvent $event
    */
   public function onMigrateImport(MigrateImportEvent $event) {
+    // Only populate community list if migration is complete.
+    if (!$this->migrationComplete()) {
+      return;
+    }
+
     // Set community list items to those on: https://elifesciences.org/collections/early-career-researchers
     $community_list = file_get_contents(drupal_get_path('module', 'jcms_migrate') . '/migration_assets/community.json');
     $community_list = json_decode($community_list);

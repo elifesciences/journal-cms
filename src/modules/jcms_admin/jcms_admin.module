@@ -320,7 +320,7 @@ function _jcms_admin_form_node_article_form_validate($form, FormStateInterface $
   $node = $form_state->getFormObject()->getEntity();
   if (!empty($form_state->getValue('title'))) {
     $title = $form_state->getValue('title')[0]['value'];
-    if (!preg_match('/^[0-9]{5}$/', $title)) {
+    if (!preg_match('/^[0-9]{5,}$/', $title)) {
       $form_state->setErrorByName('title', t('Article title %title is not valid.', ['%title' => $title]));
     }
     if (!_jcms_admin_node_title_unique($title, $node, 'article')) {

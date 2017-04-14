@@ -4,9 +4,13 @@ services:
     class: Drupal\jcms_article\FetchArticleVersions
     arguments: ["@http_client"]
 
+  jcms_article.fragment_api:
+    class: Drupal\jcms_article\FragmentApi
+    arguments: ['@http_client']
+
   jcms_article.hooks.node_presave:
     class: Drupal\jcms_article\Hooks\NodePresave
-    arguments: ["@jcms_article.fetch_article_versions"]
+    arguments: ["@jcms_article.fetch_article_versions", "@jcms_article.fragment_api"]
 
   jcms_article.article_crud:
     class: Drupal\jcms_article\ArticleCrud

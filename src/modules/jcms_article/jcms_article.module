@@ -36,6 +36,7 @@ function jcms_article_node_presave(EntityInterface $entity) {
     $node_presave->forMigrationOnly();
   }
   $article = $node_presave->getArticleById($entity->label());
+  $node_presave->updateFragmentApi($entity, $article);
   $node_presave->addJsonFields($entity, $article);
   $node_presave->setPublishedStatus($entity, $article);
   $node_presave->setStatusDate($entity, $article);

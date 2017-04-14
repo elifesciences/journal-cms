@@ -4,7 +4,10 @@ namespace Drupal\jcms_article\Hooks;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Site\Settings;
+use Drupal\jcms_article\Entity\ArticleVersions;
 use Drupal\jcms_article\FetchArticleVersions;
+use Drupal\jcms_article\FragmentApi;
+use Drupal\jcms_rest\JMCSImageUriTrait;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
@@ -15,18 +18,32 @@ use Drupal\paragraphs\Entity\Paragraph;
  */
 final class NodePresave {
 
+  use JMCSImageUriTrait;
+
+  /**
+   * @var bool
+   */
+  private $fetchSnippetAlways = FALSE;
+
   /**
    * @var \Drupal\jcms_article\FetchArticleVersions
    */
   private $fetchArticleVersions;
 
   /**
+   * @var \Drupal\jcms_article\FragmentApi
+   */
+  private $fragmentApi;
+
+  /**
    * NodePresave constructor.
    *
    * @param \Drupal\jcms_article\FetchArticleVersions $fetch_article_versions
+   * @param \Drupal\jcms_article\FragmentApi $fragment_api
    */
-  public function __construct(FetchArticleVersions $fetch_article_versions) {
+  public function __construct(FetchArticleVersions $fetch_article_versions, FragmentApi $fragment_api) {
     $this->fetchArticleVersions = $fetch_article_versions;
+    $this->fragmentApi = $fragment_api;
   }
 
   /**
@@ -42,8 +59,11 @@ final class NodePresave {
 
   /**
    * Adds the JSON fields to the node.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
-  public function addJsonFields(EntityInterface $entity, $article) {
+  public function addJsonFields(EntityInterface $entity, ArticleVersions $article) {
     if ($entity->get('field_article_json')->getValue()) {
       $this->updateJsonParagraph($entity, $article);
     }
@@ -54,8 +74,11 @@ final class NodePresave {
 
   /**
    * Sets the status date (the date article became VOR or POA) on the node.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
-  public function setStatusDate(EntityInterface $entity, $article) {
+  public function setStatusDate(EntityInterface $entity, ArticleVersions $article) {
     $id = $entity->label();
     // Set the published date if there's a published version.
     $version = $article->getLatestPublishedVersionJson() ?: '';
@@ -72,8 +95,11 @@ final class NodePresave {
 
   /**
    * Sets the published status of the node.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
-  public function setPublishedStatus(EntityInterface $entity, $article) {
+  public function setPublishedStatus(EntityInterface $entity, ArticleVersions $article) {
     $id = $entity->label();
     // If there's a published version, set to published.
     $status = $article->getLatestPublishedVersionJson() ? 1 : 0;
@@ -82,8 +108,11 @@ final class NodePresave {
 
   /**
    * Sets the article subjects on the article as taxonomy terms.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
-  public function setSubjectTerms(EntityInterface $entity, $article) {
+  public function setSubjectTerms(EntityInterface $entity, ArticleVersions $article) {
     $id = $entity->label();
     // Use the unpublished JSON if no published exists.
     $version = $article->getLatestPublishedVersionJson() ?: $article->getLatestUnpublishedVersionJson();
@@ -103,11 +132,28 @@ final class NodePresave {
   }
 
   /**
+   * Update or delete the article fragment.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
+   */
+  public function updateFragmentApi(EntityInterface $entity, ArticleVersions $article) {
+    if ($image = $this->processFieldImage($entity->get('field_image'), FALSE, 'thumbnail')) {
+      $this->fragmentApi->postImageFragment($article->getId(), json_encode(['image' => $image]));
+    }
+    else {
+      $this->fragmentApi->deleteImageFragment($article->getId());
+    }
+    // $entity->set('field_article_json', NULL);
+  }
+
+  /**
    * Updates existing JSON field paragraphs.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
-  private function updateJsonParagraph(EntityInterface $entity, $article) {
+  private function updateJsonParagraph(EntityInterface $entity, ArticleVersions $article) {
     $id = $entity->label();
     $pid = $entity->get('field_article_json')->getValue()[0]['target_id'];
     $paragraph = Paragraph::load($pid);
@@ -129,9 +175,9 @@ final class NodePresave {
    * Creates new JSON field paragraphs.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
-  private function createJsonParagraph(EntityInterface $entity, $article) {
-    $id = $entity->label();
+  private function createJsonParagraph(EntityInterface $entity, ArticleVersions $article) {
     $published = $article->getLatestPublishedVersionJson();
     // Store the published JSON if no unpublished exists.
     $unpublished = $article->getLatestUnpublishedVersionJson() ?: $published;
