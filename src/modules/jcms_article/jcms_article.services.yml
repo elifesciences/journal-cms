@@ -4,6 +4,10 @@ services:
     class: Drupal\jcms_article\FetchArticleVersions
     arguments: ["@http_client"]
 
+  jcms_article.fetch_article_metrics:
+    class: Drupal\jcms_article\FetchArticleMetrics
+    arguments: ["@http_client"]
+
   jcms_article.fragment_api:
     class: Drupal\jcms_article\FragmentApi
     arguments: ['@http_client']

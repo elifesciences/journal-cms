@@ -6,10 +6,12 @@ dependencies:
     - field.field.node.article.field_article_json
     - field.field.node.article.field_community_list
     - field.field.node.article.field_image
+    - field.field.node.article.field_page_views
     - field.field.node.article.field_subjects
     - image.style.thumbnail
     - node.type.article
   module:
+    - content_moderation
     - image
 id: node.article.default
 targetEntityType: node
@@ -17,19 +19,26 @@ bundle: article
 mode: default
 content:
   field_community_list:
-    weight: 2
+    weight: 3
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_image:
-    weight: 1
+    weight: 2
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
+  field_page_views:
+    weight: 1
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
     region: content
   title:
     type: string_textfield

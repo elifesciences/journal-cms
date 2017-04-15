@@ -108,10 +108,10 @@ final class QueueService {
       $message_id = $message['MessageId'] ?? '';
       $body = isset($message['Body']) ? json_decode($message['Body'], TRUE) : [];
       $id = $body['id'] ?? 0;
-      $type = 'article';
+      $type = $body['type'] ?? 'article';
       $receipt = $message['ReceiptHandle'] ?? '';
       if ($message_id && $receipt) {
-        return new SqsMessage($message_id, $id, $type, $receipt);
+        return new SqsMessage($message_id, $id, $type, $body, $receipt);
       }
     }
     throw new \Exception('Missing arguments for SQS message.');
