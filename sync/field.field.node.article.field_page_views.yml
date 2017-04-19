@@ -1,0 +1,25 @@
+uuid: 2781b6f8-f5fb-466d-b120-6fd6027b76f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_page_views
+    - node.type.article
+id: node.article.field_page_views
+field_name: field_page_views
+entity_type: node
+bundle: article
+label: 'Page views'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

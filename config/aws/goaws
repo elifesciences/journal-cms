@@ -37,7 +37,7 @@ start() {
   aws sqs create-queue --queue-name journal-cms--queue-local --endpoint=http://localhost:4100
 }
 
-#We need this function to ensure the whole process tree will be killed
+# We need this function to ensure the whole process tree will be killed
 killtree() {
     local _pid=$1
     local _sig=${2-TERM}

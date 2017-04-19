@@ -235,7 +235,7 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
  */
 function _jcms_admin_protect_id_field(&$form, $form_id) {
   $id_map = [
-    'article' => 'title',
+    'article' => ['title', 'field_page_views'],
     'highlight_list' => 'title',
     'annual_report' => 'field_annual_report_year',
     'labs_experiment' => 'field_experiment_number',
@@ -245,12 +245,14 @@ function _jcms_admin_protect_id_field(&$form, $form_id) {
   $type = preg_replace('/^node_(.*)_edit_form$/', '$1', $form_id);
 
   if (isset($id_map[$type])) {
-    $field = $id_map[$type];
-    if ($field == 'title') {
-      $form['title']['widget'][0]['value']['#disabled'] = TRUE;
-    }
-    else {
-      $form[$field]['#disabled'] = TRUE;
+    $fields = (array) $id_map[$type];
+    foreach ($fields as $field) {
+      if ($field == 'title') {
+        $form['title']['widget'][0]['value']['#disabled'] = TRUE;
+      }
+      else {
+        $form[$field]['#disabled'] = TRUE;
+      }
     }
   }
 }

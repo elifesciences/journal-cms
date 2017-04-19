@@ -5,6 +5,7 @@
  * Drush commands for the module.
  */
 
+use Drupal\jcms_article\Entity\ArticleVersions;
 use GuzzleHttp\Exception\RequestException;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
@@ -38,6 +39,20 @@ function jcms_notifications_drush_command() {
       'drush article-import-all' => 'Import all articles from Lax and return a message when finished.',
       'drush article-import-all --limit=500' => 'Import first 500 articles from Lax and return a message when finished.',
       'drush article-import-all --skip-updates' => 'Import all articles from Lax, but skip over articles that exist already, and return a message when finished.',
+    ],
+  ];
+  $items['article-metrics-import-all'] = [
+    'description' => 'Imports all metrics for articles in journal-cms.',
+    'options' => [
+      'limit' => 'Limit on the number of items to process in each import.',
+      'skip-updates' => 'Do not attempt to update articles that have a metric value already.',
+    ],
+    'drupal dependencies' => ['jcms_notifications'],
+    'aliases' => ['amia'],
+    'examples' => [
+      'drush article-metrics-import-all' => 'Import all article metrics in journal-cms and return a message when finished.',
+      'drush article-metrics-import-all --limit=500' => 'Import first 500 article metrics in journal-cms and return a message when finished.',
+      'drush article-metrics-import-all --skip-updates' => 'Import all article metrics in journal-cms, but skip over articles that we have a metric for already, and return a message when finished.',
     ],
   ];
   $items['send-notifications'] = [
@@ -98,11 +113,59 @@ function drush_jcms_notifications_article_import_all() {
 }
 
 /**
+ * Callback function drush_jcms_notifications_article_metrics_import_all().
+ */
+function drush_jcms_notifications_article_metrics_import_all() {
+  $metrics_service = \Drupal::service('jcms_article.fetch_article_metrics');
+  drush_print(dt('Fetching article metrics. This may take a few minutes.'));
+  $limit = drush_get_option('limit') ? (int) drush_get_option('limit') : NULL;
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('status', \Drupal\node\NodeInterface::PUBLISHED)
+    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+    ->condition('type', 'article');
+  if (!empty($limit)) {
+    $query->range(0, $limit);
+  }
+  if (drush_get_option('skip-updates')) {
+    $query->condition('field_page_views.value', 0);
+  }
+  $nids = $query->execute();
+  /* @var Node[] $nodes */
+  $nodes = Node::loadMultiple($nids);
+  drush_print(dt('Received !count article metrics to process.', ['!count' => count($nids)]));
+  if ($nodes) {
+    $time_start = microtime(TRUE);
+    $num = 0;
+    foreach ($nodes as $nid => $node) {
+      $articleMetrics = $metrics_service->getArticleMetrics($node->label());
+      if ((int) $node->get('field_page_views')->getString() != $articleMetrics->getPageViews()) {
+        $node->set('field_page_views', $articleMetrics->getPageViews());
+        $node->save();
+      }
+      drush_print(dt('Processed article metrics for !article_id (!num of !count)', [
+        '!article_id' => $node->label(),
+        '!num' => ++$num,
+        '!count' => count($nids),
+      ]));
+    }
+    $time_end = microtime(TRUE);
+    $time = round($time_end - $time_start, 0);
+    drush_print(dt('Processed !count article metrics in !minutes minutes !seconds seconds.', [
+      '!count' => count($nids),
+      '!minutes' => floor($time / 60),
+      '!seconds' => round($time % 60),
+    ]));
+  }
+}
+
+/**
  * Callback function drush_jcms_notifications_article_import().
  */
 function drush_jcms_notifications_article_import($lrp = FALSE) {
   $queue_service = \Drupal::service('jcms_notifications.queue_service');
   $fetch_service = \Drupal::service('jcms_article.fetch_article_versions');
+  $metrics_service = \Drupal::service('jcms_article.fetch_article_metrics');
   $crud_service = \Drupal::service('jcms_article.article_crud');
   $limit_service = \Drupal::service('jcms_notifications.limit_service');
   $count = 0;
@@ -116,8 +179,30 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       drush_print(dt('[!date] Received message !message', ['!date' => date('c'), '!message' => var_export($message, TRUE)]));
       $id = $message->getId();
       try {
-        $articleVersions = $fetch_service->getArticleVersions($id);
-        $crud_service->crudArticle($articleVersions);
+        switch ($message->getType()) {
+          // Process article sqs items.
+          case 'article':
+            $articleVersions = $fetch_service->getArticleVersions($id);
+            $crud_service->crudArticle($articleVersions);
+            break;
+          case 'metrics':
+            // Process article views-downloads metrics sqs items.
+            $body = $message->getMessage();
+            if ($body['contentType'] == 'article' && $body['metric'] == 'views-downloads') {
+              $articleVersions = $fetch_service->getArticleVersions($id);
+              if ($articleVersions->getAction() == ArticleVersions::WRITE) {
+                // Make sure article has been created.
+                $node = $crud_service->crudArticle($articleVersions);
+                $metrics = $metrics_service->getArticleMetrics($id);
+                if ((int) $node->get('field_page_views')->getString() != $metrics->getPageViews()) {
+                  drush_print(dt('Adjusted metrics for !id to: !metrics', ['!id' => $id, '!metrics' => $metrics->getPageViews()]));
+                  $node->set('field_page_views', $metrics->getPageViews());
+                  $node->save();
+                }
+              }
+            }
+            break;
+        }
         drush_print(dt('[!date] Processed message !message_id', ['!date' => date('c'), '!message_id' => $message->getMessageId()]));
       }
       catch (Exception $e) {
@@ -137,7 +222,7 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       }
     }
   }
-  drush_print(dt('Imported !count articles.', ['!count' => $count]));
+  drush_print(dt('Imported !count queue item(s).', ['!count' => $count]));
 }
 
 /**

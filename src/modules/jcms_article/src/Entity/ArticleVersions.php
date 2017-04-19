@@ -3,7 +3,7 @@
 namespace Drupal\jcms_article\Entity;
 
 /**
- * Class Article
+ * Class ArticleVersions
  *
  * @package Drupal\jcms_article\Entity
  */

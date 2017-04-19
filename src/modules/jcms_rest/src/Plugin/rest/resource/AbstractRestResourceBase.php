@@ -26,6 +26,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     'start-date' => '2000-01-01',
     'end-date' => '2999-12-31',
     'show' => 'all',
+    'sort' => 'date',
   ];
 
   protected static $requestOptions = [];
@@ -91,6 +92,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         'start-date' => $request->query->get('start-date', $this->defaultOptions['start-date']),
         'end-date' => $request->query->get('end-date', $this->defaultOptions['end-date']),
         'show' => $request->query->get('show', $this->defaultOptions['show']),
+        'sort' => $request->query->get('sort', $this->defaultOptions['sort']),
       ];
     }
     return $this::$requestOptions;
@@ -262,14 +264,20 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * Apply filter for page, per-page and order.
    *
    * @param \Drupal\Core\Entity\Query\QueryInterface $query
-   * @param string
+   * @param mixed
    */
   protected function filterPageAndOrder(QueryInterface &$query, $sort_by = NULL) {
-    $sort_by = $this->setSortBy($sort_by);
+    $sort_bys = (array) $this->setSortBy($sort_by);
+
+    if (!in_array($this->getRequestOption('sort'), ['date', 'page-views'])) {
+      throw new JCMSBadRequestHttpException(t('Invalid sort option'));
+    }
 
     $request_options = $this->getRequestOptions();
     $query->range(($request_options['page'] - 1) * $request_options['per-page'], $request_options['per-page']);
-    $query->sort($sort_by, $request_options['order']);
+    foreach ($sort_bys as $sort_by) {
+      $query->sort($sort_by, $request_options['order']);
+    }
   }
 
   /**

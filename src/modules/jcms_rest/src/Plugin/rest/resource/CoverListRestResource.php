@@ -51,7 +51,9 @@ class CoverListRestResource extends AbstractRestResourceBase {
     $nodes = [];
     if ($total = $count_query->count()->execute()) {
       $response_data['total'] = (int) $total;
-      $this->filterPageAndOrder($items_query, 'field_cover_content.entity.created');
+
+      $sort_by = ($this->getRequestOption('sort') == 'page-views') ? 'field_cover_content.entity.field_page_views.value' : ['field_cover_content.entity.created', 'field_cover_content.entity.field_page_views.value'];
+      $this->filterPageAndOrder($items_query, $sort_by);
       $nids = $items_query->execute();
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {

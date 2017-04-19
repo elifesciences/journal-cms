@@ -12,13 +12,15 @@ final class SqsMessage implements QueueItem {
 
   private $id;
   private $type;
+  private $message;
   private $receipt;
   private $messageId;
 
-  public function __construct(string $messageId, string $id, string $type, string $receipt) {
+  public function __construct(string $messageId, string $id, string $type, array $message, string $receipt) {
     $this->messageId = $messageId;
     $this->id = $id;
     $this->type = $type;
+    $this->message = $message;
     $this->receipt = $receipt;
   }
 
@@ -30,21 +32,28 @@ final class SqsMessage implements QueueItem {
   }
 
   /**
-   * Id or Number identifying the single entity the notification is related to.
+   * {@inheritdoc}
    */
   public function getId() : string {
     return $this->id;
   }
 
   /**
-   * Type ('article', 'collection', 'event', etc.).
+   * {@inheritdoc}
    */
   public function getType() : string {
     return $this->type;
   }
 
   /**
-   * SQS ReceiptHandle.
+   * {@inheritdoc}
+   */
+  public function getMessage() : array {
+    return $this->message;
+  }
+
+  /**
+   * {@inheritdoc}
    */
   public function getReceipt() : string {
     return $this->receipt;
