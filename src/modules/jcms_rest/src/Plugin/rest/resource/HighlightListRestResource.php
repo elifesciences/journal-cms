@@ -64,9 +64,6 @@ class HighlightListRestResource extends AbstractRestResourceBase {
         $query = Database::getConnection()->select('node__field_highlight_item', 'hi');
         $query->addField('hi', 'entity_id', 'item');
         $query->condition('hi.bundle', 'highlight_item');
-        $query->innerJoin('node__field_highlight_items', 'his', 'his.field_highlight_items_target_id = hi.entity_id');
-        $query->addField('his', 'delta');
-        $query->orderBy('his.delta', 'ASC');
         $query->leftJoin('node__field_subjects', 's', 's.entity_id = hi.field_highlight_item_target_id');
         $query->leftJoin('taxonomy_term__field_subject_id', 'si', 'si.entity_id = s.field_subjects_target_id');
         $query->addField('si', 'field_subject_id_value', 'subject_id');
@@ -75,7 +72,9 @@ class HighlightListRestResource extends AbstractRestResourceBase {
         $query->leftJoin('taxonomy_term__field_subject_id', 'spi', 'spi.entity_id = sp.field_subjects_target_id');
         $query->addField('spi', 'field_subject_id_value', 'podcast_subject_id');
         $query->innerJoin('node_field_data', 'nfd', 'nfd.nid = hi.field_highlight_item_target_id');
-        $query->orderBy('nfd.created', 'DESC');
+        // Use the created date for all content other than collections which should use the changed date. Created date doe articles is set to status date.
+        $query->addExpression("IF(nfd.type='collection', nfd.changed, nfd.created)", 'order_date');
+        $query->orderBy('order_date', 'DESC');
         $db_or = new Condition('OR');
         $db_or->condition('si.field_subject_id_value', $list);
         $db_or->condition('spi.field_subject_id_value', $list);
@@ -114,7 +113,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
     /* @var Node $node */
     $item = $this->getEntityQueueItem($node, $node->get('field_highlight_item'), FALSE);
 
-    if ($item instanceof Node) {
+    if ($item) {
 
       // authorLine is optional.
       if ($node->get('field_author_line')->count()) {
