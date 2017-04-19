@@ -381,7 +381,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    */
   protected function getArticleSnippet(Node $node) {
     $crud_service = \Drupal::service('jcms_article.article_crud');
-    return $crud_service->getArticle($node);
+    return $crud_service->getArticle($node, $this->viewUnpublished());
   }
 
   /**
@@ -557,8 +557,21 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     return $content_type . ';version=' . $version;
   }
 
+  /**
+   * Determine if the request user can view unpublished content.
+   *
+   * @return bool
+   */
   public function viewUnpublished() {
-    return \Drupal::currentUser()->hasPermission('view latest version');
+    static $view_unpublished = NULL;
+
+    if (is_null($view_unpublished)) {
+      $request = \Drupal::request();
+      $consumer = $request->headers->get('X-Consumer-Groups', 'user');
+      $view_unpublished = ($consumer == 'admin');
+    }
+
+    return $view_unpublished;
   }
 
   /**

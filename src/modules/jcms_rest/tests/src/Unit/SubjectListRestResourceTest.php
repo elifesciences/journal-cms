@@ -24,6 +24,10 @@ class SubjectListRestResourceTest extends UnitTestCase {
 
   protected $query;
 
+  protected $request;
+
+  protected $headerBag;
+
   protected $requestStack;
 
   protected $entityManager;
@@ -40,6 +44,10 @@ class SubjectListRestResourceTest extends UnitTestCase {
     // causes the test to error).
     $this->query = m::mock('stdClass');
     $container->set('entity.query', $this->queryFactory);
+    $this->request = m::mock('Symfony\Component\HttpFoundation\Request');
+    $container->set('request', $this->request);
+    $this->headerBag = m::mock('Symfony\Component\HttpFoundation\HeaderBag');
+    $container->set('header_bag', $this->headerBag);
     $this->requestStack = m::mock('Symfony\Component\HttpFoundation\RequestStack');
     $container->set('request_stack', $this->requestStack);
     $this->entityManager = m::mock('Drupal\Core\Entity\EntityManager');
@@ -65,6 +73,10 @@ class SubjectListRestResourceTest extends UnitTestCase {
     $this->entityTypeManager->shouldReceive('getStorage')->andReturnSelf();
     $this->entityTypeManager->shouldReceive('getQuery')->andReturn($this->query);
     $this->entityTypeManager->shouldReceive('execute')->andReturn(0);
+    $this->requestStack->shouldReceive('getCurrentRequest')->andReturn($this->request);
+    $this->request->headers = $this->headerBag;
+    $this->headerBag->shouldReceive('get');
+    $this->request->shouldReceive('isMethodCacheable');
     // Run the method.
     $response = $this->resource->get();
     // Test we have the correct response.

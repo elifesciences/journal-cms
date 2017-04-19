@@ -3,7 +3,8 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\entityqueue\Entity\EntitySubqueue;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -18,6 +19,11 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class CoverCurrentListRestResource extends AbstractRestResourceBase {
+
+  /**
+   * @var Node[]
+   */
+  private $nodes = [];
 
   /**
    * Responds to GET requests.
@@ -38,7 +44,8 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
       $response_data = $this->getPublished();
     }
 
-    $response = new JsonResponse($response_data, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+    $response = new JCMSRestResponse($response_data, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+    $response->addCacheableDependencies($this->nodes);
     return $response;
   }
 
@@ -57,6 +64,7 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
       /* @var \Drupal\node\Entity\Node $item_node */
       $item_node = $item->get('entity')->getTarget()->getValue();
       if ($item_node->isPublished() && $item_node->get('field_image')->count()) {
+        $this->nodes[$item_node->id()] = $item_node;
         $response_data['items'][] = $cover_rest_resource->getItem($item_node);
       }
     }
@@ -87,6 +95,7 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
         $item_node = $moderation_info->getLatestRevision($item_node->getEntityTypeId(), $item_node->id());
       }
       if ($item_node->get('field_image')->count()) {
+        $this->nodes[$item_node->id()] = $item_node;
         $response_data['items'][] = $cover_rest_resource->getItem($item_node);
       }
 
