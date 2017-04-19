@@ -481,13 +481,6 @@ function jcms_admin_node_delete(EntityInterface $entity) {
       $item->delete();
     }
   }
-
-  if ($entity->bundle() == 'highlight_list') {
-    // Delete orphaned highlight_item nodes.
-    foreach ($entity->get('field_highlight_items')->referencedEntities() as $item) {
-      $item->delete();
-    }
-  }
 }
 
 /**
