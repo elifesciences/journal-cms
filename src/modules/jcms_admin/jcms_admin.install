@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for Journal CMS (Admin).
+ */
+
+/**
+ * Reset content_moderation schema version to 8000 after applying temporary patch.
+ */
+function jcms_admin_update_8101() {
+  drupal_set_installed_schema_version('content_moderation', 8000);
+}

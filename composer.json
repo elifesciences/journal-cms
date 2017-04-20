@@ -114,8 +114,7 @@
         "View output is not used for autocomplete display": "https://www.drupal.org/files/issues/2174633-135-entity-reference.patch",
         "Number widget validation can break AJAX actions": "https://www.drupal.org/files/issues/drupal-fix_number_widget_errorElement-2614250-30.patch",
         "Use new Transliteration functionality in core for file names": "https://www.drupal.org/files/issues/drupal-use_new_transliteration-2492171-28.patch",
-        "Fatal error: Call to a member function getTimestamp()": "https://www.drupal.org/files/issues/2573807-25-8.3.x.patch",
-        "Unofficial content_moderation 8.2 to 8.3 upgrade path": "https://www.drupal.org/files/issues/unofficial-2846618-29.patch"
+        "Fatal error: Call to a member function getTimestamp()": "https://www.drupal.org/files/issues/2573807-25-8.3.x.patch"
       },
       "drupal/entity_reference_revisions": {
         "Support devel_generate, fatal error (2568187)": "https://www.drupal.org/files/issues/entity_reference_revisions-devel_generate-2568187-7-8.x.2.x.patch"
