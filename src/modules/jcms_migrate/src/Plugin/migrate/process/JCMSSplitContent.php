@@ -76,7 +76,7 @@ class JCMSSplitContent extends ProcessPluginBase {
                 'type' => 'image',
                 'image' => $child->getAttribute('src'),
               ];
-              if (preg_match('/googleusercontent/', $content_item['image'])) {
+              if (preg_match('/(googleusercontent|\.gif$)/i', $content_item['image'])) {
                 unset($content_item);
               }
               else {
@@ -106,6 +106,13 @@ class JCMSSplitContent extends ProcessPluginBase {
                 $content_item['height'] = $height;
               }
               break;
+            case 'button':
+              $content_item = [
+                'type' => 'button',
+                'uri' => $child->getAttribute('uri'),
+                'title' => $child->getAttribute('title'),
+              ];
+              break;
             default:
               $content_item = [
                 'type' => 'paragraph',
@@ -134,6 +141,7 @@ class JCMSSplitContent extends ProcessPluginBase {
     $string = preg_replace(['/&(nbsp|#xA0);/', '~<(/?)strong>~'], [' ', '<$1b>'], $string);
     $string = $this->imgStyleDimensions($string);
     $string = $this->codeConvert($string);
+    $string = $this->buttonConvert($string);
     $string = $this->stripImgAnchor($string);
     $string = $this->captionConvert($string);
     $string = $this->youtubeConvert($string);
@@ -197,7 +205,7 @@ class JCMSSplitContent extends ProcessPluginBase {
         unset($split[$k]);
       }
       else {
-        if (!preg_match('/^(<img|<table|<ol|<ul|<youtube|<code)/', $item)) {
+        if (!preg_match('/^(<img|<table|<ol|<ul|<youtube|<button|<code)/', $item)) {
           $item = '<p>' . $item . '</p>';
         }
         $split[$k] = $item;
@@ -242,6 +250,35 @@ class JCMSSplitContent extends ProcessPluginBase {
       foreach ($matches as $match) {
         $search[] = "/" . preg_quote($match[0], "/") . "/";
         $replace[] = preg_replace(['/\s\s+/', '~(/)?>~'], [' ', '$1>'], $match['img_start'] . ' caption="' . trim($match['caption']) . '"' . $match['img_end']);
+      }
+      $string = preg_replace($search, $replace, $string);
+    }
+    return $string;
+  }
+
+  /**
+   * Prepare markup to introduce buttons.
+   *
+   * @param $string
+   * @return mixed
+   */
+  public function buttonConvert($string) {
+    preg_match_all('~<a [^>]*href=\"(?P<uri>[^\"]+)\"[^>]*>\s*<img [^>]*alt=\"(?P<title>[^\"]*)\"[^>]*>\s*</a>~', $string, $matches, PREG_SET_ORDER);
+    if (!empty($matches)) {
+      $search = [];
+      $replace = [];
+      foreach ($matches as $match) {
+        if (!preg_match('/^(http|\/)/', $match['uri'])) {
+          continue;
+        }
+        $url = parse_url($match['uri']);
+        $pathinfo = pathinfo($url['path']);
+        if (!empty($pathinfo['extension'])) {
+          continue;
+        }
+        $title = preg_match('/^(http|\/|\s*$)/', $match['title']) ? 'Register' : $match['title'];
+        $search[] = "/" . preg_quote($match[0], "/") . "/";
+        $replace[] = sprintf('<button uri="%s" title="%s"/>', $match['uri'], $title);
       }
       $string = preg_replace($search, $replace, $string);
     }
