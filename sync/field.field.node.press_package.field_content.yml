@@ -6,6 +6,7 @@ dependencies:
     - field.storage.node.field_content
     - node.type.press_package
     - paragraphs.paragraphs_type.blockquote
+    - paragraphs.paragraphs_type.button
     - paragraphs.paragraphs_type.code
     - paragraphs.paragraphs_type.image
     - paragraphs.paragraphs_type.list
@@ -39,50 +40,54 @@ settings:
       table: table
       question: question
       code: code
+      button: button
     target_bundles_drag_drop:
       paragraph:
         enabled: true
-        weight: -31
+        weight: -33
       image:
         enabled: true
-        weight: -30
+        weight: -32
       youtube:
         enabled: true
-        weight: -29
+        weight: -31
       list:
         enabled: true
-        weight: -28
+        weight: -30
       section:
         enabled: true
-        weight: -27
+        weight: -29
       blockquote:
         enabled: true
-        weight: -26
+        weight: -28
       table:
         enabled: true
-        weight: -25
+        weight: -27
       question:
         enabled: true
-        weight: -24
+        weight: -26
       code:
         enabled: true
-        weight: -23
+        weight: -25
+      button:
+        enabled: true
+        weight: -24
       media_contact:
-        weight: -22
+        weight: -23
         enabled: false
       cv_item:
-        weight: -21
+        weight: -22
         enabled: false
       json:
-        weight: -20
+        weight: -21
         enabled: false
       list_item:
-        weight: -19
+        weight: -20
         enabled: false
       research_details:
-        weight: -18
+        weight: -19
         enabled: false
       venue:
-        weight: -17
+        weight: -18
         enabled: false
 field_type: entity_reference_revisions

@@ -100,7 +100,7 @@ class JCMSSplitContentTest extends KernelTestBase {
         ],
       ],
       [
-        '<div><a href="png/image.png"><img src="png/image.png"></a></div>',
+        '<div><img src="gif/image.gif"><a href="png/image.png"><img src="png/image.png"/></a><img src="GIF/image.GIF"></div>',
         [],
         [
           ['type' => 'image', 'image' => 'png/image.png'],
@@ -193,6 +193,25 @@ class JCMSSplitContentTest extends KernelTestBase {
           ['type' => 'paragraph', 'text' => 'The survey shows that current eLife digest readers are largely happy with the digests as they are. Furthermore, 89% of them think that other journals should consider providing plain-language summaries of research articles. However, there is always room for improvement so we were very pleased to receive many constructive suggestions for what we could do to make eLife digests even better. The comments centered on two main themes:'],
           ['type' => 'list', 'ordered' => FALSE, 'items' => ['Content – make the significance of the research clearer, and consider including images/figures/diagrams/videos to help explain the findings.', 'Visibility – make digests easier to find online, especially for general readers who don’t want to read the full research article.']],
           ['type' => 'paragraph', 'text' => 'We are already looking into how we can change the way we write and display digests to incorporate these suggestions. In the future, we are also hoping to raise more awareness of eLife digests outside of the research community so that other general readers are able to make use of this resource.'],
+        ],
+      ],
+      [
+        "<p><strong>We&#x2019;re inviting all interested parties to participate in a webinar to learn about leveraging our new open-source publishing platform.</strong></p>\n\n<p>Earlier this year, eLife developed a flexible, user-friendly platform that allows for efficient and continuous publication: eLife Continuum. Following our recent launch of the eLife journal on the new platform, we&#x2019;re making the software available open-source at the end of July 2016.</p>\n\n<p>With that in mind, Ian Mulvany, Head of Technology, Giuliano Maciocci, Head of Product, and Si&#xE2;n Roderick, Web Product Manager, will hold a webinar on Thursday, August 4, 4-5pm BST.</p>\n\n<p>Together, they will introduce the new features of eLife Continuum, including its technical requirements and the possibilities it opens. There will be time to ask questions about the practicalities of using and developing eLife Continuum under an MIT license, as well as an opportunity to touch upon the future innovations brewing at eLife.</p>\n\n<p>Please register below to join us.</p>\n\n<p><a href=\"https://attendee.gotowebinar.com/register/5653887078184911107\"><img alt=\"https://attendee.gotowebinar.com/register/5653887078184911107\" src=\"https://cdn.elifesciences.org/images/Register_now.png\" style=\"height:76px; width:249px\" /></a></p>\n",
+        [],
+        [
+          ['type' => 'paragraph', 'text' => '<b>We’re inviting all interested parties to participate in a webinar to learn about leveraging our new open-source publishing platform.</b>'],
+          ['type' => 'paragraph', 'text' => 'Earlier this year, eLife developed a flexible, user-friendly platform that allows for efficient and continuous publication: eLife Continuum. Following our recent launch of the eLife journal on the new platform, we’re making the software available open-source at the end of July 2016.'],
+          ['type' => 'paragraph', 'text' => 'With that in mind, Ian Mulvany, Head of Technology, Giuliano Maciocci, Head of Product, and Siân Roderick, Web Product Manager, will hold a webinar on Thursday, August 4, 4-5pm BST.'],
+          ['type' => 'paragraph', 'text' => 'Together, they will introduce the new features of eLife Continuum, including its technical requirements and the possibilities it opens. There will be time to ask questions about the practicalities of using and developing eLife Continuum under an MIT license, as well as an opportunity to touch upon the future innovations brewing at eLife.'],
+          ['type' => 'paragraph', 'text' => 'Please register below to join us.'],
+          ['type' => 'button', 'uri' => 'https://attendee.gotowebinar.com/register/5653887078184911107', 'title' => 'Register'],
+        ],
+      ],
+      [
+        "<p><a href=\"https://attendee.gotowebinar.com/register/7515928715881430531\" style=\"margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; color: rgb(34, 160, 216); text-decoration-line: none; transition: color 0.3s ease-in-out;\"><img alt=\"Register now\" src=\"https://cdn.elifesciences.org/images/Register_now.png\" style=\"border:0px; font-family:inherit; font-size:inherit; font-stretch:inherit; font-style:inherit; font-variant:inherit; font-weight:inherit; height:61px; line-height:inherit; margin:0px; outline:0px; padding:0px; vertical-align:bottom; width:200px\" /></a></p>",
+        [],
+        [
+          ['type' => 'button', 'uri' => 'https://attendee.gotowebinar.com/register/7515928715881430531', 'title' => 'Register now'],
         ],
       ],
     ];

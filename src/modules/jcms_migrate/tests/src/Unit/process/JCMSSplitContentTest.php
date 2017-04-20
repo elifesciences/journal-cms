@@ -67,6 +67,44 @@ class JCMSSplitContentTest extends MigrateProcessTestCase {
 
   /**
    * @test
+   * @covers ::buttonConvert
+   * @dataProvider buttonConvertDataProvider
+   * @param $string
+   * @param $expected_result
+   */
+  public function testButtonConvert($string, $expected_result) {
+    $plugin = new JCMSSplitContent([], 'jcms_split_content', []);
+    $caption_convert = $plugin->buttonConvert($string);
+    $this->assertEquals($expected_result, $caption_convert);
+  }
+
+  public function buttonConvertDataProvider() {
+    return [
+      [
+        "<a href=\"https://attendee.gotowebinar.com/register/7515928715881430531\" style=\"margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; color: rgb(34, 160, 216); text-decoration-line: none; transition: color 0.3s ease-in-out;\"><img alt=\"Register now\" src=\"https://cdn.elifesciences.org/images/Register_now.png\" style=\"border:0px; font-family:inherit; font-size:inherit; font-stretch:inherit; font-style:inherit; font-variant:inherit; font-weight:inherit; height:61px; line-height:inherit; margin:0px; outline:0px; padding:0px; vertical-align:bottom; width:200px\" /></a>",
+        "<button uri=\"https://attendee.gotowebinar.com/register/7515928715881430531\" title=\"Register now\"/>",
+      ],
+      [
+        "<p><a href=\"https://attendee.gotowebinar.com/register/5653887078184911107\"><img alt=\"https://attendee.gotowebinar.com/register/5653887078184911107\" src=\"https://cdn.elifesciences.org/images/Register_now.png\" style=\"height:76px; width:249px\" /></a></p>",
+        "<p><button uri=\"https://attendee.gotowebinar.com/register/5653887078184911107\" title=\"Register\"/></p>",
+      ],
+      [
+        "<p><a href=\"https://attendee.gotowebinar.com/register/5653887078184911107\"><img src=\"https://cdn.elifesciences.org/images/Register_now.png\" style=\"height:76px; width:249px\" /></a></p>",
+        "<p><a href=\"https://attendee.gotowebinar.com/register/5653887078184911107\"><img src=\"https://cdn.elifesciences.org/images/Register_now.png\" style=\"height:76px; width:249px\" /></a></p>",
+      ],
+      [
+        "<p><a href=\"https://attendee.gotowebinar.com/register/5653887078184911107.gif\"><img alt=\"https://attendee.gotowebinar.com/register/5653887078184911107\" src=\"https://cdn.elifesciences.org/images/Register_now.png\" style=\"height:76px; width:249px\" /></a></p>",
+        "<p><a href=\"https://attendee.gotowebinar.com/register/5653887078184911107.gif\"><img alt=\"https://attendee.gotowebinar.com/register/5653887078184911107\" src=\"https://cdn.elifesciences.org/images/Register_now.png\" style=\"height:76px; width:249px\" /></a></p>",
+      ],
+      [
+        "<a href=\"http://crm.elifesciences.org/crm/civicrm/profile/create?gid=24&amp;reset=1\"><img alt=\"\" height=\"82\" src=\"https://elifesciences.org/sites/default/files/button-ediatble-poa_03.gif\" width=\"230\" /></a>",
+        "<button uri=\"http://crm.elifesciences.org/crm/civicrm/profile/create?gid=24&amp;reset=1\" title=\"Register\"/>",
+      ],
+    ];
+  }
+
+  /**
+   * @test
    * @covers ::codeConvert
    * @dataProvider codeConvertDataProvider
    * @param $string
