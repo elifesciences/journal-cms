@@ -6,6 +6,7 @@ use Drupal\jcms_article\Entity\ArticleMetrics;
 use GuzzleHttp\Client;
 use Drupal\Core\Site\Settings;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class FetchArticleMetrics.
@@ -57,7 +58,10 @@ final class FetchArticleMetrics {
     $response = $this->requestArticleMetrics($id);
     // This will almost always be a string but in case it's null or something.
     $json = json_decode($response->getBody()->getContents() ?: '{}', TRUE);
-    if (isset($json['totalValue'])) {
+    if ($response->getStatusCode() == Response::HTTP_NOT_FOUND) {
+      return new ArticleMetrics($id, 0);
+    }
+    elseif (isset($json['totalValue'])) {
       return new ArticleMetrics($id, (int) $json['totalValue']);
     }
     throw new \TypeError('Response not formatted as expected.');
