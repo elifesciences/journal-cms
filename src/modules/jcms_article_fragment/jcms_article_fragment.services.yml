@@ -1,5 +1,0 @@
-services:
-  jcms_article_fragment.api:
-    class: Drupal\jcms_article_fragment\FragmentApi
-    arguments: ['@http_client']
-

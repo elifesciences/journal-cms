@@ -1,5 +1,0 @@
-entity.article_fragment.add_form:
-  route_name: entity.article_fragment.add_form
-  title: 'Add Article fragment'
-  appears_on:
-    - entity.article_fragment.collection

@@ -24,4 +24,5 @@ hidden:
   field_article_json: true
   field_community_list: true
   field_image: true
+  field_page_views: true
   field_subjects: true
