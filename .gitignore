@@ -8,3 +8,4 @@ scripts/legacy_cms_files_alt/
 vendor/
 web/
 console/
+private/
