@@ -22,4 +22,9 @@ if [[ ! -e /home/vagrant/.bash_profile ]]; then
     chown vagrant:vagrant /home/vagrant/.bash_profile
 fi
 
+if [[ ! -d /vagrant/private/monolog ]]; then
+    mkdir -p /vagrant/private/monolog
+    chmod 755 /vagrant/private/monolog
+fi
+
 exit 0

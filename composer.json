@@ -52,7 +52,8 @@
     "drupal/diff": "^1.0@RC",
     "embed/embed": "^3.0",
     "drupal/devel": "1.x-dev",
-    "drupal/core": "~8.3.0"
+    "drupal/core": "~8.3.0",
+    "drupal/monolog": "1.x-dev"
   },
   "require-dev": {
     "drupal/drupal-extension": "~3.0",
@@ -80,7 +81,7 @@
     ]
   },
   "scripts": {
-    "clean-up": "chmod -R 755 web/ && rm -rf config/local.settings.php web/ vendor/",
+    "clean-up": "chmod -R 755 web/ && rm -rf config/local.settings.php web/ vendor/ private/",
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "post-install-cmd": [
       "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
@@ -130,6 +131,9 @@
       },
       "drupal/paragraphs": {
         "Empty required fields not providing meaningful error messages": "https://www.drupal.org/files/issues/empty_required_fields-2788607-70.patch"
+      },
+      "drupal/monolog": {
+        "UidProcessor missing class": "https://www.drupal.org/files/issues/uidprocessor_missing-2871806-2.patch"
       }
     }
   }

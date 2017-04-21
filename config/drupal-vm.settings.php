@@ -75,6 +75,8 @@ else {
   error_log('Redis cache backend is unavailable.');
 }
 
+$settings['file_private_path'] = './../private';
+
 $settings['jcms_sqs_endpoint'] = 'http://localhost:4100';
 $settings['jcms_sqs_queue'] = 'journal-cms--queue-local';
 // Production template is 'arn:aws:sns:us-east-1:512686554592:bus-%s--dev'.
