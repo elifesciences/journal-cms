@@ -2,9 +2,11 @@
 .idea/
 .vagrant/
 config/local.settings.php
+config/local.services.yml
 scripts/legacy_cms.sql.gz
 scripts/legacy_cms_files/
 scripts/legacy_cms_files_alt/
 vendor/
 web/
 console/
+private/
