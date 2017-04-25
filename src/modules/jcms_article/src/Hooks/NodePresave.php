@@ -138,6 +138,10 @@ final class NodePresave {
    * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
   public function updateFragmentApi(EntityInterface $entity, ArticleVersions $article) {
+    if (empty(Settings::get('jcms_article_auth_unpublished', FALSE))) {
+      return;
+    }
+
     if ($image = $this->processFieldImage($entity->get('field_image'), FALSE, 'thumbnail')) {
       $this->fragmentApi->postImageFragment($article->getId(), json_encode(['image' => $image]));
     }
