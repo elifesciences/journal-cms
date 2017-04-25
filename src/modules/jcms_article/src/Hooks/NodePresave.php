@@ -135,20 +135,19 @@ final class NodePresave {
    * Update or delete the article fragment.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
+   * @param string $articleId
    */
-  public function updateFragmentApi(EntityInterface $entity, ArticleVersions $article) {
+  public function updateFragmentApi(EntityInterface $entity, string $articleId) {
     if (empty(Settings::get('jcms_article_auth_unpublished', FALSE))) {
       return;
     }
 
     if ($image = $this->processFieldImage($entity->get('field_image'), FALSE, 'thumbnail')) {
-      $this->fragmentApi->postImageFragment($article->getId(), json_encode(['image' => $image]));
+      $this->fragmentApi->postImageFragment($articleId, json_encode(['image' => $image]));
     }
     else {
-      $this->fragmentApi->deleteImageFragment($article->getId());
+      $this->fragmentApi->deleteImageFragment($articleId);
     }
-    // $entity->set('field_article_json', NULL);
   }
 
   /**

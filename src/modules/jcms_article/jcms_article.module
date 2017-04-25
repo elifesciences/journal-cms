@@ -5,6 +5,7 @@
  * Contains jcms_article.module..
  */
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityInterface;
 
@@ -35,10 +36,52 @@ function jcms_article_node_presave(EntityInterface $entity) {
   if (!empty($entity->migration)) {
     $node_presave->forMigrationOnly();
   }
+
+  $admin_ui = _jcms_admin_static_store('node_article_form_admin_ui');
+
+  // Only post to the fragmentApi if article node was saved in the admin UI.
+  if (!empty($admin_ui)) {
+    $node_presave->updateFragmentApi($entity, $entity->label());
+  }
+
+  // @todo - elife - nlisgo - Ensure we're not requesting in ArticleCrud and here.
   $article = $node_presave->getArticleById($entity->label());
-  $node_presave->updateFragmentApi($entity, $article);
-  $node_presave->addJsonFields($entity, $article);
-  $node_presave->setPublishedStatus($entity, $article);
-  $node_presave->setStatusDate($entity, $article);
-  $node_presave->setSubjectTerms($entity, $article);
+
+  // Only update the Json fields in admin UI if the node is new.
+  if (!empty($admin_ui) && $entity->isNew()) {
+    $node_presave->addJsonFields($entity, $article);
+  }
+
+  if (empty($admin_ui) || $entity->isNew()) {
+    $node_presave->setPublishedStatus($entity, $article);
+    $node_presave->setStatusDate($entity, $article);
+    $node_presave->setSubjectTerms($entity, $article);
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function jcms_article_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _jcms_admin_protect_id_field($form, $form_id);
+  switch ($form_id) {
+    case 'node_article_form':
+    case 'node_article_edit_form':
+      foreach (array_keys($form['actions']) as $action) {
+        if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+          array_unshift($form['actions'][$action]['#submit'], '_jcms_article_form_node_article_edit_form_submit');
+        }
+      }
+      break;
+  }
+}
+
+/**
+ * Submit function for node_article_form and node_article_edit_form.
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function _jcms_article_form_node_article_edit_form_submit($form, FormStateInterface $form_state) {
+  _jcms_admin_static_store('node_article_form_admin_ui', 1);
 }
