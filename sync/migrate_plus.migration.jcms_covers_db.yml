@@ -10,7 +10,7 @@ migration_group: jcms_migrate
 label: 'Legacy covers'
 source:
   plugin: jcms_cover_node
-  track_changes: true
+  track_changes: false
 process:
   type:
     plugin: default_value

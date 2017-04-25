@@ -10,7 +10,7 @@ migration_group: jcms_migrate
 label: 'JSON feed of podcast episodes'
 source:
   plugin: url
-  track_changes: true
+  track_changes: false
   data_fetcher_plugin: file
   data_parser_plugin: json
   urls: modules/custom/jcms_migrate/migration_assets/podcast_episodes.json
