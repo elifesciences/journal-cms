@@ -49,6 +49,12 @@ class FragmentApi {
       'http_errors' => FALSE,
     ]);
 
+    \Drupal::logger('jcms_article')
+      ->notice(
+        'An image fragment has been posted to @endpoint with the response: @response',
+        ['@endpoint' => $endpoint, '@response' => \GuzzleHttp\Psr7\str($response)]
+      );
+
     if ($response->getStatusCode() !== Response::HTTP_OK) {
       throw new \Exception("Fragment API update could not be performed.");
     }
@@ -73,6 +79,12 @@ class FragmentApi {
       ],
       'http_errors' => FALSE,
     ]);
+
+    \Drupal::logger('jcms_article')
+      ->notice(
+        'An image fragment has been deleted at @endpoint with the response: @response',
+        ['@endpoint' => $endpoint, '@response' => \GuzzleHttp\Psr7\str($response)]
+      );
 
     if (!in_array($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_FOUND])) {
       throw new \Exception("Fragment API delete could not be performed.");
