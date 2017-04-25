@@ -10,7 +10,7 @@ migration_group: jcms_migrate
 label: 'Legacy Press packages'
 source:
   plugin: jcms_press_package_node
-  track_changes: true
+  track_changes: false
 process:
   type:
     plugin: default_value

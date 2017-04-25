@@ -3,7 +3,7 @@ label: Legacy Blog articles
 migration_group: jcms_migrate
 source:
   plugin: jcms_blog_article_node
-  track_changes: true
+  track_changes: false
 destination:
   plugin: entity:node
 process:

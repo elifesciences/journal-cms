@@ -588,6 +588,10 @@
     "name": "cancer stem cells"
   },
   {
+    "id": "cannabis",
+    "name": "cannabis"
+  },
+  {
     "id": "cardiac and bone regeneration",
     "name": "cardiac and bone regeneration"
   },
@@ -1200,6 +1204,10 @@
     "name": "empathy"
   },
   {
+    "id": "endocannabinoids",
+    "name": "endocannabinoids"
+  },
+  {
     "id": "endocytosis",
     "name": "endocytosis"
   },
@@ -1702,6 +1710,10 @@
   {
     "id": "hiv",
     "name": "HIV"
+  },
+  {
+    "id": "hiv drug resistance",
+    "name": "HIV drug resistance"
   },
   {
     "id": "hiv entry",
@@ -2218,6 +2230,10 @@
   {
     "id": "memory",
     "name": "memory"
+  },
+  {
+    "id": "mental retardation",
+    "name": "mental retardation"
   },
   {
     "id": "metabolic disease",
@@ -3344,6 +3360,10 @@
     "name": "retrotransposition"
   },
   {
+    "id": "retroviral restriction factors",
+    "name": "retroviral restriction factors"
+  },
+  {
     "id": "retrovirus replication",
     "name": "retrovirus replication"
   },
@@ -3768,6 +3788,10 @@
     "name": "synaptic transmission"
   },
   {
+    "id": "synaptopathies",
+    "name": "synaptopathies"
+  },
+  {
     "id": "systems biology",
     "name": "systems biology"
   },
@@ -3850,6 +3874,10 @@
   {
     "id": "thyroid cancer",
     "name": "thyroid cancer"
+  },
+  {
+    "id": "tissue and nerve injury",
+    "name": "tissue and nerve injury"
   },
   {
     "id": "tissue engineering",
@@ -3946,6 +3974,10 @@
   {
     "id": "transcriptome analyses",
     "name": "transcriptome analyses"
+  },
+  {
+    "id": "transgenic mice",
+    "name": "transgenic mice"
   },
   {
     "id": "translation",
@@ -4082,6 +4114,10 @@
   {
     "id": "viral evolution",
     "name": "viral evolution"
+  },
+  {
+    "id": "viral-host interactions",
+    "name": "viral-host interactions"
   },
   {
     "id": "viral vectors",
