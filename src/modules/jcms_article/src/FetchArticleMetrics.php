@@ -53,6 +53,7 @@ final class FetchArticleMetrics {
    * @param string $id
    *
    * @return \Drupal\jcms_article\Entity\ArticleMetrics
+   * @throws \TypeError
    */
   public function getArticleMetrics(string $id): ArticleMetrics {
     $response = $this->requestArticleMetrics($id);
@@ -64,7 +65,7 @@ final class FetchArticleMetrics {
     elseif (isset($json['totalValue'])) {
       return new ArticleMetrics($id, (int) $json['totalValue']);
     }
-    throw new \TypeError('Response not formatted as expected.');
+    throw new \TypeError(sprintf('Response to request for article metrics not formatted as expected: %s.', $id));
   }
 
   /**
