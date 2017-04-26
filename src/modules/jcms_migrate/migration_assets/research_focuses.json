@@ -2404,6 +2404,10 @@
     "name": "morphogen gradients"
   },
   {
+    "id": "morphogenesis",
+    "name": "morphogenesis"
+  },
+  {
     "id": "mosquito immune system",
     "name": "mosquito immune system"
   },
@@ -3354,6 +3358,14 @@
   {
     "id": "retina",
     "name": "retina"
+  },
+  {
+    "id": "retinal degradation",
+    "name": "retinal degradation"
+  },
+  {
+    "id": "retinal development",
+    "name": "retinal development"
   },
   {
     "id": "retrotransposition",
