@@ -46,6 +46,11 @@ class JCMSMIgrateEventSubscriber implements EventSubscriberInterface {
           }
         }
       }
+      // Unable to set the moderation state in migration for covers, I am setting it here.
+      $ids = $event->getDestinationIdValues();
+      $cover = Node::load($ids[0]);
+      $cover->set('moderation_state', 'published');
+      $cover->save();
     }
   }
 

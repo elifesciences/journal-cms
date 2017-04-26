@@ -48,7 +48,7 @@ function jcms_article_node_presave(EntityInterface $entity) {
   $article = $node_presave->getArticleById($entity->label());
 
   // Only update the Json fields in admin UI if the node is new.
-  if (!empty($admin_ui) && $entity->isNew()) {
+  if (!empty($entity->migration) || (!empty($admin_ui) && $entity->isNew())) {
     $node_presave->addJsonFields($entity, $article);
   }
 
