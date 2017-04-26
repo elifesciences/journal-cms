@@ -85,6 +85,9 @@ process:
   created:
     plugin: transform_date
     source: created
+  changed:
+    plugin: transform_date
+    source: created
 destination:
   plugin: 'entity:node'
 migration_dependencies:

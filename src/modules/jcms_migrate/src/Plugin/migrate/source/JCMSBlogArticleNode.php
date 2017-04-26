@@ -34,7 +34,7 @@ class JCMSBlogArticleNode extends SqlBase {
    */
   public function query() {
     $query = $this->select('node', 'n')
-      ->fields('n', ['nid', 'uid', 'title', 'created', 'status', 'uuid']);
+      ->fields('n', ['nid', 'uid', 'title', 'created', 'changed', 'status', 'uuid']);
     $query->leftJoin('field_data_field_elife_n_category', 'category', 'category.entity_id = n.nid');
     $query->leftJoin('taxonomy_term_data', 'term', 'term.tid = category.field_elife_n_category_tid');
     $query->leftJoin('taxonomy_vocabulary', 'vocab', "vocab.vid = term.vid AND vocab.machine_name = 'elife_n_category'");
@@ -84,6 +84,7 @@ class JCMSBlogArticleNode extends SqlBase {
       'uuid' => $this->t('UUID'),
       'title' => $this->t('Title'),
       'created' => $this->t('Created timestamp'),
+      'changed' => $this->t('Changed timestamp'),
       'status' => $this->t('Published'),
       'summary' => $this->t('Summary'),
       'content' => $this->t('Content'),
