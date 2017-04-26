@@ -18,6 +18,14 @@ source:
       label: 'Annual report title'
       selector: title
     -
+      name: created
+      label: 'Annual report publication date'
+      selector: created
+    -
+      name: changed
+      label: 'Annual report updated date'
+      selector: changed
+    -
       name: impact_statement
       label: 'Annual report impact statement'
       selector: impact_statement
@@ -50,6 +58,12 @@ process:
     plugin: migration
     migration: jcms_users_db
     source: uid
+  created:
+    plugin: transform_date
+    source: created
+  changed:
+    plugin: transform_date
+    source: changed
   field_annual_report_year: year
   'field_impact_statement/value': impact_statement
   'field_impact_statement/format':

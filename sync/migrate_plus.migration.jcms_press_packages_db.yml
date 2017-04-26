@@ -22,6 +22,7 @@ process:
     migration: jcms_users_db
     source: uid
   created: created
+  changed: changed
   field_content:
     -
       plugin: jcms_press_package_content

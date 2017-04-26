@@ -18,6 +18,7 @@ process:
     migration: jcms_users_db
     source: uid
   created: created
+  changed: changed
   field_image:
     plugin: jcms_image
     source:

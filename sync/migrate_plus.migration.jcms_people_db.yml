@@ -28,6 +28,7 @@ process:
     migration: jcms_users_db
     source: uid
   created: created
+  changed: changed
   field_person_index_name:
     plugin: concat
     source:

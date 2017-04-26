@@ -81,6 +81,9 @@ process:
   created:
     plugin: transform_date
     source: created
+  changed:
+    plugin: transform_date
+    source: created
 
 migration_dependencies:
   required:

@@ -33,6 +33,10 @@ source:
       label: 'Collection publication date'
       selector: created
     -
+      name: changed
+      label: 'Collection updated date'
+      selector: changed
+    -
       name: impact_statement
       label: 'Collection impact statement'
       selector: impact_statement
@@ -75,7 +79,12 @@ process:
     plugin: migration
     migration: jcms_users_db
     source: uid
-  created: created
+  created:
+    plugin: transform_date
+    source: created
+  changed:
+    plugin: transform_date
+    source: changed
   field_subtitle: sub_title
   field_impact_statement/value: impact_statement
   field_impact_statement/format:

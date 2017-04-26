@@ -18,7 +18,7 @@ class JCMSPressPackageNode extends SqlBase {
    */
   public function query() {
     $query = $this->select('node', 'n')
-      ->fields('n', ['nid', 'uid', 'title', 'created', 'status', 'uuid']);
+      ->fields('n', ['nid', 'uid', 'title', 'created', 'changed', 'status', 'uuid']);
     $query->innerJoin('field_data_field_elife_n_text', 'text' , 'text.entity_id = n.nid');
     $query->addExpression("SUBSTRING_INDEX(n.title, ': ', -1)", 'press_title');
     $query->addField('text', 'field_elife_n_text_value', 'content');
@@ -48,6 +48,7 @@ class JCMSPressPackageNode extends SqlBase {
       'uuid' => $this->t('UUID'),
       'press_title' => $this->t('Title'),
       'created' => $this->t('Created timestamp'),
+      'changed' => $this->t('Changed timestamp'),
       'status' => $this->t('Published'),
       'content' => $this->t('Content'),
     ];

@@ -18,6 +18,7 @@ process:
     migration: jcms_users_db
     source: uid
   created: created
+  changed: changed
   field_subtitle: sub_title
   'field_impact_statement/value': summary
   'field_impact_statement/format':
