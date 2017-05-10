@@ -84,24 +84,28 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
 
       // Collection content is required.
       $response['content'] = [];
+
       $blog_article_rest_resource = new BlogArticleListRestResource([], 'blog_article_list_rest_resource', [], $this->serializerFormats, $this->logger);
       $interview_rest_resource = new InterviewListRestResource([], 'interview_list_rest_resource', [], $this->serializerFormats, $this->logger);
-      foreach ($node->get('field_collection_content') as $content) {
-        /* @var \Drupal\node\Entity\Node $content_node */
-        $content_node = $content->get('entity')->getTarget()->getValue();
-        switch ($content_node->getType()) {
-          case 'blog_article':
-            $response['content'][] = ['type' => 'blog-article'] + $blog_article_rest_resource->getItem($content_node);
-            break;
-          case 'interview':
-            $response['content'][] = ['type' => 'interview'] + $interview_rest_resource->getItem($content_node);
-            break;
-          case 'article':
-            if ($snippet = $this->getArticleSnippet($content_node)) {
-              $response['content'][] = $snippet;
-            }
-            break;
-          default:
+
+      foreach (['content' => 'field_collection_content', 'relatedContent' => 'field_collection_related_content'] as $k => $field) {
+        foreach ($node->get($field) as $content) {
+          /* @var \Drupal\node\Entity\Node $content_node */
+          $content_node = $content->get('entity')->getTarget()->getValue();
+          switch ($content_node->getType()) {
+            case 'blog_article':
+              $response[$k][] = ['type' => 'blog-article'] + $blog_article_rest_resource->getItem($content_node);
+              break;
+            case 'interview':
+              $response[$k][] = ['type' => 'interview'] + $interview_rest_resource->getItem($content_node);
+              break;
+            case 'article':
+              if ($snippet = $this->getArticleSnippet($content_node)) {
+                $response[$k][] = $snippet;
+              }
+              break;
+            default:
+          }
         }
       }
 
