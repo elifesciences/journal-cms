@@ -27,6 +27,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     'end-date' => '2999-12-31',
     'show' => 'all',
     'sort' => 'date',
+    'type' => NULL,
   ];
 
   protected static $requestOptions = [];
@@ -93,6 +94,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         'end-date' => $request->query->get('end-date', $this->defaultOptions['end-date']),
         'show' => $request->query->get('show', $this->defaultOptions['show']),
         'sort' => $request->query->get('sort', $this->defaultOptions['sort']),
+        'type' => $request->query->get('type', $this->defaultOptions['type']),
       ];
     }
     return $this::$requestOptions;
