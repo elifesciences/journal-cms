@@ -216,6 +216,10 @@
     "name": "assembly and entry of viruses"
   },
   {
+    "id": "associative learning",
+    "name": "associative learning"
+  },
+  {
     "id": "astrocyte biology",
     "name": "astrocyte biology"
   },
@@ -518,6 +522,10 @@
   {
     "id": "brain microcircuits",
     "name": "brain microcircuits"
+  },
+  {
+    "id": "brain network dynamics",
+    "name": "brain network dynamics"
   },
   {
     "id": "brain tumors",
@@ -1024,8 +1032,8 @@
     "name": "deafness"
   },
   {
-    "id": "decision-making",
-    "name": "decision-making"
+    "id": "decision making",
+    "name": "decision making"
   },
   {
     "id": "dementia",
@@ -2830,6 +2838,10 @@
   {
     "id": "optical imaging",
     "name": "optical imaging"
+  },
+  {
+    "id": "orbitofrontal",
+    "name": "orbitofrontal"
   },
   {
     "id": "organ homeostasis",

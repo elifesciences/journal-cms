@@ -220,6 +220,7 @@ class JCMSResearchDetails extends AbstractJCMSContainerFactoryPlugin {
       'plant microbe symbioses' => 'plant-microbe symbioses',
       'protein nucleic acid interactions' => 'protein-nucleic acid interactions',
       'cytoskeleton - membrane interplay' => 'cytoskeleton-membrane interplay',
+      'decision-making' => 'decision making',
     ];
 
     if (isset($map[$string])) {
