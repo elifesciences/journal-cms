@@ -2149,12 +2149,12 @@
             "version": "8.3.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/drupal-composer/drupal-core.git",
+                "url": "https://github.com/drupal/core.git",
                 "reference": "53326f9503e5e9e406fab22e4fbae6ddb706f7be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal-composer/drupal-core/zipball/53326f9503e5e9e406fab22e4fbae6ddb706f7be",
+                "url": "https://api.github.com/repos/drupal/core/zipball/53326f9503e5e9e406fab22e4fbae6ddb706f7be",
                 "reference": "53326f9503e5e9e406fab22e4fbae6ddb706f7be",
                 "shasum": ""
             },
@@ -8188,12 +8188,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "d1eae121c00bbde4514a85788af2a8e880cba9a8"
+                "reference": "7bf6cf2e7ea9f7bc3140bf7985f7151d2ed15259"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/d1eae121c00bbde4514a85788af2a8e880cba9a8",
-                "reference": "d1eae121c00bbde4514a85788af2a8e880cba9a8",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/7bf6cf2e7ea9f7bc3140bf7985f7151d2ed15259",
+                "reference": "7bf6cf2e7ea9f7bc3140bf7985f7151d2ed15259",
                 "shasum": ""
             },
             "conflict": {
@@ -8205,7 +8205,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API specification",
-            "time": "2017-04-12 09:21:18"
+            "time": "2017-05-08T12:11:01+00:00"
         },
         {
             "name": "elife/api-validator",
