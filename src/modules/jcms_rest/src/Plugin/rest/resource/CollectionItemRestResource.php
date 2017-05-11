@@ -45,11 +45,6 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
       $this->setSortBy('changed');
       $response = $this->processDefault($node, $id);
 
-      // Subtitle is optional.
-      if ($node->get('field_subtitle')->count()) {
-        $response['subTitle'] = $node->get('field_subtitle')->getString();
-      }
-
       // Image is optional.
       if ($image = $this->processFieldImage($node->get('field_image'), FALSE)) {
         $response['image'] = $image;
