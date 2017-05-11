@@ -19,7 +19,6 @@ class JCMSCollectionNode extends SqlBase {
   public function query() {
     $query = $this->select('node', 'n')
       ->fields('n', ['nid', 'uid', 'title', 'created', 'changed', 'status', 'uuid']);
-    $query->leftJoin('field_data_field_elife_c_sub_title', 'sub_title', 'sub_title.entity_id = n.nid');
     $query->leftJoin('field_data_field_elife_c_image', 'photo', 'photo.entity_id = n.nid');
     $query->leftJoin('file_managed', 'fm', 'fm.fid = photo.field_elife_c_image_fid');
     $query->leftJoin('field_data_field_elife_c_text', 'impact', 'impact.entity_id = n.nid');
@@ -28,7 +27,6 @@ class JCMSCollectionNode extends SqlBase {
     $query->innerJoin('node', 'an', 'an.nid = articles.field_elife_c_articles_target_id');
     $query->leftJoin('field_data_field_elife_c_related', 'related', 'related.entity_id = n.nid');
     $query->leftJoin('node', 'rn', 'rn.nid = related.field_elife_c_related_target_id');
-    $query->addField('sub_title', 'field_elife_c_sub_title_value', 'sub_title');
     $query->addField('impact', 'field_elife_c_text_value', 'summary');
     $query->addField('fm', 'uri', 'photo_uri');
     $query->addExpression("GROUP_CONCAT(DISTINCT curators.field_elife_c_curators_target_id ORDER BY curators.delta ASC SEPARATOR '|')", 'curators');
@@ -39,7 +37,6 @@ class JCMSCollectionNode extends SqlBase {
     $query->condition('n.status', NODE_PUBLISHED);
     $query->groupBy('n.nid');
     $query->groupBy('curators.entity_id');
-    $query->groupBy('sub_title.field_elife_c_sub_title_value');
     $query->groupBy('impact.field_elife_c_text_value');
     $query->groupBy('fm.fid');
 
@@ -55,7 +52,6 @@ class JCMSCollectionNode extends SqlBase {
       'uid' => $this->t('Author ID'),
       'uuid' => $this->t('UUID'),
       'title' => $this->t('Name'),
-      'sub_title' => $this->t('Sub title'),
       'created' => $this->t('Created timestamp'),
       'changed' => $this->t('Changed timestamp'),
       'status' => $this->t('Published'),

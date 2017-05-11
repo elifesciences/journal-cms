@@ -6,12 +6,13 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.collection.field_collection_content
     - field.field.node.collection.field_collection_podcasts
+    - field.field.node.collection.field_collection_related_content
     - field.field.node.collection.field_community_list
     - field.field.node.collection.field_curators
     - field.field.node.collection.field_image
     - field.field.node.collection.field_impact_statement
     - field.field.node.collection.field_subjects
-    - field.field.node.collection.field_subtitle
+    - field.field.node.collection.field_summary
     - node.type.collection
   module:
     - user
@@ -26,9 +27,10 @@ content:
 hidden:
   field_collection_content: true
   field_collection_podcasts: true
+  field_collection_related_content: true
   field_community_list: true
   field_curators: true
   field_image: true
   field_impact_statement: true
   field_subjects: true
-  field_subtitle: true
+  field_summary: true

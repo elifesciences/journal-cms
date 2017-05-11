@@ -81,7 +81,6 @@ process:
   changed:
     plugin: transform_date
     source: changed
-  field_subtitle: sub_title
   'field_impact_statement/value': impact_statement
   'field_impact_statement/format':
     plugin: default_value

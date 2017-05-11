@@ -23,7 +23,6 @@ process:
     source: uid
   created: created
   changed: changed
-  field_subtitle: sub_title
   field_impact_statement/value: summary
   field_impact_statement/format:
     plugin: default_value
