@@ -12,12 +12,14 @@ dependencies:
     - field.field.node.collection.field_impact_statement
     - field.field.node.collection.field_subjects
     - field.field.node.collection.field_subtitle
+    - field.field.node.collection.field_summary
     - image.style.thumbnail
     - node.type.collection
   module:
     - content_moderation
     - image
     - inline_entity_form
+    - paragraphs
     - text
 id: node.collection.default
 targetEntityType: node
@@ -25,7 +27,7 @@ bundle: collection
 mode: default
 content:
   field_collection_content:
-    weight: 6
+    weight: 7
     settings:
       form_mode: default
       override_labels: true
@@ -38,7 +40,7 @@ content:
     type: inline_entity_form_complex
     region: content
   field_collection_podcasts:
-    weight: 8
+    weight: 9
     settings:
       match_operator: CONTAINS
       size: 60
@@ -47,7 +49,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_collection_related_content:
-    weight: 7
+    weight: 8
     settings:
       form_mode: default
       override_labels: true
@@ -60,7 +62,7 @@ content:
     type: inline_entity_form_complex
     region: content
   field_community_list:
-    weight: 9
+    weight: 10
     settings:
       display_label: true
     third_party_settings: {  }
@@ -107,6 +109,18 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_summary:
+    type: entity_reference_paragraphs
+    weight: 6
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: paragraph
+    third_party_settings: {  }
     region: content
   title:
     type: string_textfield

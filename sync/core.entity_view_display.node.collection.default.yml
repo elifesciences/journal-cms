@@ -12,8 +12,10 @@ dependencies:
     - field.field.node.collection.field_impact_statement
     - field.field.node.collection.field_subjects
     - field.field.node.collection.field_subtitle
+    - field.field.node.collection.field_summary
     - node.type.collection
   module:
+    - entity_reference_revisions
     - image
     - text
     - user
@@ -95,6 +97,15 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_summary:
+    type: entity_reference_revisions_entity_view
+    weight: 110
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
     region: content
   links:
     weight: 100

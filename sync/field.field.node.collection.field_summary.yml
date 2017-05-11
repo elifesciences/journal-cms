@@ -1,0 +1,75 @@
+uuid: 4533ee4e-cb12-4a88-9c35-9d99c828366c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_summary
+    - node.type.collection
+    - paragraphs.paragraphs_type.paragraph
+  module:
+    - entity_reference_revisions
+id: node.collection.field_summary
+field_name: field_summary
+entity_type: node
+bundle: collection
+label: Summary
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      paragraph: paragraph
+    target_bundles_drag_drop:
+      blockquote:
+        weight: 17
+        enabled: false
+      button:
+        weight: 18
+        enabled: false
+      code:
+        weight: 19
+        enabled: false
+      cv_item:
+        weight: 20
+        enabled: false
+      image:
+        weight: 21
+        enabled: false
+      json:
+        weight: 22
+        enabled: false
+      list:
+        weight: 23
+        enabled: false
+      list_item:
+        weight: 24
+        enabled: false
+      media_contact:
+        weight: 25
+        enabled: false
+      paragraph:
+        enabled: true
+        weight: 26
+      question:
+        weight: 27
+        enabled: false
+      research_details:
+        weight: 28
+        enabled: false
+      section:
+        weight: 29
+        enabled: false
+      table:
+        weight: 30
+        enabled: false
+      venue:
+        weight: 31
+        enabled: false
+      youtube:
+        weight: 32
+        enabled: false
+field_type: entity_reference_revisions

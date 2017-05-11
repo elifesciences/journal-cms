@@ -82,6 +82,11 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
         $co++;
       }
 
+      // Summary is optional.
+      if ($content = $this->processFieldContent($node->get('field_summary'))) {
+        $response['summary'] = $content;
+      }
+
       // Collection content is required.
       $response['content'] = [];
 
