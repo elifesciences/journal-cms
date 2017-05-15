@@ -168,6 +168,7 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
   $metrics_service = \Drupal::service('jcms_article.fetch_article_metrics');
   $crud_service = \Drupal::service('jcms_article.article_crud');
   $limit_service = \Drupal::service('jcms_notifications.limit_service');
+  $logger->info('Started');
   $count = 0;
   while (!$limit_service()) {
     $message = $queue_service->getMessage();
@@ -244,6 +245,7 @@ function drush_jcms_notifications_send_notifications() {
   $sleep = drush_get_option('sleep') ?: 30;
   $delay = drush_get_option('delay') ?: 2;
   $i = 0;
+  $logger->info('Started');
   while (!$limit_service()) {
     if ($iterations) {
       if ($i >= $iterations) {
