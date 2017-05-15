@@ -86,7 +86,7 @@ function drush_jcms_notifications_article_import_all() {
   if (!empty($limit)) {
     $fetch_service->setLimit($limit);
   }
-  $ids = $fetch_service->getAllArticleIDs();
+  $ids = $fetch_service->getAllArticleIds();
   drush_print(dt('Received !count article IDs to process.', ['!count' => count($ids)]));
   if ($ids) {
     $time_start = microtime(TRUE);
@@ -177,6 +177,13 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
     if ($message !== NULL) {
       drush_print(dt('[!date] Received message !message', ['!date' => date('c'), '!message' => var_export($message, TRUE)]));
       $id = $message->getId();
+
+      // Temporary tolerance in id while articles and metrics id are inconsistent.
+      if (strlen($id) < 5 && in_array($message->getType(), ['article', 'metrics'])) {
+        $id = str_pad($id, 5, '0');
+        drush_print(dt('Id for !type is too short. Changing !before to !after.', ['!type' => $message->getType(), '!before' => $message->getId(), '!after' => $id]));
+      }
+
       try {
         switch ($message->getType()) {
           // Process article sqs items.

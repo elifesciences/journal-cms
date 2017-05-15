@@ -62,3 +62,22 @@ function jcms_notifications_update_8102() {
   $schema = Database::getConnection()->schema();
   $schema->addField(MysqlNotificationStorage::TABLE, MysqlNotificationStorage::ENTITY_TYPE_FIELD, $spec);
 }
+
+/**
+ * Remove articles with id less than 5 characters.
+ */
+function jcms_notifications_update_8103() {
+  $incorrect = Database::getConnection()
+    ->select('node_field_data', 'nfd')
+    ->fields('nfd', ['nid'])
+    ->condition('nfd.type', 'article')
+    ->where('LENGTH(nfd.title) < 5')
+    ->execute()
+    ->fetchAllKeyed();
+
+  if ($incorrect) {
+    $storage_handler = \Drupal::entityTypeManager()->getStorage('node');
+    $entities = $storage_handler->loadMultiple(array_keys($incorrect));
+    $storage_handler->delete($entities);
+  }
+}
