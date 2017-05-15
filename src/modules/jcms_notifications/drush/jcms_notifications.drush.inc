@@ -182,7 +182,7 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
 
       // Temporary tolerance in id while articles and metrics id are inconsistent.
       if (strlen($id) < 5 && in_array($message->getType(), ['article', 'metrics'])) {
-        $id = str_pad($id, 5, '0');
+        $id = str_pad($id, 5, '0', STR_PAD_LEFT);
         $logger->warning('Id for type is too short. Changing before to after.', ['type' => $message->getType(), 'before' => $message->getId(), 'after' => $id]);
       }
 
