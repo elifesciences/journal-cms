@@ -177,7 +177,7 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       break;
     }
     if ($message !== NULL) {
-      $logger->info('Received message', ['message' => var_export($message, TRUE)]);
+      $logger->info('Received message', ['message' => $message->getMessage()]);
       $id = $message->getId();
 
       // Temporary tolerance in id while articles and metrics id are inconsistent.
