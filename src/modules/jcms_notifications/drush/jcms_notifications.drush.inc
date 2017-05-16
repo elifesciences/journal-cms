@@ -162,11 +162,13 @@ function drush_jcms_notifications_article_metrics_import_all() {
  * Callback function drush_jcms_notifications_article_import().
  */
 function drush_jcms_notifications_article_import($lrp = FALSE) {
+  $logger = \Drupal::logger('jcms_article_import');
   $queue_service = \Drupal::service('jcms_notifications.queue_service');
   $fetch_service = \Drupal::service('jcms_article.fetch_article_versions');
   $metrics_service = \Drupal::service('jcms_article.fetch_article_metrics');
   $crud_service = \Drupal::service('jcms_article.article_crud');
   $limit_service = \Drupal::service('jcms_notifications.limit_service');
+  $logger->info('Started');
   $count = 0;
   while (!$limit_service()) {
     $message = $queue_service->getMessage();
@@ -175,13 +177,13 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       break;
     }
     if ($message !== NULL) {
-      drush_print(dt('[!date] Received message !message', ['!date' => date('c'), '!message' => var_export($message, TRUE)]));
+      $logger->info('Received message', ['message' => $message->getMessage()]);
       $id = $message->getId();
 
       // Temporary tolerance in id while articles and metrics id are inconsistent.
       if (strlen($id) < 5 && in_array($message->getType(), ['article', 'metrics'])) {
-        $id = str_pad($id, 5, '0');
-        drush_print(dt('Id for !type is too short. Changing !before to !after.', ['!type' => $message->getType(), '!before' => $message->getId(), '!after' => $id]));
+        $id = str_pad($id, 5, '0', STR_PAD_LEFT);
+        $logger->warning('Id for type is too short. Changing before to after.', ['type' => $message->getType(), 'before' => $message->getId(), 'after' => $id]);
       }
 
       try {
@@ -201,7 +203,7 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
                 $node = $crud_service->crudArticle($articleVersions);
                 $metrics = $metrics_service->getArticleMetrics($id);
                 if ((int) $node->get('field_page_views')->getString() != $metrics->getPageViews()) {
-                  drush_print(dt('Adjusted metrics for !id to: !metrics', ['!id' => $id, '!metrics' => $metrics->getPageViews()]));
+                  $logger->info('Adjusted metrics', ['id' => $id, 'metrics' => $metrics->getPageViews()]);
                   $node->set('field_page_views', $metrics->getPageViews());
                   $node->save();
                 }
@@ -209,7 +211,7 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
             }
             break;
         }
-        drush_print(dt('[!date] Processed message !message_id', ['!date' => date('c'), '!message_id' => $message->getMessageId()]));
+        $this->logger->info('Processed message', ['message_id' => $message->getMessageId()]);
       }
       catch (Exception $e) {
         $e_message = "Message: {$e->getMessage()}\n";
@@ -223,18 +225,19 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       }
       finally {
         $queue_service->deleteMessage($message);
-        drush_print(dt('[!date] Deleted message !message_id from the queue', ['!date' => date('c'), '!message_id' => $message->getMessageId()]));
+        $logger->info('Deleted message from the queue', ['message_id' => $message->getMessageId()]);
         $count++;
       }
     }
   }
-  drush_print(dt('Imported !count queue item(s).', ['!count' => $count]));
+  $logger->info('Imported  queue item(s).', ['count' => $count]);
 }
 
 /**
  * Callback function drush_jcms_notifications_get_notifications().
  */
 function drush_jcms_notifications_send_notifications() {
+  $logger = \Drupal::logger('jcms_send_notifications');
   $storage = \Drupal::service('jcms_notifications.notification_storage');
   $sns_crud = \Drupal::service('jcms_notifications.entity_crud_notification_service');
   $limit_service = \Drupal::service('jcms_notifications.limit_service');
@@ -242,10 +245,11 @@ function drush_jcms_notifications_send_notifications() {
   $sleep = drush_get_option('sleep') ?: 30;
   $delay = drush_get_option('delay') ?: 2;
   $i = 0;
+  $logger->info('Started');
   while (!$limit_service()) {
     if ($iterations) {
       if ($i >= $iterations) {
-        drush_print(dt('Finished after !iterations iterations.', ['!iterations' => $iterations]));
+        $logger->info('Finished.', ['!iterations' => $iterations]);
         break;
       }
       $i++;
@@ -262,10 +266,10 @@ function drush_jcms_notifications_send_notifications() {
     foreach ($entities as $entity) {
       $entity_ids[] = $entity->id();
       $busMessage = $sns_crud->sendMessage($entity);
-      drush_print(dt('[!date] Sent notification !message (!etid id: !eid)', ['!date' => date('c'), '!message' => $busMessage->getMessageJson(), '!etid' => $entity->getEntityTypeId(), '!eid' => $entity->id()]));
+      $logger->info('Sent notification', ['message' => json_decode($busMessage->getMessageJson(), true), 'etid' => $entity->getEntityTypeId(), 'eid' => $entity->id()]);
     }
     $storage->deleteNotificationEntityIds($entity_ids);
     sleep($sleep);
   }
-  drush_print(dt('Exiting because of limits reached.'));
+  $logger->info('Exiting because of limits reached.');
 }
