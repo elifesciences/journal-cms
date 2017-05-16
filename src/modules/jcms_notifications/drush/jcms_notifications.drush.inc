@@ -211,7 +211,7 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
             }
             break;
         }
-        $this->logger->info('Processed message', ['message_id' => $message->getMessageId()]);
+        $logger->info('Processed message', ['message_id' => $message->getMessageId()]);
       }
       catch (Exception $e) {
         $e_message = "Message: {$e->getMessage()}\n";
