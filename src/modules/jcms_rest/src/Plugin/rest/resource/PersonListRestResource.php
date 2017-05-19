@@ -34,8 +34,8 @@ class PersonListRestResource extends AbstractRestResourceBase {
    */
   public function get() {
     $base_query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
+      ->condition('status', \Drupal\node\NodeInterface::PUBLISHED)
+      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'person');
 
     $this->filterSubjects($base_query);
@@ -49,13 +49,14 @@ class PersonListRestResource extends AbstractRestResourceBase {
     ];
     $nodes = [];
     if ($total = $count_query->count()->execute()) {
+      $person_item_rest_resource = new PersonItemRestResource([], 'person_item_rest_resource', [], $this->serializerFormats, $this->logger);
       $response_data['total'] = (int) $total;
       $this->filterPageAndOrder($items_query, 'field_person_index_name.value');
       $nids = $items_query->execute();
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
         foreach ($nodes as $node) {
-          $response_data['items'][] = $this->getItem($node);
+          $response_data['items'][] = $person_item_rest_resource->getItem($node);
         }
       }
     }
@@ -119,10 +120,12 @@ class PersonListRestResource extends AbstractRestResourceBase {
    * @return array
    */
   public function getItem(EntityInterface $node) {
-    /* @var Node $node */
+    $entityManager = \Drupal::service('entity_field.manager');
+    $fields = $entityManager->getFieldStorageDefinitions('node', 'person');
+    $options = options_allowed_values($fields['field_person_type']);
     $item = [
       'id' => substr($node->uuid(), -8),
-      'type' => $node->get('field_person_type')->getString(),
+      'type' => ['id' => $node->get('field_person_type')->getString(), 'label' => $options[$node->get('field_person_type')->getString()]],
       'name' => $this->processPeopleNames($node->getTitle(), $node->get('field_person_index_name')),
     ];
 
