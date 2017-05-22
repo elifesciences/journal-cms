@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.podcast_chapter.field_impact_statement
+    - field.field.node.podcast_chapter.field_long_title
     - field.field.node.podcast_chapter.field_podcast_chapter_time
     - field.field.node.podcast_chapter.field_related_content
     - node.type.podcast_chapter
@@ -17,6 +18,13 @@ mode: default
 content:
   field_impact_statement:
     weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_long_title:
+    weight: 104
     label: above
     settings: {  }
     third_party_settings: {  }
