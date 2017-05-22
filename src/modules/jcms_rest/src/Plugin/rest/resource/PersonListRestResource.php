@@ -123,9 +123,10 @@ class PersonListRestResource extends AbstractRestResourceBase {
     $entityManager = \Drupal::service('entity_field.manager');
     $fields = $entityManager->getFieldStorageDefinitions('node', 'person');
     $options = options_allowed_values($fields['field_person_type']);
+    $type_label = ($node->get('field_person_type_label')->count()) ? $node->get('field_person_type_label')->getString() : $options[$node->get('field_person_type')->getString()];
     $item = [
       'id' => substr($node->uuid(), -8),
-      'type' => ['id' => $node->get('field_person_type')->getString(), 'label' => $options[$node->get('field_person_type')->getString()]],
+      'type' => ['id' => $node->get('field_person_type')->getString(), 'label' => $type_label],
       'name' => $this->processPeopleNames($node->getTitle(), $node->get('field_person_index_name')),
     ];
 

@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for Journal CMS (Migrate).
+ */
+
+use Drupal\node\Entity\Node;
+
+/**
+ * Populate values for the person type label field.
+ */
+function jcms_migrate_update_8101() {
+  $type_labels = [
+    'e58da97e' => 'Chair',
+    'c1d9072b' => 'Production assistant',
+    '1efed8c1' => 'Executive editor',
+    '6ec73991' => 'Systems developer',
+    '2cc578c4' => 'Project Coordinator',
+    'dc468415' => 'Senior front-end developer',
+    '8fda748a' => 'Press officer',
+    '3a87ec66' => 'Associate Features Editor',
+    '5498f252' => 'Software Engineer in Test',
+    '9ed0cf42' => 'Head of product',
+    '1263faea' => 'Production assistant',
+    '85899c80' => 'Senior editorial assistant',
+    '256061b0' => 'Associate features editor',
+    '9789ff46' => 'Senior production assistant',
+    '535c35ff' => 'Head of external relations',
+    '02525303' => 'Marketing manager',
+    'b6a7f100' => 'Office and human resources manager',
+    'a66a73ff' => 'Senior editorial assistant',
+    'a1416110' => 'Executive director',
+    '91b38f36' => 'Head of production operations',
+    '1217b24f' => 'Innovation officer',
+    '8939bb47' => 'Senior Drupal developer',
+    'd708a92c' => 'User experience designer',
+    '10c7ff5b' => 'Consultant director of finance and administration',
+    '1a2490f3' => 'Head of technology',
+    '392bba9e' => 'Features Editor',
+    '1e9b5347' => 'Marketing manager (maternity cover)',
+    '812d1187' => 'Assistant Features Editor',
+    '9de51044' => 'Web product manager',
+    '71f01e4f' => 'Associate Features Editor',
+    '15fb82ec' => 'Editorial assistant',
+    '83a91e14' => 'Editorial manager',
+    '9a83d06c' => 'Deputy Editor',
+    '81dd36b6' => 'Deputy Editor',
+    '6bfd4aee' => 'Deputy Editor',
+    '6d42f4fe' => 'Editor-in-Chief',
+  ];
+
+  $regex = sprintf('(%s)$', implode('|', array_keys($type_labels)));
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+    ->condition('type', 'person')
+    ->condition('uuid', $regex, 'REGEXP');
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $node->set('field_person_type_label', $type_labels[substr($node->uuid(), -8)]);
+      $node->save();
+    }
+  }
+}
