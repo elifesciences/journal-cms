@@ -1,0 +1,21 @@
+uuid: ddd253ea-3817-47d7-815c-a60dd381edb3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_long_title
+    - node.type.podcast_chapter
+  module:
+    - text
+id: node.podcast_chapter.field_long_title
+field_name: field_long_title
+entity_type: node
+bundle: podcast_chapter
+label: 'Long title'
+description: 'Long chapter title'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

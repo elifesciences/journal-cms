@@ -114,6 +114,9 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       'title' => $node->getTitle(),
       'time' => (int) $node->get('field_podcast_chapter_time')->getString(),
     ];
+    if ($node->get('field_long_title')->count()) {
+      $chapter_values['longTitle'] = $this->fieldValueFormatted($node->get('field_long_title'));
+    }
     if ($node->get('field_impact_statement')->count()) {
       $chapter_values['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
     }
