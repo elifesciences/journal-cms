@@ -204,16 +204,16 @@
         },
         {
             "name": "beberlei/assert",
-            "version": "v2.7.4",
+            "version": "v2.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/assert.git",
-                "reference": "3ee3bc468a3ce4bbfc3d74f53c6cdb5242d39d1a"
+                "reference": "8726e183ebbb0169cb6cb4832e22ebd355524563"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/assert/zipball/3ee3bc468a3ce4bbfc3d74f53c6cdb5242d39d1a",
-                "reference": "3ee3bc468a3ce4bbfc3d74f53c6cdb5242d39d1a",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/8726e183ebbb0169cb6cb4832e22ebd355524563",
+                "reference": "8726e183ebbb0169cb6cb4832e22ebd355524563",
                 "shasum": ""
             },
             "require": {
@@ -255,7 +255,7 @@
                 "assertion",
                 "validation"
             ],
-            "time": "2017-03-14T18:06:52+00:00"
+            "time": "2017-05-04T02:00:24+00:00"
         },
         {
             "name": "caxy/php-htmldiff",
@@ -3723,12 +3723,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-client-php.git",
-                "reference": "a1193b337281aebd4983afe2059be631c4ea5900"
+                "reference": "6f6623e395453821604b8f21702ebd24a24c12f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-client-php/zipball/a1193b337281aebd4983afe2059be631c4ea5900",
-                "reference": "a1193b337281aebd4983afe2059be631c4ea5900",
+                "url": "https://api.github.com/repos/elifesciences/api-client-php/zipball/6f6623e395453821604b8f21702ebd24a24c12f2",
+                "reference": "6f6623e395453821604b8f21702ebd24a24c12f2",
                 "shasum": ""
             },
             "require": {
@@ -3771,7 +3771,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API client",
-            "time": "2017-04-10 08:55:58"
+            "time": "2017-05-25 08:28:18"
         },
         {
             "name": "elife/api-sdk",
@@ -3779,12 +3779,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-sdk-php.git",
-                "reference": "3b94ee55aa439bb7f961e5e89e8c3aad3ed0adf6"
+                "reference": "166b787a7de46d22666ddb9cdee7178faa715d12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-sdk-php/zipball/3b94ee55aa439bb7f961e5e89e8c3aad3ed0adf6",
-                "reference": "3b94ee55aa439bb7f961e5e89e8c3aad3ed0adf6",
+                "url": "https://api.github.com/repos/elifesciences/api-sdk-php/zipball/166b787a7de46d22666ddb9cdee7178faa715d12",
+                "reference": "166b787a7de46d22666ddb9cdee7178faa715d12",
                 "shasum": ""
             },
             "require": {
@@ -3819,7 +3819,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API SDK",
-            "time": "2017-04-11 14:23:38"
+            "time": "2017-05-25 11:31:28"
         },
         {
             "name": "elife/bus-sdk",
@@ -4584,16 +4584,16 @@
         },
         {
             "name": "jms/serializer",
-            "version": "1.6.0",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/serializer.git",
-                "reference": "5e9008cbb0bac2986979d905a87ae48efcf578c4"
+                "reference": "4fad8bbbe76e05de3b79ffa3db027058ed3813ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/5e9008cbb0bac2986979d905a87ae48efcf578c4",
-                "reference": "5e9008cbb0bac2986979d905a87ae48efcf578c4",
+                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/4fad8bbbe76e05de3b79ffa3db027058ed3813ff",
+                "reference": "4fad8bbbe76e05de3b79ffa3db027058ed3813ff",
                 "shasum": ""
             },
             "require": {
@@ -4632,7 +4632,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.6-dev"
+                    "dev-master": "1.8-dev"
                 }
             },
             "autoload": {
@@ -4642,7 +4642,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "Apache2"
+                "Apache-2.0"
             ],
             "authors": [
                 {
@@ -4659,7 +4659,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2017-03-24T13:11:23+00:00"
+            "time": "2017-05-15T08:35:42+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -6830,16 +6830,16 @@
         },
         {
             "name": "symfony/serializer",
-            "version": "v2.8.19",
+            "version": "v2.8.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/serializer.git",
-                "reference": "d1c3d68daee29bbf0b4600745899a7000c215642"
+                "reference": "dee868baf516dda46c9164395088032ca76bc14a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/serializer/zipball/d1c3d68daee29bbf0b4600745899a7000c215642",
-                "reference": "d1c3d68daee29bbf0b4600745899a7000c215642",
+                "url": "https://api.github.com/repos/symfony/serializer/zipball/dee868baf516dda46c9164395088032ca76bc14a",
+                "reference": "dee868baf516dda46c9164395088032ca76bc14a",
                 "shasum": ""
             },
             "require": {
@@ -6890,7 +6890,7 @@
             ],
             "description": "Symfony Serializer Component",
             "homepage": "https://symfony.com",
-            "time": "2017-03-21T22:47:17+00:00"
+            "time": "2017-05-01T14:31:55+00:00"
         },
         {
             "name": "symfony/translation",
@@ -8185,12 +8185,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "d53838fa5df6bc5c0c0a2c417bb5f364b4c04465"
+                "reference": "517b3e0a155b1444ea9c2677038537bc7ec28396"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/d53838fa5df6bc5c0c0a2c417bb5f364b4c04465",
-                "reference": "d53838fa5df6bc5c0c0a2c417bb5f364b4c04465",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/517b3e0a155b1444ea9c2677038537bc7ec28396",
+                "reference": "517b3e0a155b1444ea9c2677038537bc7ec28396",
                 "shasum": ""
             },
             "conflict": {
@@ -8202,7 +8202,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API specification",
-            "time": "2017-05-22T09:55:26+00:00"
+            "time": "2017-05-24 11:14:12"
         },
         {
             "name": "elife/api-validator",

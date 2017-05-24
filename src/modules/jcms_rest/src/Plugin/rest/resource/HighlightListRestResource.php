@@ -36,22 +36,27 @@ class HighlightListRestResource extends AbstractRestResourceBase {
    */
   public function get($list) {
     $query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
+      ->condition('status', \Drupal\node\NodeInterface::PUBLISHED)
+      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'highlight_list')
       ->condition('title', $list);
-    $response = [];
 
+    $dependencies = [];
+
+    $response_data = [
+      'total' => 0,
+      'items' => [],
+    ];
+
+    $item_nids = [];
     $nids = $query->execute();
     if ($nids) {
       $nid = reset($nids);
       /* @var \Drupal\node\Entity\Node $node */
       $node = \Drupal\node\Entity\Node::load($nid);
-
-      if ($node->get('field_highlight_items')->count()) {
-        foreach ($node->get('field_highlight_items')->referencedEntities() as $item) {
-          $response[] = $this->getHighlightItem($item);
-        }
+      $dependencies[] = $node;
+      foreach ($node->get('field_highlight_items')->getValue() as $item) {
+        $item_nids[] = $item['target_id'];
       }
     }
     else {
@@ -81,15 +86,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
         $query->condition($db_or);
 
         if ($results = $query->execute()->fetchAllKeyed()) {
-          /* @var \Drupal\node\Entity\Node[] $items */
-          if ($items = \Drupal\node\Entity\Node::loadMultiple(array_keys($results))) {
-            $response = [];
-            foreach ($items as $item) {
-              if ($highlight = $this->getHighlightItem($item)) {
-                $response[] = $this->getHighlightItem($item);
-              }
-            }
-          }
+          $item_nids = array_keys($results);
         }
       }
       else {
@@ -97,8 +94,23 @@ class HighlightListRestResource extends AbstractRestResourceBase {
       }
     }
 
-    $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
-    $response->addCacheableDependency($node);
+    if (!empty($item_nids)) {
+      $response_data['total'] = count($item_nids);
+      /* @var \Drupal\node\Entity\Node[] $items */
+      if ($items = \Drupal\node\Entity\Node::loadMultiple($this->filterPageAndOrderArray($item_nids))) {
+        foreach ($items as $item) {
+          $dependencies[] = $item;
+          if ($highlight = $this->getItem($item)) {
+            $response_data['items'][] = $this->getItem($item);
+          }
+        }
+      }
+    }
+
+    $response = new JCMSRestResponse($response_data, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+    foreach ($dependencies as $dependency) {
+      $response->addCacheableDependency($dependency);
+    }
     return $response;
   }
 
@@ -109,12 +121,11 @@ class HighlightListRestResource extends AbstractRestResourceBase {
    *
    * @return array|bool
    */
-  public function getHighlightItem(EntityInterface $node) {
+  public function getItem(EntityInterface $node) {
     /* @var Node $node */
     $item = $this->getEntityQueueItem($node, $node->get('field_highlight_item'), FALSE);
 
     if ($item) {
-
       // authorLine is optional.
       if ($node->get('field_author_line')->count()) {
         $item['authorLine'] = $node->get('field_author_line')->getString();
@@ -130,6 +141,26 @@ class HighlightListRestResource extends AbstractRestResourceBase {
     else {
       return FALSE;
     }
+  }
+
+  /**
+   * Apply filter for page, per-page and order.
+   *
+   * @param array $nids
+   * @param mixed
+   *
+   * @return array
+   */
+  protected function filterPageAndOrderArray($nids, $sort_by = NULL) {
+    $request_options = $this->getRequestOptions();
+
+    if ($request_options['order'] == 'asc') {
+      $nids = array_reverse($nids);
+    }
+
+    $nids = array_slice($nids, ($request_options['page'] - 1) * $request_options['per-page'], $request_options['per-page']);
+
+    return $nids;
   }
 
 }
