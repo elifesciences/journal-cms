@@ -3,7 +3,9 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.person.field_archive
     - field.field.node.person.field_image
+    - field.field.node.person.field_person_affiliation
     - field.field.node.person.field_person_competing
     - field.field.node.person.field_person_index_name
     - field.field.node.person.field_person_orcid
@@ -23,6 +25,13 @@ targetEntityType: node
 bundle: person
 mode: default
 content:
+  field_archive:
+    weight: 5
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_image:
     weight: 2
     settings:
@@ -31,8 +40,20 @@ content:
     third_party_settings: {  }
     type: image_image
     region: content
+  field_person_affiliation:
+    type: entity_reference_paragraphs
+    weight: 7
+    settings:
+      title: Affiliation
+      title_plural: Affiliations
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: venue
+    third_party_settings: {  }
+    region: content
   field_person_competing:
-    weight: 6
+    weight: 8
     settings:
       rows: 5
       placeholder: ''
@@ -48,7 +69,7 @@ content:
     type: string_textfield
     region: content
   field_person_orcid:
-    weight: 5
+    weight: 6
     settings:
       size: 60
       placeholder: ''
@@ -57,7 +78,7 @@ content:
     region: content
   field_person_profile:
     type: entity_reference_paragraphs
-    weight: 7
+    weight: 9
     settings:
       title: 'Profile item'
       title_plural: 'Profile items'
@@ -83,7 +104,7 @@ content:
     region: content
   field_research_details:
     type: entity_reference_paragraphs
-    weight: 8
+    weight: 10
     settings:
       title: 'Research details'
       title_plural: 'Research details'
