@@ -97,6 +97,11 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         'type' => $request->query->get('type', $this->defaultOptions['type']),
       ];
     }
+
+    if (!in_array($this::$requestOptions['order'], ['asc', 'desc'])) {
+      throw new JCMSBadRequestHttpException(t('Invalid order option'));
+    }
+
     return $this::$requestOptions;
   }
 
