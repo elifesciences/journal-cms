@@ -6,6 +6,7 @@
  */
 
 use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Populate values for the person type label field.
@@ -62,6 +63,132 @@ function jcms_migrate_update_8101() {
     $nodes = Node::loadMultiple($nids);
     foreach ($nodes as $node) {
       $node->set('field_person_type_label', $type_labels[substr($node->uuid(), -8)]);
+      $node->save();
+    }
+  }
+}
+
+/**
+ * Populate values for the person archive value.
+ */
+function jcms_migrate_update_8102() {
+  $archive = [
+    '83ab6695',
+    'bed596c1',
+    'acdc92b1',
+    '62450350',
+    '4c71d50e',
+    '9f117e9f',
+    'bbe1a56f',
+    '28cdf9a3',
+    '896befc2',
+    'd1c2ef75',
+    '6d832503',
+    'ce9247e4',
+    'b120b90a',
+    '774fcb1f',
+    '45b78535',
+    '73a5b234',
+    'f90fa061',
+    '2374625c',
+    'd67a3d1c',
+    'b646991f',
+    'e03b0770',
+    '17a0a847',
+    'f44bb2c3',
+    '2c18fa03',
+    'e6e991cd',
+    '53abe80c',
+    '0727095a',
+    'd7a81d21',
+    '3b7cdaeb',
+    '4e3604d3',
+    '565f77cd',
+    '7d3c6442',
+    'c5aa0c76',
+    '9061e2b0',
+    'bc3091f0',
+    '9ce23ceb',
+    '7b499ac0',
+    '91a49757',
+    '1c6d0910',
+    '391fdd44',
+    'bdbf1e7c',
+    '34a19ccd',
+    '9b1e84ca',
+    'e377c36a',
+    '4c43ef4a',
+    '08bafef4',
+    '5a9fad63',
+    '5e6116f4',
+    'e5d7d8fa',
+    '1ed3c058',
+    '02062d4d',
+    'bac09287',
+    '741d8bf8',
+    'dd8d245a',
+    'dab03e92',
+    '7067be3c',
+    'f2d70fa9',
+    'dddb0269',
+    '50b172cb',
+    '4dea29c6',
+    '5a503639',
+    '14925f46',
+    '29d63ef5',
+    'dba72ad7',
+    '5e1c1983',
+    '21eb245a',
+    'd6203622',
+    '7874e684',
+    '6d188d38',
+    '22219a95',
+    '8a842bb4',
+    '1274260c',
+    'bcf192ad',
+    'ed12e87c',
+    'e0ba592d',
+    '47954993',
+    '1b6cbc5e',
+    '5f003dbb',
+    '5884b4cc',
+    'f1033ecd',
+    'bc360dc8',
+    '452bf240',
+    '2e20c66b',
+    'a5992b16',
+    'ce8d7b3c',
+    'c87d7387',
+    '8640cfc8',
+    'bbd26ad3',
+    '3e41fae5',
+    '00764484',
+    'f73e2de7',
+    'f695b2bb',
+    '0bf4dd90',
+    '5bb46fb8',
+    'bca4aeb4',
+    '8dd19818',
+    'abd2b3e5',
+    'e999d9c9',
+    '203c3411',
+    '8590f6ed',
+    '87d30a89',
+    'eaff3d5c',
+    '65293f72',
+    'c7856180',
+    '3f90be64',
+  ];
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+    ->condition('type', 'person');
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $node->set('field_archive', (in_array(substr($node->uuid(), -8), $archive)) ? 1 : 0);
       $node->save();
     }
   }

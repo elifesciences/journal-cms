@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_person_affiliation
     - node.type.person
-    - paragraphs.paragraphs_type.venue
+    - paragraphs.paragraphs_type.affiliation
   module:
     - entity_reference_revisions
 id: node.person.field_person_affiliation
@@ -22,11 +22,14 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      venue: venue
+      affiliation: affiliation
     target_bundles_drag_drop:
       blockquote:
         weight: 17
         enabled: false
+      affiliation:
+        enabled: true
+        weight: 18
       button:
         weight: 18
         enabled: false
@@ -67,8 +70,8 @@ settings:
         weight: 30
         enabled: false
       venue:
-        enabled: true
         weight: 31
+        enabled: false
       youtube:
         weight: 32
         enabled: false

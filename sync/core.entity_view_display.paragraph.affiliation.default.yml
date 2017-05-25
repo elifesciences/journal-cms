@@ -1,0 +1,30 @@
+uuid: 92345eb0-378c-4e0e-8bde-44581e7159ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.affiliation.field_block_country
+    - field.field.paragraph.affiliation.field_block_title_multiline
+    - paragraphs.paragraphs_type.affiliation
+  module:
+    - country
+id: paragraph.affiliation.default
+targetEntityType: paragraph
+bundle: affiliation
+mode: default
+content:
+  field_block_country:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: country_default
+    region: content
+  field_block_title_multiline:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden: {  }

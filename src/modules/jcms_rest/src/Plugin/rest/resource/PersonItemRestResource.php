@@ -46,6 +46,7 @@ class PersonItemRestResource extends AbstractRestResourceBase {
     $query = \Drupal::entityQuery('node')
       ->condition('status', \Drupal\node\NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+      ->condition('field_archive.value', 0)
       ->condition('type', 'person')
       ->condition('uuid', '%' . $id, 'LIKE');
 
@@ -109,7 +110,7 @@ class PersonItemRestResource extends AbstractRestResourceBase {
         $research['focuses'] = [];
         foreach ($research_details_field->get('field_research_focuses') as $focus) {
           $focus_text = $focus->get('entity')->getValue()->toLink()->getText();
-          if (in_array($focus_text, $research['focuses'])) {
+          if (!in_array($focus_text, $research['focuses'])) {
             $research['focuses'][] = $focus_text;
           }
         }
@@ -118,7 +119,7 @@ class PersonItemRestResource extends AbstractRestResourceBase {
         $research['organisms'] = [];
         foreach ($research_details_field->get('field_research_organisms') as $organism) {
           $organism_text = $organism->get('entity')->getValue()->toLink()->getText();
-          if (in_array($organism_text, $research['organisms'])) {
+          if (!in_array($organism_text, $research['organisms'])) {
             $research['organisms'][] = $organism_text;
           }
         }
@@ -127,6 +128,24 @@ class PersonItemRestResource extends AbstractRestResourceBase {
       if (!empty($research)) {
         $item['research'] = $research;
       }
+    }
+
+    if ($node->get('field_person_affiliation')->count()) {
+      $countries = \Drupal::service('country_manager')->getList();
+      $affiliations = [];
+      foreach ($node->get('field_person_affiliation') as $affiliation) {
+        $data = $affiliation->get('entity')->getTarget()->getValue();
+        $country = $data->get('field_block_country')->getString();
+        $affiliations[] = [
+          'name' => explode("\n", $data->get('field_block_title_multiline')->getString()),
+          'address' => [
+            'formatted' => [$countries[$country]],
+            'components' => ['country' => $countries[$country]],
+          ],
+        ];
+      }
+
+      $item['affiliations'] = $affiliations;
     }
 
     return $item;

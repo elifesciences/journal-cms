@@ -55,6 +55,12 @@ process:
   'field_person_competing/format':
     plugin: default_value
     default_value: basic_html
+  field_archive: past_value
+  field_person_affiliation:
+    plugin: jcms_affiliation
+    source:
+      - aff_name
+      - aff_country
   field_image:
     plugin: jcms_image
     source:

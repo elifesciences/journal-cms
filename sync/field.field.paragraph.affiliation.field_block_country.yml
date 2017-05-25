@@ -1,0 +1,22 @@
+uuid: 3a026752-44b7-4c90-b638-79ad8c076635
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_country
+    - paragraphs.paragraphs_type.affiliation
+  module:
+    - country
+id: paragraph.affiliation.field_block_country
+field_name: field_block_country
+entity_type: paragraph
+bundle: affiliation
+label: Country
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  selectable_countries: {  }
+field_type: country

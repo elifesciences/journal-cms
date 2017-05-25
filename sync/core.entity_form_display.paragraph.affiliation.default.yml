@@ -1,0 +1,34 @@
+uuid: e236ee59-eeec-4cf0-8691-ce28909b3c82
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.affiliation.field_block_country
+    - field.field.paragraph.affiliation.field_block_title_multiline
+    - paragraphs.paragraphs_type.affiliation
+  module:
+    - content_moderation
+    - country
+id: paragraph.affiliation.default
+targetEntityType: paragraph
+bundle: affiliation
+mode: default
+content:
+  field_block_country:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: country_default
+    region: content
+  field_block_title_multiline:
+    weight: 6
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
