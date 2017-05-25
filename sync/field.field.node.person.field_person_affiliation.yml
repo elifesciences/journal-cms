@@ -1,0 +1,75 @@
+uuid: 655efa46-8039-41dd-a9b1-638812f7409f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_person_affiliation
+    - node.type.person
+    - paragraphs.paragraphs_type.venue
+  module:
+    - entity_reference_revisions
+id: node.person.field_person_affiliation
+field_name: field_person_affiliation
+entity_type: node
+bundle: person
+label: Affiliation
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      venue: venue
+    target_bundles_drag_drop:
+      blockquote:
+        weight: 17
+        enabled: false
+      button:
+        weight: 18
+        enabled: false
+      code:
+        weight: 19
+        enabled: false
+      cv_item:
+        weight: 20
+        enabled: false
+      image:
+        weight: 21
+        enabled: false
+      json:
+        weight: 22
+        enabled: false
+      list:
+        weight: 23
+        enabled: false
+      list_item:
+        weight: 24
+        enabled: false
+      media_contact:
+        weight: 25
+        enabled: false
+      paragraph:
+        weight: 26
+        enabled: false
+      question:
+        weight: 27
+        enabled: false
+      research_details:
+        weight: 28
+        enabled: false
+      section:
+        weight: 29
+        enabled: false
+      table:
+        weight: 30
+        enabled: false
+      venue:
+        enabled: true
+        weight: 31
+      youtube:
+        weight: 32
+        enabled: false
+field_type: entity_reference_revisions
