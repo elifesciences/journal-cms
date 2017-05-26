@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.highlight_item.field_author_line
     - field.field.node.highlight_item.field_highlight_item
     - field.field.node.highlight_item.field_image
     - node.type.highlight_item
@@ -15,14 +14,6 @@ targetEntityType: node
 bundle: highlight_item
 mode: default
 content:
-  field_author_line:
-    weight: 102
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
   field_highlight_item:
     weight: 103
     label: above
