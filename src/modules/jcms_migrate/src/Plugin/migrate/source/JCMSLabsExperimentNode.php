@@ -35,6 +35,7 @@ class JCMSLabsExperimentNode extends JCMSBlogArticleNode {
     $query = parent::query();
     $query->orderBy('n.created', 'ASC');
     $query->addExpression('if(isnull(@counter), @counter:=1, @counter:=@counter + 1)', 'number');
+    $query->condition('n.created', strtotime('2017-04-06'), '<');
 
     return $query;
   }
