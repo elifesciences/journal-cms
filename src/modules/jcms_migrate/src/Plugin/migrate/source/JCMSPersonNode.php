@@ -33,6 +33,10 @@ class JCMSPersonNode extends SqlBase {
     $query->leftJoin('field_data_field_elife_pp_profile', 'profile', 'profile.entity_id = n.nid');
     $query->leftJoin('field_data_field_elife_pp_interest', 'interest', 'interest.entity_id = n.nid');
     $query->leftJoin('field_data_field_elife_pp_photo', 'photo', 'photo.entity_id = n.nid');
+    $query->leftJoin('field_data_field_elife_pp_past', 'past', 'past.entity_id = n.nid');
+    $query->leftJoin('field_data_field_elife_pp_affiliation', 'aff', 'aff.entity_id = n.nid');
+    $query->leftJoin('field_data_field_elife_o_name', 'o_name', 'o_name.entity_id = aff.field_elife_pp_affiliation_target_id');
+    $query->leftJoin('field_data_field_elife_o_country', 'o_country', 'o_country.entity_id = aff.field_elife_pp_affiliation_target_id');
     $query->leftJoin('file_managed', 'fm', 'fm.fid = photo.field_elife_pp_photo_fid');
     $query->addExpression("GROUP_CONCAT(DISTINCT expertise_term.name ORDER BY expertise.delta ASC SEPARATOR '|')", 'expertises');
     $query->addExpression("GROUP_CONCAT(DISTINCT focus_term.field_elife_title_value ORDER BY focus.delta ASC SEPARATOR '|')", 'focuses');
@@ -44,6 +48,9 @@ class JCMSPersonNode extends SqlBase {
     $query->addField('orcid', 'field_elife_pp_orcid_value', 'orcid_id');
     $query->addField('profile', 'field_elife_pp_profile_value', 'profile_description');
     $query->addField('interest', 'field_elife_pp_interest_value', 'interest_value');
+    $query->addField('past', 'field_elife_pp_past_value', 'past_value');
+    $query->addField('o_name', 'field_elife_o_name_value', 'aff_name');
+    $query->addField('o_country', 'field_elife_o_country_iso2', 'aff_country');
     $query->addField('fm', 'uri', 'photo_uri');
     $query->addExpression("CONCAT(fname.field_elife_pp_first_name_value, ' ', lname.field_elife_pp_last_name_value)", 'photo_alt');
 
@@ -56,6 +63,9 @@ class JCMSPersonNode extends SqlBase {
     $query->groupBy('ptype.field_elife_pp_type_value');
     $query->groupBy('profile.field_elife_pp_profile_value');
     $query->groupBy('interest.field_elife_pp_interest_value');
+    $query->groupBy('past.field_elife_pp_past_value');
+    $query->groupBy('o_name.field_elife_o_name_value');
+    $query->groupBy('o_country.field_elife_o_country_iso2');
     $query->groupBy('fm.fid');
 
     return $query;
@@ -81,6 +91,9 @@ class JCMSPersonNode extends SqlBase {
       'organisms' => $this->t('Research organisms'),
       'profile_description' => $this->t('Profile description'),
       'interest_value' => $this->t('Competing interest'),
+      'past_value' => $this->t('Archive'),
+      'aff_name' => $this->t('Affiliation name'),
+      'aff_country' => $this->t('Affiliation country'),
       'photo_uri' => $this->t('Photo URI'),
       'photo_alt' => $this->t('Photo alt'),
     ];

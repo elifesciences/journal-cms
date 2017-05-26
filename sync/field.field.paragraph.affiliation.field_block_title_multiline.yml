@@ -1,0 +1,19 @@
+uuid: 86589412-a854-40b8-98b0-ffeac569c494
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_title_multiline
+    - paragraphs.paragraphs_type.affiliation
+id: paragraph.affiliation.field_block_title_multiline
+field_name: field_block_title_multiline
+entity_type: paragraph
+bundle: affiliation
+label: 'Place name'
+description: 'One per line'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

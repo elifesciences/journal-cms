@@ -1,0 +1,8 @@
+uuid: 7bb6a76d-60df-4f20-accc-8e420db5be59
+langcode: en
+status: true
+dependencies: {  }
+id: affiliation
+label: Affiliation
+icon_uuid: null
+behavior_plugins: {  }

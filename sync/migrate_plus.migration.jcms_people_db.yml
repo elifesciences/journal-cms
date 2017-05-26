@@ -5,6 +5,9 @@ dependencies: {  }
 _core:
   default_config_hash: i65kxzzN5nhFZC5-D5Ros1Lrk2eCLHbny1erxnDacMQ
 id: jcms_people_db
+class: null
+field_plugin_method: null
+cck_plugin_method: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'Legacy person profiles'
@@ -59,6 +62,12 @@ process:
   field_person_competing/format:
     plugin: default_value
     default_value: basic_html
+  field_archive: past_value
+  field_person_affiliation:
+    plugin: jcms_affiliation
+    source:
+      - aff_name
+      - aff_country
   field_image:
     plugin: jcms_image
     source:

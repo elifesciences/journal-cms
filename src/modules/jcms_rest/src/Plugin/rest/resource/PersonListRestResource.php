@@ -36,6 +36,7 @@ class PersonListRestResource extends AbstractRestResourceBase {
     $base_query = \Drupal::entityQuery('node')
       ->condition('status', \Drupal\node\NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+      ->condition('field_archive.value', 0)
       ->condition('type', 'person');
 
     $this->filterSubjects($base_query);
