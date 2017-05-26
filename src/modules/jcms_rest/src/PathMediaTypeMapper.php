@@ -17,8 +17,8 @@ class PathMediaTypeMapper {
    */
   protected function getMappings() : array {
     $map = [
-      '/labs-experiments' => 'application/vnd.elife.labs-experiment-list+json',
-      '/labs-experiments/{number}' => 'application/vnd.elife.labs-experiment+json',
+      '/labs-posts' => 'application/vnd.elife.labs-post-list+json',
+      '/labs-posts/{number}' => 'application/vnd.elife.labs-post+json',
       '/people' => 'application/vnd.elife.person-list+json',
       '/people/{id}' => 'application/vnd.elife.person+json',
       '/podcast-episodes' => 'application/vnd.elife.podcast-episode-list+json',

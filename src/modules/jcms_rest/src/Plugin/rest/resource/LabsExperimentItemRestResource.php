@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @RestResource(
  *   id = "labs_experiment_item_rest_resource",
- *   label = @Translation("Labs experiment item rest resource"),
+ *   label = @Translation("Labs post item rest resource"),
  *   uri_paths = {
- *     "canonical" = "/labs-experiments/{number}"
+ *     "canonical" = "/labs-posts/{number}"
  *   }
  * )
  */
@@ -29,12 +29,12 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
    * @throws \Symfony\Component\HttpKernel\Exception\HttpException
    *   Throws exception expected.
    */
-  public function get(int $number) {
+  public function get($id) {
     $query = \Drupal::entityQuery('node')
       ->condition('status', NODE_PUBLISHED)
       ->condition('changed', REQUEST_TIME, '<')
       ->condition('type', 'labs_experiment')
-      ->condition('field_experiment_number.value', $number);
+      ->condition('uuid', '%' . $id, 'LIKE');
 
     $nids = $query->execute();
     if ($nids) {
@@ -43,7 +43,7 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
       $node = \Drupal\node\Entity\Node::load($nid);
 
       $this->setSortBy('created', TRUE);
-      $response = $this->processDefault($node, $number, 'number');
+      $response = $this->processDefault($node);
 
       // Image is required.
       $response['image'] = $this->processFieldImage($node->get('field_image'), TRUE);

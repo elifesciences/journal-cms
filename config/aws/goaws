@@ -29,7 +29,7 @@ start() {
   aws sns create-topic --name=covers --endpoint=http://localhost:4100
   aws sns create-topic --name=events --endpoint=http://localhost:4100
   aws sns create-topic --name=interviews --endpoint=http://localhost:4100
-  aws sns create-topic --name=labs-experiments --endpoint=http://localhost:4100
+  aws sns create-topic --name=labs-posts --endpoint=http://localhost:4100
   aws sns create-topic --name=people --endpoint=http://localhost:4100
   aws sns create-topic --name=podcast-episodes --endpoint=http://localhost:4100
   aws sns create-topic --name=press-packages --endpoint=http://localhost:4100

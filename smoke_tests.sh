@@ -16,7 +16,7 @@ echo "APIs"
 [ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.cover-list+json; version=1" "${hostname}/covers") == 200 ]
 [ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.event-list+json; version=1" "${hostname}/events") == 200 ]
 [ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.interview-list+json; version=1" "${hostname}/interviews") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.labs-experiment-list+json; version=1" "${hostname}/labs-experiments") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.labs-post-list+json; version=1" "${hostname}/labs-posts") == 200 ]
 [ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.person-list+json; version=1" "${hostname}/people") == 200 ]
 [ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.podcast-episode-list+json; version=1" "${hostname}/podcast-episodes") == 200 ]
 [ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.subject-list+json; version=1" "${hostname}/subjects") == 200 ]
