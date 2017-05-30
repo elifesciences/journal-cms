@@ -55,8 +55,8 @@ final class EntityCrudNotificationService {
       'field' => 'uuid_last_8',
     ],
     'labs_experiment' => [
-      'topic' => 'labs-experiments',
-      'type' => 'labs-experiment',
+      'topic' => 'labs-posts',
+      'type' => 'labs-post',
       'key' => 'id',
       'field' => 'uuid_last_8',
     ],

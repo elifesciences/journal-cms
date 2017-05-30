@@ -12,9 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @RestResource(
  *   id = "labs_experiment_list_rest_resource",
- *   label = @Translation("Labs experiment list rest resource"),
+ *   label = @Translation("Labs post list rest resource"),
  *   uri_paths = {
- *     "canonical" = "/labs-experiments"
+ *     "canonical" = "/labs-posts"
  *   }
  * )
  */
@@ -68,7 +68,7 @@ class LabsExperimentListRestResource extends AbstractRestResourceBase {
   public function getItem(EntityInterface $node) {
     /* @var Node $node */
     $this->setSortBy('created', TRUE);
-    $item = $this->processDefault($node, (int) $node->get('field_experiment_number')->getString(), 'number');
+    $item = $this->processDefault($node);
 
     // Image is required.
     $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE, 'thumbnail');

@@ -65,10 +65,10 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
         'application/vnd.elife.blog-article+json;version=1',
       ],
       [
-        '/labs-experiments',
-        'number',
-        'application/vnd.elife.labs-experiment-list+json;version=1',
-        'application/vnd.elife.labs-experiment+json;version=1',
+        '/labs-posts',
+        'id',
+        'application/vnd.elife.labs-post-list+json;version=1',
+        'application/vnd.elife.labs-post+json;version=1',
       ],
       [
         '/people',
@@ -157,7 +157,6 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
       elseif (isset($item->{$id_key}) && in_array($item->{$id_key}, ['blog-article', 'collection', 'event', 'interview', 'labs-experiment', 'podcast-episode'])) {
         switch ($item->{$id_key}) {
           case 'podcast-episode':
-          case 'labs-experiment':
             $id = $item->number;
             break;
           default:

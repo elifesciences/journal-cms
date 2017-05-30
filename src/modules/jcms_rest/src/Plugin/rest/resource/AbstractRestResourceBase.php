@@ -524,7 +524,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     }
     else {
       if (!empty($rest_resource[$related->getType()])) {
-        $item_values['item']['type'] = str_replace('_', '-', $related->getType());
+        $type = ($related->getType() == 'labs_experiment') ? 'labs-post' : str_replace('_', '-', $related->getType());
+        $item_values['item']['type'] = $type;
         $item_values['item'] += $rest_resource[$related->getType()]->getItem($related);
       }
     }

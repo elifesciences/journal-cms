@@ -25,9 +25,9 @@ class PathMediaTypeMapperTest extends UnitTestCase {
   public function dataProvider()
   {
     return [
-      ['/labs-experiments', 'application/vnd.elife.labs-experiment-list+json'],
-      ['/labs-experiments/{number}', 'application/vnd.elife.labs-experiment+json'],
-      ['/labs-experiments/1234', 'application/vnd.elife.labs-experiment+json'],
+      ['/labs-posts', 'application/vnd.elife.labs-post-list+json'],
+      ['/labs-posts/{number}', 'application/vnd.elife.labs-post+json'],
+      ['/labs-posts/1234', 'application/vnd.elife.labs-post+json'],
       ['/people', 'application/vnd.elife.person-list+json'],
       ['/people/nathan-lisgo', 'application/vnd.elife.person+json'],
       ['/podcast-episodes', 'application/vnd.elife.podcast-episode-list+json'],
