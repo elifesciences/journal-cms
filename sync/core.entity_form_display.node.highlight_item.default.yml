@@ -3,26 +3,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.highlight_item.field_author_line
     - field.field.node.highlight_item.field_highlight_item
     - field.field.node.highlight_item.field_image
     - image.style.thumbnail
     - node.type.highlight_item
   module:
+    - content_moderation
     - image
 id: node.highlight_item.default
 targetEntityType: node
 bundle: highlight_item
 mode: default
 content:
-  field_author_line:
-    weight: 2
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_highlight_item:
     weight: 3
     settings:

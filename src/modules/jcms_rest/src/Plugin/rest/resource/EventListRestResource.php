@@ -5,6 +5,7 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -32,9 +33,11 @@ class EventListRestResource extends AbstractRestResourceBase {
    */
   public function get() {
     $base_query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
+      ->condition('status', NodeInterface::PUBLISHED)
+      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'event');
+
+    $this->filterShow($base_query);
     $count_query = clone $base_query;
     $items_query = clone $base_query;
     $response_data = [
@@ -45,7 +48,6 @@ class EventListRestResource extends AbstractRestResourceBase {
     if ($total = $count_query->count()->execute()) {
       $response_data['total'] = (int) $total;
       $this->filterPageAndOrder($items_query, 'field_event_datetime.value');
-      $this->filterShow($items_query);
       $nids = $items_query->execute();
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {

@@ -15,6 +15,9 @@ settings:
       value: director
       label: Director
     -
+      value: early-career
+      label: 'Early Careers Advisory Group'
+    -
       value: executive
       label: Executive
     -

@@ -3,6 +3,7 @@
 namespace Drupal\jcms_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\node\NodeInterface;
 
 /**
  * Source plugin for person content.
@@ -21,8 +22,7 @@ class JCMSPersonNode extends SqlBase {
       ->fields('n', ['nid', 'uid', 'title', 'created', 'changed', 'status', 'uuid']);
     $query->innerJoin('field_data_field_elife_pp_last_name', 'lname', 'lname.entity_id = n.nid');
     $query->innerJoin('field_data_field_elife_pp_first_name', 'fname', 'fname.entity_id = n.nid');
-    // Don't migrate the early careers profiles, for now.
-    $query->innerJoin('field_data_field_elife_pp_type', 'ptype', "ptype.entity_id = n.nid AND field_elife_pp_type_value NOT IN ('early-careers')");
+    $query->innerJoin('field_data_field_elife_pp_type', 'ptype', "ptype.entity_id = n.nid");
     $query->leftJoin('field_data_field_elife_pp_orcid', 'orcid', 'orcid.entity_id = n.nid');
     $query->leftJoin('field_data_field_elife_pp_expertise', 'expertise', 'expertise.entity_id = n.nid');
     $query->leftJoin('taxonomy_term_data', 'expertise_term', 'expertise_term.tid = expertise.field_elife_pp_expertise_target_id');
@@ -41,7 +41,7 @@ class JCMSPersonNode extends SqlBase {
     $query->addExpression("GROUP_CONCAT(DISTINCT expertise_term.name ORDER BY expertise.delta ASC SEPARATOR '|')", 'expertises');
     $query->addExpression("GROUP_CONCAT(DISTINCT focus_term.field_elife_title_value ORDER BY focus.delta ASC SEPARATOR '|')", 'focuses');
     $query->addExpression("GROUP_CONCAT(DISTINCT organism_term.field_elife_title_value ORDER BY organism.delta ASC SEPARATOR '|')", 'organisms');
-    $query->addExpression("CASE ptype.field_elife_pp_type_value WHEN 'deputy-editor' THEN 'leadership' WHEN 'editor-in-chief' THEN 'leadership' WHEN 'staff' THEN 'executive' WHEN 'directors' THEN 'director' ELSE ptype.field_elife_pp_type_value END", 'ptype');
+    $query->addExpression("CASE ptype.field_elife_pp_type_value WHEN 'deputy-editor' THEN 'leadership' WHEN 'editor-in-chief' THEN 'leadership' WHEN 'staff' THEN 'executive' WHEN 'directors' THEN 'director' WHEN 'early-careers' THEN 'early-career' ELSE ptype.field_elife_pp_type_value END", 'ptype');
     $query->addField('lname', 'field_elife_pp_last_name_value', 'name_last');
     $query->addExpression('SUBSTRING(TRIM(fname.field_elife_pp_first_name_value), 1, 1)', 'name_initial');
     $query->addField('fname', 'field_elife_pp_first_name_value', 'name_first');
@@ -55,7 +55,7 @@ class JCMSPersonNode extends SqlBase {
     $query->addExpression("CONCAT(fname.field_elife_pp_first_name_value, ' ', lname.field_elife_pp_last_name_value)", 'photo_alt');
 
     $query->condition('n.type', 'elife_person_profile');
-    $query->condition('n.status', NODE_PUBLISHED);
+    $query->condition('n.status', NodeInterface::PUBLISHED);
     $query->groupBy('n.nid');
     $query->groupBy('lname.field_elife_pp_last_name_value');
     $query->groupBy('fname.field_elife_pp_first_name_value');

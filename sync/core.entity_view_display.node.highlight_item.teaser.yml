@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.highlight_item.field_author_line
     - field.field.node.highlight_item.field_highlight_item
     - field.field.node.highlight_item.field_image
     - node.type.highlight_item
@@ -19,6 +18,5 @@ content:
     weight: 100
     region: content
 hidden:
-  field_author_line: true
   field_highlight_item: true
   field_image: true

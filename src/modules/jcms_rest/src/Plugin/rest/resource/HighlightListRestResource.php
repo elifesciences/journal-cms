@@ -126,11 +126,6 @@ class HighlightListRestResource extends AbstractRestResourceBase {
     $item = $this->getEntityQueueItem($node, $node->get('field_highlight_item'), FALSE);
 
     if ($item) {
-      // authorLine is optional.
-      if ($node->get('field_author_line')->count()) {
-        $item['authorLine'] = $node->get('field_author_line')->getString();
-      }
-
       // Image is optional.
       if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail', TRUE)) {
         $item['image'] = $image;
