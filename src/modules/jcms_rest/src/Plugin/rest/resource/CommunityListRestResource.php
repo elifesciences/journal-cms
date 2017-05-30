@@ -81,6 +81,9 @@ class CommunityListRestResource extends AbstractRestResourceBase {
     if ($node->getType() == 'article') {
       return $this->getArticleSnippet($node);
     }
+    else if ($node->getType() == 'labs_experiment') {
+      return ['type' => 'labs-post'] + $rest_resource[$node->getType()]->getItem($node);
+    }
     else {
       return ['type' => str_replace('_', '-', $node->getType())] + $rest_resource[$node->getType()]->getItem($node);
     }
