@@ -89,7 +89,7 @@ class RamlSchemaValidationTest extends UnitTestCase {
       [
         'GET',
         '/labs-posts',
-        'number',
+        'id',
         'application/vnd.elife.labs-post-list+json;version=1',
         'application/vnd.elife.labs-post+json;version=1',
       ],
