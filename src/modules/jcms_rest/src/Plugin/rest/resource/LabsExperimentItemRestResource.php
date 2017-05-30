@@ -45,6 +45,8 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
       $this->setSortBy('created', TRUE);
       $response = $this->processDefault($node);
 
+      $response['type'] = 'labs-post';
+
       // Image is required.
       $response['image'] = $this->processFieldImage($node->get('field_image'), TRUE);
 
