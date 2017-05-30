@@ -1,9 +1,9 @@
-uuid: b1bc28f7-209c-4c03-8e28-5386ab0db336
+uuid: 4d484313-d2fe-4e8e-8c0e-bad3a990ea8f
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: i65kxzzN5nhFZC5-D5Ros1Lrk2eCLHbny1erxnDacMQ
+  default_config_hash: aXC1JPb8mg0jpAXtIUIYsue53amhg9S9XD-veuWXxeI
 id: jcms_people_db
 class: null
 field_plugin_method: null

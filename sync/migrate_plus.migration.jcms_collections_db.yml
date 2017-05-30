@@ -1,10 +1,13 @@
-uuid: 686878d1-ce5d-45f4-a3ae-b3d22b05efd1
+uuid: f12e9c97-8757-4b60-b532-fa3a9964cf8b
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: y1RE_xFabcbB_catwDl8cB4pccAwfuZTvAFKNdG7Zos
+  default_config_hash: AESytPTIE8tGduA85KPFdTq8YvpyF7BRnIb8liqh_vo
 id: jcms_collections_db
+class: null
+field_plugin_method: null
+cck_plugin_method: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'Legacy collections'

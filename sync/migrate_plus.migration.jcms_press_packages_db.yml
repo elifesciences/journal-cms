@@ -1,10 +1,13 @@
-uuid: abb861fe-b563-4ca2-98d0-ea3437c53c72
+uuid: dd294949-e271-4433-afbc-21fd1eb32cbe
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: 6zu1fT8sCzouds3NzYYmztuX8PdoDFldx3sxJantxAg
+  default_config_hash: DXJwEGiuyf4Bd9tCB1G6DK5z3Vkl_sCYQpDnEcIVBfA
 id: jcms_press_packages_db
+class: null
+field_plugin_method: null
+cck_plugin_method: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'Legacy Press packages'

@@ -1,66 +1,63 @@
-uuid: 45199741-3fcf-4b94-956b-7860279edadc
+uuid: 6272e9df-126a-4b43-9109-8d58f1cdb809
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: 1LfcQzYQtME4QVkHUXIMZARRCWdkyCtqVqShS1xP9hE
-id: jcms_annual_reports_json
+  default_config_hash: oYiOls-db0TxGoIqljEE07C7W58b71mcWXxDQJkCfXA
+id: jcms_covers_json
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
 migration_group: jcms_migrate
-label: 'JSON feed of annual reports'
+label: 'JSON feed of covers'
 source:
   plugin: url
   track_changes: false
   data_fetcher_plugin: file
   data_parser_plugin: json
-  urls: modules/custom/jcms_migrate/migration_assets/annual_reports.json
+  urls: modules/custom/jcms_migrate/migration_assets/covers.json
   item_selector: 0
   fields:
     -
-      name: year
-      label: 'Annual report year'
-      selector: year
-    -
       name: title
-      label: 'Annual report title'
+      label: 'Cover title'
       selector: title
     -
+      name: uuid
+      label: 'Cover uuid'
+      selector: uuid
+    -
       name: created
-      label: 'Annual report publication date'
+      label: 'Cover publication date'
       selector: created
     -
       name: changed
-      label: 'Annual report updated date'
+      label: 'Cover updated date'
       selector: changed
     -
-      name: impact_statement
-      label: 'Annual report impact statement'
-      selector: impact_statement
-    -
       name: image
-      label: 'Annual report image'
+      label: 'Cover image'
       selector: image
     -
-      name: uri
-      label: 'Annual report URI'
-      selector: uri
+      name: content
+      label: 'Cover content'
+      selector: content
     -
       name: uid
-      label: 'Annual report author'
+      label: 'Cover author'
       selector: uid
   ids:
-    year:
+    title:
       type: string
 process:
-  id: year
+  id: title
   label: title
   type:
     plugin: default_value
-    default_value: annual_report
+    default_value: cover
   title: title
+  uuid: uuid
   uid:
     plugin: migration
     migration: jcms_users_db
@@ -71,19 +68,19 @@ process:
   changed:
     plugin: transform_date
     source: changed
-  field_annual_report_year: year
-  field_impact_statement/value: impact_statement
-  field_impact_statement/format:
-    plugin: default_value
-    default_value: basic_html
   field_image:
     plugin: jcms_image
     source:
       - image
       - title
-  field_annual_report_uri/uri: uri
+  field_cover_content:
+    plugin: jcms_cover_content
+    source: content
 destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
     - jcms_users_db
+    - jcms_subjects_json
+    - jcms_blog_articles_db
+    - jcms_podcast_episodes_json

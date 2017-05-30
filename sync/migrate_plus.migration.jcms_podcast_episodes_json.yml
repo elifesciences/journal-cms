@@ -1,10 +1,13 @@
-uuid: b7946758-fce0-4453-b063-c27fab635103
+uuid: 42d3e97a-df57-4be6-8588-f7546c9f8f93
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: 57mBxJ3NA4z1w5lBOR6Fey5ADM0sbxMWa0eEKYrJ2bc
+  default_config_hash: d2Gbs-9YzXPyugAI33rdyjB_Y2hAhF6BBjTF8XY72mc
 id: jcms_podcast_episodes_json
+class: null
+field_plugin_method: null
+cck_plugin_method: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'JSON feed of podcast episodes'
