@@ -57,6 +57,7 @@ class JCMSRestResponse extends JsonResponse implements CacheableResponseInterfac
 
     if ($consumer == 'admin') {
       $this->setPrivate();
+      $this->headers->addCacheControlDirective('must-revalidate');
     }
     else {
       $this->setPublic();
