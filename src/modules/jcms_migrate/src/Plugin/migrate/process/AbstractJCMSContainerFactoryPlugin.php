@@ -4,7 +4,7 @@ namespace Drupal\jcms_migrate\Plugin\migrate\process;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\migrate\MigrateExecutableInterface;
-use Drupal\migrate\Plugin\migrate\process\Migration;
+use Drupal\migrate\Plugin\migrate\process\MigrationLookup;
 use Drupal\migrate\Plugin\MigratePluginManager;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Plugin\MigrationPluginManagerInterface;
@@ -75,7 +75,7 @@ abstract class AbstractJCMSContainerFactoryPlugin extends ProcessPluginBase impl
         $multiple = TRUE;
       }
 
-      $migration = new Migration(['migration' => $migration_id], $this->pluginId, $this->pluginDefinition, $this->migration, $this->migrationPluginManager, $this->processPluginManager);
+      $migration = new MigrationLookup(['migration' => $migration_id], $this->pluginId, $this->pluginDefinition, $this->migration, $this->migrationPluginManager, $this->processPluginManager);
       $dest_values = [];
       foreach ($values as $value) {
         if ($dest_value = $migration->transform([$value], $migrate_executable, $row, $destination_property)) {

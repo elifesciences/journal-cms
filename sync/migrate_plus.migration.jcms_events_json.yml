@@ -1,10 +1,13 @@
-uuid: f14f6765-34c2-420d-ae74-6df343ace672
+uuid: 4b00ea42-4abc-4e70-b692-26e235ca9171
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: DXw_eVkMI7NLA-UmZ6PNIEINDegazwUU-n1pTDGQGFs
+  default_config_hash: kLO5L1rc9BL9hd2-bgK2GxR98wuw9jR0LhhTzlWPSs8
 id: jcms_events_json
+class: null
+field_plugin_method: null
+cck_plugin_method: null
 migration_tags: null
 migration_group: jcms_migrate
 label: 'JSON feed of events'

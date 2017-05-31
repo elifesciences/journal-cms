@@ -1,0 +1,30 @@
+[
+  {
+    "title": "The challenges of replication",
+    "image": "collections/test-tubes-blue-large.png",
+    "uuid": "a29daef0-7c63-4c9d-8e0b-2119ff45338e",
+    "created": "2016-12-15 09:07:40",
+    "changed": "2017-01-12 19:10:09",
+    "content": [
+      {
+        "type": "collection",
+        "source": "Reproducibility Project"
+      }
+    ],
+    "uid": 21
+  },
+  {
+    "title": "<i>Homo naledi</i> comes of age",
+    "image": "collections/2df5cbe1-paleontology-elife-collections.png",
+    "uuid": "a20ffc0c-d0e6-4b8e-ad94-4b13ca2352b0",
+    "created": "2017-05-10 08:49:35",
+    "changed": "2017-05-10 08:49:35",
+    "content": [
+      {
+        "type": "collection",
+        "source": 279946
+      }
+    ],
+    "uid": 699
+  }
+]
