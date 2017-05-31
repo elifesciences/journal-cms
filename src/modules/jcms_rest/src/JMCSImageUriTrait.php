@@ -63,20 +63,32 @@ trait JMCSImageUriTrait {
     if ($required || $data->count()) {
       $image = $this->getImageSizes($size_types);
 
-      foreach ($image as $type => $array) {
-        $image_uri = $data->first()->get('entity')->getTarget()->get('uri')->getString();
-        $filemime = $data->first()->get('entity')->getTarget()->get('filemime')->getString();
+      $image_uri = $data->first()->get('entity')->getTarget()->get('uri')->getString();
+      $image_uri_info = $this->processImageUri($image_uri, 'info');
+      $image_alt = (string) $data->first()->getValue()['alt'];
+      $filemime = $data->first()->get('entity')->getTarget()->get('filemime')->getString();
+      $filename = basename($image_uri);
+      $width = (int) $data->first()->getValue()['width'];
+      $height = (int) $data->first()->getValue()['height'];
 
-        $image[$type]['uri'] = $this->processImageUri($image_uri, 'info');
-        $image[$type]['alt'] = (string) $data->first()->getValue()['alt'];
+      // @todo - elife - nlisgo - this is a temporary fix until we can trust mimetype of images.
+      if (\Drupal::service('file.mime_type.guesser')->guess($image_uri) == 'image/png') {
+        $filemime = 'image/jpeg';
+        $filename = preg_replace('/\.png$/', '.jpg', $filename);
+      }
+
+      $image_uri_source = $this->processImageUri($image_uri, 'source', $filemime);
+      foreach ($image as $type => $array) {
+        $image[$type]['uri'] = $image_uri_info;
+        $image[$type]['alt'] = $image_alt;
         $image[$type]['source'] = [
           'mediaType' => $filemime,
-          'uri' => $this->processImageUri($image_uri, 'source'),
-          'filename' => basename($image_uri),
+          'uri' => $image_uri_source,
+          'filename' => $filename,
         ];
         $image[$type]['size'] = [
-          'width' => (int) $data->first()->getValue()['width'],
-          'height' => (int) $data->first()->getValue()['height'],
+          'width' => $width,
+          'height' => $height,
         ];
 
         // Focal point is optional.
