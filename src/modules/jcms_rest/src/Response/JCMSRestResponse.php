@@ -45,7 +45,7 @@ class JCMSRestResponse extends JsonResponse implements CacheableResponseInterfac
 
     $build = [
       '#cache' => [
-        'contexts' => ['url', 'user.permissions', 'headers:X-Consumer-Groups', 'headers:Accept'],
+        'contexts' => ['url', 'user.permissions', 'headers:X-Consumer-Groups', 'headers:Accept', 'headers:If-None-Match', 'headers:If-Modified-Since'],
         'max-age' => $max_age,
       ],
     ];
