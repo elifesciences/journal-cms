@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "67632a31e77989726b51474ba0808471",
+    "content-hash": "535a910a973695b7642268afc2645d97",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3542,6 +3542,61 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/services",
                 "issues": "https://www.drupal.org/project/issues/services"
+            }
+        },
+        {
+            "name": "drupal/view_unpublished",
+            "version": "1.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/view_unpublished",
+                "reference": "8.x-1.0-alpha1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/view_unpublished-8.x-1.0-alpha1.zip",
+                "reference": null,
+                "shasum": "6c5928295162027cd4da8f45aba6111d11e899f0"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha1",
+                    "datestamp": "1483493344"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "amaria",
+                    "homepage": "https://www.drupal.org/user/66428"
+                },
+                {
+                    "name": "beeradb",
+                    "homepage": "https://www.drupal.org/user/120651"
+                },
+                {
+                    "name": "elevins",
+                    "homepage": "https://www.drupal.org/user/781882"
+                },
+                {
+                    "name": "entendu",
+                    "homepage": "https://www.drupal.org/user/173461"
+                }
+            ],
+            "description": "Select which roles should be able to see unpublished nodes.",
+            "homepage": "https://www.drupal.org/project/view_unpublished",
+            "support": {
+                "source": "http://cgit.drupalcode.org/view_unpublished"
             }
         },
         {
@@ -9907,6 +9962,7 @@
         "drupal/devel": 20,
         "drupal/monolog": 15,
         "drupal/country": 10,
+        "drupal/view_unpublished": 15,
         "elife/api": 20,
         "elife/api-validator": 20
     },
