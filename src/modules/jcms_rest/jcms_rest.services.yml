@@ -7,6 +7,11 @@ services:
     class: Drupal\jcms_rest\EventSubscriber\ExceptionJcmsJsonSubscriber
     tags:
       - { name: event_subscriber }
+  jcms_rest.exception.monitoring:
+    class: Drupal\jcms_rest\EventSubscriber\MonitoringSubscriber
+    arguments: ["@jcms_rest.monitoring"]
+    tags:
+      - { name: event_subscriber }
   jcms_rest.route_subscriber:
     class: Drupal\jcms_rest\Routing\RouteSubscriber
     tags:
@@ -18,4 +23,6 @@ services:
       - { name: route_filter }
   jcms_rest.path_media_type_mapper:
     class: Drupal\jcms_rest\PathMediaTypeMapper
+  jcms_rest.monitoring:
+    class: eLife\Logging\Monitoring
 
