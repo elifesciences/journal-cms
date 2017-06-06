@@ -11,17 +11,6 @@ $databases['default']['default'] = [
   'driver' => 'mysql',
 ];
 
-$databases['legacy_cms']['default'] = [
-  'database' => 'legacy_cms',
-  'username' => 'legacy_cms',
-  'password' => 'legacy_cms',
-  'prefix' => '',
-  'host' => 'localhost',
-  'port' => '3306',
-  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
-  'driver' => 'mysql',
-];
-
 $settings['trusted_host_patterns'] = [
   '^journal\-cms\.local$',
   '^[a-z0-9\-]+\.vagrantshare\.com$',
@@ -92,7 +81,6 @@ $settings['jcms_articles_endpoint'] = $settings['jcms_gateway'] . '/articles/%s/
 $settings['jcms_metrics_endpoint'] = $settings['jcms_gateway'] . '/metrics/article/%s/%s';
 $settings['jcms_article_fragment_images_endpoint'] = $settings['jcms_gateway'] . '/articles/%s/fragments/image';
 $settings['jcms_article_auth_unpublished'] = NULL;
-$settings['jcms_migrate_legacy_cms_images_bucket'] = 'prod-elife-legacy-cms-images';
 $settings['jcms_iiif_base_uri'] = 'https://prod--iiif.elifesciences.org/journal-cms:';
 // This folder should be relative to the sites/default/files folder.
 $settings['jcms_iiif_mount'] = 'iiif';

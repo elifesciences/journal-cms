@@ -5,6 +5,7 @@
  * Contains install and update functions for Journal CMS (Migrate).
  */
 
+use Drupal\Core\Database\Database;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 
@@ -544,6 +545,25 @@ function jcms_migrate_update_8103() {
           $node->save();
         }
       }
+    }
+  }
+}
+
+/**
+ * Drop migrate_map_* and migrate_message_* tables.
+ */
+function jcms_migrate_update_8104() {
+  $db_conn = Database::getConnection();
+  $tables = $db_conn->query("SHOW TABLES LIKE 'migrate_%'")->fetchCol();
+
+  foreach ($tables as $table) {
+    if (preg_match('/^migrate_(map|message)_jcms_(?!subjects_json).*$/', $table)) {
+      $db_conn->schema()->dropTable($table);
+      \Drupal::logger('jcms_migrate')
+        ->notice(
+          'Dropped table: @table',
+          ['@table' => $table]
+        );
     }
   }
 }

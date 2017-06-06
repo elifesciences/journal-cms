@@ -75,9 +75,6 @@ drupal_core_owner: "{{ drupalvm_user }}"
 drupal_db_user: journal_cms
 drupal_db_password: journal_cms
 drupal_db_name: journal_cms
-legacy_db_user: legacy_cms
-legacy_db_password: legacy_cms
-legacy_db_name: legacy_cms
 
 # Settings for installing a Drupal site if 'install_site:' is 'true'.
 drupal_major_version: 8
@@ -173,19 +170,12 @@ mysql_databases:
   - name: "{{ drupal_db_name }}"
     encoding: utf8mb4
     collation: utf8mb4_general_ci
-  - name: "{{ legacy_db_name }}"
-    encoding: utf8mb4
-    collation: utf8mb4_general_ci
 
 mysql_users:
   - name: "{{ drupal_db_user }}"
     host: "%"
     password: "{{ drupal_db_password }}"
     priv: "{{ drupal_db_name }}.*:ALL"
-  - name: "{{ legacy_db_user }}"
-    host: "%"
-    password: "{{ legacy_db_password }}"
-    priv: "{{ legacy_db_name }}.*:ALL"
 
 # PostgreSQL databases and users.
 postgresql_databases:

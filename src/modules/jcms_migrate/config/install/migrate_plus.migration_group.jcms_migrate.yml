@@ -1,6 +1,3 @@
 id: jcms_migrate
-label: Jounral CMS migration
+label: Journal CMS migration
 source_type: Json
-shared_configuration:
-  source:
-    key: legacy_cms
