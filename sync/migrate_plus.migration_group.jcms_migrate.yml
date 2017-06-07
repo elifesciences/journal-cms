@@ -1,14 +1,12 @@
-uuid: cab84deb-46cf-458e-96d5-8718995d3b98
+uuid: a623a7df-a66f-4123-8020-626b9493c86e
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: _T-ci8AotI8mdey8GhLeLLS28OOhnqus4N_ojXBK3Lk
+  default_config_hash: x6-DmAvt126hlGK02grBXStrBNpUPvpIrcwjoYNI1Us
 id: jcms_migrate
-label: 'Jounral CMS migration'
+label: 'Journal CMS migration'
 description: null
 source_type: Json
 module: null
-shared_configuration:
-  source:
-    key: legacy_cms
+shared_configuration: null

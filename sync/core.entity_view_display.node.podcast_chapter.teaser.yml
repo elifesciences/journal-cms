@@ -20,5 +20,6 @@ content:
     region: content
 hidden:
   field_impact_statement: true
+  field_long_title: true
   field_podcast_chapter_time: true
   field_related_content: true

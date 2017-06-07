@@ -31,52 +31,14 @@ class JCMSImage extends ProcessPluginBase {
     $this->row = $row;
     list($image, $alt) = $value;
     $destination_path = $this->imagePath();
-    $row_source = $row->getSource();
     $source = NULL;
 
-    // Allow cover images to be drawn from the public S3 bucket.
-    if ($row_source['plugin'] == 'jcms_cover_node' && !empty($row_source['related'])) {
-      $related = json_decode('{' . $row_source['related'] . '}', TRUE);
-      if ($related['type'] == 'article') {
-        $images = $this->s3ImageSearch('covers/' . $related['source'] . '-');
-        if (!empty($images)) {
-          $source = reset($images);
-        }
+    if (!empty($image)) {
+      if (!preg_match('/^http/', $image)) {
+        $source = drupal_get_path('module', 'jcms_migrate') . '/migration_assets/images/' . $image;
       }
-    }
-
-    // Allow collection images to be drawn from the public S3 bucket.
-    if ($row_source['plugin'] == 'jcms_collection_node' && !empty($row_source['uuid'])) {
-      $images = $this->s3ImageSearch('collections/' . substr($row_source['uuid'], -8) . '-');
-      if (!empty($images)) {
-        $source = reset($images);
-      }
-    }
-
-    // Allow labs experiment images to be drawn from the public S3 bucket.
-    if ($row_source['plugin'] == 'jcms_labs_experiment_node' && !empty($row_source['uuid'])) {
-      $images = $this->s3ImageSearch('labs_experiments/' . substr($row_source['uuid'], -8) . '-');
-      if (!empty($images)) {
-        $source = reset($images);
-      }
-    }
-
-    if (!empty($image) || !empty($source)) {
-      if (empty($source)) {
-        $s3_folders = [
-          'annual_reports',
-          'collections',
-          'covers',
-          'episodes',
-          'labs',
-          'subjects',
-        ];
-        if (preg_match('/^(' . implode('|', $s3_folders) . ')\//', $image) && $images = $this->s3ImageSearch($image)) {
-          $source = reset($images);
-        }
-        elseif (strpos($image, 'public://') === 0) {
-          $source = DRUPAL_ROOT . '/../scripts/legacy_cms_files/' . preg_replace('~^public://~', '', $image);
-        }
+      else {
+        $source = $image;
       }
 
       if (preg_match('/^http/', $source) && $data = $this->getFile($source)) {
