@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2df365a550e36163a78c3c787c866eb",
+    "content-hash": "f2a43c6085f64f6cc531e6e6e1db9653",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2694,6 +2694,49 @@
                 "source": "http://cgit.drupalcode.org/entity_reference_revisions"
             },
             "time": "2017-02-09 10:42:38"
+        },
+        {
+            "name": "drupal/entity_reference_unpublished",
+            "version": "1.0.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/entity_reference_unpublished",
+                "reference": "8.x-1.0-alpha2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_reference_unpublished-8.x-1.0-alpha2.zip",
+                "reference": null,
+                "shasum": "d0c9dc442d2b3596cc9e7ce12bfa09a04fe4373f"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha2",
+                    "datestamp": "1489154882"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "lahoosascoots",
+                    "homepage": "https://www.drupal.org/user/1933614"
+                }
+            ],
+            "description": "Allows unpublished content to be referenced in an entity reference.",
+            "homepage": "https://www.drupal.org/project/entity_reference_unpublished",
+            "support": {
+                "source": "http://cgit.drupalcode.org/entity_reference_unpublished"
+            }
         },
         {
             "name": "drupal/entityqueue",
@@ -9867,6 +9910,7 @@
         "drupal/devel": 20,
         "drupal/monolog": 15,
         "drupal/country": 10,
+        "drupal/entity_reference_unpublished": 15,
         "elife/api": 20,
         "elife/api-validator": 20
     },

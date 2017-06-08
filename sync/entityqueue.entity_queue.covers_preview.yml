@@ -10,7 +10,7 @@ handler: simple
 handler_configuration: {  }
 entity_settings:
   target_type: node
-  handler: 'default:node'
+  handler: unpublished
   handler_settings:
     target_bundles:
       cover: cover
