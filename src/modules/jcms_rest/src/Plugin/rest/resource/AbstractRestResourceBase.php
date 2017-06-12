@@ -4,6 +4,7 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -142,16 +143,21 @@ abstract class AbstractRestResourceBase extends ResourceBase {
           case 'paragraph':
             if ($content_item->get('field_block_html')->count()) {
               // Split paragraphs in the UI into separate paragraph blocks.
-              $texts = preg_split('/(\n)+/', $this->fieldValueFormatted($content_item->get('field_block_html')));
+              $texts = $this->splitParagraphs($this->fieldValueFormatted($content_item->get('field_block_html')));
               foreach ($texts as $text) {
-                $text = trim($text);
-                $loop_result_item = $result_item;
-                if (!empty($text)) {
-                  $loop_result_item['text'] = $text;
-                  if ($list_flag && $content_type != 'list_item') {
-                    $loop_result_item = [$loop_result_item];
+                if (!is_array($text)) {
+                  $text = trim($text);
+                  $loop_result_item = $result_item;
+                  if (!empty($text)) {
+                    $loop_result_item['text'] = $text;
+                    if ($list_flag && $content_type != 'list_item') {
+                      $loop_result_item = [$loop_result_item];
+                    }
+                    $result[] = $loop_result_item;
                   }
-                  $result[] = $loop_result_item;
+                }
+                else {
+                  $result[] = $text;
                 }
               }
             }
@@ -386,6 +392,69 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     $output = \Drupal::service('renderer')->renderPlain($view);
     $output = preg_replace('/(<img [^>]*src=\")(\/[^\"]+)/', '$1' . \Drupal::request()->getSchemeAndHttpHost() . '$2', $output);
     return str_replace(chr(194) . chr(160), ' ', $output);
+  }
+
+  /**
+   * Split paragraphs into array of paragraphs and lists.
+   *
+   * @param string $paragraphs
+   * @return array
+   */
+  public function splitParagraphs(string $paragraphs) {
+    $dom = Html::load($paragraphs);
+    $xpath = new \DOMXPath($dom);
+    foreach ($xpath->query('//body/ul | //body/ol') as $node) {
+      $html = $node->ownerDocument->saveHTML($node);
+      $new_node = $dom->createElement($node->nodeName);
+      $frag = $dom->createDocumentFragment();
+      $frag->appendXML(preg_replace('~(?!</(ul|ol)>\s*)(\n|\t)+~', '', $html));
+      $new_node->appendChild($frag);
+      $node->parentNode->replaceChild($new_node->firstChild, $node);
+    }
+    $html = preg_replace('~</(ul|ol)><(ol|ul)~', "</$1>\n<$2", Html::serialize($dom));
+    $split = preg_split('/\n+/', $html);
+
+    return array_map([$this, 'convertHtmlListToSchema'], $split);
+  }
+
+  /**
+   * Convert HTML list on single line to schema structure.
+   *
+   * @param string $html
+   * @return array|string
+   */
+  public function convertHtmlListToSchema(string $html) {
+    if (!preg_match('~^\s*<(ul|ol)[^>]*>.*</\1>\s*$~', $html)) {
+      return $html;
+    }
+    $dom = Html::load($html);
+    $xpath = new \DOMXPath($dom);
+    $node = $xpath->query('//body/*')->item(0);
+    $schema = [
+      'type' => 'list',
+      'prefix' => ($node->nodeName == 'ol') ? 'number' : 'bullet',
+      'items' => [],
+    ];
+    foreach ($node->getElementsByTagName('li') as $item) {
+      $item_value = '';
+      $child_list = [];
+      foreach ($item->childNodes as $child) {
+        if (in_array($child->nodeName, ['ol', 'ul'])) {
+          $item->removeChild($child);
+          $child_list = [$this->convertHtmlListToSchema($child->ownerDocument->saveXML($child))];
+        }
+        else {
+          $item_value .= $child->ownerDocument->saveXML($child);
+        }
+      }
+      if (!empty($item_value)) {
+        $schema['items'][] = $item_value;
+      }
+      if (!empty($child_list)) {
+        $schema['items'][] = $child_list;
+      }
+    }
+    return $schema;
   }
 
   /**
