@@ -10,7 +10,6 @@ dependencies:
     - node.type.podcast_chapter
   module:
     - content_moderation
-    - inline_entity_form
     - text
 id: node.podcast_chapter.default
 targetEntityType: node
@@ -43,15 +42,11 @@ content:
   field_related_content:
     weight: 4
     settings:
-      form_mode: default
-      override_labels: true
-      label_singular: 'article or collection'
-      label_plural: 'articles or collections'
-      allow_existing: true
       match_operator: CONTAINS
-      allow_new: false
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: inline_entity_form_complex
+    type: entity_reference_autocomplete
     region: content
   title:
     type: string_textfield
