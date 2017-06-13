@@ -567,3 +567,31 @@ function jcms_migrate_update_8104() {
     }
   }
 }
+
+/**
+ * Amend content publication dates.
+ */
+function jcms_migrate_update_8105() {
+  $content = [
+    'd63e2e42' => '2017-04-06',
+    '8bfa8745' => '2017-03-07',
+    '8ee45992' => '2016-06-02',
+    'ecac3e6a' => '2016-05-24',
+  ];
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+    ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
+    ->condition('type', 'press_package');
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $id = substr($node->uuid(), -8);
+      $current = $node->getCreatedTime();
+      $node->set('created', strtotime($content[$id] . ' ' . date('H:i:s', $current)));
+      $node->save();
+    }
+  }
+}
