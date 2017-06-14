@@ -1,0 +1,21 @@
+uuid: 86d8f28e-41a2-4d18-9796-34870e3a4cb0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_order_date
+    - node.type.event
+id: node.event.field_order_date
+field_name: field_order_date
+entity_type: node
+bundle: event
+label: 'Order date'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: 1497452152
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

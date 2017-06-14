@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.event.field_event_timezone
     - field.field.node.event.field_event_uri
     - field.field.node.event.field_impact_statement
+    - field.field.node.event.field_order_date
     - node.type.event
   module:
     - datetime_range
@@ -76,6 +77,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  field_order_date:
+    weight: 109
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    type: timestamp
     region: content
   links:
     weight: 100

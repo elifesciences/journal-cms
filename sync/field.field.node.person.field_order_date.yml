@@ -1,0 +1,21 @@
+uuid: 7c7d3367-3016-4aa4-b38a-08f73837f589
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_order_date
+    - node.type.person
+id: node.person.field_order_date
+field_name: field_order_date
+entity_type: node
+bundle: person
+label: 'Order date'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: 1497452313
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

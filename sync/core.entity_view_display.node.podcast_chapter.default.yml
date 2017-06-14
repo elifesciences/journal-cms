@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.podcast_chapter.field_impact_statement
     - field.field.node.podcast_chapter.field_long_title
+    - field.field.node.podcast_chapter.field_order_date
     - field.field.node.podcast_chapter.field_podcast_chapter_time
     - field.field.node.podcast_chapter.field_related_content
     - node.type.podcast_chapter
@@ -29,6 +30,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  field_order_date:
+    weight: 105
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    type: timestamp
     region: content
   field_podcast_chapter_time:
     weight: 103

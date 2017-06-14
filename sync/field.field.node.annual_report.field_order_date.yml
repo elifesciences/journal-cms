@@ -1,0 +1,21 @@
+uuid: b3ad05a4-77f2-47ef-bb15-20a7070bf527
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_order_date
+    - node.type.annual_report
+id: node.annual_report.field_order_date
+field_name: field_order_date
+entity_type: node
+bundle: annual_report
+label: 'Order date'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: 1497451895
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

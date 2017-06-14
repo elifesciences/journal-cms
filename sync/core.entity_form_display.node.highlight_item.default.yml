@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.highlight_item.field_highlight_item
     - field.field.node.highlight_item.field_image
+    - field.field.node.highlight_item.field_order_date
     - image.style.thumbnail
     - node.type.highlight_item
   module:
@@ -16,7 +17,7 @@ bundle: highlight_item
 mode: default
 content:
   field_highlight_item:
-    weight: 3
+    weight: 2
     settings:
       match_operator: CONTAINS
       size: 60
@@ -42,6 +43,7 @@ content:
     region: content
 hidden:
   created: true
+  field_order_date: true
   path: true
   promote: true
   sticky: true

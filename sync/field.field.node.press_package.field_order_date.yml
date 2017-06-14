@@ -1,0 +1,21 @@
+uuid: 6c3920e1-9e09-4d69-8beb-282f55d2269d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_order_date
+    - node.type.press_package
+id: node.press_package.field_order_date
+field_name: field_order_date
+entity_type: node
+bundle: press_package
+label: 'Order date'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: 1497452452
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

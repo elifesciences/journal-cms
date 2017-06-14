@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.blog_article.field_content
     - field.field.node.blog_article.field_image
     - field.field.node.blog_article.field_impact_statement
+    - field.field.node.blog_article.field_order_date
     - field.field.node.blog_article.field_subjects
     - node.type.blog_article
   module:
@@ -53,6 +54,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  field_order_date:
+    weight: 106
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    type: timestamp
     region: content
   field_subjects:
     weight: 104

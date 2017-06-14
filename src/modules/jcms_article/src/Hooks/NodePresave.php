@@ -79,18 +79,34 @@ final class NodePresave {
    * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
   public function setStatusDate(EntityInterface $entity, ArticleVersions $article) {
-    $id = $entity->label();
+    // Set the status date if there's a published version.
+    $version = $article->getLatestPublishedVersionJson() ?: '';
+    if ($version) {
+      $json = json_decode($version);
+      if (property_exists($json, 'statusDate')) {
+        $date = strtotime($json->statusDate);
+        $entity->set('field_order_date.value', $date);
+      }
+    }
+  }
+
+  /**
+   * Sets the published date (the date article became VOR or POA) on the node.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
+   */
+  public function setPublishedDate(EntityInterface $entity, ArticleVersions $article) {
     // Set the published date if there's a published version.
     $version = $article->getLatestPublishedVersionJson() ?: '';
-    if (!$version) {
-      return NULL;
+    if ($version) {
+      $json = json_decode($version);
+      if (property_exists($json, 'statusDate')) {
+        // @todo - elife - nlisgo - set to $json->published when once field_order_date has been populated.
+        $date = strtotime($json->statusDate);
+        $entity->set('created', $date);
+      }
     }
-    $json = json_decode($version);
-    if (!property_exists($json, 'statusDate')) {
-      return NULL;
-    }
-    $date = strtotime($json->statusDate);
-    $entity->set('created', $date);
   }
 
   /**

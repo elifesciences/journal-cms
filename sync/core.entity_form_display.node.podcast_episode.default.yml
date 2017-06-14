@@ -9,10 +9,12 @@ dependencies:
     - field.field.node.podcast_episode.field_episode_number
     - field.field.node.podcast_episode.field_image
     - field.field.node.podcast_episode.field_impact_statement
+    - field.field.node.podcast_episode.field_order_date
     - field.field.node.podcast_episode.field_subjects
     - image.style.thumbnail
     - node.type.podcast_episode
   module:
+    - content_moderation
     - image
     - inline_entity_form
     - link
@@ -93,6 +95,7 @@ content:
 hidden:
   created: true
   field_episode_chapters: true
+  field_order_date: true
   path: true
   promote: true
   sticky: true

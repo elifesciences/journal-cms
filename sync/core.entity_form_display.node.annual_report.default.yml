@@ -7,9 +7,11 @@ dependencies:
     - field.field.node.annual_report.field_annual_report_year
     - field.field.node.annual_report.field_image
     - field.field.node.annual_report.field_impact_statement
+    - field.field.node.annual_report.field_order_date
     - image.style.thumbnail
     - node.type.annual_report
   module:
+    - content_moderation
     - image
     - link
     - text
@@ -59,6 +61,7 @@ content:
     region: content
 hidden:
   created: true
+  field_order_date: true
   path: true
   promote: true
   sticky: true

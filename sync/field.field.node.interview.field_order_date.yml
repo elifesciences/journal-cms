@@ -1,0 +1,21 @@
+uuid: 5cb3d16c-9ca7-4b0b-ab69-da6c621c40e0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_order_date
+    - node.type.interview
+id: node.interview.field_order_date
+field_name: field_order_date
+entity_type: node
+bundle: interview
+label: 'Order date'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: 1497452256
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

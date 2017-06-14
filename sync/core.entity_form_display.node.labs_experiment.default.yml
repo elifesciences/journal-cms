@@ -8,9 +8,11 @@ dependencies:
     - field.field.node.labs_experiment.field_experiment_number
     - field.field.node.labs_experiment.field_image
     - field.field.node.labs_experiment.field_impact_statement
+    - field.field.node.labs_experiment.field_order_date
     - image.style.thumbnail
     - node.type.labs_experiment
   module:
+    - content_moderation
     - image
     - paragraphs
     - text
@@ -71,6 +73,7 @@ content:
     region: content
 hidden:
   created: true
+  field_order_date: true
   path: true
   promote: true
   sticky: true

@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.press_package.field_content
     - field.field.node.press_package.field_impact_statement
     - field.field.node.press_package.field_media_contact
+    - field.field.node.press_package.field_order_date
     - field.field.node.press_package.field_press_package_about
     - field.field.node.press_package.field_related_content
     - node.type.press_package
@@ -42,6 +43,16 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
+  field_order_date:
+    weight: 106
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    type: timestamp
     region: content
   field_press_package_about:
     type: entity_reference_revisions_entity_view

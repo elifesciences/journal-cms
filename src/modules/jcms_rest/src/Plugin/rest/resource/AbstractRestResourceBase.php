@@ -26,6 +26,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     'subject' => [],
     'start-date' => '2000-01-01',
     'end-date' => '2999-12-31',
+    'use-date' => 'default',
     'show' => 'all',
     'sort' => 'date',
     'type' => NULL,
@@ -93,6 +94,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         'subject' => (array) $request->query->get('subject', $this->defaultOptions['subject']),
         'start-date' => $request->query->get('start-date', $this->defaultOptions['start-date']),
         'end-date' => $request->query->get('end-date', $this->defaultOptions['end-date']),
+        'use-date' => $request->query->get('use-date', $this->defaultOptions['use-date']),
         'show' => $request->query->get('show', $this->defaultOptions['show']),
         'sort' => $request->query->get('sort', $this->defaultOptions['sort']),
         'type' => $request->query->get('type', $this->defaultOptions['type']),
@@ -325,11 +327,16 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   protected function filterDateRange(QueryInterface &$query, $field = 'created', $timestamp = TRUE) {
     $start_date = DateTimeImmutable::createFromFormat('Y-m-d', $originalStartDate = $this->getRequestOption('start-date'), new DateTimeZone('Z'));
     $end_date = DateTimeImmutable::createFromFormat('Y-m-d', $originalEndDate = $this->getRequestOption('end-date'), new DateTimeZone('Z'));
+    $use_date = $this->getRequestOption('use-date');
 
     if (!$start_date || $start_date->format('Y-m-d') !== $this->getRequestOption('start-date')) {
       throw new JCMSBadRequestHttpException(t('Invalid start date'));
-    } elseif (!$end_date || $end_date->format('Y-m-d') !== $this->getRequestOption('end-date')) {
+    }
+    elseif (!$end_date || $end_date->format('Y-m-d') !== $this->getRequestOption('end-date')) {
       throw new JCMSBadRequestHttpException(t('Invalid end date'));
+    }
+    elseif (!in_array($use_date, ['published', 'default'])) {
+      throw new JCMSBadRequestHttpException(t('Invalid use date'));
     }
 
     $start_date = $start_date->setTime(0, 0, 0);

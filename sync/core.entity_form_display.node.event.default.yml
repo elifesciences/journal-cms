@@ -9,8 +9,10 @@ dependencies:
     - field.field.node.event.field_event_timezone
     - field.field.node.event.field_event_uri
     - field.field.node.event.field_impact_statement
+    - field.field.node.event.field_order_date
     - node.type.event
   module:
+    - content_moderation
     - datetime_range
     - link
     - paragraphs
@@ -77,6 +79,7 @@ content:
     region: content
 hidden:
   created: true
+  field_order_date: true
   path: true
   promote: true
   sticky: true

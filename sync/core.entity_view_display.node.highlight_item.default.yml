@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.highlight_item.field_highlight_item
     - field.field.node.highlight_item.field_image
+    - field.field.node.highlight_item.field_order_date
     - node.type.highlight_item
   module:
     - image
@@ -30,6 +31,16 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
+  field_order_date:
+    weight: 104
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    type: timestamp
     region: content
   links:
     weight: 100

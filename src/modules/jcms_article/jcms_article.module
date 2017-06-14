@@ -55,6 +55,7 @@ function jcms_article_node_presave(EntityInterface $entity) {
   if (empty($admin_ui) || $entity->isNew()) {
     $node_presave->setPublishedStatus($entity, $article);
     $node_presave->setStatusDate($entity, $article);
+    $node_presave->setPublishedDate($entity, $article);
     $node_presave->setSubjectTerms($entity, $article);
   }
 }
