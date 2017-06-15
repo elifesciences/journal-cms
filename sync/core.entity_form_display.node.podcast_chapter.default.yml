@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.podcast_chapter.field_impact_statement
     - field.field.node.podcast_chapter.field_long_title
+    - field.field.node.podcast_chapter.field_order_date
     - field.field.node.podcast_chapter.field_podcast_chapter_time
     - field.field.node.podcast_chapter.field_related_content
     - node.type.podcast_chapter
@@ -58,6 +59,7 @@ content:
     region: content
 hidden:
   created: true
+  field_order_date: true
   path: true
   promote: true
   sticky: true

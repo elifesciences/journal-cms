@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -33,8 +34,8 @@ class CoverListRestResource extends AbstractRestResourceBase {
    */
   public function get() {
     $base_query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
+      ->condition('status', NodeInterface::PUBLISHED)
+      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'cover')
       // @todo - elife - nlisgo - check why some legacy images aren't migrating.
       ->exists('field_image');

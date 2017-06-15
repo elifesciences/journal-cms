@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.cover.field_cover_content
     - field.field.node.cover.field_image
+    - field.field.node.cover.field_order_date
     - node.type.cover
   module:
     - image
@@ -33,6 +34,16 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
+  field_order_date:
+    weight: 104
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    type: timestamp
     region: content
   links:
     weight: 100

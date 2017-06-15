@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.annual_report.field_annual_report_year
     - field.field.node.annual_report.field_image
     - field.field.node.annual_report.field_impact_statement
+    - field.field.node.annual_report.field_order_date
     - node.type.annual_report
   module:
     - image
@@ -54,6 +55,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  field_order_date:
+    weight: 105
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    type: timestamp
     region: content
   links:
     weight: 100

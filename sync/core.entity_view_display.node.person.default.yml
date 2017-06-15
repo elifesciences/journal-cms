@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.person.field_archive
     - field.field.node.person.field_image
+    - field.field.node.person.field_order_date
     - field.field.node.person.field_person_affiliation
     - field.field.node.person.field_person_competing
     - field.field.node.person.field_person_index_name
@@ -43,6 +44,16 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
+  field_order_date:
+    weight: 112
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    type: timestamp
     region: content
   field_person_affiliation:
     type: entity_reference_revisions_entity_view

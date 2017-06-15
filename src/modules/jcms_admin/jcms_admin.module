@@ -503,3 +503,12 @@ function jcms_admin_node_insert(EntityInterface $entity) {
     }
   }
 }
+
+/**
+ * Implements hook_node_presave().
+ */
+function jcms_admin_node_presave(Node $node) {
+  if ($node->bundle() != 'article') {
+    $node->set('field_order_date', $node->getCreatedTime());
+  }
+}

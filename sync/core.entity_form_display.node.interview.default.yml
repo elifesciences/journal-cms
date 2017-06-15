@@ -7,10 +7,12 @@ dependencies:
     - field.field.node.interview.field_content
     - field.field.node.interview.field_impact_statement
     - field.field.node.interview.field_interview_cv
+    - field.field.node.interview.field_order_date
     - field.field.node.interview.field_person_index_name
     - field.field.node.interview.field_person_preferred_name
     - node.type.interview
   module:
+    - content_moderation
     - paragraphs
     - text
 id: node.interview.default
@@ -83,6 +85,7 @@ content:
     region: content
 hidden:
   created: true
+  field_order_date: true
   path: true
   promote: true
   sticky: true

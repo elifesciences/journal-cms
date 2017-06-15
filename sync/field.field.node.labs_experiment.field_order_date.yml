@@ -1,0 +1,21 @@
+uuid: 9a0a9f1b-a4fd-44c8-9d24-35b8c8b62d9a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_order_date
+    - node.type.labs_experiment
+id: node.labs_experiment.field_order_date
+field_name: field_order_date
+entity_type: node
+bundle: labs_experiment
+label: 'Order date'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: 1497452285
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

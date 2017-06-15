@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.article.field_article_json
     - field.field.node.article.field_community_list
     - field.field.node.article.field_image
+    - field.field.node.article.field_order_date
     - field.field.node.article.field_page_views
     - field.field.node.article.field_subjects
     - image.style.thumbnail
@@ -51,6 +52,7 @@ content:
 hidden:
   created: true
   field_article_json: true
+  field_order_date: true
   field_subjects: true
   path: true
   promote: true

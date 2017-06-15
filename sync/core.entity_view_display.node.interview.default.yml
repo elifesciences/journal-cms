@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.interview.field_content
     - field.field.node.interview.field_impact_statement
     - field.field.node.interview.field_interview_cv
+    - field.field.node.interview.field_order_date
     - field.field.node.interview.field_person_index_name
     - field.field.node.interview.field_person_preferred_name
     - node.type.interview
@@ -53,6 +54,16 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
+  field_order_date:
+    weight: 107
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    type: timestamp
     region: content
   field_person_index_name:
     weight: 101

@@ -1,0 +1,21 @@
+uuid: 6f14f3ea-7dae-4bc6-96df-531008c8ffb9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_order_date
+    - node.type.podcast_episode
+id: node.podcast_episode.field_order_date
+field_name: field_order_date
+entity_type: node
+bundle: podcast_episode
+label: 'Order date'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: 1497452423
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.article.field_article_json
     - field.field.node.article.field_community_list
     - field.field.node.article.field_image
+    - field.field.node.article.field_order_date
     - field.field.node.article.field_page_views
     - field.field.node.article.field_subjects
     - node.type.article
@@ -45,6 +46,16 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
+  field_order_date:
+    weight: 6
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    type: timestamp
     region: content
   field_page_views:
     weight: 1
