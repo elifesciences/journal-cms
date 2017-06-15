@@ -37,11 +37,10 @@ class CoverListRestResource extends AbstractRestResourceBase {
       ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'cover')
-      // @todo - elife - nlisgo - check why some legacy images aren't migrating.
       ->exists('field_image');
 
     $this->filterSubjects($base_query);
-    $this->filterDateRange($base_query, 'field_cover_content.entity.created');
+    $this->filterDateRange($base_query, 'field_cover_content.entity.field_order_date.value', 'field_cover_content.entity.created');
 
     $count_query = clone $base_query;
     $items_query = clone $base_query;

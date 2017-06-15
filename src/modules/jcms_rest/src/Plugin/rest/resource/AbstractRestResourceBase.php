@@ -310,7 +310,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
     if (in_array($show_option, array_keys($options))) {
       self::$requestOptions[$options[$show_option]] = date('Y-m-d');
-      $this->filterDateRange($query, 'field_event_datetime.end_value', FALSE);
+      $this->filterDateRange($query, 'field_event_datetime.end_value', NULL, FALSE);
     }
     elseif ($show_option != 'all') {
       throw new JCMSBadRequestHttpException(t('Invalid show option'));
@@ -321,10 +321,11 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * Apply filter for date range by amending query.
    *
    * @param \Drupal\Core\Entity\Query\QueryInterface $query
-   * @param string $field
+   * @param string $default_field
+   * @param string|NULL $published_field
    * @param bool $timestamp
    */
-  protected function filterDateRange(QueryInterface &$query, $field = 'created', $timestamp = TRUE) {
+  protected function filterDateRange(QueryInterface &$query, $default_field = 'field_order_date.value', $published_field = 'created', $timestamp = TRUE) {
     $start_date = DateTimeImmutable::createFromFormat('Y-m-d', $originalStartDate = $this->getRequestOption('start-date'), new DateTimeZone('Z'));
     $end_date = DateTimeImmutable::createFromFormat('Y-m-d', $originalEndDate = $this->getRequestOption('end-date'), new DateTimeZone('Z'));
     $use_date = $this->getRequestOption('use-date');
@@ -345,6 +346,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     if ($end_date < $start_date) {
       throw new JCMSBadRequestHttpException(t('End date must be on or after start date'));
     }
+
+    $field = (!is_null($published_field) && $use_date == 'published') ? $published_field : $default_field;
 
     if ($timestamp) {
       $query->condition($field, $start_date->getTimestamp(), '>=');
