@@ -595,3 +595,48 @@ function jcms_migrate_update_8105() {
     }
   }
 }
+
+/**
+ * Populate field_order_date.
+ */
+function jcms_migrate_update_8106(&$sandbox) {
+  // Unsure we have current element set to 0.
+  if (!isset($sandbox['current'])) {
+    $sandbox['current'] = 0;
+    $sandbox['total'] = \Drupal::entityQuery('node')
+      ->notExists('field_order_date')
+      ->count()
+      ->execute();
+  }
+  $items_per_batch = 200;
+
+  $nodes = \Drupal::entityQuery('node')
+    ->notExists('field_order_date')
+    ->sort('nid', 'ASC')
+    ->range(0, $items_per_batch)
+    ->execute();
+
+  if (empty($nodes)) {
+    $sandbox['#finished'] = 1;
+  }
+  else {
+    $node_presave = \Drupal::service('jcms_article.hooks.node_presave');
+    foreach ($nodes as $nid) {
+      $node = Node::load($nid);
+      if ($node->bundle() == 'article') {
+        $article = $node_presave->getArticleById($node->label());
+        $node_presave->setStatusDate($node, $article);
+        $node_presave->setPublishedDate($node, $article);
+      }
+
+      $node->save();
+      \Drupal::logger('jcms_miagrate')
+        ->notice(
+          'field_order_date has been populated for: @type - @title.',
+          ['@type' => $node->bundle(), '@title' => $node->label()]
+        );
+      $sandbox['current']++;
+      $sandbox['#finished'] = $sandbox['current'] / $sandbox['total'];
+    }
+  }
+}

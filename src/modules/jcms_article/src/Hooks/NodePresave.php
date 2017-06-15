@@ -85,7 +85,7 @@ final class NodePresave {
       $json = json_decode($version);
       if (property_exists($json, 'statusDate')) {
         $date = strtotime($json->statusDate);
-        $entity->set('field_order_date.value', $date);
+        $entity->set('field_order_date', $date);
       }
     }
   }
@@ -101,9 +101,8 @@ final class NodePresave {
     $version = $article->getLatestPublishedVersionJson() ?: '';
     if ($version) {
       $json = json_decode($version);
-      if (property_exists($json, 'statusDate')) {
-        // @todo - elife - nlisgo - set to $json->published when once field_order_date has been populated.
-        $date = strtotime($json->statusDate);
+      if (property_exists($json, 'published')) {
+        $date = strtotime($json->published);
         $entity->set('created', $date);
       }
     }
