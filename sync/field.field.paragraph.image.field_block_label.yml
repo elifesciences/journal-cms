@@ -1,0 +1,19 @@
+uuid: 25932238-648b-4982-ae9f-587ce325f5ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_label
+    - paragraphs.paragraphs_type.image
+id: paragraph.image.field_block_label
+field_name: field_block_label
+entity_type: paragraph
+bundle: image
+label: Label
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
