@@ -5,10 +5,13 @@ dependencies:
   config:
     - field.field.paragraph.image.field_block_attribution
     - field.field.paragraph.image.field_block_html
+    - field.field.paragraph.image.field_block_html_id
     - field.field.paragraph.image.field_block_image
+    - field.field.paragraph.image.field_block_label
     - image.style.thumbnail
     - paragraphs.paragraphs_type.image
   module:
+    - content_moderation
     - image
     - text
 id: paragraph.image.default
@@ -17,7 +20,7 @@ bundle: image
 mode: default
 content:
   field_block_attribution:
-    weight: 6
+    weight: 4
     settings:
       rows: 5
       placeholder: ''
@@ -32,6 +35,14 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
+  field_block_html_id:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_block_image:
     weight: 2
     settings:
@@ -39,6 +50,14 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
+  field_block_label:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
 hidden:
   created: true
