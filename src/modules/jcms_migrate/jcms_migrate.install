@@ -640,3 +640,28 @@ function jcms_migrate_update_8106(&$sandbox) {
     }
   }
 }
+
+/**
+ * Amend press package publication date.
+ */
+function jcms_migrate_update_8107() {
+  $content = [
+    '7e7220f6' => '2016-09-14',
+  ];
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+    ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
+    ->condition('type', 'press_package');
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $id = substr($node->uuid(), -8);
+      $current = $node->getCreatedTime();
+      $node->set('created', strtotime($content[$id] . ' ' . date('H:i:s', $current)));
+      $node->save();
+    }
+  }
+}
