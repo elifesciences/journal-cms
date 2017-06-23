@@ -129,7 +129,11 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * @return array
    */
   protected function processFieldContent(FieldItemListInterface $data, $required = FALSE) {
-    $handle_paragraphs = function($content, $list_flag = FALSE) use (&$handle_paragraphs) {
+    $asset_ids = [
+      'image' => 0,
+      'table' => 0,
+    ];
+    $handle_paragraphs = function($content, $list_flag = FALSE) use (&$handle_paragraphs, $asset_ids) {
       $result = [];
       foreach ($content as $paragraph) {
         $content_item = $paragraph->get('entity')->getTarget()->getValue();
@@ -180,6 +184,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
               if ($content_item->get('field_block_attribution')->count()) {
                 $result_item['attribution'] = array_values(array_filter(preg_split("(\r\n?|\n)", $content_item->get('field_block_attribution')->getString())));
               }
+              $result_item = $this->processFigure($result_item, $content_item, $asset_ids[$content_type]);
             }
             else {
               unset($result_item);
@@ -207,6 +212,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             else {
               $result_item['tables'] = ['<table>' . $table_content . '</table>'];
             }
+            $result_item = $this->processFigure($result_item, $content_item, $asset_ids[$content_type]);
             break;
           case 'code':
             $result_item['code'] = $content_item->get('field_block_code')->getString();
@@ -242,6 +248,25 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     }
 
     return [];
+  }
+
+  /**
+   * Bump data to a figure if label is available.
+   *
+   * @param array $data
+   * @param \Drupal\Core\Entity\EntityInterface $content_item
+   * @return array
+   */
+  protected function processFigure(array $data, EntityInterface $content_item, &$asset_co = 0) {
+    if ($content_item->get('field_block_label')->count()) {
+      $asset_co++;
+      $asset_id = $content_item->getType() . '-' . (($content_item->get('field_block_html_id')->count()) ? $content_item->get('field_block_html_id')->getString() : $asset_co);
+      $data = [
+        'type' => 'figure',
+        'assets' => [['id' => $asset_id, 'label' => $content_item->get('field_block_label')->getString()] + $data],
+      ];
+    }
+    return $data;
   }
 
   /**
