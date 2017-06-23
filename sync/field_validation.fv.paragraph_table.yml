@@ -7,8 +7,18 @@ label: 'paragraph table validation'
 entity_type: paragraph
 bundle: table
 field_validation_rules:
-  0e512ae6-c4ca-454b-8493-4cc94f052f4e:
-    uuid: 0e512ae6-c4ca-454b-8493-4cc94f052f4e
+  b64c235f-0bd1-455a-a70d-a4be244b84c2:
+    uuid: b64c235f-0bd1-455a-a70d-a4be244b84c2
+    id: unique_field_validation_rule
+    title: 'HTML ID is unique'
+    weight: '2'
+    field_name: field_block_html_id
+    column: value
+    error_message: 'The value for HTML ID should be unique (table)'
+    data:
+      scope: entity
+  67baed92-b077-417b-9d6e-715b547cd87d:
+    uuid: 67baed92-b077-417b-9d6e-715b547cd87d
     id: regex_field_validation_rule
     title: 'Valid HTML ID'
     weight: '1'
@@ -16,14 +26,4 @@ field_validation_rules:
     column: value
     error_message: 'Could not detect a valid HTML ID (table)'
     data:
-      setting: '/^[A-Za-z]+[\w\-\:\.]*$/'
-  b64c235f-0bd1-455a-a70d-a4be244b84c2:
-    uuid: b64c235f-0bd1-455a-a70d-a4be244b84c2
-    id: unique_field_validation_rule
-    title: 'HTML ID is unique'
-    weight: 2
-    field_name: field_block_html_id
-    column: value
-    error_message: 'The value for HTML ID should be unique (table)'
-    data:
-      scope: entity
+      setting: '/^[A-Za-z0-9]+[\w\-\:\.]*$/'
