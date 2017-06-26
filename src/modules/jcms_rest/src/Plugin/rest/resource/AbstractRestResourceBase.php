@@ -149,7 +149,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
           case 'paragraph':
             if ($content_item->get('field_block_html')->count()) {
               // Split paragraphs in the UI into separate paragraph blocks.
-              $texts = $this->splitParagraphs($this->fieldValueFormatted($content_item->get('field_block_html')));
+              $texts = $this->splitParagraphs($this->fieldValueFormatted($content_item->get('field_block_html'), FALSE));
               foreach ($texts as $text) {
                 if (!is_array($text)) {
                   $text = trim($text);
@@ -180,6 +180,9 @@ abstract class AbstractRestResourceBase extends ResourceBase {
               $result_item['image'] = array_diff_key($result_item['image'], array_flip(['sizes']));
               if ($content_item->get('field_block_html')->count()) {
                 $result_item['title'] = $this->fieldValueFormatted($content_item->get('field_block_html'));
+                if (empty($result_item['title'])) {
+                  unset($result_item['title']);
+                }
               }
               if ($content_item->get('field_block_attribution')->count()) {
                 $result_item['attribution'] = array_values(array_filter(preg_split("(\r\n?|\n)", $content_item->get('field_block_attribution')->getString())));
@@ -192,12 +195,18 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             break;
           case 'blockquote':
             $result_item['type'] = 'quote';
-            $result_item['text'] = [
-              [
-                'type' => 'paragraph',
-                'text' => $this->fieldValueFormatted($content_item->get('field_block_html')),
-              ],
-            ];
+            $text = $this->fieldValueFormatted($content_item->get('field_block_html'), TRUE);
+            if (!empty($text)) {
+              $result_item['text'] = [
+                [
+                  'type' => 'paragraph',
+                  'text' => $this->fieldValueFormatted($content_item->get('field_block_html'), TRUE),
+                ],
+              ];
+            }
+            else {
+              unset($result_item);
+            }
             break;
           case 'youtube':
             $result_item['id'] = $content_item->get('field_block_youtube_id')->getString();
@@ -205,7 +214,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             $result_item['height'] = (int) $content_item->get('field_block_youtube_height')->getString();
             break;
           case 'table':
-            $table_content = preg_replace('/\n/', '', $this->fieldValueFormatted($content_item->get('field_block_html')));
+            $table_content = preg_replace('/\n/', '', $this->fieldValueFormatted($content_item->get('field_block_html'), FALSE));
             if (preg_match("~(?P<table><table[^>]*>(?:.|\n)*?</table>)~", $table_content, $match)) {
               $result_item['tables'] = [$match['table']];
             }
@@ -419,14 +428,20 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * Prepare the value from formatted field.
    *
    * @param \Drupal\Core\Field\FieldItemListInterface $data
-   * @return mixed|null
+   * @param bool $simple
+   * @return mixed
    */
-  protected function fieldValueFormatted(FieldItemListInterface $data) {
+  protected function fieldValueFormatted(FieldItemListInterface $data, $simple = TRUE) {
     $view = $data->view();
     unset($view['#theme']);
     $output = \Drupal::service('renderer')->renderPlain($view);
     $output = preg_replace('/(<img [^>]*src=\")(\/[^\"]+)/', '$1' . \Drupal::request()->getSchemeAndHttpHost() . '$2', $output);
-    return str_replace(chr(194) . chr(160), ' ', $output);
+    $output = str_replace(chr(194) . chr(160), ' ', $output);
+    if ($simple) {
+      $output = preg_replace('/\n/', '', $output);
+    }
+
+    return trim($output);
   }
 
   /**

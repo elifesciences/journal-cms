@@ -51,6 +51,9 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
       // Impact statement is optional.
       if ($node->get('field_impact_statement')->count()) {
         $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
+        if (empty($response['impactStatement'])) {
+          unset($response['impactStatement']);
+        }
       }
 
       if ($content = $this->processFieldContent($node->get('field_content'))) {
@@ -62,7 +65,7 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
       return $response;
     }
 
-    throw new JCMSNotFoundHttpException(t('Lab experiment with ID @id was not found', ['@id' => $number]));
+    throw new JCMSNotFoundHttpException(t('Lab experiment with ID @id was not found', ['@id' => $id]));
   }
 
 }

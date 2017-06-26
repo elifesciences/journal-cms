@@ -83,6 +83,9 @@ class EventListRestResource extends AbstractRestResourceBase {
     // Impact statement is optional.
     if ($node->get('field_impact_statement')->count()) {
       $item['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
+      if (empty($item['impactStatement'])) {
+        unset($item['impactStatement']);
+      }
     }
     return $item;
   }

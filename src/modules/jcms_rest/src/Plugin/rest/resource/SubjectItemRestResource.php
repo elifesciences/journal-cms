@@ -45,6 +45,9 @@ class SubjectItemRestResource extends AbstractRestResourceBase {
 
       if ($term->get('field_impact_statement')->count()) {
         $response['impactStatement'] = $this->fieldValueFormatted($term->get('field_impact_statement'));
+        if (empty($response['impactStatement'])) {
+          unset($response['impactStatement']);
+        }
       }
 
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
