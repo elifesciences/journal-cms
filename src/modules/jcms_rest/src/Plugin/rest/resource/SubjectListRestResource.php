@@ -73,6 +73,9 @@ class SubjectListRestResource extends AbstractRestResourceBase {
 
     if ($term->get('field_impact_statement')->count()) {
       $item['impactStatement'] = $this->fieldValueFormatted($term->get('field_impact_statement'));
+      if (empty($item['impactStatement'])) {
+        unset($item['impactStatement']);
+      }
     }
     return $item;
   }

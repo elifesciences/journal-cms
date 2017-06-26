@@ -61,6 +61,9 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       // Impact statement is optional.
       if ($node->get('field_impact_statement')->count()) {
         $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
+        if (!empty($response['impactStatement'])) {
+          unset($response['impactStatement']);
+        }
       }
 
       // Subjects are optional.
@@ -116,9 +119,15 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
     ];
     if ($node->get('field_long_title')->count()) {
       $chapter_values['longTitle'] = $this->fieldValueFormatted($node->get('field_long_title'));
+      if (!empty($chapter_values['longTitle'])) {
+        unset($chapter_values['longTitle']);
+      }
     }
     if ($node->get('field_impact_statement')->count()) {
       $chapter_values['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
+      if (empty($chapter_values['impactStatement'])) {
+        unset($chapter_values['impactStatement']);
+      }
     }
     if ($node->get('field_related_content')->count()) {
       $chapter_content = [];
