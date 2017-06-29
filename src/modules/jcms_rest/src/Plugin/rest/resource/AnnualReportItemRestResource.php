@@ -45,8 +45,13 @@ class AnnualReportItemRestResource extends AbstractRestResourceBase {
       $this->setSortBy(FALSE);
       $response = $this->processDefault($node, $year, 'year');
 
-      // uri is required.
+      // Uri is required.
       $response['uri'] = $node->get('field_annual_report_uri')->first()->getValue()['uri'];
+
+      // PDF is optional.
+      if ($node->get('field_pdf')->count()) {
+        $response['pdf'] = $node->get('field_pdf')->first()->getValue()['uri'];
+      }
 
       // Impact statement is optional.
       if ($node->get('field_impact_statement')->count()) {
