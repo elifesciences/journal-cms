@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\jcms_rest\Tests\Functional;
+namespace Drupal\Tests\jcms_rest\Functional;
 
 use ComposerLocator;
 use Drupal\Tests\UnitTestCase;
@@ -25,12 +25,12 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
   /**
    * @var Client
    */
-  private $client;
+  protected $client;
 
   /**
    * @var MessageValidator
    */
-  private $validator;
+  protected $validator;
 
   public function setUp() {
     $this->validator = new FakeHttpsMessageValidator(
@@ -55,80 +55,77 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
       [
         '/subjects',
         'id',
-        'application/vnd.elife.subject-list+json;version=1',
-        'application/vnd.elife.subject+json;version=1',
+        'application/vnd.elife.subject-list+json',
+        'application/vnd.elife.subject+json',
       ],
       [
         '/blog-articles',
         'id',
-        'application/vnd.elife.blog-article-list+json;version=1',
-        'application/vnd.elife.blog-article+json;version=1',
+        'application/vnd.elife.blog-article-list+json',
+        'application/vnd.elife.blog-article+json',
       ],
       [
         '/labs-posts',
         'id',
-        'application/vnd.elife.labs-post-list+json;version=1',
-        'application/vnd.elife.labs-post+json;version=1',
+        'application/vnd.elife.labs-post-list+json',
+        'application/vnd.elife.labs-post+json',
       ],
       [
         '/people',
         'id',
-        'application/vnd.elife.person-list+json;version=1',
-        'application/vnd.elife.person+json;version=1',
+        'application/vnd.elife.person-list+json',
+        'application/vnd.elife.person+json',
       ],
       [
         '/podcast-episodes',
         'number',
-        'application/vnd.elife.podcast-episode-list+json;version=1',
-        'application/vnd.elife.podcast-episode+json;version=1',
+        'application/vnd.elife.podcast-episode-list+json',
+        'application/vnd.elife.podcast-episode+json',
       ],
       [
         '/interviews',
         'id',
-        'application/vnd.elife.interview-list+json;version=1',
-        'application/vnd.elife.interview+json;version=1',
+        'application/vnd.elife.interview-list+json',
+        'application/vnd.elife.interview+json',
       ],
       [
         '/annual-reports',
         'year',
-        'application/vnd.elife.annual-report-list+json;version=1',
-        'application/vnd.elife.annual-report+json;version=1',
+        'application/vnd.elife.annual-report-list+json',
+        'application/vnd.elife.annual-report+json',
       ],
       [
         '/events',
         'id',
-        'application/vnd.elife.event-list+json;version=1',
-        'application/vnd.elife.event+json;version=1',
+        'application/vnd.elife.event-list+json',
+        'application/vnd.elife.event+json',
       ],
       [
         '/collections',
         'id',
-        'application/vnd.elife.collection-list+json;version=1',
-        'application/vnd.elife.collection+json;version=1',
+        'application/vnd.elife.collection-list+json',
+        'application/vnd.elife.collection+json',
       ],
       [
         '/press-packages',
         'id',
-        'application/vnd.elife.press-package-list+json;version=1',
-        'application/vnd.elife.press-package+json;version=1',
+        'application/vnd.elife.press-package-list+json',
+        'application/vnd.elife.press-package+json',
       ],
       [
         '/community',
         'type',
-        'application/vnd.elife.community-list+json;version=1',
-        NULL,
+        'application/vnd.elife.community-list+json',
       ],
       [
         '/covers',
         'type',
-        'application/vnd.elife.cover-list+json;version=1',
-        NULL,
+        'application/vnd.elife.cover-list+json',
       ],
       [
         '/covers/current',
         'type',
-        'application/vnd.elife.cover-list+json;version=1',
-        NULL,
+        'application/vnd.elife.cover-list+json',
       ],
     ];
   }
@@ -140,8 +137,9 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
    * @param string $id_key
    * @param string $media_type_list
    * @param string|NULL $media_type_item
+   * @param array|string $check
    */
-  public function testValidEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, $media_type_item) {
+  public function testValidEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, $media_type_item = NULL, $check = []) {
     $items = $this->gatherListItems($endpoint, $media_type_list);
 
     foreach ($items as $item) {
@@ -164,7 +162,7 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
         }
 
         $request = new Request('GET', $item->{$id_key} . 's/' . $id, [
-          'Accept' => 'application/vnd.elife.' . $item->{$id_key} . '+json;version=1',
+          'Accept' => 'application/vnd.elife.' . $item->{$id_key} . '+json',
         ]);
       }
       else {
@@ -173,11 +171,16 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
 
       $response = $this->client->send($request);
       $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+      if (is_array($check)) {
+        foreach ($check as $header => $value) {
+          $this->assertEquals($response->getHeaderLine($header), $value);
+        }
+      }
       $this->validator->validate($response);
     }
   }
 
-  function gatherListItems(string $endpoint, string $media_type_list) {
+  public function gatherListItems(string $endpoint, string $media_type_list) {
     $all_items = [];
     $per_page = 50;
     $page = 1;

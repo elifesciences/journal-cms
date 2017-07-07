@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 class JCMSNotAcceptableHttpException extends HttpException {
 
-  public function __construct($message, \Exception $previous = NULL, $media_type, $code = 0) {
+  public function __construct($message, \Exception $previous = NULL, $media_type = 'application/problem+json', $code = 0) {
     parent::__construct(Response::HTTP_NOT_ACCEPTABLE, $message, $previous, ['Content-Type' => $media_type], $code);
   }
 

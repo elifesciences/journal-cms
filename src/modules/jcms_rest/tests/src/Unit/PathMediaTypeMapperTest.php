@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\jcms_rest\Tests\Unit;
+namespace Drupal\Tests\jcms_rest\Unit;
 
 use Drupal\Tests\UnitTestCase;
 use Drupal\jcms_rest\PathMediaTypeMapper;

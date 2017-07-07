@@ -2,7 +2,6 @@
 
 namespace Drupal\jcms_migrate\Plugin\migrate\process;
 
-use Drupal\Core\Site\Settings;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
 

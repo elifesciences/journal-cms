@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\jcms_rest\Tests\Functional;
+namespace Drupal\Tests\jcms_rest\Functional;
 
 use ComposerLocator;
 use Drupal\Tests\UnitTestCase;
