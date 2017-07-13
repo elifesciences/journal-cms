@@ -9,11 +9,15 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\jcms_rest\Exception\JCMSBadRequestHttpException;
+use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
 use Drupal\jcms_rest\JMCSImageUriTrait;
 use Drupal\jcms_rest\PathMediaTypeMapper;
+use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\rest\Plugin\ResourceBase;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\AcceptHeader;
 
 abstract class AbstractRestResourceBase extends ResourceBase {
 
@@ -35,6 +39,24 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   protected static $requestOptions = [];
 
   protected $defaultSortBy = 'created';
+
+  /**
+   * @var int
+   */
+  protected $latestVersion = 1;
+
+  /**
+   * @var int
+   */
+  protected $acceptVersion = 1;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, array $serializer_formats, LoggerInterface $logger) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
+    $this->acceptVersion = $this->getAcceptableVersion($this->latestVersion);
+  }
 
   /**
    * Process default values.
@@ -675,21 +697,44 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   /**
    * Gets the content type for the current rest resource.
    *
-   * @param int $version
-   *
    * @return string
    * @throws \Exception
    * @todo Handle this in the response object optionally.
-   * @todo Handle versioning properly.
    */
-  public function getContentType(int $version = 1): string {
+  public function getContentType(): string {
     $endpoint = $this->getEndpoint();
     $mapper = new PathMediaTypeMapper();
     $content_type = $mapper->getMediaTypeByPath($endpoint);
     if (!$content_type) {
       throw new \Exception('Content type not found for specified rest resource.');
     }
-    return $content_type . ';version=' . $version;
+    return $content_type . ';version=' . $this->acceptVersion;
+  }
+
+  /**
+   * Return the acceptable version.
+   *
+   * @param int $latest_version
+   * @return int
+   */
+  public function getAcceptableVersion($latest_version = 1) {
+    $endpoint = $this->getEndpoint();
+    $mapper = new PathMediaTypeMapper();
+    $content_type = $mapper->getMediaTypeByPath($endpoint);
+    $request = \Drupal::request();
+    $acceptable_version = $latest_version;
+
+    $accept_headers = AcceptHeader::fromString($request->headers->get('Accept'))->all();
+    if (!empty($accept_headers[$content_type]) && $accept_headers[$content_type]->hasAttribute('version')) {
+      $acceptable_version = (int) $accept_headers[$content_type]->getAttribute('version', $latest_version);
+    }
+
+    if ($acceptable_version > $latest_version) {
+      throw new JCMSNotAcceptableHttpException(sprintf('%s; version=%s is not supported', $content_type, $acceptable_version));
+    }
+    else {
+      return $acceptable_version;
+    }
   }
 
   /**
@@ -719,8 +764,31 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   public function processPeopleNames(string $preferred_name, FieldItemListInterface $index_name) {
     return [
       'preferred' => $preferred_name,
-      'index' => ($index_name->count()) ? $index_name->getString() : preg_replace('/^(?P<first_names>.*)\s+(?P<last_name>[^\s]+)$/', '$2, $1', $name['preferred']),
+      'index' => ($index_name->count()) ? $index_name->getString() : preg_replace('/^(?P<first_names>.*)\s+(?P<last_name>[^\s]+)$/', '$2, $1', $preferred_name),
     ];
+  }
+
+  /**
+   * Process response.
+   *
+   * @param JCMSRestResponse $response
+   */
+  protected function processResponse(JCMSRestResponse $response) {
+    if ($warning_text = $this->getWarningText()) {
+      $warning = sprintf('299 api.elifesciences.org "%s"', $warning_text);
+      $response->headers->add(['Warning' => $warning]);
+    }
+  }
+
+  /**
+   * Get warning text.
+   *
+   * @return string|NULL
+   */
+  protected function getWarningText() {
+    if ($this->acceptVersion < $this->latestVersion) {
+      return sprintf('Deprecation: Support for version %d will be removed', $this->acceptVersion);
+    }
   }
 
 }

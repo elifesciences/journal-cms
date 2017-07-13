@@ -83,21 +83,22 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
       }
     }
 
-    $articles = [];
-    foreach ($node->get('field_related_content') as $related) {
-      if ($article = $this->getArticleSnippet($related->get('entity')->getTarget()->getValue())) {
-        $articles[] = $article;
+    // Subjects are optional.
+    if ($node->get('field_related_content')->count()) {
+      $articles = [];
+      foreach ($node->get('field_related_content') as $related) {
+        if ($article = $this->getArticleSnippet($related->get('entity')->getTarget()->getValue())) {
+          $articles[] = $article;
+        }
+      }
+      if (!empty($articles)) {
+        $subjects = $this->subjectsFromArticles($articles);
+        if (!empty($subjects)) {
+          $item['subjects'] = $subjects;
+        }
       }
     }
 
-    if (empty($articles)) {
-      return FALSE;
-    }
-
-    $subjects = $this->subjectsFromArticles($articles);
-    if (!empty($subjects)) {
-      $item['subjects'] = $subjects;
-    }
 
     return $item;
   }

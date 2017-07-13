@@ -2,8 +2,11 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -18,6 +21,8 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class PressPackageItemRestResource extends AbstractRestResourceBase {
+  protected $latestVersion = 2;
+
   /**
    * Responds to GET requests.
    *
@@ -31,16 +36,15 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
    */
   public function get($id) {
     $query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
+      ->condition('status', NodeInterface::PUBLISHED)
+      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'press_package')
       ->condition('uuid', '%' . $id, 'LIKE');
 
     $nids = $query->execute();
     if ($nids) {
       $nid = reset($nids);
-      /* @var \Drupal\node\Entity\Node $node */
-      $node = \Drupal\node\Entity\Node::load($nid);
+      $node = Node::load($nid);
 
       $response = $this->processDefault($node, $id);
 
@@ -56,14 +60,20 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
         $response['content'] = $content;
       }
 
-      $related_content = [];
-      foreach ($node->get('field_related_content') as $related) {
-        if ($article = $this->getArticleSnippet($related->get('entity')->getTarget()->getValue())) {
-          $related_content[] = $article;
+      if ($node->get('field_related_content')->count()) {
+        $related_content = [];
+        foreach ($node->get('field_related_content') as $related) {
+          if ($article = $this->getArticleSnippet($related->get('entity')->getTarget()->getValue())) {
+            $related_content[] = $article;
+          }
+        }
+        if (!empty($related_content)) {
+          $response['relatedContent'] = $related_content;
         }
       }
-      if (!empty($related_content)) {
-        $response['relatedContent'] = $related_content;
+
+      if ($this->acceptVersion < 2 && empty($response['relatedContent'])) {
+        throw new JCMSNotAcceptableHttpException('This press package requires version 2.');
       }
 
       // Subjects is optional.
@@ -130,6 +140,7 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
 
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
       $response->addCacheableDependency($node);
+      $this->processResponse($response);
       return $response;
     }
     throw new JCMSNotFoundHttpException(t('Blog article with ID @id was not found', ['@id' => $id]));
