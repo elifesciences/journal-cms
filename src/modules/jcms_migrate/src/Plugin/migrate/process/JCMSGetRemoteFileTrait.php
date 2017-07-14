@@ -5,7 +5,7 @@ namespace Drupal\jcms_migrate\Plugin\migrate\process;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
 
-trait JMCSGetRemoteFileTrait {
+trait JCMSGetRemoteFileTrait {
   function getFile($filename, $options = []) {
     $guzzle = new Client();
     try {

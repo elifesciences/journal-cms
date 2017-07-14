@@ -7,7 +7,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\jcms_article\Entity\ArticleVersions;
 use Drupal\jcms_article\FetchArticleVersions;
 use Drupal\jcms_article\FragmentApi;
-use Drupal\jcms_rest\JMCSImageUriTrait;
+use Drupal\jcms_rest\JCMSImageUriTrait;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
@@ -18,7 +18,7 @@ use Drupal\paragraphs\Entity\Paragraph;
  */
 final class NodePresave {
 
-  use JMCSImageUriTrait;
+  use JCMSImageUriTrait;
 
   /**
    * @var bool

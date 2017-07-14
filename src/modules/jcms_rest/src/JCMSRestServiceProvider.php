@@ -9,7 +9,7 @@ use Drupal\Core\DependencyInjection\ServiceModifierInterface;
  * Adds application/vnd.elife.annual-report-list+json as a known format.
  * This must be named this way to ensure its discovery.
  */
-class JcmsRestServiceProvider implements ServiceModifierInterface {
+class JCMSRestServiceProvider implements ServiceModifierInterface {
 
   /**
    * {@inheritdoc}
