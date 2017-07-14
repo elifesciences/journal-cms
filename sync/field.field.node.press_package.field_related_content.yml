@@ -12,7 +12,7 @@ entity_type: node
 bundle: press_package
 label: 'Related content'
 description: 'Manuscript ID (e.g. 00666)'
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
