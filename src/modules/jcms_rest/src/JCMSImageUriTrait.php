@@ -6,7 +6,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\crop\Entity\Crop;
 
-trait JMCSImageUriTrait {
+trait JCMSImageUriTrait {
 
   protected $imageSizes = [
     'banner',

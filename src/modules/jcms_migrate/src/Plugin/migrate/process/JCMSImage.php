@@ -17,7 +17,7 @@ use Drupal\migrate\Row;
  */
 class JCMSImage extends ProcessPluginBase {
 
-  use JMCSGetRemoteFileTrait;
+  use JCMSGetRemoteFileTrait;
 
   /**
    * @var \Drupal\migrate\Row
