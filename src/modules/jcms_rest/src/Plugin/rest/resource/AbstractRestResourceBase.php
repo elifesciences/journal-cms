@@ -454,9 +454,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    *
    * @param \Drupal\Core\Field\FieldItemListInterface $data
    * @param bool $simple
+   * @param bool $split
    * @return mixed
    */
-  protected function fieldValueFormatted(FieldItemListInterface $data, $simple = TRUE) {
+  protected function fieldValueFormatted(FieldItemListInterface $data, $simple = TRUE, $split = FALSE) {
     $view = $data->view();
     unset($view['#theme']);
     $output = \Drupal::service('renderer')->renderPlain($view);
@@ -466,7 +467,12 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       $output = preg_replace('/\n/', '', $output);
     }
 
-    return trim($output);
+    if ($split) {
+      return array_values(array_filter(preg_split("(\r\n?|\n)", preg_replace('/<br[^>]*>/', "\n", $output))));
+    }
+    else {
+      return trim($output);
+    }
   }
 
   /**
@@ -592,6 +598,11 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
     if ($image) {
       $item_values['image'] = $this->processFieldImage($node->get('field_image'), TRUE, 'banner', TRUE);
+      $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
+      if (!empty($attribution)) {
+        $image['attribution'] = $attribution;
+      }
+      $item['image'] = $image;
     }
 
     if ($related->getType() == 'article') {

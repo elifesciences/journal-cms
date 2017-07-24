@@ -1,0 +1,21 @@
+uuid: 81049a74-5c8b-4652-98bd-82c467ce3f25
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_image_attribution
+    - taxonomy.vocabulary.subjects
+  module:
+    - text
+id: taxonomy_term.subjects.field_image_attribution
+field_name: field_image_attribution
+entity_type: taxonomy_term
+bundle: subjects
+label: 'Image attribution'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

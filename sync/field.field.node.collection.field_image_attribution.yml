@@ -1,0 +1,21 @@
+uuid: 1dd431e1-7038-4738-9413-28b4fef57d44
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image_attribution
+    - node.type.collection
+  module:
+    - text
+id: node.collection.field_image_attribution
+field_name: field_image_attribution
+entity_type: node
+bundle: collection
+label: 'Image attribution'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

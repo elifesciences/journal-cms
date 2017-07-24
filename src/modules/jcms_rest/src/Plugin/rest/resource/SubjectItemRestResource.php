@@ -42,6 +42,12 @@ class SubjectItemRestResource extends AbstractRestResourceBase {
         'name' => $term->toLink()->getText(),
       ];
       $response['image'] = $this->processFieldImage($term->get('field_image'), TRUE);
+      $attribution = $this->fieldValueFormatted($term->get('field_image_attribution'), FALSE, TRUE);
+      if (!empty($attribution)) {
+        foreach ($response['image'] as $key => $type) {
+          $response['image'][$key]['attribution'] = $attribution;
+        }
+      }
 
       if ($term->get('field_impact_statement')->count()) {
         $response['impactStatement'] = $this->fieldValueFormatted($term->get('field_impact_statement'));

@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.collection.field_community_list
     - field.field.node.collection.field_curators
     - field.field.node.collection.field_image
+    - field.field.node.collection.field_image_attribution
     - field.field.node.collection.field_impact_statement
     - field.field.node.collection.field_order_date
     - field.field.node.collection.field_subjects
@@ -27,7 +28,7 @@ bundle: collection
 mode: default
 content:
   field_collection_content:
-    weight: 6
+    weight: 7
     settings:
       form_mode: default
       override_labels: true
@@ -40,7 +41,7 @@ content:
     type: inline_entity_form_complex
     region: content
   field_collection_podcasts:
-    weight: 8
+    weight: 9
     settings:
       match_operator: CONTAINS
       size: 60
@@ -49,7 +50,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_collection_related_content:
-    weight: 7
+    weight: 8
     settings:
       form_mode: default
       override_labels: true
@@ -62,14 +63,14 @@ content:
     type: inline_entity_form_complex
     region: content
   field_community_list:
-    weight: 9
+    weight: 10
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_curators:
-    weight: 5
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 60
@@ -85,7 +86,7 @@ content:
     third_party_settings: {  }
     type: image_image
     region: content
-  field_impact_statement:
+  field_image_attribution:
     weight: 2
     settings:
       rows: 5
@@ -93,8 +94,16 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
+  field_impact_statement:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
   field_subjects:
-    weight: 4
+    weight: 5
     settings:
       match_operator: CONTAINS
       size: 60
@@ -104,7 +113,7 @@ content:
     region: content
   field_summary:
     type: entity_reference_paragraphs
-    weight: 3
+    weight: 4
     settings:
       title: Paragraph
       title_plural: Paragraphs

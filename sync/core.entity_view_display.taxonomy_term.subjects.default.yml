@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.subjects.field_image
+    - field.field.taxonomy_term.subjects.field_image_attribution
     - field.field.taxonomy_term.subjects.field_impact_statement
     - field.field.taxonomy_term.subjects.field_subject_id
     - taxonomy.vocabulary.subjects
@@ -31,8 +32,15 @@ content:
     third_party_settings: {  }
     type: image
     region: content
-  field_impact_statement:
+  field_image_attribution:
     weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_impact_statement:
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }

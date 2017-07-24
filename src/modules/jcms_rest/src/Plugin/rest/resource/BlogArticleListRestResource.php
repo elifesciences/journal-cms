@@ -74,6 +74,12 @@ class BlogArticleListRestResource extends AbstractRestResourceBase {
 
     // Image is optional.
     if ($image = $this->processFieldImage($node->get('field_image'), FALSE)) {
+      $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
+      if (!empty($attribution)) {
+        foreach ($image as $key => $type) {
+          $image[$key]['attribution'] = $attribution;
+        }
+      }
       $item['image'] = $image;
     }
 

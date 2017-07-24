@@ -80,9 +80,13 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
       }
     }
 
-    // Image is optional.
-    if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {
-      $item['image'] = $image;
+    // Image is required.
+    $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE);
+    $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
+    if (!empty($attribution)) {
+      foreach ($item['image'] as $key => $type) {
+        $item['image'][$key]['attribution'] = $attribution;
+      }
     }
 
     // mp3 is required.
