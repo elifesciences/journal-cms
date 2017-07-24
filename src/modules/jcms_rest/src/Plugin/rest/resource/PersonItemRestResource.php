@@ -138,7 +138,7 @@ class PersonItemRestResource extends AbstractRestResourceBase {
         $data = $affiliation->get('entity')->getTarget()->getValue();
         $country = $data->get('field_block_country')->getString();
         $affiliations[] = [
-          'name' => explode("\n", $data->get('field_block_title_multiline')->getString()),
+          'name' => array_values(array_filter(preg_split("(\r\n?|\n)", $data->get('field_block_title_multiline')->getString()))),
           'address' => [
             'formatted' => [$countries[$country]],
             'components' => ['country' => $countries[$country]],
