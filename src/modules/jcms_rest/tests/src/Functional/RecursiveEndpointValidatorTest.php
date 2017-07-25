@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * This is useful to verify that the migration of content has been successful.
  *
- * @package Drupal\Tests\jcms_rest\Unit
+ * @package Drupal\Tests\jcms_rest\Functional
  */
 class RecursiveEndpointValidatorTest extends UnitTestCase {
 
