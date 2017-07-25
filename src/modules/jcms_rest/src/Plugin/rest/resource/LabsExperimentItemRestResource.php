@@ -47,6 +47,12 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
 
       // Image is required.
       $response['image'] = $this->processFieldImage($node->get('field_image'), TRUE);
+      $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
+      if (!empty($attribution)) {
+        foreach ($response['image'] as $key => $type) {
+          $response['image'][$key]['attribution'] = $attribution;
+        }
+      }
 
       // Impact statement is optional.
       if ($node->get('field_impact_statement')->count()) {

@@ -1,0 +1,21 @@
+uuid: 76b5cfe6-0435-4a46-99a3-50a4219c8805
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image_attribution
+    - node.type.podcast_episode
+  module:
+    - text
+id: node.podcast_episode.field_image_attribution
+field_name: field_image_attribution
+entity_type: node
+bundle: podcast_episode
+label: 'Image attribution'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

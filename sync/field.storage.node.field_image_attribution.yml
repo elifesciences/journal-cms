@@ -1,17 +1,17 @@
-uuid: 7dbad03c-e455-4a80-a2d4-33533edba268
+uuid: 959dae28-ac86-4900-9316-d13bba1a7148
 langcode: en
 status: true
 dependencies:
   module:
     - field_permissions
-    - paragraphs
+    - node
     - text
 third_party_settings:
   field_permissions:
     permission_type: public
-id: paragraph.field_block_attribution
-field_name: field_block_attribution
-entity_type: paragraph
+id: node.field_image_attribution
+field_name: field_image_attribution
+entity_type: node
 type: text_long
 settings: {  }
 module: text
