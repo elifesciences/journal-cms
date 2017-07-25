@@ -20,13 +20,13 @@ bundle: image
 mode: default
 content:
   field_block_attribution:
+    type: text_textarea
     weight: 4
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: string_textarea
-    region: content
   field_block_html:
     weight: 3
     settings:

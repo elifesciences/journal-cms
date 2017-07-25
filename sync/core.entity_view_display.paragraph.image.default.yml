@@ -18,12 +18,12 @@ bundle: image
 mode: default
 content:
   field_block_attribution:
+    type: text_default
     weight: 4
+    region: content
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
-    region: content
   field_block_html:
     weight: 3
     label: above
