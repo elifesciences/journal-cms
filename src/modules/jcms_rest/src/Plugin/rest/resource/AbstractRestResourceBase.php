@@ -600,9 +600,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       $item_values['image'] = $this->processFieldImage($node->get('field_image'), TRUE, 'banner', TRUE);
       $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
       if (!empty($attribution)) {
-        $image['attribution'] = $attribution;
+        $item_values['image']['attribution'] = $attribution;
       }
-      $item['image'] = $image;
     }
 
     if ($related->getType() == 'article') {
