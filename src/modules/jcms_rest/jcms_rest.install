@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for Journal CMS (REST).
+ */
+use Drupal\node\Entity\Node;
+
+/**
+ * Trigger notification for all podcast episodes so search can be re-indexed.
+ */
+function jcms_rest_update_8101() {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'podcast_episode');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        // We need to change at least one value, otherwise the changed timestamp
+        // will not be updated.
+        $node->changed = 0;
+        $node->save();
+      }
+    }
+  }
+}
