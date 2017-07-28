@@ -34,8 +34,6 @@ class JCMSRestResponse extends JsonResponse implements CacheableResponseInterfac
 
   /**
    * Adds default cacheable dependencies such as query string parameters.
-   *
-   * @todo In future this may need to handle versioning from Accept headers.
    */
   public function addDefaultCacheableDependencies() {
     $request = \Drupal::request();
@@ -64,10 +62,8 @@ class JCMSRestResponse extends JsonResponse implements CacheableResponseInterfac
       $this->headers->addCacheControlDirective('stale-while-revalidate', 300);
       $this->headers->addCacheControlDirective('stale-if-error', 86400);
       $this->setEtag(md5($this->getContent()));
-      // @fixme - elife - nlisgo - ignore if-none-match while we have caching issues (ELPP-3012)
-      // $this->isNotModified($request);
+      $this->isNotModified($request);
     }
-
   }
 
 }
