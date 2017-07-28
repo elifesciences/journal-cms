@@ -757,3 +757,28 @@ function jcms_migrate_update_8108() {
 
   }
 }
+
+/**
+ * Amend blog article publication date.
+ */
+function jcms_migrate_update_8109() {
+  $content = [
+    'd457b4cd' => '2017-07-28',
+  ];
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+    ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
+    ->condition('type', 'blog_article');
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $id = substr($node->uuid(), -8);
+      $current = $node->getCreatedTime();
+      $node->set('created', strtotime($content[$id] . ' ' . date('H:i:s', $current)));
+      $node->save();
+    }
+  }
+}
