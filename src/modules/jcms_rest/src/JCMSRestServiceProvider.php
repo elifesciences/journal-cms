@@ -15,8 +15,16 @@ class JCMSRestServiceProvider implements ServiceModifierInterface {
    * {@inheritdoc}
    */
   public function alter(ContainerBuilder $container) {
+    $modules = $container->getParameter('container.modules');
+
     if ($container->has('http_middleware.negotiation') && is_a($container->getDefinition('http_middleware.negotiation')->getClass(), '\Drupal\Core\StackMiddleware\NegotiationMiddleware', TRUE)) {
-      $container->getDefinition('http_middleware.negotiation')->addMethodCall('registerFormat', ['jcms_json', ['application/vnd.elife.subject+json;version=1']]);
+      $container->getDefinition('http_middleware.negotiation')->addMethodCall('registerFormat', ['jcms_json', array_values(PathMediaTypeMapper::getMappings())]);
+    }
+
+    // Alter the http_middleware.page_cache service only if Internal Page Cache module is enabled.
+    if (isset($modules['page_cache'])) {
+      $container->getDefinition('http_middleware.page_cache')
+        ->setClass('Drupal\jcms_rest\StackMiddleware\PageCache');
     }
   }
 

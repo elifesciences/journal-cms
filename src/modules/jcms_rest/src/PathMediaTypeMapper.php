@@ -15,7 +15,7 @@ class PathMediaTypeMapper {
    * @return array
    *   An array of media types.
    */
-  protected function getMappings() : array {
+  public static function getMappings() : array {
     $map = [
       '/labs-posts' => 'application/vnd.elife.labs-post-list+json',
       '/labs-posts/{number}' => 'application/vnd.elife.labs-post+json',
@@ -57,7 +57,7 @@ class PathMediaTypeMapper {
   public function getMediaTypeByPath(string $path) : string {
     // Trim any trailing slashes from the path.
     $path = rtrim($path, '/');
-    $mappings = $this->getMappings();
+    $mappings = static::getMappings();
     if (array_key_exists($path, $mappings)) {
       return $mappings[$path];
     }

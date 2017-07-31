@@ -20,4 +20,3 @@ services:
     class: Drupal\jcms_rest\PathMediaTypeMapper
   jcms_rest.monitoring:
     class: eLife\Logging\Monitoring
-
