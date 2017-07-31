@@ -3,6 +3,7 @@
 namespace Drupal\jcms_rest\StackMiddleware;
 
 use Drupal\jcms_rest\PathMediaTypeMapper;
+use Drupal\page_cache\StackMiddleware\PageCache;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * We want to allow manipulation of the cache id.
  */
-class PageCache extends \Drupal\page_cache\StackMiddleware\PageCache {
+class JCMSPageCache extends PageCache {
 
   /**
    * {@inheritdoc}
