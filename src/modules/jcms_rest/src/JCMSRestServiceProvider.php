@@ -26,6 +26,10 @@ class JCMSRestServiceProvider implements ServiceModifierInterface {
       $container->getDefinition('http_middleware.page_cache')
         ->setClass('Drupal\jcms_rest\StackMiddleware\PageCache');
     }
+
+    $definition = $container->getDefinition('response_generator_subscriber');
+    $definition->setClass('Drupal\jcms_rest\EventSubscriber\ResponseGeneratorSubscriber')
+      ->clearTags();
   }
 
 }
