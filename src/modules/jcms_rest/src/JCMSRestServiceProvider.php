@@ -3,13 +3,13 @@
 namespace Drupal\jcms_rest;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
-use Drupal\Core\DependencyInjection\ServiceModifierInterface;
+use Drupal\Core\DependencyInjection\ServiceProviderBase;
 
 /**
  * Adds application/vnd.elife.annual-report-list+json as a known format.
  * This must be named this way to ensure its discovery.
  */
-class JCMSRestServiceProvider implements ServiceModifierInterface {
+class JCMSRestServiceProvider extends ServiceProviderBase {
 
   /**
    * {@inheritdoc}
@@ -23,8 +23,8 @@ class JCMSRestServiceProvider implements ServiceModifierInterface {
 
     // Alter the http_middleware.page_cache service only if Internal Page Cache module is enabled.
     if (isset($modules['page_cache'])) {
-      $container->getDefinition('http_middleware.page_cache')
-        ->setClass('Drupal\jcms_rest\StackMiddleware\PageCache');
+      $definition = $container->getDefinition('http_middleware.page_cache');
+      $definition->setClass('Drupal\jcms_rest\StackMiddleware\JCMSPageCache');
     }
   }
 
