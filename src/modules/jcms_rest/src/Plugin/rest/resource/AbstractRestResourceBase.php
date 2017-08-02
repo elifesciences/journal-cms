@@ -209,8 +209,6 @@ abstract class AbstractRestResourceBase extends ResourceBase {
               }
               if ($content_item->get('field_block_attribution')->count()) {
                 $result_item['image']['attribution'] = $this->fieldValueFormatted($content_item->get('field_block_attribution'), FALSE, TRUE);
-                  // @todo - elife - nlisgo - remove support for this when no longer used in journal.
-                $result_item['attribution'] = $result_item['image']['attribution'];
               }
               $result_item = $this->processFigure($result_item, $content_item, $asset_ids[$content_type]);
             }
