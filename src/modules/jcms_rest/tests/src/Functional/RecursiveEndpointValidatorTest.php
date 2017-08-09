@@ -171,6 +171,7 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
 
       $response = $this->client->send($request);
       $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+      $this->assertFalse($response->hasHeader('X-Generator'), 'Did not set the X-Generator header.');
       if (is_array($check)) {
         foreach ($check as $header => $value) {
           $this->assertEquals($response->getHeaderLine($header), $value);

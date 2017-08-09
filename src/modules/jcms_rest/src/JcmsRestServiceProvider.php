@@ -26,6 +26,10 @@ class JcmsRestServiceProvider extends ServiceProviderBase {
       $definition = $container->getDefinition('http_middleware.page_cache');
       $definition->setClass('Drupal\jcms_rest\StackMiddleware\JCMSPageCache');
     }
+
+    $definition = $container->getDefinition('response_generator_subscriber');
+    $definition->setClass('Drupal\jcms_rest\EventSubscriber\ResponseGeneratorSubscriber')
+      ->clearTags();
   }
 
 }
