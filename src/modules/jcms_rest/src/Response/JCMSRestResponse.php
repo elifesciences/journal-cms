@@ -62,8 +62,7 @@ class JCMSRestResponse extends JsonResponse implements CacheableResponseInterfac
       $this->headers->addCacheControlDirective('stale-while-revalidate', 300);
       $this->headers->addCacheControlDirective('stale-if-error', 86400);
       $this->setEtag(md5($this->getContent()));
-      // @fixme - elife - nlisgo - ignore if-none-match while we have caching issues (ELPP-3012)
-      // $this->isNotModified($request);
+      $this->isNotModified($request);
     }
   }
 
