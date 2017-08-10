@@ -7,6 +7,7 @@ dependencies:
     - field.field.paragraph.image.field_block_html
     - field.field.paragraph.image.field_block_html_id
     - field.field.paragraph.image.field_block_image
+    - field.field.paragraph.image.field_block_image_inline
     - field.field.paragraph.image.field_block_label
     - paragraphs.paragraphs_type.image
   module:
@@ -47,6 +48,16 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
+  field_block_image_inline:
+    weight: 5
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_block_label:
     weight: 0

@@ -10,7 +10,7 @@ field_name: field_block_label
 entity_type: paragraph
 bundle: image
 label: Label
-description: ''
+description: "Entering a value in this field will convert this image into a figure.\r\n\r\nLeave blank to treat this as an image."
 required: false
 translatable: false
 default_value: {  }

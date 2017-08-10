@@ -1,0 +1,23 @@
+uuid: 1013ba10-730e-4633-94f2-71b49d76e956
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_block_image_inline
+    - paragraphs.paragraphs_type.image
+id: paragraph.image.field_block_image_inline
+field_name: field_block_image_inline
+entity_type: paragraph
+bundle: image
+label: Inline
+description: 'Is this an inline image?'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
