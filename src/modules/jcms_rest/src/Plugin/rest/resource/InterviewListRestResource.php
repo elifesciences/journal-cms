@@ -80,6 +80,11 @@ class InterviewListRestResource extends AbstractRestResourceBase {
       }
     }
 
+    // Image is optional.
+    if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {
+      $item['image'] = $image;
+    }
+
     return $item;
   }
 

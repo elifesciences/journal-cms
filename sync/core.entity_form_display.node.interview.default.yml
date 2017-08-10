@@ -5,14 +5,17 @@ dependencies:
   config:
     - field.field.node.interview.field_community_list
     - field.field.node.interview.field_content
+    - field.field.node.interview.field_image
     - field.field.node.interview.field_impact_statement
     - field.field.node.interview.field_interview_cv
     - field.field.node.interview.field_order_date
     - field.field.node.interview.field_person_index_name
     - field.field.node.interview.field_person_preferred_name
+    - image.style.thumbnail
     - node.type.interview
   module:
     - content_moderation
+    - image
     - paragraphs
     - text
 id: node.interview.default
@@ -21,14 +24,14 @@ bundle: interview
 mode: default
 content:
   field_community_list:
-    weight: 6
+    weight: 7
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_content:
-    weight: 4
+    weight: 5
     settings:
       title: 'Content item'
       title_plural: 'Content items'
@@ -39,8 +42,16 @@ content:
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
+  field_image:
+    weight: 2
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
   field_impact_statement:
-    weight: 3
+    weight: 4
     settings:
       rows: 5
       placeholder: ''
@@ -49,7 +60,7 @@ content:
     region: content
   field_interview_cv:
     type: entity_reference_paragraphs
-    weight: 5
+    weight: 6
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -77,7 +88,7 @@ content:
     region: content
   title:
     type: string_textfield
-    weight: 2
+    weight: 3
     settings:
       size: 60
       placeholder: ''
