@@ -1,7 +1,14 @@
 ---
-# `vagrant_box` can also be set to geerlingguy/centos6, geerlingguy/centos7,
-# geerlingguy/ubuntu1404, geerlingguy/ubuntu1204, parallels/ubuntu-14.04, etc.
+# Available `vagrant_box` values include:
+#   - geerlingguy/centos7
+#   - geerlingguy/centos6
+#   - geerlingguy/debian9
+#   - geerlingguy/debian8
+#   - geerlingguy/ubuntu1604
+#   - geerlingguy/ubuntu1404
+#   - geerlingguy/ubuntu1204
 vagrant_box: geerlingguy/ubuntu1604
+
 vagrant_user: vagrant
 vagrant_synced_folder_default_type: nfs
 vagrant_gui: false
@@ -32,6 +39,11 @@ vagrant_synced_folders:
 # Memory and CPU to use for this VM.
 vagrant_memory: 2048
 vagrant_cpus: 4
+
+# Ensure vagrant plugins are installed.
+vagrant_plugins:
+  - name: vagrant-vbguest
+  - name: vagrant-hostsupdater
 
 # Minimum required versions.
 drupalvm_vagrant_version_min: '1.8.6'
@@ -76,7 +88,7 @@ drupal_db_user: journal_cms
 drupal_db_password: journal_cms
 drupal_db_name: journal_cms
 
-# Settings for installing a Drupal site if 'install_site:' is 'true'.
+# Settings for installing a Drupal site if 'drupal_install_site:' is 'true'.
 drupal_major_version: 8
 drupal_domain: "{{ vagrant_hostname }}"
 drupal_site_name: "Journal CMS"
@@ -95,6 +107,8 @@ drupalvm_cron_jobs: []
 # Drupal VM automatically creates a drush alias file in your ~/.drush folder if
 # this variable is 'true'.
 configure_drush_aliases: true
+drush_aliases_host_template: "templates/drupalvm.aliases.drushrc.php.j2"
+drush_aliases_guest_template: "templates/drupalvm-local.aliases.drushrc.php.j2"
 
 # Helper variable to configure the PHP-FPM connection for each Apache
 # VirtualHost in the `apache_vhosts` list.
@@ -164,6 +178,7 @@ nginx_hosts:
 
 nginx_remove_default_vhost: true
 nginx_ppa_use: true
+nginx_vhost_template: "templates/nginx-vhost.conf.j2"
 
 # MySQL databases and users.
 mysql_databases:
@@ -208,8 +223,8 @@ installed_extras:
   # - tideways
   # - upload-progress
   - varnish
-  - xdebug
-  # - xhprof
+  # - xdebug
+  # - xhprof # use `tideways` if you're installing PHP 7+
 
 # Add any extra apt or yum packages you would like installed.
 extra_packages:
@@ -231,6 +246,7 @@ extra_security_enabled: false
 drush_version: "8.1.10"
 drush_composer_cli_options: "--prefer-dist --no-interaction"
 
+firewall_enabled: true
 firewall_allowed_tcp_ports:
   - "22"
   - "25"
@@ -292,8 +308,8 @@ mysql_query_cache_size: "32M"
 adminer_install_filename: index.php
 
 # Node.js configuration (if enabled above).
-# Valid examples: "0.10", "0.12", "4.x", "5.x".
-nodejs_version: "0.12"
+# Valid examples: "0.10", "0.12", "4.x", "5.x", "6.x".
+nodejs_version: "6.x"
 nodejs_npm_global_packages: []
 nodejs_install_npm_user: "{{ drupalvm_user }}"
 npm_config_prefix: "/home/{{ drupalvm_user }}/.npm-global"
@@ -321,6 +337,7 @@ php_xdebug_remote_connect_back: 1
 # Use PHPSTORM for PHPStorm, sublime.xdebug for Sublime Text.
 php_xdebug_idekey: PHPSTORM
 php_xdebug_max_nesting_level: 512
+php_xdebug_remote_host: "{{ ansible_default_ipv4.gateway }}"
 
 # Solr Configuration (if enabled above).
 solr_version: "5.5.3"
@@ -330,7 +347,14 @@ solr_xmx: "128M"
 # Selenium configuration.
 selenium_version: 2.53.0
 
+# Docker configuration.
+docker_container_name: drupal-vm
+docker_image_name: drupal-vm
+docker_image_path: ~/Downloads
+
 # Other configuration.
 dashboard_install_dir: /var/www/dashboard
 known_hosts_path: ~/.ssh/known_hosts
-#ssh_home: "{{ drupal_core_path }}"
+hostname_configure: true
+hostname_fqdn: "{{ vagrant_hostname }}"
+# ssh_home: "{{ drupal_core_path }}"
