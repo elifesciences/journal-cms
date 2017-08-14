@@ -298,7 +298,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         'assets' => [['id' => $asset_id, 'label' => $content_item->get('field_block_label')->getString()] + $data],
       ];
     }
-    elseif ($content_item->get('field_block_image_inline')->getValue()) {
+    elseif ($content_item->hasField('field_block_image_inline') && $content_item->get('field_block_image_inline')->getValue()) {
       $data['inline'] = TRUE;
     }
     return $data;
