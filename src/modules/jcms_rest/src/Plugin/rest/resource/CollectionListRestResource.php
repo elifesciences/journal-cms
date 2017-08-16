@@ -3,6 +3,7 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\jcms_rest\Exception\JCMSBadRequestHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,6 +38,26 @@ class CollectionListRestResource extends AbstractRestResourceBase {
       ->condition('type', 'collection');
 
     $this->filterSubjects($base_query);
+
+    $containing = \Drupal::request()->query->get('containing', []);
+    if (!empty($containing)) {
+      $orCondition = $base_query->orConditionGroup();
+
+      foreach ($containing as $item) {
+        preg_match('~^(article|blog-article|interview)/([a-z0-9-]+)$~', $item, $matches);
+
+        if (empty($matches[1]) || empty($matches[2])) {
+          throw new JCMSBadRequestHttpException(t('Invalid containing parameter'));
+        }
+
+        $orCondition = $orCondition->condition($base_query->andConditionGroup()
+          ->condition('field_collection_content.entity.type', str_replace('-', '_', $matches[1]))
+          ->condition('field_collection_content.entity.uuid', $matches[2], 'ENDS_WITH')
+        );
+      }
+
+      $base_query = $base_query->condition($orCondition);
+    }
 
     $count_query = clone $base_query;
     $items_query = clone $base_query;
