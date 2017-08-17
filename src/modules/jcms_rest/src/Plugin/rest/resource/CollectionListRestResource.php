@@ -50,10 +50,17 @@ class CollectionListRestResource extends AbstractRestResourceBase {
           throw new JCMSBadRequestHttpException(t('Invalid containing parameter'));
         }
 
-        $orCondition = $orCondition->condition($base_query->andConditionGroup()
-          ->condition('field_collection_content.entity.type', str_replace('-', '_', $matches[1]))
-          ->condition('field_collection_content.entity.uuid', $matches[2], 'ENDS_WITH')
-        );
+        $andCondition = $base_query->andConditionGroup()
+          ->condition('field_collection_content.entity.type', str_replace('-', '_', $matches[1]));
+
+        if ('article' === $matches[1]) {
+          $andCondition = $andCondition->condition('field_collection_content.entity.title', $matches[2], '=');
+        }
+        else {
+          $andCondition = $andCondition->condition('field_collection_content.entity.uuid', $matches[2], 'ENDS_WITH');
+        }
+
+        $orCondition = $orCondition->condition($andCondition);
       }
 
       $base_query = $base_query->condition($orCondition);
