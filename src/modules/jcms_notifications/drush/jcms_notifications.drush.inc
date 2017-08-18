@@ -192,6 +192,7 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
           case 'article':
             $articleVersions = $fetch_service->getArticleVersions($id);
             $crud_service->crudArticle($articleVersions);
+            $logger->info('Article snippet updated', ['message' => $message->getMessage()]);
             break;
           case 'metrics':
             // Process article views-downloads metrics sqs items.

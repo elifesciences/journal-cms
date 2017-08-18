@@ -79,6 +79,11 @@ final class FetchArticleVersions {
     $url = $this->formatUrl($id, $this->endpoint);
     $response = $this->client->get($url, $options);
     if ($response instanceof ResponseInterface) {
+      \Drupal::logger('jcms_article')
+        ->notice(
+          'Article versions have been requested @url with the response: @response',
+          ['@url' => $url, '@response' => \GuzzleHttp\Psr7\str($response)]
+      );
       return $response;
     }
     throw new \TypeError('Network connection interrupted on request.');
