@@ -1577,7 +1577,7 @@
                 "source": "https://github.com/drupal-composer/drupal-project/tree/8.x",
                 "issues": "https://github.com/drupal-composer/drupal-project/issues"
             },
-            "time": "2017-04-06 17:24:20"
+            "time": "2017-04-06T17:24:20+00:00"
         },
         {
             "name": "drupal-composer/drupal-scaffold",
@@ -2559,7 +2559,7 @@
                 "issues": "http://drupal.org/project/devel",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
             },
-            "time": "2017-04-10 08:04:17"
+            "time": "2017-04-10T08:04:17+00:00"
         },
         {
             "name": "drupal/diff",
@@ -2693,7 +2693,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/entity_reference_revisions"
             },
-            "time": "2017-02-09 10:42:38"
+            "time": "2017-02-09T10:42:38+00:00"
         },
         {
             "name": "drupal/entity_reference_unpublished",
@@ -3214,7 +3214,7 @@
                 "issues": "https://www.drupal.org/project/issues/migrate_plus",
                 "irc": "irc://irc.freenode.org/drupal-migrate"
             },
-            "time": "2017-05-10 13:45:55"
+            "time": "2017-05-10T13:45:55+00:00"
         },
         {
             "name": "drupal/migrate_tools",
@@ -3253,7 +3253,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/migrate_tools"
             },
-            "time": "2017-05-10 19:19:59"
+            "time": "2017-05-10T19:19:59+00:00"
         },
         {
             "name": "drupal/monolog",
@@ -3379,7 +3379,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/paragraphs"
             },
-            "time": "2017-04-10 09:32:59"
+            "time": "2017-04-10T09:32:59+00:00"
         },
         {
             "name": "drupal/redis",
@@ -3487,7 +3487,7 @@
                 "source": "https://cgit.drupalcode.org/restui",
                 "issues": "https://www.drupal.org/project/issues/restui"
             },
-            "time": "2017-03-28 09:24:17"
+            "time": "2017-03-28T09:24:17+00:00"
         },
         {
             "name": "drupal/services",
@@ -3820,7 +3820,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API client",
-            "time": "2017-05-25 08:28:18"
+            "time": "2017-05-25T08:28:18+00:00"
         },
         {
             "name": "elife/api-sdk",
@@ -3868,7 +3868,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API SDK",
-            "time": "2017-05-26 10:52:23"
+            "time": "2017-05-26T10:52:23+00:00"
         },
         {
             "name": "elife/bus-sdk",
@@ -3910,7 +3910,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences bus SDK",
-            "time": "2017-03-20 13:05:09"
+            "time": "2017-03-20T13:05:09+00:00"
         },
         {
             "name": "elife/logging-sdk",
@@ -3946,7 +3946,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences logging SDK",
-            "time": "2017-01-18 09:24:06"
+            "time": "2017-01-18T09:24:06+00:00"
         },
         {
             "name": "embed/embed",
@@ -8241,12 +8241,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "dc873493692879f26c90ae2b454c6c7acf0229da"
+                "reference": "e5bf4553ca8bd9e675a3f4b4d20e65dd5749b75a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/dc873493692879f26c90ae2b454c6c7acf0229da",
-                "reference": "dc873493692879f26c90ae2b454c6c7acf0229da",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/e5bf4553ca8bd9e675a3f4b4d20e65dd5749b75a",
+                "reference": "e5bf4553ca8bd9e675a3f4b4d20e65dd5749b75a",
                 "shasum": ""
             },
             "conflict": {
@@ -8258,7 +8258,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API specification",
-            "time": "2017-08-04 13:42:09"
+            "time": "2017-08-21T06:44:43+00:00"
         },
         {
             "name": "elife/api-validator",
@@ -8302,7 +8302,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API validator",
-            "time": "2017-03-15 12:52:36"
+            "time": "2017-03-15T12:52:36+00:00"
         },
         {
             "name": "fabpot/goutte",
