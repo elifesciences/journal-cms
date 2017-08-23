@@ -53,9 +53,7 @@ class FetchArticle {
    */
   public function getArticleById(string $id): Article {
     $response = $this->requestArticle($id);
-    // This will almost always be a string but in case it's null or something.
-    $json = $response->getBody()->getContents() ?: '';
-    return new Article($id, $json);
+    return new Article($id, (string) $response->getBody());
   }
 
   /**
@@ -118,8 +116,7 @@ class FetchArticle {
       while (!$stop) {
         $response = $this->client->get($endpoint, $options + ['query' => ['per-page' => $per_page, 'page' => $page]]);
         if ($response instanceof ResponseInterface) {
-          $body = $response->getBody()->getContents();
-          $json = json_decode($body, TRUE);
+          $json = json_decode((string) $response->getBody(), TRUE);
           if (isset($json['items']) && !empty($json['items'])) {
             foreach ($json['items'] as $data) {
               if (isset($data['id'])) {

@@ -151,7 +151,7 @@ class UnrecognisedAcceptHeaderTest extends UnitTestCase {
         $this->assertEquals($expected_content_type[0], $response->getHeaderLine('Content-Type'));
       }
       if (!is_null($id_key)) {
-        $data = \GuzzleHttp\json_decode($response->getBody()->getContents());
+        $data = \GuzzleHttp\json_decode((string) $response->getBody());
         if (!empty($data->items)) {
           $item = reset($data->items);
           $request = new Request('GET', $endpoint . '/' . $item->{$id_key}, $headers);

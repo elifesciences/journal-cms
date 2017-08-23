@@ -15,7 +15,7 @@ trait JCMSGetRemoteFileTrait {
       ];
       $response = $guzzle->get($filename, $options);
       if ($response->getStatusCode() == 200) {
-        return $response->getBody()->getContents();
+        return (string) $response->getBody();
       }
 
       error_log(sprintf("File %s didn't download. (return code %d)", $filename, $response->getStatusCode()));

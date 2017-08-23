@@ -191,7 +191,7 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
       ]);
 
       $response = $this->client->send($request);
-      $data = \GuzzleHttp\json_decode($response->getBody()->getContents());
+      $data = \GuzzleHttp\json_decode((string) $response->getBody());
       $this->validator->validate($response);
 
       $items = isset($data->items) ? $data->items : $data;

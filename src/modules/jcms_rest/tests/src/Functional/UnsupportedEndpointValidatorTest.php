@@ -44,7 +44,7 @@ class UnsupportedEndpointValidatorTest extends RecursiveEndpointValidatorTest {
       $this->assertContains($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_ACCEPTABLE]);
 
       if ($response->getStatusCode() == Response::HTTP_NOT_ACCEPTABLE) {
-        $body = \GuzzleHttp\json_decode($response->getBody()->getContents());
+        $body = \GuzzleHttp\json_decode((string) $response->getBody());
         $this->assertEquals($check, $body->title);
         $this->validator->validate($response);
       }
