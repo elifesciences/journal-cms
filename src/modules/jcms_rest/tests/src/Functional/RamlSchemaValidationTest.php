@@ -139,7 +139,7 @@ class RamlSchemaValidationTest extends UnitTestCase {
       shell_exec("$script >/dev/null 2>&1");
     }
     $list_response = $this->makeGuzzleRequest($http_method, $endpoint, $media_type_list);
-    $data = json_decode($list_response->getBody()->getContents());
+    $data = json_decode((string) $list_response->getBody());
     $this->validator->validate($list_response);
     $this->assertEquals(200, $list_response->getStatusCode());
     // To be added when generating content for all items in the data provider.

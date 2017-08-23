@@ -57,8 +57,7 @@ final class FetchArticleMetrics {
    */
   public function getArticleMetrics(string $id): ArticleMetrics {
     $response = $this->requestArticleMetrics($id);
-    // This will almost always be a string but in case it's null or something.
-    $json = json_decode($response->getBody()->getContents() ?: '{}', TRUE);
+    $json = json_decode((string) $response->getBody(), TRUE);
     if ($response->getStatusCode() == Response::HTTP_NOT_FOUND) {
       return new ArticleMetrics($id, 0);
     }

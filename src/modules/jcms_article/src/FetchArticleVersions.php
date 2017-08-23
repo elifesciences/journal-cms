@@ -57,8 +57,7 @@ final class FetchArticleVersions {
     $response = $this->requestArticleVersions($id);
     $action = $response->getStatusCode() == 404 ? ArticleVersions::DELETE : ArticleVersions::WRITE;
     // This will almost always be a string but in case it's null or something.
-    $json = $response->getBody()->getContents() ?: '';
-    return new ArticleVersions($id, $json, $action);
+    return new ArticleVersions($id, (string) $response->getBody(), $action);
   }
 
   /**
