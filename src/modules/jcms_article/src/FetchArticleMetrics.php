@@ -5,6 +5,7 @@ namespace Drupal\jcms_article;
 use Drupal\jcms_article\Entity\ArticleMetrics;
 use GuzzleHttp\Client;
 use Drupal\Core\Site\Settings;
+use GuzzleHttp\Exception\BadResponseException;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -53,11 +54,13 @@ final class FetchArticleMetrics {
    * @param string $id
    *
    * @return \Drupal\jcms_article\Entity\ArticleMetrics
+   * @throws \InvalidArgumentException
    * @throws \TypeError
    */
   public function getArticleMetrics(string $id): ArticleMetrics {
     $response = $this->requestArticleMetrics($id);
-    $json = json_decode((string) $response->getBody(), TRUE);
+    $json = (string) $response->getBody() ?: '{}';
+    $json = \GuzzleHttp\json_decode($json, TRUE);
     if ($response->getStatusCode() == Response::HTTP_NOT_FOUND) {
       return new ArticleMetrics($id, 0);
     }
@@ -74,21 +77,35 @@ final class FetchArticleMetrics {
    * @param string $type
    *
    * @return \Psr\Http\Message\ResponseInterface
-   * @throws \TypeError
+   * @throws BadResponseException
    */
-  function requestArticleMetrics(string $id, string $type = 'page-views') {
+  private function requestArticleMetrics(string $id, string $type = 'page-views') {
     $options = [
       'headers' => [
         'Authorization' => Settings::get('jcms_article_auth_unpublished'),
       ],
-      'http_errors' => FALSE,
     ];
     $url = $this->formatUrl($id, $type, $this->endpoint);
-    $response = $this->client->get($url, $options);
-    if ($response instanceof ResponseInterface) {
+    try {
+      $response = $this->client->get($url, $options);
+      \Drupal::logger('jcms_article')
+        ->notice(
+          'Article metrics have been requested @url with the response: @response',
+          ['@url' => $url, '@response' => \GuzzleHttp\Psr7\str($response)]
+        );
       return $response;
     }
-    throw new \TypeError('Network connection interrupted on request.');
+    catch (BadResponseException $exception) {
+      if ($exception->getCode() === Response::HTTP_NOT_FOUND) {
+        \Drupal::logger('jcms_article')
+          ->notice(
+            'Article metrics have been requested but not found @url with the response: @response',
+            ['@url' => $url, '@response' => \GuzzleHttp\Psr7\str($exception->getResponse())]
+          );
+        return $exception->getResponse();
+      }
+      throw $exception;
+    }
   }
 
   /**
