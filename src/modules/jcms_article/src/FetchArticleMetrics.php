@@ -60,10 +60,7 @@ final class FetchArticleMetrics {
   public function getArticleMetrics(string $id): ArticleMetrics {
     $response = $this->requestArticleMetrics($id);
     $json = (string) $response->getBody() ?: '{}';
-    $json = json_decode($json, TRUE);
-    if (json_last_error() !== JSON_ERROR_NONE) {
-      throw new \InvalidArgumentException('JSON error: ' . json_last_error_msg());
-    }
+    $json = \GuzzleHttp\json_decode($json, TRUE);
     if ($response->getStatusCode() == Response::HTTP_NOT_FOUND) {
       return new ArticleMetrics($id, 0);
     }
@@ -80,7 +77,6 @@ final class FetchArticleMetrics {
    * @param string $type
    *
    * @return \Psr\Http\Message\ResponseInterface
-   * @throws \TypeError
    * @throws BadResponseException
    */
   private function requestArticleMetrics(string $id, string $type = 'page-views') {
@@ -97,11 +93,7 @@ final class FetchArticleMetrics {
           'Article metrics have been requested @url with the response: @response',
           ['@url' => $url, '@response' => \GuzzleHttp\Psr7\str($response)]
         );
-      if ($response instanceof ResponseInterface) {
-        return $response;
-      }
-
-      throw new \TypeError('Network connection interrupted on request.');
+      return $response;
     }
     catch (BadResponseException $exception) {
       if ($exception->getCode() === Response::HTTP_NOT_FOUND) {

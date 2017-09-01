@@ -68,7 +68,7 @@ final class FetchArticleVersions {
    * @param string $id
    *
    * @return \Psr\Http\Message\ResponseInterface
-   * @throws \TypeError
+   * @throws BadResponseException
    */
   private function requestArticleVersions(string $id): ResponseInterface {
     $options = [
@@ -79,15 +79,12 @@ final class FetchArticleVersions {
     $url = $this->formatUrl($id, $this->endpoint);
     try {
       $response = $this->client->get($url, $options);
-      if ($response instanceof ResponseInterface) {
-        \Drupal::logger('jcms_article')
-          ->notice(
-            'Article versions have been requested @url with the response: @response',
-            ['@url' => $url, '@response' => \GuzzleHttp\Psr7\str($response)]
-          );
-        return $response;
-      }
-      throw new \TypeError('Network connection interrupted on request.');
+      \Drupal::logger('jcms_article')
+        ->notice(
+          'Article versions have been requested @url with the response: @response',
+          ['@url' => $url, '@response' => \GuzzleHttp\Psr7\str($response)]
+        );
+      return $response;
     }
     catch (BadResponseException $exception) {
       if ($exception->getCode() === Response::HTTP_NOT_FOUND) {
