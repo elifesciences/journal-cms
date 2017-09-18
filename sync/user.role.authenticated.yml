@@ -28,6 +28,7 @@ permissions:
   - 'restful get highlight_list_rest_resource'
   - 'restful get interview_item_rest_resource'
   - 'restful get interview_list_rest_resource'
+  - 'restful get job_advert_list_rest_resource'
   - 'restful get labs_experiment_item_rest_resource'
   - 'restful get labs_experiment_list_rest_resource'
   - 'restful get person_item_rest_resource'
