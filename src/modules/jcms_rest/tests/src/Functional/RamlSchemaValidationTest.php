@@ -135,7 +135,9 @@ class RamlSchemaValidationTest extends UnitTestCase {
       self::$contentGenerated = TRUE;
       $script = $this->projectRoot . '/scripts/generate_content.sh';
       $this->assertFileExists($script);
-      shell_exec("$script >/dev/null 2>&1");
+      $logFile = '/tmp/generate_content.log';
+      exec("$script >$logFile 2>&1", $output, $exitCode);
+      $this->assertEquals(0, $exitCode, "$script failed. Check log file $logFile");
     }
     $list_response = $this->makeGuzzleRequest($http_method, $endpoint, $media_type_list);
     $data = json_decode((string) $list_response->getBody());
