@@ -96,6 +96,8 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.subject-list+json;version=1',
         'application/vnd.elife.subject+json;version=1',
       ],
+      /**
+       * duplicated values in items[].subjects
       [
         'GET',
         '/blog-articles',
@@ -103,6 +105,7 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.blog-article-list+json;version=1',
         'application/vnd.elife.blog-article+json;version=1',
       ],
+       */
       [
         'GET',
         '/labs-posts',
