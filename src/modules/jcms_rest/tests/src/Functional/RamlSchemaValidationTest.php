@@ -12,19 +12,18 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Client;
 use JsonSchema\Validator;
+use RuntimeException;
 
 /**
  * @group jcms_rest
  * @todo Make this work with KernelTestBase instead of UnitTestCase.
  */
-class RamlSchemaValidationTest extends UnitTestCase {
+class RamlSchemaValidationTest extends FixtureBasedTestCase {
 
   /**
    * @var \GuzzleHttp\Client
    */
   protected $client;
-
-  protected $projectRoot;
 
   /**
    * @var MessageValidator
@@ -33,9 +32,27 @@ class RamlSchemaValidationTest extends UnitTestCase {
 
   protected static $contentGenerated = FALSE;
 
+  public static function setUpBeforeClass()
+  {
+    parent::setUpBeforeClass();
+    // Generate content once.
+    if (!self::$contentGenerated) {
+      self::$contentGenerated = TRUE;
+      $projectRoot = realpath(__DIR__ . '/../../../../../..');
+      $script = $projectRoot . '/scripts/generate_content.sh';
+      if (!file_exists($script)) {
+        throw new RuntimeException("File $script does not exist");
+      }
+      $logFile = '/tmp/generate_content.log';
+      exec("$script >$logFile 2>&1", $output, $exitCode);
+      if ($exitCode != 0) {
+        throw new RuntimeException("$script failed. Check log file $logFile");
+      }
+    }
+  }
+
   function setUp() {
     parent::setUp();
-    $this->projectRoot = realpath(__DIR__ . '/../../../../../..');
     $this->validator = new FakeHttpsMessageValidator(
       new JsonMessageValidator(
         new PathBasedSchemaFinder(ComposerLocator::getPath('elife/api').'/dist/model'),
@@ -189,15 +206,6 @@ class RamlSchemaValidationTest extends UnitTestCase {
    * @dataProvider dataProvider
    */
   public function testListData(string $http_method, string $endpoint, string $id_key, string $media_type_list, string $media_type_item) {
-    // Generate content once.
-    if (!self::$contentGenerated) {
-      self::$contentGenerated = TRUE;
-      $script = $this->projectRoot . '/scripts/generate_content.sh';
-      $this->assertFileExists($script);
-      $logFile = '/tmp/generate_content.log';
-      exec("$script >$logFile 2>&1", $output, $exitCode);
-      $this->assertEquals(0, $exitCode, "$script failed. Check log file $logFile");
-    }
     $list_response = $this->makeGuzzleRequest($http_method, $endpoint, $media_type_list);
     $data = json_decode((string) $list_response->getBody());
     $this->validator->validate($list_response);

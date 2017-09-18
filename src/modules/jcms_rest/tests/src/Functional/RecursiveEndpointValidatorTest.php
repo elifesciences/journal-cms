@@ -3,7 +3,6 @@
 namespace Drupal\Tests\jcms_rest\Functional;
 
 use ComposerLocator;
-use Drupal\Tests\UnitTestCase;
 use eLife\ApiValidator\MessageValidator;
 use eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator;
 use eLife\ApiValidator\SchemaFinder\PathBasedSchemaFinder;
@@ -20,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Drupal\Tests\jcms_rest\Functional
  */
-class RecursiveEndpointValidatorTest extends UnitTestCase {
+class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
 
   /**
    * @var Client

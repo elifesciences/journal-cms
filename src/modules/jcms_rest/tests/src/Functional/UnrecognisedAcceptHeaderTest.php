@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\jcms_rest\Functional;
 
-use Drupal\Tests\UnitTestCase;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Drupal\Tests\jcms_rest\Functional
  */
-class UnrecognisedAcceptHeaderTest extends UnitTestCase {
+class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
 
   /**
    * @var Client
