@@ -1,0 +1,16 @@
+uuid: 3a152ba8-f8a9-4192-a0aa-96a8f1cca736
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - jcms_rest
+id: job_advert_item_rest_resource
+plugin_id: job_advert_item_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - jcms_json
+    supported_auth:
+      - basic_auth
