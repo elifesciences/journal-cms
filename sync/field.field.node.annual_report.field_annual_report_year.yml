@@ -17,7 +17,9 @@ default_value: {  }
 default_value_callback: ''
 settings:
   min: 2012
-  max: null
+  # default maximum value is 999 in:
+  # ./web/core/lib/Drupal/Core/Field/Plugin/Field/FieldType/IntegerItem.php
+  max: 2099
   prefix: ''
   suffix: ''
 field_type: integer
