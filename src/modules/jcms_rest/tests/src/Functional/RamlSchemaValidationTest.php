@@ -107,6 +107,65 @@ class RamlSchemaValidationTest extends UnitTestCase {
         'application/vnd.elife.event-list+json;version=1',
         'application/vnd.elife.event+json;version=1',
       ],
+      /*
+       * fails because there is no `chapters` property
+      [
+        'GET',
+        '/podcast-episodes',
+        'number',
+        'application/vnd.elife.podcast-episode-list+json;version=1',
+        'application/vnd.elife.podcast-episode+json;version=1',
+      ],
+       */
+
+      [
+        'GET',
+        '/interviews',
+        'id',
+        'application/vnd.elife.interview-list+json;version=1',
+        'application/vnd.elife.interview+json;version=1',
+      ],
+      /*
+       * fails because
+       * [items[0].selectedCurator.orcid] Does not match the regex pattern ^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$
+       * and similar
+      [
+        'GET',
+        '/collections',
+        'id',
+        'application/vnd.elife.collection-list+json;version=1',
+        'application/vnd.elife.collection+json;version=1',
+      ],
+       */
+      [
+        'GET',
+        '/covers',
+        'id',
+        'application/vnd.elife.cover-list+json;version=1',
+        'application/vnd.elife.cover+json;version=1',
+      ],
+      /*
+       * fails because
+       * [mediaContacts[2].phoneNumbers[1]] Does not match the regex pattern ^\+[0-9]{8,15}(;ext=[0-9]+)?$
+       *
+      [
+        'GET',
+        '/press-packages',
+        'id',
+        'application/vnd.elife.press-package-list+json;version=1',
+        'application/vnd.elife.press-package+json;version=2',
+      ],
+       */
+      /*
+       * fails because years are generated < 2012
+       [
+        'GET',
+        '/annual-reports',
+        'id',
+        'application/vnd.elife.annual-report-list+json;version=1',
+        'application/vnd.elife.annual-report+json;version=1',
+      ],
+       */
     ];
   }
 
