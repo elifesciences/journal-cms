@@ -1,0 +1,17 @@
+uuid: 5501794d-06ff-4def-a604-18e4ff3bef92
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Job advert'
+type: job_advert
+description: ''
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: false
