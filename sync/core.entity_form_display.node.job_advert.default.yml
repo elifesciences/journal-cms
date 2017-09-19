@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.job_advert.field_job_advert_respons
     - field.field.node.job_advert.field_job_advert_role_summary
     - field.field.node.job_advert.field_job_advert_terms
+    - field.field.node.job_advert.field_order_date
     - node.type.job_advert
   module:
     - content_moderation
@@ -75,6 +76,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_order_date: true
   path: true
   promote: true
   sticky: true

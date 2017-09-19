@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.job_advert.field_job_advert_respons
     - field.field.node.job_advert.field_job_advert_role_summary
     - field.field.node.job_advert.field_job_advert_terms
+    - field.field.node.job_advert.field_order_date
     - node.type.job_advert
   module:
     - datetime
@@ -63,5 +64,15 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
+  field_order_date:
+    type: timestamp
+    weight: 6
+    region: content
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
 hidden:
   links: true
