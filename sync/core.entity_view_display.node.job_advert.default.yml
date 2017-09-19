@@ -4,8 +4,14 @@ status: true
 dependencies:
   config:
     - field.field.node.job_advert.field_impact_statement
+    - field.field.node.job_advert.field_job_advert_closing_date
+    - field.field.node.job_advert.field_job_advert_experience
+    - field.field.node.job_advert.field_job_advert_respons
+    - field.field.node.job_advert.field_job_advert_role_summary
+    - field.field.node.job_advert.field_job_advert_terms
     - node.type.job_advert
   module:
+    - datetime
     - text
     - user
 id: node.job_advert.default
@@ -14,7 +20,44 @@ bundle: job_advert
 mode: default
 content:
   field_impact_statement:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_job_advert_closing_date:
     weight: 0
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_job_advert_experience:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_job_advert_respons:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_job_advert_role_summary:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_job_advert_terms:
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }

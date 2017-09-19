@@ -1,0 +1,24 @@
+uuid: db75d337-4af8-405d-89fd-5c0c9edd780d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_job_advert_terms
+    - node.type.job_advert
+  module:
+    - text
+id: node.job_advert.field_job_advert_terms
+field_name: field_job_advert_terms
+entity_type: node
+bundle: job_advert
+label: 'Terms and conditions'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: "<p>The post is a permanent position, 37.5 hours per week, and offers a competitive basic salary and benefits. The post holder will be required to work at the eLife office in Cambridge (UK), and applicants must be able to demonstrate the right to live and work in the UK to be considered for the vacancy.</p>\r\n"
+    format: basic_html
+default_value_callback: ''
+settings: {  }
+field_type: text_long

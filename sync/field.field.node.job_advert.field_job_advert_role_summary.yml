@@ -1,0 +1,21 @@
+uuid: 93b68ce6-e8ac-492f-84c1-ad2872d0edd5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_job_advert_role_summary
+    - node.type.job_advert
+  module:
+    - text
+id: node.job_advert.field_job_advert_role_summary
+field_name: field_job_advert_role_summary
+entity_type: node
+bundle: job_advert
+label: 'Role summary'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -4,9 +4,15 @@ status: true
 dependencies:
   config:
     - field.field.node.job_advert.field_impact_statement
+    - field.field.node.job_advert.field_job_advert_closing_date
+    - field.field.node.job_advert.field_job_advert_experience
+    - field.field.node.job_advert.field_job_advert_respons
+    - field.field.node.job_advert.field_job_advert_role_summary
+    - field.field.node.job_advert.field_job_advert_terms
     - node.type.job_advert
   module:
     - content_moderation
+    - datetime
     - text
 id: node.job_advert.default
 targetEntityType: node
@@ -14,7 +20,45 @@ bundle: job_advert
 mode: default
 content:
   field_impact_statement:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_job_advert_closing_date:
     weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_job_advert_experience:
+    weight: 5
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_job_advert_respons:
+    weight: 4
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_job_advert_role_summary:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_job_advert_terms:
+    weight: 6
     settings:
       rows: 5
       placeholder: ''

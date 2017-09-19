@@ -1,0 +1,24 @@
+uuid: 81c5312d-5603-4f79-abe3-b55b913e600c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_job_advert_experience
+    - node.type.job_advert
+  module:
+    - text
+id: node.job_advert.field_job_advert_experience
+field_name: field_job_advert_experience
+entity_type: node
+bundle: job_advert
+label: 'Experience and attributes'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: "<p>The ideal candidate should have:</p>\r\n\r\n<ul>\r\n\t<li>item 1</li>\r\n</ul>\r\n\r\n<p>In addition:</p>\r\n\r\n<ul>\r\n\t<li>item 1</li>\r\n</ul>\r\n"
+    format: basic_html
+default_value_callback: ''
+settings: {  }
+field_type: text_long

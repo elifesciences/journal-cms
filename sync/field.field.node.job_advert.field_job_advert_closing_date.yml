@@ -1,0 +1,21 @@
+uuid: f1ab7160-4ad3-4c82-8fed-30513d1e79c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_job_advert_closing_date
+    - node.type.job_advert
+  module:
+    - datetime
+id: node.job_advert.field_job_advert_closing_date
+field_name: field_job_advert_closing_date
+entity_type: node
+bundle: job_advert
+label: 'Closing date'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime
