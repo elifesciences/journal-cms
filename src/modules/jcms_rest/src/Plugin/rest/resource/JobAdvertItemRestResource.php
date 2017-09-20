@@ -88,10 +88,11 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
       ],
     ];
 
+    // TODO: Can this be broken up to make it more testable?
     foreach($fieldsData as $fieldData) {
       $field = $node->get($fieldData['name']);
       if($field->count()) {
-        $fieldLabel = $node->{$fieldData['name']}->getFieldDefinition()->getLabel();
+        $fieldLabel = $this->getFieldLabel($node, $fieldData['name']);
         if ($fieldData['isSection']) {
           array_push($contentJson, $this->getFieldJson($field, $fieldLabel, true));
         } else {
@@ -115,9 +116,17 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
   /**
    * @param \Drupal\node\Entity\Node $node
    * @param string $fieldName
+   */
+  public function getFieldLabel($node, $fieldName) {
+    $node->{$fieldName}->getFieldDefinition()->getLabel();
+  }
+
+  /**
+   * @param \Drupal\node\Entity\Node $node
+   * @param string $fieldName
    * @return array
    */
-  private function getFieldJson($field, $fieldLabel, $isSection) {
+  public function getFieldJson($field, $fieldLabel, $isSection) {
     $texts = $this->splitParagraphs($this->fieldValueFormatted($field, FALSE));
     if ($isSection) {
       return $this->getFieldJsonAsSection($fieldLabel, $texts);
@@ -126,8 +135,7 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
     return $this->getFieldJsonAsParagraphs($texts);
   }
 
-  private function getFieldJsonAsSection($title, $content) {
-    // handle paragraphs within a section
+  public function getFieldJsonAsSection($title, $content) {
     foreach ($content as $i => $item) {
       if(!is_array($item)) {
         $content[$i] = $this->getFieldJsonAsParagraphs($item);
@@ -140,7 +148,7 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
     ];
   }
 
-  private function getFieldJsonAsParagraphs($text) {
+  public function getFieldJsonAsParagraphs($text) {
     if (is_array($text)) {
       foreach ($text as $i => $para) {
         $text[$i] = [
