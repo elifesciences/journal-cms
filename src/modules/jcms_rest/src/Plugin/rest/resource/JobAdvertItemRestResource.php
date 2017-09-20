@@ -68,12 +68,19 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
    * @return array
    */
   private function deriveContentJson($node) {
-    $contentJson = [
-      $this->getFieldJson($node, 'field_job_advert_role_summary'),
-      $this->getFieldJson($node, 'field_job_advert_experience', true),
-      $this->getFieldJson($node, 'field_job_advert_respons', true),
-      $this->getFieldJson($node, 'field_job_advert_terms', true),
+    $contentJson = [];
+    $summaryParas = $this->getFieldJson($node, 'field_job_advert_role_summary');
+    foreach ($summaryParas as $para) {
+      array_push($contentJson, $para);
+    }
+    $sectionFieldNames = [
+      'field_job_advert_experience',
+      'field_job_advert_respons',
+      'field_job_advert_terms',
     ];
+    foreach($sectionFieldNames as $fieldName) {
+      array_push($contentJson, $this->getFieldJson($node, $fieldName));
+    }
 
     forEach ($contentJson as $i => $item) {
       if (empty($item)) {
@@ -87,32 +94,44 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
   /**
    * @param \Drupal\node\Entity\Node $node
    * @param string $fieldName
-   * @param boolean $isSection true if result to be formatted as an API section
    * @return array
    */
-  private function getFieldJson($node, $fieldName, $isSection = FALSE) {
+  private function getFieldJson($node, $fieldName) {
+
     $field = $node->get($fieldName);
+    $isSection = false;
     if ($field->count()) {
-      // Split paragraphs in the UI into separate paragraph blocks.
       $texts = $this->splitParagraphs($this->fieldValueFormatted($field, FALSE));
       foreach ($texts as $i => $text) {
-        if(!is_array($text)) {
-          $texts[$i] = [
-            'type' => 'paragraph',
-            'text' => trim($text),
-          ];
+        if (is_array($text)) {
+          $isSection = true;
         }
       }
+
       if ($isSection) {
-        return [
-          'type' => 'section',
-          'title' => $node->{$fieldName}->getFieldDefinition()->getLabel(),
-          'content' => $texts,
-        ];
+        return $this->getFieldJsonAForSection($node->{$fieldName}->getFieldDefinition()->getLabel(), $texts);
       }
 
-      return $texts;
+      return $this->getFieldJsonAsParagraphs($texts);
     }
+  }
+
+  private function getFieldJsonAForSection($title, $content) {
+    return [
+      'type' => 'section',
+      'title' => $title,
+      'content' => $content,
+    ];
+  }
+
+  private function getFieldJsonAsParagraphs($paras) {
+    foreach ($paras as $i => $para) {
+      $paras[$i] = [
+        'type' => 'paragraph',
+        'text' => trim($para),
+      ];
+    }
+    return $paras;
   }
 
 }
