@@ -127,6 +127,12 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
   }
 
   private function getFieldJsonAsSection($title, $content) {
+    // handle paragraphs within a section
+    foreach ($content as $i => $item) {
+      if(!is_array($item)) {
+        $content[$i] = $this->getFieldJsonAsParagraphs($item);
+      }
+    }
     return [
       'type' => 'section',
       'title' => $title,
@@ -134,14 +140,20 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
     ];
   }
 
-  private function getFieldJsonAsParagraphs($paras) {
-    foreach ($paras as $i => $para) {
-      $paras[$i] = [
-        'type' => 'paragraph',
-        'text' => trim($para),
-      ];
+  private function getFieldJsonAsParagraphs($text) {
+    if (is_array($text)) {
+      foreach ($text as $i => $para) {
+        $text[$i] = [
+          'type' => 'paragraph',
+          'text' => trim($para),
+        ];
+      }
+      return $text;
     }
-    return $paras;
+    return [
+      'type' => 'paragraph',
+      'text' => trim($text),
+    ];
   }
 
 }
