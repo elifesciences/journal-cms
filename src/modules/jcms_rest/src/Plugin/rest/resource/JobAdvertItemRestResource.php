@@ -69,20 +69,41 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
    */
   private function deriveContentJson($node) {
     $contentJson = [];
-    $summaryParas = $this->getFieldJson($node, 'field_job_advert_role_summary');
-    foreach ($summaryParas as $para) {
-      array_push($contentJson, $para);
-    }
-    $sectionFieldNames = [
-      'field_job_advert_experience',
-      'field_job_advert_respons',
-      'field_job_advert_terms',
+    $fieldsData = [
+      [
+        'name' => 'field_job_advert_role_summary',
+        'isSection' => false,
+      ],
+      [
+        'name' => 'field_job_advert_experience',
+        'isSection' => true,
+      ],
+      [
+        'name' => 'field_job_advert_respons',
+        'isSection' => true,
+      ],
+      [
+        'name' => 'field_job_advert_terms',
+        'isSection' => true,
+      ],
     ];
-    foreach($sectionFieldNames as $fieldName) {
-      array_push($contentJson, $this->getFieldJson($node, $fieldName));
+
+    foreach($fieldsData as $fieldData) {
+      $field = $node->get($fieldData['name']);
+      if($field->count()) {
+        $fieldLabel = $node->{$fieldData['name']}->getFieldDefinition()->getLabel();
+        if ($fieldData['isSection']) {
+          array_push($contentJson, $this->getFieldJson($field, $fieldLabel, true));
+        } else {
+          $fieldJson = $this->getFieldJson($field, $fieldLabel, false);
+          foreach ($fieldJson as $item) {
+            array_push($contentJson, $item);
+          }
+        }
+      }
     }
 
-    forEach ($contentJson as $i => $item) {
+    foreach ($contentJson as $i => $item) {
       if (empty($item)) {
         unset($contentJson[$i]);
       }
@@ -96,27 +117,16 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
    * @param string $fieldName
    * @return array
    */
-  private function getFieldJson($node, $fieldName) {
-
-    $field = $node->get($fieldName);
-    $isSection = false;
-    if ($field->count()) {
-      $texts = $this->splitParagraphs($this->fieldValueFormatted($field, FALSE));
-      foreach ($texts as $i => $text) {
-        if (is_array($text)) {
-          $isSection = true;
-        }
-      }
-
-      if ($isSection) {
-        return $this->getFieldJsonAForSection($node->{$fieldName}->getFieldDefinition()->getLabel(), $texts);
-      }
-
-      return $this->getFieldJsonAsParagraphs($texts);
+  private function getFieldJson($field, $fieldLabel, $isSection) {
+    $texts = $this->splitParagraphs($this->fieldValueFormatted($field, FALSE));
+    if ($isSection) {
+      return $this->getFieldJsonAsSection($fieldLabel, $texts);
     }
+
+    return $this->getFieldJsonAsParagraphs($texts);
   }
 
-  private function getFieldJsonAForSection($title, $content) {
+  private function getFieldJsonAsSection($title, $content) {
     return [
       'type' => 'section',
       'title' => $title,
