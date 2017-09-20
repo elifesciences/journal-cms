@@ -53,12 +53,66 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
         }
       }
 
+      $response['content'] = $this->deriveContentJson($node);
+
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
       $response->addCacheableDependency($node);
       return $response;
     }
 
     throw new JCMSNotFoundHttpException(t('Job advert with ID @id was not found', ['@id' => $id]));
+  }
+
+  /**
+   * @param \Drupal\node\Entity\Node $node
+   * @return array
+   */
+  private function deriveContentJson($node) {
+    $contentJson = [
+      $this->getFieldJson($node, 'field_job_advert_role_summary'),
+      $this->getFieldJson($node, 'field_job_advert_experience', true),
+      $this->getFieldJson($node, 'field_job_advert_respons', true),
+      $this->getFieldJson($node, 'field_job_advert_terms', true),
+    ];
+
+    forEach ($contentJson as $i => $item) {
+      if (empty($item)) {
+        unset($contentJson[$i]);
+      }
+    }
+
+    return $contentJson;
+  }
+
+  /**
+   * @param \Drupal\node\Entity\Node $node
+   * @param string $fieldName
+   * @param boolean $isSection true if result to be formatted as an API section
+   * @return array
+   */
+  private function getFieldJson($node, $fieldName, $isSection = FALSE) {
+    $field = $node->get($fieldName);
+    if ($field->count()) {
+      // Split paragraphs in the UI into separate paragraph blocks.
+      $texts = $this->splitParagraphs($this->fieldValueFormatted($field, FALSE));
+      foreach ($texts as $i => $text) {
+        if(!is_array($text)) {
+          $texts[$i] = [
+            'type' => 'paragraph',
+            'text' => trim($text),
+          ];
+        }
+      }
+      if ($isSection) {
+        return [
+          'type' => 'section',
+          'title' => $node->{$fieldName}->getFieldDefinition()->getLabel(),
+          'content' => $texts,
+        ];
+      }
+
+      return $texts;
+    }
   }
 
 }
