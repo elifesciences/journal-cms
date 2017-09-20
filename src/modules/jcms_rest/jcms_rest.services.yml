@@ -20,3 +20,6 @@ services:
     class: Drupal\jcms_rest\PathMediaTypeMapper
   jcms_rest.monitoring:
     class: eLife\Logging\Monitoring
+  plugin.manager.field.field_type:
+    class: Drupal\jcms_rest\FieldTypePluginManager
+    arguments: ['@container.namespaces', '@cache.discovery', '@module_handler', '@typed_data_manager']
