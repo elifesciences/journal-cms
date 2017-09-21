@@ -88,18 +88,16 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
       ],
     ];
 
-    // TODO: Can this be broken up to make it more testable?
     foreach($fieldsData as $fieldData) {
       $field = $node->get($fieldData['name']);
-      if($field->count()) {
-        $fieldLabel = $this->getFieldLabel($node, $fieldData['name']);
-        if ($fieldData['isSection']) {
-          array_push($contentJson, $this->getFieldJson($field, $fieldLabel, true));
-        } else {
-          $fieldJson = $this->getFieldJson($field, $fieldLabel, false);
-          foreach ($fieldJson as $item) {
-            array_push($contentJson, $item);
-          }
+      if (!$field->count()) {
+        break;
+      }
+      if ($fieldData['isSection']) {
+        array_push($contentJson, $this->getFieldJson($field, $this->getFieldLabel($node, $fieldData['name']), true));
+      } else {
+        foreach ($this->getFieldJson($field) as $item) {
+          array_push($contentJson, $item);
         }
       }
     }
@@ -126,7 +124,7 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
    * @param string $fieldName
    * @return array
    */
-  public function getFieldJson($field, $fieldLabel, $isSection) {
+  public function getFieldJson($field, $fieldLabel = '', $isSection = FALSE) {
     $texts = $this->splitParagraphs($this->fieldValueFormatted($field, FALSE));
     if ($isSection) {
       return $this->getFieldJsonAsSection($fieldLabel, $texts);
