@@ -72,19 +72,19 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
     $fieldsData = [
       [
         'name' => 'field_job_advert_role_summary',
-        'isSection' => false,
+        'isSection' => FALSE,
       ],
       [
         'name' => 'field_job_advert_experience',
-        'isSection' => true,
+        'isSection' => TRUE,
       ],
       [
         'name' => 'field_job_advert_respons',
-        'isSection' => true,
+        'isSection' => TRUE,
       ],
       [
         'name' => 'field_job_advert_terms',
-        'isSection' => true,
+        'isSection' => TRUE,
       ],
     ];
 
@@ -94,7 +94,7 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
         break;
       }
       if ($fieldData['isSection']) {
-        array_push($contentJson, $this->getFieldJson($field, $this->getFieldLabel($node, $fieldData['name']), true));
+        array_push($contentJson, $this->getFieldJson($field, $this->getFieldLabel($node, $fieldData['name']), TRUE));
       } else {
         foreach ($this->getFieldJson($field) as $item) {
           array_push($contentJson, $item);
