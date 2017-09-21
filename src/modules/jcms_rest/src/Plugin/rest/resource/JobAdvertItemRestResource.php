@@ -120,8 +120,9 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
   }
 
   /**
-   * @param \Drupal\node\Entity\Node $node
-   * @param string $fieldName
+   * @param \Drupal\core\Field\FieldItemListInterface $field
+   * @param string $fieldLabel
+   * @param boolean $isSection
    * @return array
    */
   public function getFieldJson($field, $fieldLabel = '', $isSection = FALSE) {
@@ -133,6 +134,11 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
     return $this->getFieldJsonAsParagraphs($texts);
   }
 
+  /**
+   * @param string $title
+   * @param array $content
+   * @return array
+   */
   public function getFieldJsonAsSection($title, $content) {
     foreach ($content as $i => $item) {
       if(!is_array($item)) {
@@ -146,6 +152,10 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
     ];
   }
 
+  /**
+   * @param string|array $text
+   * @return array
+   */
   public function getFieldJsonAsParagraphs($text) {
     if (is_array($text)) {
       foreach ($text as $i => $para) {
