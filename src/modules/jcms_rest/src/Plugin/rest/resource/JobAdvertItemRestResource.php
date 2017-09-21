@@ -91,7 +91,7 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
     foreach($fieldsData as $fieldData) {
       $field = $node->get($fieldData['name']);
       if (!$field->count()) {
-        break;
+        continue;
       }
       if ($fieldData['isSection']) {
         array_push($contentJson, $this->getFieldJson($field, $this->getFieldLabel($node, $fieldData['name']), TRUE));
