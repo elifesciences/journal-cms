@@ -114,9 +114,10 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
   /**
    * @param \Drupal\node\Entity\Node $node
    * @param string $fieldName
+   * @return string|null
    */
   public function getFieldLabel($node, $fieldName) {
-    $node->{$fieldName}->getFieldDefinition()->getLabel();
+    return $node->{$fieldName}->getFieldDefinition()->getLabel();
   }
 
   /**
