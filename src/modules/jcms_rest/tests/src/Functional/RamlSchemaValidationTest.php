@@ -150,6 +150,14 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.interview-list+json;version=1',
         'application/vnd.elife.interview+json;version=1',
       ],
+
+      'job-adverts' => [
+        'GET',
+        '/job-adverts',
+        'id',
+        'application/vnd.elife.job-advert-list+json;version=1',
+        'application/vnd.elife.job-advert+json;version=1',
+      ],
       /*
        * fails because
        * [items[0].selectedCurator.orcid] Does not match the regex pattern ^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$

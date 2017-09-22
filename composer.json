@@ -68,7 +68,7 @@
     "mockery/mockery": "~0.9",
     "phpunit/phpcov": "2.*",
     "bossa/phpspec2-expect": "~1.0",
-    "elife/api": "dev-master",
+    "elife/api": "dev-job_advert_api",
     "elife/api-validator": "dev-master",
     "justinrainbow/json-schema": "^5.1",
     "mindplay/composer-locator": "^2.1"
