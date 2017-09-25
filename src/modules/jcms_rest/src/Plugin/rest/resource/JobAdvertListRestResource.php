@@ -79,6 +79,8 @@ class JobAdvertListRestResource extends AbstractRestResourceBase {
         unset($item['impactStatement']);
       }
     }
+
+    $item['closingDate'] = $this->formatDate(strtotime($node->get('field_job_advert_closing_date')->first()->getValue()['value']));
     return $item;
   }
 
