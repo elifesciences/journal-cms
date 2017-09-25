@@ -53,6 +53,7 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
         }
       }
 
+      $response['closingDate'] = $this->formatDate(strtotime($node->get('field_job_advert_closing_date')->first()->getValue()['value']));
       $response['content'] = $this->deriveContentJson($node);
 
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
