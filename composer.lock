@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2a43c6085f64f6cc531e6e6e1db9653",
+    "content-hash": "464b03b56601b73997885c298d4bd3bb",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -8237,16 +8237,16 @@
         },
         {
             "name": "elife/api",
-            "version": "dev-master",
+            "version": "dev-job_advert_api",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "e5bf4553ca8bd9e675a3f4b4d20e65dd5749b75a"
+                "reference": "19d394b9f7c9c136de6a7405872b7e9ed4a11f4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/e5bf4553ca8bd9e675a3f4b4d20e65dd5749b75a",
-                "reference": "e5bf4553ca8bd9e675a3f4b4d20e65dd5749b75a",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/19d394b9f7c9c136de6a7405872b7e9ed4a11f4d",
+                "reference": "19d394b9f7c9c136de6a7405872b7e9ed4a11f4d",
                 "shasum": ""
             },
             "conflict": {
@@ -8258,7 +8258,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API specification",
-            "time": "2017-08-21T06:44:43+00:00"
+            "time": "2017-09-18T12:50:53+00:00"
         },
         {
             "name": "elife/api-validator",

@@ -20,3 +20,7 @@ services:
     class: Drupal\jcms_rest\PathMediaTypeMapper
   jcms_rest.monitoring:
     class: eLife\Logging\Monitoring
+  # Override the core service to allow us to reroute field plgins
+  plugin.manager.field.field_type:
+    class: Drupal\jcms_rest\FieldTypePluginManager
+    arguments: ['@container.namespaces', '@cache.discovery', '@module_handler', '@typed_data_manager']
