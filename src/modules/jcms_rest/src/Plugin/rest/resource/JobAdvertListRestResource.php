@@ -80,7 +80,7 @@ class JobAdvertListRestResource extends AbstractRestResourceBase {
       }
     }
 
-    $item['closingDate'] = $this->formatDate(strtotime($node->get('field_job_advert_closing_date')->first()->getValue()['value']));
+    $item['closingDate'] = $this->formatDate($node->get('field_job_advert_closing_date')->first()->getValue()['value']);
     return $item;
   }
 
