@@ -15,4 +15,11 @@ content:
   links:
     weight: 100
     region: content
-hidden: {  }
+hidden:
+  field_impact_statement: true
+  field_job_advert_closing_date: true
+  field_job_advert_experience: true
+  field_job_advert_respons: true
+  field_job_advert_role_summary: true
+  field_job_advert_terms: true
+  field_order_date: true
