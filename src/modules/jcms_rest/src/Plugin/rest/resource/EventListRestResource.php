@@ -37,7 +37,7 @@ class EventListRestResource extends AbstractRestResourceBase {
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'event');
 
-    $this->filterShow($base_query);
+    $this->filterShow($base_query, 'field_event_datetime.end_value');
     $count_query = clone $base_query;
     $items_query = clone $base_query;
     $response_data = [

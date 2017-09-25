@@ -37,7 +37,7 @@ class JobAdvertListRestResource extends AbstractRestResourceBase {
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'job_advert');
 
-    $this->filterShow($base_query);
+    $this->filterShow($base_query, 'field_job_advert_closing_date', TRUE);
     $count_query = clone $base_query;
     $items_query = clone $base_query;
     $response_data = [
