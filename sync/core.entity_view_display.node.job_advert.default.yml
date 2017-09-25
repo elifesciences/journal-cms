@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.job_advert.field_order_date
     - node.type.job_advert
   module:
-    - datetime
     - text
     - user
 id: node.job_advert.default
@@ -31,10 +30,11 @@ content:
     weight: 0
     label: above
     settings:
-      format_type: medium
-      timezone_override: ''
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
     third_party_settings: {  }
-    type: datetime_default
+    type: timestamp
     region: content
   field_job_advert_experience:
     weight: 4

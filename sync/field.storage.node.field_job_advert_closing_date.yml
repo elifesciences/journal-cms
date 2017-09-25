@@ -1,9 +1,8 @@
-uuid: fa60addd-2c38-4070-98fb-b515d227110e
+uuid: c4499204-2bfe-4837-8c95-f097bef4760e
 langcode: en
 status: true
 dependencies:
   module:
-    - datetime
     - field_permissions
     - node
 third_party_settings:
@@ -12,10 +11,9 @@ third_party_settings:
 id: node.field_job_advert_closing_date
 field_name: field_job_advert_closing_date
 entity_type: node
-type: datetime
-settings:
-  datetime_type: datetime
-module: datetime
+type: timestamp
+settings: {  }
+module: core
 locked: false
 cardinality: 1
 translatable: true

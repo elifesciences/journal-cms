@@ -13,7 +13,6 @@ dependencies:
     - node.type.job_advert
   module:
     - content_moderation
-    - datetime
     - text
 id: node.job_advert.default
 targetEntityType: node
@@ -32,7 +31,7 @@ content:
     weight: 1
     settings: {  }
     third_party_settings: {  }
-    type: datetime_default
+    type: datetime_timestamp
     region: content
   field_job_advert_experience:
     weight: 5
