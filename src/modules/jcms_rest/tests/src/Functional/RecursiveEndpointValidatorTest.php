@@ -3,7 +3,6 @@
 namespace Drupal\Tests\jcms_rest\Functional;
 
 use ComposerLocator;
-use Drupal\Tests\UnitTestCase;
 use eLife\ApiValidator\MessageValidator;
 use eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator;
 use eLife\ApiValidator\SchemaFinder\PathBasedSchemaFinder;
@@ -20,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Drupal\Tests\jcms_rest\Functional
  */
-class RecursiveEndpointValidatorTest extends UnitTestCase {
+class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
 
   /**
    * @var Client
@@ -58,18 +57,21 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
         'application/vnd.elife.subject-list+json',
         'application/vnd.elife.subject+json',
       ],
+      /*
       [
         '/blog-articles',
         'id',
         'application/vnd.elife.blog-article-list+json',
         'application/vnd.elife.blog-article+json',
       ],
+       */
       [
         '/labs-posts',
         'id',
         'application/vnd.elife.labs-post-list+json',
         'application/vnd.elife.labs-post+json',
       ],
+      /*
       [
         '/people',
         'id',
@@ -82,6 +84,7 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
         'application/vnd.elife.podcast-episode-list+json',
         'application/vnd.elife.podcast-episode+json',
       ],
+       */
       [
         '/interviews',
         'id',
@@ -100,6 +103,7 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
         'application/vnd.elife.event-list+json',
         'application/vnd.elife.event+json',
       ],
+      /*
       [
         '/collections',
         'id',
@@ -117,6 +121,7 @@ class RecursiveEndpointValidatorTest extends UnitTestCase {
         'type',
         'application/vnd.elife.community-list+json',
       ],
+       */
       [
         '/covers',
         'type',

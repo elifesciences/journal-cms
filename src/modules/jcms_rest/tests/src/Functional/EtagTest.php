@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\jcms_rest\Functional;
 
-use Drupal\Tests\UnitTestCase;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Client;
@@ -11,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 /**
  * @group jcms_rest
  */
-class EtagTest extends UnitTestCase {
+class EtagTest extends FixtureBasedTestCase {
 
   /**
    * @var \GuzzleHttp\Client
