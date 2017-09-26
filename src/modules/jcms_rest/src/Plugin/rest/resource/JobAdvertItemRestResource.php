@@ -130,48 +130,48 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
   public function getFieldJson($field, $fieldLabel = '', $isSection = FALSE) {
     $texts = $this->splitParagraphs($this->fieldValueFormatted($field, FALSE));
     if ($isSection) {
-      return $this->getFieldJsonAsSection($fieldLabel, $texts);
+      return JobAdvertItemRestResource::getFieldJsonAsSection($fieldLabel, $texts);
     }
 
-    return $this->getFieldJsonAsParagraphs($texts);
+    return JobAdvertItemRestResource::getFieldJsonAsParagraphs($texts);
   }
 
-  /**
-   * @param string $title
-   * @param array $content
-   * @return array
-   */
-  public function getFieldJsonAsSection($title, $content) {
-    foreach ($content as $i => $item) {
-      if(!is_array($item)) {
-        $content[$i] = $this->getFieldJsonAsParagraphs($item);
+    /**
+     * @param string $title
+     * @param array $content
+     * @return array
+     */
+    public static function getFieldJsonAsSection($title, $content) {
+      foreach ($content as $i => $item) {
+        if(!is_array($item)) {
+          $content[$i] = JobAdvertItemRestResource::getFieldJsonAsParagraphs($item);
+        }
       }
+      return [
+        'type' => 'section',
+        'title' => $title,
+        'content' => $content,
+      ];
     }
-    return [
-      'type' => 'section',
-      'title' => $title,
-      'content' => $content,
-    ];
-  }
 
-  /**
-   * @param string|array $text
-   * @return array
-   */
-  public function getFieldJsonAsParagraphs($text) {
-    if (is_array($text)) {
-      foreach ($text as $i => $para) {
-        $text[$i] = [
-          'type' => 'paragraph',
-          'text' => trim($para),
-        ];
+    /**
+     * @param string|array $text
+     * @return array
+     */
+    public static function getFieldJsonAsParagraphs($text) {
+      if (is_array($text)) {
+        foreach ($text as $i => $para) {
+          $text[$i] = [
+            'type' => 'paragraph',
+            'text' => trim($para),
+          ];
+        }
+        return $text;
       }
-      return $text;
+      return [
+        'type' => 'paragraph',
+        'text' => trim($text),
+      ];
     }
-    return [
-      'type' => 'paragraph',
-      'text' => trim($text),
-    ];
-  }
 
 }
