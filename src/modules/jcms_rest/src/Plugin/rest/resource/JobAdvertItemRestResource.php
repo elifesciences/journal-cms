@@ -130,10 +130,10 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
   public function getFieldJson($field, $fieldLabel = '', $isSection = FALSE) {
     $texts = $this->splitParagraphs($this->fieldValueFormatted($field, FALSE));
     if ($isSection) {
-      return JobAdvertItemRestResource::getFieldJsonAsSection($fieldLabel, $texts);
+      return self::getFieldJsonAsSection($fieldLabel, $texts);
     }
 
-    return JobAdvertItemRestResource::getFieldJsonAsParagraphs($texts);
+    return self::getFieldJsonAsParagraphs($texts);
   }
 
     /**
@@ -144,7 +144,7 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
     public static function getFieldJsonAsSection($title, $content) {
       foreach ($content as $i => $item) {
         if(!is_array($item)) {
-          $content[$i] = JobAdvertItemRestResource::getFieldJsonAsParagraphs($item);
+          $content[$i] = self::getFieldJsonAsParagraphs($item);
         }
       }
       return [
