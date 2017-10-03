@@ -32,7 +32,7 @@ class PathMediaTypeMapper {
       '/annual-reports' => 'application/vnd.elife.annual-report-list+json',
       '/annual-reports/{year}' => 'application/vnd.elife.annual-report+json',
       '/events' => 'application/vnd.elife.event-list+json',
-      '/events/{year}' => 'application/vnd.elife.event+json',
+      '/events/{id}' => 'application/vnd.elife.event+json',
       '/collections' => 'application/vnd.elife.collection-list+json',
       '/collections/{id}' => 'application/vnd.elife.collection+json',
       '/press-packages' => 'application/vnd.elife.press-package-list+json',
