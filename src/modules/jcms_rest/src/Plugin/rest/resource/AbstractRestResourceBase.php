@@ -364,10 +364,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * @param bool $isTimeStamp whether $field is a Timestamp field
    * @throws InvalidArgumentException if the filter field name argument is not supplied
    */
-  protected function filterShow(QueryInterface &$query, string $filterFieldName = '', bool $isTimeStamp = FALSE) {
-    if (empty($filterFieldName)) {
-        throw new InvalidArgumentException('Attempting to filter a query, but no filter field specified');
-    }
+  protected function filterShow(QueryInterface &$query, string $filterFieldName, bool $isTimeStamp = FALSE) {
     $show_option = $this->getRequestOption('show');
     $options = [
       'closed' => 'end-date',
