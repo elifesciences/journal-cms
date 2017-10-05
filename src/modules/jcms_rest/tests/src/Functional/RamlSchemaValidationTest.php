@@ -30,27 +30,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
    */
   protected $validator;
 
-  protected static $contentGenerated = FALSE;
-
-  public static function setUpBeforeClass()
-  {
-    parent::setUpBeforeClass();
-    // Generate content once.
-    if (!self::$contentGenerated) {
-      self::$contentGenerated = TRUE;
-      $projectRoot = realpath(__DIR__ . '/../../../../../..');
-      $script = $projectRoot . '/scripts/generate_content.sh';
-      if (!file_exists($script)) {
-        throw new RuntimeException("File $script does not exist");
-      }
-      $logFile = '/tmp/generate_content.log';
-      exec("$script >$logFile 2>&1", $output, $exitCode);
-      if ($exitCode != 0) {
-        throw new RuntimeException("$script failed. Check log file $logFile");
-      }
-    }
-  }
-
   function setUp() {
     parent::setUp();
     $this->validator = new FakeHttpsMessageValidator(
@@ -150,6 +129,14 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.interview-list+json;version=1',
         'application/vnd.elife.interview+json;version=1',
       ],
+
+      'job-adverts' => [
+        'GET',
+        '/job-adverts',
+        'id',
+        'application/vnd.elife.job-advert-list+json;version=1',
+        'application/vnd.elife.job-advert+json;version=1',
+        ],
       /*
        * fails because
        * [items[0].selectedCurator.orcid] Does not match the regex pattern ^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$

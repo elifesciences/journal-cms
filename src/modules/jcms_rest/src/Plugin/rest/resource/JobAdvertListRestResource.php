@@ -12,14 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
  * Provides a resource to get view modes by entity and bundle.
  *
  * @RestResource(
- *   id = "event_list_rest_resource",
- *   label = @Translation("Event list rest resource"),
+ *   id = "job_advert_list_rest_resource",
+ *   label = @Translation("Job advert list rest resource"),
  *   uri_paths = {
- *     "canonical" = "/events"
+ *     "canonical" = "/job-adverts"
  *   }
  * )
  */
-class EventListRestResource extends AbstractRestResourceBase {
+class JobAdvertListRestResource extends AbstractRestResourceBase {
 
   /**
    * Responds to GET requests.
@@ -35,9 +35,9 @@ class EventListRestResource extends AbstractRestResourceBase {
     $base_query = \Drupal::entityQuery('node')
       ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
-      ->condition('type', 'event');
+      ->condition('type', 'job_advert');
 
-    $this->filterShow($base_query, 'field_event_datetime.end_value');
+    $this->filterShow($base_query, 'field_job_advert_closing_date', TRUE);
     $count_query = clone $base_query;
     $items_query = clone $base_query;
     $response_data = [
@@ -47,7 +47,7 @@ class EventListRestResource extends AbstractRestResourceBase {
     $nodes = [];
     if ($total = $count_query->count()->execute()) {
       $response_data['total'] = (int) $total;
-      $this->filterPageAndOrder($items_query, 'field_event_datetime.value');
+      $this->filterPageAndOrder($items_query);
       $nids = $items_query->execute();
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
@@ -72,14 +72,6 @@ class EventListRestResource extends AbstractRestResourceBase {
     /* @var Node $node */
     $item = $this->processDefault($node);
 
-    $item['starts'] = $this->formatDate(strtotime($node->get('field_event_datetime')->first()->getValue()['value']));
-    $item['ends'] = $this->formatDate(strtotime($node->get('field_event_datetime')->first()->getValue()['end_value']));
-
-    // Timezone is optional.
-    if ($node->get('field_event_timezone')->count()) {
-      $item['timezone'] = $node->get('field_event_timezone')->getString();
-    }
-
     // Impact statement is optional.
     if ($node->get('field_impact_statement')->count()) {
       $item['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
@@ -87,6 +79,8 @@ class EventListRestResource extends AbstractRestResourceBase {
         unset($item['impactStatement']);
       }
     }
+
+    $item['closingDate'] = $this->formatDate($node->get('field_job_advert_closing_date')->first()->getValue()['value']);
     return $item;
   }
 

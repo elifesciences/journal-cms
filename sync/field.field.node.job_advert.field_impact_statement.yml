@@ -1,0 +1,21 @@
+uuid: 553251fd-d8d8-42aa-a8dc-5bea485a7be4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_impact_statement
+    - node.type.job_advert
+  module:
+    - text
+id: node.job_advert.field_impact_statement
+field_name: field_impact_statement
+entity_type: node
+bundle: job_advert
+label: 'Impact statement'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

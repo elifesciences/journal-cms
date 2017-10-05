@@ -1,0 +1,78 @@
+uuid: 21eae3de-bdf2-43df-b9cb-d2595ce45c1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.job_advert.field_impact_statement
+    - field.field.node.job_advert.field_job_advert_closing_date
+    - field.field.node.job_advert.field_job_advert_experience
+    - field.field.node.job_advert.field_job_advert_respons
+    - field.field.node.job_advert.field_job_advert_role_summary
+    - field.field.node.job_advert.field_job_advert_terms
+    - field.field.node.job_advert.field_order_date
+    - node.type.job_advert
+  module:
+    - text
+    - user
+id: node.job_advert.default
+targetEntityType: node
+bundle: job_advert
+mode: default
+content:
+  field_impact_statement:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_job_advert_closing_date:
+    weight: 0
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    type: timestamp
+    region: content
+  field_job_advert_experience:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_job_advert_respons:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_job_advert_role_summary:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_job_advert_terms:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_order_date:
+    type: timestamp
+    weight: 6
+    region: content
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+hidden:
+  links: true

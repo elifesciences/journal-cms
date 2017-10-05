@@ -1,0 +1,25 @@
+uuid: 48e0d40d-b3e2-435e-b1b1-c55b3ab28287
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.job_advert
+  module:
+    - user
+id: node.job_advert.teaser
+targetEntityType: node
+bundle: job_advert
+mode: teaser
+content:
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_impact_statement: true
+  field_job_advert_closing_date: true
+  field_job_advert_experience: true
+  field_job_advert_respons: true
+  field_job_advert_role_summary: true
+  field_job_advert_terms: true
+  field_order_date: true

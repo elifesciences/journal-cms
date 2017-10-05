@@ -1,0 +1,21 @@
+uuid: a8aca08d-e0af-4e0a-b253-34e081c8ab4d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_job_advert_closing_date
+    - node.type.job_advert
+id: node.job_advert.field_job_advert_closing_date
+field_name: field_job_advert_closing_date
+entity_type: node
+bundle: job_advert
+label: 'Closing date'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 1506336838
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

@@ -1,0 +1,24 @@
+uuid: 97add098-e209-4683-8ebd-f6d445bf85a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_job_advert_respons
+    - node.type.job_advert
+  module:
+    - text
+id: node.job_advert.field_job_advert_respons
+field_name: field_job_advert_respons
+entity_type: node
+bundle: job_advert
+label: 'Specific responsibilities'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: "<ul>\r\n\t<li>item 1</li>\r\n</ul>\r\n"
+    format: basic_html
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use InvalidArgumentException;
 use DateTimeImmutable;
 use DateTimeZone;
 use Drupal\Core\Entity\EntityInterface;
@@ -359,9 +360,11 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * Apply filter by show parameter: all, open or closed.
    *
    * @param \Drupal\Core\Entity\Query\QueryInterface $query
-   * @param string
+   * @param string $filterFieldName The name of the field to filter on
+   * @param bool $isTimeStamp whether $field is a Timestamp field
+   * @throws InvalidArgumentException if the filter field name argument is not supplied
    */
-  protected function filterShow(QueryInterface &$query) {
+  protected function filterShow(QueryInterface &$query, string $filterFieldName, bool $isTimeStamp = FALSE) {
     $show_option = $this->getRequestOption('show');
     $options = [
       'closed' => 'end-date',
@@ -370,7 +373,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
     if (in_array($show_option, array_keys($options))) {
       self::$requestOptions[$options[$show_option]] = date('Y-m-d');
-      $this->filterDateRange($query, 'field_event_datetime.end_value', NULL, FALSE);
+      $this->filterDateRange($query, $filterFieldName, NULL, $isTimeStamp);
     }
     elseif ($show_option != 'all') {
       throw new JCMSBadRequestHttpException(t('Invalid show option'));
