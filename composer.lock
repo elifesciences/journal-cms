@@ -3876,30 +3876,36 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/bus-sdk-php.git",
-                "reference": "58d2ad06b5c111361e03218544c1bff708133454"
+                "reference": "b0a13f8eef83fe761771b3ce186bf5a8127a9a66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/bus-sdk-php/zipball/58d2ad06b5c111361e03218544c1bff708133454",
-                "reference": "58d2ad06b5c111361e03218544c1bff708133454",
+                "url": "https://api.github.com/repos/elifesciences/bus-sdk-php/zipball/b0a13f8eef83fe761771b3ce186bf5a8127a9a66",
+                "reference": "b0a13f8eef83fe761771b3ce186bf5a8127a9a66",
                 "shasum": ""
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "doctrine/cache": "^1.6",
-                "elife/api-sdk": "dev-master",
-                "elife/logging-sdk": "dev-master",
+                "elife/api-sdk": "^1.0",
+                "elife/logging-sdk": "^1.0",
                 "jms/serializer": "^1.4",
-                "psr/log": "1.0.*"
+                "php": "^7.0",
+                "psr/log": "^1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.7",
-                "symfony/console": "^3.2"
+                "phpunit/phpunit": "^5.7 || ^6.0",
+                "symfony/console": "^2.7 || ^3.2"
             },
             "suggest": {
-                "symfony/console": "To use Command classes"
+                "symfony/console": "^2.7 || ^3.2, to use Command classes"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "eLife\\Bus\\": "./src"
@@ -3909,8 +3915,8 @@
             "license": [
                 "MIT"
             ],
-            "description": "eLife Sciences bus SDK",
-            "time": "2017-03-20T13:05:09+00:00"
+            "description": "eLife Sciences Bus SDK",
+            "time": "2017-11-07T11:05:45+00:00"
         },
         {
             "name": "elife/logging-sdk",
@@ -3918,24 +3924,31 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/logging-sdk-php.git",
-                "reference": "ddc23ec75b58a4fe2692e4cfae395bc03a49955d"
+                "reference": "9bad80af4dcd25cc547eee490f7ed0d3ad37e21d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/logging-sdk-php/zipball/ddc23ec75b58a4fe2692e4cfae395bc03a49955d",
-                "reference": "ddc23ec75b58a4fe2692e4cfae395bc03a49955d",
+                "url": "https://api.github.com/repos/elifesciences/logging-sdk-php/zipball/9bad80af4dcd25cc547eee490f7ed0d3ad37e21d",
+                "reference": "9bad80af4dcd25cc547eee490f7ed0d3ad37e21d",
                 "shasum": ""
             },
             "require": {
-                "monolog/monolog": "^1.22"
+                "monolog/monolog": "^1.22",
+                "php": "^7.0",
+                "psr/log": "^1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.6"
+                "phpunit/phpunit": "^5.7 || ^6.0"
             },
             "suggest": {
                 "ext/newrelic": "Enables the Monitoring class"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "eLife\\Logging\\": "./src"
@@ -3946,7 +3959,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences logging SDK",
-            "time": "2017-01-18T09:24:06+00:00"
+            "time": "2017-09-19T06:46:12+00:00"
         },
         {
             "name": "embed/embed",
