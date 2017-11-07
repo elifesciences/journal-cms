@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2a43c6085f64f6cc531e6e6e1db9653",
+    "content-hash": "aa28f3fc3142ab151263c070961f9728",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4103,16 +4103,16 @@
         },
         {
             "name": "geerlingguy/drupal-vm",
-            "version": "4.4.1",
+            "version": "4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geerlingguy/drupal-vm.git",
-                "reference": "cb5ef2d9182b53c97dba57c5d926b46425adc3a3"
+                "reference": "f04cf99e94eb2d23cd0e972c985c82947d5aba19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/cb5ef2d9182b53c97dba57c5d926b46425adc3a3",
-                "reference": "cb5ef2d9182b53c97dba57c5d926b46425adc3a3",
+                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/f04cf99e94eb2d23cd0e972c985c82947d5aba19",
+                "reference": "f04cf99e94eb2d23cd0e972c985c82947d5aba19",
                 "shasum": ""
             },
             "type": "vm",
@@ -4138,7 +4138,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2017-04-01T12:22:15+00:00"
+            "time": "2017-06-29T03:33:03+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
