@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class PressPackageItemRestResource extends AbstractRestResourceBase {
-  protected $latestVersion = 2;
+  protected $latestVersion = 3;
 
   /**
    * Responds to GET requests.
@@ -73,7 +73,7 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
       }
 
       if ($this->acceptVersion < 2 && empty($response['relatedContent'])) {
-        throw new JCMSNotAcceptableHttpException('This press package requires version 2.');
+        throw new JCMSNotAcceptableHttpException('This press package requires version 2+.');
       }
 
       // Subjects is optional.

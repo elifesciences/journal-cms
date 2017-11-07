@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class InterviewItemRestResource extends AbstractRestResourceBase {
+  protected $latestVersion = 2;
   /**
    * Responds to GET requests.
    *

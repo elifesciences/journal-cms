@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class EventItemRestResource extends AbstractRestResourceBase {
+  protected $latestVersion = 2;
   /**
    * Responds to GET requests.
    *

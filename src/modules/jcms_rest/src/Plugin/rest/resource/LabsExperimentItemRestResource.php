@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class LabsExperimentItemRestResource extends AbstractRestResourceBase {
+  protected $latestVersion = 2;
   /**
    * Responds to GET requests.
    *
