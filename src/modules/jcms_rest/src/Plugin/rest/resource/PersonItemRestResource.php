@@ -31,6 +31,7 @@ class PersonItemRestResource extends AbstractRestResourceBase {
   public function get($id) {
     $response = $this->getItemResponse($id);
     if ($response instanceof Response) {
+      $this->processResponse($response);
       return $response;
     }
 

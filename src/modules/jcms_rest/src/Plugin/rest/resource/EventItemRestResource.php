@@ -73,6 +73,7 @@ class EventItemRestResource extends AbstractRestResourceBase {
 
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
       $response->addCacheableDependency($node);
+      $this->processResponse($response);
       return $response;
     }
 

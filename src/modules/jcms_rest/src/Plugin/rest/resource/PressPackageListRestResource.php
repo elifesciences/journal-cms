@@ -61,6 +61,7 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
     }
     $response = new JCMSRestResponse($response_data, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
     $response->addCacheableDependencies($nodes);
+    $this->processResponse($response);
     return $response;
   }
 

@@ -13,12 +13,12 @@ use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
 use Drupal\jcms_rest\JCMSHtmlHelperTrait;
 use Drupal\jcms_rest\JCMSImageUriTrait;
 use Drupal\jcms_rest\PathMediaTypeMapper;
-use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\rest\Plugin\ResourceBase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\AcceptHeader;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractRestResourceBase extends ResourceBase {
 
@@ -725,9 +725,9 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   /**
    * Process response.
    *
-   * @param JCMSRestResponse $response
+   * @param Response $response
    */
-  protected function processResponse(JCMSRestResponse $response) {
+  protected function processResponse(Response $response) {
     if ($warning_text = $this->getWarningText()) {
       $warning = sprintf('299 api.elifesciences.org "%s"', $warning_text);
       $response->headers->add(['Warning' => $warning]);
