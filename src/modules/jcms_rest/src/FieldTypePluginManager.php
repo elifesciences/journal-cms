@@ -4,6 +4,7 @@ namespace Drupal\jcms_rest;
 
 use Drupal\Core\Field\FieldTypePluginManager as FieldTypePluginManagerExtend;
 use Drupal\jcms_rest\Plugin\Field\FieldTypeExtend\StringItem;
+use Drupal\jcms_rest\Plugin\Field\FieldTypeExtend\TelephoneItem;
 use Drupal\jcms_rest\Plugin\Field\FieldTypeExtend\TimestampItem;
 
 /**
@@ -23,6 +24,10 @@ class FieldTypePluginManager extends FieldTypePluginManagerExtend {
     if ($type == 'timestamp') {
       // Override class for TimestampItem.
       $plugin_class = TimestampItem::class;
+    }
+    if ($type == 'telephone') {
+      // Override class for TelephoneItem.
+      $plugin_class = TelephoneItem::class;
     }
     return $plugin_class;
   }
