@@ -22,7 +22,7 @@ class UnsupportedEndpointValidatorTest extends RecursiveEndpointValidatorTest {
         'id',
         'application/vnd.elife.press-package-list+json',
         'application/vnd.elife.press-package+json;version=1',
-        'This press package requires version 2.',
+        'This press package requires version 2+.',
       ],
     ];
   }
@@ -32,7 +32,7 @@ class UnsupportedEndpointValidatorTest extends RecursiveEndpointValidatorTest {
    * @dataProvider dataProvider
    * {@inheritdoc}
    */
-  public function testValidEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, $media_type_item = NULL, $check = '') {
+  public function testUnsupportedEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, $media_type_item = NULL, $check = '') {
     $items = $this->gatherListItems($endpoint, $media_type_list);
 
     foreach ($items as $item) {

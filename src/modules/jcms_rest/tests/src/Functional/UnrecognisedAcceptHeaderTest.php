@@ -44,7 +44,7 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         '/blog-articles',
         [
           'application/vnd.elife.blog-article-list+json;version=1',
-          'application/vnd.elife.blog-article+json;version=1',
+          'application/vnd.elife.blog-article+json;version=2',
         ],
         'id',
       ],
@@ -52,7 +52,7 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         '/labs-posts',
         [
           'application/vnd.elife.labs-post-list+json;version=1',
-          'application/vnd.elife.labs-post+json;version=1',
+          'application/vnd.elife.labs-post+json;version=2',
         ],
         'id',
       ],
@@ -79,7 +79,7 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         '/interviews',
         [
           'application/vnd.elife.interview-list+json;version=1',
-          'application/vnd.elife.interview+json;version=1',
+          'application/vnd.elife.interview+json;version=2',
         ],
         'id',
       ],
@@ -95,7 +95,7 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         '/events',
         [
           'application/vnd.elife.event-list+json;version=1',
-          'application/vnd.elife.event+json;version=1',
+          'application/vnd.elife.event+json;version=2',
         ],
         'id',
       ],
@@ -111,7 +111,7 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         '/press-packages',
         [
           'application/vnd.elife.press-package-list+json;version=1',
-          'application/vnd.elife.press-package+json;version=2',
+          'application/vnd.elife.press-package+json;version=3',
         ],
         'id',
       ],
