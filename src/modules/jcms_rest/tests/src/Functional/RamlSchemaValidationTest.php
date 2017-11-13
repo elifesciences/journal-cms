@@ -20,29 +20,6 @@ use RuntimeException;
  */
 class RamlSchemaValidationTest extends FixtureBasedTestCase {
 
-  /**
-   * @var \GuzzleHttp\Client
-   */
-  protected $client;
-
-  /**
-   * @var MessageValidator
-   */
-  protected $validator;
-
-  function setUp() {
-    parent::setUp();
-    $this->validator = new FakeHttpsMessageValidator(
-      new JsonMessageValidator(
-        new PathBasedSchemaFinder(ComposerLocator::getPath('elife/api').'/dist/model'),
-        new Validator()
-      )
-    );
-    $this->client = new Client([
-      'base_uri' => 'http://journal-cms.local/',
-      'http_errors' => FALSE,
-    ]);
-  }
 
   /**
    * Makes a Guzzle request and returns a response object.
@@ -75,8 +52,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.subject-list+json;version=1',
         'application/vnd.elife.subject+json;version=1',
       ],
-      /**
-       * duplicated values in items[].subjects
       [
         'GET',
         '/blog-articles',
@@ -84,7 +59,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.blog-article-list+json;version=1',
         'application/vnd.elife.blog-article+json;version=1',
       ],
-       */
       [
         'GET',
         '/labs-posts',
@@ -156,10 +130,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.cover-list+json;version=1',
         'application/vnd.elife.cover+json;version=1',
       ],
-      /*
-       * fails because
-       * [mediaContacts[2].phoneNumbers[1]] Does not match the regex pattern ^\+[0-9]{8,15}(;ext=[0-9]+)?$
-       *
       [
         'GET',
         '/press-packages',
@@ -167,13 +137,12 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.press-package-list+json;version=1',
         'application/vnd.elife.press-package+json;version=2',
       ],
-       */
       /*
        * fails because years are generated < 2012
        [
         'GET',
         '/annual-reports',
-        'id',
+        'year',
         'application/vnd.elife.annual-report-list+json;version=1',
         'application/vnd.elife.annual-report+json;version=1',
       ],

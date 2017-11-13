@@ -57,14 +57,12 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
         'application/vnd.elife.subject-list+json',
         'application/vnd.elife.subject+json',
       ],
-      /*
       [
         '/blog-articles',
         'id',
         'application/vnd.elife.blog-article-list+json',
         'application/vnd.elife.blog-article+json',
       ],
-       */
       [
         '/labs-posts',
         'id',
@@ -110,12 +108,14 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
         'application/vnd.elife.collection-list+json',
         'application/vnd.elife.collection+json',
       ],
+      */
       [
         '/press-packages',
         'id',
         'application/vnd.elife.press-package-list+json',
         'application/vnd.elife.press-package+json',
       ],
+      /*
       [
         '/community',
         'type',
@@ -189,36 +189,6 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
       }
       $this->validator->validate($response);
     }
-  }
-
-  public function gatherListItems(string $endpoint, string $media_type_list) {
-    $all_items = [];
-    $per_page = 50;
-    $page = 1;
-    do {
-      $request = new Request('GET', $endpoint . '?per-page=' . $per_page . '&page=' . $page, [
-        'Accept' => $media_type_list,
-      ]);
-
-      $response = $this->client->send($request);
-      $data = \GuzzleHttp\json_decode((string) $response->getBody());
-      $this->validator->validate($response);
-
-      $items = isset($data->items) ? $data->items : $data;
-      if (!empty($items)) {
-        $all_items = array_merge($all_items, $items);
-      }
-
-      if (count($items) < $per_page) {
-        $page = -1;
-      }
-      else {
-        $page++;
-      }
-    }
-    while ($page > 0);
-
-    return $all_items;
   }
 
 }

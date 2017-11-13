@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Drupal\Tests\jcms_rest\Functional
  */
-class DeprecationEndpointValidatorTest extends RecursiveEndpointValidatorTest {
+class DeprecationEndpointValidatorTest extends FixtureBasedTestCase {
 
   /**
    * {@inheritdoc}

@@ -14,18 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
 
   /**
-   * @var Client
-   */
-  protected $client;
-
-  public function setUp() {
-    $this->client = new Client([
-      'base_uri' => 'http://journal-cms.local/',
-      'http_errors' => FALSE,
-    ]);
-  }
-
-  /**
    * Data provider for the validator test.
    *
    * @return array
