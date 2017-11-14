@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a61891690c2233a01d6b0cbb053739d2",
+    "content-hash": "d8e9220d7e5e4a741a3b6d21b152ba2d",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3916,7 +3916,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences Bus SDK",
-            "time": "2017-11-07T11:05:45+00:00"
+            "time": "2017-11-07 11:05:45"
         },
         {
             "name": "elife/logging-sdk",
@@ -3959,7 +3959,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences logging SDK",
-            "time": "2017-09-19T06:46:12+00:00"
+            "time": "2017-09-19 06:46:12"
         },
         {
             "name": "embed/embed",
@@ -8315,7 +8315,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API validator",
-            "time": "2017-09-06T06:41:40+00:00"
+            "time": "2017-09-06 06:41:40"
         },
         {
             "name": "fabpot/goutte",
@@ -9937,7 +9937,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0"
+        "php": "^7.0"
     },
     "platform-dev": []
 }
