@@ -95,7 +95,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.podcast-episode+json;version=1',
       ],
        */
-
       [
         'GET',
         '/interviews',
@@ -130,6 +129,10 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.cover-list+json;version=1',
         'application/vnd.elife.cover+json;version=1',
       ],
+      /*
+       * fails because
+       * [mediaContacts[2].phoneNumbers[1]] Does not match the regex pattern ^\+[0-9]{8,15}(;ext=[0-9]+)?$
+       *
       [
         'GET',
         '/press-packages',
@@ -137,16 +140,14 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.press-package-list+json;version=1',
         'application/vnd.elife.press-package+json;version=2',
       ],
-      /*
-       * fails because years are generated < 2012
-       [
+       */
+      [
         'GET',
         '/annual-reports',
         'year',
         'application/vnd.elife.annual-report-list+json;version=1',
         'application/vnd.elife.annual-report+json;version=1',
       ],
-       */
     ];
   }
 
@@ -158,7 +159,7 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
     $list_response = $this->makeGuzzleRequest($http_method, $endpoint, $media_type_list);
     $this->validator->validate($list_response);
     $this->assertEquals(200, $list_response->getStatusCode());
-    $item_id = $id_key == 'number' ? 1234 : 'does-not-exist';
+    $item_id = in_array($id_key, ['number', 'year']) ? 2134 : 'does-not-exist';
     $item_response = $this->makeGuzzleRequest($http_method, $endpoint . '/' . $item_id, $media_type_item);
     $this->validator->validate($item_response);
     $this->assertEquals(404, $item_response->getStatusCode());
