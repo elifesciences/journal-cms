@@ -111,6 +111,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
     foreach ($dependencies as $dependency) {
       $response->addCacheableDependency($dependency);
     }
+    $this->processResponse($response);
     return $response;
   }
 

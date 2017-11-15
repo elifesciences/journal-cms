@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Drupal\Tests\jcms_rest\Functional
  */
-class DeprecationEndpointValidatorTest extends RecursiveEndpointValidatorTest {
+class DeprecationEndpointValidatorTest extends FixtureBasedTestCase {
 
   /**
    * {@inheritdoc}
@@ -18,11 +18,46 @@ class DeprecationEndpointValidatorTest extends RecursiveEndpointValidatorTest {
   public function dataProvider() : array {
     return [
       [
+        '/blog-articles',
+        'id',
+        'application/vnd.elife.blog-article+json',
+        'application/vnd.elife.blog-article+json;version=1',
+        '299 api.elifesciences.org "Deprecation: Support for version 1 will be removed"',
+      ],
+      [
+        '/events',
+        'id',
+        'application/vnd.elife.event-list+json',
+        'application/vnd.elife.event+json;version=1',
+        '299 api.elifesciences.org "Deprecation: Support for version 1 will be removed"',
+      ],
+      [
+        '/interviews',
+        'id',
+        'application/vnd.elife.interview-list+json',
+        'application/vnd.elife.interview+json;version=1',
+        '299 api.elifesciences.org "Deprecation: Support for version 1 will be removed"',
+      ],
+      [
+        '/labs-posts',
+        'id',
+        'application/vnd.elife.labs-post-list+json',
+        'application/vnd.elife.labs-post+json;version=1',
+        '299 api.elifesciences.org "Deprecation: Support for version 1 will be removed"',
+      ],
+      [
         '/press-packages',
         'id',
         'application/vnd.elife.press-package-list+json',
         'application/vnd.elife.press-package+json;version=1',
         '299 api.elifesciences.org "Deprecation: Support for version 1 will be removed"',
+      ],
+      [
+        '/press-packages',
+        'id',
+        'application/vnd.elife.press-package-list+json',
+        'application/vnd.elife.press-package+json;version=2',
+        '299 api.elifesciences.org "Deprecation: Support for version 2 will be removed"',
       ],
     ];
   }
@@ -32,7 +67,7 @@ class DeprecationEndpointValidatorTest extends RecursiveEndpointValidatorTest {
    * @dataProvider dataProvider
    * {@inheritdoc}
    */
-  public function testValidEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, $media_type_item = NULL, $check = []) {
+  public function testDeprecationEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, $media_type_item = NULL, $check = []) {
     $items = $this->gatherListItems($endpoint, $media_type_list);
     if (is_string($check)) {
       $check = ['Warning' => $check];

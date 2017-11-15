@@ -13,21 +13,6 @@ use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 class EtagTest extends FixtureBasedTestCase {
 
   /**
-   * @var \GuzzleHttp\Client
-   */
-  protected $client;
-
-  protected static $contentGenerated = FALSE;
-
-  function setUp() {
-    parent::setUp();
-    $this->client = new Client([
-      'base_uri' => 'http://journal-cms.local/',
-      'http_errors' => FALSE,
-    ]);
-  }
-
-  /**
    * Makes a Guzzle request and returns a response object.
    *
    * @param string $endpoint

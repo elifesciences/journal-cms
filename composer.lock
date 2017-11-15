@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2a43c6085f64f6cc531e6e6e1db9653",
+    "content-hash": "d8e9220d7e5e4a741a3b6d21b152ba2d",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1577,7 +1577,7 @@
                 "source": "https://github.com/drupal-composer/drupal-project/tree/8.x",
                 "issues": "https://github.com/drupal-composer/drupal-project/issues"
             },
-            "time": "2017-04-06T17:24:20+00:00"
+            "time": "2017-04-06 17:24:20"
         },
         {
             "name": "drupal-composer/drupal-scaffold",
@@ -2559,7 +2559,7 @@
                 "issues": "http://drupal.org/project/devel",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
             },
-            "time": "2017-04-10T08:04:17+00:00"
+            "time": "2017-04-10 08:04:17"
         },
         {
             "name": "drupal/diff",
@@ -2693,7 +2693,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/entity_reference_revisions"
             },
-            "time": "2017-02-09T10:42:38+00:00"
+            "time": "2017-02-09 10:42:38"
         },
         {
             "name": "drupal/entity_reference_unpublished",
@@ -3214,7 +3214,7 @@
                 "issues": "https://www.drupal.org/project/issues/migrate_plus",
                 "irc": "irc://irc.freenode.org/drupal-migrate"
             },
-            "time": "2017-05-10T13:45:55+00:00"
+            "time": "2017-05-10 13:45:55"
         },
         {
             "name": "drupal/migrate_tools",
@@ -3253,7 +3253,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/migrate_tools"
             },
-            "time": "2017-05-10T19:19:59+00:00"
+            "time": "2017-05-10 19:19:59"
         },
         {
             "name": "drupal/monolog",
@@ -3379,7 +3379,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/paragraphs"
             },
-            "time": "2017-04-10T09:32:59+00:00"
+            "time": "2017-04-10 09:32:59"
         },
         {
             "name": "drupal/redis",
@@ -3487,7 +3487,7 @@
                 "source": "https://cgit.drupalcode.org/restui",
                 "issues": "https://www.drupal.org/project/issues/restui"
             },
-            "time": "2017-03-28T09:24:17+00:00"
+            "time": "2017-03-28 09:24:17"
         },
         {
             "name": "drupal/services",
@@ -3820,7 +3820,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API client",
-            "time": "2017-05-25T08:28:18+00:00"
+            "time": "2017-05-25 08:28:18"
         },
         {
             "name": "elife/api-sdk",
@@ -3868,7 +3868,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API SDK",
-            "time": "2017-05-26T10:52:23+00:00"
+            "time": "2017-05-26 10:52:23"
         },
         {
             "name": "elife/bus-sdk",
@@ -3916,7 +3916,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences Bus SDK",
-            "time": "2017-11-07T11:05:45+00:00"
+            "time": "2017-11-07 11:05:45"
         },
         {
             "name": "elife/logging-sdk",
@@ -3959,7 +3959,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences logging SDK",
-            "time": "2017-09-19T06:46:12+00:00"
+            "time": "2017-09-19 06:46:12"
         },
         {
             "name": "embed/embed",
@@ -8254,12 +8254,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "0a3edf2cc5180be2da469c157487bf80db38abd3"
+                "reference": "9eb7202be465f38b315a9c10bbbd622254f0ef57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/0a3edf2cc5180be2da469c157487bf80db38abd3",
-                "reference": "0a3edf2cc5180be2da469c157487bf80db38abd3",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/9eb7202be465f38b315a9c10bbbd622254f0ef57",
+                "reference": "9eb7202be465f38b315a9c10bbbd622254f0ef57",
                 "shasum": ""
             },
             "conflict": {
@@ -8271,7 +8271,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API specification",
-            "time": "2017-09-26T15:40:03+00:00"
+            "time": "2017-11-01 15:02:19"
         },
         {
             "name": "elife/api-validator",
@@ -8279,12 +8279,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-validator-php.git",
-                "reference": "4307a752a29e8e98a305358d991d755c26f07063"
+                "reference": "53f10fb73c68badc999e294ab22e5d340f9ab539"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-validator-php/zipball/4307a752a29e8e98a305358d991d755c26f07063",
-                "reference": "4307a752a29e8e98a305358d991d755c26f07063",
+                "url": "https://api.github.com/repos/elifesciences/api-validator-php/zipball/53f10fb73c68badc999e294ab22e5d340f9ab539",
+                "reference": "53f10fb73c68badc999e294ab22e5d340f9ab539",
                 "shasum": ""
             },
             "require": {
@@ -8315,7 +8315,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API validator",
-            "time": "2017-03-15T12:52:36+00:00"
+            "time": "2017-09-06 06:41:40"
         },
         {
             "name": "fabpot/goutte",
@@ -9936,6 +9936,8 @@
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": "^7.0"
+    },
     "platform-dev": []
 }

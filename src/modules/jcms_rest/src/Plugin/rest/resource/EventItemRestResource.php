@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class EventItemRestResource extends AbstractRestResourceBase {
+  protected $latestVersion = 2;
   /**
    * Responds to GET requests.
    *
@@ -72,6 +73,7 @@ class EventItemRestResource extends AbstractRestResourceBase {
 
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
       $response->addCacheableDependency($node);
+      $this->processResponse($response);
       return $response;
     }
 

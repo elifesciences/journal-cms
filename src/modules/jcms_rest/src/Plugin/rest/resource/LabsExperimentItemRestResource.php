@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class LabsExperimentItemRestResource extends AbstractRestResourceBase {
+  protected $latestVersion = 2;
   /**
    * Responds to GET requests.
    *
@@ -68,6 +69,7 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
 
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
       $response->addCacheableDependency($node);
+      $this->processResponse($response);
       return $response;
     }
 

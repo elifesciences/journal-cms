@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class BlogArticleItemRestResource extends AbstractRestResourceBase {
+  protected $latestVersion = 2;
   /**
    * Responds to GET requests.
    *
@@ -75,6 +76,7 @@ class BlogArticleItemRestResource extends AbstractRestResourceBase {
 
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
       $response->addCacheableDependency($node);
+      $this->processResponse($response);
       return $response;
     }
     throw new JCMSNotFoundHttpException(t('Blog article with ID @id was not found', ['@id' => $id]));
