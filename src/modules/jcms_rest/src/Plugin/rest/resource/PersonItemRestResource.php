@@ -59,7 +59,7 @@ class PersonItemRestResource extends AbstractRestResourceBase {
     if ($nids) {
       $nid = reset($nids);
       $node = Node::load($nid);
-      $item = $this->getItem($node);
+      $item = $this->getProcessedItem($node);
       $response = new JCMSRestResponse($item, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
       $response->addCacheableDependency($node);
       return $response;
@@ -69,6 +69,24 @@ class PersonItemRestResource extends AbstractRestResourceBase {
     return FALSE;
   }
 
+  /**
+   * Takes a node and get the previously processed item from it.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $node
+   *
+   * @return array
+   */
+  public function getProcessedItem($node, $getItem = FALSE) {
+    if ($node->hasField('field_processed_json') && !$getItem) {
+      $processed = $node->get('field_processed_json')->getValue();
+      $item = json_decode($processed[0]['value']);
+    }
+    else {
+      throw new \Exception("Processed json field not found on entity");
+    }
+    return $item;
+  }
+  
   /**
    * Takes a node and builds an item from it.
    *

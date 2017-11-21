@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.labs_experiment.field_image_attribution
     - field.field.node.labs_experiment.field_impact_statement
     - field.field.node.labs_experiment.field_order_date
+    - field.field.node.labs_experiment.field_processed_json
     - node.type.labs_experiment
   module:
     - entity_reference_revisions
@@ -81,6 +82,13 @@ content:
       timezone: ''
     third_party_settings: {  }
     type: timestamp
+    region: content
+  field_processed_json:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
     region: content
   links:
     weight: 0

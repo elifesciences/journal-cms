@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.event.field_event_uri
     - field.field.node.event.field_impact_statement
     - field.field.node.event.field_order_date
+    - field.field.node.event.field_processed_json
     - node.type.event
   module:
     - content_moderation
@@ -80,6 +81,7 @@ content:
 hidden:
   created: true
   field_order_date: true
+  field_processed_json: true
   path: true
   promote: true
   sticky: true

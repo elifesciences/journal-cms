@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.blog_article.field_image_attribution
     - field.field.node.blog_article.field_impact_statement
     - field.field.node.blog_article.field_order_date
+    - field.field.node.blog_article.field_processed_json
     - field.field.node.blog_article.field_subjects
     - image.style.thumbnail
     - node.type.blog_article
@@ -85,6 +86,7 @@ content:
 hidden:
   created: true
   field_order_date: true
+  field_processed_json: true
   path: true
   promote: true
   sticky: true

@@ -1,0 +1,30 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_entity_presave().
+ * 
+ * Preprocess output fields and save in field_processed_json on
+ * node to improve API performance.
+ * 
+ * @param EntityInterface $entity
+ */
+function jcms_rest_entity_presave(EntityInterface $entity) {
+  if ($entity->getEntityType()->id() == 'node'){
+    if ($entity->hasField('field_content') && $entity->hasField('field_processed_json')) {
+      $pluginManager = \Drupal::service('plugin.manager.rest');
+      $processed = $pluginManager->createInstance('blog_article_item_rest_resource', [])->processFieldContent($entity->get('field_content'));
+      $entity->field_processed_json = json_encode($processed);
+    }
+    else {
+      $bundle = $entity->getType();
+      if ($bundle == 'person' && $entity->hasField('field_processed_json')) {
+        $pluginManager = \Drupal::service('plugin.manager.rest');
+        $processed = $pluginManager->createInstance('person_item_rest_resource', [])->getItem($entity);
+        $entity->field_processed_json = json_encode($processed);
+      }
+    }
+  }
+}
