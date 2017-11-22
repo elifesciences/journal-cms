@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.press_package.field_media_contact
     - field.field.node.press_package.field_order_date
     - field.field.node.press_package.field_press_package_about
+    - field.field.node.press_package.field_processed_json
     - field.field.node.press_package.field_related_content
     - node.type.press_package
   module:
@@ -62,6 +63,13 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
+  field_processed_json:
+    weight: 107
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
     region: content
   field_related_content:
     weight: 103

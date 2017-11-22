@@ -1,0 +1,19 @@
+uuid: 462aed77-d58f-465c-8d24-516c6480663d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_processed_json
+    - node.type.blog_article
+id: node.blog_article.field_processed_json
+field_name: field_processed_json
+entity_type: node
+bundle: blog_article
+label: 'Processed (JSON)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.person.field_person_profile
     - field.field.node.person.field_person_type
     - field.field.node.person.field_person_type_label
+    - field.field.node.person.field_processed_json
     - field.field.node.person.field_research_details
     - node.type.person
   module:
@@ -110,6 +111,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_processed_json:
+    weight: 113
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
     region: content
   field_research_details:
     type: entity_reference_revisions_entity_view

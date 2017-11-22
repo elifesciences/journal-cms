@@ -67,8 +67,14 @@ class EventItemRestResource extends AbstractRestResourceBase {
         $response['uri'] = $node->get('field_event_uri')->first()->getValue()['uri'];
       }
       // Content is optional, only display if there is no Event URI.
-      elseif ($content = $this->processFieldContent($node->get('field_content'))) {
-        $response['content'] = $content;
+      else{
+        if ($node->hasField('field_processed_json')) {
+          $processed = $node->get('field_processed_json')->getValue();
+          $response['content'] = json_decode($processed[0]['value']);
+        }
+        else {
+          throw new \Exception("Processed json field not found on entity");
+        }
       }
 
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);

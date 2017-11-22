@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.event.field_event_uri
     - field.field.node.event.field_impact_statement
     - field.field.node.event.field_order_date
+    - field.field.node.event.field_processed_json
     - node.type.event
   module:
     - datetime_range
@@ -87,6 +88,13 @@ content:
       timezone: ''
     third_party_settings: {  }
     type: timestamp
+    region: content
+  field_processed_json:
+    weight: 110
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
     region: content
   links:
     weight: 100

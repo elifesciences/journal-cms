@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.person.field_person_profile
     - field.field.node.person.field_person_type
     - field.field.node.person.field_person_type_label
+    - field.field.node.person.field_processed_json
     - field.field.node.person.field_research_details
     - image.style.thumbnail
     - node.type.person
@@ -126,6 +127,7 @@ content:
 hidden:
   created: true
   field_order_date: true
+  field_processed_json: true
   path: true
   promote: true
   sticky: true

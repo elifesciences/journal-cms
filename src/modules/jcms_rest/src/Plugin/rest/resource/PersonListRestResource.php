@@ -57,7 +57,7 @@ class PersonListRestResource extends AbstractRestResourceBase {
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
         foreach ($nodes as $node) {
-          $response_data['items'][] = $person_item_rest_resource->getItem($node);
+          $response_data['items'][] = $person_item_rest_resource->getProcessedItem($node);
         }
       }
     }

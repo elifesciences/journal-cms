@@ -1,0 +1,19 @@
+uuid: bdfe8638-ad7a-4ea1-9cad-0f05e129173f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_processed_json
+    - node.type.labs_experiment
+id: node.labs_experiment.field_processed_json
+field_name: field_processed_json
+entity_type: node
+bundle: labs_experiment
+label: 'Processed (JSON)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

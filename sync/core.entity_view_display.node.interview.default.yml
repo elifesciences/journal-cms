@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.interview.field_order_date
     - field.field.node.interview.field_person_index_name
     - field.field.node.interview.field_person_preferred_name
+    - field.field.node.interview.field_processed_json
     - node.type.interview
   module:
     - entity_reference_revisions
@@ -91,6 +92,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_processed_json:
+    weight: 109
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
     region: content
   links:
     weight: 100

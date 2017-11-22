@@ -71,8 +71,12 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
         $response['image'] = $image;
       }
 
-      if ($content = $this->processFieldContent($node->get('field_content'))) {
-        $response['content'] = $content;
+      if ($node->hasField('field_processed_json')) {
+        $processed = $node->get('field_processed_json')->getValue();
+        $response['content'] = json_decode($processed[0]['value']);
+      }
+      else {
+        throw new \Exception("Processed json field not found on entity");
       }
 
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);

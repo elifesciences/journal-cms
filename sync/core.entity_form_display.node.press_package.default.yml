@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.press_package.field_media_contact
     - field.field.node.press_package.field_order_date
     - field.field.node.press_package.field_press_package_about
+    - field.field.node.press_package.field_processed_json
     - field.field.node.press_package.field_related_content
     - node.type.press_package
   module:
@@ -88,6 +89,7 @@ content:
 hidden:
   created: true
   field_order_date: true
+  field_processed_json: true
   path: true
   promote: true
   sticky: true
