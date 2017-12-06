@@ -57,7 +57,8 @@
     "drupal/monolog": "^1.0@alpha",
     "monolog/monolog": "~1.6",
     "drupal/country": "^1.0@beta",
-    "drupal/entity_reference_unpublished": "^1.0@alpha"
+    "drupal/entity_reference_unpublished": "^1.0@alpha",
+    "drupal/confi": "^1.4"
   },
   "require-dev": {
     "drupal/drupal-extension": "~3.0",

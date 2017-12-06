@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.press_package.field_content
+    - field.field.node.press_package.field_content_processed_json
     - field.field.node.press_package.field_impact_statement
     - field.field.node.press_package.field_media_contact
     - field.field.node.press_package.field_order_date
@@ -87,6 +88,7 @@ content:
     region: content
 hidden:
   created: true
+  field_content_processed_json: true
   field_order_date: true
   path: true
   promote: true

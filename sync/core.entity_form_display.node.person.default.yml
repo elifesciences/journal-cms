@@ -7,13 +7,16 @@ dependencies:
     - field.field.node.person.field_image
     - field.field.node.person.field_order_date
     - field.field.node.person.field_person_affiliation
+    - field.field.node.person.field_person_affiliation_json
     - field.field.node.person.field_person_competing
     - field.field.node.person.field_person_index_name
     - field.field.node.person.field_person_orcid
     - field.field.node.person.field_person_profile
+    - field.field.node.person.field_person_profile_json
     - field.field.node.person.field_person_type
     - field.field.node.person.field_person_type_label
     - field.field.node.person.field_research_details
+    - field.field.node.person.field_research_details_json
     - image.style.thumbnail
     - node.type.person
   module:
@@ -126,6 +129,9 @@ content:
 hidden:
   created: true
   field_order_date: true
+  field_person_affiliation_json: true
+  field_person_profile_json: true
+  field_research_details_json: true
   path: true
   promote: true
   sticky: true

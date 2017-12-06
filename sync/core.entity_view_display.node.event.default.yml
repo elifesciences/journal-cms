@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.event.field_community_list
     - field.field.node.event.field_content
+    - field.field.node.event.field_content_processed_json
     - field.field.node.event.field_event_datetime
     - field.field.node.event.field_event_timezone
     - field.field.node.event.field_event_uri
@@ -14,6 +15,7 @@ dependencies:
   module:
     - datetime_range
     - entity_reference_revisions
+    - jsonb
     - link
     - options
     - text
@@ -41,6 +43,13 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_content_processed_json:
+    weight: 110
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: jsonb_default
     region: content
   field_event_datetime:
     weight: 103

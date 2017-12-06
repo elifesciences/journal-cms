@@ -81,12 +81,23 @@ class PersonItemRestResource extends AbstractRestResourceBase {
     $item = $person_list_rest_resource->getItem($node);
 
     // Profile description is optional.
-    if ($profile = $this->processFieldContent($node->get('field_person_profile'))) {
+    if ($profile = $this->getProfile($node, false)) {
       $item['profile'] = $profile;
     }
 
-    if ($node->get('field_research_details')->count()) {
-      $research = [];
+    $item['research'] = $this->getResearchDetails($node, false);
+
+    $item['affiliations'] = $this->getAffiliations($node, false);
+
+    return $item;
+  }
+
+  public function getResearchDetails($node, $reset = true) {
+    $research = [];
+    if (!$reset) {
+      return json_decode($node->get('field_research_details_json')->getString());
+    }
+    elseif ($node->get('field_research_details')->count()) {
       $research_details_field = $node->get('field_research_details')->first()->get('entity')->getTarget()->getValue();
       if ($research_details_field->get('field_research_expertises')->count()) {
         $research['expertises'] = [];
@@ -126,15 +137,27 @@ class PersonItemRestResource extends AbstractRestResourceBase {
           }
         }
       }
-
-      if (!empty($research)) {
-        $item['research'] = $research;
-      }
     }
 
-    if ($node->get('field_person_affiliation')->count()) {
+    return $research;
+  }
+
+  public function getProfile($node, $reset = true) {
+    if (!$reset) {
+      return json_decode($node->get('field_person_profile_json')->getString());
+    }
+    else {
+      return $this->processFieldContent($node->get('field_person_profile'));
+    }
+  }
+
+  public function getAffiliations($node, $reset = true) {
+    $affiliations = [];
+    if (!$reset) {
+      return json_decode($node->get('field_person_affiliation_json')->getString());
+    }
+    elseif ($node->get('field_person_affiliation')->count()) {
       $countries = \Drupal::service('country_manager')->getList();
-      $affiliations = [];
       foreach ($node->get('field_person_affiliation') as $affiliation) {
         $data = $affiliation->get('entity')->getTarget()->getValue();
         $country = $data->get('field_block_country')->getString();
@@ -146,11 +169,9 @@ class PersonItemRestResource extends AbstractRestResourceBase {
           ],
         ];
       }
-
-      $item['affiliations'] = $affiliations;
     }
 
-    return $item;
+    return $affiliations;
   }
 
 }

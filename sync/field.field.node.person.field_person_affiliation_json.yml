@@ -1,0 +1,21 @@
+uuid: 6da20a06-3bd2-4be4-9c5e-41d77aac9024
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_person_affiliation_json
+    - node.type.person
+  module:
+    - jsonb
+id: node.person.field_person_affiliation_json
+field_name: field_person_affiliation_json
+entity_type: node
+bundle: person
+label: 'Affiliation (proccessed)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json

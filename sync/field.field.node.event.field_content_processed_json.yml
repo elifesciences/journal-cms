@@ -1,0 +1,21 @@
+uuid: e0309c7f-01d3-452c-8bdd-88cdbb3008f2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_processed_json
+    - node.type.event
+  module:
+    - jsonb
+id: node.event.field_content_processed_json
+field_name: field_content_processed_json
+entity_type: node
+bundle: event
+label: 'Content (processed)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json

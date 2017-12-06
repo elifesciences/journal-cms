@@ -20,3 +20,4 @@ content:
 hidden:
   field_highlight_item: true
   field_image: true
+  field_order_date: true

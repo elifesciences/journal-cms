@@ -24,8 +24,10 @@ content:
 hidden:
   field_community_list: true
   field_content: true
+  field_content_processed_json: true
   field_event_datetime: true
   field_event_timezone: true
   field_event_uri: true
   field_event_venue: true
   field_impact_statement: true
+  field_order_date: true

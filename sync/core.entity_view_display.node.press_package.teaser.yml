@@ -22,7 +22,9 @@ content:
     region: content
 hidden:
   field_content: true
+  field_content_processed_json: true
   field_impact_statement: true
   field_media_contact: true
+  field_order_date: true
   field_press_package_about: true
   field_related_content: true

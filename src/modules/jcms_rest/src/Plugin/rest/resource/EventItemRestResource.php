@@ -67,8 +67,8 @@ class EventItemRestResource extends AbstractRestResourceBase {
         $response['uri'] = $node->get('field_event_uri')->first()->getValue()['uri'];
       }
       // Content is optional, only display if there is no Event URI.
-      elseif ($content = $this->processFieldContent($node->get('field_content'))) {
-        $response['content'] = $content;
+      elseif ($content = $node->get('field_content_processed_json')->getString()) {
+        $response['content'] = json_decode($content);
       }
 
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);

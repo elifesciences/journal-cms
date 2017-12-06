@@ -7,17 +7,21 @@ dependencies:
     - field.field.node.person.field_image
     - field.field.node.person.field_order_date
     - field.field.node.person.field_person_affiliation
+    - field.field.node.person.field_person_affiliation_json
     - field.field.node.person.field_person_competing
     - field.field.node.person.field_person_index_name
     - field.field.node.person.field_person_orcid
     - field.field.node.person.field_person_profile
+    - field.field.node.person.field_person_profile_json
     - field.field.node.person.field_person_type
     - field.field.node.person.field_person_type_label
     - field.field.node.person.field_research_details
+    - field.field.node.person.field_research_details_json
     - node.type.person
   module:
     - entity_reference_revisions
     - image
+    - jsonb
     - options
     - text
     - user
@@ -64,6 +68,13 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
+  field_person_affiliation_json:
+    weight: 113
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: jsonb_default
+    region: content
   field_person_competing:
     weight: 106
     label: above
@@ -96,6 +107,13 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
+  field_person_profile_json:
+    weight: 114
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: jsonb_default
+    region: content
   field_person_type:
     weight: 102
     label: above
@@ -119,6 +137,13 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
+  field_research_details_json:
+    weight: 115
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: jsonb_default
     region: content
   links:
     weight: 100

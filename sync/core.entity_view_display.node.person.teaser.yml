@@ -25,6 +25,7 @@ content:
 hidden:
   field_archive: true
   field_image: true
+  field_order_date: true
   field_person_affiliation: true
   field_person_competing: true
   field_person_id: true

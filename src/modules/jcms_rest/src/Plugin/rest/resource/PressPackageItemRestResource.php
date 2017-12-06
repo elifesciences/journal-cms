@@ -56,9 +56,7 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
         }
       }
 
-      if ($content = $this->processFieldContent($node->get('field_content'))) {
-        $response['content'] = $content;
-      }
+      $response['content'] = json_decode($node->get('field_content_processed_json')->getString());
 
       if ($node->get('field_related_content')->count()) {
         $related_content = [];

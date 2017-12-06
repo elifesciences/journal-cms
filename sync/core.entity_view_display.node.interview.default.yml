@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.interview.field_community_list
     - field.field.node.interview.field_content
+    - field.field.node.interview.field_content_processed_json
     - field.field.node.interview.field_image
     - field.field.node.interview.field_impact_statement
     - field.field.node.interview.field_interview_cv
@@ -15,6 +16,7 @@ dependencies:
   module:
     - entity_reference_revisions
     - image
+    - jsonb
     - text
     - user
 id: node.interview.default
@@ -40,6 +42,13 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_content_processed_json:
+    weight: 109
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: jsonb_default
     region: content
   field_image:
     weight: 108
@@ -95,4 +104,6 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden: {  }

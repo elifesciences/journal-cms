@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.labs_experiment.field_community_list
     - field.field.node.labs_experiment.field_content
+    - field.field.node.labs_experiment.field_content_processed_json
     - field.field.node.labs_experiment.field_experiment_number
     - field.field.node.labs_experiment.field_image
     - field.field.node.labs_experiment.field_image_attribution
@@ -82,6 +83,7 @@ content:
     region: content
 hidden:
   created: true
+  field_content_processed_json: true
   field_order_date: true
   path: true
   promote: true

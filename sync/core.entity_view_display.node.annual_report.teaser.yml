@@ -24,3 +24,5 @@ hidden:
   field_annual_report_year: true
   field_image: true
   field_impact_statement: true
+  field_order_date: true
+  field_pdf: true

@@ -152,7 +152,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * @param bool $required
    * @return array
    */
-  protected function processFieldContent(FieldItemListInterface $data, $required = FALSE) {
+  public function processFieldContent(FieldItemListInterface $data, $required = FALSE) {
     $asset_ids = [
       'image' => 0,
       'table' => 0,

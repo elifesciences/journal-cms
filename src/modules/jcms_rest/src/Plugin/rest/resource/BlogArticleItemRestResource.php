@@ -64,9 +64,7 @@ class BlogArticleItemRestResource extends AbstractRestResourceBase {
         }
       }
 
-      if ($content = $this->processFieldContent($node->get('field_content'))) {
-        $response['content'] = $content;
-      }
+      $response['content'] = json_decode($node->get('field_content_processed_json')->getString());
 
       // Subjects is optional.
       $subjects = $this->processSubjects($node->get('field_subjects'));
