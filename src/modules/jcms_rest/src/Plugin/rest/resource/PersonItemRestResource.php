@@ -81,21 +81,27 @@ class PersonItemRestResource extends AbstractRestResourceBase {
     $item = $person_list_rest_resource->getItem($node);
 
     // Profile description is optional.
-    if ($profile = $this->getProfile($node, false)) {
+    if ($profile = $this->getProfile($node, FALSE)) {
       $item['profile'] = $profile;
     }
 
-    $item['research'] = $this->getResearchDetails($node, false);
+    // Research details are optional.
+    if ($research = $this->getResearchDetails($node, FALSE)) {
+      $item['research'] = $research;
+    }
 
-    $item['affiliations'] = $this->getAffiliations($node, false);
+    // Affiliations are optional.
+    if ($affiliations = $this->getAffiliations($node, FALSE)) {
+      $item['affiliations'] = $affiliations;
+    }
 
     return $item;
   }
 
-  public function getResearchDetails($node, $reset = true) {
+  public function getResearchDetails($node, $reset = TRUE) {
     $research = [];
     if (!$reset) {
-      return json_decode($node->get('field_research_details_json')->getString());
+      return json_decode($node->get('field_research_details_json')->getString(), TRUE);
     }
     elseif ($node->get('field_research_details')->count()) {
       $research_details_field = $node->get('field_research_details')->first()->get('entity')->getTarget()->getValue();
@@ -142,19 +148,19 @@ class PersonItemRestResource extends AbstractRestResourceBase {
     return $research;
   }
 
-  public function getProfile($node, $reset = true) {
+  public function getProfile($node, $reset = TRUE) {
     if (!$reset) {
-      return json_decode($node->get('field_person_profile_json')->getString());
+      return json_decode($node->get('field_person_profile_json')->getString(), TRUE);
     }
     else {
       return $this->processFieldContent($node->get('field_person_profile'));
     }
   }
 
-  public function getAffiliations($node, $reset = true) {
+  public function getAffiliations($node, $reset = TRUE) {
     $affiliations = [];
     if (!$reset) {
-      return json_decode($node->get('field_person_affiliation_json')->getString());
+      return json_decode($node->get('field_person_affiliation_json')->getString(), TRUE);
     }
     elseif ($node->get('field_person_affiliation')->count()) {
       $countries = \Drupal::service('country_manager')->getList();
