@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.interview.field_community_list
     - field.field.node.interview.field_content
+    - field.field.node.interview.field_content_processed_json
     - field.field.node.interview.field_image
     - field.field.node.interview.field_impact_statement
     - field.field.node.interview.field_interview_cv
@@ -96,6 +97,7 @@ content:
     region: content
 hidden:
   created: true
+  field_content_processed_json: true
   field_order_date: true
   path: true
   promote: true

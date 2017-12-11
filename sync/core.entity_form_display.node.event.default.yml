@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.event.field_community_list
     - field.field.node.event.field_content
+    - field.field.node.event.field_content_processed_json
     - field.field.node.event.field_event_datetime
     - field.field.node.event.field_event_timezone
     - field.field.node.event.field_event_uri
@@ -79,6 +80,7 @@ content:
     region: content
 hidden:
   created: true
+  field_content_processed_json: true
   field_order_date: true
   path: true
   promote: true

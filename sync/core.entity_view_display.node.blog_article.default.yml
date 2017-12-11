@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.blog_article.field_community_list
     - field.field.node.blog_article.field_content
+    - field.field.node.blog_article.field_content_processed_json
     - field.field.node.blog_article.field_image
     - field.field.node.blog_article.field_image_attribution
     - field.field.node.blog_article.field_impact_statement
@@ -14,6 +15,7 @@ dependencies:
   module:
     - entity_reference_revisions
     - image
+    - jsonb
     - text
     - user
 id: node.blog_article.default
@@ -39,6 +41,13 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_content_processed_json:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: jsonb_default
     region: content
   field_image:
     weight: 3

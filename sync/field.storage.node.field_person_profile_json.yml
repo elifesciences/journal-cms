@@ -1,0 +1,23 @@
+uuid: fb4e5c40-7cfc-4d39-8ebd-20d48b53e02e
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - jsonb
+    - node
+third_party_settings:
+  field_permissions:
+    permission_type: custom
+id: node.field_person_profile_json
+field_name: field_person_profile_json
+entity_type: node
+type: json
+settings: {  }
+module: jsonb
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

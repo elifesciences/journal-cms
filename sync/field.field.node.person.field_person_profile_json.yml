@@ -1,0 +1,21 @@
+uuid: 8f95dc41-4dd1-4031-b1cb-be917ca956c7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_person_profile_json
+    - node.type.person
+  module:
+    - jsonb
+id: node.person.field_person_profile_json
+field_name: field_person_profile_json
+entity_type: node
+bundle: person
+label: 'Profile (processed)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json

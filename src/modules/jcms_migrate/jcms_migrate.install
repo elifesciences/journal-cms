@@ -807,3 +807,71 @@ function jcms_migrate_update_8110() {
         }
     }
 }
+
+/**
+ * Enable config_import module.
+ */
+function jcms_migrate_update_8111() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(['config_import']);
+}
+
+/**
+ * Create field: field_content_processed_json.
+ */
+function jcms_migrate_update_8112() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $configs = [
+    'field.storage.node.field_content_processed_json',
+    'field.storage.node.field_person_affiliation_json',
+    'field.storage.node.field_person_profile_json',
+    'field.storage.node.field_research_details_json',
+    'field.field.node.blog_article.field_content_processed_json',
+    'field.field.node.event.field_content_processed_json',
+    'field.field.node.interview.field_content_processed_json',
+    'field.field.node.labs_experiment.field_content_processed_json',
+    'field.field.node.person.field_person_affiliation_json',
+    'field.field.node.person.field_person_profile_json',
+    'field.field.node.person.field_research_details_json',
+    'field.field.node.press_package.field_content_processed_json',
+  ];
+  $config_importer->importConfigs($configs);
+}
+
+/**
+ * Resave all nodes that need to presave processed output
+ */
+function jcms_migrate_update_8113(&$sandbox) {
+  if (!isset($sandbox['progress'])) {
+    // This must be the first run. Initialize the sandbox.
+    $sandbox['progress'] = 0;
+    $sandbox['current_pk'] = 0;
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', ['blog_article', 'event', 'interview', 'labs_experiment', 'person', 'press_package'], 'IN');
+    $sandbox['max'] = $query->count()->execute() - 1;
+  }
+
+  // Update 20 nodes at a time.
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', ['blog_article', 'event', 'interview', 'labs_experiment', 'person', 'press_package'], 'IN')
+    ->condition('nid', $sandbox['current_pk'], '>')
+    ->range(0, 20)
+    ->sort('nid', 'ASC');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        $node->save();
+        $sandbox['progress']++;
+        $sandbox['current_pk'] = $node->id();
+      }
+    }
+  }
+  if (empty($sandbox['max']) ||  $sandbox['progress'] >= $sandbox['max']) {
+     $sandbox['#finished'] = TRUE;
+  }
+  else {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+}

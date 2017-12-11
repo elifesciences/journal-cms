@@ -511,4 +511,34 @@ function jcms_admin_node_presave(Node $node) {
   if ($node->bundle() != 'article') {
     $node->set('field_order_date', $node->getCreatedTime());
   }
+
+  if ($node->hasField('field_content')) {
+    if ($node->hasField('field_content_processed_json')) {
+      $pluginManager = \Drupal::service('plugin.manager.rest');
+      $processed = $pluginManager->createInstance($node->bundle() . '_item_rest_resource', [])->processFieldContent($node->get('field_content'));
+      $node->field_content_processed_json = json_encode($processed);
+    }
+    else {
+      // All instances of field_content should be accompanied with field_content_processed_json.
+      throw new Exception('Processed json field not found on entity');
+    }
+  }
+
+  if ($node->bundle() === 'person') {
+    $fields = [
+      'field_person_affiliation' => ['getter' => 'getAffiliations', 'json_field' => 'field_person_affiliation_json'],
+      'field_person_profile' => ['getter' => 'getProfile', 'json_field' => 'field_person_profile_json'],
+      'field_research_details' => ['getter' => 'getResearchDetails', 'json_field' => 'field_research_details_json'],
+    ];
+    $pluginManager = \Drupal::service('plugin.manager.rest');
+    $resource = $pluginManager->createInstance($node->bundle() . '_item_rest_resource', []);
+    foreach ($fields as $field => $data) {
+      if ($node->hasField($field)) {
+        if ($node->hasField($data['json_field'])) {
+          $processed = $resource->{$data['getter']}($node);
+          $node->{$data['json_field']} = json_encode($processed);
+        }
+      }
+    }
+  }
 }

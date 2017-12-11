@@ -1,0 +1,21 @@
+uuid: 06a8237b-5063-4720-9bd1-e68b36051103
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_research_details_json
+    - node.type.person
+  module:
+    - jsonb
+id: node.person.field_research_details_json
+field_name: field_research_details_json
+entity_type: node
+bundle: person
+label: 'Research details (processed)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json

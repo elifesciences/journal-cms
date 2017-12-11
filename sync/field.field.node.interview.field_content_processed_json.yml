@@ -1,0 +1,21 @@
+uuid: 89ede1df-b38a-40e6-933b-60adf3e680e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_processed_json
+    - node.type.interview
+  module:
+    - jsonb
+id: node.interview.field_content_processed_json
+field_name: field_content_processed_json
+entity_type: node
+bundle: interview
+label: 'Content (processed)'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json

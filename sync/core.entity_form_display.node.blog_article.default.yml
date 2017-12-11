@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.blog_article.field_community_list
     - field.field.node.blog_article.field_content
+    - field.field.node.blog_article.field_content_processed_json
     - field.field.node.blog_article.field_image
     - field.field.node.blog_article.field_image_attribution
     - field.field.node.blog_article.field_impact_statement
@@ -84,6 +85,7 @@ content:
     region: content
 hidden:
   created: true
+  field_content_processed_json: true
   field_order_date: true
   path: true
   promote: true

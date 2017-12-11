@@ -71,9 +71,7 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
         $response['image'] = $image;
       }
 
-      if ($content = $this->processFieldContent($node->get('field_content'))) {
-        $response['content'] = $content;
-      }
+      $response['content'] = json_decode($node->get('field_content_processed_json')->getString());
 
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
       $response->addCacheableDependency($node);

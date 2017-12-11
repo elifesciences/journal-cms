@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.press_package.field_content
+    - field.field.node.press_package.field_content_processed_json
     - field.field.node.press_package.field_impact_statement
     - field.field.node.press_package.field_media_contact
     - field.field.node.press_package.field_order_date
@@ -12,6 +13,7 @@ dependencies:
     - node.type.press_package
   module:
     - entity_reference_revisions
+    - jsonb
     - text
     - user
 id: node.press_package.default
@@ -27,6 +29,13 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_content_processed_json:
+    weight: 107
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: jsonb_default
     region: content
   field_impact_statement:
     weight: 101
