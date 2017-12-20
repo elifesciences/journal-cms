@@ -39,7 +39,7 @@ class JCMSRestResponse extends JsonResponse implements CacheableResponseInterfac
   public function addDefaultCacheableDependencies() {
     $request = \Drupal::request();
     $groups = normalize_header($request->headers->get('X-Consumer-Groups', 'user'));
-    $view_unpublished = in_array('admin', $groups);
+    $view_unpublished = in_array('admin', $groups) || in_array('view-unpublished-content', $groups);
     $this->setVary('Accept');
     $max_age = $view_unpublished ? 0 : Settings::get('jcms_rest_cache_max_age', Cache::PERMANENT);
 
