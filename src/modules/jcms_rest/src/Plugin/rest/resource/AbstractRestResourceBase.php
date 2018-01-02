@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use function GuzzleHttp\Psr7\normalize_header;
 use InvalidArgumentException;
 use DateTimeImmutable;
 use DateTimeZone;
@@ -701,8 +702,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
     if (is_null($view_unpublished)) {
       $request = \Drupal::request();
-      $consumer = $request->headers->get('X-Consumer-Groups', 'user');
-      $view_unpublished = ($consumer == 'admin');
+      $groups = normalize_header($request->headers->get('X-Consumer-Groups', 'user'));
+      $view_unpublished = in_array('admin', $groups) || in_array('view-unpublished-content', $groups);
     }
 
     return $view_unpublished;

@@ -6,6 +6,7 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableResponseInterface;
 use Drupal\Core\Site\Settings;
+use function GuzzleHttp\Psr7\normalize_header;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\Core\Cache\CacheableResponseTrait;
 
@@ -37,9 +38,10 @@ class JCMSRestResponse extends JsonResponse implements CacheableResponseInterfac
    */
   public function addDefaultCacheableDependencies() {
     $request = \Drupal::request();
-    $consumer = $request->headers->get('X-Consumer-Groups', 'user');
+    $groups = normalize_header($request->headers->get('X-Consumer-Groups', 'user'));
+    $view_unpublished = in_array('admin', $groups) || in_array('view-unpublished-content', $groups);
     $this->setVary('Accept');
-    $max_age = ($consumer == 'admin') ? 0 : Settings::get('jcms_rest_cache_max_age', Cache::PERMANENT);
+    $max_age = $view_unpublished ? 0 : Settings::get('jcms_rest_cache_max_age', Cache::PERMANENT);
 
     $build = [
       '#cache' => [
@@ -53,7 +55,7 @@ class JCMSRestResponse extends JsonResponse implements CacheableResponseInterfac
 
     $this->headers->addCacheControlDirective('max-age', $max_age);
 
-    if ($consumer == 'admin') {
+    if ($view_unpublished) {
       $this->setPrivate();
       $this->headers->addCacheControlDirective('must-revalidate');
     }
