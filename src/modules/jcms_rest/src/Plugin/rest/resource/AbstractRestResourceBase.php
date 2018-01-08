@@ -703,7 +703,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     if (is_null($view_unpublished)) {
       $request = \Drupal::request();
       $groups = normalize_header($request->headers->get('X-Consumer-Groups', 'user'));
-      $view_unpublished = in_array('admin', $groups) || in_array('view-unpublished-content', $groups);
+      $view_unpublished = in_array('view-unpublished-content', $groups);
     }
 
     return $view_unpublished;
