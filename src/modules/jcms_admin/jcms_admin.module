@@ -8,7 +8,6 @@ use Drupal\Core\Database\Query\Condition;
 use Drupal\Core\Database\Query\SelectInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Field\FieldFilteredMarkup;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\entityqueue\Entity\EntitySubqueue;
@@ -212,7 +211,6 @@ function jcms_admin_query_interview_collections_filter_alter(SelectInterface $qu
  */
 function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   _jcms_admin_protect_id_field($form, $form_id);
-  _jcms_admin_protect_title_field_for_annotated_content($form, $form_id);
   switch ($form_id) {
     case 'node_article_form':
     case 'node_article_edit_form':
@@ -256,44 +254,6 @@ function _jcms_admin_protect_id_field(&$form, $form_id) {
         $form[$field]['#disabled'] = TRUE;
       }
     }
-  }
-}
-
-/**
- * Protect title field for content that may have annotations.
- *
- * @param $form
- * @param $form_id
- */
-function _jcms_admin_protect_title_field_for_annotated_content(&$form, $form_id) {
-  $type = preg_replace('/^node_(.*)_edit_form$/', '$1', $form_id);
-  // Lock the field used to produce the slug value for the content.
-  switch ($type) {
-    case 'interview':
-      $lock_field = 'field_person_preferred_name';
-      break;
-    case 'blog_article':
-    case 'labs_experiment':
-    case 'press_package':
-      $lock_field = 'title';
-      break;
-    default:
-      $lock_field = false;
-  }
-  if ($lock_field !== false) {
-    if (!\Drupal::currentUser()->hasPermission('bypass node access')) {
-      $form[$lock_field]['widget'][0]['value']['#disabled'] = TRUE;
-      $new_description = '<strong>Contact an administrator if you need to alter this value, as it may affect annotations that are associated with the content</strong>.';
-    }
-    else {
-      $new_description = '<strong>Editing this value might cause annotations to be lost on this content.</strong>';
-    }
-
-    $existing_description = (string) $form[$lock_field]['widget'][0]['value']['#description'];
-    if (!empty($existing_description)) {
-      $existing_description .= PHP_EOL.PHP_EOL;
-    }
-    $form[$lock_field]['widget'][0]['value']['#description'] = FieldFilteredMarkup::create($existing_description . $new_description);
   }
 }
 
