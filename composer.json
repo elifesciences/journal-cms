@@ -19,11 +19,11 @@
   ],
   "require": {
     "php": "^7.0",
-    "composer/installers": "^1.0.20",
-    "drupal-composer/drupal-scaffold": "^2.0.1",
-    "cweagans/composer-patches": "~1.0",
-    "drush/drush": "~8.0",
-    "drupal/console": "~1.0",
+    "composer/installers": "^1.2",
+    "drupal-composer/drupal-scaffold": "^2.2",
+    "cweagans/composer-patches": "^1.6",
+    "drush/drush": "~8.1.16",
+    "drupal/console": "^1.0.2",
     "drupal/admin_toolbar": "~1.0",
     "drupal/config_devel": "~1.0-rc1",
     "drupal/config_installer": "~1",
@@ -31,8 +31,7 @@
     "drupal/field_collection": "~1.0-alpha1",
     "drupal/inline_entity_form": "~1.0-beta1",
     "drupal/jsonb": "~1.0-beta1",
-    "drupal/paragraphs": "1.x-dev",
-    "drupal-composer/drupal-project": "8.x-dev",
+    "drupal/paragraphs": "^1.2",
     "drupal/migrate_plus": "~3.0-rc1",
     "drupal/migrate_tools": "~3.0-rc1",
     "drupal/migrate_manifest": "^1",
@@ -52,28 +51,23 @@
     "drupal/focal_point": "^1.0@beta",
     "drupal/diff": "^1.0@RC",
     "embed/embed": "^3.0",
-    "drupal/devel": "1.x-dev",
-    "drupal/core": "~8.3.0",
+    "drupal/devel": "^1.2",
+    "drupal/core": "~8.4.4",
     "drupal/monolog": "^1.0@alpha",
     "monolog/monolog": "~1.6",
     "drupal/country": "^1.0@beta",
     "drupal/entity_reference_unpublished": "^1.0@alpha",
-    "drupal/confi": "^1.4"
+    "drupal/confi": "^1.4",
+    "webmozart/path-util": "^2.3",
+    "sebastian/version": "~1.0.6"
   },
   "require-dev": {
-    "drupal/drupal-extension": "~3.0",
-    "jcalderonzumba/gastonjs": "~1.0.2",
-    "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
-    "mikey179/vfsStream": "~1.2",
-    "phpunit/phpunit": "~4.8",
-    "symfony/css-selector": "~2.8",
-    "mockery/mockery": "~0.9",
-    "phpunit/phpcov": "2.*",
-    "bossa/phpspec2-expect": "~1.0",
+    "drupal/drupal-extension": "^3.4",
     "elife/api": "dev-master",
     "elife/api-validator": "dev-master",
-    "justinrainbow/json-schema": "^5.1",
-    "mindplay/composer-locator": "^2.1"
+    "justinrainbow/json-schema": "^5.2",
+    "mindplay/composer-locator": "^2.1",
+    "phpunit/phpunit": "~4.8.36"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -101,6 +95,9 @@
       "web/core": [
         "type:drupal-core"
       ],
+      "web/libraries/{$name}": [
+        "type:drupal-library"
+      ],
       "web/modules/contrib/{$name}": [
         "type:drupal-module"
       ],
@@ -116,30 +113,21 @@
     },
     "patches": {
       "drupal/core": {
-        "CommandLineOrUnsafeMethodTest::testHttpMethod failures": "https://www.drupal.org/files/issues/options_trace_error-2776367-3.patch",
-        "View output is not used for autocomplete display": "https://www.drupal.org/files/issues/2174633-135-entity-reference.patch",
-        "Number widget validation can break AJAX actions": "https://www.drupal.org/files/issues/drupal-fix_number_widget_errorElement-2614250-30.patch",
-        "Use new Transliteration functionality in core for file names": "https://www.drupal.org/files/issues/drupal-use_new_transliteration-2492171-28.patch",
-        "Fatal error: Call to a member function getTimestamp()": "https://www.drupal.org/files/issues/2573807-25-8.3.x.patch",
-        "Move permission \"view any unpublished content\" from content moderation to core": "https://www.drupal.org/files/issues/move_permission_view-273595-129.patch"
+        "View output is not used for autocomplete display (2174633)": "https://www.drupal.org/files/issues/2174633-198.patch",
+        "Use new Transliteration functionality in core for file names (2492171)": "https://www.drupal.org/files/issues/use_new_transliteration-2492171-51.patch",
+        "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/move_permission_view-273595-129.patch"
       },
       "drupal/entity_reference_revisions": {
-        "Support devel_generate, fatal error (2568187)": "https://www.drupal.org/files/issues/entity_reference_revisions-devel_generate-2568187-7-8.x.2.x.patch"
+        "Allow entities to be generated if none exist (2910326)": "https://www.drupal.org/files/issues/entity_reference_revisions-stop_checking_for_entities_before_generating_sample-2910326-2.patch"
       },
       "drupal/address": {
-        "generateSampleValue": "https://www.drupal.org/files/issues/generatesamplevalue-2819251-4.patch"
-      },
-      "drupal/field_validation": {
-        "2 unique fields in the same ruleset - only one works": "https://www.drupal.org/files/issues/2_unique_fields_in_the-2854615-3.patch"
+        "generateSampleValue (2819251)": "https://www.drupal.org/files/issues/generatesamplevalue-2819251-4.patch"
       },
       "drupal/inline_entity_form": {
-        "Field name/label disappears when I create a new entity inline": "https://www.drupal.org/files/issues/inline_entity_form-no_label_required_field_with_no_entries-2842744.patch"
+        "Field name/label disappears when I create a new entity inline (2842744)": "https://www.drupal.org/files/issues/inline_entity_form-no_label_required_field_with_no_entries-2842744.patch"
       },
       "drupal/paragraphs": {
-        "Empty required fields not providing meaningful error messages": "https://www.drupal.org/files/issues/empty_required_fields-2788607-70.patch"
-      },
-      "drupal/monolog": {
-        "UidProcessor missing class": "https://www.drupal.org/files/issues/uidprocessor_missing-2871806-2.patch"
+        "Add Paragraphs support for view output as entity reference options (2935525)": "https://www.drupal.org/files/issues/paragraphs-add_support_for_views_output_as_entity_reference_options-2935525-2.patch"
       }
     }
   }

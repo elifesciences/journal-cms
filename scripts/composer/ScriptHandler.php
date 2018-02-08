@@ -8,10 +8,10 @@
 namespace JCMSDrupalProject\composer;
 
 use Composer\Script\Event;
-use DrupalProject\composer\ScriptHandler as DrupalScriptHandler;
 use Symfony\Component\Filesystem\Filesystem;
+use Webmozart\PathUtil\Path;
 
-class ScriptHandler extends DrupalScriptHandler {
+class ScriptHandler {
 
   public static function createRequiredFiles(Event $event) {
     $fs = new Filesystem();
@@ -19,7 +19,37 @@ class ScriptHandler extends DrupalScriptHandler {
     $drupal_root = $root . '/web';
     $config_root = $root . '/config';
     $src_root = $root . '/src';
-    parent::createRequiredFiles($event);
+
+    foreach (['modules', 'profiles', 'themes'] as $dir) {
+      if (!$fs->exists($drupal_root . '/'. $dir)) {
+        $fs->mkdir($drupal_root . '/'. $dir);
+        $fs->touch($drupal_root . '/'. $dir . '/.gitkeep');
+      }
+    }
+
+    // Prepare the settings file for installation
+    if (!$fs->exists($drupal_root . '/sites/default/settings.php') and $fs->exists($drupal_root . '/sites/default/default.settings.php')) {
+      $fs->copy($drupal_root . '/sites/default/default.settings.php', $drupal_root . '/sites/default/settings.php');
+      require_once $drupal_root . '/core/includes/bootstrap.inc';
+      require_once $drupal_root . '/core/includes/install.inc';
+      $settings['config_directories'] = [
+        CONFIG_SYNC_DIRECTORY => (object) [
+          'value' => Path::makeRelative($config_root . '/sync', $drupal_root),
+          'required' => TRUE,
+        ],
+      ];
+      drupal_rewrite_settings($settings, $drupal_root . '/sites/default/settings.php');
+      $fs->chmod($drupal_root . '/sites/default/settings.php', 0666);
+      $event->getIO()->write("Create a sites/default/settings.php file with chmod 0666");
+    }
+
+    // Create the files directory with chmod 0777
+    if (!$fs->exists($drupal_root . '/sites/default/files')) {
+      $oldmask = umask(0);
+      $fs->mkdir($drupal_root . '/sites/default/files', 0777);
+      umask($oldmask);
+      $event->getIO()->write("Create a sites/default/files directory with chmod 0777");
+    }
 
     if ($fs->exists($config_root . '/settings.php')) {
       if ($fs->exists($drupal_root . '/sites/default/settings.php')) {

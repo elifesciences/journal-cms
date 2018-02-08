@@ -5,8 +5,6 @@
  * Contains install and update functions for Journal CMS (Admin).
  */
 
-use Drupal\Core\Config\FileStorage;
-
 /**
  * Reset content_moderation schema version to 8000 after applying temporary patch.
  */
