@@ -9,7 +9,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.highlight_item
   module:
-    - content_moderation
     - image
 id: node.highlight_item.default
 targetEntityType: node

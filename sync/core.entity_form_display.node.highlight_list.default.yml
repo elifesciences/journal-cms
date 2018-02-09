@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.highlight_list.field_order_date
     - node.type.highlight_list
   module:
-    - content_moderation
     - inline_entity_form
 id: node.highlight_list.default
 targetEntityType: node

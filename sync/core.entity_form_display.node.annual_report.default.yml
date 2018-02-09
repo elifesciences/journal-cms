@@ -12,7 +12,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.annual_report
   module:
-    - content_moderation
     - image
     - link
     - text

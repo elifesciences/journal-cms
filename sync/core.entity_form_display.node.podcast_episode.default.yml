@@ -15,7 +15,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.podcast_episode
   module:
-    - content_moderation
     - image
     - inline_entity_form
     - link

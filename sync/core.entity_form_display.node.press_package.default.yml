@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.press_package.field_related_content
     - node.type.press_package
   module:
-    - content_moderation
     - inline_entity_form
     - paragraphs
     - text

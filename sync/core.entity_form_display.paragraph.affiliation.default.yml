@@ -7,7 +7,6 @@ dependencies:
     - field.field.paragraph.affiliation.field_block_title_multiline
     - paragraphs.paragraphs_type.affiliation
   module:
-    - content_moderation
     - country
 id: paragraph.affiliation.default
 targetEntityType: paragraph

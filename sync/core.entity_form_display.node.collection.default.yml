@@ -17,7 +17,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.collection
   module:
-    - content_moderation
     - image
     - inline_entity_form
     - paragraphs

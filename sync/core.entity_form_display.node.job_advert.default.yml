@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.job_advert.field_order_date
     - node.type.job_advert
   module:
-    - content_moderation
     - text
 id: node.job_advert.default
 targetEntityType: node

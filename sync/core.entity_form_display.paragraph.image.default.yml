@@ -12,7 +12,6 @@ dependencies:
     - image.style.thumbnail
     - paragraphs.paragraphs_type.image
   module:
-    - content_moderation
     - image
     - text
 id: paragraph.image.default

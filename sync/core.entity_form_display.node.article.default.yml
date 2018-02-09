@@ -12,7 +12,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.article
   module:
-    - content_moderation
     - image
 id: node.article.default
 targetEntityType: node
