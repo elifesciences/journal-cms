@@ -12,7 +12,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.article
   module:
-    - content_moderation
     - image
 id: node.article.default
 targetEntityType: node
@@ -40,6 +39,21 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
+  moderation_state:
+    weight: 122
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
+    third_party_settings: {  }
     region: content
   title:
     type: string_textfield

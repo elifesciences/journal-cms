@@ -7,10 +7,11 @@ dependencies:
     - jcms_rest
 id: labs_experiment_list_rest_resource
 plugin_id: labs_experiment_list_rest_resource
-granularity: method
+granularity: resource
 configuration:
-  GET:
-    supported_formats:
-      - jcms_json
-    supported_auth:
-      - basic_auth
+  methods:
+    - GET
+  formats:
+    - jcms_json
+  authentication:
+    - basic_auth

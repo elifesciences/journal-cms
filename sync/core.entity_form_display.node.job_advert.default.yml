@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.job_advert.field_order_date
     - node.type.job_advert
   module:
-    - content_moderation
     - text
 id: node.job_advert.default
 targetEntityType: node
@@ -64,6 +63,21 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  moderation_state:
+    weight: 122
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
+    third_party_settings: {  }
     region: content
   title:
     type: string_textfield

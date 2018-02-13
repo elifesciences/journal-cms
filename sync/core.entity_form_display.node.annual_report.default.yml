@@ -12,7 +12,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.annual_report
   module:
-    - content_moderation
     - image
     - link
     - text
@@ -59,6 +58,21 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
+  moderation_state:
+    weight: 122
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
+    third_party_settings: {  }
     region: content
   title:
     type: string_textfield

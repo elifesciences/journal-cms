@@ -13,7 +13,6 @@ dependencies:
     - field.field.node.event.field_order_date
     - node.type.event
   module:
-    - content_moderation
     - datetime_range
     - link
     - paragraphs
@@ -69,6 +68,21 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  moderation_state:
+    weight: 122
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
+    third_party_settings: {  }
     region: content
   title:
     type: string_textfield

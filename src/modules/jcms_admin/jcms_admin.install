@@ -11,3 +11,19 @@
 function jcms_admin_update_8101() {
   drupal_set_installed_schema_version('content_moderation', 8000);
 }
+
+/**
+ * Delete existing content_moderation states to allow uninstall.
+ */
+function jcms_admin_update_8102() {
+  // Uninstalling the module temporarily will resolve data structure issues.
+  // We do not need to retain data for continuity.
+  $ids = \Drupal::entityQuery('content_moderation_state')->execute();
+  $entities = \Drupal\content_moderation\Entity\ContentModerationState::loadMultiple($ids);
+  foreach ($entities as $entity) {
+      $entity->delete();
+  }
+
+  // The module will be re-innstalled when configuration is imported.
+  \Drupal::service('module_installer')->uninstall(['content_moderation']);
+}

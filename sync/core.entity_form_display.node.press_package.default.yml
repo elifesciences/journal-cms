@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.press_package.field_related_content
     - node.type.press_package
   module:
-    - content_moderation
     - inline_entity_form
     - paragraphs
     - text
@@ -77,6 +76,21 @@ content:
       allow_new: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+    region: content
+  moderation_state:
+    weight: 122
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
+    third_party_settings: {  }
     region: content
   title:
     type: string_textfield
