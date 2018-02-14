@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "40eb48fd3a032547de85dbce53db87af",
+    "content-hash": "611902dcb32e1fe78b9dd43760507e86",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3571,6 +3571,64 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/paragraphs"
             }
+        },
+        {
+            "name": "drupal/publication_date",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/publication_date",
+                "reference": "883d4a8801d4cafc3fee9ae0ef4062f85a8d6cd9"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.x-dev",
+                    "datestamp": "1454033339",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Clever Age",
+                    "homepage": "https://www.drupal.org/user/547746"
+                },
+                {
+                    "name": "Sheldon Rampton",
+                    "homepage": "https://www.drupal.org/user/13085"
+                },
+                {
+                    "name": "dgtlmoon",
+                    "homepage": "https://www.drupal.org/user/25027"
+                },
+                {
+                    "name": "jstoller",
+                    "homepage": "https://www.drupal.org/user/99012"
+                },
+                {
+                    "name": "tmarly",
+                    "homepage": "https://www.drupal.org/user/159040"
+                }
+            ],
+            "description": "Add a field containing the publication date.",
+            "homepage": "https://www.drupal.org/project/publication_date",
+            "support": {
+                "source": "http://cgit.drupalcode.org/publication_date"
+            },
+            "time": "2016-01-29T01:13:34+00:00"
         },
         {
             "name": "drupal/redis",
@@ -9877,6 +9935,7 @@
         "drupal/monolog": 15,
         "drupal/country": 10,
         "drupal/entity_reference_unpublished": 15,
+        "drupal/publication_date": 20,
         "elife/api": 20,
         "elife/api-validator": 20
     },

@@ -68,6 +68,7 @@ module:
   workflows: 0
   menu_link_content: 1
   views: 10
+  publication_date: 99
   config_installer: 1000
 theme:
   stable: 0
