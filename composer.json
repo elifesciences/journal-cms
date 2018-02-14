@@ -60,7 +60,7 @@
     "drupal/confi": "^1.4",
     "webmozart/path-util": "^2.3",
     "sebastian/version": "~1.0.6",
-    "drupal/publication_date": "1.x-dev"
+    "drupal/scheduler": "^1.0"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",
@@ -129,9 +129,6 @@
       },
       "drupal/paragraphs": {
         "Add Paragraphs support for view output as entity reference options (2935525)": "https://www.drupal.org/files/issues/paragraphs-add_support_for_views_output_as_entity_reference_options-2935525-2.patch"
-      },
-      "drupal/publication_date": {
-        "Port Publication Date to D8 (2606820)": "https://www.drupal.org/files/issues/2606820-13.patch"
       }
     }
   }
