@@ -13,7 +13,7 @@ bundle: button
 mode: default
 content:
   field_block_button:
-    weight: 6
+    weight: 0
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -22,5 +22,6 @@ content:
     region: content
 hidden:
   created: true
+  moderation_state: true
   status: true
   uid: true

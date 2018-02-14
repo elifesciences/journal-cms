@@ -77,19 +77,11 @@ content:
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
-  moderation_state:
-    weight: 122
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 121
+    weight: 6
     third_party_settings: {  }
     region: content
   title:
@@ -104,6 +96,7 @@ hidden:
   created: true
   field_content_processed_json: true
   field_order_date: true
+  moderation_state: true
   path: true
   promote: true
   sticky: true

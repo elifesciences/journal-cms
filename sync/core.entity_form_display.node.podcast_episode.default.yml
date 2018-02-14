@@ -92,19 +92,11 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  moderation_state:
-    weight: 122
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 121
+    weight: 9
     third_party_settings: {  }
     region: content
   title:
@@ -119,6 +111,7 @@ hidden:
   created: true
   field_episode_chapters: true
   field_order_date: true
+  moderation_state: true
   path: true
   promote: true
   sticky: true

@@ -40,19 +40,11 @@ content:
     third_party_settings: {  }
     type: number
     region: content
-  moderation_state:
-    weight: 122
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 121
+    weight: 4
     third_party_settings: {  }
     region: content
   title:
@@ -68,6 +60,7 @@ hidden:
   field_article_json: true
   field_order_date: true
   field_subjects: true
+  moderation_state: true
   path: true
   promote: true
   sticky: true
