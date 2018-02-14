@@ -14,3 +14,4 @@ effects:
     data:
       width: 140
       height: 140
+      crop_type: focal_point
