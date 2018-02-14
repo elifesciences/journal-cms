@@ -13,7 +13,7 @@ bundle: youtube
 mode: default
 content:
   field_block_youtube_id:
-    weight: 1
+    weight: 0
     settings:
       size: 60
       placeholder: ''
@@ -24,5 +24,6 @@ hidden:
   created: true
   field_block_youtube_height: true
   field_block_youtube_width: true
+  moderation_state: true
   status: true
   uid: true

@@ -122,19 +122,11 @@ content:
       default_paragraph_type: paragraph
     third_party_settings: {  }
     region: content
-  moderation_state:
-    weight: 122
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 121
+    weight: 11
     third_party_settings: {  }
     region: content
   title:
@@ -148,6 +140,7 @@ content:
 hidden:
   created: true
   field_order_date: true
+  moderation_state: true
   path: true
   promote: true
   sticky: true
