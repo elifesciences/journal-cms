@@ -12,7 +12,7 @@ dependencies:
     - image.style.thumbnail
     - node.type.annual_report
   module:
-    - image
+    - focal_point
     - link
     - text
 id: node.annual_report.default
@@ -40,8 +40,10 @@ content:
     settings:
       preview_image_style: thumbnail
       progress_indicator: bar
+      preview_link: true
+      offsets: '50,50'
     third_party_settings: {  }
-    type: image_image
+    type: image_focal_point
     region: content
   field_impact_statement:
     weight: 5
