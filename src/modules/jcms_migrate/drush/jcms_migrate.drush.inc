@@ -10,7 +10,7 @@
  */
 function jcms_migrate_drush_command() {
   $items = [];
-  $items['paragraphs-revision-delete'] = [
+  $items['paragraphs-revisions-delete'] = [
     'description' => 'Deletes unused paragraph revisions for the given field.',
     'drupal dependencies' => [],
     'aliases' => ['prd'],
@@ -31,11 +31,12 @@ function jcms_migrate_drush_command() {
 /**
  * Callback function drush_jcms_notifications_article_import_all().
  */
-function drush_jcms_migrate_paragraphs_revision_delete($field = '') {
+function drush_jcms_migrate_paragraphs_revisions_delete($field = '') {
   $limit = drush_get_option('limit') ? (int) drush_get_option('limit') : 0;
   
+  // Count number of paragraph revisions that are not a default revision
   $query = db_select('paragraphs_item_revision', 'pir');
-  if (!empty($field)) {
+  if (!empty($field) && db_table_exists('node__' . $field)) {
     $query->join('node__' . $field, 'nf', 'nf.' . $field . '_target_id=pir.id');
   }
   $query->leftjoin('paragraphs_item', 'pi', 'pi.revision_id=pir.revision_id');
