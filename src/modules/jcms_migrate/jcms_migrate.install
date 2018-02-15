@@ -882,7 +882,14 @@ function jcms_migrate_update_8113(&$sandbox) {
  * Import the MSA biochemistry-chemical-biology.
  */
 function jcms_migrate_update_8114() {
-  $migration = \Drupal::service('plugin.manager.migration')->createInstance('jcms_subjects_json');
-  $executable = new MigrateExecutable($migration, new MigrateMessage());
-  $executable->import();
+  $new_term = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'subjects')
+    ->condition('field_subject_id.value', 'biochemistry-chemical-biology')
+    ->execute();
+  if (!$new_term) {
+    $manager = \Drupal::service('plugin.manager.config_entity_migration');
+    $plugins = $manager->createInstances([]);
+    $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
+    $executable->import();
+  }
 }
