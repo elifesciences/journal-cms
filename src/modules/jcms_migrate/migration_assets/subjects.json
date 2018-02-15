@@ -21,6 +21,13 @@
     "alt": "Microbiology and Infectious Disease"
   },
   {
+    "id": "immunology-inflammation",
+    "name": "Immunology and Inflammation",
+    "impact_statement": "eLife publishes research spanning allergy, immunity and immunoregulation, inflammation and T-cell receptor signalling. Decisions are made by <a href=\"https://elifesciences.org/about/people/immunology\">journal editors</a> who are active researchers in the field of immunology.",
+    "image": "subjects/elife-sciences-immunology-illustration.jpg",
+    "alt": "Immunology and Inflammation"
+  },
+  {
     "id": "immunology",
     "name": "Immunology",
     "impact_statement": "eLife publishes research spanning allergy, immunity and immunoregulation, inflammation and T-cell receptor signalling. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the field of immunology.",
