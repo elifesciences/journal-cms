@@ -98,6 +98,13 @@
     "alt": "Biophysics and Structural Biology"
   },
   {
+    "id": "biochemistry-chemical-biology",
+    "name": "Biochemistry and Chemical Biology",
+    "impact_statement": "eLife publishes research spanning chemical biology and enzymology to metabolism and membrane proteins. Decisions are made by <a href=\"https://elifesciences.org/about/people/biochemistry\">journal editors</a> who are active researchers in biochemistry.",
+    "image": "subjects/elife-sciences-biochemistry-illustration.jpg",
+    "alt": "Biochemistry and Chemical Biology"
+  },
+  {
     "id": "biochemistry",
     "name": "Biochemistry",
     "impact_statement": "eLife publishes research spanning chemical biology and enzymology to metabolism and membrane proteins. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in biochemistry.",

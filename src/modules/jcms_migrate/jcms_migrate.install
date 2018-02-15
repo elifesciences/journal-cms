@@ -8,6 +8,8 @@
 use Drupal\Core\Database\Database;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\migrate\MigrateExecutable;
+use Drupal\migrate\MigrateMessage;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 
@@ -874,4 +876,13 @@ function jcms_migrate_update_8113(&$sandbox) {
   else {
     $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
   }
+}
+
+/**
+ * Import the MSA biochemistry-chemical-biology.
+ */
+function jcms_migrate_update_8114() {
+  $migration = \Drupal::service('plugin.manager.migration')->createInstance('jcms_subjects_json');
+  $executable = new MigrateExecutable($migration, new MigrateMessage());
+  $executable->import();
 }
