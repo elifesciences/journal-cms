@@ -43,12 +43,6 @@ function drush_jcms_migrate_paragraphs_revisions_delete($field = '') {
   $query->isNull('pi.id');
   $count = $query->countQuery()->execute()->fetch()->expression;
   drush_print(dt('Number of revisions to be deleted is !count.', ['!count' => $count]));
-  if ($count == 0 && !empty($field)) {
-    db_query("OPTIMIZE TABLE node__" . $field);
-    db_query("OPTIMIZE TABLE paragraphs_item_revision");
-    db_query("OPTIMIZE TABLE paragraphs_item_revision_field_data");
-    drush_print(dt('No revisions left to delete so database tables have been optimized.'));
-  }
   
   if ($count > 0 && $limit >= 0) {
     $count_deleted = 0;
@@ -94,4 +88,23 @@ function drush_jcms_migrate_paragraphs_revisions_delete($field = '') {
     } while($limit >= 0);
     drush_print(dt('Total number of revisions deleted is !count.', ['!count' => $count_deleted]));
   }
+  
+  // Get the number of revision left to delete
+  $query = db_select('paragraphs_item_revision', 'pir');
+  if (!empty($field) && db_table_exists('node__' . $field)) {
+    $query->join('node__' . $field, 'nf', 'nf.' . $field . '_target_id=pir.id');
+  }
+  $query->leftjoin('paragraphs_item', 'pi', 'pi.revision_id=pir.revision_id');
+  $query->isNull('pi.id');
+  $count = $query->countQuery()->execute()->fetch()->expression;
+  
+  // If no more revisions left to delete then optimize the tables
+  if ($count <= 0) {
+    $table_list = db_query("SHOW TABLES LIKE 'paragraph_r%'")->fetchCol();
+    $table_list[] = 'paragraphs_item_revision';
+    $table_list[] = 'paragraphs_item_revision_field_data';
+    $tables = implode(',', $table_list);
+    db_query("OPTIMIZE TABLE $tables");
+  }
+  
 }
