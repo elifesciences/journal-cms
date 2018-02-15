@@ -541,4 +541,13 @@ function jcms_admin_node_presave(Node $node) {
       }
     }
   }
+
+  if (
+    $node->type->entity->getThirdPartySetting('scheduler', 'publish_enable', \Drupal::config('scheduler.settings')->get('default_publish_enable')) && $node->id() &&
+    !(bool) $node->get('publish_on')->getValue() &&
+    !$node->original->isPublished() &&
+    $node->isPublished()
+  ) {
+    $node->setCreatedTime($node->getChangedTime());
+  }
 }
