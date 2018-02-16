@@ -31,10 +31,13 @@ class CoverListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
-      ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'cover')
       ->exists('field_image');
+
+    if (!$this->viewUnpublished()) {
+      $base_query->condition('status', NodeInterface::PUBLISHED);
+    }
 
     $this->filterSubjects($base_query);
     $this->filterDateRange($base_query, 'field_cover_content.entity.field_order_date.value', 'field_cover_content.entity.created');

@@ -2,13 +2,13 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\node\Entity\Node;
-use Drupal\node\NodeInterface;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Database\Query\Condition;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -33,10 +33,13 @@ class HighlightListRestResource extends AbstractRestResourceBase {
    */
   public function get(string $list) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
-      ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'highlight_list')
       ->condition('title', $list);
+
+    if (!$this->viewUnpublished()) {
+      $query->condition('status', NodeInterface::PUBLISHED);
+    }
 
     $dependencies = [];
 
@@ -49,7 +52,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
     $nids = $query->execute();
     if ($nids) {
       $nid = reset($nids);
-      /* @var \Drupal\node\Entity\Node $node */
+      /* @var Node $node */
       $node = Node::load($nid);
       $dependencies[] = $node;
       foreach ($node->get('field_highlight_items')->getValue() as $item) {

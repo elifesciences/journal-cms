@@ -2,11 +2,12 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\node\Entity\Node;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -31,10 +32,13 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
    */
   public function get(int $number) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
+      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'podcast_episode')
       ->condition('field_episode_number.value', $number);
+
+    if (!$this->viewUnpublished()) {
+      $query->condition('status', NodeInterface::PUBLISHED);
+    }
 
     $nids = $query->execute();
     if ($nids) {
@@ -78,7 +82,10 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       if ($node->get('field_episode_chapter')->count()) {
         $response['chapters'] = [];
         foreach ($node->get('field_episode_chapter')->referencedEntities() as $chapter) {
-          $response['chapters'][] = $this->getChapterItem($chapter, 0);
+          /* @var Node $chapter */
+          if ($chapter->isPublished() || $this->viewUnpublished()) {
+            $response['chapters'][] = $this->getChapterItem($chapter, 0);
+          }
         }
       }
 

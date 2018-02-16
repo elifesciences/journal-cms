@@ -3,10 +3,10 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\node\Entity\Node;
-use Drupal\node\NodeInterface;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -31,15 +31,18 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
    */
   public function get(string $id) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
-      ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'job_advert')
       ->condition('uuid', '%' . $id, 'LIKE');
 
+    if (!$this->viewUnpublished()) {
+      $query->condition('status', NodeInterface::PUBLISHED);
+    }
+
     $nids = $query->execute();
     if ($nids) {
       $nid = reset($nids);
-      /* @var \Drupal\node\Entity\Node $node */
+      /* @var Node $node */
       $node = Node::load($nid);
 
       $this->setSortBy(FALSE);

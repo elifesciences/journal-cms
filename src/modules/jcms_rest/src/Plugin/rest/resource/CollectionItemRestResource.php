@@ -2,9 +2,10 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\node\Entity\Node;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -29,10 +30,13 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
    */
   public function get(string $id) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
+      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'collection')
       ->condition('uuid', '%' . $id, 'LIKE');
+
+    if (!$this->viewUnpublished()) {
+      $query->condition('status', NodeInterface::PUBLISHED);
+    }
 
     $nids = $query->execute();
     if ($nids) {
@@ -72,16 +76,19 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
       $co = 0;
       $people_rest_resource = new PersonListRestResource([], 'person_list_rest_resource', [], $this->serializerFormats, $this->logger);
       $response['curators'] = [];
-      foreach ($node->get('field_curators') as $curator) {
-        $curator_item = $people_rest_resource->getItem($curator->get('entity')->getTarget()->getValue());
-        $response['curators'][] = $curator_item;
-        if ($co === 0) {
-          $response['selectedCurator'] = $curator_item;
+      foreach ($node->get('field_curators')->referencedEntities() as $curator) {
+        /* @var Node $curator */
+        if ($curator->isPublished() || $this->viewUnpublished()) {
+          $curator_item = $people_rest_resource->getItem($curator);
+          $response['curators'][] = $curator_item;
+          if ($co === 0) {
+            $response['selectedCurator'] = $curator_item;
+          }
+          elseif ($co === 1) {
+            $response['selectedCurator']['etAl'] = TRUE;
+          }
+          $co++;
         }
-        elseif ($co === 1) {
-          $response['selectedCurator']['etAl'] = TRUE;
-        }
-        $co++;
       }
 
       // Summary is optional.
@@ -96,25 +103,26 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
       $interview_rest_resource = new InterviewListRestResource([], 'interview_list_rest_resource', [], $this->serializerFormats, $this->logger);
 
       foreach (['content' => 'field_collection_content', 'relatedContent' => 'field_collection_related_content'] as $k => $field) {
-        foreach ($node->get($field) as $content) {
-          /* @var \Drupal\node\Entity\Node $content_node */
-          $content_node = $content->get('entity')->getTarget()->getValue();
-          switch ($content_node->getType()) {
-            case 'blog_article':
-              $response[$k][] = ['type' => 'blog-article'] + $blog_article_rest_resource->getItem($content_node);
-              break;
+        foreach ($node->get($field)->referencedEntities() as $content) {
+          /* @var Node $content */
+          if ($content->isPublished() || $this->viewUnpublished()) {
+            switch ($content->getType()) {
+              case 'blog_article':
+                $response[$k][] = ['type' => 'blog-article'] + $blog_article_rest_resource->getItem($content);
+                break;
 
-            case 'interview':
-              $response[$k][] = ['type' => 'interview'] + $interview_rest_resource->getItem($content_node);
-              break;
+              case 'interview':
+                $response[$k][] = ['type' => 'interview'] + $interview_rest_resource->getItem($content);
+                break;
 
-            case 'article':
-              if ($snippet = $this->getArticleSnippet($content_node)) {
-                $response[$k][] = $snippet;
-              }
-              break;
+              case 'article':
+                if ($snippet = $this->getArticleSnippet($content)) {
+                  $response[$k][] = $snippet;
+                }
+                break;
 
-            default:
+              default:
+            }
           }
         }
       }
@@ -123,8 +131,11 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
       if ($node->get('field_collection_podcasts')->count()) {
         $response['podcastEpisodes'] = [];
         $podcast_rest_resource = new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger);
-        foreach ($node->get('field_collection_podcasts') as $podcast) {
-          $response['podcastEpisodes'][] = $podcast_rest_resource->getItem($podcast->get('entity')->getTarget()->getValue());
+        foreach ($node->get('field_collection_podcasts')->referencedEntities() as $podcast) {
+          /* @var Node $podcast */
+          if ($podcast->isPublished() || $this->viewUnpublished()) {
+            $response['podcastEpisodes'][] = $podcast_rest_resource->getItem($podcast);
+          }
         }
       }
 

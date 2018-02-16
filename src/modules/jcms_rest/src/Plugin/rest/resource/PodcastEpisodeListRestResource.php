@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_rest\Exception\JCMSBadRequestHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -30,9 +31,12 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
+      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'podcast_episode');
+
+    if (!$this->viewUnpublished()) {
+      $base_query->condition('status', NodeInterface::PUBLISHED);
+    }
 
     $this->filterSubjects($base_query);
 
