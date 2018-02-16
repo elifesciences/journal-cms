@@ -196,7 +196,7 @@ function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
       if ($revision_ids) {
         foreach ($revision_ids as $revision_id) {
           try {
-//            \Drupal::entityTypeManager()->getStorage('paragraph')->deleteRevision($revision_id);
+            \Drupal::entityTypeManager()->getStorage('paragraph')->deleteRevision($revision_id);
             $count_deleted++;
             if (($count_deleted % $feedback_frequency) == 0) {
               drush_print(dt('Number of revisions deleted is !count.', ['!count' => $count_deleted]));
