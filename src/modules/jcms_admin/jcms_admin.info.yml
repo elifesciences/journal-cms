@@ -4,4 +4,5 @@ description: Admin improvements.
 core: 8.x
 dependencies:
   - jcms_rest
+  - scheduler
 package: Journal CMS

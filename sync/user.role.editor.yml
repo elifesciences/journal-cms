@@ -58,6 +58,7 @@ permissions:
   - 'edit any press_package content'
   - 'manipulate entityqueues'
   - 'revert cover revisions'
+  - 'schedule publishing of nodes'
   - 'update covers_preview entityqueue'
   - 'use draft_draft transition'
   - 'use draft_published transition'
@@ -84,4 +85,5 @@ permissions:
   - 'view content moderation'
   - 'view latest version'
   - 'view moderation states'
+  - 'view scheduled content'
   - 'view the administration theme'
