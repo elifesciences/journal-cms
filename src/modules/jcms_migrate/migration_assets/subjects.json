@@ -21,6 +21,13 @@
     "alt": "Microbiology and Infectious Disease"
   },
   {
+    "id": "immunology-inflammation",
+    "name": "Immunology and Inflammation",
+    "impact_statement": "eLife publishes research spanning allergy, immunity and immunoregulation, inflammation and T-cell receptor signalling. Decisions are made by <a href=\"https://elifesciences.org/about/people/immunology\">journal editors</a> who are active researchers in the field of immunology.",
+    "image": "subjects/elife-sciences-immunology-illustration.jpg",
+    "alt": "Immunology and Inflammation"
+  },
+  {
     "id": "immunology",
     "name": "Immunology",
     "impact_statement": "eLife publishes research spanning allergy, immunity and immunoregulation, inflammation and T-cell receptor signalling. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the field of immunology.",
@@ -96,6 +103,13 @@
     "impact_statement": "eLife publishes research that uses techniques including X-ray crystallography, cryo-EM and single-molecule methods. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the fields of biophysics and structural biology.",
     "image": "subjects/elife-sciences-biophysics-and-structural-biology-illustration.jpg",
     "alt": "Biophysics and Structural Biology"
+  },
+  {
+    "id": "biochemistry-chemical-biology",
+    "name": "Biochemistry and Chemical Biology",
+    "impact_statement": "eLife publishes research spanning chemical biology and enzymology to metabolism and membrane proteins. Decisions are made by <a href=\"https://elifesciences.org/about/people/biochemistry\">journal editors</a> who are active researchers in biochemistry.",
+    "image": "subjects/elife-sciences-biochemistry-illustration.jpg",
+    "alt": "Biochemistry and Chemical Biology"
   },
   {
     "id": "biochemistry",

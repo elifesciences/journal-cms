@@ -59,7 +59,8 @@
     "drupal/entity_reference_unpublished": "^1.0@alpha",
     "drupal/confi": "^1.4",
     "webmozart/path-util": "^2.3",
-    "sebastian/version": "~1.0.6"
+    "sebastian/version": "~1.0.6",
+    "drupal/scheduler": "^1.0"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",

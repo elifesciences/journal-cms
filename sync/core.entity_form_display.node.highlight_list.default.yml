@@ -26,6 +26,12 @@ content:
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
@@ -41,6 +47,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   created: true
   field_order_date: true
