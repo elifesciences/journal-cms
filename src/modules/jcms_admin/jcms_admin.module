@@ -542,8 +542,11 @@ function jcms_admin_node_presave(Node $node) {
     }
   }
 
+  // If content that is configured to use scheduler module and switches from
+  // unpublished to published then set the created date to be now.
   if (
-    $node->type->entity->getThirdPartySetting('scheduler', 'publish_enable', \Drupal::config('scheduler.settings')->get('default_publish_enable')) && $node->id() &&
+    $node->type->entity->getThirdPartySetting('scheduler', 'publish_enable', \Drupal::config('scheduler.settings')->get('default_publish_enable')) &&
+    $node->id() &&
     !(bool) $node->get('publish_on')->getValue() &&
     !$node->original->isPublished() &&
     $node->isPublished()
