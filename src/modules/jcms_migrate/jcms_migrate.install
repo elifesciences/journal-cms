@@ -887,3 +887,23 @@ function jcms_migrate_update_8114() {
   $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
   $executable->import();
 }
+
+/**
+ * Remove biochemistry and immunology msa.
+ */
+function jcms_migrate_update_8115() {
+  $msa = [
+    'biochemistry',
+    'immunology',
+  ];
+  $tids = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'subjects')
+    ->condition('field_subject_id.value', $msa, 'IN')
+    ->execute();
+  $controller = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $entities = $controller->loadMultiple($tids);
+  $controller->delete($entities);
+
+  $migration = \Drupal::service('plugin.manager.migration')->createInstance('jcms_subjects_json');
+  $migration->getIdMap()->delete($msa);
+}

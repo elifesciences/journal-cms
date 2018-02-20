@@ -28,13 +28,6 @@
     "alt": "Immunology and Inflammation"
   },
   {
-    "id": "immunology",
-    "name": "Immunology",
-    "impact_statement": "eLife publishes research spanning allergy, immunity and immunoregulation, inflammation and T-cell receptor signalling. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the field of immunology.",
-    "image": "subjects/elife-sciences-immunology-illustration.jpg",
-    "alt": "Immunology"
-  },
-  {
     "id": "human-biology-medicine",
     "name": "Human Biology and Medicine",
     "impact_statement": "eLife publishes research in clinical and translational research, human genetics, cancer, diabetes and developmental disorders. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in human biology and medicine.",
@@ -110,12 +103,5 @@
     "impact_statement": "eLife publishes research spanning chemical biology and enzymology to metabolism and membrane proteins. Decisions are made by <a href=\"https://elifesciences.org/about/people/biochemistry\">journal editors</a> who are active researchers in biochemistry.",
     "image": "subjects/elife-sciences-biochemistry-illustration.jpg",
     "alt": "Biochemistry and Chemical Biology"
-  },
-  {
-    "id": "biochemistry",
-    "name": "Biochemistry",
-    "impact_statement": "eLife publishes research spanning chemical biology and enzymology to metabolism and membrane proteins. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in biochemistry.",
-    "image": "subjects/elife-sciences-biochemistry-illustration.jpg",
-    "alt": "Biochemistry"
   }
 ]
