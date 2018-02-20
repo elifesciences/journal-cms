@@ -902,8 +902,10 @@ function jcms_migrate_update_8115() {
     ->execute();
   $controller = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
   $entities = $controller->loadMultiple($tids);
+  // Delete taxonomy terms.
   $controller->delete($entities);
 
+  // Delete reference to these terms in migrate map.
   $migration = \Drupal::service('plugin.manager.migration')->createInstance('jcms_subjects_json');
   $migration->getIdMap()->delete($msa);
 }
