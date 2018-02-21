@@ -100,8 +100,8 @@ class JCMSHtmlHelperTraitTest extends UnitTestCase {
           ],
         ],
       ],
-      'paragraphs-with-table-multi-line' => [
-        "Paragraph one\n\n<table>\n<tr>\n<td>Cell one</td>\n</tr></table>\n\nParagraph two",
+      'paragraphs-with-table-multi-line-with-whitespace' => [
+        "Paragraph one\n\n<table>\n<tr>\n<td>Cell one</td>\n\t</tr></table>\n\nParagraph two",
         [
           "Paragraph one",
           [

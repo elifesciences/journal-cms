@@ -39,8 +39,9 @@ trait JCMSHtmlHelperTrait {
     $new_split = [];
     $table_found = [];
     foreach ($split as $item) {
+      $item = trim($item);
       if (empty($table_found)) {
-        if (strpos(trim($item), '<table') === 0) {
+        if (strpos($item, '<table') === 0) {
           $table_found[] = $item;
         }
         else {
@@ -51,7 +52,7 @@ trait JCMSHtmlHelperTrait {
         $table_found[] = $item;
 
       }
-      if (!empty($table_found) && substr(trim($item), -8) === '</table>') {
+      if (!empty($table_found) && substr($item, -8) === '</table>') {
         $new_split[] = implode('', $table_found);
         $table_found = [];
       }
