@@ -84,6 +84,11 @@ class SubjectListRestResource extends AbstractRestResourceBase {
         unset($item['impactStatement']);
       }
     }
+
+    if ($aims = $this->processFieldContent($term->get('field_aims_and_scope'))) {
+      $item['aimsAndScope'] = $aims;
+    }
+
     return $item;
   }
 
