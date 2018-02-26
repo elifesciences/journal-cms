@@ -3,12 +3,14 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.subjects.field_aims_and_scope
     - field.field.taxonomy_term.subjects.field_image
     - field.field.taxonomy_term.subjects.field_image_attribution
     - field.field.taxonomy_term.subjects.field_impact_statement
     - field.field.taxonomy_term.subjects.field_subject_id
     - taxonomy.vocabulary.subjects
   module:
+    - entity_reference_revisions
     - image
     - text
 id: taxonomy_term.subjects.default
@@ -21,6 +23,15 @@ content:
     type: text_default
     weight: 0
     settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_aims_and_scope:
+    type: entity_reference_revisions_entity_view
+    weight: 5
+    label: above
+    settings:
+      view_mode: default
+      link: ''
     third_party_settings: {  }
     region: content
   field_image:

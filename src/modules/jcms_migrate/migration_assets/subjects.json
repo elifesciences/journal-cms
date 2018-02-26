@@ -94,6 +94,12 @@
     "id": "biophysics-structural-biology",
     "name": "Biophysics and Structural Biology",
     "impact_statement": "eLife publishes research that uses techniques including X-ray crystallography, cryo-EM and single-molecule methods. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the fields of biophysics and structural biology.",
+    "aims_and_scope": [
+      {
+        "type": "paragraph",
+        "text": "eLife aims to publish papers that provide new mechanistic insights into the structure, function, and regulation of biological molecules including proteins, nucleic acids, lipids, carbohydrates, and natural products. In addition, we are interested in studies that illuminate complex biological processes using chemical tools and approaches."
+      }
+    ],
     "image": "subjects/elife-sciences-biophysics-and-structural-biology-illustration.jpg",
     "alt": "Biophysics and Structural Biology"
   },
