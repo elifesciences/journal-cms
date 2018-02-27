@@ -56,6 +56,10 @@ class SubjectItemRestResource extends AbstractRestResourceBase {
         }
       }
 
+      if ($aims = $this->processFieldContent($term->get('field_aims_and_scope'))) {
+        $response['aimsAndScope'] = $aims;
+      }
+
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
       $response->addCacheableDependency($term);
       $this->processResponse($response);
