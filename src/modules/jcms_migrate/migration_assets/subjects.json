@@ -7,6 +7,13 @@
     "alt": "Plant Biology"
   },
   {
+    "id": "physics-of-living-systems",
+    "name": "Physics of Living Systems",
+    "impact_statement": "eLife publishes research in which approaches from the physical sciences are used to provide insights into the properties of biological systems and processes. Decisions are made by journal editors who are active researchers in the physics of living systems.",
+    "image": "subjects/elife-sciences-physics-of-living-systems-illustration.jpg",
+    "alt": "Physics of Living Systems"
+  },
+  {
     "id": "neuroscience",
     "name": "Neuroscience",
     "impact_statement": "eLife publishes research including brain function, neuronal circuits, synapses, sensory processing and motor pattern generation. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in neuroscience.",
