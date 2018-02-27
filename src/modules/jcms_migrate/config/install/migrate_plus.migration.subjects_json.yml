@@ -19,15 +19,19 @@ source:
       selector: name
     -
       name: impact_statement
-      label: 'Experiment impact statement'
+      label: 'Subject impact statement'
       selector: impact_statement
     -
+      name: aims_and_scope
+      label: 'Subject aims and scope'
+      selector: aims_and_scope
+    -
       name: image
-      label: 'Experiment image'
+      label: 'Subject image'
       selector: image
     -
       name: alt
-      label: 'Experiment image alt text'
+      label: 'Subject image alt text'
       selector: alt
   ids:
     id:
@@ -47,6 +51,9 @@ process:
   'field_impact_statement/format':
     plugin: default_value
     default_value: basic_html
+  field_aims_and_scope:
+    plugin: jcms_aims_and_scope
+    source: aims_and_scope
   field_image:
     plugin: jcms_image
     source:

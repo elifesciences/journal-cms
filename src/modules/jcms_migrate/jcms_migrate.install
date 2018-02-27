@@ -904,8 +904,14 @@ function jcms_migrate_update_8115() {
   $entities = $controller->loadMultiple($tids);
   // Delete taxonomy terms.
   $controller->delete($entities);
+}
 
-  // Delete reference to these terms in migrate map.
-  $migration = \Drupal::service('plugin.manager.migration')->createInstance('jcms_subjects_json');
-  $migration->getIdMap()->delete($msa);
+/**
+ * Remove biochemistry and immunology msa from migration map.
+ */
+function jcms_migrate_update_8116() {
+  $migrate_id_map = \Drupal::service('plugin.manager.config_entity_migration')->createInstance('jcms_subjects_json')->getIdMap();
+  foreach (['biochemistry', 'immunology'] as $msa) {
+    $migrate_id_map->delete([$msa]);
+  }
 }
