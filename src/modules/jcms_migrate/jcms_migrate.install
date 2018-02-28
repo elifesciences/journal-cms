@@ -917,7 +917,7 @@ function jcms_migrate_update_8116() {
 }
 
 /**
- * Import the MSA physics-of-living-systems and structural-biology-molecular-biophysics.
+ * Import the MSA physics-living-systems and structural-biology-molecular-biophysics.
  */
 function jcms_migrate_update_8117() {
     $manager = \Drupal::service('plugin.manager.config_entity_migration');
