@@ -925,3 +925,13 @@ function jcms_migrate_update_8117() {
     $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
     $executable->import();
 }
+
+/**
+ * Import the MSA physics-living-systems.
+ */
+function jcms_migrate_update_8118() {
+    $manager = \Drupal::service('plugin.manager.config_entity_migration');
+    $plugins = $manager->createInstances([]);
+    $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
+    $executable->import();
+}
