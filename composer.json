@@ -68,7 +68,8 @@
     "elife/api-validator": "dev-master",
     "justinrainbow/json-schema": "^5.2",
     "mindplay/composer-locator": "^2.1",
-    "phpunit/phpunit": "~4.8.36"
+    "phpunit/phpunit": "~4.8.36",
+    "drupal/coder": "^8.2"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
