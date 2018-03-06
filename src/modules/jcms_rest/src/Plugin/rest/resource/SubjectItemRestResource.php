@@ -49,15 +49,15 @@ class SubjectItemRestResource extends AbstractRestResourceBase {
         }
       }
 
-      if ($term->get('field_impact_statement')->count()) {
-        $response['impactStatement'] = $this->fieldValueFormatted($term->get('field_impact_statement'));
-        if (empty($response['impactStatement'])) {
-          unset($response['impactStatement']);
-        }
+      if ($term->get('field_impact_statement')->count() && $impact = $this->fieldValueFormatted($term->get('field_impact_statement'))) {
+        $response['impactStatement'] = $impact;
       }
 
-      if ($aims = $this->processFieldContent($term->get('field_aims_and_scope'))) {
-        $response['aimsAndScope'] = $aims;
+      if ($term->get('field_aims_and_scope')->count() && $aims = $this->splitParagraphs($this->fieldValueFormatted($term->get('field_aims_and_scope'), FALSE))) {
+        $response['aimsAndScope'][] = [
+          'type' => 'paragraph',
+          'text' => implode(' ', $aims),
+        ];
       }
 
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
