@@ -79,9 +79,6 @@ function jcms_article_form_alter(&$form, FormStateInterface $form_state, $form_i
 
 /**
  * Submit function for node_article_form and node_article_edit_form.
- *
- * @param $form
- * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
 function _jcms_article_form_node_article_edit_form_submit($form, FormStateInterface $form_state) {
   _jcms_admin_static_store('node_article_form_admin_ui', 1);

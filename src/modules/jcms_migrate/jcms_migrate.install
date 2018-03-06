@@ -534,7 +534,9 @@ function jcms_migrate_update_8103() {
         foreach ($affiliations[$id] as $affiliation) {
           $values = [
             'type' => 'affiliation',
-            'field_block_title_multiline' => ['value' => preg_replace('/\|/', "\n", $affiliation['name'])],
+            'field_block_title_multiline' => [
+              'value' => preg_replace('/\|/', "\n", $affiliation['name']),
+            ],
             'field_block_country' => ['value' => $affiliation['country']],
           ];
           $paragraph = Paragraph::create($values);
@@ -671,7 +673,7 @@ function jcms_migrate_update_8107() {
 }
 
 /**
- * Changing field_block_attribution field from string(plain text) to text(formatted).
+ * Changing field_block_attribution field from text(plain) to text(formatted).
  */
 function jcms_migrate_update_8108() {
   $fields = [
@@ -789,25 +791,25 @@ function jcms_migrate_update_8109() {
  * Amend content publication dates.
  */
 function jcms_migrate_update_8110() {
-    $content = [
-        '0820e5dd' => '2017-10-24',
-    ];
+  $content = [
+    '0820e5dd' => '2017-10-24',
+  ];
 
-    $query = \Drupal::entityQuery('node')
-        ->condition('changed', \Drupal::time()->getRequestTime(), '<')
-        ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
-        ->condition('type', 'press_package');
+  $query = \Drupal::entityQuery('node')
+    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+    ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
+    ->condition('type', 'press_package');
 
-    $nids = $query->execute();
-    if ($nids) {
-        $nodes = Node::loadMultiple($nids);
-        foreach ($nodes as $node) {
-            $id = substr($node->uuid(), -8);
-            $current = $node->getCreatedTime();
-            $node->set('created', strtotime($content[$id] . ' ' . date('H:i:s', $current)));
-            $node->save();
-        }
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $id = substr($node->uuid(), -8);
+      $current = $node->getCreatedTime();
+      $node->set('created', strtotime($content[$id] . ' ' . date('H:i:s', $current)));
+      $node->save();
     }
+  }
 }
 
 /**
@@ -841,7 +843,7 @@ function jcms_migrate_update_8112() {
 }
 
 /**
- * Resave all nodes that need to presave processed output
+ * Resave all nodes that need to presave processed output.
  */
 function jcms_migrate_update_8113(&$sandbox) {
   if (!isset($sandbox['progress'])) {
@@ -849,13 +851,27 @@ function jcms_migrate_update_8113(&$sandbox) {
     $sandbox['progress'] = 0;
     $sandbox['current_pk'] = 0;
     $query = \Drupal::entityQuery('node')
-      ->condition('type', ['blog_article', 'event', 'interview', 'labs_experiment', 'person', 'press_package'], 'IN');
+      ->condition('type', [
+        'blog_article',
+        'event',
+        'interview',
+        'labs_experiment',
+        'person',
+        'press_package',
+      ], 'IN');
     $sandbox['max'] = $query->count()->execute() - 1;
   }
 
   // Update 20 nodes at a time.
   $query = \Drupal::entityQuery('node')
-    ->condition('type', ['blog_article', 'event', 'interview', 'labs_experiment', 'person', 'press_package'], 'IN')
+    ->condition('type', [
+      'blog_article',
+      'event',
+      'interview',
+      'labs_experiment',
+      'person',
+      'press_package',
+    ], 'IN')
     ->condition('nid', $sandbox['current_pk'], '>')
     ->range(0, 20)
     ->sort('nid', 'ASC');
@@ -871,7 +887,7 @@ function jcms_migrate_update_8113(&$sandbox) {
     }
   }
   if (empty($sandbox['max']) ||  $sandbox['progress'] >= $sandbox['max']) {
-     $sandbox['#finished'] = TRUE;
+    $sandbox['#finished'] = TRUE;
   }
   else {
     $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
@@ -920,41 +936,41 @@ function jcms_migrate_update_8116() {
  * Import the MSA structural-biology-molecular-biophysics.
  */
 function jcms_migrate_update_8117() {
-    $manager = \Drupal::service('plugin.manager.config_entity_migration');
-    $plugins = $manager->createInstances([]);
-    $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
-    $executable->import();
+  $manager = \Drupal::service('plugin.manager.config_entity_migration');
+  $plugins = $manager->createInstances([]);
+  $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
+  $executable->import();
 }
 
 /**
  * Import the MSA physics-living-systems.
  */
 function jcms_migrate_update_8118() {
-    $manager = \Drupal::service('plugin.manager.config_entity_migration');
-    $plugins = $manager->createInstances([]);
-    $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
-    $executable->import();
+  $manager = \Drupal::service('plugin.manager.config_entity_migration');
+  $plugins = $manager->createInstances([]);
+  $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
+  $executable->import();
 }
 
 /**
  * Remove biophysics-structural-biology msa.
  */
 function jcms_migrate_update_8119() {
-    $msa = [
-        'biophysics-structural-biology',
-    ];
-    $tids = \Drupal::entityQuery('taxonomy_term')
-        ->condition('vid', 'subjects')
-        ->condition('field_subject_id.value', $msa, 'IN')
-        ->execute();
-    $controller = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
-    $entities = $controller->loadMultiple($tids);
-    // Delete taxonomy terms.
-    $controller->delete($entities);
+  $msa = [
+    'biophysics-structural-biology',
+  ];
+  $tids = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'subjects')
+    ->condition('field_subject_id.value', $msa, 'IN')
+    ->execute();
+  $controller = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $entities = $controller->loadMultiple($tids);
+  // Delete taxonomy terms.
+  $controller->delete($entities);
 
-    // Remove from migration map.
-    $migrate_id_map = \Drupal::service('plugin.manager.config_entity_migration')->createInstance('jcms_subjects_json')->getIdMap();
-    foreach ($msa as $id) {
-        $migrate_id_map->delete([$id]);
-    }
+  // Remove from migration map.
+  $migrate_id_map = \Drupal::service('plugin.manager.config_entity_migration')->createInstance('jcms_subjects_json')->getIdMap();
+  foreach ($msa as $id) {
+    $migrate_id_map->delete([$id]);
+  }
 }

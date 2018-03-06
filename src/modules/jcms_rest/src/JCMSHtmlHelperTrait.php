@@ -4,15 +4,15 @@ namespace Drupal\jcms_rest;
 
 use Drupal\Component\Utility\Html;
 
+/**
+ * Trait JCMSHtmlHelperTrait.
+ */
 trait JCMSHtmlHelperTrait {
 
   /**
    * Split paragraphs into array of paragraphs and lists.
-   *
-   * @param string $paragraphs
-   * @return array
    */
-  public function splitParagraphs(string $paragraphs) {
+  public function splitParagraphs(string $paragraphs) : array {
     $dom = Html::load($paragraphs);
     $xpath = new \DOMXPath($dom);
     foreach ($xpath->query('//body/ul | //body/ol') as $node) {
@@ -31,11 +31,8 @@ trait JCMSHtmlHelperTrait {
 
   /**
    * Gather adjacent lines with tables.
-   *
-   * @param array $split
-   * @return array
    */
-  public function gatherTables(array $split) {
+  public function gatherTables(array $split) : array {
     $new_split = [];
     $table_found = [];
     foreach ($split as $item) {
@@ -64,8 +61,8 @@ trait JCMSHtmlHelperTrait {
   /**
    * Convert HTML on single line to schema structure.
    *
-   * @param string $html
    * @return array|string
+   *   Blocks as array or string if table or list.
    */
   public function convertHtmlToSchema(string $html) {
     if (!preg_match('~^\s*<(table|ul|ol)[^>]*>.*</\1>\s*$~', $html)) {
@@ -112,4 +109,5 @@ trait JCMSHtmlHelperTrait {
       return $schema;
     }
   }
+
 }

@@ -10,6 +10,9 @@ use function GuzzleHttp\Psr7\normalize_header;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\Core\Cache\CacheableResponseTrait;
 
+/**
+ * Class JCMSRestResponse.
+ */
 class JCMSRestResponse extends JsonResponse implements CacheableResponseInterface {
 
   use CacheableResponseTrait;
@@ -24,8 +27,6 @@ class JCMSRestResponse extends JsonResponse implements CacheableResponseInterfac
 
   /**
    * Allows multiple items to be added as cacheable dependencies.
-   *
-   * @param array $dependencies
    */
   public function addCacheableDependencies(array $dependencies) {
     foreach ($dependencies as $dependency) {
@@ -45,7 +46,13 @@ class JCMSRestResponse extends JsonResponse implements CacheableResponseInterfac
 
     $build = [
       '#cache' => [
-        'contexts' => ['url', 'user.permissions', 'headers:X-Consumer-Groups', 'headers:Accept', 'headers:If-None-Match', 'headers:If-Modified-Since'],
+        'contexts' => ['url',
+          'user.permissions',
+          'headers:X-Consumer-Groups',
+          'headers:Accept',
+          'headers:If-None-Match',
+          'headers:If-Modified-Since',
+        ],
         'max-age' => $max_age,
       ],
     ];

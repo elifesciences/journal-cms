@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_admin\Plugin\Field\FieldWidget;
 
+use Drupal\inline_entity_form\Plugin\Field\FieldWidget\InlineEntityFormComplex as IefInlineEntityFormComplex;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -17,7 +18,7 @@ use Drupal\Core\Form\FormStateInterface;
  *   multiple_values = true
  * )
  */
-class InlineEntityFormComplex extends \Drupal\inline_entity_form\Plugin\Field\FieldWidget\InlineEntityFormComplex {
+class InlineEntityFormComplex extends IefInlineEntityFormComplex {
 
   /**
    * {@inheritdoc}
@@ -25,7 +26,11 @@ class InlineEntityFormComplex extends \Drupal\inline_entity_form\Plugin\Field\Fi
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element = parent::formElement($items, $delta, $element, $form, $form_state);
 
-    $entities = $form_state->get(['inline_entity_form', $this->getIefId(), 'entities']);
+    $entities = $form_state->get([
+      'inline_entity_form',
+      $this->getIefId(),
+      'entities',
+    ]);
     foreach ($entities as $key => $value) {
       /** @var \Drupal\Core\Entity\EntityInterface $entity */
       $entity = $value['entity'];

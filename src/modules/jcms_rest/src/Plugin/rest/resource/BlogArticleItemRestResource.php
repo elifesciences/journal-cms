@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\node\Entity\Node;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,18 +20,16 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class BlogArticleItemRestResource extends AbstractRestResourceBase {
   protected $latestVersion = 2;
+
   /**
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
    *
-   * @param string $id
-   * @return array|\Symfony\Component\HttpFoundation\JsonResponse
-   *
    * @throws \Symfony\Component\HttpKernel\Exception\HttpException
    *   Throws exception expected.
    */
-  public function get($id) {
+  public function get(string $id) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
       ->condition('status', NODE_PUBLISHED)
       ->condition('changed', REQUEST_TIME, '<')
@@ -41,7 +40,7 @@ class BlogArticleItemRestResource extends AbstractRestResourceBase {
     if ($nids) {
       $nid = reset($nids);
       /* @var \Drupal\node\Entity\Node $node */
-      $node = \Drupal\node\Entity\Node::load($nid);
+      $node = Node::load($nid);
 
       $response = $this->processDefault($node, $id);
 

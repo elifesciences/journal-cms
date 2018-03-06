@@ -3,6 +3,7 @@
 namespace Drupal\jcms_notifications;
 
 use Aws\AwsClientInterface;
+use Aws\Result;
 use Aws\Sns\SnsClient;
 use Drupal\Core\Site\Settings;
 use Drupal\jcms_notifications\Notification\BusOutgoingMessage;
@@ -15,6 +16,8 @@ use Drupal\jcms_notifications\Notification\BusOutgoingMessage;
 final class NotificationService {
 
   /**
+   * SNS client.
+   *
    * @var \Aws\Sns\SnsClient
    */
   protected $snsClient;
@@ -27,8 +30,6 @@ final class NotificationService {
 
   /**
    * NotificationService constructor.
-   *
-   * @param \Aws\AwsClientInterface|NULL $sns_client
    */
   public function __construct(AwsClientInterface $sns_client = NULL) {
     $this->endpoint = Settings::get('jcms_sqs_endpoint');
@@ -47,12 +48,8 @@ final class NotificationService {
 
   /**
    * Sends a notification message to SNS.
-   *
-   * @param \Drupal\jcms_notifications\Notification\BusOutgoingMessage $message
-   *
-   * @return \Aws\Result
    */
-  public function sendNotification(BusOutgoingMessage $message) {
+  public function sendNotification(BusOutgoingMessage $message) : Result {
     $topic_arn = sprintf($this->topicArn, $message->getTopic());
     return $this->snsClient->publish([
       'TopicArn' => $topic_arn,

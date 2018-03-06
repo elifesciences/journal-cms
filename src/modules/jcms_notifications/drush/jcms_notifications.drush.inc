@@ -180,10 +180,15 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
       $logger->info('Received message', ['message' => $message->getMessage()]);
       $id = $message->getId();
 
-      // Temporary tolerance in id while articles and metrics id are inconsistent.
+      // Temporary tolerance in id while articles and metrics id are
+      // inconsistent.
       if (strlen($id) < 5 && in_array($message->getType(), ['article', 'metrics'])) {
         $id = str_pad($id, 5, '0', STR_PAD_LEFT);
-        $logger->warning('Id for type is too short. Changing before to after.', ['type' => $message->getType(), 'before' => $message->getId(), 'after' => $id]);
+        $logger->warning('Id for type is too short. Changing before to after.', [
+          'type' => $message->getType(),
+          'before' => $message->getId(),
+          'after' => $id,
+        ]);
       }
 
       try {
@@ -194,6 +199,7 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
             $crud_service->crudArticle($articleVersions);
             $logger->info('Article snippet updated', ['message' => $message->getMessage()]);
             break;
+
           case 'metrics':
             // Process article views-downloads metrics sqs items.
             $body = $message->getMessage();
@@ -267,7 +273,11 @@ function drush_jcms_notifications_send_notifications() {
     foreach ($entities as $entity) {
       $entity_ids[] = $entity->id();
       $busMessage = $sns_crud->sendMessage($entity);
-      $logger->info('Sent notification', ['message' => json_decode($busMessage->getMessageJson(), true), 'etid' => $entity->getEntityTypeId(), 'eid' => $entity->id()]);
+      $logger->info('Sent notification', [
+        'message' => json_decode($busMessage->getMessageJson(), TRUE),
+        'etid' => $entity->getEntityTypeId(),
+        'eid' => $entity->id(),
+      ]);
     }
     $storage->deleteNotificationEntityIds($entity_ids);
     sleep($sleep);

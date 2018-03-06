@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\node\Entity\Node;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,18 +19,13 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class AnnualReportItemRestResource extends AbstractRestResourceBase {
+
   /**
    * Responds to GET requests.
    *
-   * Returns a list of bundles for specified entity.
-   *
-   * @param int $year
-   * @return array|\Symfony\Component\HttpFoundation\JsonResponse
-   *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
+   * @throws JCMSNotFoundHttpException
    */
-  public function get(int $year) {
+  public function get(int $year) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
       ->condition('status', NODE_PUBLISHED)
       ->condition('changed', REQUEST_TIME, '<')
@@ -40,7 +36,7 @@ class AnnualReportItemRestResource extends AbstractRestResourceBase {
     if ($nids) {
       $nid = reset($nids);
       /* @var \Drupal\node\Entity\Node $node */
-      $node = \Drupal\node\Entity\Node::load($nid);
+      $node = Node::load($nid);
 
       $this->setSortBy(FALSE);
       $response = $this->processDefault($node, $year, 'year');

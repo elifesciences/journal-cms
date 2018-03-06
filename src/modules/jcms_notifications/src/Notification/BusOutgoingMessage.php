@@ -2,6 +2,11 @@
 
 namespace Drupal\jcms_notifications\Notification;
 
+/**
+ * Class BusOutgoingMessage.
+ *
+ * @package Drupal\jcms_notifications
+ */
 final class BusOutgoingMessage {
 
   private $id;
@@ -14,11 +19,6 @@ final class BusOutgoingMessage {
 
   /**
    * BusOutgoingMessage constructor.
-   *
-   * @param string $id
-   * @param string $key
-   * @param string $topic
-   * @param string $type
    */
   public function __construct(string $id, string $key, string $topic, string $type) {
     $this->id = $id;
@@ -28,28 +28,28 @@ final class BusOutgoingMessage {
   }
 
   /**
-   * @return string
+   * Get message ID.
    */
   public function getId(): string {
     return $this->id;
   }
 
   /**
-   * @return string
+   * Get message key.
    */
   public function getKey(): string {
     return $this->key;
   }
 
   /**
-   * @return string
+   * Get message topic.
    */
   public function getTopic(): string {
     return $this->topic;
   }
 
   /**
-   * @return string
+   * Get message type.
    */
   public function getType(): string {
     return $this->type;
@@ -57,8 +57,6 @@ final class BusOutgoingMessage {
 
   /**
    * Returns an SNS message as a JSON string.
-   *
-   * @return string
    */
   public function getMessageJson(): string {
     return json_encode(['type' => $this->getType(), $this->getKey() => $this->getId()]);

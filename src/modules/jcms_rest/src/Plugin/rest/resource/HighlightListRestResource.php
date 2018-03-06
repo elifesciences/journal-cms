@@ -2,12 +2,13 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Database\Query\Condition;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
-use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -28,15 +29,11 @@ class HighlightListRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @param string $list
-   * @return array|\Symfony\Component\HttpFoundation\JsonResponse
-   *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
+   * @throws JCMSNotFoundHttpException
    */
-  public function get($list) {
+  public function get(string $list) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
-      ->condition('status', \Drupal\node\NodeInterface::PUBLISHED)
+      ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'highlight_list')
       ->condition('title', $list);
@@ -53,7 +50,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
     if ($nids) {
       $nid = reset($nids);
       /* @var \Drupal\node\Entity\Node $node */
-      $node = \Drupal\node\Entity\Node::load($nid);
+      $node = Node::load($nid);
       $dependencies[] = $node;
       foreach ($node->get('field_highlight_items')->getValue() as $item) {
         $item_nids[] = $item['target_id'];
@@ -77,7 +74,9 @@ class HighlightListRestResource extends AbstractRestResourceBase {
         $query->leftJoin('taxonomy_term__field_subject_id', 'spi', 'spi.entity_id = sp.field_subjects_target_id');
         $query->addField('spi', 'field_subject_id_value', 'podcast_subject_id');
         $query->innerJoin('node_field_data', 'nfd', 'nfd.nid = hi.field_highlight_item_target_id');
-        // Use the created date for all content other than collections which should use the changed date. Created date doe articles is set to status date.
+        // Use the created date for all content other than collections which
+        // should use the changed date. Created date doe articles is set to
+        // status date.
         $query->addExpression("IF(nfd.type='collection', nfd.changed, nfd.created)", 'order_date');
         $query->orderBy('order_date', 'DESC');
         $db_or = new Condition('OR');
@@ -97,7 +96,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
     if (!empty($item_nids)) {
       $response_data['total'] = count($item_nids);
       /* @var \Drupal\node\Entity\Node[] $items */
-      if ($items = \Drupal\node\Entity\Node::loadMultiple($this->filterPageAndOrderArray($item_nids))) {
+      if ($items = Node::loadMultiple($this->filterPageAndOrderArray($item_nids))) {
         foreach ($items as $item) {
           $dependencies[] = $item;
           if ($highlight = $this->getItem($item)) {
@@ -118,9 +117,8 @@ class HighlightListRestResource extends AbstractRestResourceBase {
   /**
    * Takes a highlight item node and builds a snippet from it.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   *
    * @return array|bool
+   *   Return item, if found.
    */
   public function getItem(EntityInterface $node) {
     /* @var Node $node */
@@ -141,13 +139,8 @@ class HighlightListRestResource extends AbstractRestResourceBase {
 
   /**
    * Apply filter for page, per-page and order.
-   *
-   * @param array $nids
-   * @param mixed
-   *
-   * @return array
    */
-  protected function filterPageAndOrderArray($nids, $sort_by = NULL) {
+  protected function filterPageAndOrderArray(array $nids) : array {
     $request_options = $this->getRequestOptions();
 
     if ($request_options['order'] == 'asc') {

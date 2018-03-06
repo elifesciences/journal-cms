@@ -20,6 +20,8 @@ class JCMSImage extends ProcessPluginBase {
   use JCMSGetRemoteFileTrait;
 
   /**
+   * Store constructor row argument.
+   *
    * @var \Drupal\migrate\Row
    */
   protected $row;
@@ -68,13 +70,16 @@ class JCMSImage extends ProcessPluginBase {
   }
 
   /**
-   * @return \Drupal\migrate\Row
+   * Get stored row.
    */
-  private function getRow() {
+  private function getRow() : Row {
     return $this->row;
   }
 
-  private function imagePath($type = NULL, $time = NULL) {
+  /**
+   * Derive image path from type and time.
+   */
+  private function imagePath(string $type = NULL, int $time = NULL) : string {
     $destination = $this->getRow()->getDestination();
     if (!$type) {
       $type = (!empty($destination['vid'])) ? $destination['vid'] : $destination['type'];
@@ -86,8 +91,10 @@ class JCMSImage extends ProcessPluginBase {
     return 'public://iiif/' . $folder;
   }
 
-  public static function transliteration($string) {
-    // Transliterate and sanitize the string.
+  /**
+   * Transliterate and sanitize the string.
+   */
+  public static function transliteration(string $string) : string {
     $string = \Drupal::transliteration()->transliterate($string, LanguageInterface::LANGCODE_NOT_SPECIFIED, '');
 
     // Replace whitespace.

@@ -17,11 +17,15 @@ use Symfony\Component\HttpFoundation\Response;
 final class FetchArticleVersions {
 
   /**
+   * GuzzleHttp\Client definition.
+   *
    * @var \GuzzleHttp\Client
    */
   protected $client;
 
   /**
+   * Article versions end point.
+   *
    * @var string
    */
   protected $endpoint;
@@ -39,10 +43,8 @@ final class FetchArticleVersions {
 
   /**
    * Allow an alternate endpoint to be set.
-   *
-   * @param $endpoint
    */
-  public function setEndpoint($endpoint) {
+  public function setEndpoint(string $endpoint) {
     if (!empty($endpoint)) {
       $this->endpoint = $endpoint;
     }
@@ -50,10 +52,6 @@ final class FetchArticleVersions {
 
   /**
    * Gets article versions by ID.
-   *
-   * @param string $id
-   *
-   * @return \Drupal\jcms_article\Entity\ArticleVersions
    */
   public function getArticleVersions(string $id): ArticleVersions {
     $response = $this->requestArticleVersions($id);
@@ -65,9 +63,6 @@ final class FetchArticleVersions {
   /**
    * Makes the request to get the article versions.
    *
-   * @param string $id
-   *
-   * @return \Psr\Http\Message\ResponseInterface
    * @throws BadResponseException
    */
   private function requestArticleVersions(string $id): ResponseInterface {
@@ -101,11 +96,6 @@ final class FetchArticleVersions {
 
   /**
    * Helper method to format an URL with a correct ID.
-   *
-   * @param string $id
-   * @param string $url
-   *
-   * @return string
    */
   protected function formatUrl(string $id, string $url): string {
     return sprintf($url, $id);

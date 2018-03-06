@@ -28,9 +28,10 @@ class UnsupportedEndpointValidatorTest extends FixtureBasedTestCase {
   }
 
   /**
+   * Test unsupported endpoints recursively.
+   *
    * @test
    * @dataProvider dataProvider
-   * {@inheritdoc}
    */
   public function testUnsupportedEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, $media_type_item = NULL, $check = '') {
     $items = $this->gatherListItems($endpoint, $media_type_list);

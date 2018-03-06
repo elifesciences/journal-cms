@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class AnnualReportListRestResource extends AbstractRestResourceBase {
+
   /**
    * Responds to GET requests.
    *
@@ -61,12 +62,8 @@ class AnnualReportListRestResource extends AbstractRestResourceBase {
 
   /**
    * Takes a node and builds an item from it.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   *
-   * @return array
    */
-  public function getItem(EntityInterface $node) {
+  public function getItem(EntityInterface $node) : array {
     /* @var Node $node */
     $item = $this->processDefault($node, (int) $node->get('field_annual_report_year')->getString(), 'year');
 

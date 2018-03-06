@@ -4,7 +4,6 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\entityqueue\Entity\EntitySubqueue;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
-use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -21,7 +20,9 @@ use Symfony\Component\HttpFoundation\Response;
 class CoverCurrentListRestResource extends AbstractRestResourceBase {
 
   /**
-   * @var Node[]
+   * Cover nodes.
+   *
+   * @var \Drupal\node\Entity\Node[]
    */
   private $nodes = [];
 
@@ -30,13 +31,10 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
-   *
    * @todo - elife - nlisgo - Handle version specific requests
    * @todo - elife - nlisgo - some of the migrated covers did not retain images.
    */
-  public function get() {
+  public function get() : JCMSRestResponse {
     if ($this->viewUnpublished()) {
       $response_data = $this->getPreview();
     }
@@ -52,10 +50,8 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
 
   /**
    * Get the current covers list.
-   *
-   * @return array
    */
-  public function getPublished() {
+  public function getPublished() : array {
     $response_data = [
       'items' => [],
     ];
@@ -75,10 +71,8 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
 
   /**
    * Get the current covers preview list.
-   *
-   * @return array
    */
-  public function getPreview() {
+  public function getPreview() : array {
     $response_data = [
       'items' => [],
     ];

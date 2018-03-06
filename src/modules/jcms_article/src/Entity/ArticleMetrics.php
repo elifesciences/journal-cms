@@ -3,27 +3,28 @@
 namespace Drupal\jcms_article\Entity;
 
 /**
- * Class ArticleMetrics
+ * Class ArticleMetrics.
  *
  * @package Drupal\jcms_article\Entity
  */
 final class ArticleMetrics {
 
   /**
+   * Article ID.
+   *
    * @var string
    */
   private $id;
 
   /**
+   * Article page views.
+   *
    * @var int
    */
   private $pageViews = 0;
 
   /**
    * ArticleMetrics constructor.
-   *
-   * @param string $id
-   * @param int $page_views
    */
   public function __construct(string $id, int $page_views) {
     $this->id = $id;
@@ -32,8 +33,6 @@ final class ArticleMetrics {
 
   /**
    * Returns the article ID.
-   *
-   * @return string
    */
   public function getId(): string {
     return $this->id;
@@ -41,8 +40,6 @@ final class ArticleMetrics {
 
   /**
    * Returns the article page-views metric.
-   *
-   * @return int
    */
   public function getPageViews(): int {
     return $this->pageViews;

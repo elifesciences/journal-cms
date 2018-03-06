@@ -3,31 +3,29 @@
 namespace Drupal\Tests\jcms_rest\Functional;
 
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 /**
+ * Tests for Etag.
+ *
  * @group jcms_rest
  */
 class EtagTest extends FixtureBasedTestCase {
 
   /**
    * Makes a Guzzle request and returns a response object.
-   *
-   * @param string $endpoint
-   * @param array $headers
-   * @param string $method
-   *
-   * @return Response
    */
-  protected function makeGuzzleRequest(string $endpoint, $headers = [], $method = 'GET') {
+  protected function makeGuzzleRequest(string $endpoint, array $headers = [], string $method = 'GET') : Response {
     $request = new Request($method, $endpoint, $headers);
     $response = $this->client->send($request);
     return $response;
   }
 
   /**
+   * Test Etag.
+   *
    * @test
    */
   public function testEtag() {

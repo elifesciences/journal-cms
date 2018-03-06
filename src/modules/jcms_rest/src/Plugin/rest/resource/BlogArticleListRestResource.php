@@ -64,12 +64,8 @@ class BlogArticleListRestResource extends AbstractRestResourceBase {
 
   /**
    * Takes a node and builds an item from it.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   *
-   * @return array
    */
-  public function getItem(EntityInterface $node) {
+  public function getItem(EntityInterface $node) : array {
     /* @var Node $node */
     $item = $this->processDefault($node);
 

@@ -28,13 +28,9 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @param string $id
-   * @return array|\Symfony\Component\HttpFoundation\JsonResponse
-   *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
+   * @throws JCMSNotFoundHttpException
    */
-  public function get($id) {
+  public function get(string $id) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
       ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')

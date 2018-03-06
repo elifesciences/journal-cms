@@ -27,7 +27,10 @@ class JCMSAimsAndScope extends ProcessPluginBase {
     return NULL;
   }
 
-  private function processItemValue($value) {
+  /**
+   * Process item value.
+   */
+  private function processItemValue(array $value) {
     if (!empty($value['text'])) {
       $value['text'] = $this->checkMarkup($value['text'], 'basic_html');
     }
@@ -50,7 +53,10 @@ class JCMSAimsAndScope extends ProcessPluginBase {
     return NULL;
   }
 
-  private function checkMarkup($html, $format_id = 'basic_html') {
+  /**
+   * Check markup.
+   */
+  private function checkMarkup(string $html, string $format_id = 'basic_html') {
     return check_markup($html, $format_id);
   }
 

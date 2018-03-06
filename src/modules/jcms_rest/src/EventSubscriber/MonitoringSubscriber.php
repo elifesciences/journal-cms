@@ -1,11 +1,10 @@
 <?php
+
 namespace Drupal\jcms_rest\EventSubscriber;
 
-use Drupal\Core\Utility\Error;
 use eLife\Logging\Monitoring;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -14,10 +13,15 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class MonitoringSubscriber implements EventSubscriberInterface {
 
   /**
+   * Store constructor argument.
+   *
    * @var \eLife\Logging\Monitoring
    */
   private $monitoring;
 
+  /**
+   * MonitoringSubscriber constructor.
+   */
   public function __construct(Monitoring $monitoring) {
     $this->monitoring = $monitoring;
   }
@@ -41,4 +45,5 @@ class MonitoringSubscriber implements EventSubscriberInterface {
     $events[KernelEvents::EXCEPTION][] = ['onException', 50];
     return $events;
   }
+
 }

@@ -4,6 +4,7 @@
  * @file
  * Contains install and update functions for Journal CMS (REST).
  */
+
 use Drupal\node\Entity\Node;
 
 /**

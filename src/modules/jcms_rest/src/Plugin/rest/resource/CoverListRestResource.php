@@ -27,12 +27,9 @@ class CoverListRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
-   *
    * @todo - elife - nlisgo - Handle version specific requests
    */
-  public function get() {
+  public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
       ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
@@ -72,19 +69,13 @@ class CoverListRestResource extends AbstractRestResourceBase {
 
   /**
    * Takes a node and builds an item from it.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   *
-   * @return array
    */
-  public function getItem(EntityInterface $node) {
+  public function getItem(EntityInterface $node) : array {
     return $this->getEntityQueueItem($node, $node->get('field_cover_content'));
   }
 
   /**
    * Apply filter for subjects by amending query.
-   *
-   * @param \Drupal\Core\Entity\Query\QueryInterface $query
    */
   protected function filterSubjects(QueryInterface &$query) {
     $subjects = $this->getRequestOption('subject');

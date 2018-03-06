@@ -3,7 +3,6 @@
 namespace Drupal\Tests\jcms_rest\Functional;
 
 use ComposerLocator;
-use eLife\ApiValidator\MessageValidator;
 use eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator;
 use eLife\ApiValidator\SchemaFinder\PathBasedSchemaFinder;
 use GuzzleHttp\Client;
@@ -22,19 +21,26 @@ use Symfony\Component\HttpFoundation\Response;
 class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
 
   /**
-   * @var Client
+   * Http client.
+   *
+   * @var \GuzzleHttp\Client
    */
   protected $client;
 
   /**
-   * @var MessageValidator
+   * Message validator.
+   *
+   * @var \eLife\ApiValidator\MessageValidator
    */
   protected $validator;
 
+  /**
+   * {@inheritdoc}
+   */
   public function setUp() {
     $this->validator = new FakeHttpsMessageValidator(
       new JsonMessageValidator(
-        new PathBasedSchemaFinder(ComposerLocator::getPath('elife/api').'/dist/model'),
+        new PathBasedSchemaFinder(ComposerLocator::getPath('elife/api') . '/dist/model'),
         new Validator()
       )
     );
@@ -46,8 +52,6 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
 
   /**
    * Data provider for the validator test.
-   *
-   * @return array
    */
   public function dataProvider() : array {
     return [
@@ -108,7 +112,7 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
         'application/vnd.elife.collection-list+json',
         'application/vnd.elife.collection+json',
       ],
-      */
+       */
       [
         '/press-packages',
         'id',
@@ -141,13 +145,10 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
   }
 
   /**
+   * Test each endpoint recursively.
+   *
    * @test
    * @dataProvider dataProvider
-   * @param string $endpoint
-   * @param string $id_key
-   * @param string $media_type_list
-   * @param string|NULL $media_type_item
-   * @param array|string $check
    */
   public function testValidEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, $media_type_item = NULL, $check = []) {
     $items = $this->gatherListItems($endpoint, $media_type_list);
@@ -162,11 +163,19 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
           'Accept' => $media_type_item,
         ]);
       }
-      elseif (isset($item->{$id_key}) && in_array($item->{$id_key}, ['blog-article', 'collection', 'event', 'interview', 'labs-experiment', 'podcast-episode'])) {
+      elseif (isset($item->{$id_key}) && in_array($item->{$id_key}, [
+        'blog-article',
+        'collection',
+        'event',
+        'interview',
+        'labs-experiment',
+        'podcast-episode',
+      ])) {
         switch ($item->{$id_key}) {
           case 'podcast-episode':
             $id = $item->number;
             break;
+
           default:
             $id = $item->id;
         }

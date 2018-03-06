@@ -9,7 +9,7 @@ use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
- * Class ArticleCrud
+ * Class ArticleCrud.
  *
  * @package Drupal\jcms_article
  * @todo Look to share more code with \Drupal\jcms_article\Hooks\NodePreSave.
@@ -17,6 +17,8 @@ use Drupal\paragraphs\Entity\Paragraph;
 class ArticleCrud {
 
   /**
+   * EntityTypeManager.
+   *
    * @var \Drupal\Core\Entity\EntityTypeManager
    */
   protected $entityTypeManager;
@@ -30,8 +32,6 @@ class ArticleCrud {
 
   /**
    * ArticleCrud constructor.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    */
   public function __construct(EntityTypeManager $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
@@ -39,7 +39,6 @@ class ArticleCrud {
 
   /**
    * Set the flag to skip updating articles.
-   *
    */
   public function skipUpdates() {
     $this->skipUpdates = TRUE;
@@ -48,9 +47,8 @@ class ArticleCrud {
   /**
    * Helper method to decide whether to created, update or delete a node.
    *
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $articleVersions
-   *
    * @return \Drupal\Core\Entity\EntityInterface|null
+   *   Return entity, if found.
    */
   public function crudArticle(ArticleVersions $articleVersions) {
     $node = NULL;
@@ -76,12 +74,8 @@ class ArticleCrud {
 
   /**
    * Creates a new article node.
-   *
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $articleVersions
-   *
-   * @return \Drupal\Core\Entity\EntityInterface
    */
-  public function createArticle(ArticleVersions $articleVersions) {
+  public function createArticle(ArticleVersions $articleVersions) : EntityInterface {
     $node = Node::create([
       'type' => 'article',
       'title' => $articleVersions->getId(),
@@ -100,9 +94,8 @@ class ArticleCrud {
   /**
    * Updates an existing article node.
    *
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $articleVersions
-   *
    * @return \Drupal\Core\Entity\EntityInterface|null
+   *   Return updated entity, if found.
    */
   public function updateArticle(ArticleVersions $articleVersions) {
     $nid = $this->getNodeIdByArticleId($articleVersions->getId());
@@ -127,14 +120,9 @@ class ArticleCrud {
   }
 
   /**
-   * Updates an existing paragraph.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $articleVersions
-   *
-   * @return \Drupal\Core\Entity\EntityInterface
+   * Updates a paragraph.
    */
-  public function updateParagraph(EntityInterface $node, ArticleVersions $articleVersions) {
+  public function updateParagraph(EntityInterface $node, ArticleVersions $articleVersions) : EntityInterface {
     $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
     $paragraph = Paragraph::load($pid);
     $published = $articleVersions->getLatestPublishedVersionJson();
@@ -149,13 +137,8 @@ class ArticleCrud {
 
   /**
    * Creates a new paragraph.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $articleVersions
-   *
-   * @return \Drupal\Core\Entity\EntityInterface
    */
-  public function createParagraph(EntityInterface $node, ArticleVersions $articleVersions) {
+  public function createParagraph(EntityInterface $node, ArticleVersions $articleVersions) : EntityInterface {
     $published = $articleVersions->getLatestPublishedVersionJson();
     // Store the published JSON if no unpublished exists.
     $unpublished = $articleVersions->getLatestUnpublishedVersionJson() ?: $published;
@@ -176,9 +159,8 @@ class ArticleCrud {
   /**
    * Deletes an article node.
    *
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $articleVersions
-   *
-   * @return mixed
+   * @return \Drupal\Core\Entity\EntityInterface|null
+   *   Return entities, if found.
    */
   public function deleteArticle(ArticleVersions $articleVersions) {
     $node_id = $this->getNodeIdByArticleId($articleVersions->getId());
@@ -190,14 +172,9 @@ class ArticleCrud {
   }
 
   /**
-   * Checks if a node with the article ID already exists and returns the node ID.
-   *
-   * @param string $articleId
-   *
-   * @return int
-   *   The node ID.
+   * Checks if node with the article ID already exists and returns the node ID.
    */
-  public function getNodeIdByArticleId(string $articleId) {
+  public function getNodeIdByArticleId(string $articleId) : int {
     $query = \Drupal::entityQuery('node')->condition('title', $articleId);
     $result = $query->execute();
     return !empty($result) ? reset($result) : 0;
@@ -206,9 +183,8 @@ class ArticleCrud {
   /**
    * Get article snippet from node.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   * @param bool $preview
-   * @return bool|mixed
+   * @return mixed|bool
+   *   Return article snippet, if found.
    */
   public function getArticle(EntityInterface $node, $preview = FALSE) {
     $pid = $node->get('field_article_json')->getValue()[0]['target_id'];

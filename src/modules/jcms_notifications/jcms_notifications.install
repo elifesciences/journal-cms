@@ -1,9 +1,17 @@
 <?php
 
+/**
+ * @file
+ * Contains install and update functions for Journal CMS (Notifications).
+ */
+
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\jcms_notifications\MysqlNotificationStorage;
 use Drupal\Core\Database\Database;
 
+/**
+ * Implements hook_schema().
+ */
 function jcms_notifications_schema() {
   $schema[MysqlNotificationStorage::TABLE] = [
     'description' => 'The base table for notifications.',

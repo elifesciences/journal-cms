@@ -63,6 +63,8 @@ class DeprecationEndpointValidatorTest extends FixtureBasedTestCase {
   }
 
   /**
+   * Test deprecated endpoints recursively.
+   *
    * @test
    * @dataProvider dataProvider
    * {@inheritdoc}

@@ -2,35 +2,23 @@
 
 namespace Drupal\Tests\jcms_rest\Functional;
 
-use ComposerLocator;
-use Drupal\Tests\UnitTestCase;
-use eLife\ApiValidator\MessageValidator;
-use eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator;
-use eLife\ApiValidator\MessageValidator\JsonMessageValidator;
-use eLife\ApiValidator\SchemaFinder\PathBasedSchemaFinder;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 use JsonSchema\Validator;
-use RuntimeException;
 
 /**
+ * Tests endpoints ot ensure that they match schema.
+ *
  * @group jcms_rest
  * @todo Make this work with KernelTestBase instead of UnitTestCase.
  */
 class RamlSchemaValidationTest extends FixtureBasedTestCase {
 
-
   /**
    * Makes a Guzzle request and returns a response object.
-   *
-   * @param string $method
-   * @param string $endpoint
-   * @param string $media_type
-   *
-   * @return mixed
    */
-  protected function makeGuzzleRequest(string $method, string $endpoint, string $media_type) {
+  protected function makeGuzzleRequest(string $method, string $endpoint, string $media_type) : Response {
     $request = new Request($method, $endpoint, [
       'Accept' => $media_type,
     ]);
@@ -40,8 +28,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
 
   /**
    * Data provider for the validator test.
-   *
-   * @return array
    */
   public function dataProvider() : array {
     return [
@@ -67,9 +53,9 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.labs-post+json;version=1',
       ],
       /*
-       * Turns out this is failing validation
-       * [items[0].orcid] Does not match the regex pattern ^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$
-       * et al.
+       Turns out this is failing validation
+       [items[0].orcid] Does not match the regex pattern:
+       ^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$
       [
         'GET',
         '/people',
@@ -111,7 +97,8 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
       ],
       /*
        * fails because
-       * [items[0].selectedCurator.orcid] Does not match the regex pattern ^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$
+       * [items[0].selectedCurator.orcid] Does not match the regex pattern:
+       * ^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$
        * and similar
       [
         'GET',
@@ -130,7 +117,8 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
       ],
       /*
        * fails because
-       * [mediaContacts[2].phoneNumbers[1]] Does not match the regex pattern ^\+[0-9]{8,15}(;ext=[0-9]+)?$
+       * [mediaContacts[2].phoneNumbers[1]] Does not match the regex pattern:
+       * ^\+[0-9]{8,15}(;ext=[0-9]+)?$
        *
       [
         'GET',
@@ -151,6 +139,8 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
   }
 
   /**
+   * Test appropriate response when content not found.
+   *
    * @test
    * @dataProvider dataProvider
    */
@@ -165,6 +155,8 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
   }
 
   /**
+   * Test each endpoint recursively and check response is valid.
+   *
    * @test
    * @*depends testNoData
    * @dataProvider dataProvider
@@ -175,7 +167,7 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
     $this->validator->validate($list_response);
     $this->assertEquals(200, $list_response->getStatusCode());
     // To be added when generating content for all items in the data provider.
-    //$this->assertNotEmpty($data->items);
+    // $this->assertNotEmpty($data->items);.
     foreach ($data->items as $item) {
       $item_response = $this->makeGuzzleRequest($http_method, $endpoint . '/' . $item->{$id_key}, $media_type_item);
       $this->validator->validate($item_response);
@@ -184,4 +176,3 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
   }
 
 }
-
