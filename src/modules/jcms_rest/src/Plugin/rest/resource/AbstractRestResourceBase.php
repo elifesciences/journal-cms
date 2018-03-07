@@ -72,7 +72,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity.
-   * @param string|null $id
+   * @param string|int|null $id
    *   ID.
    * @param string|int $id_key
    *   ID key.
@@ -80,7 +80,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * @return array
    *   Processed default snippet.
    */
-  protected function processDefault(EntityInterface $entity, string $id = NULL, $id_key = 'id') : array {
+  protected function processDefault(EntityInterface $entity, $id = NULL, $id_key = 'id') : array {
     $defaults = [
       $id_key => !is_null($id) ? $id : substr($entity->uuid(), -8),
       'title' => $entity->getTitle(),
