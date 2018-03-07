@@ -78,15 +78,15 @@ class SubjectListRestResource extends AbstractRestResourceBase {
       }
     }
 
-    if ($term->get('field_impact_statement')->count()) {
-      $item['impactStatement'] = $this->fieldValueFormatted($term->get('field_impact_statement'));
-      if (empty($item['impactStatement'])) {
-        unset($item['impactStatement']);
-      }
+    if ($term->get('field_impact_statement')->count() && $impact = $this->fieldValueFormatted($term->get('field_impact_statement'))) {
+      $item['impactStatement'] = $impact;
     }
 
-    if ($aims = $this->processFieldContent($term->get('field_aims_and_scope'))) {
-      $item['aimsAndScope'] = $aims;
+    if ($term->get('field_aims_and_scope')->count() && $aims = $this->splitParagraphs($this->fieldValueFormatted($term->get('field_aims_and_scope'), FALSE))) {
+      $item['aimsAndScope'][] = [
+        'type' => 'paragraph',
+        'text' => implode(' ', $aims),
+      ];
     }
 
     return $item;

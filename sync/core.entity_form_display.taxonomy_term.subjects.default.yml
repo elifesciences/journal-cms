@@ -12,7 +12,6 @@ dependencies:
     - taxonomy.vocabulary.subjects
   module:
     - image
-    - paragraphs
     - text
 id: taxonomy_term.subjects.default
 targetEntityType: taxonomy_term
@@ -20,16 +19,12 @@ bundle: subjects
 mode: default
 content:
   field_aims_and_scope:
-    type: entity_reference_paragraphs
     weight: 3
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
+    type: text_textarea
     region: content
   field_image:
     weight: 4

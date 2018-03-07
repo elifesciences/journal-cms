@@ -58,9 +58,10 @@ process:
   field_impact_statement/format:
     plugin: default_value
     default_value: basic_html
-  field_aims_and_scope:
-    plugin: jcms_aims_and_scope
-    source: aims_and_scope
+  field_aims_and_scope/value: aims_and_scope
+  field_aims_and_scope/format:
+    plugin: default_value
+    default_value: basic_html
   field_image:
     plugin: jcms_image
     source:
