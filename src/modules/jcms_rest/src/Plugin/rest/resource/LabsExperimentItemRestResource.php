@@ -28,7 +28,7 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
    *
    * @throws JCMSNotFoundHttpException
    */
-  public function get(int $id) : JCMSRestResponse {
+  public function get(string $id) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
       ->condition('status', NODE_PUBLISHED)
       ->condition('changed', REQUEST_TIME, '<')
