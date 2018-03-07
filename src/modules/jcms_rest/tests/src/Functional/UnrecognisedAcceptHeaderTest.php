@@ -127,7 +127,7 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
    * @test
    * @dataProvider dataProvider
    */
-  public function testResponses(string $endpoint, mixed $expected_content_type, string $id_key = NULL) {
+  public function testResponses(string $endpoint, array $expected_content_type, string $id_key = NULL) {
     foreach ([[], ['Accept' => '*/*'], ['Accept' => 'foo']] as $headers) {
       $request = new Request('GET', $endpoint, $headers);
       $response = $this->client->send($request);
