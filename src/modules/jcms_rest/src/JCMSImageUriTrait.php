@@ -58,7 +58,7 @@ trait JCMSImageUriTrait {
   /**
    * Process image field and return json string.
    */
-  protected function processFieldImage(FieldItemListInterface $data, $required = FALSE, array $size_types = ['banner', 'thumbnail'], $bump = FALSE) : array {
+  protected function processFieldImage(FieldItemListInterface $data, bool $required = FALSE, $size_types = ['banner', 'thumbnail'], $bump = FALSE) : array {
     if ($required || $data->count()) {
       $image = $this->getImageSizes($size_types);
 
@@ -115,7 +115,7 @@ trait JCMSImageUriTrait {
   /**
    * Get image sizes for the requested presets.
    */
-  protected function getImageSizes(array $size_types = ['banner', 'thumbnail']) : array {
+  protected function getImageSizes($size_types = ['banner', 'thumbnail']) : array {
     $sizes = [];
     $size_types = (array) $size_types;
     foreach ($size_types as $size_type) {
