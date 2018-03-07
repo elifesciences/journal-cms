@@ -728,7 +728,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   /**
    * Process response.
    */
-  protected function processResponse(Response $response) : Response {
+  protected function processResponse(Response $response) {
     if ($warning_text = $this->getWarningText()) {
       $warning = sprintf('299 api.elifesciences.org "%s"', $warning_text);
       $response->headers->add(['Warning' => $warning]);
