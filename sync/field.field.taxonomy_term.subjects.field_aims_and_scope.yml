@@ -1,13 +1,12 @@
-uuid: 3a32bee5-6c69-4282-943a-7c618f28c3ee
+uuid: 8020a94f-56de-4933-ae82-12e705ec250b
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.taxonomy_term.field_aims_and_scope
-    - paragraphs.paragraphs_type.paragraph
     - taxonomy.vocabulary.subjects
   module:
-    - entity_reference_revisions
+    - text
 id: taxonomy_term.subjects.field_aims_and_scope
 field_name: field_aims_and_scope
 entity_type: taxonomy_term
@@ -18,62 +17,5 @@ required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings:
-  handler: 'default:paragraph'
-  handler_settings:
-    negate: 0
-    target_bundles:
-      paragraph: paragraph
-    target_bundles_drag_drop:
-      affiliation:
-        weight: 18
-        enabled: false
-      blockquote:
-        weight: 19
-        enabled: false
-      button:
-        weight: 20
-        enabled: false
-      code:
-        weight: 21
-        enabled: false
-      cv_item:
-        weight: 22
-        enabled: false
-      image:
-        weight: 23
-        enabled: false
-      json:
-        weight: 24
-        enabled: false
-      list:
-        weight: 25
-        enabled: false
-      list_item:
-        weight: 26
-        enabled: false
-      media_contact:
-        weight: 27
-        enabled: false
-      paragraph:
-        enabled: true
-        weight: 28
-      question:
-        weight: 29
-        enabled: false
-      research_details:
-        weight: 30
-        enabled: false
-      section:
-        weight: 31
-        enabled: false
-      table:
-        weight: 32
-        enabled: false
-      venue:
-        weight: 33
-        enabled: false
-      youtube:
-        weight: 34
-        enabled: false
-field_type: entity_reference_revisions
+settings: {  }
+field_type: text_long

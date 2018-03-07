@@ -10,7 +10,6 @@ dependencies:
     - field.field.taxonomy_term.subjects.field_subject_id
     - taxonomy.vocabulary.subjects
   module:
-    - entity_reference_revisions
     - image
     - text
 id: taxonomy_term.subjects.default
@@ -26,13 +25,11 @@ content:
     third_party_settings: {  }
     region: content
   field_aims_and_scope:
-    type: entity_reference_revisions_entity_view
     weight: 5
     label: above
-    settings:
-      view_mode: default
-      link: ''
+    settings: {  }
     third_party_settings: {  }
+    type: text_default
     region: content
   field_image:
     weight: 2
