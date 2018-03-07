@@ -27,11 +27,11 @@ interface NotificationStorageInterface {
   /**
    * Deletes a notification entity ID.
    */
-  public function deleteNotificationEntityId(int $entityId) : NULL;
+  public function deleteNotificationEntityId(int $entityId);
 
   /**
    * Takes an array of entity IDs and deletes them.
    */
-  public function deleteNotificationEntityIds(array $entityIds) : NULL;
+  public function deleteNotificationEntityIds(array $entityIds);
 
 }
