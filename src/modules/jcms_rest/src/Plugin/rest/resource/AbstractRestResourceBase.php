@@ -499,8 +499,11 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   /**
    * Get the article snippet from article node.
+   *
+   * @return mixed|bool
+   *   Return article snippet, if found.
    */
-  protected function getArticleSnippet(Node $node) : array {
+  protected function getArticleSnippet(Node $node) {
     $crud_service = \Drupal::service('jcms_article.article_crud');
     return $crud_service->getArticle($node, $this->viewUnpublished());
   }
