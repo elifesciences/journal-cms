@@ -5,8 +5,10 @@
  * Contains install and update functions for Journal CMS (Admin).
  */
 
+use Drupal\content_moderation\Entity\ContentModerationState;
+
 /**
- * Reset content_moderation schema version to 8000 after applying temporary patch.
+ * Reset content_moderation schema version to 8000 after applying patch.
  */
 function jcms_admin_update_8101() {
   drupal_set_installed_schema_version('content_moderation', 8000);
@@ -19,9 +21,9 @@ function jcms_admin_update_8102() {
   // Uninstalling the module temporarily will resolve data structure issues.
   // We do not need to retain data for continuity.
   $ids = \Drupal::entityQuery('content_moderation_state')->execute();
-  $entities = \Drupal\content_moderation\Entity\ContentModerationState::loadMultiple($ids);
+  $entities = ContentModerationState::loadMultiple($ids);
   foreach ($entities as $entity) {
-      $entity->delete();
+    $entity->delete();
   }
 
   // The module will be re-innstalled when configuration is imported.

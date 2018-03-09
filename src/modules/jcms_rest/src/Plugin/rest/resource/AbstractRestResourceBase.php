@@ -3,7 +3,6 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use function GuzzleHttp\Psr7\normalize_header;
-use InvalidArgumentException;
 use DateTimeImmutable;
 use DateTimeZone;
 use Drupal\Core\Entity\EntityInterface;
@@ -21,6 +20,9 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\AcceptHeader;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Abstract class AbstractRestResourceBase.
+ */
 abstract class AbstractRestResourceBase extends ResourceBase {
 
   use JCMSImageUriTrait;
@@ -44,11 +46,15 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   protected $defaultSortBy = 'created';
 
   /**
+   * Latest version.
+   *
    * @var int
    */
   protected $latestVersion = 1;
 
   /**
+   * Latest accepted version.
+   *
    * @var int
    */
   protected $acceptVersion = 1;
@@ -65,11 +71,16 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * Process default values.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
-   * @param string $id
+   *   Entity.
+   * @param string|int|null $id
+   *   ID.
    * @param string|int $id_key
+   *   ID key.
+   *
    * @return array
+   *   Processed default snippet.
    */
-  protected function processDefault(EntityInterface $entity, $id = NULL, $id_key = 'id') {
+  protected function processDefault(EntityInterface $entity, $id = NULL, $id_key = 'id') : array {
     $defaults = [
       $id_key => !is_null($id) ? $id : substr($entity->uuid(), -8),
       'title' => $entity->getTitle(),
@@ -85,11 +96,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   /**
    * Format date.
-   *
-   * @param null|int $date
-   * @return mixed
    */
-  protected function formatDate($date = NULL) {
+  protected function formatDate(int $date = NULL) : string {
     $date = is_null($date) ? time() : $date;
     return \Drupal::service('date.formatter')->format($date, 'api_datetime');
   }
@@ -98,18 +106,18 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * Set default request option.
    *
    * @param string $option
+   *   Option.
    * @param string|int|array $default
+   *   Default value.
    */
-  protected function setDefaultOption($option, $default) {
+  protected function setDefaultOption(string $option, $default) {
     $this->defaultOptions[$option] = $default;
   }
 
   /**
    * Returns an array of Drupal request options.
-   *
-   * @return array
    */
-  protected function getRequestOptions() {
+  protected function getRequestOptions() : array {
     if (empty($this::$requestOptions)) {
       $request = \Drupal::request();
       $this::$requestOptions = [
@@ -137,9 +145,12 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * Return named request option.
    *
    * @param string $option
-   * @return int|string|array|NULL
+   *   Option.
+   *
+   * @return int|string|array|null
+   *   Retrieved value.
    */
-  protected function getRequestOption($option) {
+  protected function getRequestOption(string $option) {
     $requestOptions = $this->getRequestOptions();
     if ($requestOptions[$option]) {
       return $requestOptions[$option];
@@ -149,16 +160,14 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   }
 
   /**
-   * @param \Drupal\Core\Field\FieldItemListInterface $data
-   * @param bool $required
-   * @return array
+   * Process field content.
    */
-  public function processFieldContent(FieldItemListInterface $data, $required = FALSE) {
+  public function processFieldContent(FieldItemListInterface $data, bool $required = FALSE) : array {
     $asset_ids = [
       'image' => 0,
       'table' => 0,
     ];
-    $handle_paragraphs = function($content, $list_flag = FALSE) use (&$handle_paragraphs, $asset_ids) {
+    $handle_paragraphs = function ($content, $list_flag = FALSE) use (&$handle_paragraphs, $asset_ids) {
       $result = [];
       foreach ($content as $paragraph) {
         $content_item = $paragraph->get('entity')->getTarget()->getValue();
@@ -171,6 +180,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             $result_item['title'] = $content_item->get('field_block_title')->getString();
             $result_item['content'] = $handle_paragraphs($content_item->get('field_block_content'));
             break;
+
           case 'paragraph':
             if ($content_item->get('field_block_html')->count()) {
               // Split paragraphs in the UI into separate paragraph blocks.
@@ -195,10 +205,12 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
             unset($result_item);
             break;
+
           case 'question':
             $result_item['question'] = $content_item->get('field_block_title')->getString();
             $result_item['answer'] = $handle_paragraphs($content_item->get('field_block_question_answer'));
             break;
+
           case 'image':
             if ($image = $content_item->get('field_block_image')->first()) {
               $result_item['image'] = $this->processFieldImage($content_item->get('field_block_image'), TRUE, 'banner', TRUE);
@@ -218,6 +230,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
               unset($result_item);
             }
             break;
+
           case 'blockquote':
             $result_item['type'] = 'quote';
             $text = $this->fieldValueFormatted($content_item->get('field_block_html'), TRUE);
@@ -233,11 +246,13 @@ abstract class AbstractRestResourceBase extends ResourceBase {
               unset($result_item);
             }
             break;
+
           case 'youtube':
             $result_item['id'] = $content_item->get('field_block_youtube_id')->getString();
             $result_item['width'] = (int) $content_item->get('field_block_youtube_width')->getString();
             $result_item['height'] = (int) $content_item->get('field_block_youtube_height')->getString();
             break;
+
           case 'table':
             $table_content = preg_replace('/\n/', '', $this->fieldValueFormatted($content_item->get('field_block_html'), FALSE));
             if (preg_match("~(?P<table><table[^>]*>(?:.|\n)*?</table>)~", $table_content, $match)) {
@@ -248,20 +263,25 @@ abstract class AbstractRestResourceBase extends ResourceBase {
             }
             $result_item = $this->processFigure($result_item, $content_item, $asset_ids[$content_type]);
             break;
+
           case 'code':
             $result_item['code'] = $content_item->get('field_block_code')->getString();
             break;
+
           case 'list':
             $result_item['prefix'] = $content_item->get('field_block_list_ordered')->getString() ? 'number' : 'bullet';
             $result_item['items'] = $handle_paragraphs($content_item->get('field_block_list_items'), TRUE);
             break;
+
           case 'list_item':
             $result_item = $this->fieldValueFormatted($content_item->get('field_block_html'));
             break;
+
           case 'button':
             $result_item['text'] = $content_item->get('field_block_button')->first()->getValue()['title'];
             $result_item['uri'] = $content_item->get('field_block_button')->first()->getValue()['uri'];
             break;
+
           default:
             unset($result_item['type']);
         }
@@ -286,12 +306,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   /**
    * Bump data to a figure if label is available.
-   *
-   * @param array $data
-   * @param \Drupal\Core\Entity\EntityInterface $content_item
-   * @return array
    */
-  protected function processFigure(array $data, EntityInterface $content_item, &$asset_co = 0) {
+  protected function processFigure(array $data, EntityInterface $content_item, int &$asset_co = 0) : array {
     if ($content_item->get('field_block_label')->count()) {
       $asset_co++;
       $asset_id = $content_item->getType() . '-' . (($content_item->get('field_block_html_id')->count()) ? $content_item->get('field_block_html_id')->getString() : $asset_co);
@@ -307,11 +323,9 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   }
 
   /**
-   * @param \Drupal\Core\Field\FieldItemListInterface $field_subjects
-   * @param bool $required
-   * @return array
+   * Process subjects.
    */
-  protected function processSubjects(FieldItemListInterface $field_subjects, $required = FALSE) {
+  protected function processSubjects(FieldItemListInterface $field_subjects, bool $required = FALSE) : array {
     $subjects = [];
     if ($required || $field_subjects->count()) {
       /* @var \Drupal\taxonomy\Entity\Term $term */
@@ -327,8 +341,6 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   /**
    * Apply filter for subjects by amending query.
-   *
-   * @param \Drupal\Core\Entity\Query\QueryInterface $query
    */
   protected function filterSubjects(QueryInterface &$query) {
     $subjects = $this->getRequestOption('subject');
@@ -339,11 +351,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   /**
    * Apply filter for page, per-page and order.
-   *
-   * @param \Drupal\Core\Entity\Query\QueryInterface $query
-   * @param mixed
    */
-  protected function filterPageAndOrder(QueryInterface &$query, $sort_by = NULL) {
+  protected function filterPageAndOrder(QueryInterface &$query, string $sort_by = NULL) {
     $sort_bys = (array) $this->setSortBy($sort_by);
 
     if (!in_array($this->getRequestOption('sort'), ['date', 'page-views'])) {
@@ -360,10 +369,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   /**
    * Apply filter by show parameter: all, open or closed.
    *
-   * @param \Drupal\Core\Entity\Query\QueryInterface $query
-   * @param string $filterFieldName The name of the field to filter on
-   * @param bool $isTimeStamp whether $field is a Timestamp field
-   * @throws InvalidArgumentException if the filter field name argument is not supplied
+   * @throws JCMSBadRequestHttpException
    */
   protected function filterShow(QueryInterface &$query, string $filterFieldName, bool $isTimeStamp = FALSE) {
     $show_option = $this->getRequestOption('show');
@@ -385,11 +391,15 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * Apply filter for date range by amending query.
    *
    * @param \Drupal\Core\Entity\Query\QueryInterface $query
+   *   Query.
    * @param string $default_field
-   * @param string|NULL $published_field
+   *   Default field.
+   * @param string|null $published_field
+   *   Published field.
    * @param bool $timestamp
+   *   UNIX timestamp.
    */
-  protected function filterDateRange(QueryInterface &$query, $default_field = 'field_order_date.value', $published_field = 'created', $timestamp = TRUE) {
+  protected function filterDateRange(QueryInterface &$query, string $default_field = 'field_order_date.value', $published_field = 'created', bool $timestamp = TRUE) {
     $start_date = DateTimeImmutable::createFromFormat('Y-m-d', $originalStartDate = $this->getRequestOption('start-date'), new DateTimeZone('Z'));
     $end_date = DateTimeImmutable::createFromFormat('Y-m-d', $originalEndDate = $this->getRequestOption('end-date'), new DateTimeZone('Z'));
     $use_date = $this->getRequestOption('use-date');
@@ -427,8 +437,12 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * Set the "sort by" field.
    *
    * @param string|null|bool $sort_by
+   *   Sort by value.
    * @param bool $force
+   *   Force set.
+   *
    * @return string
+   *   Sort by value.
    */
   protected function setSortBy($sort_by = NULL, $force = FALSE) {
     static $cache = NULL;
@@ -447,10 +461,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   /**
    * Get the "sort by" field.
-   *
-   * @return string
    */
-  protected function getSortBy() {
+  protected function getSortBy() : string {
     return $this->setSortBy();
   }
 
@@ -458,11 +470,16 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * Prepare the value from formatted field.
    *
    * @param \Drupal\Core\Field\FieldItemListInterface $data
+   *   Field.
    * @param bool $simple
+   *   Simple text field.
    * @param bool $split
+   *   Split into array ov values.
+   *
    * @return mixed
+   *   Processed field value.
    */
-  protected function fieldValueFormatted(FieldItemListInterface $data, $simple = TRUE, $split = FALSE) {
+  protected function fieldValueFormatted(FieldItemListInterface $data, bool $simple = TRUE, bool $split = FALSE) {
     $view = $data->view();
     unset($view['#theme']);
     $output = \Drupal::service('renderer')->renderPlain($view);
@@ -483,8 +500,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   /**
    * Get the article snippet from article node.
    *
-   * @param \Drupal\node\Entity\Node $node
-   * @return array
+   * @return mixed|bool
+   *   Return article snippet, if found.
    */
   protected function getArticleSnippet(Node $node) {
     $crud_service = \Drupal::service('jcms_article.article_crud');
@@ -493,11 +510,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   /**
    * Get subject list from articles array.
-   *
-   * @param array $articles
-   * @return array
    */
-  protected function subjectsFromArticles($articles) {
+  protected function subjectsFromArticles(array $articles = NULL) : array {
     $subjects = [];
     foreach ($articles as $article) {
       if (property_exists($article, 'subjects') && !empty($article->subjects)) {
@@ -514,11 +528,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   /**
    * Convert venue paragraph into array prepared for response.
-   *
-   * @param \Drupal\paragraphs\Entity\Paragraph $venue_field
-   * @return array
    */
-  protected function getVenue(Paragraph $venue_field) {
+  protected function getVenue(Paragraph $venue_field) : array {
     $venue = [
       'name' => array_values(array_filter(preg_split("(\r\n?|\n)", $venue_field->get('field_block_title_multiline')->getString()))),
     ];
@@ -574,12 +585,16 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * Takes a node and builds an item from it.
    *
    * @param \Drupal\Core\Entity\EntityInterface $node
+   *   Entity.
    * @param \Drupal\Core\Field\FieldItemListInterface $related_field
+   *   Field.
    * @param bool $image
+   *   Has image.
    *
    * @return array|bool
+   *   Has image.
    */
-  public function getEntityQueueItem(EntityInterface $node, FieldItemListInterface $related_field, $image = TRUE) {
+  public function getEntityQueueItem(EntityInterface $node, FieldItemListInterface $related_field, bool $image = TRUE) {
     if (empty($related_field->first()->get('entity')->getTarget())) {
       return FALSE;
     }
@@ -636,10 +651,9 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   /**
    * Returns the endpoint from the rest resource "canonical" annotation.
    *
-   * @return string
    * @throws \Exception
    */
-  function getEndpoint(): string {
+  public function getEndpoint(): string {
     $r = new \ReflectionClass(static::class);
     $annotation = $r->getDocComment();
     preg_match("/\"canonical\" = \"(.+)\"/", $annotation, $endpoint);
@@ -652,8 +666,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   /**
    * Gets the content type for the current rest resource.
    *
-   * @return string
    * @throws \Exception
+   *
    * @todo Handle this in the response object optionally.
    */
   public function getContentType(): string {
@@ -668,11 +682,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   /**
    * Return the acceptable version.
-   *
-   * @param int $latest_version
-   * @return int
    */
-  public function getAcceptableVersion($latest_version = 1) {
+  public function getAcceptableVersion(int $latest_version = 1) : int {
     $endpoint = $this->getEndpoint();
     $mapper = new PathMediaTypeMapper();
     $content_type = $mapper->getMediaTypeByPath($endpoint);
@@ -694,10 +705,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   /**
    * Determine if the request user can view unpublished content.
-   *
-   * @return bool
    */
-  public function viewUnpublished() {
+  public function viewUnpublished() : bool {
     static $view_unpublished = NULL;
 
     if (is_null($view_unpublished)) {
@@ -711,12 +720,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   /**
    * Process people names.
-   *
-   * @param string $preferred_name
-   * @param FieldItemListInterface $index_name
-   * @return array
    */
-  public function processPeopleNames(string $preferred_name, FieldItemListInterface $index_name) {
+  public function processPeopleNames(string $preferred_name, FieldItemListInterface $index_name) : array {
     return [
       'preferred' => $preferred_name,
       'index' => ($index_name->count()) ? $index_name->getString() : preg_replace('/^(?P<first_names>.*)\s+(?P<last_name>[^\s]+)$/', '$2, $1', $preferred_name),
@@ -725,8 +730,6 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   /**
    * Process response.
-   *
-   * @param Response $response
    */
   protected function processResponse(Response $response) {
     if ($warning_text = $this->getWarningText()) {
@@ -738,7 +741,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   /**
    * Get warning text.
    *
-   * @return string|NULL
+   * @return string|null
+   *   Warning text, if available.
    */
   protected function getWarningText() {
     if ($this->acceptVersion < $this->latestVersion) {

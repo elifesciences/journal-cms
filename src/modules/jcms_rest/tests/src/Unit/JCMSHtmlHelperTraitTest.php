@@ -6,7 +6,7 @@ use Drupal\jcms_rest\JCMSHtmlHelperTrait;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Class JCMSHtmlHelperTraitTest
+ * Tests for methods in JCMSHtmlHelperTrait.
  *
  * @package Drupal\Tests\jcms_rest\Unit
  */
@@ -14,8 +14,10 @@ class JCMSHtmlHelperTraitTest extends UnitTestCase {
 
   use JCMSHtmlHelperTrait;
 
-  public function providerSplitParagraphs()
-  {
+  /**
+   * Provider for split paragraphs tests.
+   */
+  public function providerSplitParagraphs() {
     return [
       'single-list-among-paragraphs' => [
         "Unlike relational databases, IIIF servers are not a commodity, and the choice of server implementation is going to constrain other parameters such as the image storage and the supported formats. Writing a server from scratch was not the appropriate solution for us as the work that it performs is non-trivial: cutting, resizing, rotating and especially converting images between different formats. Unlike for simpler domains like indexing text, image-related software has a huge amount of test cases to be verified, corresponding to images of all sizes, formats and colors. .\n\nThe IIIF Image API 2.0 allows several levels of compliance:\n\n<ul><li>Level 0 only allows full portions of the image, at predefined sizes</li>\n  <li>Level 1 adds the capability to request image portions, at any size</li>\n  <li>Level 2 adds rotation, and multiple output options such as grayscale and the PNG format</li>\n</ul>\n\nFor our own implementation of IIIF on eLife, we chose <a href=\"https://github.com/loris-imageserver/loris\">Loris</a>, an image server providing IIIF Image API Level 2. Loris is a small Python web application, backed by many Python and C libraries. We run Loris in <a href=\"https://uwsgi-docs.readthedocs.io/en/latest/\">uWSGI</a>, as we would do with any standard Python web application.\n\nWe expose Loris to the outside world through an Nginx server, which is capable of solving the standard problems of HTTP traffic such as setting cache headers and performing redirects. Nginx can scale to thousands of concurrent connections, and adds minimal overhead on top of the computationally intensive work of image manipulation.",
@@ -68,11 +70,11 @@ class JCMSHtmlHelperTraitTest extends UnitTestCase {
                   'items' => [
                     "Item 2.1",
                     "Item 2.2",
-                  ]
+                  ],
                 ],
               ],
               "Item 3",
-            ]
+            ],
           ],
           "Paragraph two",
           "Paragraph three:",
@@ -83,7 +85,7 @@ class JCMSHtmlHelperTraitTest extends UnitTestCase {
               "Item 1",
               "Item 2",
               "Item 3",
-            ]
+            ],
           ],
           "Paragraph four",
         ],
@@ -117,11 +119,13 @@ class JCMSHtmlHelperTraitTest extends UnitTestCase {
   }
 
   /**
+   * Test output of split paragraphs method.
+   *
    * @test
    * @dataProvider providerSplitParagraphs
    * @covers \Drupal\jcms_rest\JCMSHtmlHelperTrait::splitParagraphs
    * @covers \Drupal\jcms_rest\JCMSHtmlHelperTrait::convertHtmlListToSchema
-   * @group  journal-cms-tests
+   * @group journal-cms-tests
    */
   public function testSplitParagraphs($paragraphs, $expected) {
     $this->assertEquals($expected, $this->splitParagraphs($paragraphs));

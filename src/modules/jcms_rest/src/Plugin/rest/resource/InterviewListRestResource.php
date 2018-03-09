@@ -25,12 +25,9 @@ class InterviewListRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
-   *
    * @todo - elife - nlisgo - Handle version specific requests
    */
-  public function get() {
+  public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
       ->condition('status', NODE_PUBLISHED)
       ->condition('changed', REQUEST_TIME, '<')
@@ -62,12 +59,8 @@ class InterviewListRestResource extends AbstractRestResourceBase {
 
   /**
    * Takes a node and builds an item from it.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   *
-   * @return array
    */
-  public function getItem(EntityInterface $node) {
+  public function getItem(EntityInterface $node) : array {
     /* @var Node $node */
     $item = $this->processDefault($node);
 

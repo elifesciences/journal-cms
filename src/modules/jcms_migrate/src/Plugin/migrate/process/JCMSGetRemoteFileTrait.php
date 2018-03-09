@@ -5,8 +5,15 @@ namespace Drupal\jcms_migrate\Plugin\migrate\process;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
 
+/**
+ * Methods for retrieval of remote files.
+ */
 trait JCMSGetRemoteFileTrait {
-  function getFile($filename, $options = []) {
+
+  /**
+   * Get filename, from filename.
+   */
+  public function getFile(string $filename, array $options = []) {
     $guzzle = new Client();
     try {
       $options += [
@@ -25,4 +32,5 @@ trait JCMSGetRemoteFileTrait {
       error_log(sprintf("File %s didn't download. (%s)", $filename, $e->getMessage()));
     }
   }
+
 }

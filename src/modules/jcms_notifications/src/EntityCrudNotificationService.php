@@ -6,7 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_notifications\Notification\BusOutgoingMessage;
 
 /**
- * Class EntityCrudNotificationService
+ * Service to handle sending of notifications on entity changes.
  *
  * @package Drupal\jcms_notifications
  */
@@ -81,14 +81,14 @@ final class EntityCrudNotificationService {
   ];
 
   /**
+   * Store constructor argument NotificationService.
+   *
    * @var \Drupal\jcms_notifications\NotificationService
    */
   protected $notificationService;
 
   /**
    * EntityCrudNotificationService constructor.
-   *
-   * @param \Drupal\jcms_notifications\NotificationService $notification_service
    */
   public function __construct(NotificationService $notification_service) {
     $this->notificationService = $notification_service;
@@ -96,10 +96,6 @@ final class EntityCrudNotificationService {
 
   /**
    * Sends an SNS notification based on the node type.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *
-   * @return \Drupal\jcms_notifications\Notification\BusOutgoingMessage
    */
   public function sendMessage(EntityInterface $entity): BusOutgoingMessage {
     $sns_message = $this->getMessageFromEntity($entity);
@@ -109,10 +105,6 @@ final class EntityCrudNotificationService {
 
   /**
    * Takes a node object and returns an BusOutgoingMessage.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *
-   * @return \Drupal\jcms_notifications\Notification\BusOutgoingMessage
    */
   public function getMessageFromEntity(EntityInterface $entity): BusOutgoingMessage {
     $bundle = $entity->bundle();
@@ -124,13 +116,8 @@ final class EntityCrudNotificationService {
 
   /**
    * Gets the ID from a node entity.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   * @param string $field_name
-   *
-   * @return string
    */
-  public function getIdFromEntity(EntityInterface $entity, string $field_name) {
+  public function getIdFromEntity(EntityInterface $entity, string $field_name) : string {
     if ($field_name == 'entity_id') {
       return $entity->id();
     }

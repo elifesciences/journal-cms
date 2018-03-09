@@ -2,6 +2,9 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,20 +21,17 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class JobAdvertItemRestResource extends AbstractRestResourceBase {
+
   /**
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
    *
-   * @param string $id
-   * @return array|\Symfony\Component\HttpFoundation\JsonResponse
-   *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
+   * @throws JCMSNotFoundHttpException
    */
-  public function get($id) {
+  public function get(string $id) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
-      ->condition('status', \Drupal\node\NodeInterface::PUBLISHED)
+      ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'job_advert')
       ->condition('uuid', '%' . $id, 'LIKE');
@@ -40,7 +40,7 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
     if ($nids) {
       $nid = reset($nids);
       /* @var \Drupal\node\Entity\Node $node */
-      $node = \Drupal\node\Entity\Node::load($nid);
+      $node = Node::load($nid);
 
       $this->setSortBy(FALSE);
       $response = $this->processDefault($node, $id);
@@ -66,10 +66,9 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
   }
 
   /**
-   * @param \Drupal\node\Entity\Node $node
-   * @return array
+   * Derive content json from node.
    */
-  private function deriveContentJson($node) {
+  private function deriveContentJson(Node $node) : array {
     $contentJson = [];
     $fieldsData = [
       [
@@ -90,14 +89,15 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
       ],
     ];
 
-    foreach($fieldsData as $fieldData) {
+    foreach ($fieldsData as $fieldData) {
       $field = $node->get($fieldData['name']);
       if (!$field->count()) {
         continue;
       }
       if ($fieldData['isSection']) {
         array_push($contentJson, $this->getFieldJson($field, $this->getFieldLabel($node, $fieldData['name']), TRUE));
-      } else {
+      }
+      else {
         foreach ($this->getFieldJson($field) as $item) {
           array_push($contentJson, $item);
         }
@@ -114,21 +114,16 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
   }
 
   /**
-   * @param \Drupal\node\Entity\Node $node
-   * @param string $fieldName
-   * @return string|null
+   * Get field label.
    */
-  public function getFieldLabel($node, $fieldName) {
+  public function getFieldLabel(Node $node, string $fieldName) : string {
     return $node->{$fieldName}->getFieldDefinition()->getLabel();
   }
 
   /**
-   * @param \Drupal\core\Field\FieldItemListInterface $field
-   * @param string $fieldLabel
-   * @param boolean $isSection
-   * @return array
+   * Get field json.
    */
-  public function getFieldJson($field, $fieldLabel = '', $isSection = FALSE) {
+  public function getFieldJson(FieldItemListInterface $field, string $fieldLabel = '', bool $isSection = FALSE) : array {
     $texts = $this->splitParagraphs($this->fieldValueFormatted($field, FALSE));
     if ($isSection) {
       return self::getFieldJsonAsSection($fieldLabel, $texts);
@@ -137,42 +132,45 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
     return self::getFieldJsonAsParagraphs($texts);
   }
 
-    /**
-     * @param string $title
-     * @param array $content
-     * @return array
-     */
-    public static function getFieldJsonAsSection($title, $content) {
-      foreach ($content as $i => $item) {
-        if(!is_array($item)) {
-          $content[$i] = self::getFieldJsonAsParagraphs($item);
-        }
+  /**
+   * Get field json as section.
+   */
+  public static function getFieldJsonAsSection(string $title, array $content) : array {
+    foreach ($content as $i => $item) {
+      if (!is_array($item)) {
+        $content[$i] = self::getFieldJsonAsParagraphs($item);
       }
-      return [
-        'type' => 'section',
-        'title' => $title,
-        'content' => $content,
-      ];
     }
+    return [
+      'type' => 'section',
+      'title' => $title,
+      'content' => $content,
+    ];
+  }
 
-    /**
-     * @param string|array $text
-     * @return array
-     */
-    public static function getFieldJsonAsParagraphs($text) {
-      if (is_array($text)) {
-        foreach ($text as $i => $para) {
-          $text[$i] = [
-            'type' => 'paragraph',
-            'text' => trim($para),
-          ];
-        }
-        return $text;
+  /**
+   * Get field json as paragraphs.
+   *
+   * @param string|array $text
+   *   Can be array or string.
+   *
+   * @return array
+   *   Paragraph blocks.
+   */
+  public static function getFieldJsonAsParagraphs($text) : array {
+    if (is_array($text)) {
+      foreach ($text as $i => $para) {
+        $text[$i] = [
+          'type' => 'paragraph',
+          'text' => trim($para),
+        ];
       }
-      return [
-        'type' => 'paragraph',
-        'text' => trim($text),
-      ];
+      return $text;
     }
+    return [
+      'type' => 'paragraph',
+      'text' => trim($text),
+    ];
+  }
 
 }

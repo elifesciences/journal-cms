@@ -3,6 +3,7 @@
 namespace Drupal\jcms_notifications;
 
 use Aws\AwsClientInterface;
+use Aws\Result;
 use Aws\Sqs\SqsClient;
 use Drupal\Core\Site\Settings;
 use Drupal\jcms_notifications\Queue\SqsMessage;
@@ -15,6 +16,8 @@ use Drupal\jcms_notifications\Queue\SqsMessage;
 final class QueueService {
 
   /**
+   * SQS client.
+   *
    * @var \Aws\Sqs\SqsClient
    */
   protected $sqsClient;
@@ -27,8 +30,6 @@ final class QueueService {
 
   /**
    * QueueService constructor.
-   *
-   * @param \Aws\AwsClientInterface|NULL $sqs_client
    */
   public function __construct(AwsClientInterface $sqs_client = NULL) {
     $this->endpoint = Settings::get('jcms_sqs_endpoint');
@@ -47,10 +48,8 @@ final class QueueService {
 
   /**
    * Gets the queue.
-   *
-   * @return \Aws\Result
    */
-  protected function getQueue() {
+  protected function getQueue() : Result {
     return $this->sqsClient->getQueueUrl([
       'QueueName' => $this->queueName,
     ]);
@@ -60,6 +59,7 @@ final class QueueService {
    * Gets the article data from SQS.
    *
    * @return \Drupal\jcms_notifications\Queue\SqsMessage|null
+   *   Return SQS message, if found.
    */
   public function getMessage() {
     $message = NULL;
@@ -81,12 +81,8 @@ final class QueueService {
 
   /**
    * Delete a message from the queue.
-   *
-   * @param \Drupal\jcms_notifications\Queue\SqsMessage $sqsMessage
-   *
-   * @return \Aws\Result
    */
-  public function deleteMessage(SqsMessage $sqsMessage) {
+  public function deleteMessage(SqsMessage $sqsMessage) : Result {
     $queue = $this->getQueue();
     return $this->sqsClient->deleteMessage([
       'QueueUrl' => $queue['QueueUrl'],
@@ -97,9 +93,6 @@ final class QueueService {
   /**
    * Helper method to map values to a SqsMessage object.
    *
-   * @param array $message
-   *
-   * @return \Drupal\jcms_notifications\Queue\SqsMessage
    * @throws \Exception
    */
   protected function mapSqsMessage(array $message) : SqsMessage {

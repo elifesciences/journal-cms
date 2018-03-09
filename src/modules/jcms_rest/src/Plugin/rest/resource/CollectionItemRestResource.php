@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\node\Entity\Node;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,18 +19,15 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class CollectionItemRestResource extends AbstractRestResourceBase {
+
   /**
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
    *
-   * @param string $id
-   * @return array|\Symfony\Component\HttpFoundation\JsonResponse
-   *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
+   * @throws JCMSNotFoundHttpException
    */
-  public function get($id) {
+  public function get(string $id) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
       ->condition('status', NODE_PUBLISHED)
       ->condition('changed', REQUEST_TIME, '<')
@@ -40,7 +38,7 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
     if ($nids) {
       $nid = reset($nids);
       /* @var \Drupal\node\Entity\Node $node */
-      $node = \Drupal\node\Entity\Node::load($nid);
+      $node = Node::load($nid);
 
       $this->setSortBy('changed');
       $response = $this->processDefault($node, $id);
@@ -105,14 +103,17 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
             case 'blog_article':
               $response[$k][] = ['type' => 'blog-article'] + $blog_article_rest_resource->getItem($content_node);
               break;
+
             case 'interview':
               $response[$k][] = ['type' => 'interview'] + $interview_rest_resource->getItem($content_node);
               break;
+
             case 'article':
               if ($snippet = $this->getArticleSnippet($content_node)) {
                 $response[$k][] = $snippet;
               }
               break;
+
             default:
           }
         }

@@ -35,7 +35,7 @@ class ExceptionJcmsJsonSubscriber extends HttpExceptionSubscriberBase {
    *   The event to process.
    */
   public function on400(GetResponseForExceptionEvent $event) {
-    $response = new JsonResponse(array('message' => $event->getException()->getMessage()), Response::HTTP_BAD_REQUEST, $event->getException()->getHeaders());
+    $response = new JsonResponse(['message' => $event->getException()->getMessage()], Response::HTTP_BAD_REQUEST, $event->getException()->getHeaders());
     $event->setResponse($response);
   }
 
@@ -46,7 +46,7 @@ class ExceptionJcmsJsonSubscriber extends HttpExceptionSubscriberBase {
    *   The event to process.
    */
   public function on403(GetResponseForExceptionEvent $event) {
-    $response = new JsonResponse(array('message' => $event->getException()->getMessage()), Response::HTTP_FORBIDDEN, $event->getException()->getHeaders());
+    $response = new JsonResponse(['message' => $event->getException()->getMessage()], Response::HTTP_FORBIDDEN, $event->getException()->getHeaders());
     $event->setResponse($response);
   }
 
@@ -68,7 +68,7 @@ class ExceptionJcmsJsonSubscriber extends HttpExceptionSubscriberBase {
    *   The event to process.
    */
   public function on405(GetResponseForExceptionEvent $event) {
-    $response = new JsonResponse(array('title' => $event->getException()->getMessage()), Response::HTTP_METHOD_NOT_ALLOWED, $event->getException()->getHeaders());
+    $response = new JsonResponse(['title' => $event->getException()->getMessage()], Response::HTTP_METHOD_NOT_ALLOWED, $event->getException()->getHeaders());
     $event->setResponse($response);
   }
 

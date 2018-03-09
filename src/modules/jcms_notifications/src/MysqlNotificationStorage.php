@@ -36,15 +36,13 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
 
   /**
    * MysqlNotificationStorage constructor.
-   *
-   * @param \Drupal\Core\Database\Driver\mysql\Connection $connection
    */
   public function __construct(Connection $connection) {
     $this->connection = $connection;
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function saveNotificationEntityId(EntityInterface $entity) {
     $whitelist_bundles = array_keys(EntityCrudNotificationService::ENTITY_TYPE_MAP);
@@ -57,7 +55,7 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getNotificationEntityIds(string $entityType = 'node'): array {
     $ids = [];
@@ -73,7 +71,7 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function deleteNotificationEntityId(int $entityId) {
     $this->connection->delete(self::TABLE)
@@ -82,7 +80,7 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function deleteNotificationEntityIds(array $entityIds) {
     foreach ($entityIds as $id) {

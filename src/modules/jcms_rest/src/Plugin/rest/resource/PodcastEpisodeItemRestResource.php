@@ -2,11 +2,11 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\node\Entity\Node;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
-use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -21,18 +21,15 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
+
   /**
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
    *
-   * @param int $number
-   * @return array|\Symfony\Component\HttpFoundation\JsonResponse
-   *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
+   * @throws JCMSNotFoundHttpException
    */
-  public function get(int $number) {
+  public function get(int $number) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
       ->condition('status', NODE_PUBLISHED)
       ->condition('changed', REQUEST_TIME, '<')
@@ -43,7 +40,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
     if ($nids) {
       $nid = reset($nids);
       /* @var \Drupal\node\Entity\Node $node */
-      $node = \Drupal\node\Entity\Node::load($nid);
+      $node = Node::load($nid);
 
       $response = $this->processDefault($node, $number, 'number');
 
@@ -96,20 +93,14 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
 
   /**
    * Takes a chapter node and builds an item from it.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   * @param NULL|int $number
-   * @param bool $add_episode
-   *
-   * @return array
    */
-  public function getChapterItem(EntityInterface $node, $number = NULL, $add_episode = FALSE) {
+  public function getChapterItem(EntityInterface $node, int $number = NULL, $add_episode = FALSE) : array {
     /* @var Node $node */
     static $count = 0;
     $count++;
 
     $query = Database::getConnection()->select('node__field_episode_chapter', 'ec');
-    $query->addField('ec',  'delta');
+    $query->addField('ec', 'delta');
     $query->innerJoin('node__field_episode_chapter', 'ec2', 'ec2.entity_id = ec.entity_id AND ec2.delta <= ec.delta');
     $query->condition('ec.field_episode_chapter_target_id', $node->id());
 
@@ -146,11 +137,13 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
           case 'collection':
             $chapter_content[] = ['type' => 'collection'] + $collection_rest_resource->getItem($content_node);
             break;
+
           case 'article':
             if ($article = $this->getArticleSnippet($content_node)) {
               $chapter_content[] = $article;
             }
             break;
+
           default:
         }
       }
@@ -166,7 +159,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       $query->range(0, 1);
       if ($result = $query->execute()->fetchObject()) {
         /* @var \Drupal\node\Entity\Node $episode */
-        $episode = \Drupal\node\Entity\Node::load($result->entity_id);
+        $episode = Node::load($result->entity_id);
         $podcast_episode_list = new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger);
         $chapter_values['episode'] = $podcast_episode_list->getItem($episode);
       }

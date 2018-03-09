@@ -19,6 +19,7 @@ function jcms_notifications_help($route_name, RouteMatchInterface $route_match) 
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('Integrates with Amazon SQS and Amazon SNS.') . '</p>';
       return $output;
+
     default:
   }
 }

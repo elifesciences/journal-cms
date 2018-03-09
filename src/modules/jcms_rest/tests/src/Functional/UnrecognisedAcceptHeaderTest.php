@@ -7,7 +7,7 @@ use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Test to verify an appropriate response when unrecognised accept headers provided.
+ * Test to verify an appropriate response with unrecognised accept header.
  *
  * @package Drupal\Tests\jcms_rest\Functional
  */
@@ -15,8 +15,6 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
 
   /**
    * Data provider for the validator test.
-   *
-   * @return array
    */
   public function dataProvider() : array {
     return [
@@ -44,8 +42,7 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         ],
         'id',
       ],
-      /**
-       * 500 error when content is in there
+      /* 500 error when content is in there
       [
         '/people',
         [
@@ -125,13 +122,12 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
   }
 
   /**
+   * Test responses.
+   *
    * @test
    * @dataProvider dataProvider
-   * @param string $endpoint
-   * @param array|string $expected_content_type
-   * @param string|NULL $id_key
    */
-  public function testResponses(string $endpoint, $expected_content_type, $id_key = NULL) {
+  public function testResponses(string $endpoint, array $expected_content_type, string $id_key = NULL) {
     foreach ([[], ['Accept' => '*/*'], ['Accept' => 'foo']] as $headers) {
       $request = new Request('GET', $endpoint, $headers);
       $response = $this->client->send($request);
@@ -154,4 +150,5 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
       }
     }
   }
+
 }

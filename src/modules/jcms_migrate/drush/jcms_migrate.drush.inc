@@ -37,7 +37,7 @@ function jcms_migrate_drush_command() {
       'options' => [
         'limit' => 'Limit on the number of deletions to do.',
         'feedback' => 'Receive feedback after a specified number of deletions. (default: 100)',
-      ],  
+      ],
       'examples' => [
         'drush paragraphs-revisions-purge field_article_json' => 'Purge all unused paragraph revisions for the field field_article_json.',
         'drush paragraphs-revisions-purge' => 'Purge all unused paragraph revisions on any field.',
@@ -160,7 +160,7 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
 function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
   $limit = drush_get_option('limit') ? (int) drush_get_option('limit') : 0;
   $feedback_frequency = drush_get_option('feedback') ? (int) drush_get_option('feedback') : 100;
-  
+
   // Count number of paragraph revisions that are not a default revision.
   $query = Database::getConnection()->select('paragraphs_item_revision', 'pir');
   if (!empty($field) && Database::getConnection()->schema()->tableExists('node__' . $field)) {
@@ -170,7 +170,7 @@ function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
   $query->isNull('pi.id');
   $count = $query->countQuery()->execute()->fetch()->expression;
   drush_print(dt('Number of revisions to be deleted is !count.', ['!count' => $count]));
-  
+
   if ($count > 0 && $limit >= 0) {
     $count_deleted = 0;
     do {
@@ -185,7 +185,7 @@ function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
         $query->range(0, $feedback_frequency);
         $limit -= $feedback_frequency;
       }
-      else if ($limit > 0) {
+      elseif ($limit > 0) {
         $query->range(0, $limit);
         $limit = -1;
       }
@@ -213,7 +213,7 @@ function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
         $limit = -1;
         break;
       }
-    } while($limit >= 0);
+    } while ($limit >= 0);
     drush_print(dt('Total number of revisions deleted is !count.', ['!count' => $count_deleted]));
   }
 
@@ -241,6 +241,6 @@ function drush_jcms_migrate_paragraphs_revisions_optimise() {
   $table_list = Database::getConnection()->query("SHOW TABLES LIKE 'paragraph_r%'")->fetchCol();
   $table_list[] = 'paragraphs_item_revision';
   $table_list[] = 'paragraphs_item_revision_field_data';
-  Database::getConnection()->query('OPTIMIZE TABLE '.implode(',', $table_list));
+  Database::getConnection()->query('OPTIMIZE TABLE ' . implode(',', $table_list));
   drush_print(dt('All paragraph revision tables have been optimised.'));
 }

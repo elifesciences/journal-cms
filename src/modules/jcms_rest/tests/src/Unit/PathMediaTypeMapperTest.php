@@ -6,24 +6,31 @@ use Drupal\Tests\UnitTestCase;
 use Drupal\jcms_rest\PathMediaTypeMapper;
 
 /**
- * Class PathMediaTypeMapperTest
+ * Class PathMediaTypeMapperTest.
  *
  * @package Drupal\Tests\jcms_rest\Unit
  */
 class PathMediaTypeMapperTest extends UnitTestCase {
 
   /**
+   * PathMediaTypeMapper.
+   *
    * @var \Drupal\jcms_rest\PathMediaTypeMapper
    *   The class we're testing.
    */
   protected $pathMediaTypeMapper;
 
+  /**
+   * {@inheritdoc}
+   */
   public function setUp() {
     $this->pathMediaTypeMapper = new PathMediaTypeMapper();
   }
 
-  public function dataProvider()
-  {
+  /**
+   * Provider for media type tests.
+   */
+  public function dataProvider() {
     return [
       ['/labs-posts', 'application/vnd.elife.labs-post-list+json'],
       ['/labs-posts/{number}', 'application/vnd.elife.labs-post+json'],
@@ -47,12 +54,14 @@ class PathMediaTypeMapperTest extends UnitTestCase {
   }
 
   /**
+   * Test media type given the path.
+   *
    * @test
    * @dataProvider dataProvider
    * @covers \Drupal\jcms_rest\PathMediaTypeMapper::getMappings
    * @covers \Drupal\jcms_rest\PathMediaTypeMapper::matchPathWithPlaceholders
    * @covers \Drupal\jcms_rest\PathMediaTypeMapper::getMediaTypeByPath
-   * @group  journal-cms-tests
+   * @group journal-cms-tests
    */
   public function testGetMediaTypeByPath($path, $expected) {
     $actual = $this->pathMediaTypeMapper->getMediaTypeByPath($path);

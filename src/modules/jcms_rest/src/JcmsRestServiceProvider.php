@@ -7,6 +7,7 @@ use Drupal\Core\DependencyInjection\ServiceProviderBase;
 
 /**
  * Adds application/vnd.elife.annual-report-list+json as a known format.
+ *
  * This must be named this way to ensure its discovery.
  */
 class JcmsRestServiceProvider extends ServiceProviderBase {
@@ -21,7 +22,8 @@ class JcmsRestServiceProvider extends ServiceProviderBase {
       $container->getDefinition('http_middleware.negotiation')->addMethodCall('registerFormat', ['jcms_json', array_values(PathMediaTypeMapper::getMappings())]);
     }
 
-    // Alter the http_middleware.page_cache service only if Internal Page Cache module is enabled.
+    // Alter the http_middleware.page_cache service only if Internal Page Cache
+    // module is enabled.
     if (isset($modules['page_cache'])) {
       $definition = $container->getDefinition('http_middleware.page_cache');
       $definition->setClass('Drupal\jcms_rest\StackMiddleware\JCMSPageCache');

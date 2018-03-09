@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
@@ -20,31 +21,22 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class PersonItemRestResource extends AbstractRestResourceBase {
+
   /**
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
-   *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
    */
-  public function get($id) {
+  public function get(string $id) : JCMSRestResponse {
     $response = $this->getItemResponse($id);
-    if ($response instanceof Response) {
-      $this->processResponse($response);
-      return $response;
-    }
-
-    throw new JCMSNotFoundHttpException(t('Person with ID @id was not found', ['@id' => $id]));
+    $this->processResponse($response);
+    return $response;
   }
 
   /**
-   * Get item response
-   *
-   * @param string $id
-   * @return Response|bool
+   * Get item response.
    */
-  public function getItemResponse($id) {
+  public function getItemResponse(string $id) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
       ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
@@ -65,18 +57,13 @@ class PersonItemRestResource extends AbstractRestResourceBase {
       return $response;
     }
 
-    \Drupal::logger('jcms_rest')->warning('No item response found for person with id.', ['id' => $id]);
-    return FALSE;
+    throw new JCMSNotFoundHttpException(t('Person with ID @id was not found', ['@id' => $id]));
   }
 
   /**
    * Takes a node and builds an item from it.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   *
-   * @return array
    */
-  public function getItem($node) {
+  public function getItem(EntityInterface $node) : array {
     $person_list_rest_resource = new PersonListRestResource([], 'person_list_rest_resource', [], $this->serializerFormats, $this->logger);
     $item = $person_list_rest_resource->getItem($node);
 
@@ -98,7 +85,10 @@ class PersonItemRestResource extends AbstractRestResourceBase {
     return $item;
   }
 
-  public function getResearchDetails($node, $reset = TRUE) {
+  /**
+   * Get research details.
+   */
+  public function getResearchDetails(EntityInterface $node, $reset = TRUE) : array {
     $research = [];
     if (!$reset) {
       return json_decode($node->get('field_research_details_json')->getString(), TRUE);
@@ -148,7 +138,10 @@ class PersonItemRestResource extends AbstractRestResourceBase {
     return $research;
   }
 
-  public function getProfile($node, $reset = TRUE) {
+  /**
+   * Get profile.
+   */
+  public function getProfile(EntityInterface $node, $reset = TRUE) : array {
     if (!$reset) {
       return json_decode($node->get('field_person_profile_json')->getString(), TRUE);
     }
@@ -157,7 +150,10 @@ class PersonItemRestResource extends AbstractRestResourceBase {
     }
   }
 
-  public function getAffiliations($node, $reset = TRUE) {
+  /**
+   * Get affiliations.
+   */
+  public function getAffiliations(EntityInterface $node, $reset = TRUE) : array {
     $affiliations = [];
     if (!$reset) {
       return json_decode($node->get('field_person_affiliation_json')->getString(), TRUE);

@@ -26,12 +26,9 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
-   *
    * @todo - elife - nlisgo - Handle version specific requests
    */
-  public function get() {
+  public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
       ->condition('status', NODE_PUBLISHED)
       ->condition('changed', REQUEST_TIME, '<')
@@ -68,9 +65,8 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
   /**
    * Takes a node and builds an item from it.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   *
    * @return array|bool
+   *   Return item, if found.
    */
   public function getItem(EntityInterface $node) {
     /* @var Node $node */
@@ -100,14 +96,11 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
       }
     }
 
-
     return $item;
   }
 
   /**
    * Apply filter for subjects by amending query.
-   *
-   * @param \Drupal\Core\Entity\Query\QueryInterface $query
    */
   protected function filterSubjects(QueryInterface &$query) {
     $subjects = $this->getRequestOption('subject');

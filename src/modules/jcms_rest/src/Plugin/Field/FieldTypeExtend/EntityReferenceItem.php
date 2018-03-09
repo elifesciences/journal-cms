@@ -19,13 +19,12 @@ class EntityReferenceItem extends EntityReferenceItemExtend {
       // Random values must be unique.
       case 'field_subjects':
         static $unique = [];
-        /**
+        /*
          * As field_subjects has a cardinality of unlimited this method may be
          * called between 1 and 3 times for each content item generated.
          *
          * @see: \Drupal\devel_generate\DevelGenerateBase::populateFields
-         * if ($cardinality == FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED) {
-         *   // Just an arbitrary number for 'unlimited'
+         * if ($cardinality == FieldStorage...
          *   $max = rand(1, 3);
          * }
          *

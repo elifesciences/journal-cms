@@ -20,7 +20,7 @@ class TimestampItem extends TimestampItemExtend {
         return [
           'value' => rand($now, $now + 60 * 60 * 24 * 30),
         ];
-        break;
+
       default:
         return parent::generateSampleValue($field_definition);
     }

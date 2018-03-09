@@ -21,25 +21,21 @@ final class NodePresave {
   use JCMSImageUriTrait;
 
   /**
-   * @var bool
-   */
-  private $fetchSnippetAlways = FALSE;
-
-  /**
+   * Store constructor argument FetchArticleVersions.
+   *
    * @var \Drupal\jcms_article\FetchArticleVersions
    */
   private $fetchArticleVersions;
 
   /**
+   * Store constructor argument FragmentApi.
+   *
    * @var \Drupal\jcms_article\FragmentApi
    */
   private $fragmentApi;
 
   /**
    * NodePresave constructor.
-   *
-   * @param \Drupal\jcms_article\FetchArticleVersions $fetch_article_versions
-   * @param \Drupal\jcms_article\FragmentApi $fragment_api
    */
   public function __construct(FetchArticleVersions $fetch_article_versions, FragmentApi $fragment_api) {
     $this->fetchArticleVersions = $fetch_article_versions;
@@ -48,20 +44,13 @@ final class NodePresave {
 
   /**
    * Gets the article data.
-   *
-   * @param $id
-   *
-   * @return \Drupal\jcms_article\Entity\ArticleVersions|null
    */
-  public function getArticleById($id) {
+  public function getArticleById(string $id) : ArticleVersions {
     return $this->fetchArticleVersions->getArticleVersions($id);
   }
 
   /**
    * Adds the JSON fields to the node.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
   public function addJsonFields(EntityInterface $entity, ArticleVersions $article) {
     if ($entity->get('field_article_json')->getValue()) {
@@ -74,9 +63,6 @@ final class NodePresave {
 
   /**
    * Sets the status date (the date article became VOR or POA) on the node.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
   public function setStatusDate(EntityInterface $entity, ArticleVersions $article) {
     // Set the status date if there's a published version.
@@ -92,9 +78,6 @@ final class NodePresave {
 
   /**
    * Sets the published date (the date article became VOR or POA) on the node.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
   public function setPublishedDate(EntityInterface $entity, ArticleVersions $article) {
     // Set the published date if there's a published version.
@@ -110,9 +93,6 @@ final class NodePresave {
 
   /**
    * Sets the published status of the node.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
   public function setPublishedStatus(EntityInterface $entity, ArticleVersions $article) {
     $id = $entity->label();
@@ -123,9 +103,6 @@ final class NodePresave {
 
   /**
    * Sets the article subjects on the article as taxonomy terms.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
   public function setSubjectTerms(EntityInterface $entity, ArticleVersions $article) {
     $id = $entity->label();
@@ -148,9 +125,6 @@ final class NodePresave {
 
   /**
    * Update or delete the article fragment.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   * @param string $articleId
    */
   public function updateFragmentApi(EntityInterface $entity, string $articleId) {
     if (empty(Settings::get('jcms_article_auth_unpublished', FALSE))) {
@@ -167,9 +141,6 @@ final class NodePresave {
 
   /**
    * Updates existing JSON field paragraphs.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
   private function updateJsonParagraph(EntityInterface $entity, ArticleVersions $article) {
     $id = $entity->label();
@@ -191,9 +162,6 @@ final class NodePresave {
 
   /**
    * Creates new JSON field paragraphs.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   * @param \Drupal\jcms_article\Entity\ArticleVersions $article
    */
   private function createJsonParagraph(EntityInterface $entity, ArticleVersions $article) {
     $published = $article->getLatestPublishedVersionJson();
@@ -219,10 +187,6 @@ final class NodePresave {
 
   /**
    * Returns a taxonomy term ID, loading the term by its string ID field.
-   *
-   * @param string $id
-   *
-   * @return int
    */
   private function loadTermIdByIdField(string $id): int {
     $tid = 0;

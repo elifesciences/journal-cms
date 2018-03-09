@@ -13,4 +13,3 @@ services:
     class: eLife\Bus\Limit\MemoryLimit
     factory: ['eLife\Bus\Limit\MemoryLimit', 'mb']
     arguments: [128]
-

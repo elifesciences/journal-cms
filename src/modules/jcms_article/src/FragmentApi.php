@@ -23,8 +23,6 @@ class FragmentApi {
 
   /**
    * FragmentApi constructor.
-   *
-   * @param \GuzzleHttp\Client $client
    */
   public function __construct(Client $client) {
     $this->client = $client;
@@ -33,9 +31,6 @@ class FragmentApi {
   /**
    * Post the image fragment.
    *
-   * @param string $articleId
-   * @param string $payload
-   * @return \Psr\Http\Message\ResponseInterface
    * @throws \Exception
    */
   public function postImageFragment(string $articleId, string $payload) : ResponseInterface {
@@ -65,9 +60,6 @@ class FragmentApi {
   /**
    * Delete the image fragment.
    *
-   * @param string $articleId
-   *
-   * @return \Psr\Http\Message\ResponseInterface
    * @throws \Exception
    */
   public function deleteImageFragment(string $articleId) : ResponseInterface {

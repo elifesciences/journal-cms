@@ -6,8 +6,16 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\crop\Entity\Crop;
 
+/**
+ * Helper methods for image uri IIIF paths.
+ */
 trait JCMSImageUriTrait {
 
+  /**
+   * Image sizes.
+   *
+   * @var array
+   */
   protected $imageSizes = [
     'banner',
     'thumbnail',
@@ -15,13 +23,8 @@ trait JCMSImageUriTrait {
 
   /**
    * Get the IIIF or web path to the image.
-   *
-   * @param string $image_uri
-   * @param string $type
-   * @param null|string $filemime
-   * @return string
    */
-  protected function processImageUri($image_uri, $type = 'source', $filemime = NULL) {
+  protected function processImageUri(string $image_uri, string $type = 'source', string $filemime = NULL) : string {
     $iiif = Settings::get('jcms_iiif_base_uri');
     if ($iiif) {
       $iiif_mount = Settings::get('jcms_iiif_mount', '/');
@@ -33,9 +36,11 @@ trait JCMSImageUriTrait {
           case 'image/gif':
             $ext = 'gif';
             break;
+
           case 'image/png':
             $ext = 'png';
             break;
+
           default:
             $ext = 'jpg';
         }
@@ -52,14 +57,8 @@ trait JCMSImageUriTrait {
 
   /**
    * Process image field and return json string.
-   *
-   * @param \Drupal\Core\Field\FieldItemListInterface $data
-   * @param bool $required
-   * @param array|string $size_types
-   * @param bool $bump
-   * @return array
    */
-  protected function processFieldImage(FieldItemListInterface $data, $required = FALSE, $size_types = ['banner', 'thumbnail'], $bump = FALSE) {
+  protected function processFieldImage(FieldItemListInterface $data, bool $required = FALSE, $size_types = ['banner', 'thumbnail'], $bump = FALSE) : array {
     if ($required || $data->count()) {
       $image = $this->getImageSizes($size_types);
 
@@ -115,11 +114,8 @@ trait JCMSImageUriTrait {
 
   /**
    * Get image sizes for the requested presets.
-   *
-   * @param array $size_types
-   * @return array
    */
-  protected function getImageSizes($size_types = ['banner', 'thumbnail']) {
+  protected function getImageSizes($size_types = ['banner', 'thumbnail']) : array {
     $sizes = [];
     $size_types = (array) $size_types;
     foreach ($size_types as $size_type) {
@@ -130,4 +126,5 @@ trait JCMSImageUriTrait {
 
     return $sizes;
   }
+
 }

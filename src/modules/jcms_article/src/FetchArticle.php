@@ -24,7 +24,7 @@ class FetchArticle {
   /**
    * Retrieval limit.
    *
-   * @var int|NULL
+   * @var int|null
    */
   protected $limit = NULL;
 
@@ -38,7 +38,8 @@ class FetchArticle {
   /**
    * Set retrieval limit for articles.
    *
-   * @param int|NULL $limit
+   * @param int|null $limit
+   *   Limit, if set.
    */
   public function setLimit($limit) {
     $this->limit = $limit ?: NULL;
@@ -46,10 +47,6 @@ class FetchArticle {
 
   /**
    * Gets article versions by ID.
-   *
-   * @param string $id
-   *
-   * @return \Drupal\jcms_article\Entity\Article
    */
   public function getArticleById(string $id): Article {
     $response = $this->requestArticle($id);
@@ -59,12 +56,9 @@ class FetchArticle {
   /**
    * Makes the request to get the article versions.
    *
-   * @param string $id
-   *
-   * @return \Psr\Http\Message\ResponseInterface
    * @throws \TypeError
    */
-  function requestArticle(string $id): ResponseInterface {
+  public function requestArticle(string $id): ResponseInterface {
     $options = [
       'headers' => [
         'Authorization' => Settings::get('jcms_article_auth_unpublished'),
@@ -81,10 +75,8 @@ class FetchArticle {
 
   /**
    * Gets the IDs for every article in Lax.
-   *
-   * @return array
    */
-  public function getAllArticleIds() {
+  public function getAllArticleIds() : array {
     $ids = [];
     $articles = $this->getAllArticles();
     if ($articles) {
@@ -97,10 +89,8 @@ class FetchArticle {
 
   /**
    * Gets every article in Lax.
-   *
-   * @return array
    */
-  public function getAllArticles() {
+  public function getAllArticles() : array {
     $articles = [];
     $endpoint = Settings::get('jcms_all_articles_endpoint');
     if ($endpoint) {

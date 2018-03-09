@@ -6,7 +6,7 @@ use Drupal\Tests\UnitTestCase;
 use Drupal\jcms_article\Entity\ArticleVersions;
 
 /**
- * Class ArticleVersionsTest
+ * Tests for ArticleVersions.
  *
  * @package Drupal\jcms_article\Tests\Unit\Entity
  */
@@ -14,6 +14,9 @@ class ArticleVersionsTest extends UnitTestCase {
 
   protected $testJson;
 
+  /**
+   * {@inheritdoc}
+   */
   public function setUp() {
     parent::setUp();
     // This is cut down but follows the correct version JSON structure.
@@ -21,6 +24,8 @@ class ArticleVersionsTest extends UnitTestCase {
   }
 
   /**
+   * Test basic getters.
+   *
    * @test
    * @group journal-cms-tests
    */
@@ -35,6 +40,8 @@ class ArticleVersionsTest extends UnitTestCase {
   }
 
   /**
+   * Test reaction to invalid json.
+   *
    * @test
    * @group journal-cms-tests
    * @expectedException \InvalidArgumentException
@@ -46,6 +53,8 @@ class ArticleVersionsTest extends UnitTestCase {
   }
 
   /**
+   * Test retrieval of published article snippet.
+   *
    * @test
    * @group journal-cms-tests
    */
@@ -57,6 +66,8 @@ class ArticleVersionsTest extends UnitTestCase {
   }
 
   /**
+   * Test retrieval of unpublished article snippet.
+   *
    * @test
    * @group journal-cms-tests
    */
@@ -68,6 +79,8 @@ class ArticleVersionsTest extends UnitTestCase {
   }
 
   /**
+   * Test empty result if no article snippet available.
+   *
    * @test
    * @group journal-cms-tests
    */

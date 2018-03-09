@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\taxonomy\Entity\Term;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,15 +19,15 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class SubjectItemRestResource extends AbstractRestResourceBase {
+
   /**
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
+   * @throws JCMSNotFoundHttpException
    */
-  public function get($id = NULL) {
+  public function get(string $id = NULL) : JCMSRestResponse {
     $query = \Drupal::entityQuery('taxonomy_term')
       ->condition('vid', 'subjects')
       ->condition('field_subject_id.value', $id);
@@ -35,7 +36,7 @@ class SubjectItemRestResource extends AbstractRestResourceBase {
     if ($tids) {
       $tid = reset($tids);
       /* @var \Drupal\taxonomy\Entity\Term $term */
-      $term = \Drupal\taxonomy\Entity\Term::load($tid);
+      $term = Term::load($tid);
 
       $response = [
         'id' => $id,

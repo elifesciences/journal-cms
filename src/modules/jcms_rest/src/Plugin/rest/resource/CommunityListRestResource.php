@@ -25,12 +25,9 @@ class CommunityListRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
-   *
    * @todo - elife - nlisgo - Handle version specific requests
    */
-  public function get() {
+  public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
       ->condition('status', NODE_PUBLISHED)
       ->condition('changed', REQUEST_TIME, '<')
@@ -63,12 +60,8 @@ class CommunityListRestResource extends AbstractRestResourceBase {
 
   /**
    * Takes a node and builds an item from it.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   *
-   * @return array
    */
-  public function getItem(EntityInterface $node) {
+  public function getItem(EntityInterface $node) : array {
     /* @var Node $node */
     $rest_resource = [
       'blog_article' => new BlogArticleListRestResource([], 'blog_article_list_rest_resource', [], $this->serializerFormats, $this->logger),
@@ -82,7 +75,7 @@ class CommunityListRestResource extends AbstractRestResourceBase {
     if ($node->getType() == 'article') {
       return $this->getArticleSnippet($node);
     }
-    else if ($node->getType() == 'labs_experiment') {
+    elseif ($node->getType() == 'labs_experiment') {
       return ['type' => 'labs-post'] + $rest_resource[$node->getType()]->getItem($node);
     }
     else {

@@ -4,7 +4,6 @@ namespace Drupal\Tests\jcms_rest\Functional;
 
 use ComposerLocator;
 use Drupal\Tests\UnitTestCase;
-use eLife\ApiValidator\MessageValidator;
 use eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator;
 use eLife\ApiValidator\MessageValidator\JsonMessageValidator;
 use eLife\ApiValidator\SchemaFinder\PathBasedSchemaFinder;
@@ -13,24 +12,34 @@ use GuzzleHttp\Psr7\Request;
 use JsonSchema\Validator;
 use RuntimeException;
 
+/**
+ * Abstract class for fixture based test cases.
+ */
 abstract class FixtureBasedTestCase extends UnitTestCase {
 
   protected static $contentGenerated = FALSE;
 
   /**
-   * @var Client
+   * Http client.
+   *
+   * @var \GuzzleHttp\Client
    */
   protected $client;
 
   /**
-   * @var MessageValidator
+   * Message validator.
+   *
+   * @var \eLife\ApiValidator\MessageValidator
    */
   protected $validator;
 
+  /**
+   * {@inheritdoc}
+   */
   public function setUp() {
     $this->validator = new FakeHttpsMessageValidator(
       new JsonMessageValidator(
-        new PathBasedSchemaFinder(ComposerLocator::getPath('elife/api').'/dist/model'),
+        new PathBasedSchemaFinder(ComposerLocator::getPath('elife/api') . '/dist/model'),
         new Validator()
       )
     );
@@ -40,8 +49,10 @@ abstract class FixtureBasedTestCase extends UnitTestCase {
     ]);
   }
 
-  public static function setUpBeforeClass()
-  {
+  /**
+   * {@inheritdoc}
+   */
+  public static function setUpBeforeClass() {
     parent::setUpBeforeClass();
     // Generate content once.
     if (!self::$contentGenerated) {
@@ -59,6 +70,9 @@ abstract class FixtureBasedTestCase extends UnitTestCase {
     }
   }
 
+  /**
+   * Gather list items.
+   */
   public function gatherListItems(string $endpoint, string $media_type_list) {
     $all_items = [];
     $per_page = 50;
@@ -83,8 +97,7 @@ abstract class FixtureBasedTestCase extends UnitTestCase {
       else {
         $page++;
       }
-    }
-    while ($page > 0);
+    } while ($page > 0);
 
     return $all_items;
   }

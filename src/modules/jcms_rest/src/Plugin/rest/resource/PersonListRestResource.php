@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\node\NodeInterface;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
@@ -22,19 +23,17 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class PersonListRestResource extends AbstractRestResourceBase {
+
   /**
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
-   *
    * @todo - elife - nlisgo - Handle version specific requests
    */
-  public function get() {
+  public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
-      ->condition('status', \Drupal\node\NodeInterface::PUBLISHED)
+      ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('field_archive.value', 0)
       ->condition('type', 'person');
@@ -69,15 +68,18 @@ class PersonListRestResource extends AbstractRestResourceBase {
 
   /**
    * Apply filter for subjects by amending query.
-   *
-   * @param \Drupal\Core\Entity\Query\QueryInterface $query
    */
   protected function filterSubjects(QueryInterface &$query) {
     $subjects = $this->getRequestOption('subject');
     if (!empty($subjects)) {
       // @todo - elife - nlisgo - Ideally we would just filter on $query.
       // The below query doesn't work.
-      // $query->condition('field_research_details.entity.field_research_expertises.entity.field_subject_id.value', $subjects, 'IN');
+      // $query
+      // ->condition(
+      // 'field_research_details.entity.'.
+      // 'field_research_expertises.entity.'.
+      // 'field_subject_id.value', $subjects, 'IN'
+      // );
       $subjects_query = Database::getConnection()->select('node__field_research_details', 'rd');
       $subjects_query->addField('rd', 'entity_id');
       $subjects_query->innerJoin('paragraph__field_research_expertises', 're', 're.entity_id = rd.field_research_details_target_id');
@@ -96,8 +98,6 @@ class PersonListRestResource extends AbstractRestResourceBase {
 
   /**
    * Apply filter for type by amending query.
-   *
-   * @param \Drupal\Core\Entity\Query\QueryInterface $query
    */
   protected function filterType(QueryInterface &$query) {
     $type = $this->getRequestOption('type');
@@ -116,12 +116,8 @@ class PersonListRestResource extends AbstractRestResourceBase {
 
   /**
    * Takes a node and builds an item from it.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   *
-   * @return array
    */
-  public function getItem(EntityInterface $node) {
+  public function getItem(EntityInterface $node) : array {
     $entityManager = \Drupal::service('entity_field.manager');
     $fields = $entityManager->getFieldStorageDefinitions('node', 'person');
     $options = options_allowed_values($fields['field_person_type']);

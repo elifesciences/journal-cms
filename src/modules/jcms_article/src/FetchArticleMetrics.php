@@ -17,11 +17,15 @@ use Symfony\Component\HttpFoundation\Response;
 final class FetchArticleMetrics {
 
   /**
+   * GuzzleHttp\Client definition.
+   *
    * @var \GuzzleHttp\Client
    */
   protected $client;
 
   /**
+   * Article metrics end point.
+   *
    * @var string
    */
   protected $endpoint;
@@ -39,10 +43,8 @@ final class FetchArticleMetrics {
 
   /**
    * Allow an alternate endpoint to be set.
-   *
-   * @param $endpoint
    */
-  public function setEndpoint($endpoint) {
+  public function setEndpoint(string $endpoint) {
     if (!empty($endpoint)) {
       $this->endpoint = $endpoint;
     }
@@ -51,9 +53,6 @@ final class FetchArticleMetrics {
   /**
    * Gets article versions by ID.
    *
-   * @param string $id
-   *
-   * @return \Drupal\jcms_article\Entity\ArticleMetrics
    * @throws \InvalidArgumentException
    * @throws \TypeError
    */
@@ -73,13 +72,9 @@ final class FetchArticleMetrics {
   /**
    * Makes the request to get the article versions.
    *
-   * @param string $id
-   * @param string $type
-   *
-   * @return \Psr\Http\Message\ResponseInterface
    * @throws BadResponseException
    */
-  private function requestArticleMetrics(string $id, string $type = 'page-views') {
+  private function requestArticleMetrics(string $id, string $type = 'page-views') : ResponseInterface {
     $options = [
       'headers' => [
         'Authorization' => Settings::get('jcms_article_auth_unpublished'),
@@ -110,12 +105,6 @@ final class FetchArticleMetrics {
 
   /**
    * Helper method to format an URL with a correct ID and type.
-   *
-   * @param string $id
-   * @param string $type
-   * @param string $url
-   *
-   * @return string
    */
   protected function formatUrl(string $id, string $type, string $url): string {
     return sprintf($url, $id, $type);

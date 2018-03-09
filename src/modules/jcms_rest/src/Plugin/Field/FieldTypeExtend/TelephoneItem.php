@@ -17,8 +17,8 @@ class TelephoneItem extends TelephoneItemExtend {
     $values = parent::generateSampleValue($field_definition);
     switch ($field_definition->getName()) {
       case 'field_block_phone_number':
-          $values['value'] = '+'.$values['value'];
-          break;
+        $values['value'] = '+' . $values['value'];
+        break;
     }
     return $values;
   }
