@@ -351,8 +351,13 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   /**
    * Apply filter for page, per-page and order.
+   *
+   * @param \Drupal\Core\Entity\Query\QueryInterface $query
+   *   Query to filter.
+   * @param string|array|null $sort_by
+   *   Sort by value(s).
    */
-  protected function filterPageAndOrder(QueryInterface &$query, string $sort_by = NULL) {
+  protected function filterPageAndOrder(QueryInterface &$query, $sort_by = NULL) {
     $sort_bys = (array) $this->setSortBy($sort_by);
 
     if (!in_array($this->getRequestOption('sort'), ['date', 'page-views'])) {
