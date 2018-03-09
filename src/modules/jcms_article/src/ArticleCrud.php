@@ -9,7 +9,7 @@ use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
- * Class ArticleCrud.
+ * Handle changes to Article snippets.
  *
  * @package Drupal\jcms_article
  * @todo Look to share more code with \Drupal\jcms_article\Hooks\NodePreSave.
@@ -80,7 +80,7 @@ class ArticleCrud {
       'type' => 'article',
       'title' => $articleVersions->getId(),
     ]);
-    $paragraph = $this->createParagraph($node, $articleVersions);
+    $paragraph = $this->createParagraph($articleVersions);
     $node->field_article_json = [
       [
         'target_id' => $paragraph->id(),
@@ -107,7 +107,7 @@ class ArticleCrud {
       $paragraph = $this->updateParagraph($node, $articleVersions);
     }
     else {
-      $paragraph = $this->createParagraph($node, $articleVersions);
+      $paragraph = $this->createParagraph($articleVersions);
     }
     $node->field_article_json = [
       [
@@ -138,7 +138,7 @@ class ArticleCrud {
   /**
    * Creates a new paragraph.
    */
-  public function createParagraph(EntityInterface $node, ArticleVersions $articleVersions) : EntityInterface {
+  public function createParagraph(ArticleVersions $articleVersions) : EntityInterface {
     $published = $articleVersions->getLatestPublishedVersionJson();
     // Store the published JSON if no unpublished exists.
     $unpublished = $articleVersions->getLatestUnpublishedVersionJson() ?: $published;
@@ -186,7 +186,7 @@ class ArticleCrud {
    * @return mixed|bool
    *   Return article snippet, if found.
    */
-  public function getArticle(EntityInterface $node, $preview = FALSE) {
+  public function getArticle(EntityInterface $node, bool $preview = FALSE) {
     $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
     $paragraph = Paragraph::load($pid);
     if ($preview) {
