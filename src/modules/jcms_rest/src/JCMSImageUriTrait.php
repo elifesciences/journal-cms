@@ -7,7 +7,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\crop\Entity\Crop;
 
 /**
- * Trait JCMSImageUriTrait.
+ * Helper methods for image uri IIIF paths.
  */
 trait JCMSImageUriTrait {
 

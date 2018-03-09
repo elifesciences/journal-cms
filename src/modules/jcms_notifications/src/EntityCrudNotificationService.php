@@ -6,7 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_notifications\Notification\BusOutgoingMessage;
 
 /**
- * Class EntityCrudNotificationService.
+ * Service to handle sending of notifications on entity changes.
  *
  * @package Drupal\jcms_notifications
  */

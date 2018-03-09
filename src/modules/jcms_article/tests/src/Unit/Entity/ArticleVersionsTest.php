@@ -6,7 +6,7 @@ use Drupal\Tests\UnitTestCase;
 use Drupal\jcms_article\Entity\ArticleVersions;
 
 /**
- * Class ArticleVersionsTest.
+ * Tests for ArticleVersions.
  *
  * @package Drupal\jcms_article\Tests\Unit\Entity
  */

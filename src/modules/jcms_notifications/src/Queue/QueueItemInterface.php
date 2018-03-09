@@ -3,7 +3,7 @@
 namespace Drupal\jcms_notifications\Queue;
 
 /**
- * Interface MysqlNotificationStorage.
+ * Interface for queue item instances.
  *
  * @package Drupal\jcms_notifications
  */

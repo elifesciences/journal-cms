@@ -6,7 +6,7 @@ use Drupal\jcms_rest\JCMSHtmlHelperTrait;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Class JCMSHtmlHelperTraitTest.
+ * Tests for methods in JCMSHtmlHelperTrait.
  *
  * @package Drupal\Tests\jcms_rest\Unit
  */

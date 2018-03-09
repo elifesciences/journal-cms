@@ -13,7 +13,7 @@ use JsonSchema\Validator;
 use RuntimeException;
 
 /**
- * Abstract class FixtureBasedTestCase.
+ * Abstract class for fixture based test cases.
  */
 abstract class FixtureBasedTestCase extends UnitTestCase {
 

@@ -5,7 +5,7 @@ namespace Drupal\jcms_notifications;
 use Drupal\Core\Entity\EntityInterface;
 
 /**
- * Interface MysqlNotificationStorage.
+ * Interface for storing notifications.
  *
  * @package Drupal\jcms_notifications
  */

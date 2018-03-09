@@ -5,7 +5,7 @@ namespace Drupal\jcms_rest;
 use Drupal\Component\Utility\Html;
 
 /**
- * Trait JCMSHtmlHelperTrait.
+ * Html helper methods for preparing api responses.
  */
 trait JCMSHtmlHelperTrait {
 

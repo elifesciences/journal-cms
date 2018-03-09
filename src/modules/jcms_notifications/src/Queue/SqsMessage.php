@@ -3,7 +3,7 @@
 namespace Drupal\jcms_notifications\Queue;
 
 /**
- * Class SqsMessage.
+ * Store for SQS message.
  *
  * @package Drupal\jcms_notifications\Queue
  * @todo Taken from https://github.com/elifesciences/search, split this out.

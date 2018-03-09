@@ -3,7 +3,7 @@
 namespace Drupal\jcms_article\Entity;
 
 /**
- * Class Article.
+ * Store and verify article snippet.
  *
  * @package Drupal\jcms_article\Entity
  */

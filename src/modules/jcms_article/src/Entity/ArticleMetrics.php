@@ -3,7 +3,7 @@
 namespace Drupal\jcms_article\Entity;
 
 /**
- * Class ArticleMetrics.
+ * Store article metrics.
  *
  * @package Drupal\jcms_article\Entity
  */

@@ -6,7 +6,7 @@ use Drupal\jcms_rest\Plugin\rest\resource\JobAdvertItemRestResource;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Class JCMSHtmlHelperTraitTest.
+ * Tests for JobAdvertItemRestResource.
  *
  * @package Drupal\Tests\jcms_rest\Unit
  */

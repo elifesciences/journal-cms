@@ -3,7 +3,7 @@
 namespace Drupal\jcms_notifications\Notification;
 
 /**
- * Class BusOutgoingMessage.
+ * Object to prepare outgoing notification.
  *
  * @package Drupal\jcms_notifications
  */
