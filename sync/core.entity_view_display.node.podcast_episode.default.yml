@@ -11,7 +11,6 @@ dependencies:
     - field.field.node.podcast_episode.field_image_attribution
     - field.field.node.podcast_episode.field_impact_statement
     - field.field.node.podcast_episode.field_order_date
-    - field.field.node.podcast_episode.field_subjects
     - node.type.podcast_episode
   module:
     - image
@@ -94,14 +93,6 @@ content:
       timezone: ''
     third_party_settings: {  }
     type: timestamp
-    region: content
-  field_subjects:
-    weight: 6
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
     region: content
   links:
     weight: 0

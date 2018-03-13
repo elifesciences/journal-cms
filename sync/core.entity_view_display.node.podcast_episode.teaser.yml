@@ -9,8 +9,9 @@ dependencies:
     - field.field.node.podcast_episode.field_episode_mp3
     - field.field.node.podcast_episode.field_episode_number
     - field.field.node.podcast_episode.field_image
+    - field.field.node.podcast_episode.field_image_attribution
     - field.field.node.podcast_episode.field_impact_statement
-    - field.field.node.podcast_episode.field_subjects
+    - field.field.node.podcast_episode.field_order_date
     - node.type.podcast_episode
   module:
     - user
@@ -35,4 +36,3 @@ hidden:
   field_image_attribution: true
   field_impact_statement: true
   field_order_date: true
-  field_subjects: true
