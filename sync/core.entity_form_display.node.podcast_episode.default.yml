@@ -11,13 +11,13 @@ dependencies:
     - field.field.node.podcast_episode.field_image_attribution
     - field.field.node.podcast_episode.field_impact_statement
     - field.field.node.podcast_episode.field_order_date
-    - field.field.node.podcast_episode.field_subjects
     - image.style.thumbnail
     - node.type.podcast_episode
   module:
     - focal_point
     - inline_entity_form
     - link
+    - scheduler
     - text
 id: node.podcast_episode.default
 targetEntityType: node
@@ -84,15 +84,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-    region: content
-  field_subjects:
-    weight: 7
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
     region: content
   publish_on:
     type: datetime_timestamp_no_default
