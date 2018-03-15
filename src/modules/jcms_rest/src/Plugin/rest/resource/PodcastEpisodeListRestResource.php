@@ -124,12 +124,6 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
       ],
     ];
 
-    // Subjects are optional.
-    $subjects = $this->processSubjects($node->get('field_subjects'));
-    if (!empty($subjects)) {
-      $item['subjects'] = $subjects;
-    }
-
     return $item;
   }
 

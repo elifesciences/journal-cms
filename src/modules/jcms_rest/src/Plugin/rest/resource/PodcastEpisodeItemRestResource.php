@@ -73,12 +73,6 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
         }
       }
 
-      // Subjects are optional.
-      $subjects = $this->processSubjects($node->get('field_subjects'));
-      if (!empty($subjects)) {
-        $response['subjects'] = $subjects;
-      }
-
       if ($node->get('field_episode_chapter')->count()) {
         $response['chapters'] = [];
         foreach ($node->get('field_episode_chapter')->referencedEntities() as $chapter) {
