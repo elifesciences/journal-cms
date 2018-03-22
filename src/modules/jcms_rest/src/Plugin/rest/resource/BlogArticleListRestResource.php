@@ -5,6 +5,7 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -32,9 +33,12 @@ class BlogArticleListRestResource extends AbstractRestResourceBase {
    */
   public function get() {
     $base_query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
+      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'blog_article');
+
+    if (!$this->viewUnpublished()) {
+      $base_query->condition('status', NodeInterface::PUBLISHED);
+    }
 
     $this->filterSubjects($base_query);
 

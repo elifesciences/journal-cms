@@ -38,11 +38,14 @@ class PersonItemRestResource extends AbstractRestResourceBase {
    */
   public function getItemResponse(string $id) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
-      ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('field_archive.value', 0)
       ->condition('type', 'person')
       ->condition('uuid', '%' . $id, 'LIKE');
+
+    if (!$this->viewUnpublished()) {
+      $query->condition('status', NodeInterface::PUBLISHED);
+    }
 
     // @todo - elife - nlisgo - Handle version specific requests
     // @todo - elife - nlisgo - Handle content negotiation

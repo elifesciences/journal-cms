@@ -32,10 +32,13 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
    */
   public function get(string $id) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
-      ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'press_package')
       ->condition('uuid', '%' . $id, 'LIKE');
+
+    if (!$this->viewUnpublished()) {
+      $query->condition('status', NodeInterface::PUBLISHED);
+    }
 
     $nids = $query->execute();
     if ($nids) {
@@ -56,8 +59,8 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
 
       if ($node->get('field_related_content')->count()) {
         $related_content = [];
-        foreach ($node->get('field_related_content') as $related) {
-          if ($article = $this->getArticleSnippet($related->get('entity')->getTarget()->getValue())) {
+        foreach ($node->get('field_related_content')->referencedEntities() as $related) {
+          if ($article = $this->getArticleSnippet($related)) {
             $related_content[] = $article;
           }
         }

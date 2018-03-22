@@ -30,9 +30,12 @@ class EventListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
-      ->condition('status', NodeInterface::PUBLISHED)
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'event');
+
+    if (!$this->viewUnpublished()) {
+      $base_query->condition('status', NodeInterface::PUBLISHED);
+    }
 
     $this->filterShow($base_query, 'field_event_datetime.end_value');
     $count_query = clone $base_query;

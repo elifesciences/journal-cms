@@ -5,6 +5,7 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use Drupal\node\Entity\Node;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -27,10 +28,13 @@ class AnnualReportItemRestResource extends AbstractRestResourceBase {
    */
   public function get(int $year) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
+      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'annual_report')
       ->condition('field_annual_report_year.value', $year);
+
+    if (!$this->viewUnpublished()) {
+      $query->condition('status', NodeInterface::PUBLISHED);
+    }
 
     $nids = $query->execute();
     if ($nids) {
