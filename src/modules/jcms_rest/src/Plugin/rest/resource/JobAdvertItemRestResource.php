@@ -30,39 +30,41 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
    * @throws JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
-    $query = \Drupal::entityQuery('node')
-      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
-      ->condition('type', 'job_advert')
-      ->condition('uuid', '%' . $id, 'LIKE');
+    if ($this->checkId($id)) {
+      $query = \Drupal::entityQuery('node')
+        ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+        ->condition('type', 'job_advert')
+        ->condition('uuid', '%' . $id, 'LIKE');
 
-    if (!$this->viewUnpublished()) {
-      $query->condition('status', NodeInterface::PUBLISHED);
-    }
-
-    $nids = $query->execute();
-    if ($nids) {
-      $nid = reset($nids);
-      /* @var Node $node */
-      $node = Node::load($nid);
-
-      $this->setSortBy(FALSE);
-      $response = $this->processDefault($node, $id);
-
-      // Impact statement is optional.
-      if ($node->get('field_impact_statement')->count()) {
-        $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
-        if (empty($response['impactStatement'])) {
-          unset($response['impactStatement']);
-        }
+      if (!$this->viewUnpublished()) {
+        $query->condition('status', NodeInterface::PUBLISHED);
       }
 
-      $response['closingDate'] = $this->formatDate($node->get('field_job_advert_closing_date')->first()->getValue()['value']);
-      $response['content'] = $this->deriveContentJson($node);
+      $nids = $query->execute();
+      if ($nids) {
+        $nid = reset($nids);
+        /* @var Node $node */
+        $node = Node::load($nid);
 
-      $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
-      $response->addCacheableDependency($node);
-      $this->processResponse($response);
-      return $response;
+        $this->setSortBy(FALSE);
+        $response = $this->processDefault($node, $id);
+
+        // Impact statement is optional.
+        if ($node->get('field_impact_statement')->count()) {
+          $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
+          if (empty($response['impactStatement'])) {
+            unset($response['impactStatement']);
+          }
+        }
+
+        $response['closingDate'] = $this->formatDate($node->get('field_job_advert_closing_date')->first()->getValue()['value']);
+        $response['content'] = $this->deriveContentJson($node);
+
+        $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+        $response->addCacheableDependency($node);
+        $this->processResponse($response);
+        return $response;
+      }
     }
 
     throw new JCMSNotFoundHttpException(t('Job advert with ID @id was not found', ['@id' => $id]));

@@ -755,4 +755,16 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     }
   }
 
+  /**
+   * Check ID matches expected regex pattern.
+   */
+  protected function checkId(string $id) : bool {
+    if (preg_match('/^[0-9a-f]{8}$/', $id)) {
+      return TRUE;
+    }
+    else {
+      return FALSE;
+    }
+  }
+
 }
