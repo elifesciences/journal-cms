@@ -52,7 +52,7 @@
     "drupal/diff": "^1.0@RC",
     "embed/embed": "^3.0",
     "drupal/devel": "^1.2",
-    "drupal/core": "~8.4.4",
+    "drupal/core": "~8.4",
     "drupal/monolog": "^1.0@alpha",
     "monolog/monolog": "~1.6",
     "drupal/country": "^1.0@beta",
