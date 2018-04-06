@@ -20,15 +20,6 @@ class ExceptionJcmsJsonSubscriber extends HttpExceptionSubscriberBase {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  protected static function getPriority() {
-    // This will fire after the most common HTML handler, since HTML requests
-    // are still more common than JSON requests.
-    return -75;
-  }
-
-  /**
    * Handles a 400 error for JCMS JSON.
    *
    * @param \Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event
