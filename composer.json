@@ -52,7 +52,7 @@
     "drupal/diff": "^1.0@RC",
     "embed/embed": "^3.0",
     "drupal/devel": "^1.2",
-    "drupal/core": "~8.4.4",
+    "drupal/core": "~8.4",
     "drupal/monolog": "^1.0@alpha",
     "monolog/monolog": "~1.6",
     "drupal/country": "^1.0@beta",
@@ -76,6 +76,9 @@
   "prefer-stable": true,
   "conflict": {
     "drupal/drupal": "*"
+  },
+  "config": {
+    "platform": {"php": "7.0.17"}
   },
   "autoload": {
     "classmap": [
@@ -118,7 +121,9 @@
       "drupal/core": {
         "View output is not used for autocomplete display (2174633)": "https://www.drupal.org/files/issues/2174633-198.patch",
         "Use new Transliteration functionality in core for file names (2492171)": "https://www.drupal.org/files/issues/use_new_transliteration-2492171-51.patch",
-        "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/move_permission_view-273595-129.patch"
+        "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/move_permission_view-273595-129.patch",
+        "NegotiationMiddleware calls $request->setRequestFormat('html') when there is no _format request parameter, but shouldn't (2854543)": "https://www.drupal.org/files/issues/2018-04-03/2854543-57.patch",
+        "Temporary fix for \\Drupal\\Core\\Field\\FieldItemList::generateSampleItems (2905527)": "src/patches/2905527-temporary-fix-generate-sample-items.patch"
       },
       "drupal/entity_reference_revisions": {
         "Allow entities to be generated if none exist (2910326)": "https://www.drupal.org/files/issues/entity_reference_revisions-stop_checking_for_entities_before_generating_sample-2910326-2.patch"

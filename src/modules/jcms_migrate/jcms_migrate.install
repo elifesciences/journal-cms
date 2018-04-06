@@ -1022,3 +1022,10 @@ function jcms_migrate_update_8211() {
     $subject->save();
   }
 }
+
+/**
+ * Update taxonomy_term.field_aims_and_scope field.
+ */
+function jcms_migrate_update_8212() {
+  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+}

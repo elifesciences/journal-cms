@@ -18,7 +18,11 @@ class RouteSubscriber extends RouteSubscriberBase {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    return [RoutingEvents::ALTER => ['onAlterRoutes', -9999]];
+    $events = parent::getSubscribedEvents();
+
+    $events[RoutingEvents::ALTER] = ['onAlterRoutes', -9999];
+
+    return $events;
   }
 
   /**
@@ -29,7 +33,7 @@ class RouteSubscriber extends RouteSubscriberBase {
       // If the route matches a JCMS rest endpoint.
       if (preg_match("/^rest.[a-z_]+.[A-Z]+.jcms_json$/", $name)) {
         // Remove the request_format_route_filter from the route _filters.
-        $route_filters = $route->getOption('_route_filters');
+        $route_filters = $route->getOption('_route_filters') ?: [];
         $route_filters = array_filter($route_filters, function ($route_filter) {
           return $route_filter != 'request_format_route_filter';
         });
