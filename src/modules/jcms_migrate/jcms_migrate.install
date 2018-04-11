@@ -1029,3 +1029,13 @@ function jcms_migrate_update_8211() {
 function jcms_migrate_update_8212() {
   \Drupal::service('entity.definition_update_manager')->applyUpdates();
 }
+
+/**
+ * Import the MSA chromosomes-gene-expression.
+ */
+function jcms_migrate_update_8213() {
+  $manager = \Drupal::service('plugin.manager.config_entity_migration');
+  $plugins = $manager->createInstances([]);
+  $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
+  $executable->import();
+}
