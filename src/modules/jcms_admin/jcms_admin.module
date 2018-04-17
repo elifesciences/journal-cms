@@ -557,3 +557,31 @@ function jcms_admin_node_presave(Node $node) {
     $node->setCreatedTime($node->getChangedTime());
   }
 }
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function jcms_admin_views_data_alter(array &$data) {
+  $data['node']['jcms_content_link'] = [
+    'title' => t('Content link'),
+    'field' => [
+      'title' => t('Content link'),
+      'help' => t('Link to content on Journal.'),
+      'id' => 'jcms_content_link',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme().
+ */
+function jcms_admin_theme($existing, $type, $theme, $path) {
+  return [
+    'clipboard_simple' => [
+      'variables' => [
+        'text' => NULL,
+        'button_text' => 'Copy&nbsp;url',
+      ],
+    ],
+  ];
+}

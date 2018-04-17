@@ -1,0 +1,28 @@
+drupal:
+  version: "1.0.0"
+  license:
+    name: GPL
+    url: https://www.gnu.org/licenses/gpl.html
+    gpl-compatible: true
+  css:
+    component:
+      css/clipboard-simple.css: {}
+  js:
+    js/clipboard-simple.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+    - core/jquery.ui.tooltip
+    - jcms_admin/clipboardjs
+
+clipboardjs:
+  remote: https://github.com/zenorocha/clipboard.js/
+  version: "1.7.1"
+  license:
+    name: MIT
+    url: https://zenorocha.mit-license.org/
+    gpl-compatible: true
+  js:
+    /libraries/clipboardjs/dist/clipboard.min.js: { minified: true }

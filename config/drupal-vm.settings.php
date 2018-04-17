@@ -70,6 +70,9 @@ if (file_exists(DRUPAL_ROOT . '/../config/local.services.yml')) {
 
 $settings['file_private_path'] = './../private';
 
+$settings['journal_path'] = 'https://elifesciences.org';
+$settings['journal_preview'] = 'https://preview--journal.elifesciences.org';
+
 $settings['jcms_sqs_endpoint'] = 'http://localhost:4100';
 $settings['jcms_sqs_queue'] = 'journal-cms--queue-local';
 // Production template is 'arn:aws:sns:us-east-1:512686554592:bus-%s--dev'.

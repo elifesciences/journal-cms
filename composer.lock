@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5bc11b5e41c4b1aed49859e6559c5f67",
+    "content-hash": "eacaec35a786272d8953a279370d7138",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2415,7 +2415,9 @@
                 "patches_applied": {
                     "View output is not used for autocomplete display (2174633)": "https://www.drupal.org/files/issues/2174633-198.patch",
                     "Use new Transliteration functionality in core for file names (2492171)": "https://www.drupal.org/files/issues/use_new_transliteration-2492171-51.patch",
-                    "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/move_permission_view-273595-129.patch"
+                    "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/move_permission_view-273595-129.patch",
+                    "NegotiationMiddleware calls $request->setRequestFormat('html') when there is no _format request parameter, but shouldn't (2854543)": "https://www.drupal.org/files/issues/2018-04-03/2854543-57.patch",
+                    "Temporary fix for \\Drupal\\Core\\Field\\FieldItemList::generateSampleItems (2905527)": "src/patches/2905527-temporary-fix-generate-sample-items.patch"
                 }
             },
             "autoload": {
@@ -8174,6 +8176,16 @@
                 "zf2"
             ],
             "time": "2016-09-13T14:38:50+00:00"
+        },
+        {
+            "name": "zenorocha/clipboardjs",
+            "version": "1.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zenorocha/clipboard.js",
+                "reference": "origin/master"
+            },
+            "type": "drupal-library"
         }
     ],
     "packages-dev": [
