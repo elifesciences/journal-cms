@@ -29,3 +29,10 @@ function jcms_admin_update_8102() {
   // The module will be re-innstalled when configuration is imported.
   \Drupal::service('module_installer')->uninstall(['content_moderation']);
 }
+
+/**
+ * Set jcms_migrate schema version to 8122.
+ */
+function jcms_admin_update_8103() {
+  drupal_set_installed_schema_version('jcms_migrate', 8123);
+}

@@ -979,7 +979,7 @@ function jcms_migrate_update_8119() {
 /**
  * Enable config_import module.
  */
-function jcms_migrate_update_8210() {
+function jcms_migrate_update_8120() {
   drupal_flush_all_caches();
   \Drupal::service('module_installer')->install(['config_import']);
 }
@@ -987,7 +987,7 @@ function jcms_migrate_update_8210() {
 /**
  * Recreate field: field_aims_and_scope.
  */
-function jcms_migrate_update_8211() {
+function jcms_migrate_update_8121() {
   $subject_tids = \Drupal::entityQuery('taxonomy_term')
     ->condition('vid', 'subjects')->execute();
 
@@ -1026,14 +1026,14 @@ function jcms_migrate_update_8211() {
 /**
  * Update taxonomy_term.field_aims_and_scope field.
  */
-function jcms_migrate_update_8212() {
+function jcms_migrate_update_8122() {
   \Drupal::service('entity.definition_update_manager')->applyUpdates();
 }
 
 /**
  * Import the MSA chromosomes-gene-expression.
  */
-function jcms_migrate_update_8213() {
+function jcms_migrate_update_8123() {
   $manager = \Drupal::service('plugin.manager.config_entity_migration');
   $plugins = $manager->createInstances([]);
   $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
