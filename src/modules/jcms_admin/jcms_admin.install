@@ -31,7 +31,7 @@ function jcms_admin_update_8102() {
 }
 
 /**
- * Set jcms_migrate schema version to 8122.
+ * Set jcms_migrate schema version to 8123.
  */
 function jcms_admin_update_8103() {
   drupal_set_installed_schema_version('jcms_migrate', 8123);
