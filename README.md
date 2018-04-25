@@ -18,3 +18,11 @@ $ vagrant up
 ``` 
 
 Once it is setup, visit `http://journal-cms.local`.
+
+## Git hooks
+
+To install the Git precommit that prevents committing large files, run:
+
+```
+cp .git-hooks-pre-commit .git/hooks/pre-commit
+```
