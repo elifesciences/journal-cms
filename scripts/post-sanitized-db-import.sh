@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Sanitized db with this command: ../vendor/bin/drush sql-dump --gzip --structure-tables-list="user__roles,user__user_picture,users,users_data,users_field_data"
+# Run this script after importing the sanitized database dump: sanitized-db-dump.sh
 
-cd $(dirname $0)
-
-cd ../web
+cd "$(dirname $0)/../web"
 
 UUID="$(uuidgen)"
 
