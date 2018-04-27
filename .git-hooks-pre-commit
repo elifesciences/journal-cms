@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+maximum_size=1048576 # 1MB
+allowed_extension=jpg
+
+while read -r file; do
+    if [[ $file =~ \.$allowed_extension$ ]]; then
+        continue
+    fi
+    size=$(wc -c "$file" | cut -d " " -f 1)
+    if [[ $size -gt $maximum_size ]]; then
+        echo "$file size is $size bytes long and infringes the maximum size set in this pre-commit hook"
+        exit 1
+    fi
+done < <(git diff --cached --name-only)
