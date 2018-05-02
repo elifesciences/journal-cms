@@ -1039,3 +1039,26 @@ function jcms_migrate_update_8123() {
   $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
   $executable->import();
 }
+
+/**
+ * Remove genes-chromosomes msa.
+ */
+function jcms_migrate_update_8124() {
+  $msa = [
+    'genes-chromosomes',
+  ];
+  $tids = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'subjects')
+    ->condition('field_subject_id.value', $msa, 'IN')
+    ->execute();
+  $controller = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $entities = $controller->loadMultiple($tids);
+  // Delete taxonomy terms.
+  $controller->delete($entities);
+
+  // Remove from migration map.
+  $migrate_id_map = \Drupal::service('plugin.manager.config_entity_migration')->createInstance('jcms_subjects_json')->getIdMap();
+  foreach ($msa as $id) {
+    $migrate_id_map->delete([$id]);
+  }
+}
