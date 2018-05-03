@@ -1062,3 +1062,43 @@ function jcms_migrate_update_8124() {
     $migrate_id_map->delete([$id]);
   }
 }
+
+/**
+ * Resave all person nodes with a competing interest.
+ */
+function jcms_migrate_update_8125(&$sandbox) {
+  if (!isset($sandbox['progress'])) {
+    // This must be the first run. Initialize the sandbox.
+    $sandbox['progress'] = 0;
+    $sandbox['current_pk'] = 0;
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'person')
+      ->condition('field_person_competing.format', 'basic_html');
+    $sandbox['max'] = $query->count()->execute() - 1;
+  }
+
+  // Update 20 nodes at a time.
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'person')
+    ->condition('field_person_competing.format', 'basic_html')
+    ->condition('nid', $sandbox['current_pk'], '>')
+    ->range(0, 20)
+    ->sort('nid', 'ASC');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        $node->save();
+        $sandbox['progress']++;
+        $sandbox['current_pk'] = $node->id();
+      }
+    }
+  }
+  if (empty($sandbox['max']) ||  $sandbox['progress'] >= $sandbox['max']) {
+    $sandbox['#finished'] = TRUE;
+  }
+  else {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+}
