@@ -1066,39 +1066,18 @@ function jcms_migrate_update_8124() {
 /**
  * Resave all person nodes with a competing interest.
  */
-function jcms_migrate_update_8125(&$sandbox) {
-  if (!isset($sandbox['progress'])) {
-    // This must be the first run. Initialize the sandbox.
-    $sandbox['progress'] = 0;
-    $sandbox['current_pk'] = 0;
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'person')
-      ->condition('field_person_competing.format', 'basic_html');
-    $sandbox['max'] = $query->count()->execute() - 1;
-  }
-
-  // Update 20 nodes at a time.
+function jcms_migrate_update_8125() {
   $query = \Drupal::entityQuery('node')
     ->condition('type', 'person')
-    ->condition('field_person_competing.format', 'basic_html')
-    ->condition('nid', $sandbox['current_pk'], '>')
-    ->range(0, 20)
-    ->sort('nid', 'ASC');
+    // This is an easy way to limit the person nodes to those with a competing interest.
+    ->condition('field_person_competing.format', 'basic_html');
   $nids = $query->execute();
   if ($nids) {
     $nodes = Node::loadMultiple($nids);
     if (!empty($nodes)) {
       foreach ($nodes as $node) {
         $node->save();
-        $sandbox['progress']++;
-        $sandbox['current_pk'] = $node->id();
       }
     }
-  }
-  if (empty($sandbox['max']) ||  $sandbox['progress'] >= $sandbox['max']) {
-    $sandbox['#finished'] = TRUE;
-  }
-  else {
-    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
   }
 }
