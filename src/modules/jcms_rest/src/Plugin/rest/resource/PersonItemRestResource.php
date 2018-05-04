@@ -87,6 +87,11 @@ class PersonItemRestResource extends AbstractRestResourceBase {
       $item['affiliations'] = $affiliations;
     }
 
+    // Competing interests are optional.
+    if ($competing = $this->fieldValueFormatted($node->get('field_person_competing'))) {
+      $item['competingInterests'] = $competing;
+    }
+
     return $item;
   }
 
