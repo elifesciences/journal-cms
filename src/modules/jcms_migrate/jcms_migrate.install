@@ -1069,7 +1069,7 @@ function jcms_migrate_update_8124() {
 function jcms_migrate_update_8125() {
   $query = \Drupal::entityQuery('node')
     ->condition('type', 'person')
-    // This is an easy way to limit the person nodes to those with a competing interest.
+    // Limit the person nodes to those with a competing interest.
     ->condition('field_person_competing.format', 'basic_html');
   $nids = $query->execute();
   if ($nids) {
