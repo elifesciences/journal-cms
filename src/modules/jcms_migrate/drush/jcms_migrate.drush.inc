@@ -64,10 +64,16 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
   $to = $to ?? $from;
 
   // Verify that $from and $to are recognised.
-  $msa_from = \Drupal::entityQuery('taxonomy_term')
-    ->condition('vid', 'subjects')
-    ->condition('field_subject_id.value', $from)
-    ->execute();
+  if (is_numeric($from)) {
+    $msa_from = [$from];
+  }
+  else {
+    $msa_from = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'subjects')
+      ->condition('field_subject_id.value', $from)
+      ->execute();
+  }
+
   if (!$msa_from) {
     return drush_set_error('jcms_migrate', dt('!from is not a recognised major subject area.', ['!from' => $from]));
   }
