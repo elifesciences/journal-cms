@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-DEFAULT_STRUCTURED_TABLES_LIST=" --structure-tables-list='user__roles,user__user_picture,users,users_data,users_field_data'"
+DEFAULT_STRUCTURED_TABLES_LIST=" --structure-tables-list=user__roles,user__user_picture,users,users_data,users_field_data"
 
 if [[ ${*} =~ \-\-structure\-tables\-list ]];
 then
