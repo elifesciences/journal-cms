@@ -1062,3 +1062,22 @@ function jcms_migrate_update_8124() {
     $migrate_id_map->delete([$id]);
   }
 }
+
+/**
+ * Resave all person nodes with a competing interest.
+ */
+function jcms_migrate_update_8125() {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'person')
+    // Limit the person nodes to those with a competing interest.
+    ->condition('field_person_competing.format', 'basic_html');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        $node->save();
+      }
+    }
+  }
+}
