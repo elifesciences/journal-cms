@@ -1081,3 +1081,20 @@ function jcms_migrate_update_8125() {
     }
   }
 }
+
+/**
+ * Resave all labs-post nodes.
+ */
+function jcms_migrate_update_8126() {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'labs_experiment');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        $node->save();
+      }
+    }
+  }
+}
