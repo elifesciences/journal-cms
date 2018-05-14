@@ -56,12 +56,28 @@
     "alt": "Human Biology and Medicine"
   },
   {
+    "id": "genetics-genomics",
+    "name": "Genetics and Genomics",
+    "impact_statement": "eLife publishes research including the genetic basis of health and disease, epigenetics, genomics, medical genetics, genetic epidemiology, and population genetics. Decisions are made by journal editors who are active researchers interested in genetics and genomics.",
+    "aims_and_scope": "eLife aims to publish significant research in areas including the genetic basis of health and disease, chromatin and chromosome biology, comparative and functional genomics, epigenetics, genomics, medical genetics, genetic epidemiology, and population genetics. We welcome studies in all areas of human genetics as well as those that use cellular and animal models to explore traits of broad relevance to health and disease. We are particularly keen to see studies that use human genetics to drive risk variant discovery, and/or apply such information to provide further mechanistic insights into disease biology, to dissect the genetic architecture of disease, to explore the impact of modifiable risk factors, and/or to support translational advances.",
+    "image": "subjects/elife-sciences-genetics-and-genomics-illustration.jpg",
+    "alt": "Genetics and Genomics"
+  },
+  {
     "id": "genomics-evolutionary-biology",
     "name": "Genomics and Evolutionary Biology",
     "impact_statement": "eLife publishes research spanning adaptation, morphology, bioinformatics and comparative genomics. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the fields of genomics and/or evolutionary biology.",
     "aims_and_scope": "We aim to publish significant research in all areas of genomics and studies that provide new insights into patterns and processes in all fields of evolutionary biology. This includes comparative genomics, population genetics, ecology, behavior, morphology, the evolution of developmental processes, paleontology, experimental evolution and evolutionary theory. We also welcome studies that revisit long established evolutionary paradigms in the light of new evidence.",
     "image": "subjects/elife-sciences-genomics-and-evolutionary-biology-illustration.jpg",
     "alt": "Genomics and Evolutionary Biology"
+  },
+  {
+    "id": "evolutionary-biology",
+    "name": "Evolutionary Biology",
+    "impact_statement": "eLife publishes research spanning behavior, morphology, evolution of developmental processes, palaeontology, experimental evolution and evolutionary theory. Decisions are made by journal editors who are active researchers interested in evolutionary biology.",
+    "aims_and_scope": "eLife publishes studies that present major new insights into patterns and processes in any field of evolutionary biology. This includes comparative genomics, population genetics, ecology, behavior, morphology, evolution of developmental processes, palaeontology, experimental evolution and evolutionary theory. We welcome also papers that revisit long established evolutionary paradigms in the light of new evidence.",
+    "image": "subjects/elife-sciences-evolutionary-biology-illustration.jpg",
+    "alt": "Evolutionary Biology"
   },
   {
     "id": "epidemiology-global-health",
