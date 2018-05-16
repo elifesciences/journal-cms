@@ -5,7 +5,8 @@
     "impact_statement": "eLife publishes research that uses techniques including X-ray crystallography, cryo-EM and single-molecule methods. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the fields of biophysics and structural biology.",
     "aims_and_scope": "We aim to publish studies that advance our understanding of molecular mechanisms in biology, using experimental and computational approaches to provide quantitative insights. We also welcome studies describing structure determination by methods including cryoEM, crystallography and NMR, the investigation of macromolecular dynamics, the evolution of function and specificity in molecular systems, and the application of advanced biophysical methods to capture molecules in action.",
     "image": "subjects/elife-sciences-structural-biology-molecular-biophysics-illustration.jpg",
-    "alt": "Structural Biology and Molecular Biophysics"
+    "alt": "Structural Biology and Molecular Biophysics",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "plant-biology",
@@ -13,7 +14,8 @@
     "impact_statement": "eLife publishes plant biology research including development, epigenetics, genomics, signalling, metabolism and plant–microbe interactions. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in plant biology.",
     "aims_and_scope": "We aim to publish significant research in all areas of plant biology, from evolution and interaction with microbes to development and physiology, as well as epigenetics and genomics.",
     "image": "subjects/elife-sciences-plant-biology-illustration.jpg",
-    "alt": "Plant Biology"
+    "alt": "Plant Biology",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "physics-living-systems",
@@ -21,7 +23,8 @@
     "impact_statement": "eLife publishes research in which approaches from the physical sciences are used to provide insights into the properties of biological systems and processes. Decisions are made by journal editors who are active researchers in the physics of living systems.",
     "aims_and_scope": "We aim to publish studies in which experimental, theoretical, and computational approaches, rooted in the physical sciences, are developed and/or applied to provide deep insights into the collective properties and function of multicomponent biological systems and processes. We also welcome descriptions of methods that could enable the interrogation of classes of biological systems in new ways, as well as interdisciplinary studies that bring together scientists and approaches from the physical and life sciences.",
     "image": "subjects/elife-sciences-physics-living-systems-illustration.jpg",
-    "alt": "Physics of Living Systems"
+    "alt": "Physics of Living Systems",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "neuroscience",
@@ -29,7 +32,8 @@
     "impact_statement": "eLife publishes research including brain function, neuronal circuits, synapses, sensory processing and motor pattern generation. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in neuroscience.",
     "aims_and_scope": "We aim to publish significant research in all areas of neuroscience, including but not limited to brain function, neuronal circuits, synapses, sensory processing, and motor pattern generation.",
     "image": "subjects/elife-sciences-neuroscience-illustration.jpg",
-    "alt": "Neuroscience"
+    "alt": "Neuroscience",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "microbiology-infectious-disease",
@@ -37,7 +41,8 @@
     "impact_statement": "eLife publishes research covering virology, bacteriology and mycology. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the fields of microbiology and infectious disease.",
     "aims_and_scope": "We aim to publish studies that provide new insights into fundamental mechanisms, and cell growth and metabolism, in all microbes. We also welcome studies of all types of interactions between microorganisms in communities and between microbes and multicellular organisms, in both pathogenic and commensal interactions, including but not limited to investigations into the microbiome, microbial ecology, mycology, pathology, parasitology, and virology.",
     "image": "subjects/elife-sciences-microbiology-and-infectious-disease-illustration.jpg",
-    "alt": "Microbiology and Infectious Disease"
+    "alt": "Microbiology and Infectious Disease",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "immunology-inflammation",
@@ -45,7 +50,8 @@
     "impact_statement": "eLife publishes research spanning allergy, immunity and immunoregulation, inflammation and T-cell receptor signalling. Decisions are made by <a href=\"https://elifesciences.org/about/people/immunology\">journal editors</a> who are active researchers in the field of immunology.",
     "aims_and_scope": "We aim to publish studies that provide new insights into the development and function of the immune system and inflammatory processes, irrespective of model organism. We also welcome studies on associated human diseases, new therapeutic strategies, and development of new methodologies or interdisciplinary studies that integrate immunology and inflammation with other research fields.",
     "image": "subjects/elife-sciences-immunology-illustration.jpg",
-    "alt": "Immunology and Inflammation"
+    "alt": "Immunology and Inflammation",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "human-biology-medicine",
@@ -53,7 +59,8 @@
     "impact_statement": "eLife publishes research in clinical and translational research, human genetics, cancer, diabetes and developmental disorders. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in human biology and medicine.",
     "aims_and_scope": "We aim to publish studies that use diverse methodologies to robustly define pathogenic mechanisms and/or creatively leverage such information to conceive of, rigorously test, and/or most effectively implement treatment strategies with broad relevance to human health and disease. Our interests include epidemiological and natural history studies, disease modeling, and randomized clinical trials that have the strong potential to impact public health or to address unmet patient needs in areas that include, but are not limited to, cancer, cardiovascular medicine and infectious or orphan diseases. We also welcome studies in all areas of human genetics that explore traits of broad relevance to health and disease.",
     "image": "subjects/elife-sciences-human-biology-and-medicine-illustration.jpg",
-    "alt": "Human Biology and Medicine"
+    "alt": "Human Biology and Medicine",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "genetics-genomics",
@@ -61,7 +68,8 @@
     "impact_statement": "eLife publishes research including the genetic basis of health and disease, epigenetics, genomics, medical genetics, genetic epidemiology, and population genetics. Decisions are made by journal editors who are active researchers interested in genetics and genomics.",
     "aims_and_scope": "eLife aims to publish significant research in areas including the genetic basis of health and disease, chromatin and chromosome biology, comparative and functional genomics, epigenetics, genomics, medical genetics, genetic epidemiology, and population genetics. We welcome studies in all areas of human genetics as well as those that use cellular and animal models to explore traits of broad relevance to health and disease. We are particularly keen to see studies that use human genetics to drive risk variant discovery, and/or apply such information to provide further mechanistic insights into disease biology, to dissect the genetic architecture of disease, to explore the impact of modifiable risk factors, and/or to support translational advances.",
     "image": "subjects/elife-sciences-genetics-and-genomics-illustration.jpg",
-    "alt": "Genetics and Genomics"
+    "alt": "Genetics and Genomics",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "genomics-evolutionary-biology",
@@ -69,7 +77,8 @@
     "impact_statement": "eLife publishes research spanning adaptation, morphology, bioinformatics and comparative genomics. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the fields of genomics and/or evolutionary biology.",
     "aims_and_scope": "We aim to publish significant research in all areas of genomics and studies that provide new insights into patterns and processes in all fields of evolutionary biology. This includes comparative genomics, population genetics, ecology, behavior, morphology, the evolution of developmental processes, paleontology, experimental evolution and evolutionary theory. We also welcome studies that revisit long established evolutionary paradigms in the light of new evidence.",
     "image": "subjects/elife-sciences-genomics-and-evolutionary-biology-illustration.jpg",
-    "alt": "Genomics and Evolutionary Biology"
+    "alt": "Genomics and Evolutionary Biology",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "evolutionary-biology",
@@ -77,7 +86,8 @@
     "impact_statement": "eLife publishes research spanning behavior, morphology, evolution of developmental processes, palaeontology, experimental evolution and evolutionary theory. Decisions are made by journal editors who are active researchers interested in evolutionary biology.",
     "aims_and_scope": "eLife publishes studies that present major new insights into patterns and processes in any field of evolutionary biology. This includes comparative genomics, population genetics, ecology, behavior, morphology, evolution of developmental processes, palaeontology, experimental evolution and evolutionary theory. We welcome also papers that revisit long established evolutionary paradigms in the light of new evidence.",
     "image": "subjects/elife-sciences-evolutionary-biology-illustration.jpg",
-    "alt": "Evolutionary Biology"
+    "alt": "Evolutionary Biology",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "epidemiology-global-health",
@@ -85,7 +95,8 @@
     "impact_statement": "eLife publishes research spanning malaria, tuberculosis, trypanosomiasis, HIV/AIDS and drug discovery. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in epidemiology and global health.",
     "aims_and_scope": "We aim to publish studies across the entire spectrum of conditions and diseases of global public health importance (see also <a href=\"https://doi.org/10.7554/eLife.11326\">\"What makes an eLife paper in epidemiology and global health?\"</a>). We also welcome submissions in broad areas of quantitative epidemiological research, novel mathematical models, and biological studies that are relevant to population health.",
     "image": "subjects/elife-sciences-epidemiology-and-global-health-illustration.jpg",
-    "alt": "Epidemiology and Global Health"
+    "alt": "Epidemiology and Global Health",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "ecology",
@@ -93,7 +104,8 @@
     "impact_statement": "eLife publishes research ranging from chemical and microbial ecology to plant-insect interactions and extinction risk. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in ecology.",
     "aims_and_scope": "We aim to publish studies that provide new insights into the different types of interactions that shape the distribution and abundance of organisms on Earth, including everything from new natural history observations to genomic analyses conducted on landscape scales (see also <a href=\"https://doi.org/10.7554/eLife.02394\">“Ecology in the genomics era of a degraded planet”</a>). We also welcome functional analyses of the traits that matter for an organism’s Darwinian fitness.",
     "image": "subjects/elife-sciences-ecology-illustration.jpg",
-    "alt": "Ecology"
+    "alt": "Ecology",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "developmental-biology-stem-cells",
@@ -101,7 +113,8 @@
     "impact_statement": "eLife publishes research on stem cells, differentiation, tissue assembly and regeneration. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in the fields of developmental biology and stem cells.",
     "aims_and_scope": "We aim to publish significant research in the fields of developmental biology, stem cells, and regenerative medicine, in traditional organisms and arising model systems. We particularly encourage studies that advance a mechanistic understanding of important events in embryogenesis, including cell migration, proliferation and differentiation, regeneration, and inductive and signaling interactions, as well as work at the intersection between developmental biology and evolution.",
     "image": "subjects/elife-sciences-developmental-biology-and-stem-cells-illustration.jpg",
-    "alt": "Developmental Biology and Stem Cells"
+    "alt": "Developmental Biology and Stem Cells",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "computational-systems-biology",
@@ -109,7 +122,8 @@
     "impact_statement": "eLife publishes research involving the use of methods, models and software. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in computational and systems biology.",
     "aims_and_scope": "We aim to publish studies that use computational methods, models and software to provide important biological insights in all areas of the life sciences.",
     "image": "subjects/elife-sciences-computational-and-systems-biology-illustration.jpg",
-    "alt": "Computational and Systems Biology"
+    "alt": "Computational and Systems Biology",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "chromosomes-gene-expression",
@@ -117,7 +131,8 @@
     "impact_statement": "eLife publishes research ranging from transcription and RNA processing to epigenetics and chromatin biology. Decisions are made by journal editors who are active researchers interested in chromosomes and gene expression.",
     "aims_and_scope": "We aim to publish significant research, performed using genetic, biochemical and structural approaches, that relates to all aspects of the central dogma of biology, specifically DNA replication, repair and recombination, transcription and RNA processing, and translation. We welcome studies in organisms from bacteria to humans that provide new insights into the mechanisms of these processes – including how they are regulated, for example during cell differentiation – and the defects in these processes that contribute to disease. Read the latest research in this subject area.",
     "image": "subjects/elife-sciences-chromosomes-and-gene-expression-illustration.jpg",
-    "alt": "Chromosomes and Gene Expression"
+    "alt": "Chromosomes and Gene Expression",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "cell-biology",
@@ -125,7 +140,8 @@
     "impact_statement": "eLife publishes research spanning vesicle transport and signal transduction to cell cycle and cell polarity and fate. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in cell biology.",
     "aims_and_scope": "We aim to publish significant research in all areas of cell biology, including but not limited to studies on cell cycle, cell polarity and fate, nuclear and chromosome organization and segregation/division, signal transduction, and vesicle transport.",
     "image": "subjects/elife-sciences-cell-biology-illustration.jpg",
-    "alt": "Cell Biology"
+    "alt": "Cell Biology",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "cancer-biology",
@@ -133,7 +149,8 @@
     "impact_statement": "eLife publishes research into cancer spanning from oncogenes and tumor suppressors to metastasis and anticancer treatments. Decisions are made by <a href=\"/about/people\">journal editors</a> who are active researchers in cancer biology.",
     "aims_and_scope": "We aim to publish conceptually important advances in all areas of cancer biology, including the discovery of new mechanisms responsible for cancer initiation, progression and therapy response. We are also interested in clinical trials or other clinical observations that reveal new and important biological insights.",
     "image": "subjects/elife-sciences-cancer-biology-illustration.jpg",
-    "alt": "Cancer Biology"
+    "alt": "Cancer Biology",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
     "id": "biochemistry-chemical-biology",
@@ -141,6 +158,7 @@
     "impact_statement": "eLife publishes research spanning chemical biology and enzymology to metabolism and membrane proteins. Decisions are made by <a href=\"https://elifesciences.org/about/people/biochemistry\">journal editors</a> who are active researchers in biochemistry.",
     "aims_and_scope": "We aim to publish studies that provide new mechanistic insights into the structure, function, and regulation of biological molecules including proteins, nucleic acids, lipids, carbohydrates, and natural products. In addition, we are interested in studies that illuminate complex biological processes using chemical tools and approaches.",
     "image": "subjects/elife-sciences-biochemistry-illustration.jpg",
-    "alt": "Biochemistry and Chemical Biology"
+    "alt": "Biochemistry and Chemical Biology",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   }
 ]
