@@ -1098,3 +1098,13 @@ function jcms_migrate_update_8126() {
     }
   }
 }
+
+/**
+ * Import the MSA evolutionary-biology and genetics-genomics.
+ */
+function jcms_migrate_update_8127() {
+    $manager = \Drupal::service('plugin.manager.config_entity_migration');
+    $plugins = $manager->createInstances([]);
+    $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
+    $executable->import();
+}
