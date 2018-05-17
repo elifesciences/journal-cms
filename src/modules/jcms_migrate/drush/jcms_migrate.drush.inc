@@ -60,6 +60,8 @@ function jcms_migrate_drush_command() {
  * Callback function drush_jcms_admin_msa_switch().
  */
 function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
+  // If $to is NULL then there is no need to trigger the save.
+  $skip_save = (is_null($to)) ? TRUE : FALSE;
   // Allow $to to be null to force save of all content under this MSA.
   $to = $to ?? $from;
 
@@ -157,6 +159,7 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
         $swap_msa_values($node, 'field_subjects');
       }
       if ($verbose) {
+        // This is useful if content needs to be manually reassigned.
         drush_print(dt(':type (:uuid): :title (/node/!nid)', [
           ':type' => $node->bundle(),
           ':uuid' => substr($node->uuid(), -8),
@@ -164,11 +167,15 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
           '!nid' => $node->id(),
         ]));
       }
-      $node->save();
+      if (!$skip_save) {
+        $node->save();
+      }
     }
   }
 
-  drush_print(dt('Switching complete!'));
+  if (!$skip_save) {
+    drush_print(dt('Switching complete!'));
+  }
 }
 
 /**
