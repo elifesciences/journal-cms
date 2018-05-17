@@ -63,6 +63,8 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
   // Allow $to to be null to force save of all content under this MSA.
   $to = $to ?? $from;
 
+  $verbose = drush_get_context('DRUSH_VERBOSE');
+
   // Verify that $from and $to are recognised.
   if (is_numeric($from)) {
     $msa_from = [$from];
@@ -144,6 +146,7 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
       '!count' => count($nodes),
       '!type' => $type,
     ]));
+    /** @var \Drupal\node\NodeInterface $node */
     foreach ($nodes as $node) {
       if ($type === 'person') {
         $details = Paragraph::load($people[$node->id()]->research_details_id);
@@ -152,6 +155,14 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
       }
       else {
         $swap_msa_values($node, 'field_subjects');
+      }
+      if ($verbose) {
+        drush_print(dt(':type (:uuid): :title (/node/!nid)', [
+          ':type' => $node->bundle(),
+          ':uuid' => substr($node->uuid(), -8),
+          ':title' => $node->getTitle(),
+          '!nid' => $node->id(),
+        ]));
       }
       $node->save();
     }
