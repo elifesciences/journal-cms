@@ -43,6 +43,10 @@ source:
       name: alt
       label: 'Subject image alt text'
       selector: alt
+    -
+      name: attribution
+      label: 'Subject image attribution'
+      selector: attribution
   ids:
     id:
       type: string
@@ -67,6 +71,10 @@ process:
     source:
       - image
       - alt
+  field_image_attribution/value: attribution
+  field_image_attribution/format:
+    plugin: default_value
+    default_value: basic_html
 destination:
   plugin: 'entity:taxonomy_term'
 migration_dependencies: {  }
