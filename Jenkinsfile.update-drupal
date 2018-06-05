@@ -1,0 +1,17 @@
+def drupalCoreVersion
+
+elifeUpdatePipeline(
+    { commit ->
+        lock('journal-cms--ci') {
+            builderDeployRevision 'journal-cms--ci', commit
+            builderCmd "journal-cms--ci", "composer update drupal/core symfony/config --with-dependencies", "/srv/journal-cms"
+            drupalCoreVersion = builderCmd "journal-cms--ci", "composer info drupal/core | grep versions | awk '{print \$4}'", "/srv/journal-cms", true
+            builderSync "ci--journal-cms.elifesciences.org", "/srv/journal-cms/"
+            sh "git add composer.lock"
+        }
+    },
+    {
+        return "Updated drupal/core to ${drupalCoreVersion}"
+    },
+    'update_drupal/'
+)
