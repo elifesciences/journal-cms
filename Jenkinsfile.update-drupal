@@ -4,7 +4,7 @@ elifeUpdatePipeline(
             builderDeployRevision 'journal-cms--ci', commit
             builderCmd "journal-cms--ci", "composer update drupal/core symfony/config --with-dependencies", "/srv/journal-cms"
             builderSync "ci--journal-cms.elifesciences.org", "/srv/journal-cms/"
-            sh "git add ."
+            sh "git add composer.lock"
         }
     },
     {
