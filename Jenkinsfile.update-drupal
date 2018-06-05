@@ -1,0 +1,15 @@
+elifeUpdatePipeline(
+    { commit ->
+        lock('journal-cms--ci') {
+            builderDeployRevision 'journal-cms--ci', commit
+            builderCmd "journal-cms--ci", "composer update drupal/core symfony/config --with-dependencies", "/srv/journal-cms"
+            builderSync "ci--journal-jms.elifesciences.org", "/srv/journal-cms/"
+            sh "git add ."
+        }
+    },
+    {
+        def subrepositorySummary = elifeGitSubrepositorySummary 'vendor/drupal/core'
+        return "Updated drupal/core to ${subrepositorySummary}"
+    },
+    'update_drupal/'
+)
