@@ -11,7 +11,7 @@ elifeUpdatePipeline(
         }
     },
     {
-        return "Updated drupal/core to ${drupalCoreVersion}"
+        return "Update drupal/core to ${drupalCoreVersion}"
     },
     'update_drupal/'
 )
