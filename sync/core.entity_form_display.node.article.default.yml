@@ -42,13 +42,6 @@ content:
     third_party_settings: {  }
     type: number
     region: content
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 4
-    third_party_settings: {  }
-    region: content
   title:
     type: string_textfield
     weight: 0
@@ -66,6 +59,7 @@ hidden:
   path: true
   promote: true
   publish_on: true
+  status: true
   sticky: true
   uid: true
   unpublish_on: true
