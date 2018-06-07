@@ -48,13 +48,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 5
-    third_party_settings: {  }
-    region: content
   title:
     type: string_textfield
     weight: 0
@@ -70,6 +63,7 @@ hidden:
   path: true
   promote: true
   publish_on: true
+  status: true
   sticky: true
   uid: true
   unpublish_on: true
