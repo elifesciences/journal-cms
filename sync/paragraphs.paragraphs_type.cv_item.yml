@@ -5,4 +5,5 @@ dependencies: {  }
 id: cv_item
 label: 'CV item'
 icon_uuid: null
+description: null
 behavior_plugins: {  }

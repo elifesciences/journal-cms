@@ -1,0 +1,38 @@
+uuid: f299cd5e-12a0-48b2-b661-4d5414fdbbc3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_images_preview
+    - node.type.labs_experiment
+  module:
+    - image
+id: node.labs_experiment.field_content_images_preview
+field_name: field_content_images_preview
+entity_type: node
+bundle: labs_experiment
+label: 'Content (images preview)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: 'iiif/labs-post-preview/[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: false
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

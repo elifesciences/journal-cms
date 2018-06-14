@@ -1,0 +1,21 @@
+uuid: 064e0709-f297-400f-9e2c-714be8ab26a5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_html_preview
+    - node.type.labs_experiment
+  module:
+    - text
+id: node.labs_experiment.field_content_html_preview
+field_name: field_content_html_preview
+entity_type: node
+bundle: labs_experiment
+label: 'Content (preview)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

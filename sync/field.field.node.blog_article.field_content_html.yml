@@ -1,0 +1,21 @@
+uuid: ba549d36-f018-4a99-b811-043d26680db2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_html
+    - node.type.blog_article
+  module:
+    - text
+id: node.blog_article.field_content_html
+field_name: field_content_html
+entity_type: node
+bundle: blog_article
+label: Content
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -5,6 +5,10 @@ dependencies:
   config:
     - field.field.node.blog_article.field_community_list
     - field.field.node.blog_article.field_content
+    - field.field.node.blog_article.field_content_html
+    - field.field.node.blog_article.field_content_html_preview
+    - field.field.node.blog_article.field_content_images
+    - field.field.node.blog_article.field_content_images_preview
     - field.field.node.blog_article.field_content_processed_json
     - field.field.node.blog_article.field_image
     - field.field.node.blog_article.field_image_attribution
@@ -16,6 +20,7 @@ dependencies:
   module:
     - focal_point
     - paragraphs
+    - scheduler
     - text
 id: node.blog_article.default
 targetEntityType: node
@@ -78,13 +83,15 @@ content:
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 20
+    weight: 8
     region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
@@ -102,12 +109,16 @@ content:
     region: content
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
+  field_content_html: true
+  field_content_html_preview: true
+  field_content_images: true
+  field_content_images_preview: true
   field_content_processed_json: true
   field_order_date: true
   moderation_state: true
