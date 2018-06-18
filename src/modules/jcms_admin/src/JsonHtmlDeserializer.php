@@ -10,6 +10,24 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
     public function denormalize($data, $class, $format = null, array $context = []) : string
     {
         $html = [];
+        if (!empty($data['interviewee'])) {
+            $cv = [];
+            foreach ($data['interviewee']['cv'] as $item) {
+                $cv[] = sprintf('<b>%s</b>: %s', $item['date'], $item['text']);
+            }
+            $data['content'][] = [
+                'type' => 'section',
+                'title' => sprintf('%s CV', $data['interviewee']['name']['preferred']),
+                'content' => [
+                    [
+                        'type' => 'list',
+                        'prefix' => 'bullet',
+                        'items' => $cv,
+                    ],
+                ],
+            ];
+        }
+
         $content = $this->flattenHierarchy($data['content']);
         foreach ($content as $item) {
             switch ($item['type']) {
@@ -30,6 +48,23 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
                     break;
                 case 'list':
                     $html[] = $this->flattenList($item['items'], $item['prefix']);
+                    break;
+                case 'image':
+                    $src = $item['image']['uri'];
+                    if (!empty($context['fids'][$src])) {
+                        $fid = $context['fids'][$src]['fid'];
+                        $src = $context['fids'][$src]['src'];
+                    } else {
+                        $fid = 1;
+                    }
+                    $image = [
+                        sprintf('<figure class="image"><img alt="%s" data-fid="%d" data-uuid="UUID" src="%s" width="%d" height="%d" />', ($item['image']['alt'] ?? ''), $fid, $src, $item['image']['size']['width'], $item['image']['size']['height']),
+                    ];
+                    if (!empty($item['title'])) {
+                        $image[] = sprintf('<figcaption>%s</figcaption>', $item['title']);
+                    }
+                    $image[] = '</figure>';
+                    $html[] = implode(PHP_EOL, $image);
                     break;
             }
         }
@@ -64,6 +99,11 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
         $items = [];
 
         foreach ($data as $item) {
+            if ($item['type'] === 'figure') {
+                $item = $item['assets'][0];
+                unset($item['id']);
+            }
+
             if ($item['type'] === 'question') {
                 $item['type'] = 'section';
                 $item['title'] = $item['question'];
@@ -81,6 +121,20 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
                 $items = array_merge($items, $children);
             } else {
                 $items[] = $item;
+                if ($item['type'] === 'image') {
+                    if (!empty($item['label'])) {
+                        $items[] = [
+                            'type' => 'paragraph',
+                            'text' => $item['label'],
+                        ];
+                    }
+                    if (!empty($item['image']['attribution'])) {
+                        $items[] = [
+                            'type' => 'paragraph',
+                            'text' => $item['image']['attribution'],
+                        ];
+                    }
+                }
             }
         }
 
@@ -89,7 +143,7 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
 
     public function supportsDenormalization($data, $type, $format = null) : bool
     {
-        return in_array(($data['type'] ?? 'unknown'), ['blog-article']);
+        return is_array($data['content'] ?? null);
     }
 
 }

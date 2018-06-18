@@ -25,14 +25,12 @@ class JsonHtmlDeserializerTest extends TestCase
         return [
             'minimal' => [
                 [
-                    'type' => 'blog-article',
                     'content' => [],
                 ],
                 '',
             ],
             'single section' => [
                 [
-                    'type' => 'blog-article',
                     'content' => [
                         [
                             'type' => 'section',
@@ -53,7 +51,6 @@ class JsonHtmlDeserializerTest extends TestCase
             ],
             'questions' => [
                 [
-                    'type' => 'blog-article',
                     'content' => [
                         [
                             'type' => 'question',
@@ -106,7 +103,6 @@ class JsonHtmlDeserializerTest extends TestCase
             ],
             'single paragraph' => [
                 [
-                    'type' => 'blog-article',
                     'content' => [
                         [
                             'type' => 'paragraph',
@@ -118,7 +114,6 @@ class JsonHtmlDeserializerTest extends TestCase
             ],
             'single table' => [
                 [
-                    'type' => 'blog-article',
                     'content' => [
                         [
                             'type' => 'table',
@@ -130,49 +125,54 @@ class JsonHtmlDeserializerTest extends TestCase
                 ],
                 '<table><tr><td>Cell one</td></tr></table>',
             ],
-//            'simple figure' => [
-//                [
-//                    'type' => 'blog-article',
-//                    'content' => [
-//                        [
-//                            'type' => 'image',
-//                            'image' => [
-//                                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg',
-//                                'source' => [
-//                                    'mediaType' => 'image/jpeg',
-//                                    'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg/full/full/0/default.jpg',
-//                                    'filename' => 'image-20180427145110-1.jpeg',
-//                                ],
-//                                'size' => [
-//                                    'width' => 2000,
-//                                    'height' => 2000,
-//                                ],
-//                                'focalPoint' => [
-//                                    'x' => 50,
-//                                    'y' => 50,
-//                                ],
-//                            ],
-//                            'title' => 'A nice picture of a field. Courtesy of <a href="https://www.pexels.com/photo/biology-blur-close-up-dragonflies-287361/">Pexels</a>.',
-//                        ],
-//                        [
-//                            'type' => 'paragraph',
-//                            'text' => 'Trailing paragraph',
-//                        ],
-//                    ],
-//                ],
-//                $this->lines([
-//                    '<figure class="image"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/editor-images/image-20180427145110-1.jpeg" width="2000" />',
-//                    '<figcaption>A nice picture of a field. Courtesy of <a href="https://www.pexels.com/photo/biology-blur-close-up-dragonflies-287361/">Pexels</a>.</figcaption>',
-//                    '</figure>'.PHP_EOL,
-//                    '<p>Trailing paragraph</p>',
-//                ]),
-//                [
-//                    'public://sites/default/files/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
-//                ],
-//            ],
+            'simple figure' => [
+                [
+                    'content' => [
+                        [
+                            'type' => 'image',
+                            'image' => [
+                                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg',
+                                'source' => [
+                                    'mediaType' => 'image/jpeg',
+                                    'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg/full/full/0/default.jpg',
+                                    'filename' => 'image-20180427145110-1.jpeg',
+                                ],
+                                'size' => [
+                                    'width' => 2000,
+                                    'height' => 2000,
+                                ],
+                                'focalPoint' => [
+                                    'x' => 50,
+                                    'y' => 50,
+                                ],
+                                'attribution' => 'Image attribution',
+                            ],
+                            'title' => 'A nice picture of a field. Courtesy of <a href="https://www.pexels.com/photo/biology-blur-close-up-dragonflies-287361/">Pexels</a>.',
+                        ],
+                        [
+                            'type' => 'paragraph',
+                            'text' => 'Trailing paragraph',
+                        ],
+                    ],
+                ],
+                $this->lines([
+                    '<figure class="image"><img alt="" data-fid="123" data-uuid="UUID" src="/sites/default/files/editor-images/image-20180427145110-1.jpeg" width="2000" height="2000" />',
+                    '<figcaption>A nice picture of a field. Courtesy of <a href="https://www.pexels.com/photo/biology-blur-close-up-dragonflies-287361/">Pexels</a>.</figcaption>',
+                    '</figure>',
+                    '<p>Image attribution</p>',
+                    '<p>Trailing paragraph</p>',
+                ]),
+                [
+                    'fids' => [
+                        'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg' => [
+                            'fid' => 123,
+                            'src' => '/sites/default/files/editor-images/image-20180427145110-1.jpeg',
+                        ],
+                    ],
+                ]
+            ],
             'multiple tables' => [
                 [
-                    'type' => 'blog-article',
                     'content' => [
                         [
                             'type' => 'table',
@@ -195,7 +195,6 @@ class JsonHtmlDeserializerTest extends TestCase
             ],
             'simple list' => [
                 [
-                    'type' => 'blog-article',
                     'content' => [
                         [
                             'type' => 'paragraph',
@@ -239,7 +238,6 @@ class JsonHtmlDeserializerTest extends TestCase
             ],
             'single blockquote' => [
                 [
-                    'type' => 'blog-article',
                     'content' => [
                         [
                             'type' => 'quote',
@@ -256,7 +254,6 @@ class JsonHtmlDeserializerTest extends TestCase
             ],
             'simple code sample' => [
                 [
-                    'type' => 'blog-article',
                     'content' => [
                         [
                             'type' => 'code',
@@ -276,7 +273,6 @@ class JsonHtmlDeserializerTest extends TestCase
             ],
             'preserve hierarchy' => [
                 [
-                    'type' => 'blog-article',
                     'content' => [
                         [
                             'type' => 'paragraph',
@@ -382,6 +378,39 @@ class JsonHtmlDeserializerTest extends TestCase
                     '<p>Paragraph 2 in Section 2.</p>',
                 ]),
             ],
+            'cv items' => [
+                [
+                    'interviewee' => [
+                        'name' => [
+                            'preferred' => 'Adam Brooker',
+                        ],
+                        'cv' => [
+                            [
+                                'date' => '2017 - present',
+                                'text' => 'Current position',
+                            ],
+                            [
+                                'date' => '2015 - 2017',
+                                'text' => 'Previous position',
+                            ],
+                        ],
+                    ],
+                    'content' => [
+                        [
+                            'type' => 'paragraph',
+                            'text' => '<strong>Single</strong> paragraph',
+                        ],
+                    ],
+                ],
+                $this->lines([
+                    '<p><strong>Single</strong> paragraph</p>',
+                    '<h1>Adam Brooker CV</h1>',
+                    '<ul>',
+                    '<li><b>2017 - present</b>: Current position</li>',
+                    '<li><b>2015 - 2017</b>: Previous position</li>',
+                    '</ul>',
+                ]),
+            ],
         ];
     }
 
@@ -405,7 +434,7 @@ class JsonHtmlDeserializerTest extends TestCase
     public function canDenormalizeProvider() : array
     {
         return [
-            'blog-article' => [['type' => 'blog-article'], Model::class, [], true],
+            'data with content' => [['content' => []], Model::class, [], true],
             'non-supported' => [[], get_class($this), [], false],
         ];
     }
@@ -417,13 +446,9 @@ class JsonHtmlDeserializerTest extends TestCase
     public function it_will_denormalize_supported_types(
         array $json,
         string $expected,
-        callable $extra = null
+        array $context = []
     ) {
-        if ($extra) {
-            call_user_func($extra, $this);
-        }
-
-        $actual = $this->denormalizer->denormalize($json, Model::class);
+        $actual = $this->denormalizer->denormalize($json, Model::class, null, $context);
 
         $this->assertEquals($expected, $actual);
     }
