@@ -7,10 +7,11 @@ use League\CommonMark\Block\Element\Document;
 use League\CommonMark\DocParser;
 use League\CommonMark\Environment;
 use League\CommonMark\HtmlRenderer;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class MarkdownJsonSerializerTest extends \PHPUnit\Framework\TestCase
+class MarkdownJsonSerializerTest extends TestCase
 {
     /** @var MarkdownJsonSerializer */
     private $normalizer;

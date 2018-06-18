@@ -4,9 +4,10 @@ namespace Drupal\Tests\jcms_admin\Unit;
 
 use Drupal\jcms_admin\HtmlMarkdownSerializer;
 use League\HTMLToMarkdown\HtmlConverter;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class HtmlMarkdownSerializerTest extends \PHPUnit\Framework\TestCase
+class HtmlMarkdownSerializerTest extends TestCase
 {
     /** @var HtmlMarkdownSerializer */
     private $normalizer;

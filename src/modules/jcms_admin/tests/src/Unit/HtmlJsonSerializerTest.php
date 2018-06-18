@@ -9,10 +9,11 @@ use League\CommonMark\DocParser;
 use League\CommonMark\Environment;
 use League\CommonMark\HtmlRenderer;
 use League\HTMLToMarkdown\HtmlConverter;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class HtmlJsonSerializerTest extends \PHPUnit\Framework\TestCase
+class HtmlJsonSerializerTest extends TestCase
 {
     /** @var HtmlJsonSerializer */
     private $normalizer;
