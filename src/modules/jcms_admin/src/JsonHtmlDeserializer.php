@@ -28,22 +28,35 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
                 case 'code':
                     $html[] = sprintf('<code>%s</code>', PHP_EOL.$item['code'].PHP_EOL);
                     break;
+                case 'list':
+                    $html[] = $this->flattenList($item['items'], $item['prefix']);
+                    break;
             }
         }
 
         return implode(PHP_EOL, $html);
     }
 
-    private function flattenList($items, $type = 'bullet') : string
+    private function flattenList($items, $prefix = 'bullet', $delimiter = PHP_EOL) : string
     {
-        $list = ($type === 'number') ? 'ol' : 'li';
+        $prefix = ($prefix === 'number') ? 'ol' : 'ul';
         $html = [];
-        if (!empty($item)) {
-            $html[] = sprintf('<%s>', $list);
+        if (!empty($items)) {
+            $html[] = sprintf('<%s>', $prefix);
             for ($i = 0; $i < count($items); $i++) {
+                $item = $items[$i];
+                if (is_string($item)) {
+                    $html[] = sprintf('<li>%s</li>', $item);
+                } elseif ($i > 0) {
+                    $prev = array_pop($html);
+                    $children = $this->flattenList($item[0]['items'], $item[0]['prefix'], '');
+                    $html[] = preg_replace('~</li>$~', $children.'</li>', $prev);
+                }
             }
-            $html[] = sprintf('</%s>', $list);
+            $html[] = sprintf('</%s>', $prefix);
         }
+
+        return implode($delimiter, $html);
     }
 
     private function flattenHierarchy(array $data, $depth = 1) : array

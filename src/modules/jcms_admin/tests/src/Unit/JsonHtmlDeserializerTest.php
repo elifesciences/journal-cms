@@ -193,50 +193,50 @@ class JsonHtmlDeserializerTest extends TestCase
                     '<table><tr><td>Cell two</td></tr></table>',
                 ]),
             ],
-//            'simple list' => [
-//                [
-//                    'type' => 'blog-article',
-//                    'content' => [
-//                        [
-//                            'type' => 'paragraph',
-//                            'text' => 'Nested list:',
-//                        ],
-//                        [
-//                            'type' => 'list',
-//                            'prefix' => 'bullet',
-//                            'items' => [
-//                                'Item 1',
-//                                'Item 2',
-//                                [
-//                                    [
-//                                        'type' => 'list',
-//                                        'prefix' => 'bullet',
-//                                        'items' => [
-//                                            'Item 2.1',
-//                                            [
-//                                                [
-//                                                    'type' => 'list',
-//                                                    'prefix' => 'number',
-//                                                    'items' => [
-//                                                        'Item 2.1.1',
-//                                                    ],
-//                                                ],
-//                                            ],
-//                                        ],
-//                                    ],
-//                                ],
-//                            ],
-//                        ],
-//                    ],
-//                ],
-//                $this->lines([
-//                    'Nested list:',
-//                    '<ul>',
-//                    '<li>Item 1</li>',
-//                    '<li>Item 2<ul><li>Item 2.1<ol><li>Item 2.1.1</li></ol></li></ul></li>',
-//                    '</ul>',
-//                ]),
-//            ],
+            'simple list' => [
+                [
+                    'type' => 'blog-article',
+                    'content' => [
+                        [
+                            'type' => 'paragraph',
+                            'text' => 'Nested list:',
+                        ],
+                        [
+                            'type' => 'list',
+                            'prefix' => 'bullet',
+                            'items' => [
+                                'Item 1',
+                                'Item 2',
+                                [
+                                    [
+                                        'type' => 'list',
+                                        'prefix' => 'bullet',
+                                        'items' => [
+                                            'Item 2.1',
+                                            [
+                                                [
+                                                    'type' => 'list',
+                                                    'prefix' => 'number',
+                                                    'items' => [
+                                                        'Item 2.1.1',
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                $this->lines([
+                    '<p>Nested list:</p>',
+                    '<ul>',
+                    '<li>Item 1</li>',
+                    '<li>Item 2<ul><li>Item 2.1<ol><li>Item 2.1.1</li></ol></li></ul></li>',
+                    '</ul>',
+                ]),
+            ],
             'single blockquote' => [
                 [
                     'type' => 'blog-article',
