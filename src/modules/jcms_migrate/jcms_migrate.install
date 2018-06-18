@@ -1147,3 +1147,26 @@ function jcms_migrate_update_8129() {
     $migrate_id_map->delete([$id]);
   }
 }
+
+/**
+ * Enable config_import module.
+ */
+function jcms_migrate_update_8130() {
+  \Drupal::service('module_installer')->install(['config_import']);
+}
+
+/**
+ * Update migrate config for attribution import and import new MSA.
+ */
+function jcms_migrate_update_8131() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $configs = [
+    'migrate_plus.migration.jcms_subjects_json',
+  ];
+  $config_importer->importConfigs($configs);
+
+  $manager = \Drupal::service('plugin.manager.config_entity_migration');
+  $plugins = $manager->createInstances([]);
+  $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
+  $executable->import();
+}
