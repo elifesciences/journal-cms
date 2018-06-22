@@ -1,0 +1,139 @@
+<?php
+
+/**
+ * @file
+ * Drush commands for the module.
+ */
+
+use Drupal\file\Entity\File;
+use Drupal\node\Entity\Node;
+use eLife\ApiSdk\Model\Model;
+
+/**
+ * Implements hook_drush_command().
+ */
+function jcms_admin_drush_command() {
+  return [
+    'json-html-migrate' => [
+      'description' => 'Migrate content from content blocks to single ckeditor.',
+      'drupal dependencies' => ['jcms_admin'],
+      'arguments' => [
+        'type' => 'Specify which content type to migrate (e.g. blog_article)',
+      ],
+      'options' => [
+        'limit' => 'Limit on the number of migrations to do.',
+        'skip-completed' => 'Skip completed (default: false)',
+      ],
+      'examples' => [
+        'drush son-html-migrate blog_article' => 'Migrate all blog_article content blocks to single ckeditor field.',
+      ],
+    ],
+  ];
+}
+
+/**
+ * Callback function drush_jcms_migrate_json_html_migrate().
+ */
+function drush_jcms_migrate_json_html_migrate(string $type) {
+  $limit = drush_get_option('limit') ? (int) drush_get_option('limit') : 0;
+  $skip_completed = drush_get_option('skip-completed') ? TRUE : FALSE;
+  $denormalizer = \Drupal::service('jcms_admin.json_html_denormalizer');
+  $normalizer = \Drupal::service('jcms_admin.html_json_normalizer');
+  $fids = [];
+  $preview_fids = [];
+  $folders = [
+    'blog_article' => 'blog-article',
+    'labs_experiment' => 'labs-post',
+  ];
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', $type);
+
+  if ($skip_completed) {
+    $query->notExists('field_content_html');
+  }
+
+  if ($limit > 0) {
+    $query->range(0, $limit);
+  }
+
+  $result = $query->execute();
+
+  if ($result) {
+    $total = count($result);
+    $nodes = Node::loadMultiple($result);
+    $num = 0;
+    foreach ($nodes as $node) {
+      $content = json_decode($node->get('field_content_processed_json')->getString(), TRUE);
+      $images = $denormalizer->gatherImages($content);
+      if (!empty($images)) {
+        $new_values = [];
+        $preview_values = [];
+        foreach ($images as $image) {
+          $result = \Drupal::entityQuery('file')
+            ->condition('uri', $image)
+            ->execute();
+          if ($result) {
+            $result = array_values($result);
+            if ($file = File::load($result[0])) {
+              $new_file_uri = preg_replace('/\/iiif\/content\//', '/iiif/'.$folders[$node->bundle()].'/', $image);
+              file_prepare_directory(\Drupal::service('file_system')->dirname($new_file_uri), FILE_CREATE_DIRECTORY);
+              $new_file = file_copy($file, $new_file_uri, FILE_EXISTS_REPLACE);
+              $new_file->save();
+              $new_fid = $new_file->id();
+              $new_src = file_url_transform_relative(file_create_url($new_file->getFileUri()));
+              $new_fids[$image] = [
+                'fid' => $new_fid,
+                'src' => $new_src,
+              ];
+              $new_values[] = [
+                'target_id' => $new_fid,
+              ];
+
+              $preview_file_uri = preg_replace('/\/iiif\/content\//', '/iiif/'.$folders[$node->bundle()].'-preview/', $image);
+              file_prepare_directory(\Drupal::service('file_system')->dirname($preview_file_uri), FILE_CREATE_DIRECTORY);
+              $preview_file = file_copy($file, $preview_file_uri, FILE_EXISTS_REPLACE);
+              $preview_file->save();
+              $preview_fid = $preview_file->id();
+              $preview_src = file_url_transform_relative(file_create_url($preview_file->getFileUri()));
+              $preview_fids[$image] = [
+                'fid' => $preview_fid,
+                'src' => $preview_src,
+              ];
+              $preview_values[] = [
+                'target_id' => $preview_fid,
+              ];
+            }
+          }
+        }
+        if (!empty($new_values)) {
+          $node->set('field_content_images', $new_values);
+          $node->set('field_content_images_preview', $preview_values);
+        }
+      }
+
+      $new_html = $denormalizer->denormalize(['content' => $content], Model::class, null, ['fids' => $fids]);
+      $node->set('field_content_html', [
+        'value' => $new_html,
+        'format' => 'full_html',
+      ]);
+      $node->set('field_content_json', [
+        'value' => json_encode($normalizer->normalize($new_html)),
+      ]);
+
+      $preview_html = $denormalizer->denormalize(['content' => $content], Model::class, null, ['fids' => $preview_fids]);
+      $node->set('field_content_html_preview', [
+        'value' => $preview_html,
+        'format' => 'full_html',
+      ]);
+      $node->set('field_content_json_preview', [
+        'value' => json_encode($normalizer->normalize($preview_html)),
+      ]);
+
+      drush_print(dt('Processed :num of :total (:nid).', [':num' => ++$num, ':total' => $total, ':nid' => $node->id()]));
+      $node->save();
+    }
+  }
+
+  drush_print(dt('Finished!'));
+}
