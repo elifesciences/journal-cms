@@ -402,6 +402,27 @@ class HtmlJsonSerializerTest extends TestCase
                     '<p>Paragraph 2 in Section 2.</p>',
                 ], 2),
             ],
+            'single button' => [
+                [
+                    [
+                        'type' => 'button',
+                        'text' => 'Button text',
+                        'uri' => 'http://example.com',
+                    ],
+                ],
+                '<elifebutton class="elife-button--default" data-href="http://example.com">Button text</elifebutton>',
+            ],
+            'single youtube' => [
+                [
+                    [
+                        'type' => 'youtube',
+                        'id' => 'oyBX9l9KzU8',
+                        'width' => 16,
+                        'height' => 9,
+                    ],
+                ],
+                '<oembed>https://www.youtube.com/watch?v=oyBX9l9KzU8</oembed>',
+            ],
         ];
     }
 

@@ -411,6 +411,31 @@ class JsonHtmlDeserializerTest extends TestCase
                     '</ul>',
                 ]),
             ],
+            'single button' => [
+                [
+                    'content' => [
+                        [
+                            'type' => 'button',
+                            'text' => 'Button text',
+                            'uri' => 'http://example.com',
+                        ],
+                    ],
+                ],
+                '<elifebutton class="elife-button--default" data-href="http://example.com">Button text</elifebutton>',
+            ],
+            'single youtube' => [
+                [
+                    'content' => [
+                        [
+                            'type' => 'youtube',
+                            'id' => 'oyBX9l9KzU8',
+                            'width' => '16',
+                            'height' => '9',
+                        ],
+                    ],
+                ],
+                '<oembed>https://www.youtube.com/watch?v=oyBX9l9KzU8</oembed>',
+            ],
         ];
     }
 
@@ -449,6 +474,55 @@ class JsonHtmlDeserializerTest extends TestCase
         array $context = []
     ) {
         $actual = $this->denormalizer->denormalize($json, Model::class, null, $context);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function gatherImagesProvider() : array
+    {
+        return [
+            'minimal' => [
+                [
+                    'content' => [],
+                ],
+                [],
+            ],
+            'sample' => [
+                [
+                    'content' => [
+                        [
+                            'type' => 'image',
+                            'image' => [
+                                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-1.jpg',
+                            ],
+                        ],
+                        [
+                            'type' => 'paragraph',
+                            'text' => 'Paragraph text',
+                        ],
+                        [
+                            'type' => 'image',
+                            'image' => [
+                                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-2.jpg',
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'public://editor-images/image-1.jpg',
+                    'public://editor-images/image-2.jpg',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider gatherImagesProvider
+     */
+    public function it_will_gather_images(array $json, array $expected)
+    {
+        $actual = $this->denormalizer->gatherImages($json['content']);
 
         $this->assertEquals($expected, $actual);
     }
