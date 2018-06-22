@@ -112,6 +112,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                         }
 
                         if (strpos($uri, 'public://') === 0) {
+                            // @todo - base_url for iiif should be from config.
                             $uri = preg_replace(['~^public://~', '~:sites/default/files/~'], ['https://iiif.elifesciences.org/journal-cms:', ':'], $uri);
                         }
                         switch ($filemime) {
@@ -158,10 +159,34 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                 break;
             case $node instanceof Element\Paragraph:
                 if ($rendered = $this->htmlRenderer->renderBlock($node)) {
-                    return [
-                        'type' => 'paragraph',
-                        'text' => $rendered->getContents(),
-                    ];
+                    $contents = $rendered->getContents();
+                    if (preg_match('/^<elifebutton.*<\/elifebutton>/', $contents)) {
+                        $dom = new Dom();
+                        $dom->load($contents);
+                        /** @var \PHPHtmlParser\Dom\HtmlNode $button */
+                        $button = $dom->find('elifebutton')[0];
+                        $uri = ltrim($button->getAttribute('data-href'), '/');
+                        $text = $button->innerHtml();
+                        return [
+                            'type' => 'button',
+                            'text' => $text,
+                            'uri' => $uri,
+                        ];
+                    } elseif (preg_match('/^<oembed>(?P<youtube>https:\/\/www\.youtube\.com\/watch\?v=.*)<\/oembed>/', $contents, $matches)) {
+                        $id = preg_replace('/^(|.*[^a-zA-Z0-9_-])([a-zA-Z0-9_-]{11})(|[^a-zA-Z0-9_-].*)$/', '$2', $matches['youtube']);
+                        // @todo - we need to store the width and height of videos on save.
+                        return [
+                            'type' => 'youtube',
+                            'id' => $id,
+                            'width' => 16,
+                            'height' => 9,
+                        ];
+                    } else {
+                        return [
+                            'type' => 'paragraph',
+                            'text' => $rendered->getContents(),
+                        ];
+                    }
                 }
                 break;
             case $node instanceof Element\ListBlock:

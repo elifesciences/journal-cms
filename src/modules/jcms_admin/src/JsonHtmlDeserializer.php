@@ -49,8 +49,14 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
                 case 'list':
                     $html[] = $this->flattenList($item['items'], $item['prefix']);
                     break;
+                case 'button':
+                    $html[] = sprintf('<elifebutton class="elife-button--default" data-href="%s">%s</elifebutton>', $item['uri'], $item['text']);
+                    break;
+                case 'youtube':
+                    $html[] = sprintf('<oembed>https://www.youtube.com/watch?v=%s</oembed>', $item['id']);
+                    break;
                 case 'image':
-                    $src = $item['image']['uri'];
+                    $src = $this->convertUri($item['image']['uri']);
                     if (!empty($context['fids'][$src])) {
                         $fid = $context['fids'][$src]['fid'];
                         $src = $context['fids'][$src]['src'];
@@ -92,6 +98,24 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
         }
 
         return implode($delimiter, $html);
+    }
+
+    public function gatherImages(array $data) : array
+    {
+        $images = [];
+        $content = $this->flattenHierarchy($data);
+        foreach ($content as $item) {
+            if ($item['type'] === 'image') {
+                $images[] = $this->convertUri($item['image']['uri']);
+            }
+        }
+
+        return $images;
+    }
+
+    private function convertUri(string $uri) : string
+    {
+        return preg_replace('/^.*journal\-cms\:/', 'public://iiif/', $uri);
     }
 
     private function flattenHierarchy(array $data, $depth = 1) : array
