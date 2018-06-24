@@ -128,30 +128,31 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                                 $ext = 'jpg';
                         }
                         $caption = null;
-                        if ($figure->find('figcaption')) {
-                            /** @var \PHPHtmlParser\Dom\HtmlNode $caption */
-                            $captionNode = $dom->find('figcaption')[0];
+                        /** @var \PHPHtmlParser\Dom\Collection $captions */
+                        $captions = $figure->find('figcaption');
+                        if ($captions->count()) {
+                            $captionNode = $captions[0];
                             $caption = trim($captionNode->innerHtml());
                         }
                         return array_filter([
                             'type' => 'image',
-                            'image' => array_filter([
+                            'image' => [
                                 'uri' => $uri,
-                                'alt' => $figure->getAttribute('alt') ?? null,
+                                'alt' => $figure->getAttribute('alt') ?? '',
                                 'source' => [
                                     'mediaType' => $filemime,
                                     'uri' => $uri.'/full/full/0/default.'.$ext,
                                     'filename' => basename($uri),
                                 ],
                                 'size' => [
-                                    'width' => $figure->getAttribute('width'),
-                                    'height' => $figure->getAttribute('height'),
+                                    'width' => (int) $figure->getAttribute('width'),
+                                    'height' => (int) $figure->getAttribute('height'),
                                 ],
                                 'focalPoint' => [
                                     'x' => 50,
                                     'y' => 50,
                                 ],
-                            ]),
+                            ],
                             'title' => $caption,
                         ]);
                     }
@@ -184,7 +185,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                     } else {
                         return [
                             'type' => 'paragraph',
-                            'text' => $rendered->getContents(),
+                            'text' => preg_replace('/<br \/>\n/', '<br />', $rendered->getContents()),
                         ];
                     }
                 }
