@@ -154,7 +154,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                                 ],
                             ],
                             'title' => $caption,
-                            'inline' => preg_match('/align\-left/', $figure->getAttribute('class')),
+                            'inline' => (bool) preg_match('/align\-left/', $figure->getAttribute('class')),
                         ]);
                     }
                 }
