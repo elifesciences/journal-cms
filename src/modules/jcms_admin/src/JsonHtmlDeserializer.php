@@ -57,8 +57,12 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
                     } else {
                         $fid = 1;
                     }
+                    $class = [
+                        'image',
+                        ($item['inline'] ?? null) ? 'align-left' : 'align-center',
+                    ];
                     $image = [
-                        sprintf('<figure class="image"><img alt="%s" data-fid="%d" data-uuid="UUID" src="%s" width="%d" height="%d" />', ($item['image']['alt'] ?? ''), $fid, $src, $item['image']['size']['width'], $item['image']['size']['height']),
+                        sprintf('<figure class="%s"><img alt="%s" data-fid="%d" data-uuid="UUID" src="%s" width="%d" height="%d" />', implode(' ', $class), ($item['image']['alt'] ?? ''), $fid, $src, $item['image']['size']['width'], $item['image']['size']['height']),
                     ];
                     if (!empty($item['title'])) {
                         $image[] = sprintf('<figcaption>%s</figcaption>', $item['title']);

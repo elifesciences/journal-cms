@@ -125,7 +125,7 @@ class JsonHtmlDeserializerTest extends TestCase
                 ],
                 '<table><tr><td>Cell one</td></tr></table>',
             ],
-            'simple figure' => [
+            'simple image' => [
                 [
                     'content' => [
                         [
@@ -156,7 +156,7 @@ class JsonHtmlDeserializerTest extends TestCase
                     ],
                 ],
                 $this->lines([
-                    '<figure class="image"><img alt="" data-fid="123" data-uuid="UUID" src="/sites/default/files/editor-images/image-20180427145110-1.jpeg" width="2000" height="2000" />',
+                    '<figure class="image align-center"><img alt="" data-fid="123" data-uuid="UUID" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" height="2000" />',
                     '<figcaption>A nice picture of a field. Courtesy of <a href="https://www.pexels.com/photo/biology-blur-close-up-dragonflies-287361/">Pexels</a>.</figcaption>',
                     '</figure>',
                     '<p>Image attribution</p>',
@@ -164,9 +164,48 @@ class JsonHtmlDeserializerTest extends TestCase
                 ]),
                 [
                     'fids' => [
-                        'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg' => [
+                        'public://iiif/editor-images/image-20180427145110-1.jpeg' => [
                             'fid' => 123,
-                            'src' => '/sites/default/files/editor-images/image-20180427145110-1.jpeg',
+                            'src' => '/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg',
+                        ],
+                    ],
+                ]
+            ],
+            'inline image' => [
+                [
+                    'content' => [
+                        [
+                            'type' => 'image',
+                            'image' => [
+                                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg',
+                                'alt' => '',
+                                'source' => [
+                                    'mediaType' => 'image/jpeg',
+                                    'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg/full/full/0/default.jpg',
+                                    'filename' => 'image-20180427145110-1.jpeg',
+                                ],
+                                'size' => [
+                                    'width' => 2000,
+                                    'height' => 2000,
+                                ],
+                                'focalPoint' => [
+                                    'x' => 50,
+                                    'y' => 50,
+                                ],
+                            ],
+                            'inline' => true,
+                        ],
+                    ],
+                ],
+                $this->lines([
+                    '<figure class="image align-left"><img alt="" data-fid="123" data-uuid="UUID" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" height="2000" />',
+                    '</figure>',
+                ]),
+                [
+                    'fids' => [
+                        'public://iiif/editor-images/image-20180427145110-1.jpeg' => [
+                            'fid' => 123,
+                            'src' => '/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg',
                         ],
                     ],
                 ]
@@ -381,9 +420,6 @@ class JsonHtmlDeserializerTest extends TestCase
             'cv items' => [
                 [
                     'interviewee' => [
-                        'name' => [
-                            'preferred' => 'Adam Brooker',
-                        ],
                         'cv' => [
                             [
                                 'date' => '2017 - present',
@@ -404,7 +440,6 @@ class JsonHtmlDeserializerTest extends TestCase
                 ],
                 $this->lines([
                     '<p><strong>Single</strong> paragraph</p>',
-                    '<h1>Adam Brooker CV</h1>',
                     '<ul>',
                     '<li><b>2017 - present</b>: Current position</li>',
                     '<li><b>2015 - 2017</b>: Previous position</li>',
@@ -509,8 +544,8 @@ class JsonHtmlDeserializerTest extends TestCase
                     ],
                 ],
                 [
-                    'public://editor-images/image-1.jpg',
-                    'public://editor-images/image-2.jpg',
+                    'public://iiif/editor-images/image-1.jpg',
+                    'public://iiif/editor-images/image-2.jpg',
                 ],
             ],
         ];

@@ -106,6 +106,7 @@ class HtmlJsonSerializerTest extends TestCase
                         'type' => 'image',
                         'image' => [
                             'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg',
+                            'alt' => '',
                             'source' => [
                                 'mediaType' => 'image/jpeg',
                                 'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg/full/full/0/default.jpg',
@@ -143,6 +144,7 @@ class HtmlJsonSerializerTest extends TestCase
                         'type' => 'image',
                         'image' => [
                             'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg',
+                            'alt' => '',
                             'source' => [
                                 'mediaType' => 'image/jpeg',
                                 'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg/full/full/0/default.jpg',
@@ -161,6 +163,38 @@ class HtmlJsonSerializerTest extends TestCase
                 ],
                 $this->lines([
                     '<figure class="image"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/editor-images/image-20180427145110-1.jpeg" width="2000" />',
+                    '</figure>',
+                ]),
+                [
+                    'public://sites/default/files/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
+                ],
+            ],
+            'image inline' => [
+                [
+                    [
+                        'type' => 'image',
+                        'image' => [
+                            'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg',
+                            'alt' => '',
+                            'source' => [
+                                'mediaType' => 'image/jpeg',
+                                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg/full/full/0/default.jpg',
+                                'filename' => 'image-20180427145110-1.jpeg',
+                            ],
+                            'size' => [
+                                'width' => 2000,
+                                'height' => 2000,
+                            ],
+                            'focalPoint' => [
+                                'x' => 50,
+                                'y' => 50,
+                            ],
+                        ],
+                        'inline' => true,
+                    ],
+                ],
+                $this->lines([
+                    '<figure class="image align-left"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/editor-images/image-20180427145110-1.jpeg" width="2000" />',
                     '</figure>',
                 ]),
                 [

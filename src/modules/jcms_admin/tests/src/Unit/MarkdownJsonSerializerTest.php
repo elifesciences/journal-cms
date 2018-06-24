@@ -90,7 +90,7 @@ class MarkdownJsonSerializerTest extends TestCase
                 ],
                 'Single paragraph',
             ],
-            'single image' => [
+            'simple image' => [
                 [
                     [
                         'type' => 'image',
@@ -114,7 +114,37 @@ class MarkdownJsonSerializerTest extends TestCase
                         'title' => 'Caption',
                     ],
                 ],
-                "<figure alt=\"Alt text\" class=\"image\" data-fid=\"123\" data-uuid=\"UUID\" height=\"1562\" src=\"/sites/default/files/editor-images/image-20180501122413-1.jpeg\" title=\"Image title\" width=\"2500\">![Alt text](/sites/default/files/editor-images/image-20180501122413-1.jpeg \"Image title\")<figcaption>Caption</figcaption></figure>",
+                "<figure alt=\"Alt text\" class=\"image align-center\" data-fid=\"123\" data-uuid=\"UUID\" height=\"1562\" src=\"/sites/default/files/editor-images/image-20180501122413-1.jpeg\" title=\"Image title\" width=\"2500\">![Alt text](/sites/default/files/editor-images/image-20180501122413-1.jpeg \"Image title\")<figcaption>Caption</figcaption></figure>",
+                [
+                    'public://sites/default/files/editor-images/image-20180501122413-1.jpeg' => 'image/jpeg',
+                ],
+            ],
+            'inline image' => [
+                [
+                    [
+                        'type' => 'image',
+                        'image' => [
+                            'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180501122413-1.jpeg',
+                            'alt' => 'Alt text',
+                            'source' => [
+                                'mediaType' => 'image/jpeg',
+                                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180501122413-1.jpeg/full/full/0/default.jpg',
+                                'filename' => 'image-20180501122413-1.jpeg',
+                            ],
+                            'size' => [
+                                'width' => 2500,
+                                'height' => 1562,
+                            ],
+                            'focalPoint' => [
+                                'x' => 50,
+                                'y' => 50,
+                            ],
+                        ],
+                        'title' => 'Caption',
+                        'inline' => true,
+                    ],
+                ],
+                "<figure alt=\"Alt text\" class=\"image align-left\" data-fid=\"123\" data-uuid=\"UUID\" height=\"1562\" src=\"/sites/default/files/editor-images/image-20180501122413-1.jpeg\" title=\"Image title\" width=\"2500\">![Alt text](/sites/default/files/editor-images/image-20180501122413-1.jpeg \"Image title\")<figcaption>Caption</figcaption></figure>",
                 [
                     'public://sites/default/files/editor-images/image-20180501122413-1.jpeg' => 'image/jpeg',
                 ],
