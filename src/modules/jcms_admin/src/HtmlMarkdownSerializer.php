@@ -29,7 +29,7 @@ final class HtmlMarkdownSerializer implements NormalizerInterface
     public function normalize($object, $format = null, array $context = []) : string
     {
         $markdown = $this->htmlConverter->convert($this->cleanHtml($object));
-        return preg_replace('/(<\/table>|<\/oembed>|<\/figure>)([^\s\n])/', '$1'.PHP_EOL.PHP_EOL.'$2', $markdown);
+        return preg_replace('/(<\/table>|<\/oembed>|<\/figure>|<\/elifebutton>)([^\s\n])/', '$1'.PHP_EOL.PHP_EOL.'$2', $markdown);
     }
 
     private function cleanHtml(string $html) : string
