@@ -10,21 +10,15 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
     public function denormalize($data, $class, $format = null, array $context = []) : string
     {
         $html = [];
-        if (!empty($data['interviewee'])) {
+        if (!empty($data['interviewee']['cv'])) {
             $cv = [];
             foreach ($data['interviewee']['cv'] as $item) {
                 $cv[] = sprintf('<b>%s</b>: %s', $item['date'], $item['text']);
             }
             $data['content'][] = [
-                'type' => 'section',
-                'title' => sprintf('%s CV', $data['interviewee']['name']['preferred']),
-                'content' => [
-                    [
-                        'type' => 'list',
-                        'prefix' => 'bullet',
-                        'items' => $cv,
-                    ],
-                ],
+                'type' => 'list',
+                'prefix' => 'bullet',
+                'items' => $cv,
             ];
         }
 

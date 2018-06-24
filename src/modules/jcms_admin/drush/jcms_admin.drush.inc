@@ -5,6 +5,7 @@
  * Drush commands for the module.
  */
 
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\file\Entity\File;
 use Drupal\node\Entity\Node;
 use eLife\ApiSdk\Model\Model;
@@ -46,6 +47,7 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
     'labs_experiment' => 'labs-post',
     'press_package' => 'for-the-press',
   ];
+  $data = [];
 
   $query = \Drupal::entityQuery('node')
     ->exists('field_content_processed_json')
@@ -66,8 +68,22 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
     $nodes = Node::loadMultiple($result);
     $num = 0;
     foreach ($nodes as $node) {
-      $content = json_decode($node->get('field_content_processed_json')->getString(), TRUE);
-      $images = $denormalizer->gatherImages($content);
+      $data['content'] = json_decode($node->get('field_content_processed_json')->getString(), TRUE);
+      $images = $denormalizer->gatherImages($data['content']);
+
+      if ($node->bundle() === 'interview') {
+        if ($node->get('field_interview_cv')->count()) {
+          $data['interviewee']['cv'] = [];
+          foreach ($node->get('field_interview_cv') as $paragraph) {
+            $cv_item = $paragraph->get('entity')->getTarget()->getValue();
+            $data['interviewee']['cv'][] = [
+              'date' => $cv_item->get('field_cv_item_date')->getString(),
+              'text' => _drush_jcms_migrate_field_value_formatted($cv_item->get('field_block_html')),
+            ];
+          }
+        }
+      }
+
       if (!empty($images)) {
         $new_values = [];
         $preview_values = [];
@@ -115,7 +131,7 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
         }
       }
 
-      $new_html = $denormalizer->denormalize(['content' => $content], Model::class, null, ['fids' => $new_fids]);
+      $new_html = $denormalizer->denormalize($data, Model::class, null, ['fids' => $new_fids]);
       $node->set('field_content_html', [
         'value' => $new_html,
         'format' => 'full_html',
@@ -124,7 +140,7 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
         'value' => json_encode($normalizer->normalize($new_html)),
       ]);
 
-      $preview_html = $denormalizer->denormalize(['content' => $content], Model::class, null, ['fids' => $preview_fids]);
+      $preview_html = $denormalizer->denormalize($data, Model::class, null, ['fids' => $preview_fids]);
       $node->set('field_content_html_preview', [
         'value' => $preview_html,
         'format' => 'full_html',
@@ -139,4 +155,14 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
   }
 
   drush_print(dt('Finished!'));
+}
+
+function _drush_jcms_migrate_field_value_formatted(FieldItemListInterface $data) {
+  $view = $data->view();
+  unset($view['#theme']);
+  $output = \Drupal::service('renderer')->renderPlain($view);
+  $output = preg_replace('/(<img [^>]*src=\")(\/[^\"]+)/', '$1' . \Drupal::request()->getSchemeAndHttpHost() . '$2', $output);
+  $output = str_replace(chr(194) . chr(160), ' ', $output);
+  $output = preg_replace('/\n/', '', $output);
+  return trim($output);
 }
