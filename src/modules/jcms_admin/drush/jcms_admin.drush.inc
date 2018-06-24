@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Site\Settings;
 use Drupal\file\Entity\File;
 use Drupal\node\Entity\Node;
 use eLife\ApiSdk\Model\Model;
@@ -64,6 +65,10 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
   $result = $query->execute();
 
   if ($result) {
+    $normalizer_context = [];
+    if ($iiif = Settings::get('jcms_iiif_base_uri')) {
+      $normalizer_context['iiif'] = $iiif;
+    }
     $total = count($result);
     $nodes = Node::loadMultiple($result);
     $num = 0;
@@ -137,7 +142,7 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
         'format' => 'full_html',
       ]);
       $node->set('field_content_json', [
-        'value' => json_encode($normalizer->normalize($new_html)),
+        'value' => json_encode($normalizer->normalize($new_html, null, $normalizer_context)),
       ]);
 
       $preview_html = $denormalizer->denormalize($data, Model::class, null, ['fids' => $preview_fids]);
@@ -146,7 +151,7 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
         'format' => 'full_html',
       ]);
       $node->set('field_content_json_preview', [
-        'value' => json_encode($normalizer->normalize($preview_html)),
+        'value' => json_encode($normalizer->normalize($preview_html, null, $normalizer_context)),
       ]);
 
       drush_print(dt('Processed :num of :total (:nid).', [':num' => ++$num, ':total' => $total, ':nid' => $node->id()]));

@@ -15,6 +15,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
     private $htmlRenderer;
     private $mimeTypeGuesser;
     private $depthOffset = null;
+    private $iiif = '';
 
     public function __construct(ElementRendererInterface $htmlRenderer, MimeTypeGuesserInterface $mimeTypeGuesser)
     {
@@ -27,6 +28,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = []) : array
     {
+        $this->iiif = $context['iiif'] ?? 'https://iiif.elifesciences.org/journal-cms:';
         return $this->convertChildren($object);
     }
 
@@ -112,8 +114,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                         }
 
                         if (strpos($uri, 'public://') === 0) {
-                            // @todo - base_url for iiif should be from config.
-                            $uri = preg_replace(['~^public://~', '~:sites/default/files/~'], ['https://iiif.elifesciences.org/journal-cms:', ':'], $uri);
+                            $uri = preg_replace(['~^public://~', '~:sites/default/files/~'], [$this->iiif, ':'], $uri);
                         }
                         switch ($filemime) {
                             case 'image/gif':
