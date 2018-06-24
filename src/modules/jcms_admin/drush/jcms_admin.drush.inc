@@ -39,14 +39,16 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
   $skip_completed = drush_get_option('skip-completed') ? TRUE : FALSE;
   $denormalizer = \Drupal::service('jcms_admin.json_html_denormalizer');
   $normalizer = \Drupal::service('jcms_admin.html_json_normalizer');
-  $fids = [];
+  $new_fids = [];
   $preview_fids = [];
   $folders = [
     'blog_article' => 'blog-article',
     'labs_experiment' => 'labs-post',
+    'press_package' => 'for-the-press',
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->exists('field_content_processed_json')
     ->condition('type', $type);
 
   if ($skip_completed) {
@@ -76,7 +78,8 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
           if ($result) {
             $result = array_values($result);
             if ($file = File::load($result[0])) {
-              $new_file_uri = preg_replace('/\/iiif\/content\//', '/iiif/'.$folders[$node->bundle()].'/', $image);
+              $folder = $folders[$node->bundle()] ?? $node->bundle();
+              $new_file_uri = preg_replace('/\/iiif\/content\//', '/iiif/'.$folder.'-content/', $image);
               file_prepare_directory(\Drupal::service('file_system')->dirname($new_file_uri), FILE_CREATE_DIRECTORY);
               $new_file = file_copy($file, $new_file_uri, FILE_EXISTS_REPLACE);
               $new_file->save();
@@ -90,7 +93,7 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
                 'target_id' => $new_fid,
               ];
 
-              $preview_file_uri = preg_replace('/\/iiif\/content\//', '/iiif/'.$folders[$node->bundle()].'-preview/', $image);
+              $preview_file_uri = preg_replace('/\/iiif\/content\//', '/iiif/'.$folder.'-preview/', $image);
               file_prepare_directory(\Drupal::service('file_system')->dirname($preview_file_uri), FILE_CREATE_DIRECTORY);
               $preview_file = file_copy($file, $preview_file_uri, FILE_EXISTS_REPLACE);
               $preview_file->save();
@@ -112,7 +115,7 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
         }
       }
 
-      $new_html = $denormalizer->denormalize(['content' => $content], Model::class, null, ['fids' => $fids]);
+      $new_html = $denormalizer->denormalize(['content' => $content], Model::class, null, ['fids' => $new_fids]);
       $node->set('field_content_html', [
         'value' => $new_html,
         'format' => 'full_html',
