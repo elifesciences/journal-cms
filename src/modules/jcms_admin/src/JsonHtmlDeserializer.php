@@ -151,10 +151,12 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
                         ];
                     }
                     if (!empty($item['image']['attribution'])) {
-                        $items[] = [
-                            'type' => 'paragraph',
-                            'text' => $item['image']['attribution'],
-                        ];
+                        foreach ($item['image']['attribution'] as $attribution) {
+                            $items[] = [
+                                'type' => 'paragraph',
+                                'text' => $attribution,
+                            ];
+                        }
                     }
                 }
             }

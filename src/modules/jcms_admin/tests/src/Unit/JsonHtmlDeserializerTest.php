@@ -145,7 +145,9 @@ class JsonHtmlDeserializerTest extends TestCase
                                     'x' => 50,
                                     'y' => 50,
                                 ],
-                                'attribution' => 'Image attribution',
+                                'attribution' => [
+                                    'Image attribution'
+                                ],
                             ],
                             'title' => 'A nice picture of a field. Courtesy of <a href="https://www.pexels.com/photo/biology-blur-close-up-dragonflies-287361/">Pexels</a>.',
                         ],
