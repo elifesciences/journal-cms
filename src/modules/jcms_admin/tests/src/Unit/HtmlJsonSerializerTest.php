@@ -100,7 +100,7 @@ class HtmlJsonSerializerTest extends TestCase
                 ],
                 '<table><tr><td>Cell one</td></tr></table>',
             ],
-            'simple figure' => [
+            'simple image' => [
                 [
                     [
                         'type' => 'image',
@@ -132,6 +132,36 @@ class HtmlJsonSerializerTest extends TestCase
                     '<figcaption>A nice picture of a field. Courtesy of <a href="https://www.pexels.com/photo/biology-blur-close-up-dragonflies-287361/">Pexels</a>.</figcaption>',
                     '</figure>'.PHP_EOL,
                     '<p>Trailing paragraph</p>',
+                ]),
+                [
+                    'public://sites/default/files/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
+                ],
+            ],
+            'image without caption' => [
+                [
+                    [
+                        'type' => 'image',
+                        'image' => [
+                            'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg',
+                            'source' => [
+                                'mediaType' => 'image/jpeg',
+                                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg/full/full/0/default.jpg',
+                                'filename' => 'image-20180427145110-1.jpeg',
+                            ],
+                            'size' => [
+                                'width' => 2000,
+                                'height' => 2000,
+                            ],
+                            'focalPoint' => [
+                                'x' => 50,
+                                'y' => 50,
+                            ],
+                        ],
+                    ],
+                ],
+                $this->lines([
+                    '<figure class="image"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/editor-images/image-20180427145110-1.jpeg" width="2000" />',
+                    '</figure>',
                 ]),
                 [
                     'public://sites/default/files/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
@@ -245,6 +275,78 @@ class HtmlJsonSerializerTest extends TestCase
                 $this->lines([
                     '<h1>Section heading</h1>',
                     '<p>Single paragraph</p>',
+                ]),
+            ],
+            'multiple sections' => [
+                [
+                    [
+                        'type' => 'paragraph',
+                        'text' => 'If you’re passionate about improving the quality of the early-career experience – especially in the life sciences, biomedicine and related fields – please join us.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'text' => $this->lines([
+                            'Nominations for five new members to join the eLife ECAG, for two-year terms starting on August 1, 2018, are now invited. Details on eligibility, responsibilities and the election process are available below.<br /><strong>The deadline for nominations is 23:59 (UK time) on May 28, 2018.</strong>',
+                        ]),
+                    ],
+                    [
+                        'type' => 'button',
+                        'text' => 'Nominate yourself now',
+                        'uri' => 'https://crm.elifesciences.org/crm/node/35',
+                    ],
+                    [
+                        'type' => 'section',
+                        'title' => 'Eligibility',
+                        'content' => [
+                            [
+                                'type' => 'paragraph',
+                                'text' => 'Members of the eLife ECAG are scientists who:',
+                            ],
+                            [
+                                'type' => 'list',
+                                'prefix' => 'bullet',
+                                'items' => [
+                                    'Are studying or conducting research in the life or biological sciences or related field, as a student, medical student, postdoctoral fellow, or junior investigator.',
+                                    'Have no more than five years’ active experience in an independent position. ‘Active experience’ is intended to exclude time away for parental leave, health leave, or other reasons unrelated to research. An independent position is defined here as having secured independent funding.',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'section',
+                        'title' => 'Nominations',
+                        'content' => [
+                            [
+                                'type' => 'paragraph',
+                                'text' => 'Individuals meeting the criteria set above may nominate themselves through <a href="https://crm.elifesciences.org/crm/node/35">the nominations form</a>. During the process they will be asked to confirm their details in relation to the criteria set by eLife.',
+                            ],
+                            [
+                                'type' => 'paragraph',
+                                'text' => 'Nominees will be asked to provide a short (~200-word) statement that describes their vision for how different approaches to research communication might improve the career development of early-stage researchers, why they are enthusiastic to join, and how they would contribute to the work of the ECAG.',
+                            ],
+                        ],
+                    ],
+                ],
+                $this->lines([
+                    '<p>If you’re passionate about improving the quality of the early-career experience – especially in the life sciences, biomedicine and related fields – please join us.</p>'.PHP_EOL,
+                    '<p>Nominations for five new members to join the eLife ECAG, for two-year terms starting on August 1, 2018, are now invited. Details on eligibility, responsibilities and the election process are available below.<br />',
+                    '<b>The deadline for nominations is 23:59 (UK time) on May 28, 2018.</b></p>',
+                    '<elifebutton class="elife-button--default" data-href="https://crm.elifesciences.org/crm/node/35">Nominate yourself now</elifebutton>'.PHP_EOL,
+                    '<p>&nbsp;</p>'.PHP_EOL,
+                    '<h1>Eligibility</h1>'.PHP_EOL,
+                    '<p>&nbsp;</p>'.PHP_EOL,
+                    '<p>Members of the eLife ECAG are scientists who:</p>'.PHP_EOL,
+                    '<p>&nbsp;</p>'.PHP_EOL,
+                    '<ul>',
+                    '<li>Are studying or conducting research in the life or biological sciences or related field, as a student, medical student, postdoctoral fellow, or junior investigator.</li>',
+                    '<li>Have no more than five years’ active experience in an independent position. ‘Active experience’ is intended to exclude time away for parental leave, health leave, or other reasons unrelated to research. An independent position is defined here as having secured independent funding.</li>',
+                    '</ul>'.PHP_EOL,
+                    '<p>&nbsp;</p>'.PHP_EOL,
+                    '<h1>Nominations</h1>'.PHP_EOL,
+                    '<p>&nbsp;</p>'.PHP_EOL,
+                    '<p>Individuals meeting the criteria set above may nominate themselves through <a href="https://crm.elifesciences.org/crm/node/35">the nominations form</a>. During the process they will be asked to confirm their details in relation to the criteria set by eLife.</p>'.PHP_EOL,
+                    '<p>&nbsp;</p>'.PHP_EOL,
+                    '<p>Nominees will be asked to provide a short (~200-word) statement that describes their vision for how different approaches to research communication might improve the career development of early-stage researchers, why they are enthusiastic to join, and how they would contribute to the work of the ECAG.</p>',
                 ]),
             ],
             'questions' => [
