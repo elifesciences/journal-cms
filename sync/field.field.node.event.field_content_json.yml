@@ -1,0 +1,21 @@
+uuid: f66db7a3-3f4c-4249-ae80-3b5d82bf3143
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_json
+    - node.type.event
+  module:
+    - jsonb
+id: node.event.field_content_json
+field_name: field_content_json
+entity_type: node
+bundle: event
+label: 'Content (JSON)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json

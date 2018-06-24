@@ -4,16 +4,26 @@ status: true
 dependencies:
   config:
     - field.field.node.press_package.field_content
+    - field.field.node.press_package.field_content_html
+    - field.field.node.press_package.field_content_html_preview
+    - field.field.node.press_package.field_content_images
+    - field.field.node.press_package.field_content_images_preview
+    - field.field.node.press_package.field_content_json
+    - field.field.node.press_package.field_content_json_preview
     - field.field.node.press_package.field_content_processed_json
     - field.field.node.press_package.field_impact_statement
     - field.field.node.press_package.field_media_contact
     - field.field.node.press_package.field_order_date
     - field.field.node.press_package.field_press_package_about
     - field.field.node.press_package.field_related_content
+    - image.style.thumbnail
     - node.type.press_package
   module:
+    - image
     - inline_entity_form
+    - jsonb
     - paragraphs
+    - scheduler
     - text
 id: node.press_package.default
 targetEntityType: node
@@ -31,6 +41,54 @@ content:
       default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
+  field_content_html:
+    weight: 10
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_content_html_preview:
+    weight: 13
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_content_images:
+    weight: 11
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+  field_content_images_preview:
+    weight: 14
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+  field_content_json:
+    weight: 12
+    settings:
+      rows: '5'
+      placeholder: ''
+    third_party_settings: {  }
+    type: jsonb_textarea
+    region: content
+  field_content_json_preview:
+    weight: 15
+    settings:
+      rows: '5'
+      placeholder: ''
+    third_party_settings: {  }
+    type: jsonb_textarea
     region: content
   field_impact_statement:
     weight: 1
@@ -79,13 +137,15 @@ content:
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 20
+    weight: 7
     region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
@@ -103,7 +163,7 @@ content:
     region: content
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }

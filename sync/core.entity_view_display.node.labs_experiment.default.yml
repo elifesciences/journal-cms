@@ -9,6 +9,8 @@ dependencies:
     - field.field.node.labs_experiment.field_content_html_preview
     - field.field.node.labs_experiment.field_content_images
     - field.field.node.labs_experiment.field_content_images_preview
+    - field.field.node.labs_experiment.field_content_json
+    - field.field.node.labs_experiment.field_content_json_preview
     - field.field.node.labs_experiment.field_content_processed_json
     - field.field.node.labs_experiment.field_experiment_number
     - field.field.node.labs_experiment.field_image
@@ -44,6 +46,8 @@ hidden:
   field_content_html_preview: true
   field_content_images: true
   field_content_images_preview: true
+  field_content_json: true
+  field_content_json_preview: true
   field_content_processed_json: true
   field_experiment_number: true
   field_image: true

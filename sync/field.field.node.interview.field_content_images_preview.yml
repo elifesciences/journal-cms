@@ -1,24 +1,24 @@
-uuid: 89950c66-f382-481b-9786-0172bd5fb9d3
+uuid: 10255a39-eb10-4878-a055-db5238ca3c60
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_content_images
-    - node.type.labs_experiment
+    - field.storage.node.field_content_images_preview
+    - node.type.interview
   module:
     - image
-id: node.labs_experiment.field_content_images
-field_name: field_content_images
+id: node.interview.field_content_images_preview
+field_name: field_content_images_preview
 entity_type: node
-bundle: labs_experiment
-label: 'Content (images)'
+bundle: interview
+label: 'Content (images preview)'
 description: ''
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  file_directory: 'iiif/labs-post-content/[date:custom:Y]-[date:custom:m]'
+  file_directory: 'iiif/interview-preview/[date:custom:Y]-[date:custom:m]'
   file_extensions: 'png jpg jpeg'
   max_filesize: ''
   max_resolution: ''

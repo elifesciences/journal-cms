@@ -1,0 +1,21 @@
+uuid: 4388f91a-7b1a-451b-80e3-e0e309236365
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_html_preview
+    - node.type.interview
+  module:
+    - text
+id: node.interview.field_content_html_preview
+field_name: field_content_html_preview
+entity_type: node
+bundle: interview
+label: 'Content (preview)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

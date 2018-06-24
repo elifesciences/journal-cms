@@ -5,6 +5,12 @@ dependencies:
   config:
     - field.field.node.interview.field_community_list
     - field.field.node.interview.field_content
+    - field.field.node.interview.field_content_html
+    - field.field.node.interview.field_content_html_preview
+    - field.field.node.interview.field_content_images
+    - field.field.node.interview.field_content_images_preview
+    - field.field.node.interview.field_content_json
+    - field.field.node.interview.field_content_json_preview
     - field.field.node.interview.field_content_processed_json
     - field.field.node.interview.field_image
     - field.field.node.interview.field_impact_statement
@@ -14,9 +20,6 @@ dependencies:
     - field.field.node.interview.field_person_preferred_name
     - node.type.interview
   module:
-    - entity_reference_revisions
-    - image
-    - jsonb
     - text
     - user
 id: node.interview.default
@@ -24,86 +27,32 @@ targetEntityType: node
 bundle: interview
 mode: default
 content:
-  field_community_list:
-    weight: 106
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
-  field_content:
-    weight: 104
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
-    region: content
-  field_content_processed_json:
-    weight: 109
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: jsonb_default
-    region: content
-  field_image:
-    weight: 108
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
-    region: content
-  field_impact_statement:
-    weight: 105
+  field_content_html_preview:
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
-  field_interview_cv:
-    type: entity_reference_revisions_entity_view
-    weight: 102
+  field_impact_statement:
+    weight: 0
     label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    region: content
-  field_order_date:
-    weight: 107
-    label: above
-    settings:
-      date_format: medium
-      custom_date_format: ''
-      timezone: ''
-    third_party_settings: {  }
-    type: timestamp
-    region: content
-  field_person_index_name:
-    weight: 101
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_person_preferred_name:
-    weight: 103
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  links:
-    weight: 100
-    region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+    type: text_default
+    region: content
+hidden:
+  field_community_list: true
+  field_content: true
+  field_content_html: true
+  field_content_images: true
+  field_content_images_preview: true
+  field_content_json: true
+  field_content_json_preview: true
+  field_content_processed_json: true
+  field_image: true
+  field_interview_cv: true
+  field_order_date: true
+  field_person_index_name: true
+  field_person_preferred_name: true
+  links: true

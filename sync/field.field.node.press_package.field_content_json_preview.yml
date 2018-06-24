@@ -1,0 +1,21 @@
+uuid: b4992829-f0fe-4d91-a072-de4e9d9ed0de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_json_preview
+    - node.type.press_package
+  module:
+    - jsonb
+id: node.press_package.field_content_json_preview
+field_name: field_content_json_preview
+entity_type: node
+bundle: press_package
+label: 'Content (JSON preview)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json
