@@ -48,7 +48,6 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
     'labs_experiment' => 'labs-post',
     'press_package' => 'for-the-press',
   ];
-  $data = [];
 
   $query = \Drupal::entityQuery('node')
     ->exists('field_content_processed_json')
@@ -73,7 +72,9 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
     $nodes = Node::loadMultiple($result);
     $num = 0;
     foreach ($nodes as $node) {
-      $data['content'] = json_decode($node->get('field_content_processed_json')->getString(), TRUE);
+      $data = [
+        'content' => json_decode($node->get('field_content_processed_json')->getString(), TRUE),
+      ];
       $images = $denormalizer->gatherImages($data['content']);
 
       if ($node->bundle() === 'interview') {
