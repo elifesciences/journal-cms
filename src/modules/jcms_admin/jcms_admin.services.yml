@@ -15,9 +15,11 @@ services:
   jcms_admin.doc_parser:
     class: League\CommonMark\DocParser
     arguments: ['@jcms_admin.environment']
+  jcms_admin.md_converter:
+    class: League\CommonMark\CommonMarkConverter
   jcms_admin.md_json_normalizer:
     class: Drupal\jcms_admin\MarkdownJsonSerializer
-    arguments: ['@jcms_admin.html_renderer', '@file.mime_type.guesser']
+    arguments: ['@jcms_admin.html_renderer', '@file.mime_type.guesser', '@jcms_admin.md_converter']
   jcms_admin.html_json_normalizer:
     class: Drupal\jcms_admin\HtmlJsonSerializer
     arguments: ['@jcms_admin.html_md_normalizer', '@jcms_admin.md_json_normalizer', '@jcms_admin.doc_parser']

@@ -3,6 +3,7 @@
 namespace Drupal\jcms_admin;
 
 use League\CommonMark\Block\Element;
+use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\ElementRendererInterface;
 use League\CommonMark\Node\Node;
 use PHPHtmlParser\Dom;
@@ -14,13 +15,15 @@ final class MarkdownJsonSerializer implements NormalizerInterface
 
     private $htmlRenderer;
     private $mimeTypeGuesser;
+    private $converter;
     private $depthOffset = null;
     private $iiif = '';
 
-    public function __construct(ElementRendererInterface $htmlRenderer, MimeTypeGuesserInterface $mimeTypeGuesser)
+    public function __construct(ElementRendererInterface $htmlRenderer, MimeTypeGuesserInterface $mimeTypeGuesser, CommonMarkConverter $converter)
     {
         $this->htmlRenderer = $htmlRenderer;
         $this->mimeTypeGuesser = $mimeTypeGuesser;
+        $this->converter = $converter;
     }
 
     /**
@@ -133,7 +136,11 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                         $captions = $figure->find('figcaption');
                         if ($captions->count()) {
                             $captionNode = $captions[0];
-                            $caption = trim($captionNode->innerHtml());
+                            $dom = new Dom();
+                            $dom->load($this->converter->convertToHtml(trim($captionNode->innerHtml())));
+                            /** @var \PHPHtmlParser\Dom\HtmlNode $text */
+                            $text = $dom->find('p')[0];
+                            $caption = $text->innerHtml();
                         }
                         return array_filter([
                             'type' => 'image',

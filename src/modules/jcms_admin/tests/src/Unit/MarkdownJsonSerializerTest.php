@@ -4,6 +4,7 @@ namespace Drupal\Tests\jcms_admin\Unit;
 
 use Drupal\jcms_admin\MarkdownJsonSerializer;
 use League\CommonMark\Block\Element\Document;
+use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\DocParser;
 use League\CommonMark\Environment;
 use League\CommonMark\HtmlRenderer;
@@ -27,7 +28,7 @@ class MarkdownJsonSerializerTest extends TestCase
     {
         $environment = Environment::createCommonMarkEnvironment();
         $this->mimeTypeGuesser = $this->getMock(MimeTypeGuesserInterface::class);
-        $this->normalizer = new MarkdownJsonSerializer(new HtmlRenderer($environment), $this->mimeTypeGuesser);
+        $this->normalizer = new MarkdownJsonSerializer(new HtmlRenderer($environment), $this->mimeTypeGuesser, new CommonMarkConverter());
         $this->docParser = new DocParser($environment);
     }
 
