@@ -115,9 +115,9 @@ class MarkdownJsonSerializerTest extends TestCase
                         'title' => 'Caption with a <a href="https://elifesciences.org/">link</a>.',
                     ],
                 ],
-                "<figure alt=\"Alt text\" class=\"image align-center\" data-fid=\"123\" data-uuid=\"UUID\" height=\"1562\" src=\"/sites/default/files/editor-images/image-20180501122413-1.jpeg\" title=\"Image title\" width=\"2500\">![Alt text](/sites/default/files/editor-images/image-20180501122413-1.jpeg \"Image title\")<figcaption>Caption with a [link](https://elifesciences.org/).</figcaption></figure>",
+                "<figure alt=\"Alt text\" class=\"image align-center\" data-fid=\"123\" data-uuid=\"UUID\" height=\"1562\" src=\"/sites/default/files/iiif/editor-images/image-20180501122413-1.jpeg\" title=\"Image title\" width=\"2500\">![Alt text](/sites/default/files/editor-images/image-20180501122413-1.jpeg \"Image title\")<figcaption>Caption with a [link](https://elifesciences.org/).</figcaption></figure>",
                 [
-                    'public://sites/default/files/editor-images/image-20180501122413-1.jpeg' => 'image/jpeg',
+                    'public://iiif/editor-images/image-20180501122413-1.jpeg' => 'image/jpeg',
                 ],
             ],
             'inline image' => [
@@ -145,9 +145,9 @@ class MarkdownJsonSerializerTest extends TestCase
                         'inline' => true,
                     ],
                 ],
-                "<figure alt=\"Alt text\" class=\"image align-left\" data-fid=\"123\" data-uuid=\"UUID\" height=\"1562\" src=\"/sites/default/files/editor-images/image-20180501122413-1.jpeg\" title=\"Image title\" width=\"2500\">![Alt text](/sites/default/files/editor-images/image-20180501122413-1.jpeg \"Image title\")<figcaption>Caption</figcaption></figure>",
+                "<figure alt=\"Alt text\" class=\"image align-left\" data-fid=\"123\" data-uuid=\"UUID\" height=\"1562\" src=\"/sites/default/files/iiif/editor-images/image-20180501122413-1.jpeg\" title=\"Image title\" width=\"2500\">![Alt text](/sites/default/files/editor-images/image-20180501122413-1.jpeg \"Image title\")<figcaption>Caption</figcaption></figure>",
                 [
-                    'public://sites/default/files/editor-images/image-20180501122413-1.jpeg' => 'image/jpeg',
+                    'public://iiif/editor-images/image-20180501122413-1.jpeg' => 'image/jpeg',
                 ],
             ],
             'single table' => [

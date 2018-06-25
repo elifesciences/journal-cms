@@ -108,16 +108,16 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                         $figure = $dom->find('figure')[0];
                         $uri = ltrim($figure->getAttribute('src'), '/');
                         if (strpos($uri, 'http') !== 0) {
-                            $uri = 'public://'.$uri;
+                            $uri = 'public://'.preg_replace('~sites/default/files/~', '', $uri);
                         }
                         $filemime = $this->mimeTypeGuesser->guess($uri);
-                        if ($filemime == 'image/png') {
-                            $filemime = 'image/jpeg';
-                            $uri = preg_replace('/\.png$/', '.jpg', $uri);
-                        }
-
                         if (strpos($uri, 'public://') === 0) {
-                            $uri = preg_replace(['~^public://~', '~:sites/default/files/~'], [$this->iiif, ':'], $uri);
+                            $uri = preg_replace('~^public://iiif/~', $this->iiif, $uri);
+                        }
+                        $basename = basename($uri);
+                        if ($filemime === 'image/png') {
+                            $filemime = 'image/jpeg';
+                            $basename = preg_replace('/\.png$/', '.jpg', $basename);
                         }
                         switch ($filemime) {
                             case 'image/gif':
@@ -150,7 +150,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                                 'source' => [
                                     'mediaType' => $filemime,
                                     'uri' => $uri.'/full/full/0/default.'.$ext,
-                                    'filename' => basename($uri),
+                                    'filename' => $basename,
                                 ],
                                 'size' => [
                                     'width' => (int) $figure->getAttribute('width'),

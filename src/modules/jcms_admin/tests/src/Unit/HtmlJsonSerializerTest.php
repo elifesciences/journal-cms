@@ -77,41 +77,41 @@ class HtmlJsonSerializerTest extends TestCase
     public function normalizeProvider() : array
     {
         return [
-//            'minimal' => [
-//                [],
-//                '',
-//            ],
-//            'single paragraph' => [
-//                [
-//                    [
-//                        'type' => 'paragraph',
-//                        'text' => '<strong>Single</strong> paragraph',
-//                    ],
-//                ],
-//                '<p><strong>Single</strong> paragraph</p>',
-//            ],
-//            'single table' => [
-//                [
-//                    [
-//                        'type' => 'table',
-//                        'tables' => [
-//                            '<table><tr><td>Cell one</td></tr></table>',
-//                        ],
-//                    ],
-//                ],
-//                '<table><tr><td>Cell one</td></tr></table>',
-//            ],
+            'minimal' => [
+                [],
+                '',
+            ],
+            'single paragraph' => [
+                [
+                    [
+                        'type' => 'paragraph',
+                        'text' => '<strong>Single</strong> paragraph',
+                    ],
+                ],
+                '<p><strong>Single</strong> paragraph</p>',
+            ],
+            'single table' => [
+                [
+                    [
+                        'type' => 'table',
+                        'tables' => [
+                            '<table><tr><td>Cell one</td></tr></table>',
+                        ],
+                    ],
+                ],
+                '<table><tr><td>Cell one</td></tr></table>',
+            ],
             'simple image' => [
                 [
                     [
                         'type' => 'image',
                         'image' => [
-                            'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg',
+                            'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.png',
                             'alt' => '',
                             'source' => [
                                 'mediaType' => 'image/jpeg',
-                                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg/full/full/0/default.jpg',
-                                'filename' => 'image-20180427145110-1.jpeg',
+                                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.png/full/full/0/default.jpg',
+                                'filename' => 'image-20180427145110-1.jpg',
                             ],
                             'size' => [
                                 'width' => 2000,
@@ -130,13 +130,13 @@ class HtmlJsonSerializerTest extends TestCase
                     ],
                 ],
                 $this->lines([
-                    '<figure class="image"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/editor-images/image-20180427145110-1.jpeg" width="2000" />',
+                    '<figure class="image"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.png" width="2000" />',
                     '<figcaption>A nice picture of a field. Courtesy of <a href="https://www.pexels.com/photo/biology-blur-close-up-dragonflies-287361/">Pexels</a>.</figcaption>',
                     '</figure>'.PHP_EOL,
                     '<p>Trailing paragraph</p>',
                 ]),
                 [
-                    'public://sites/default/files/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
+                    'public://iiif/editor-images/image-20180427145110-1.png' => 'image/png',
                 ],
             ],
             'image without caption' => [
@@ -163,11 +163,11 @@ class HtmlJsonSerializerTest extends TestCase
                     ],
                 ],
                 $this->lines([
-                    '<figure class="image"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/editor-images/image-20180427145110-1.jpeg" width="2000" />',
+                    '<figure class="image"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" />',
                     '</figure>',
                 ]),
                 [
-                    'public://sites/default/files/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
+                    'public://iiif/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
                 ],
             ],
             'image inline' => [
@@ -195,11 +195,11 @@ class HtmlJsonSerializerTest extends TestCase
                     ],
                 ],
                 $this->lines([
-                    '<figure class="image align-left"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/editor-images/image-20180427145110-1.jpeg" width="2000" />',
+                    '<figure class="image align-left"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" />',
                     '</figure>',
                 ]),
                 [
-                    'public://sites/default/files/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
+                    'public://iiif/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
                 ],
             ],
             'multiple tables' => [
