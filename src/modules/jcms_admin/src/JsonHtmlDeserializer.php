@@ -16,9 +16,15 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
                 $cv[] = sprintf('<b>%s</b>: %s', $item['date'], $item['text']);
             }
             $data['content'][] = [
-                'type' => 'list',
-                'prefix' => 'bullet',
-                'items' => $cv,
+                'type' => 'section',
+                'title' => sprintf('%s CV', $data['interviewee']['name']['preferred']),
+                'content' => [
+                    [
+                        'type' => 'list',
+                        'prefix' => 'bullet',
+                        'items' => $cv,
+                    ],
+                ],
             ];
         }
 

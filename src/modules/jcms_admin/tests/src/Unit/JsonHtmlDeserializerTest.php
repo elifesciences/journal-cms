@@ -422,6 +422,9 @@ class JsonHtmlDeserializerTest extends TestCase
             'cv items' => [
                 [
                     'interviewee' => [
+                        'name' => [
+                            'preferred' => 'Adam Brooks',
+                        ],
                         'cv' => [
                             [
                                 'date' => '2017 - present',
@@ -442,6 +445,7 @@ class JsonHtmlDeserializerTest extends TestCase
                 ],
                 $this->lines([
                     '<p><strong>Single</strong> paragraph</p>',
+                    '<h1>Adam Brooks CV</h1>',
                     '<ul>',
                     '<li><b>2017 - present</b>: Current position</li>',
                     '<li><b>2015 - 2017</b>: Previous position</li>',

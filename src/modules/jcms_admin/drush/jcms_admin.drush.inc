@@ -79,7 +79,12 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
 
       if ($node->bundle() === 'interview') {
         if ($node->get('field_interview_cv')->count()) {
-          $data['interviewee']['cv'] = [];
+          $data['interviewee'] = [
+            'name' => [
+              'preferred' => $node->get('field_person_preferred_name')->getString(),
+            ],
+            'cv' => [],
+          ];
           foreach ($node->get('field_interview_cv') as $paragraph) {
             $cv_item = $paragraph->get('entity')->getTarget()->getValue();
             $data['interviewee']['cv'][] = [
