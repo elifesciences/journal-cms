@@ -86,7 +86,7 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
         'application/vnd.elife.podcast-episode-list+json',
         'application/vnd.elife.podcast-episode+json',
       ],
-      */
+       */
       [
         '/interviews',
         'id',
