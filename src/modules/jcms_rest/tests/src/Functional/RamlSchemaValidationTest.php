@@ -52,10 +52,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.labs-post-list+json;version=1',
         'application/vnd.elife.labs-post+json;version=1',
       ],
-      /*
-       Turns out this is failing validation
-       [items[0].orcid] Does not match the regex pattern:
-       ^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$
       [
         'GET',
         '/people',
@@ -63,7 +59,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.person-list+json;version=1',
         'application/vnd.elife.person+json;version=1',
       ],
-       */
       [
         'GET',
         '/events',
@@ -95,11 +90,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.job-advert-list+json;version=1',
         'application/vnd.elife.job-advert+json;version=1',
       ],
-      /*
-       * fails because
-       * [items[0].selectedCurator.orcid] Does not match the regex pattern:
-       * ^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$
-       * and similar
       [
         'GET',
         '/collections',
@@ -107,7 +97,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.collection-list+json;version=1',
         'application/vnd.elife.collection+json;version=1',
       ],
-       */
       [
         'GET',
         '/covers',
