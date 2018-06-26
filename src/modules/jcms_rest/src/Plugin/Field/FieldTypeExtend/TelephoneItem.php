@@ -6,6 +6,7 @@ use Drupal\telephone\Plugin\Field\FieldType\TelephoneItem as TelephoneItemExtend
 use Drupal\Core\Field\FieldDefinitionInterface;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
+use libphonenumber\RegionCode;
 
 /**
  * {@inheritdoc}
@@ -20,7 +21,7 @@ class TelephoneItem extends TelephoneItemExtend {
     switch ($field_definition->getName()) {
       case 'field_block_phone_number':
         $phoneNumberUtil = PhoneNumberUtil::getInstance();
-        $number = $phoneNumberUtil->getExampleNumber(1);
+        $number = $phoneNumberUtil->getExampleNumber(RegionCode::GB);
         $values['value'] = $phoneNumberUtil->format($number, PhoneNumberFormat::E164);
         break;
     }
