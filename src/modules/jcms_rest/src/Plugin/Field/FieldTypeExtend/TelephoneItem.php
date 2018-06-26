@@ -4,6 +4,8 @@ namespace Drupal\jcms_rest\Plugin\Field\FieldTypeExtend;
 
 use Drupal\telephone\Plugin\Field\FieldType\TelephoneItem as TelephoneItemExtend;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use libphonenumber\PhoneNumberFormat;
+use libphonenumber\PhoneNumberUtil;
 
 /**
  * {@inheritdoc}
@@ -17,7 +19,9 @@ class TelephoneItem extends TelephoneItemExtend {
     $values = parent::generateSampleValue($field_definition);
     switch ($field_definition->getName()) {
       case 'field_block_phone_number':
-        $values['value'] = '+' . $values['value'];
+        $phoneNumberUtil = PhoneNumberUtil::getInstance();
+        $number = $phoneNumberUtil->getExampleNumber(1);
+        $values['value'] = $phoneNumberUtil->format($number, PhoneNumberFormat::E164);
         break;
     }
     return $values;

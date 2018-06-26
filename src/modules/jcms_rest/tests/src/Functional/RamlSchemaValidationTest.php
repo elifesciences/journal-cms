@@ -115,11 +115,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.cover-list+json;version=1',
         'application/vnd.elife.cover+json;version=1',
       ],
-      /*
-       * fails because
-       * [mediaContacts[2].phoneNumbers[1]] Does not match the regex pattern:
-       * ^\+[0-9]{8,15}(;ext=[0-9]+)?$
-       *
       [
         'GET',
         '/press-packages',
@@ -127,7 +122,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.press-package-list+json;version=1',
         'application/vnd.elife.press-package+json;version=2',
       ],
-       */
       [
         'GET',
         '/annual-reports',
