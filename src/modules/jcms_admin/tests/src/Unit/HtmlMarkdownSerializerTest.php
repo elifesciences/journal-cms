@@ -51,9 +51,9 @@ class HtmlMarkdownSerializerTest extends TestCase
      * @test
      * @dataProvider normalizeProvider
      */
-    public function it_will_normalize_html(string $expected, string $html)
+    public function it_will_normalize_html(string $expected, string $html, array $context = [])
     {
-        $this->assertEquals($expected, $this->normalizer->normalize($html));
+        $this->assertEquals($expected, $this->normalizer->normalize($html, null, $context));
     }
 
     public function normalizeProvider() : array
@@ -86,7 +86,7 @@ class HtmlMarkdownSerializerTest extends TestCase
                 ], 2),
             ],
             'table multiple lines' => [
-                '<table> <tr> <td> Cell one </td></tr></table>',
+                '<table><tr><td>Cell one</td></tr></table>',
                 $this->lines([
                     '<table>',
                     '  <tr>',

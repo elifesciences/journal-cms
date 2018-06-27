@@ -4,6 +4,7 @@ namespace Drupal\jcms_admin;
 
 use League\CommonMark\Block\Element;
 use League\CommonMark\CommonMarkConverter;
+use League\CommonMark\DocParser;
 use League\CommonMark\ElementRendererInterface;
 use League\CommonMark\Node\Node;
 use PHPHtmlParser\Dom;
@@ -13,34 +14,37 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 final class MarkdownJsonSerializer implements NormalizerInterface
 {
 
+    private $docParser;
     private $htmlRenderer;
     private $mimeTypeGuesser;
     private $converter;
     private $depthOffset = null;
     private $iiif = '';
+    private $bracketChar = 'ø';
 
-    public function __construct(ElementRendererInterface $htmlRenderer, MimeTypeGuesserInterface $mimeTypeGuesser, CommonMarkConverter $converter)
+    public function __construct(DocParser $docParser, ElementRendererInterface $htmlRenderer, MimeTypeGuesserInterface $mimeTypeGuesser, CommonMarkConverter $converter)
     {
+        $this->docParser = $docParser;
         $this->htmlRenderer = $htmlRenderer;
         $this->mimeTypeGuesser = $mimeTypeGuesser;
         $this->converter = $converter;
     }
 
     /**
-     * @param Element\Document $object
+     * @param string $object
      */
     public function normalize($object, $format = null, array $context = []) : array
     {
         $this->iiif = $context['iiif'] ?? 'https://iiif.elifesciences.org/journal-cms:';
-        return $this->convertChildren($object);
+        return $this->convertChildren($this->docParser->parse($object), $context);
     }
 
-    private function convertChildren(Element\Document $document) : array
+    private function convertChildren(Element\Document $document, array $context = []) : array
     {
         $nodes = [];
         $this->resetDepthOffset();
         foreach ($document->children() as $node) {
-            if ($child = $this->convertChild($node)) {
+            if ($child = $this->convertChild($node, $context)) {
                 $nodes[] = $child;
             }
         }
@@ -68,8 +72,9 @@ final class MarkdownJsonSerializer implements NormalizerInterface
     /**
      * @return array|null
      */
-    private function convertChild(Node $node)
+    private function convertChild(Node $node, array $context = [])
     {
+        $encode = $context['encode'] ?? [];
         switch (true) {
             case $node instanceof Element\Heading:
                 if ($rendered = $this->htmlRenderer->renderBlock($node)) {
@@ -93,7 +98,10 @@ final class MarkdownJsonSerializer implements NormalizerInterface
             case $node instanceof Element\HtmlBlock:
                 if ($rendered = $this->htmlRenderer->renderBlock($node)) {
                     $contents = trim($rendered);
-                    if (preg_match('/^<table.*<\/table>/', $contents)) {
+                    if (preg_match('/^(<table[^>]*>)(.*)(<\/table>)/', $contents, $matches)) {
+                        if (in_array('table', $encode)) {
+                            $contents = $matches[1].base64_decode($matches[2]).$matches[3];
+                        }
                         return [
                             'type' => 'table',
                             'tables' => [$contents],
@@ -217,10 +225,13 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                 break;
             case $node instanceof Element\FencedCode:
             case $node instanceof Element\IndentedCode:
-                if ($rendered = $this->htmlRenderer->renderBlock($node)) {
+                if ($contents = $node->getStringContent()) {
+                    if (in_array('code', $encode)) {
+                        $contents = base64_decode($contents);
+                    }
                     return [
                         'type' => 'code',
-                        'code' => trim(preg_replace('/^[\s]*<code>(.*)<\/code>[\s]*$/s', '$1', $rendered->getContents())),
+                        'code' => trim($contents),
                     ];
                 }
                 break;
@@ -327,6 +338,15 @@ final class MarkdownJsonSerializer implements NormalizerInterface
     public function supportsNormalization($data, $format = null) : bool
     {
         return $data instanceof Element\Document;
+    }
+
+    private function preserveCode(string $html) : string
+    {
+        $bc = $this->bracketChar;
+        $preserve = preg_replace('~<(/?code[^>]*)>~', $bc.'$1'.$bc, $html);
+        return preg_replace_callback('~'.$bc.'code[^'.$bc.']*'.$bc.'([^'.$bc.']*)'.$bc.'/\1'.$bc.'~s', function ($matches) use ($bc) {
+            return '<code>'.base64_encode($matches[1]).'</code>';
+        }, $preserve);
     }
 
 }

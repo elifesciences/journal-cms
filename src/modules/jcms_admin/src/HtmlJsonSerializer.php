@@ -10,13 +10,11 @@ final class HtmlJsonSerializer implements NormalizerInterface
 
     private $htmlMardownNormalizer;
     private $markdownJsonNormalizer;
-    private $docParser;
 
-    public function __construct(HtmlMarkdownSerializer $htmlMardownNormalizer, MarkdownJsonSerializer $markdownJsonNormalizer, DocParser $docParser)
+    public function __construct(HtmlMarkdownSerializer $htmlMardownNormalizer, MarkdownJsonSerializer $markdownJsonNormalizer)
     {
         $this->htmlMardownNormalizer = $htmlMardownNormalizer;
         $this->markdownJsonNormalizer = $markdownJsonNormalizer;
-        $this->docParser = $docParser;
     }
 
     /**
@@ -25,7 +23,7 @@ final class HtmlJsonSerializer implements NormalizerInterface
     public function normalize($object, $format = null, array $context = []) : array
     {
         $markdown = $this->htmlMardownNormalizer->normalize($object, $format, $context);
-        return $this->markdownJsonNormalizer->normalize($this->docParser->parse($markdown), $format, $context);
+        return $this->markdownJsonNormalizer->normalize($markdown, $format, $context);
     }
 
     public function supportsNormalization($data, $format = null) : bool

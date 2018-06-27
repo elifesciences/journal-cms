@@ -28,8 +28,8 @@ class MarkdownJsonSerializerTest extends TestCase
     {
         $environment = Environment::createCommonMarkEnvironment();
         $this->mimeTypeGuesser = $this->getMock(MimeTypeGuesserInterface::class);
-        $this->normalizer = new MarkdownJsonSerializer(new HtmlRenderer($environment), $this->mimeTypeGuesser, new CommonMarkConverter());
         $this->docParser = new DocParser($environment);
+        $this->normalizer = new MarkdownJsonSerializer($this->docParser, new HtmlRenderer($environment), $this->mimeTypeGuesser, new CommonMarkConverter());
     }
 
     /**
@@ -72,7 +72,7 @@ class MarkdownJsonSerializerTest extends TestCase
                 ->with($uri)
                 ->willReturn($mimeType);
         }
-        $this->assertEquals($expected, $this->normalizer->normalize($this->createDocument($markdown)));
+        $this->assertEquals($expected, $this->normalizer->normalize($markdown));
     }
 
     public function normalizeProvider() : array
@@ -592,10 +592,5 @@ class MarkdownJsonSerializerTest extends TestCase
     private function lines(array $lines, $breaks = 1)
     {
         return implode(str_repeat(PHP_EOL, $breaks), $lines);
-    }
-
-    private function createDocument(string $markdown = '') : Document
-    {
-        return $this->docParser->parse($markdown);
     }
 }

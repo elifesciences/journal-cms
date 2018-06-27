@@ -28,7 +28,7 @@ class HtmlJsonSerializerTest extends TestCase
     {
         $environment = Environment::createCommonMarkEnvironment();
         $this->mimeTypeGuesser = $this->getMock(MimeTypeGuesserInterface::class);
-        $this->normalizer = new HtmlJsonSerializer(new HtmlMarkdownSerializer(new HtmlConverter()), new MarkdownJsonSerializer(new HtmlRenderer($environment), $this->mimeTypeGuesser, new CommonMarkConverter()), new DocParser($environment));
+        $this->normalizer = new HtmlJsonSerializer(new HtmlMarkdownSerializer(new HtmlConverter()), new MarkdownJsonSerializer(new DocParser($environment), new HtmlRenderer($environment), $this->mimeTypeGuesser, new CommonMarkConverter()));
     }
 
     /**
@@ -62,7 +62,7 @@ class HtmlJsonSerializerTest extends TestCase
      * @test
      * @dataProvider normalizeProvider
      */
-    public function it_will_normalize_html(array $expected, string $html, array $mimeTypeGuesses = [])
+    public function it_will_normalize_html(array $expected, string $html, array $mimeTypeGuesses = [], array $context = ['encode' => ['code', 'table']])
     {
         foreach ($mimeTypeGuesses as $uri => $mimeType) {
             $this->mimeTypeGuesser
@@ -71,7 +71,7 @@ class HtmlJsonSerializerTest extends TestCase
                 ->with($uri)
                 ->willReturn($mimeType);
         }
-        $this->assertEquals($expected, $this->normalizer->normalize($html));
+        $this->assertEquals($expected, $this->normalizer->normalize($html, null, $context));
     }
 
     public function normalizeProvider() : array
@@ -213,13 +213,13 @@ class HtmlJsonSerializerTest extends TestCase
                     [
                         'type' => 'table',
                         'tables' => [
-                            '<table><tr><td>Cell two</td></tr></table>',
+                            '<table><tr><td>Cell two with a <a href="https://elifesciences.org/">link</a></td></tr></table>',
                         ],
                     ],
                 ],
                 $this->lines([
                     '<table><tr><td>Cell one</td></tr></table>',
-                    '<table><tr><td>Cell two</td></tr></table>',
+                    '<table><tr><td>Cell two with a <a href="https://elifesciences.org/">link</a></td></tr></table>',
                 ], 2),
             ],
             'simple list' => [
@@ -292,6 +292,37 @@ class HtmlJsonSerializerTest extends TestCase
                     'Code sample line 1'.PHP_EOL,
                     'Code sample line 2',
                     '</code>',
+                ]),
+            ],
+            'another code sample' => [
+                [
+                    [
+                        'type' => 'paragraph',
+                        'text' => 'A pattern’s JavaScript behaviour is defined in a discrete component with the same name as the pattern. This JavaScript component is referenced from the root element of the pattern’s mustache template by the attribute:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'code' => 'data-behaviour="ComponentName".',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'text' => 'For example, the content-header pattern has its associated behaviour defined in the ContentHeader class, which is found in the ContentHeader.js file. The content-header.mustache template starts with:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'code' => '<div... data-behaviour="ContentHeader">...',
+                    ],
+                ],
+                $this->lines([
+                    '<p>A pattern’s JavaScript behaviour is defined in a discrete component with the same name as the pattern. This JavaScript component is referenced from the root element of the pattern’s mustache template by the attribute:</p>',
+                    '<code>',
+                    'data-behaviour="ComponentName".',
+                    '</code>',
+                    '<p>For example, the content-header pattern has its associated behaviour defined in the ContentHeader class, which is found in the ContentHeader.js file. The content-header.mustache template starts with:</p>',
+                    '<code>',
+                    '<div... data-behaviour="ContentHeader">...',
+                    '</code>',
+
                 ]),
             ],
             'single section' => [
