@@ -148,23 +148,30 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
                 $items[] = $item;
                 $items = array_merge($items, $children);
             } else {
-                $items[] = $item;
                 if ($item['type'] === 'image') {
+                    $captions = [];
                     if (!empty($item['label'])) {
-                        $items[] = [
-                            'type' => 'paragraph',
-                            'text' => $item['label'],
-                        ];
+                        $captions[] = $item['label'];
+                    }
+                    if (!empty($item['title'])) {
+                        $captions[] = $item['title'];
                     }
                     if (!empty($item['image']['attribution'])) {
                         foreach ($item['image']['attribution'] as $attribution) {
-                            $items[] = [
-                                'type' => 'paragraph',
-                                'text' => $attribution,
-                            ];
+                            $captions[] = $attribution;
                         }
                     }
+                    if (!empty($captions)) {
+                        array_walk($captions, function (&$caption) {
+                            trim($caption);
+                            if (substr($caption, -1) !== '.') {
+                                $caption .= '.';
+                            }
+                        });
+                        $item['title'] = implode(' ', $captions);
+                    }
                 }
+                $items[] = $item;
             }
         }
 

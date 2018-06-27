@@ -146,7 +146,7 @@ class JsonHtmlDeserializerTest extends TestCase
                                     'y' => 50,
                                 ],
                                 'attribution' => [
-                                    'Image attribution'
+                                    'Image attribution',
                                 ],
                             ],
                             'title' => 'A nice picture of a field. Courtesy of <a href="https://www.pexels.com/photo/biology-blur-close-up-dragonflies-287361/">Pexels</a>.',
@@ -159,9 +159,8 @@ class JsonHtmlDeserializerTest extends TestCase
                 ],
                 $this->lines([
                     '<figure class="image align-center"><img alt="" data-fid="123" data-uuid="UUID" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" height="2000" />',
-                    '<figcaption>A nice picture of a field. Courtesy of <a href="https://www.pexels.com/photo/biology-blur-close-up-dragonflies-287361/">Pexels</a>.</figcaption>',
+                    '<figcaption>A nice picture of a field. Courtesy of <a href="https://www.pexels.com/photo/biology-blur-close-up-dragonflies-287361/">Pexels</a>. Image attribution.</figcaption>',
                     '</figure>',
-                    '<p>Image attribution</p>',
                     '<p>Trailing paragraph</p>',
                 ]),
                 [
@@ -171,7 +170,56 @@ class JsonHtmlDeserializerTest extends TestCase
                             'src' => '/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg',
                         ],
                     ],
-                ]
+                ],
+            ],
+            'figure' => [
+                [
+                    'content' => [
+                        [
+                            'type' => 'figure',
+                            'assets' => [
+                                [
+                                    'id' => 'image-1',
+                                    'type' => 'image',
+                                    'image' => [
+                                        'uri' => 'https://prod--iiif.elifesciences.org/journal-cms:content/2017-08/2017_09_27_ecr_webinar_panellists_long.png',
+                                        'source' => [
+                                            'mediaType' => 'image/jpeg',
+                                            'uri' => 'https://prod--iiif.elifesciences.org/journal-cms:content/2017-08/2017_09_27_ecr_webinar_panellists_long.png/full/full/0/default.jpg',
+                                            'filename' => '2017_09_27_ecr_webinar_panellists_long.jpg',
+                                        ],
+                                        'size' => [
+                                            'width' => 4396,
+                                            'height' => 1397,
+                                        ],
+                                        'focalPoint' => [
+                                            'x' => 50,
+                                            'y' => 50,
+                                        ],
+                                        'attribution' => [
+                                            'Image of Kevin Marsh is from https://www.ndm.ox.ac.uk/principal-investigators/researcher/kevin-marsh, image of Simon Kay is from http://www.malariaconsortium.org/board/trustees/47/simon-kay, image of Catherine Kyobutungi is from http://aphrc.org/post/team/catherine-kyobutungi',
+                                        ],
+                                    ],
+                                    'label' => 'Building Connections and Developing Research in Sub-Saharan Africa Panellists',
+                                    'title' => 'Building Connections and Developing Research in Sub-Saharan Africa chair and panellists',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                $this->lines([
+                    '<figure class="image align-center"><img alt="" data-fid="123" data-uuid="UUID" src="/sites/default/files/iiif/content/2017-08/2017_09_27_ecr_webinar_panellists_long.png" width="4396" height="1397" />',
+                    '<figcaption>Building Connections and Developing Research in Sub-Saharan Africa Panellists. Building Connections and Developing Research in Sub-Saharan Africa chair and panellists. Image of Kevin Marsh is from https://www.ndm.ox.ac.uk/principal-investigators/researcher/kevin-marsh, image of Simon Kay is from http://www.malariaconsortium.org/board/trustees/47/simon-kay, image of Catherine Kyobutungi is from http://aphrc.org/post/team/catherine-kyobutungi.</figcaption>',
+                    '</figure>',
+                ]),
+                [
+                    'fids' => [
+                        'public://iiif/content/2017-08/2017_09_27_ecr_webinar_panellists_long.png' => [
+                            'fid' => 123,
+                            'src' => '/sites/default/files/iiif/content/2017-08/2017_09_27_ecr_webinar_panellists_long.png',
+                        ],
+                    ],
+                ],
             ],
             'inline image' => [
                 [
