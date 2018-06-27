@@ -91,6 +91,15 @@ class MarkdownJsonSerializerTest extends TestCase
                 ],
                 'Single paragraph',
             ],
+            'paragraph with &lt; and &gt;' => [
+                [
+                    [
+                        'type' => 'paragraph',
+                        'text' => 'Text with &lt; and &gt; and &lt;figure&gt;',
+                    ],
+                ],
+                'Text with &lt; and &gt; and &lt;figure&gt;',
+            ],
             'simple image' => [
                 [
                     [

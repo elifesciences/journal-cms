@@ -90,6 +90,15 @@ class HtmlJsonSerializerTest extends TestCase
                 ],
                 '<p><strong>Single</strong> paragraph</p>',
             ],
+            'paragraph with &lt; and &gt;' => [
+                [
+                    [
+                        'type' => 'paragraph',
+                        'text' => 'Text with &lt; and &gt; and &lt;figure&gt;',
+                    ],
+                ],
+                '<p>Text with &lt; and &gt; and &lt;figure&gt;</p>',
+            ],
             'single table' => [
                 [
                     [

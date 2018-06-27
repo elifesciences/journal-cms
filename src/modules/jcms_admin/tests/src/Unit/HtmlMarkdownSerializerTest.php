@@ -67,6 +67,10 @@ class HtmlMarkdownSerializerTest extends TestCase
                 'Single paragraph',
                 '<p>Single paragraph</p>',
             ],
+            'paragraph with &lt; and &gt;' => [
+                'Text with &lt; and &gt; and &lt;figure&gt;',
+                '<p>Text with &lt; and &gt; and &lt;figure&gt;</p>',
+            ],
             'single image' => [
                 "<figure alt=\"Alt text\" class=\"image\" data-fid=\"123\" data-uuid=\"UUID\" height=\"1562\" src=\"/sites/default/files/editor-images/image-20180501122413-1.jpeg\" title=\"Image title\" width=\"2500\">![Alt text](/sites/default/files/editor-images/image-20180501122413-1.jpeg \"Image title\")<figcaption>Caption</figcaption></figure>",
                 "<figure class=\"image\">\n<img alt=\"Alt text\" title=\"Image title\" data-fid=\"123\" data-uuid=\"UUID\" height=\"1562\" src=\"/sites/default/files/editor-images/image-20180501122413-1.jpeg\" width=\"2500\" />\n<figcaption>Caption</figcaption>\n</figure>"
