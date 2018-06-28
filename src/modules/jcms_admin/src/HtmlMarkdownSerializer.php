@@ -46,7 +46,8 @@ final class HtmlMarkdownSerializer implements NormalizerInterface
         $dom->load($html);
         $this->preserveImgProperties($dom);
 
-        return preg_replace('/\n{2,}/', PHP_EOL.PHP_EOL, $dom->outerHtml);
+        $clean = preg_replace('/\n{2,}/', PHP_EOL.PHP_EOL, $dom->outerHtml);
+        return preg_replace('/&(?!nbsp;)([^\s;]*;)/', '&amp;$1', $clean);
     }
 
     private function preserveOutput(string $html, array $context = []) : string
