@@ -101,6 +101,19 @@ class JsonHtmlDeserializerTest extends TestCase
                     '<p>OK!</p>',
                 ]),
             ],
+            'span soup' => [
+                [
+                    'content' => [
+                        [
+                            'type' => 'paragraph',
+                            'text' => '<span><span><span><span><span>Lotte Meteyard has been a lecturer at the University of Reading since 2010. She did her PhD from 2004 to 2007 at University College London, followed by a postdoc in 2008 at the Cognition and Brain Sciences Unit, Cambridge. From 2008 to 2010 she </span></span></span></span></span><span><span><span><span><span>retrained as a speech and language therapist. She got m</span></span></span></span></span>arried in 2012 and had her first child in 2015.',
+                        ],
+                    ],
+                ],
+                $this->lines([
+                    '<p>Lotte Meteyard has been a lecturer at the University of Reading since 2010. She did her PhD from 2004 to 2007 at University College London, followed by a postdoc in 2008 at the Cognition and Brain Sciences Unit, Cambridge. From 2008 to 2010 she retrained as a speech and language therapist. She got married in 2012 and had her first child in 2015.</p>',
+                ]),
+            ],
             'single paragraph' => [
                 [
                     'content' => [
@@ -524,6 +537,25 @@ class JsonHtmlDeserializerTest extends TestCase
                     ],
                 ],
                 '<oembed>https://www.youtube.com/watch?v=oyBX9l9KzU8</oembed>',
+            ],
+            'list soup' => [
+                [
+                    'content' => [
+                        [
+                            'type' => 'paragraph',
+                            'text' => '<ul dir="ltr"><li>In the event of an emergency, dial 999 for police, fire or ambulance services. Where possible, please consult with venue staff or event organisers first.</li><li>Dial 101 for assistance with non-emergency situations by <a href="https://www.cambs.police.uk/information-and-services/Contact/Contact">Cambridgeshire police</a>.</li><li>The <a href="http://www.theelmssarc.org/">nearest sexual assault referral centre</a> is in Peterborough. Dial 0800 193 5434 for its helpline (open 24 hours).</li><li>Panther Taxis serve the local area. Book <a href="https://www.panthertaxis.co.uk/">online</a> or dial 01223 715715.</li></ul><b>Questions</b>',
+                        ],
+                    ],
+                ],
+                $this->lines([
+                    '<ul>',
+                    '<li>In the event of an emergency, dial 999 for police, fire or ambulance services. Where possible, please consult with venue staff or event organisers first.</li>',
+                    '<li>Dial 101 for assistance with non-emergency situations by <a href="https://www.cambs.police.uk/information-and-services/Contact/Contact">Cambridgeshire police</a>.</li>',
+                    '<li>The <a href="http://www.theelmssarc.org/">nearest sexual assault referral centre</a> is in Peterborough. Dial 0800 193 5434 for its helpline (open 24 hours).</li>',
+                    '<li>Panther Taxis serve the local area. Book <a href="https://www.panthertaxis.co.uk/">online</a> or dial 01223 715715.</li>',
+                    '</ul>',
+                    '<p><strong>Questions</strong></p>',
+                ]),
             ],
         ];
     }

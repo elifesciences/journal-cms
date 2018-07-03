@@ -90,14 +90,23 @@ class HtmlJsonSerializerTest extends TestCase
                 ],
                 '<p><strong>Single</strong> paragraph</p>',
             ],
-            'paragraph with &lt; and &gt;' => [
+            'link with italics' => [
                 [
                     [
                         'type' => 'paragraph',
-                        'text' => 'Text with &lt; and &gt; and &lt;figure&gt;',
+                        'text' => '<a href="http://example.com">A link with italics: <em>Chloroidium sp.</em>UTEX.</a>',
                     ],
                 ],
-                '<p>Text with &lt; and &gt; and &lt;figure&gt;</p>',
+                '<p><a href="http://example.com">A link with italics: <i>Chloroidium sp.</i>UTEX.</a></p>',
+            ],
+            'paragraph with &lt; and &gt; and &amp;' => [
+                [
+                    [
+                        'type' => 'paragraph',
+                        'text' => 'Text with &lt; &amp; &gt; and &lt;figure&gt; <a href="https://elifesciences.org?foo=bar&amp;bar=foo">https://elifesciences.org?foo=bar&amp;bar=foo</a>',
+                    ],
+                ],
+                '<p>Text with &lt; &amp; &gt; and &lt;figure&gt; <a href="https://elifesciences.org?foo=bar&amp;bar=foo">https://elifesciences.org?foo=bar&amp;bar=foo</a></p>',
             ],
             'single table' => [
                 [
@@ -211,12 +220,45 @@ class HtmlJsonSerializerTest extends TestCase
                     'public://iiif/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
                 ],
             ],
+            'image with caption link' => [
+                [
+                    [
+                        'type' => 'image',
+                        'image' => [
+                            'uri' => 'https://iiif.elifesciences.org/journal-cms:labs-post-content/2017-08/refigure_extension.png',
+                            'alt' => 'Screenshot of ReFigure extension open on PubMed central webpage',
+                            'source' => [
+                                'mediaType' => 'image/jpeg',
+                                'uri' => 'https://iiif.elifesciences.org/journal-cms:labs-post-content/2017-08/refigure_extension.png/full/full/0/default.jpg',
+                                'filename' => 'refigure_extension.jpg',
+                            ],
+                            'size' => [
+                                'width' => 1926,
+                                'height' => 927,
+                            ],
+                            'focalPoint' => [
+                                'x' => 50,
+                                'y' => 50,
+                            ],
+                        ],
+                        'title' => 'Capturing an image from an open-access publication on PubMed Central using the ReFigure Chrome extension. Screenshot from <a href="https://www.ncbi.nlm.nih.gov/pmc/">https://www.ncbi.nlm.nih.gov/pmc/</a> with the active ReFigure extension.',
+                    ],
+                ],
+                $this->lines([
+                    '<figure class="image align-center"><img alt="Screenshot of ReFigure extension open on PubMed central webpage" data-fid="2954" data-uuid="UUID" src="/sites/default/files/iiif/labs-post-content/2017-08/refigure_extension.png" width="1926" height="927" />',
+                    '<figcaption>Capturing an image from an open-access publication on PubMed Central using the ReFigure Chrome extension. Screenshot from <a href="https://www.ncbi.nlm.nih.gov/pmc/">https://www.ncbi.nlm.nih.gov/pmc/</a> with the active ReFigure extension.</figcaption>',
+                    '</figure>',
+                ]),
+                [
+                    'public://iiif/labs-post-content/2017-08/refigure_extension.png' => 'image/png',
+                ],
+            ],
             'multiple tables' => [
                 [
                     [
                         'type' => 'table',
                         'tables' => [
-                            '<table><tr><td>Cell one</td></tr></table>',
+                            '<table><tr><td>Cell one<br />line break</td></tr></table>',
                         ],
                     ],
                     [
@@ -227,7 +269,7 @@ class HtmlJsonSerializerTest extends TestCase
                     ],
                 ],
                 $this->lines([
-                    '<table><tr><td>Cell one</td></tr></table>',
+                    '<table><tr><td>Cell one with a<br />line break</td></tr></table>',
                     '<table><tr><td>Cell two with a <a href="https://elifesciences.org/">link</a></td></tr></table>',
                 ], 2),
             ],
@@ -424,6 +466,15 @@ class HtmlJsonSerializerTest extends TestCase
                     '<p>Nominees will be asked to provide a short (~200-word) statement that describes their vision for how different approaches to research communication might improve the career development of early-stage researchers, why they are enthusiastic to join, and how they would contribute to the work of the ECAG.</p>',
                 ]),
             ],
+            'bold edge-case' => [
+                [
+                    [
+                        'type' => 'paragraph',
+                        'text' => '<strong>Laurent Gatto </strong>is a senior research associate in the Department of Biochemistry at the University of Cambridge<strong>, </strong>where he leads the Computational Proteomics Unit. He is currently involved in the Wellcome Trust Open Research Project, which explores the barriers to open research, and the <a href="http://bulliedintobadscience.org/">Bullied Into Bad Science</a> campaign, an initiative by and for early career researchers who aim for a fairer, more open and ethical research and publication environment. He is also a <a href="https://www.software.ac.uk/fellowship-programme">Software Sustainability Institute fellow</a>, a Data/Software Carpentry instructor and a member of <a href="http://www.openconcam.org/">OpenConCam</a>.',
+                    ],
+                ],
+                '<p><b>Laurent Gatto </b>is a senior research associate in the Department of Biochemistry at the University of Cambridge<b>, </b>where he leads the Computational Proteomics Unit. He is currently involved in the Wellcome Trust Open Research Project, which explores the barriers to open research, and the <a href="http://bulliedintobadscience.org/">Bullied Into Bad Science</a> campaign, an initiative by and for early career researchers who aim for a fairer, more open and ethical research and publication environment. He is also a <a href="https://www.software.ac.uk/fellowship-programme">Software Sustainability Institute fellow</a>, a Data/Software Carpentry instructor and a member of <a href="http://www.openconcam.org/">OpenConCam</a>.</p>',
+            ],
             'questions' => [
                 [
                     [
@@ -599,6 +650,15 @@ class HtmlJsonSerializerTest extends TestCase
                     ],
                 ],
                 '<oembed>https://www.youtube.com/watch?v=oyBX9l9KzU8</oembed>',
+            ],
+            'curly brackets' => [
+                [
+                    [
+                        'type' => 'paragraph',
+                        'text' => 'Full details of the Image API can be found at <a href="http://iiif.io/api/image/2.0/">http://iiif.io/api/image/2.0/</a>. In essence, each request uses the following syntax: {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}.For example: www.example.org/image-service/abcd1234/full/max/0/default.jpg',
+                    ],
+                ],
+                '<p>Full details of the Image API can be found at <a href="http://iiif.io/api/image/2.0/">http://iiif.io/api/image/2.0/</a>. In essence, each request uses the following syntax: {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}.For example: www.example.org/image-service/abcd1234/full/max/0/default.jpg</p>',
             ],
         ];
     }
