@@ -13,6 +13,7 @@ use function str_replace;
  * Helper methods for image uri IIIF paths.
  */
 trait JCMSImageUriTrait {
+
   /**
    * Image sizes.
    *
