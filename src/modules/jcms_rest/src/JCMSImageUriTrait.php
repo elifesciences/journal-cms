@@ -13,6 +13,9 @@ use function str_replace;
  * Helper methods for image uri IIIF paths.
  */
 trait JCMSImageUriTrait {
+  /**
+   * @var array
+   */
   private static $encoding = [
     '%' => '%25',
     '/' => '%2F',
