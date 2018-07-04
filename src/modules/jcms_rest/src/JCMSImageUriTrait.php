@@ -14,19 +14,6 @@ use function str_replace;
  */
 trait JCMSImageUriTrait {
   /**
-   * @var array
-   */
-  private static $encoding = [
-    '%' => '%25',
-    '/' => '%2F',
-    '?' => '%3F',
-    '#' => '%23',
-    '[' => '%5B',
-    ']' => '%5D',
-    '@' => '%40',
-  ];
-
-  /**
    * Image sizes.
    *
    * @var array
@@ -147,7 +134,17 @@ trait JCMSImageUriTrait {
    * Percent encode IIIF component.
    */
   private function encode(string $string) : string {
-    return str_replace(array_keys(self::$encoding), array_values(self::$encoding), $string);
+    static $encoding = [
+      '%' => '%25',
+      '/' => '%2F',
+      '?' => '%3F',
+      '#' => '%23',
+      '[' => '%5B',
+      ']' => '%5D',
+      '@' => '%40',
+    ];
+
+    return str_replace(array_keys($encoding), array_values($encoding), $string);
   }
 
 }
