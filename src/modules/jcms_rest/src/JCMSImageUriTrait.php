@@ -5,11 +5,23 @@ namespace Drupal\jcms_rest;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\crop\Entity\Crop;
+use function array_keys;
+use function array_values;
+use function str_replace;
 
 /**
  * Helper methods for image uri IIIF paths.
  */
 trait JCMSImageUriTrait {
+  private static $encoding = [
+      '%' => '%25',
+      '/' => '%2F',
+      '?' => '%3F',
+      '#' => '%23',
+      '[' => '%5B',
+      ']' => '%5D',
+      '@' => '%40',
+  ];
 
   /**
    * Image sizes.
@@ -31,6 +43,7 @@ trait JCMSImageUriTrait {
       $iiif_mount = trim($iiif_mount, '/');
       $iiif_mount .= (!empty($iiif_mount)) ? '/' : '';
       $image_uri = str_replace('public://' . $iiif_mount, '', $image_uri);
+      $iiif_identifier = $this->encode($image_uri);
       if ($type == 'source') {
         switch ($filemime ?? \Drupal::service('file.mime_type.guesser')->guess($image_uri)) {
           case 'image/gif':
@@ -44,10 +57,10 @@ trait JCMSImageUriTrait {
           default:
             $ext = 'jpg';
         }
-        return $iiif . $image_uri . '/full/full/0/default.' . $ext;
+        return $iiif . $iiif_identifier . '/full/full/0/default.' . $ext;
       }
       else {
-        return $iiif . $image_uri;
+        return $iiif . $iiif_identifier;
       }
     }
     else {
@@ -127,4 +140,7 @@ trait JCMSImageUriTrait {
     return $sizes;
   }
 
+  private function encode(string $string) : string {
+      return str_replace(array_keys(self::$encoding), array_values(self::$encoding), $string);
+  }
 }
