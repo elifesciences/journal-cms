@@ -35,7 +35,7 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
                     $html[] = sprintf('<h%d>%s</h%d>', $item['depth'], $item['title'], $item['depth']);
                     break;
                 case 'paragraph':
-                    $html[] = sprintf('<p>%s</p>', $item['text']);
+                    $html[] = sprintf('<p>%s</p>', preg_replace('~</?span[^>]*>~', '', $item['text']));
                     break;
                 case 'quote':
                     $html[] = sprintf('<blockquote>%s</blockquote>', $item['text'][0]['text']);

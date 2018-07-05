@@ -52,12 +52,14 @@ final class HtmlMarkdownSerializer implements NormalizerInterface
 
     private function preserveOutput(string $html, array $context = []) : string
     {
+        $regexes = $context['regexes'] ?? [];
+        $preserve = preg_replace(array_keys($regexes), array_values($regexes), $html);
         $encode = $context['encode'] ?? [];
         $bc = $this->bracketChar;
-        $preserve = preg_replace('~<(/?(code|table)[^>]*)>~', $bc.'$1'.$bc, $html);
+        $preserve = preg_replace('~<(/?(code|table)[^>]*)>~', $bc.'$1'.$bc, $preserve);
         return preg_replace_callback('~'.$bc.'(code|table)[^'.$bc.']*'.$bc.'([^'.$bc.']*)'.$bc.'/\1'.$bc.'~s', function ($matches) use ($bc, $encode) {
             if ($matches[1] === 'table') {
-                $matches[2] = preg_replace('/\s*'.PHP_EOL.'+\s*/', '', strip_tags($matches[2], '<thead><tbody><th></th><tr><td><img><strong><em><i><sub><sup><a>'));
+                $matches[2] = preg_replace('/\s*'.PHP_EOL.'+\s*/', '', strip_tags($matches[2], '<thead><tbody><th></th><tr><td><img><strong><em><i><italic><strong><b><bold><sub><sup><a><linebreak>'));
             }
             $match = $matches[2];
             $before = '<'.$matches[1].'>';

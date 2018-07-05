@@ -74,6 +74,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
      */
     private function convertChild(Node $node, array $context = [])
     {
+        $regexes = $context['regexes'] ?? [];
         $encode = $context['encode'] ?? [];
         switch (true) {
             case $node instanceof Element\Heading:
@@ -100,7 +101,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                     $contents = trim($rendered);
                     if (preg_match('/^(<table[^>]*>)(.*)(<\/table>)/', $contents, $matches)) {
                         if (in_array('table', $encode)) {
-                            $contents = $matches[1].base64_decode($matches[2]).$matches[3];
+                            $contents = $matches[1].preg_replace(array_keys($regexes), array_values($regexes), base64_decode($matches[2])).$matches[3];
                         }
                         return [
                             'type' => 'table',
@@ -143,9 +144,8 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                         /** @var \PHPHtmlParser\Dom\Collection $captions */
                         $captions = $figure->find('figcaption');
                         if ($captions->count()) {
-                            $captionNode = $captions[0];
                             $dom = new Dom();
-                            $dom->load($this->converter->convertToHtml(trim($captionNode->innerHtml())));
+                            $dom->load($this->converter->convertToHtml(trim(preg_replace('~^.*<figcaption[^>]*>\s*(.*)\s*</figcaption>.*~', '$1', $contents))));
                             /** @var \PHPHtmlParser\Dom\HtmlNode $text */
                             $text = $dom->find('p')[0];
                             $caption = $text->innerHtml();
@@ -200,9 +200,10 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                             'height' => 9,
                         ];
                     } else {
+                        $contents = preg_replace(array_keys($regexes), array_values($regexes), $contents);
                         return [
                             'type' => 'paragraph',
-                            'text' => preg_replace('/<br \/>\n/', '<br />', $rendered->getContents()),
+                            'text' => preg_replace('~<br\s*/?>\n~', '<br />', $contents),
                         ];
                     }
                 }
@@ -227,7 +228,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
             case $node instanceof Element\IndentedCode:
                 if ($contents = $node->getStringContent()) {
                     if (in_array('code', $encode)) {
-                        $contents = base64_decode($contents);
+                        $contents = preg_replace(array_keys($regexes), array_values($regexes), base64_decode($contents));
                     }
                     return [
                         'type' => 'code',

@@ -258,7 +258,7 @@ class HtmlJsonSerializerTest extends TestCase
                     [
                         'type' => 'table',
                         'tables' => [
-                            '<table><tr><td>Cell one<br />line break</td></tr></table>',
+                            '<table><tr><td>Cell one with a<br />line break</td></tr></table>',
                         ],
                     ],
                     [
