@@ -542,19 +542,77 @@ class JsonHtmlDeserializerTest extends TestCase
                 [
                     'content' => [
                         [
-                            'type' => 'paragraph',
-                            'text' => '<ul dir="ltr"><li>In the event of an emergency, dial 999 for police, fire or ambulance services. Where possible, please consult with venue staff or event organisers first.</li><li>Dial 101 for assistance with non-emergency situations by <a href="https://www.cambs.police.uk/information-and-services/Contact/Contact">Cambridgeshire police</a>.</li><li>The <a href="http://www.theelmssarc.org/">nearest sexual assault referral centre</a> is in Peterborough. Dial 0800 193 5434 for its helpline (open 24 hours).</li><li>Panther Taxis serve the local area. Book <a href="https://www.panthertaxis.co.uk/">online</a> or dial 01223 715715.</li></ul><b>Questions</b>',
+                            'type' => 'section',
+                            'title' => 'Planning the user study',
+                            'content' => [
+                                [
+                                    'type' => 'paragraph',
+                                    'text' => 'We had a made lot of decisions for the redesign of the new eLife website internally, and we now needed to see how well they fared when put in front of real users.',
+                                ],
+                                [
+                                    'type' => 'paragraph',
+                                    'text' => '<b>High-level goals</b>',
+                                ],
+                                [
+                                    'type' => 'paragraph',
+                                    'text' => '<ul><li>We wanted to know how users would feel about such dramatic visual change to the eLife website compared to the experience they were used to.</li><li>We wanted to make sure users would still be able to find their way around a restructured website.</li><li>We wanted to know if this redesign would improve the article reading experience for our visitors.</li><li>We wanted to see if we had created a great mobile experience for our users.</li></ul><b>Turning goals into questions</b>',
+                                ],
+                                [
+                                    'type' => 'paragraph',
+                                    'text' => 'In order to achieve our goals, we needed to formulate some key questions. Typically we would take a goal and develop a set of questions that could be answered through direct observation of our users’ interaction with our design prototypes.',
+                                ],
+                                [
+                                    'type' => 'paragraph',
+                                    'text' => 'An example of turning a goal into a question might be:',
+                                ],
+                                [
+                                    'type' => 'paragraph',
+                                    'text' => '<ul dir=\"ltr\"><li><b>Goal: </b>We wanted to know how users would feel about such dramatic visual change to the eLife website compared to the experience they were used to.</li><li><b>Question:</b> How do users respond when they are presented with the prototype of the redesigned eLife website?</li></ul><b>Developing tasks to answer questions</b>',
+                                ],
+                                [
+                                    'type' => 'paragraph',
+                                    'text' => 'Rather than directly asking our users questions, we developed a script of tasks allowing them to express their thoughts and feelings in a more natural way, by using the<a href=\"https://en.wikipedia.org/wiki/Think_aloud_protocol\"> think aloud protocol</a>. This also helped us to uncover unexpected needs and test the usability of our designs in a non-leading way.',
+                                ],
+                                [
+                                    'type' => 'paragraph',
+                                    'text' => 'An example of turning one of the above questions into a task would be:',
+                                ],
+                                [
+                                    'type' => 'list',
+                                    'prefix' => 'bullet',
+                                    'items' => [
+                                        '<b>Question:</b> How do users respond when they are presented with the prototype of the redesigned eLife website?',
+                                        '<b>Task:</b> "Can you describe the webpage on the screen in front of you?"',
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                 ],
                 $this->lines([
+                    '<h1>Planning the user study</h1>',
+                    '<p>We had a made lot of decisions for the redesign of the new eLife website internally, and we now needed to see how well they fared when put in front of real users.</p>',
+                    '<p><b>High-level goals</b></p>',
                     '<ul>',
-                    '<li>In the event of an emergency, dial 999 for police, fire or ambulance services. Where possible, please consult with venue staff or event organisers first.</li>',
-                    '<li>Dial 101 for assistance with non-emergency situations by <a href="https://www.cambs.police.uk/information-and-services/Contact/Contact">Cambridgeshire police</a>.</li>',
-                    '<li>The <a href="http://www.theelmssarc.org/">nearest sexual assault referral centre</a> is in Peterborough. Dial 0800 193 5434 for its helpline (open 24 hours).</li>',
-                    '<li>Panther Taxis serve the local area. Book <a href="https://www.panthertaxis.co.uk/">online</a> or dial 01223 715715.</li>',
+                    '<li>We wanted to know how users would feel about such dramatic visual change to the eLife website compared to the experience they were used to.</li>',
+                    '<li>We wanted to make sure users would still be able to find their way around a restructured website.</li>',
+                    '<li>We wanted to know if this redesign would improve the article reading experience for our visitors.</li>',
+                    '<li>We wanted to see if we had created a great mobile experience for our users.</li>',
                     '</ul>',
-                    '<p><b>Questions</b></p>',
+                    '<p><b>Turning goals into questions</b></p>',
+                    '<p>In order to achieve our goals, we needed to formulate some key questions. Typically we would take a goal and develop a set of questions that could be answered through direct observation of our users’ interaction with our design prototypes.</p>',
+                    '<p>An example of turning a goal into a question might be:</p>',
+                    '<ul>',
+                    '<li><b>Goal: </b>We wanted to know how users would feel about such dramatic visual change to the eLife website compared to the experience they were used to.</li>',
+                    '<li><b>Question:</b> How do users respond when they are presented with the prototype of the redesigned eLife website?</li>',
+                    '</ul>',
+                    '<p><b>Developing tasks to answer questions</b></p>',
+                    '<p>Rather than directly asking our users questions, we developed a script of tasks allowing them to express their thoughts and feelings in a more natural way, by using the<a href=\"https://en.wikipedia.org/wiki/Think_aloud_protocol\"> think aloud protocol</a>. This also helped us to uncover unexpected needs and test the usability of our designs in a non-leading way.</p>',
+                    '<p>An example of turning one of the above questions into a task would be:</p>',
+                    '<ul>',
+                    '<li><b>Question:</b> How do users respond when they are presented with the prototype of the redesigned eLife website?</li>',
+                    '<li><b>Task:</b> "Can you describe the webpage on the screen in front of you?"</li>',
+                    '</ul>',
                 ]),
             ],
         ];

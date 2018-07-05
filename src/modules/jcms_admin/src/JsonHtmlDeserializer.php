@@ -141,7 +141,22 @@ final class JsonHtmlDeserializer implements DenormalizerInterface
                 unset($item['answer']);
             }
 
-            if ($item['type'] === 'section') {
+            if ($item['type'] === 'paragraph' && preg_match('~<(ul|ol)[^>]*><li[^>]*>\s*(.+)</li>\s*</\1>(.*)~', $item['text'], $match)) {
+                // Extract list from paragraph.
+                $list = preg_split('~</li>\s*<li>~', $match[2]);
+                $items[] = [
+                    'type' => 'list',
+                    'prefix' => ($match[1] === 'ol') ? 'number' : 'bullet',
+                    'items' => $list,
+                ];
+                $paragraph = $match[3] ?? null;
+                if ($paragraph) {
+                    $items[] = [
+                        'type' => 'paragraph',
+                        'text' => $paragraph,
+                    ];
+                }
+            } elseif ($item['type'] === 'section') {
                 $children = $this->flattenHierarchy($item['content'], $depth+1);
                 unset($item['content']);
                 $item['depth'] = $depth;
