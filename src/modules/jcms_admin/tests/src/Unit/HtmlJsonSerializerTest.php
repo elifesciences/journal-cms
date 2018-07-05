@@ -283,7 +283,7 @@ class HtmlJsonSerializerTest extends TestCase
                         'type' => 'list',
                         'prefix' => 'bullet',
                         'items' => [
-                            'Item 1',
+                            'Item <strong>1</strong>',
                             'Item 2',
                             [
                                 [
@@ -309,7 +309,7 @@ class HtmlJsonSerializerTest extends TestCase
                 $this->lines([
                     'Nested list:',
                     '<ul>',
-                    '<li>Item 1</li>',
+                    '<li>Item <b>1</b></li>',
                     '<li>Item 2<ul><li>Item 2.1<ol><li>Item 2.1.1</li></ol></li></ul></li>',
                     '</ul>',
                 ]),

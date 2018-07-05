@@ -101,11 +101,11 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                     $contents = trim($rendered);
                     if (preg_match('/^(<table[^>]*>)(.*)(<\/table>)/', $contents, $matches)) {
                         if (in_array('table', $encode)) {
-                            $contents = $matches[1].preg_replace(array_keys($regexes), array_values($regexes), base64_decode($matches[2])).$matches[3];
+                            $contents = $matches[1].$this->prepareOutput($matches[2], $context, true).$matches[3];
                         }
                         return [
                             'type' => 'table',
-                            'tables' => [$contents],
+                            'tables' => [$this->prepareOutput($contents, $context)],
                         ];
                     } elseif (preg_match('/^<figure.*<\/figure>/', $contents)) {
                         $dom = new Dom();
@@ -209,7 +209,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                 }
                 break;
             case $node instanceof Element\ListBlock:
-                return $this->processListBlock($node);
+                return $this->processListBlock($node, $context);
                 break;
             case $node instanceof Element\BlockQuote:
                 if ($rendered = $this->htmlRenderer->renderBlock($node)) {
@@ -228,17 +228,26 @@ final class MarkdownJsonSerializer implements NormalizerInterface
             case $node instanceof Element\IndentedCode:
                 if ($contents = $node->getStringContent()) {
                     if (in_array('code', $encode)) {
-                        $contents = preg_replace(array_keys($regexes), array_values($regexes), base64_decode($contents));
+                        $contents = $this->prepareOutput($contents, $context, true);
                     }
                     return [
                         'type' => 'code',
-                        'code' => trim($contents),
+                        'code' => $this->prepareOutput($contents, $context),
                     ];
                 }
                 break;
         }
 
         return null;
+    }
+
+    private function prepareOutput($content, $context = [], $decode = false) {
+        $regexes = $context['regexes'] ?? [];
+        $output = trim(($decode) ? base64_decode($content) : $content);
+        if (!empty($regexes)) {
+            $output = preg_replace(array_keys($regexes), array_values($regexes), $output);
+        }
+        return $output;
     }
 
     private function implementQuestions(array $nodes) : array
@@ -308,16 +317,16 @@ final class MarkdownJsonSerializer implements NormalizerInterface
         return $hierarchy ?? [];
     }
 
-    private function processListBlock(Element\ListBlock $block)
+    private function processListBlock(Element\ListBlock $block, $context = [])
     {
-        $gather = function (Element\ListBlock $list) use (&$gather, &$render) {
+        $gather = function (Element\ListBlock $list) use (&$gather, &$render, $context) {
             $items = [];
             foreach ($list->children() as $item) {
                 foreach ($item->children() as $child) {
                     if ($child instanceof Element\ListBlock) {
                         $items[] = [$render($child)];
                     } elseif ($item = $this->htmlRenderer->renderBlock($child)) {
-                        $items[] = $item->getContents();
+                        $items[] = $this->prepareOutput($item->getContents(), $context);
                     }
                 }
             }

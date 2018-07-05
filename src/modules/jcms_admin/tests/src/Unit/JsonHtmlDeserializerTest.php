@@ -554,7 +554,7 @@ class JsonHtmlDeserializerTest extends TestCase
                     '<li>The <a href="http://www.theelmssarc.org/">nearest sexual assault referral centre</a> is in Peterborough. Dial 0800 193 5434 for its helpline (open 24 hours).</li>',
                     '<li>Panther Taxis serve the local area. Book <a href="https://www.panthertaxis.co.uk/">online</a> or dial 01223 715715.</li>',
                     '</ul>',
-                    '<p><strong>Questions</strong></p>',
+                    '<p><b>Questions</b></p>',
                 ]),
             ],
         ];
