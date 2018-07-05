@@ -16,9 +16,10 @@ class JCMSImageUriTraitTest extends UnitTestCase {
   use JCMSImageUriTrait;
 
   /**
-   * @before
+   * {@inheritdoc}
    */
   protected function setUp() {
+    parent::setUp();
     $this->settings = new Settings([
       'jcms_iiif_base_uri' => 'https://prod--iiif.elifesciences.org/journal-cms:',
       'jcms_iiif_mount' => 'iiif',
