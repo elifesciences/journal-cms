@@ -29,7 +29,7 @@ class JCMSImageUriTraitTest extends UnitTestCase {
   /**
    * Provider for processImageUri tests.
    */
-  public function providerProcessImageUris() {
+  public function providerProcessImageUri() {
     return [
       [
         'public://iiif/content/2018-07/image.jpg',
@@ -47,7 +47,7 @@ class JCMSImageUriTraitTest extends UnitTestCase {
    * Test output of processImageUri method.
    *
    * @test
-   * @dataProvider providerProcessImageUris
+   * @dataProvider providerProcessImageUri
    * @covers \Drupal\jcms_rest\JCMSImageUriTrait::processImageUri()
    * @group journal-cms-tests
    */
