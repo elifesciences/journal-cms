@@ -32,6 +32,7 @@ final class HtmlJsonSerializer implements NormalizerInterface
             '~\}~' => '</curly>',
             '~<(/?)(i|em)>~' => '<$1italic>',
             '~<(/?)(b|strong)>~' => '<$1bold>',
+            '~`~' => '<backtick></backtick>',
         ];
         $jsonContext['regexes'] = $regexes + [
             '~<linebreak></linebreak>~' => '<br />',
@@ -39,6 +40,7 @@ final class HtmlJsonSerializer implements NormalizerInterface
             '~</curly>~' => '}',
             '~<(/?)italic>~' => '<$1em>',
             '~<(/?)bold>~' => '<$1strong>',
+            '~<backtick></backtick>~' => '`',
         ];
 
         $markdown = $this->htmlMardownNormalizer->normalize($object, $format, $markdownContext);
