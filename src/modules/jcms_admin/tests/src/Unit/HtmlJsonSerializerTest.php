@@ -241,12 +241,12 @@ class HtmlJsonSerializerTest extends TestCase
                                 'y' => 50,
                             ],
                         ],
-                        'title' => 'Capturing an image from an open-access publication on PubMed Central using the ReFigure Chrome extension. Screenshot from <a href="https://www.ncbi.nlm.nih.gov/pmc/">https://www.ncbi.nlm.nih.gov/pmc/</a> with the active ReFigure extension.',
+                        'title' => '<strong>Capturing</strong> an <em>image</em> from an open-access publication on PubMed Central using the ReFigure Chrome extension. Screenshot from <a href="https://www.ncbi.nlm.nih.gov/pmc/">https://www.ncbi.nlm.nih.gov/pmc/</a> with the active ReFigure extension.',
                     ],
                 ],
                 $this->lines([
                     '<figure class="image align-center"><img alt="Screenshot of ReFigure extension open on PubMed central webpage" data-fid="2954" data-uuid="UUID" src="/sites/default/files/iiif/labs-post-content/2017-08/refigure_extension.png" width="1926" height="927" />',
-                    '<figcaption>Capturing an image from an open-access publication on PubMed Central using the ReFigure Chrome extension. Screenshot from <a href="https://www.ncbi.nlm.nih.gov/pmc/">https://www.ncbi.nlm.nih.gov/pmc/</a> with the active ReFigure extension.</figcaption>',
+                    '<figcaption><b>Capturing</b> an <i>image</i> from an open-access publication on PubMed Central using the ReFigure Chrome extension. Screenshot from <a href="https://www.ncbi.nlm.nih.gov/pmc/">https://www.ncbi.nlm.nih.gov/pmc/</a> with the active ReFigure extension.</figcaption>',
                     '</figure>',
                 ]),
                 [
@@ -696,6 +696,14 @@ class HtmlJsonSerializerTest extends TestCase
                     '<p><i>For the latest in innovation, eLife Labs and new open-source tools, sign up for <a href="https://crm.elifesciences.org/crm/node/8?_ga=2.213152084.1156933223.1498463747-1005832603.1488200227” with “https://crm.elifesciences.org/crm/tech-news?utm_source=Labs-Binder&amp;utm_medium=website&amp;utm_campaign=technews">our technology and innovation newsletter</a>. You can also follow <a href="https://twitter.com/eLifeInnovation">@eLifeInnovation</a> on Twitter. </i></p>',
                 ]),
             ],
+//            'styled figcaption' => [
+//                [],
+//                $this->lines([
+//                    '<figure class="image align-center"><img alt="A PDF side by side by an image of the PDF elements as colour blocks" data-fid="1444" data-uuid="UUID" src="/sites/default/files/iiif/labs-post-content/2017-08/fig8-merge.png" width="1238" height="802" />',
+//                    '<figcaption>This image is a derivative of and attributed to Schneemann, I.; Wiese, J.; Kunz, A.L.; Imhoff, J.F. Genetic Approach for the Fast Discovery of Phenazine Producing Bacteria. <i>Mar. Drugs</i> <b>2011</b>, <i>9</i>, 772-789, and used under <a href="https://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License</a> (CC BY 3.0).</figcaption>',
+//                    '</figure>',
+//                ]),
+//            ],
         ];
     }
 

@@ -148,7 +148,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                             $dom->load($this->converter->convertToHtml(trim(preg_replace('~^.*<figcaption[^>]*>\s*(.*)\s*</figcaption>.*~', '$1', $contents))));
                             /** @var \PHPHtmlParser\Dom\HtmlNode $text */
                             $text = $dom->find('p')[0];
-                            $caption = $text->innerHtml();
+                            $caption = $this->prepareOutput($text->innerHtml(), $context);
                         }
                         return array_filter([
                             'type' => 'image',
