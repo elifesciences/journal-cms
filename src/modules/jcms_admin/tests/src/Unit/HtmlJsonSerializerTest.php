@@ -660,6 +660,42 @@ class HtmlJsonSerializerTest extends TestCase
                 ],
                 '<p>Full details of the Image API can be found at <a href="http://iiif.io/api/image/2.0/">http://iiif.io/api/image/2.0/</a>. In essence, each request uses the following syntax: {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}.For example: www.example.org/image-service/abcd1234/full/max/0/default.jpg</p>',
             ],
+            'malformed link' => [
+                [
+                    [
+                        'type' => 'paragraph',
+                        'text' => 'Scripts: <a href="https://github.com/TechNottingham/hubot-hackbot">https://github.com/TechNottingham/hubot-hackbot</a> <br />',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'text' => 'Back-end API: <a href="https://github.com/TechNottingham/Hack24-API/">https://github.com/TechNottingham/Hack24-API/</a> <br />',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'text' => 'Shell: <a href="https://github.com/TechNottingham/Hackbot%20">https://github.com/TechNottingham/Hackbot </a><br />',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'text' => 'How to use it: <a href="https://www.hack24.co.uk/how-to-use-hackbot">https://www.hack24.co.uk/how-to-use-hackbot </a>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'text' => '<em>Do you have an idea or innovation to share? Send a short outline for a Labs blogpost to innovation@elifesciences.org.</em>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'text' => '<em>For the latest in innovation, eLife Labs and new open-source tools, sign up for <a href="https://crm.elifesciences.org/crm/node/8?_ga=2.213152084.1156933223.1498463747-1005832603.1488200227%E2%80%9D%20with%20%E2%80%9Chttps://crm.elifesciences.org/crm/tech-news?utm_source=Labs-Binder&amp;utm_medium=website&amp;utm_campaign=technews">our technology and innovation newsletter</a>. You can also follow <a href="https://twitter.com/eLifeInnovation">@eLifeInnovation</a> on Twitter. </em>',
+                    ],
+                ],
+                $this->lines([
+                    '<p>Scripts: <a href="https://github.com/TechNottingham/hubot-hackbot">https://github.com/TechNottingham/hubot-hackbot</a> <br /></p>',
+                    '<p>Back-end API: <a href="https://github.com/TechNottingham/Hack24-API/">https://github.com/TechNottingham/Hack24-API/</a> <br /></p>',
+                    '<p>Shell: <a href="https://github.com/TechNottingham/Hackbot ">https://github.com/TechNottingham/Hackbot </a><br /></p>',
+                    '<p>How to use it: <a href="https://www.hack24.co.uk/how-to-use-hackbot">https://www.hack24.co.uk/how-to-use-hackbot </a></p>',
+                    '<p><i>Do you have an idea or innovation to share? Send a short outline for a Labs blogpost to innovation@elifesciences.org.</i></p>',
+                    '<p><i>For the latest in innovation, eLife Labs and new open-source tools, sign up for <a href="https://crm.elifesciences.org/crm/node/8?_ga=2.213152084.1156933223.1498463747-1005832603.1488200227” with “https://crm.elifesciences.org/crm/tech-news?utm_source=Labs-Binder&amp;utm_medium=website&amp;utm_campaign=technews">our technology and innovation newsletter</a>. You can also follow <a href="https://twitter.com/eLifeInnovation">@eLifeInnovation</a> on Twitter. </i></p>',
+                ]),
+            ],
         ];
     }
 
