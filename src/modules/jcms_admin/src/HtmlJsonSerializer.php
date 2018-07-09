@@ -30,16 +30,16 @@ final class HtmlJsonSerializer implements NormalizerInterface
             '~<br\s*/?>~' => '<linebreak></linebreak>',
             '~\{~' => '<curly>',
             '~\}~' => '</curly>',
-            '~<(/?)(i|em)>~' => '<$1italic>',
-            '~<(/?)(b|strong)>~' => '<$1bold>',
+            '~<(/?)(i|em)>~' => '!$1italic¡',
+            '~<(/?)(b|strong)>~' => '!$1bold¡',
             '~`~' => '<backtick></backtick>',
         ];
         $jsonContext['regexes'] = $regexes + [
             '~<linebreak></linebreak>~' => '<br />',
             '~<curly>~' => '{',
             '~</curly>~' => '}',
-            '~<(/?)italic>~' => '<$1em>',
-            '~<(/?)bold>~' => '<$1strong>',
+            '~!(/?)italic¡~' => '<$1em>',
+            '~!(/?)bold¡~' => '<$1strong>',
             '~<backtick></backtick>~' => '`',
         ];
 
