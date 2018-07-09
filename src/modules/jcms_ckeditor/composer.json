@@ -1,0 +1,10 @@
+{
+  "name": "drupal/jcms_ckeditor",
+  "type": "drupal-module",
+  "license": "MIT",
+  "require": {
+    "symfony/serializer": "^3.4",
+    "league/commonmark": "^0.17.5",
+    "league/html-to-markdown": "^4.6"
+  }
+}
