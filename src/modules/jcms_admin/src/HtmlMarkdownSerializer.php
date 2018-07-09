@@ -39,7 +39,7 @@ final class HtmlMarkdownSerializer implements NormalizerInterface
 
     private function cleanHtml(string $html) : string
     {
-        $html = preg_replace_callback('~ href="([^\"]+ [^\"]*)"~', function ($matches) {
+        $html = preg_replace_callback('~ href="([^\"]+)"~', function ($matches) {
             return ' href="'.str_replace([' ', '(', ')'], ['%20', '%28', '%29'], $matches[1]).'""';
         }, $html);
         $dom = new Dom();
@@ -59,7 +59,25 @@ final class HtmlMarkdownSerializer implements NormalizerInterface
         $preserve = preg_replace(array_keys($regexes), array_values($regexes), $html);
         $encode = $context['encode'] ?? [];
         $bc = $this->bracketChar;
-        $preserve = preg_replace('~<(/?(code|table)[^>]*)>~', $bc.'$1'.$bc, $preserve);
+        $delimiter = '¢';
+        $lines = explode($delimiter, preg_replace('~<((/?)(code|table)([^>]*))>~', $delimiter.$bc.'$2$3$4'.$bc.$delimiter, $preserve));
+        foreach (['code', 'table'] as $tag) {
+            $found = 0;
+            foreach ($lines as $k => $line) {
+                if (preg_match('~^'.$bc.'('.$tag.'[^'.$bc.']*)'.$bc.'$~', $line, $match)) {
+                    $found++;
+                    if ($found > 1) {
+                        $lines[$k] = '<'.$match[1].'>';
+                    }
+                } elseif (preg_match('~^'.$bc.'(/'.$tag.'[^'.$bc.']*)'.$bc.'$~', $line, $match)) {
+                    $found--;
+                    if ($found > 0) {
+                        $lines[$k] = '<'.$match[1].'>';
+                    }
+                }
+            }
+        }
+        $preserve = implode('', $lines);
         return preg_replace_callback('~'.$bc.'(code|table)[^'.$bc.']*'.$bc.'([^'.$bc.']*)'.$bc.'/\1'.$bc.'~s', function ($matches) use ($bc, $encode) {
             if ($matches[1] === 'table') {
                 $matches[2] = preg_replace('/\s*'.PHP_EOL.'+\s*/', '', strip_tags($matches[2], '<thead><tbody><th></th><tr><td><img><strong><em><i><italic><strong><b><bold><sub><sup><a><linebreak>'));

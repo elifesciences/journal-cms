@@ -384,10 +384,6 @@ class HtmlJsonSerializerTest extends TestCase
             'code in code' => [
                 [
                     [
-                        'type' => 'paragraph',
-                        'text' => 'The creation of an open standard for the exchange, submission and publication of reproducible documents is critical for widespread adoption by academic publishers, and will be beneficial for the discovery and persistence of research reported in this form. Therefore, a key output of this project will be a Reproducible Document Exchange Format, which will allow the data, code and computed outputs (graphs, statistical results, tables) embedded in a reproducible document to be recognised and presented online as <a href="https://elifesciences.org/labs/e5737fd5/designing-progressive-enhancement-into-the-academic-manuscript">an enhanced version</a> of the published research article. In order to do this, Substance is investigating how to represent these assets in JATS XML, the publishing standard through which research manuscripts are processed through the publishing workflow:',
-                    ],
-                    [
                         'type' => 'code',
                         'code' => $this->lines([
                             '<code executable="yes" specific-use="input" language="mini">',
@@ -395,19 +391,13 @@ class HtmlJsonSerializerTest extends TestCase
                             '</code>',
                         ]),
                     ],
-                    [
-                        'type' => 'paragraph',
-                        'text' => 'This complements Substance\'s work to develop <a href="https://elifesciences.org/labs/8de87c33/texture-an-open-science-manuscript-editor">Texture</a>, an XML-based text editor for authoring, and contributions towards <a href="https://lens.elifesciences.org/about/">eLife Lens</a>, the side-by-side article reader.',
-                    ],
                 ],
                 $this->lines([
-                    '<p>The creation of an open standard for the exchange, submission and publication of reproducible documents is critical for widespread adoption by academic publishers, and will be beneficial for the discovery and persistence of research reported in this form. Therefore, a key output of this project will be a Reproducible Document Exchange Format, which will allow the data, code and computed outputs (graphs, statistical results, tables) embedded in a reproducible document to be recognised and presented online as <a href="https://elifesciences.org/labs/e5737fd5/designing-progressive-enhancement-into-the-academic-manuscript">an enhanced version</a> of the published research article. In order to do this, Substance is investigating how to represent these assets in JATS XML, the publishing standard through which research manuscripts are processed through the publishing workflow:</p>',
                     '<code>',
                     '<code executable="yes" specific-use="input" language="mini">',
                     '  bars(counts_by_species)',
                     '</code>',
                     '</code>',
-                    '<p>This complements Substance\'s work to develop <a href="https://elifesciences.org/labs/8de87c33/texture-an-open-science-manuscript-editor">Texture</a>, an XML-based text editor for authoring, and contributions towards <a href="https://lens.elifesciences.org/about/">eLife Lens</a>, the side-by-side article reader.</p>',
                 ]),
             ],
             'single section' => [
