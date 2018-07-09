@@ -1,0 +1,22 @@
+uuid: 4e2ea30f-48b0-4b97-b612-d6b20c0211c4
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - plain_editor
+_core:
+  default_config_hash: KHQIJ7Vfl25lTjzIc7qIvnuistt-Mw2O0kG4jCofmkI
+id: plain_editor_messages
+theme: plain_editor
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }
