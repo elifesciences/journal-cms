@@ -381,6 +381,35 @@ class HtmlJsonSerializerTest extends TestCase
 
                 ]),
             ],
+            'code in code' => [
+                [
+                    [
+                        'type' => 'paragraph',
+                        'text' => 'The creation of an open standard for the exchange, submission and publication of reproducible documents is critical for widespread adoption by academic publishers, and will be beneficial for the discovery and persistence of research reported in this form. Therefore, a key output of this project will be a Reproducible Document Exchange Format, which will allow the data, code and computed outputs (graphs, statistical results, tables) embedded in a reproducible document to be recognised and presented online as <a href="https://elifesciences.org/labs/e5737fd5/designing-progressive-enhancement-into-the-academic-manuscript">an enhanced version</a> of the published research article. In order to do this, Substance is investigating how to represent these assets in JATS XML, the publishing standard through which research manuscripts are processed through the publishing workflow:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'code' => $this->lines([
+                            '<code executable="yes" specific-use="input" language="mini">',
+                            '  bars(counts_by_species)',
+                            '</code>',
+                        ]),
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'text' => 'This complements Substance\'s work to develop <a href="https://elifesciences.org/labs/8de87c33/texture-an-open-science-manuscript-editor">Texture</a>, an XML-based text editor for authoring, and contributions towards <a href="https://lens.elifesciences.org/about/">eLife Lens</a>, the side-by-side article reader.',
+                    ],
+                ],
+                $this->lines([
+                    '<p>The creation of an open standard for the exchange, submission and publication of reproducible documents is critical for widespread adoption by academic publishers, and will be beneficial for the discovery and persistence of research reported in this form. Therefore, a key output of this project will be a Reproducible Document Exchange Format, which will allow the data, code and computed outputs (graphs, statistical results, tables) embedded in a reproducible document to be recognised and presented online as <a href="https://elifesciences.org/labs/e5737fd5/designing-progressive-enhancement-into-the-academic-manuscript">an enhanced version</a> of the published research article. In order to do this, Substance is investigating how to represent these assets in JATS XML, the publishing standard through which research manuscripts are processed through the publishing workflow:</p>',
+                    '<code>',
+                    '<code executable="yes" specific-use="input" language="mini">',
+                    '  bars(counts_by_species)',
+                    '</code>',
+                    '</code>',
+                    '<p>This complements Substance\'s work to develop <a href="https://elifesciences.org/labs/8de87c33/texture-an-open-science-manuscript-editor">Texture</a>, an XML-based text editor for authoring, and contributions towards <a href="https://lens.elifesciences.org/about/">eLife Lens</a>, the side-by-side article reader.</p>',
+                ]),
+            ],
             'single section' => [
                 [
                     [
@@ -681,7 +710,7 @@ class HtmlJsonSerializerTest extends TestCase
                     ],
                     [
                         'type' => 'paragraph',
-                        'text' => 'How to use it: <a href="https://www.hack24.co.uk/how-to-use-hackbot">https://www.hack24.co.uk/how-to-use-hackbot </a>',
+                        'text' => 'How to use it: <a href="https://www.hack24.co.uk/how-to-use-hackbot%29">https://www.hack24.co.uk/how-to-use-hackbot </a>',
                     ],
                     [
                         'type' => 'paragraph',
@@ -696,7 +725,7 @@ class HtmlJsonSerializerTest extends TestCase
                     '<p>Scripts: <a href="https://github.com/TechNottingham/hubot-hackbot">https://github.com/TechNottingham/hubot-hackbot</a> <br /></p>',
                     '<p>Back-end API: <a href="https://github.com/TechNottingham/Hack24-API/">https://github.com/TechNottingham/Hack24-API/</a> <br /></p>',
                     '<p>Shell: <a href="https://github.com/TechNottingham/Hackbot ">https://github.com/TechNottingham/Hackbot </a><br /></p>',
-                    '<p>How to use it: <a href="https://www.hack24.co.uk/how-to-use-hackbot">https://www.hack24.co.uk/how-to-use-hackbot </a></p>',
+                    '<p>How to use it: <a href="https://www.hack24.co.uk/how-to-use-hackbot)">https://www.hack24.co.uk/how-to-use-hackbot </a></p>',
                     '<p><i>Do you have an idea or innovation to share? Send a short outline for a Labs blogpost to innovation@elifesciences.org.</i></p>',
                     '<p><i>For the latest in innovation, eLife Labs and new open-source tools, sign up for <a href="https://crm.elifesciences.org/crm/node/8?_ga=2.213152084.1156933223.1498463747-1005832603.1488200227” with “https://crm.elifesciences.org/crm/tech-news?utm_source=Labs-Binder&amp;utm_medium=website&amp;utm_campaign=technews">our technology and innovation newsletter</a>. You can also follow <a href="https://twitter.com/eLifeInnovation">@eLifeInnovation</a> on Twitter. </i></p>',
                 ]),
