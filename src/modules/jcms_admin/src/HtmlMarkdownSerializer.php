@@ -40,7 +40,7 @@ final class HtmlMarkdownSerializer implements NormalizerInterface
     private function cleanHtml(string $html) : string
     {
         $html = preg_replace_callback('~ href="([^\"]+)"~', function ($matches) {
-            return ' href="'.str_replace([' ', '(', ')'], ['%20', '%28', '%29'], $matches[1]).'""';
+            return ' href="'.str_replace([' ', '(', ')'], ['%20', '%28', '%29'], $matches[1]).'"';
         }, $html);
         $dom = new Dom();
         $dom->setOptions([
