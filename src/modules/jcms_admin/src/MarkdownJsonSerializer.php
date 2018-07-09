@@ -91,7 +91,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
 
                     return [
                         'type' => 'section',
-                        'title' => $rendered->getContents(),
+                        'title' => $this->prepareOutput($rendered->getContents(), $context),
                         'depth' => $depth,
                     ];
                 }
@@ -187,7 +187,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                         $text = $button->innerHtml();
                         return [
                             'type' => 'button',
-                            'text' => $text,
+                            'text' => $this->prepareOutput($text, $context),
                             'uri' => $uri,
                         ];
                     } elseif (preg_match('/^<oembed>(?P<youtube>https:\/\/www\.youtube\.com\/watch\?v=.*)<\/oembed>/', $contents, $matches)) {
@@ -200,10 +200,9 @@ final class MarkdownJsonSerializer implements NormalizerInterface
                             'height' => 9,
                         ];
                     } else {
-                        $contents = preg_replace(array_keys($regexes), array_values($regexes), $contents);
                         return [
                             'type' => 'paragraph',
-                            'text' => preg_replace('~<br\s*/?>\n~', '<br />', $contents),
+                            'text' => $this->prepareOutput($contents, $context),
                         ];
                     }
                 }

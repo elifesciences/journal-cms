@@ -538,7 +538,7 @@ class HtmlJsonSerializerTest extends TestCase
                     ],
                     [
                         'type' => 'section',
-                        'title' => 'Section 1',
+                        'title' => 'Section <em>1</em>',
                         'content' => [
                             [
                                 'type' => 'paragraph',
@@ -617,7 +617,7 @@ class HtmlJsonSerializerTest extends TestCase
                 ],
                 $this->lines([
                     '<p>Paragraph 1.</p>',
-                    '<h1>Section 1</h1>',
+                    '<h1>Section <i>1</i></h1>',
                     '<p>Paragraph 1 in Section 1.</p>',
                     '<p>Paragraph 2 in Section 1.</p>',
                     '<p>Paragraph 3 in Section 1.</p>',
