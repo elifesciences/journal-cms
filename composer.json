@@ -78,7 +78,9 @@
     "league/commonmark": "^0.17.5",
     "symfony/serializer": "^3.4",
     "league/html-to-markdown": "^4.7",
-    "paquettg/php-html-parser": "^1.7"
+    "paquettg/php-html-parser": "^1.7",
+    "drupal/jsonapi": "^1.22",
+    "drupal/jsonapi_file": "^1.1"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",
