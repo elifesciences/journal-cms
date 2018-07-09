@@ -5,7 +5,6 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
-use Drupal\jcms_rest\Exception\JCMSBadRequestHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
