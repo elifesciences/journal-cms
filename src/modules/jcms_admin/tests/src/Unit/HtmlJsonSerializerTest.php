@@ -416,6 +416,40 @@ class HtmlJsonSerializerTest extends TestCase {
           '</code>',
         ]),
       ],
+      'table in code' => [
+        [
+          [
+            'type' => 'code',
+            'code' => $this->lines([
+              '<table>',
+              '  <tr><td>Cell one</td></tr>',
+              '</table>',
+            ]),
+          ],
+        ],
+        $this->lines([
+          '<code>',
+            '<table>',
+            '  <tr><td>Cell one</td></tr>',
+            '</table>',
+          '</code>',
+        ]),
+      ],
+      'code in table' => [
+        [
+          [
+            'type' => 'table',
+            'tables' => [
+              '<table><tr><td><code>Cell</code> one</td></tr></table>',
+            ],
+          ],
+        ],
+        $this->lines([
+          '<table>',
+          '  <tr><td><code>Cell</code> one</td></tr>',
+          '</table>',
+        ]),
+      ],
       'single section' => [
         [
           [

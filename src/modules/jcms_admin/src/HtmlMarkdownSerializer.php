@@ -83,12 +83,15 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
             $lines[$k] = '<' . $match[1] . '>';
           }
         }
+        elseif ($found > 0 && preg_match('~^' . $bc . '(/?)(?!'.$tag.')([^' . $bc . ']+)' . $bc . '$~', $line, $match)) {
+          $lines[$k] = '<' . $match[1].$match[2] . '>';
+        }
       }
     }
     $preserve = implode('', $lines);
     return preg_replace_callback('~' . $bc . '(code|table)[^' . $bc . ']*' . $bc . '([^' . $bc . ']*)' . $bc . '/\1' . $bc . '~s', function ($matches) use ($bc, $encode) {
       if ($matches[1] === 'table') {
-        $matches[2] = preg_replace('/\s*' . PHP_EOL . '+\s*/', '', strip_tags($matches[2], '<thead><tbody><th></th><tr><td><img><strong><em><i><italic><strong><b><bold><sub><sup><a><linebreak>'));
+        $matches[2] = preg_replace('/\s*' . PHP_EOL . '+\s*/', '', strip_tags($matches[2], '<thead><tbody><th></th><tr><td><img><strong><em><i><italic><strong><b><bold><sub><sup><a><linebreak><code>'));
       }
       $match = $matches[2];
       $before = '<' . $matches[1] . '>';
