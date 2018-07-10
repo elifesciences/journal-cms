@@ -83,8 +83,8 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
             $lines[$k] = '<' . $match[1] . '>';
           }
         }
-        elseif ($found > 0 && preg_match('~^' . $bc . '(/?)(?!'.$tag.')([^' . $bc . ']+)' . $bc . '$~', $line, $match)) {
-          $lines[$k] = '<' . $match[1].$match[2] . '>';
+        elseif ($found > 0 && preg_match('~^' . $bc . '(/?)(?!' . $tag . ')([^' . $bc . ']+)' . $bc . '$~', $line, $match)) {
+          $lines[$k] = '<' . $match[1] . $match[2] . '>';
         }
       }
     }

@@ -429,9 +429,9 @@ class HtmlJsonSerializerTest extends TestCase {
         ],
         $this->lines([
           '<code>',
-            '<table>',
-            '  <tr><td>Cell one</td></tr>',
-            '</table>',
+          '<table>',
+          '  <tr><td>Cell one</td></tr>',
+          '</table>',
           '</code>',
         ]),
       ],
