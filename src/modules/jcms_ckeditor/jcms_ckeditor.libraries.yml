@@ -1,0 +1,8 @@
+jcms_ckeditor:
+  js:
+    /core/assets/vendor/ckeditor/ckeditor.js: {}
+    ckeditor/adapters/jquery.js: {}
+    js/jcms_ckeditor.js: {}
+  css:
+    theme:
+      css/jcms_ckeditor.css: {} 
