@@ -9,6 +9,7 @@ use Drupal\Core\Database\Query\Condition;
 use Drupal\Core\Database\Query\SelectInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\entityqueue\Entity\EntitySubqueue;
@@ -527,6 +528,19 @@ function jcms_admin_node_presave(Node $node) {
     }
   }
 
+  if ($node->hasField('field_content_html') && $node->hasField('field_content_html_preview')) {
+    $normalizer = \Drupal::service('jcms_admin.html_json_normalizer');
+    $normalizer_context = [];
+    if ($iiif = Settings::get('jcms_iiif_base_uri')) {
+      $normalizer_context['iiif'] = $iiif;
+    }
+    $html = _jcms_admin_field_value_clean($node->get('field_content_html'));
+    $preview = _jcms_admin_field_value_clean($node->get('field_content_html'));
+
+    $node->field_content_json = json_encode($normalizer->normalize($html, NULL, $normalizer_context));
+    $node->field_content_json_preview = json_encode($normalizer->normalize($preview, NULL, $normalizer_context));
+  }
+
   if ($node->bundle() === 'person') {
     $fields = [
       'field_person_affiliation' => ['getter' => 'getAffiliations', 'json_field' => 'field_person_affiliation_json'],
@@ -556,6 +570,16 @@ function jcms_admin_node_presave(Node $node) {
   ) {
     $node->setCreatedTime($node->getChangedTime());
   }
+}
+
+/**
+ * Get formatted field value.
+ */
+function _jcms_admin_field_value_clean(FieldItemListInterface $data) {
+  $view = $data->view();
+  unset($view['#theme']);
+  $output = \Drupal::service('renderer')->renderPlain($view);
+  return trim($output);
 }
 
 /**
