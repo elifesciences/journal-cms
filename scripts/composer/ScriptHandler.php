@@ -20,10 +20,9 @@ class ScriptHandler {
     $config_root = $root . '/config';
     $src_root = $root . '/src';
 
-    foreach (['modules', 'profiles', 'themes'] as $dir) {
+    foreach (['libraries', 'modules', 'profiles', 'themes'] as $dir) {
       if (!$fs->exists($drupal_root . '/'. $dir)) {
         $fs->mkdir($drupal_root . '/'. $dir);
-        $fs->touch($drupal_root . '/'. $dir . '/.gitkeep');
       }
     }
 
@@ -91,14 +90,24 @@ class ScriptHandler {
       $fs->copy($config_root . '/drupal-vm.services.yml', $config_root . '/local.services.yml');
     }
 
-    // Create symlink to custom modules folder.
-    if ($fs->exists($src_root . '/modules') && !$fs->exists($drupal_root . '/modules/custom')) {
-      $fs->symlink('../../src/modules', $drupal_root . '/modules/custom');
+    // Create symlink to custom modules and themes folder.
+    foreach (['modules', 'themes'] as $folder) {
+      if ($fs->exists($src_root . '/'.$folder) && !$fs->exists($drupal_root . '/'.$folder.'/custom')) {
+        $fs->symlink('../../src/'.$folder, $drupal_root . '/'.$folder.'/custom');
+      }
     }
 
     // Create symlink to custom modules folder.
     if ($fs->exists($root . '/private')) {
       $fs->symlink('../../src/modules', $drupal_root . '/modules/custom');
+    }
+
+    // Download ckeditor jquery adaptor.
+    if (!$fs->exists($drupal_root . '/libraries/ckeditor/adaptors/adaptors/jquery.js')) {
+      if (!$fs->exists($drupal_root . '/libraries/ckeditor/adaptors')) {
+        $fs->mkdir($drupal_root . '/libraries/ckeditor/adaptors');
+      }
+      file_put_contents($drupal_root . '/libraries/ckeditor/adaptors/jquery.js', file_get_contents('https://raw.githubusercontent.com/ckeditor/ckeditor-releases/standard/4.9.2/adapters/jquery.js'));
     }
   }
 
