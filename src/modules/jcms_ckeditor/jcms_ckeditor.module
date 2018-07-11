@@ -88,38 +88,6 @@ function jcms_ckeditor_block_access(Block $block, string $operation, AccountInte
 }
 
 /**
- * Implements hook_form_alter().
- */
-function jcms_ckeditor_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
-}
-
-/**
- * Implements hook_node_create().
- */
-/*function jcms_ckeditor_node_create(NodeInterface $node) {
-  switch ($node->getType()) {
-    case 'article':
-      $node->title = t('Title');
-      break;
-  }
-}*/
-
-/**
- * Implements hook_node_presave().
- */
-function jcms_ckeditor_node_presave(Node $node) {
-  //if ($node->hasField('field_content_json') && $node->hasField('field_content_html_preview')) {
-    /** @var \Drupal\jcms_ckeditor\HtmlJsonSerializer */
-    //$normalizer = \Drupal::service('jcms_ckeditor.html_json_normalizer');
-    //$content = $node->get('field_content_html_preview')->getValue();
-    //$content[0]['value'] = preg_replace('~[\s\n]*<p>&nbsp;</p>~', '', $content[0]['value']);
-    //$node->field_content_json = json_encode($normalizer->normalize($content[0]['value']), JSON_PRETTY_PRINT);
-    //$node->body = $body;
-  //}
-}
-
-/**
  * Implements hook_system_breadcrumb_alter().
  */
 function jcms_ckeditor_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
@@ -143,8 +111,8 @@ function jcms_ckeditor_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMat
  * 
  * Allow for toolbar on editable node views
  * 
- * @param type $suggestions
- * @param type $variables
+ * @param array $suggestions
+ * @param array $variables
  */
 function jcms_ckeditor_theme_suggestions_node_alter(&$suggestions, $variables) {
   if (isset($variables['elements']['#node']) && isset($variables['elements']['#view_mode']) && $variables['elements']['#view_mode'] == 'full') {
