@@ -535,7 +535,7 @@ function jcms_admin_node_presave(Node $node) {
       $normalizer_context['iiif'] = $iiif;
     }
     $html = _jcms_admin_field_value_clean($node->get('field_content_html'));
-    $preview = _jcms_admin_field_value_clean($node->get('field_content_html'));
+    $preview = _jcms_admin_field_value_clean($node->get('field_content_html_preview'));
 
     $node->field_content_json = json_encode($normalizer->normalize($html, NULL, $normalizer_context));
     $node->field_content_json_preview = json_encode($normalizer->normalize($preview, NULL, $normalizer_context));
