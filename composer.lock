@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8625900fb1fcd5bd30ffd06a8c90413a",
+    "content-hash": "018beb8c38c10c5d6bfb46fe4063fdd7",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -312,6 +312,174 @@
                 "html"
             ],
             "time": "2018-01-06T17:58:46+00:00"
+        },
+        {
+            "name": "ckeditor/autoembed",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/autoembed/releases/autoembed_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/autoembed"
+            }
+        },
+        {
+            "name": "ckeditor/autolink",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/autolink/releases/autolink_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/autolink"
+            }
+        },
+        {
+            "name": "ckeditor/balloonpanel",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/balloonpanel/releases/balloonpanel_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/balloonpanel"
+            }
+        },
+        {
+            "name": "ckeditor/balloontoolbar",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/balloontoolbar/releases/balloontoolbar_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/balloontoolbar"
+            }
+        },
+        {
+            "name": "ckeditor/embedbase",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/embedbase/releases/embedbase_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/embedbase"
+            }
+        },
+        {
+            "name": "ckeditor/filetools",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/filetools/releases/filetools_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/filetools"
+            }
+        },
+        {
+            "name": "ckeditor/notificationaggregator",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/notificationaggregator/releases/notificationaggregator_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/notificationaggregator"
+            }
+        },
+        {
+            "name": "ckeditor/sharedspace",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/sharedspace/releases/sharedspace_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/sharedspace"
+            }
+        },
+        {
+            "name": "ckeditor/undo",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/undo/releases/undo_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/undo"
+            }
+        },
+        {
+            "name": "ckeditor/uploadimage",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/uploadimage/releases/uploadimage_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/uploadimage"
+            }
+        },
+        {
+            "name": "ckeditor/uploadwidget",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/uploadwidget/releases/uploadwidget_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/uploadwidget"
+            }
+        },
+        {
+            "name": "ckeditor/widget",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/widget/releases/widget_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/widget"
+            }
         },
         {
             "name": "commerceguys/addressing",
@@ -3439,17 +3607,11 @@
         },
         {
             "name": "drupal/jsonapi_file",
-            "version": "1.1.0",
+            "version": "dev-1.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/jsonapi_file",
-                "reference": "8.x-1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/jsonapi_file-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "414884fc314f31be3c60e38e3984ce22c095bf1e"
+                "reference": "5ecdff769cd975697136c0a19bfbe087d23fe87d"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -3462,11 +3624,11 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1501089243",
+                    "version": "8.x-1.1+2-dev",
+                    "datestamp": "1524914284",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -3488,7 +3650,8 @@
             "homepage": "https://www.drupal.org/project/jsonapi_file",
             "support": {
                 "source": "http://cgit.drupalcode.org/jsonapi_file"
-            }
+            },
+            "time": "2018-04-29T09:07:09+00:00"
         },
         {
             "name": "drupal/jsonb",
@@ -10814,6 +10977,7 @@
         "drupal/monolog": 15,
         "drupal/country": 10,
         "drupal/entity_reference_unpublished": 15,
+        "drupal/jsonapi_file": 20,
         "elife/api": 20,
         "elife/api-validator": 20
     },
