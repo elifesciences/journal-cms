@@ -1,8 +1,9 @@
-uuid: e6de8313-dfb4-4b29-82bb-46b23dce1c45
+uuid: 5a415bcc-f3af-4353-a140-26d2546b52d7
 langcode: en
-status: true
+status: false
 dependencies:
   config:
+    - core.entity_view_mode.node.full
     - field.field.node.event.field_community_list
     - field.field.node.event.field_content
     - field.field.node.event.field_content_html
@@ -21,10 +22,10 @@ dependencies:
   module:
     - text
     - user
-id: node.event.default
+id: node.event.full
 targetEntityType: node
 bundle: event
-mode: default
+mode: full
 content:
   field_content_html_preview:
     weight: 1

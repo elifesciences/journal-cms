@@ -40,3 +40,4 @@ hidden:
   filemime: true
   filesize: true
   uid: true
+  url: true

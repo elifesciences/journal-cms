@@ -70,4 +70,5 @@ content:
       image_style: ''
       image_link: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  url: true

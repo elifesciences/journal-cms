@@ -25,3 +25,4 @@ hidden:
   filesize: true
   uid: true
   uri: true
+  url: true

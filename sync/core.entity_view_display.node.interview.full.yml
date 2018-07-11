@@ -1,8 +1,9 @@
-uuid: 83641ec7-573c-43d8-ab7e-8f0b86211cbf
+uuid: a6184c12-5204-4e53-a411-ad36642516d2
 langcode: en
-status: true
+status: false
 dependencies:
   config:
+    - core.entity_view_mode.node.full
     - field.field.node.interview.field_community_list
     - field.field.node.interview.field_content
     - field.field.node.interview.field_content_html
@@ -22,10 +23,10 @@ dependencies:
   module:
     - text
     - user
-id: node.interview.default
+id: node.interview.full
 targetEntityType: node
 bundle: interview
-mode: default
+mode: full
 content:
   field_content_html_preview:
     weight: 1

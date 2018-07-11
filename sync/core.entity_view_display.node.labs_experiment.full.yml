@@ -1,8 +1,9 @@
-uuid: 36fa9b1d-34c1-4153-92aa-73755ee58816
+uuid: cb6b4904-2079-4cb1-89f2-3e20bd9939fe
 langcode: en
-status: true
+status: false
 dependencies:
   config:
+    - core.entity_view_mode.node.full
     - field.field.node.labs_experiment.field_community_list
     - field.field.node.labs_experiment.field_content
     - field.field.node.labs_experiment.field_content_html
@@ -21,21 +22,21 @@ dependencies:
   module:
     - text
     - user
-id: node.labs_experiment.default
+id: node.labs_experiment.full
 targetEntityType: node
 bundle: labs_experiment
-mode: default
+mode: full
 content:
   field_content_html:
     type: text_default
     weight: 1
     region: content
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
   field_impact_statement:
     weight: 0
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
