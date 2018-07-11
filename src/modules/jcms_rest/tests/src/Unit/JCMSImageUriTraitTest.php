@@ -21,7 +21,7 @@ class JCMSImageUriTraitTest extends UnitTestCase {
   protected function setUp() {
     parent::setUp();
     $this->settings = new Settings([
-      'jcms_iiif_base_uri' => 'https://prod--iiif.elifesciences.org/journal-cms:',
+      'jcms_iiif_base_uri' => 'https://iiif.elifesciences.org/journal-cms/',
       'jcms_iiif_mount' => 'iiif',
     ]);
   }
@@ -33,11 +33,11 @@ class JCMSImageUriTraitTest extends UnitTestCase {
     return [
       [
         'public://iiif/content/2018-07/image.jpg',
-        'https://prod--iiif.elifesciences.org/journal-cms:content%2F2018-07%2Fimage.jpg/full/full/0/default.jpg',
+        'https://iiif.elifesciences.org/journal-cms/content%2F2018-07%2Fimage.jpg/full/full/0/default.jpg',
       ],
       [
         'public://iiif/inside-elife/2017-08/banner.png',
-        'https://prod--iiif.elifesciences.org/journal-cms:inside-elife%2F2017-08%2Fbanner.png/full/full/0/default.png',
+        'https://iiif.elifesciences.org/journal-cms/inside-elife%2F2017-08%2Fbanner.png/full/full/0/default.png',
         'image/png',
       ],
     ];
