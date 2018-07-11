@@ -106,7 +106,7 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
             $result = array_values($result);
             if ($file = File::load($result[0])) {
               $folder = $folders[$node->bundle()] ?? $node->bundle();
-              $new_file_uri = preg_replace('/\/iiif\/content\//', '/iiif/'.$folder.'-content/', $image);
+              $new_file_uri = preg_replace('/\/iiif\/content\//', '/iiif/' . $folder . '-content/', $image);
               file_prepare_directory(\Drupal::service('file_system')->dirname($new_file_uri), FILE_CREATE_DIRECTORY);
               $new_file = file_copy($file, $new_file_uri, FILE_EXISTS_REPLACE);
               $new_file->save();
@@ -120,7 +120,7 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
                 'target_id' => $new_fid,
               ];
 
-              $preview_file_uri = preg_replace('/\/iiif\/content\//', '/iiif/'.$folder.'-preview/', $image);
+              $preview_file_uri = preg_replace('/\/iiif\/content\//', '/iiif/' . $folder . '-preview/', $image);
               file_prepare_directory(\Drupal::service('file_system')->dirname($preview_file_uri), FILE_CREATE_DIRECTORY);
               $preview_file = file_copy($file, $preview_file_uri, FILE_EXISTS_REPLACE);
               $preview_file->save();
@@ -142,25 +142,29 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
         }
       }
 
-      $new_html = $denormalizer->denormalize($data, Model::class, null, ['fids' => $new_fids]);
+      $new_html = $denormalizer->denormalize($data, Model::class, NULL, ['fids' => $new_fids]);
       $node->set('field_content_html', [
         'value' => $new_html,
         'format' => 'full_html',
       ]);
       $node->set('field_content_json', [
-        'value' => json_encode($normalizer->normalize($new_html, null, $normalizer_context)),
+        'value' => json_encode($normalizer->normalize($new_html, NULL, $normalizer_context)),
       ]);
 
-      $preview_html = $denormalizer->denormalize($data, Model::class, null, ['fids' => $preview_fids]);
+      $preview_html = $denormalizer->denormalize($data, Model::class, NULL, ['fids' => $preview_fids]);
       $node->set('field_content_html_preview', [
         'value' => $preview_html,
         'format' => 'full_html',
       ]);
       $node->set('field_content_json_preview', [
-        'value' => json_encode($normalizer->normalize($preview_html, null, $normalizer_context)),
+        'value' => json_encode($normalizer->normalize($preview_html, NULL, $normalizer_context)),
       ]);
 
-      drush_print(dt('Processed :num of :total (:nid).', [':num' => ++$num, ':total' => $total, ':nid' => $node->id()]));
+      drush_print(dt('Processed :num of :total (:nid).', [
+        ':num' => ++$num,
+        ':total' => $total,
+        ':nid' => $node->id(),
+      ]));
       $node->save();
     }
   }
@@ -168,6 +172,9 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
   drush_print(dt('Finished!'));
 }
 
+/**
+ * Get formatted field value.
+ */
 function _drush_jcms_migrate_field_value_formatted(FieldItemListInterface $data) {
   $view = $data->view();
   unset($view['#theme']);
