@@ -15,11 +15,11 @@ figure img {
 }
 
 figure.video {
-  padding: 0;  
+  padding: 0;
 }
 
 figure.video figcaption {
-  margin: 10px 0;  
+  margin: 10px 0;
 }
 
 .no-caption figcaption {
@@ -163,7 +163,7 @@ elifebutton.elife-button--outline:hover {
 
 .cke_floating_toolbar {
   z-index: 1000;
-  width: 100%;  
+  width: 100%;
 }
 
 .cke_toolbar_fixed {
