@@ -4,7 +4,9 @@ status: true
 dependencies:
   config:
     - field.field.file.image.field_image_alt_text
+    - field.field.file.image.field_image_height
     - field.field.file.image.field_image_title_text
+    - field.field.file.image.field_image_width
     - file_entity.type.image
   module:
     - file_entity
@@ -22,12 +24,30 @@ content:
     third_party_settings: {  }
     label: above
     region: content
+  field_image_height:
+    weight: 5
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
   field_image_title_text:
     type: string
     weight: 0
     settings: {  }
     third_party_settings: {  }
     label: above
+    region: content
+  field_image_width:
+    weight: 4
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
     region: content
   filemime:
     type: string

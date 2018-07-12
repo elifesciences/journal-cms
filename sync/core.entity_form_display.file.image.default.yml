@@ -4,7 +4,9 @@ status: true
 dependencies:
   config:
     - field.field.file.image.field_image_alt_text
+    - field.field.file.image.field_image_height
     - field.field.file.image.field_image_title_text
+    - field.field.file.image.field_image_width
     - file_entity.type.image
 _core:
   default_config_hash: HYzof_QiEoo7449yRhD_uJoLXMEAmSafqexxGS9OmjQ
@@ -21,6 +23,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
+  field_image_height:
+    weight: 4
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
   field_image_title_text:
     type: string_textfield
     weight: 0
@@ -28,6 +37,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
+  field_image_width:
+    weight: 3
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
     region: content
   filename:
     type: string_textfield
