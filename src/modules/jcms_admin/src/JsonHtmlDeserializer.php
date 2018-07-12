@@ -64,7 +64,7 @@ final class JsonHtmlDeserializer implements DenormalizerInterface {
           break;
 
         case 'youtube':
-          $html[] = sprintf('<oembed>https://www.youtube.com/watch?v=%s</oembed>', $item['id']);
+          $html[] = sprintf('<figure class="video no-caption"><oembed>https://www.youtube.com/watch?v=%s</oembed></figure>', $item['id']);
           break;
 
         case 'image':

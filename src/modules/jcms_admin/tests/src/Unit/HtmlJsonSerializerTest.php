@@ -673,7 +673,7 @@ class HtmlJsonSerializerTest extends TestCase {
             'height' => 9,
           ],
         ],
-        '<oembed>https://www.youtube.com/watch?v=oyBX9l9KzU8</oembed>',
+        '<figure class="video no-caption"><oembed>https://www.youtube.com/watch?v=oyBX9l9KzU8</oembed></figure>',
       ],
       'curly brackets' => [
         [

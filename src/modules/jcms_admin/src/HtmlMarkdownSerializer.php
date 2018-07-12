@@ -36,7 +36,7 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
     $html = $this->cleanHtml($html);
     $html = $this->htmlConverter->convert($html);
     $markdown = $this->prepareOutput($html);
-    $markdown = preg_replace('/(<\/table>|<\/oembed>|<\/figure>|<\/elifebutton>)\s*([^\s\n])/', '$1' . PHP_EOL . PHP_EOL . '$2', $markdown);
+    $markdown = preg_replace('/(<\/table>|<\/figure>|<\/elifebutton>)\s*([^\s\n])/', '$1' . PHP_EOL . PHP_EOL . '$2', $markdown);
     return trim($markdown);
   }
 

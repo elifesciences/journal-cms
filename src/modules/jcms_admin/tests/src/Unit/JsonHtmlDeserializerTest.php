@@ -545,7 +545,7 @@ class JsonHtmlDeserializerTest extends TestCase {
             ],
           ],
         ],
-        '<oembed>https://www.youtube.com/watch?v=oyBX9l9KzU8</oembed>',
+        '<figure class="video no-caption"><oembed>https://www.youtube.com/watch?v=oyBX9l9KzU8</oembed></figure>',
       ],
       'list soup' => [
         [

@@ -130,63 +130,78 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
           $dom->load($contents);
           /** @var \PHPHtmlParser\Dom\HtmlNode $figure */
           $figure = $dom->find('figure')[0];
-          $uri = ltrim($figure->getAttribute('src'), '/');
-          if (strpos($uri, 'http') !== 0) {
-            $uri = 'public://' . preg_replace('~sites/default/files/~', '', $uri);
+          $classes = preg_split('/\s+/', trim($figure->getAttribute('class') ?? ''));
+          if (in_array('video', $classes)) {
+            if (preg_match('/<oembed>(?P<youtube>https:\/\/www\.youtube\.com\/watch\?v=.*)<\/oembed>/', $contents, $matches)) {
+              $id = preg_replace('/^(|.*[^a-zA-Z0-9_-])([a-zA-Z0-9_-]{11})(|[^a-zA-Z0-9_-].*)$/', '$2', $matches['youtube']);
+              // @todo - we need to store the width and height of videos on save.
+              return [
+                'type' => 'youtube',
+                'id' => $id,
+                'width' => 16,
+                'height' => 9,
+              ];
+            }
           }
-          $filemime = $this->mimeTypeGuesser->guess($uri);
-          if (strpos($uri, 'public://') === 0) {
-            $uri = preg_replace('~^public://iiif/~', $this->iiif, $uri);
-          }
-          $basename = basename($uri);
-          if ($filemime === 'image/png') {
-            $filemime = 'image/jpeg';
-            $basename = preg_replace('/\.png$/', '.jpg', $basename);
-          }
-          switch ($filemime) {
-            case 'image/gif':
-              $ext = 'gif';
-              break;
+          else {
+            $uri = ltrim($figure->getAttribute('src'), '/');
+            if (strpos($uri, 'http') !== 0) {
+              $uri = 'public://' . preg_replace('~sites/default/files/~', '', $uri);
+            }
+            $filemime = $this->mimeTypeGuesser->guess($uri);
+            if (strpos($uri, 'public://') === 0) {
+              $uri = preg_replace('~^public://iiif/~', $this->iiif, $uri);
+            }
+            $basename = basename($uri);
+            if ($filemime === 'image/png') {
+              $filemime = 'image/jpeg';
+              $basename = preg_replace('/\.png$/', '.jpg', $basename);
+            }
+            switch ($filemime) {
+              case 'image/gif':
+                $ext = 'gif';
+                break;
 
-            case 'image/png':
-              $ext = 'png';
-              break;
+              case 'image/png':
+                $ext = 'png';
+                break;
 
-            default:
-              $ext = 'jpg';
+              default:
+                $ext = 'jpg';
+            }
+            $caption = NULL;
+            /** @var \PHPHtmlParser\Dom\Collection $captions */
+            $captions = $figure->find('figcaption');
+            if ($captions->count()) {
+              $dom = new Dom();
+              $dom->load($this->converter->convertToHtml(trim(preg_replace('~^.*<figcaption[^>]*>\s*(.*)\s*</figcaption>.*~', '$1', $contents))));
+              /** @var \PHPHtmlParser\Dom\HtmlNode $text */
+              $text = $dom->find('p')[0];
+              $caption = $this->prepareOutput($text->innerHtml(), $context);
+            }
+            return array_filter([
+              'type' => 'image',
+              'image' => [
+                'uri' => $uri,
+                'alt' => $figure->getAttribute('alt') ?? '',
+                'source' => [
+                  'mediaType' => $filemime,
+                  'uri' => $uri . '/full/full/0/default.' . $ext,
+                  'filename' => $basename,
+                ],
+                'size' => [
+                  'width' => (int) $figure->getAttribute('width'),
+                  'height' => (int) $figure->getAttribute('height'),
+                ],
+                'focalPoint' => [
+                  'x' => 50,
+                  'y' => 50,
+                ],
+              ],
+              'title' => $caption,
+              'inline' => (bool) preg_match('/align\-left/', $figure->getAttribute('class')),
+            ]);
           }
-          $caption = NULL;
-          /** @var \PHPHtmlParser\Dom\Collection $captions */
-          $captions = $figure->find('figcaption');
-          if ($captions->count()) {
-            $dom = new Dom();
-            $dom->load($this->converter->convertToHtml(trim(preg_replace('~^.*<figcaption[^>]*>\s*(.*)\s*</figcaption>.*~', '$1', $contents))));
-            /** @var \PHPHtmlParser\Dom\HtmlNode $text */
-            $text = $dom->find('p')[0];
-            $caption = $this->prepareOutput($text->innerHtml(), $context);
-          }
-          return array_filter([
-            'type' => 'image',
-            'image' => [
-              'uri' => $uri,
-              'alt' => $figure->getAttribute('alt') ?? '',
-              'source' => [
-                'mediaType' => $filemime,
-                'uri' => $uri . '/full/full/0/default.' . $ext,
-                'filename' => $basename,
-              ],
-              'size' => [
-                'width' => (int) $figure->getAttribute('width'),
-                'height' => (int) $figure->getAttribute('height'),
-              ],
-              'focalPoint' => [
-                'x' => 50,
-                'y' => 50,
-              ],
-            ],
-            'title' => $caption,
-            'inline' => (bool) preg_match('/align\-left/', $figure->getAttribute('class')),
-          ]);
         }
       }
     }
@@ -204,16 +219,6 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
             'type' => 'button',
             'text' => $this->prepareOutput($text, $context),
             'uri' => $uri,
-          ];
-        }
-        elseif (preg_match('/^<oembed>(?P<youtube>https:\/\/www\.youtube\.com\/watch\?v=.*)<\/oembed>/', $contents, $matches)) {
-          $id = preg_replace('/^(|.*[^a-zA-Z0-9_-])([a-zA-Z0-9_-]{11})(|[^a-zA-Z0-9_-].*)$/', '$2', $matches['youtube']);
-          // @todo - we need to store the width and height of videos on save.
-          return [
-            'type' => 'youtube',
-            'id' => $id,
-            'width' => 16,
-            'height' => 9,
           ];
         }
         else {
