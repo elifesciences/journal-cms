@@ -23,7 +23,8 @@ function jcms_ckeditor_page_attachments(array &$attachments) {
   $default_theme = $config = \Drupal::config('system.theme')->get('default');
   if (\Drupal::currentUser()->hasPermission('use inline editor') && $current_theme == $default_theme) {
     $attachments['#attached']['library'][] = 'jcms_ckeditor/jcms_ckeditor';
-    $attachments['#attached']['drupalSettings']['pluginPath'] = '/' . drupal_get_path('module', 'jcms_ckeditor') . '/ckeditor/plugins/';
+    $attachments['#attached']['drupalSettings']['pluginPathContrib'] = '/libraries/ckeditor/plugins/';
+    $attachments['#attached']['drupalSettings']['pluginPathCustom'] = '/' . drupal_get_path('module', 'jcms_ckeditor') . '/ckeditor/plugins/';
     $attachments['#attached']['drupalSettings']['placeholder'] = t('Type something here ... ');
   }
 }

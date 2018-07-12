@@ -1,7 +1,7 @@
 jcms_ckeditor:
   js:
     /core/assets/vendor/ckeditor/ckeditor.js: {}
-    ckeditor/adapters/jquery.js: {}
+    /libraries/ckeditor/adaptors/jquery.js: {}
     js/jcms_ckeditor.js: {}
   css:
     theme:
