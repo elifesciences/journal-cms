@@ -139,7 +139,9 @@ final class JsonHtmlDeserializer implements DenormalizerInterface {
    * Convert image uri.
    */
   private function convertUri(string $uri) : string {
-    return preg_replace('/^.*journal\-cms\:/', 'public://iiif/', $uri);
+    return preg_replace_callback('~^(.*journal\-cms/)(.+)~', function ($match) {
+      return 'public://iiif/' . urldecode($match[2]);
+    }, $uri);
   }
 
   /**

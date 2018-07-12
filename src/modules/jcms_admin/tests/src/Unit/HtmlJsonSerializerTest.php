@@ -140,11 +140,11 @@ class HtmlJsonSerializerTest extends TestCase {
           [
             'type' => 'image',
             'image' => [
-              'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.png',
+              'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.png',
               'alt' => '',
               'source' => [
                 'mediaType' => 'image/jpeg',
-                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.png/full/full/0/default.jpg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.png/full/full/0/default.jpg',
                 'filename' => 'image-20180427145110-1.jpg',
               ],
               'size' => [
@@ -178,11 +178,11 @@ class HtmlJsonSerializerTest extends TestCase {
           [
             'type' => 'image',
             'image' => [
-              'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg',
+              'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg',
               'alt' => '',
               'source' => [
                 'mediaType' => 'image/jpeg',
-                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg/full/full/0/default.jpg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg/full/full/0/default.jpg',
                 'filename' => 'image-20180427145110-1.jpeg',
               ],
               'size' => [
@@ -209,11 +209,11 @@ class HtmlJsonSerializerTest extends TestCase {
           [
             'type' => 'image',
             'image' => [
-              'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg',
+              'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg',
               'alt' => '',
               'source' => [
                 'mediaType' => 'image/jpeg',
-                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg/full/full/0/default.jpg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg/full/full/0/default.jpg',
                 'filename' => 'image-20180427145110-1.jpeg',
               ],
               'size' => [
@@ -241,11 +241,11 @@ class HtmlJsonSerializerTest extends TestCase {
           [
             'type' => 'image',
             'image' => [
-              'uri' => 'https://iiif.elifesciences.org/journal-cms:labs-post-content/2017-08/refigure_extension.png',
+              'uri' => 'https://iiif.elifesciences.org/journal-cms/labs-post-content%2F2017-08%2Frefigure_extension.png',
               'alt' => 'Screenshot of ReFigure extension open on PubMed central webpage',
               'source' => [
                 'mediaType' => 'image/jpeg',
-                'uri' => 'https://iiif.elifesciences.org/journal-cms:labs-post-content/2017-08/refigure_extension.png/full/full/0/default.jpg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/labs-post-content%2F2017-08%2Frefigure_extension.png/full/full/0/default.jpg',
                 'filename' => 'refigure_extension.jpg',
               ],
               'size' => [

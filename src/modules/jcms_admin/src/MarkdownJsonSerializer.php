@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_admin;
 
+use Drupal\jcms_rest\JCMSImageUriTrait;
 use League\CommonMark\Block\Element\IndentedCode;
 use League\CommonMark\Block\Element\FencedCode;
 use League\CommonMark\Block\Element\BlockQuote;
@@ -22,6 +23,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
  * Convert Markdown to Json.
  */
 final class MarkdownJsonSerializer implements NormalizerInterface {
+
+  use JCMSImageUriTrait;
 
   private $docParser;
   private $htmlRenderer;
@@ -45,7 +48,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
    * {@inheritdoc}
    */
   public function normalize($object, $format = NULL, array $context = []) : array {
-    $this->iiif = $context['iiif'] ?? 'https://iiif.elifesciences.org/journal-cms:';
+    $this->iiif = $context['iiif'] ?? 'https://iiif.elifesciences.org/journal-cms/';
     return $this->convertChildren($this->docParser->parse($object), $context);
   }
 
@@ -150,9 +153,14 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
             }
             $filemime = $this->mimeTypeGuesser->guess($uri);
             if (strpos($uri, 'public://') === 0) {
-              $uri = preg_replace('~^public://iiif/~', $this->iiif, $uri);
+              $basename = basename($uri);
+              $uri = preg_replace_callback('~^public://iiif/(.*)$~', function ($match) {
+                return $this->iiif . $this->encode($match[1]);
+              }, $uri);
             }
-            $basename = basename($uri);
+            else {
+              $basename = basename($uri);
+            }
             if ($filemime === 'image/png') {
               $filemime = 'image/jpeg';
               $basename = preg_replace('/\.png$/', '.jpg', $basename);
@@ -237,10 +245,10 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
       return [
         'type' => 'quote',
         'text' => [
-                [
-                  'type' => 'paragraph',
-                  'text' => trim(preg_replace('/^[\s]*<p>(.*)<\/p>[\s]*$/s', '$1', $rendered->getContents())),
-                ],
+          [
+            'type' => 'paragraph',
+            'text' => trim(preg_replace('/^[\s]*<p>(.*)<\/p>[\s]*$/s', '$1', $rendered->getContents())),
+          ],
         ],
       ];
     }
@@ -339,6 +347,23 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
    */
   public function supportsNormalization($data, $format = NULL) : bool {
     return is_string($data);
+  }
+
+  /**
+   * Percent encode IIIF component.
+   */
+  private function encode(string $string) : string {
+    static $encoding = [
+      '%' => '%25',
+      '/' => '%2F',
+      '?' => '%3F',
+      '#' => '%23',
+      '[' => '%5B',
+      ']' => '%5D',
+      '@' => '%40',
+    ];
+
+    return str_replace(array_keys($encoding), array_values($encoding), $string);
   }
 
 }

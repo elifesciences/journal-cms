@@ -153,10 +153,10 @@ class JsonHtmlDeserializerTest extends TestCase {
             [
               'type' => 'image',
               'image' => [
-                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg',
                 'source' => [
                   'mediaType' => 'image/jpeg',
-                  'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg/full/full/0/default.jpg',
+                  'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg/full/full/0/default.jpg',
                   'filename' => 'image-20180427145110-1.jpeg',
                 ],
                 'size' => [
@@ -194,9 +194,49 @@ class JsonHtmlDeserializerTest extends TestCase {
           ],
         ],
       ],
+      'another image' => [
+        [
+          'content' => [
+            [
+              'type' => 'image',
+              'image' => [
+                'alt' => 'Software Preservation Workshop by eLife',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/content%2F2018-07%2F2018-07-11_ssi-software-preservation-workshop_elife_title.png',
+                'source' => [
+                  'mediaType' => 'image/jpeg',
+                  'uri' => 'https://iiif.elifesciences.org/journal-cms/content%2F2018-07%2F2018-07-11_ssi-software-preservation-workshop_elife_title.png/full/full/0/default.jpg',
+                  'filename' => '2018-07-11_ssi-software-preservation-workshop_elife_title.jpg',
+                ],
+                'size' => [
+                  'width' => 960,
+                  'height' => 720,
+                ],
+                'focalPoint' => [
+                  'x' => 50,
+                  'y' => 50,
+                ],
+              ],
+              'title' => 'The slides are available on <a href="https://docs.google.com/presentation/d/1XC-ATE-HuKL8WQkaAE54vsmA7xNL41WQq92gXT4FPaI/edit?usp=sharing">Google Slides</a> and Figshare with DOI: <a href="https://doi.org/10.6084/m9.figshare.6799097">10.6084/m9.figshare.6799097</a>.',
+            ],
+          ],
+        ],
+        $this->lines([
+          '<figure class="image align-center"><img alt="Software Preservation Workshop by eLife" data-fid="123" data-uuid="UUID" src="/sites/default/files/iiif/content/2018-07/2018-07-11_ssi-software-preservation-workshop_elife_title.png" width="960" height="720" />',
+          '<figcaption>The slides are available on <a href="https://docs.google.com/presentation/d/1XC-ATE-HuKL8WQkaAE54vsmA7xNL41WQq92gXT4FPaI/edit?usp=sharing">Google Slides</a> and Figshare with DOI: <a href="https://doi.org/10.6084/m9.figshare.6799097">10.6084/m9.figshare.6799097</a>.</figcaption>',
+          '</figure>',
+        ]),
+        [
+          'fids' => [
+            'public://iiif/content/2018-07/2018-07-11_ssi-software-preservation-workshop_elife_title.png' => [
+              'fid' => 123,
+              'src' => '/sites/default/files/iiif/content/2018-07/2018-07-11_ssi-software-preservation-workshop_elife_title.png',
+            ],
+          ],
+        ],
+      ],
       'figure' => [
-                [
-                  'content' => [
+        [
+          'content' => [
             [
               'type' => 'figure',
               'assets' => [
@@ -204,10 +244,10 @@ class JsonHtmlDeserializerTest extends TestCase {
                   'id' => 'image-1',
                   'type' => 'image',
                   'image' => [
-                    'uri' => 'https://prod--iiif.elifesciences.org/journal-cms:content/2017-08/2017_09_27_ecr_webinar_panellists_long.png',
+                    'uri' => 'https://prod--iiif.elifesciences.org/journal-cms/content%2F2017-08%2F2017_09_27_ecr_webinar_panellists_long.png',
                     'source' => [
                       'mediaType' => 'image/jpeg',
-                      'uri' => 'https://prod--iiif.elifesciences.org/journal-cms:content/2017-08/2017_09_27_ecr_webinar_panellists_long.png/full/full/0/default.jpg',
+                      'uri' => 'https://prod--iiif.elifesciences.org/journal-cms/content%2F2017-08%2F2017_09_27_ecr_webinar_panellists_long.png/full/full/0/default.jpg',
                       'filename' => '2017_09_27_ecr_webinar_panellists_long.jpg',
                     ],
                     'size' => [
@@ -227,8 +267,8 @@ class JsonHtmlDeserializerTest extends TestCase {
                 ],
               ],
             ],
-                  ],
-                ],
+          ],
+        ],
         $this->lines([
           '<figure class="image align-center"><img alt="" data-fid="123" data-uuid="UUID" src="/sites/default/files/iiif/content/2017-08/2017_09_27_ecr_webinar_panellists_long.png" width="4396" height="1397" />',
           '<figcaption>Building Connections and Developing Research in Sub-Saharan Africa Panellists. Building Connections and Developing Research in Sub-Saharan Africa chair and panellists. Image of Kevin Marsh is from https://www.ndm.ox.ac.uk/principal-investigators/researcher/kevin-marsh, image of Simon Kay is from http://www.malariaconsortium.org/board/trustees/47/simon-kay, image of Catherine Kyobutungi is from http://aphrc.org/post/team/catherine-kyobutungi.</figcaption>',
@@ -249,11 +289,11 @@ class JsonHtmlDeserializerTest extends TestCase {
             [
               'type' => 'image',
               'image' => [
-                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg',
                 'alt' => '',
                 'source' => [
                   'mediaType' => 'image/jpeg',
-                  'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180427145110-1.jpeg/full/full/0/default.jpg',
+                  'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg/full/full/0/default.jpg',
                   'filename' => 'image-20180427145110-1.jpeg',
                 ],
                 'size' => [
@@ -689,7 +729,7 @@ class JsonHtmlDeserializerTest extends TestCase {
             [
               'type' => 'image',
               'image' => [
-                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-1.jpg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-1.jpg',
               ],
             ],
             [
@@ -699,7 +739,7 @@ class JsonHtmlDeserializerTest extends TestCase {
             [
               'type' => 'image',
               'image' => [
-                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-2.jpg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-2.jpg',
               ],
             ],
           ],

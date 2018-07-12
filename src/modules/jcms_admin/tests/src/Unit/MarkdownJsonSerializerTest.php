@@ -124,11 +124,11 @@ class MarkdownJsonSerializerTest extends TestCase {
           [
             'type' => 'image',
             'image' => [
-              'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180501122413-1.jpeg',
+              'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180501122413-1.jpeg',
               'alt' => 'Alt text',
               'source' => [
                 'mediaType' => 'image/jpeg',
-                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180501122413-1.jpeg/full/full/0/default.jpg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180501122413-1.jpeg/full/full/0/default.jpg',
                 'filename' => 'image-20180501122413-1.jpeg',
               ],
               'size' => [
@@ -153,11 +153,11 @@ class MarkdownJsonSerializerTest extends TestCase {
           [
             'type' => 'image',
             'image' => [
-              'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180501122413-1.jpeg',
+              'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180501122413-1.jpeg',
               'alt' => 'Alt text',
               'source' => [
                 'mediaType' => 'image/jpeg',
-                'uri' => 'https://iiif.elifesciences.org/journal-cms:editor-images/image-20180501122413-1.jpeg/full/full/0/default.jpg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180501122413-1.jpeg/full/full/0/default.jpg',
                 'filename' => 'image-20180501122413-1.jpeg',
               ],
               'size' => [
