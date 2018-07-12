@@ -28,6 +28,186 @@
           "reference": "origin/master"
         }
       }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/autoembed",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/autoembed"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/autoembed/releases/autoembed_4.9.2.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/autolink",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/autolink"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/autolink/releases/autolink_4.9.2.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/balloonpanel",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/balloonpanel"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/balloonpanel/releases/balloonpanel_4.9.2.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/balloontoolbar",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/balloontoolbar"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/balloontoolbar/releases/balloontoolbar_4.9.2.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/embedbase",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/embedbase"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/embedbase/releases/embedbase_4.9.2.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/filetools",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/filetools"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/filetools/releases/filetools_4.9.2.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/notificationaggregator",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/notificationaggregator"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/notificationaggregator/releases/notificationaggregator_4.9.2.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/sharedspace",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/sharedspace"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/sharedspace/releases/sharedspace_4.9.2.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/undo",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/undo"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/undo/releases/undo_4.9.2.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/uploadimage",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/uploadimage"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/uploadimage/releases/uploadimage_4.9.2.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/uploadwidget",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/uploadwidget"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/uploadwidget/releases/uploadwidget_4.9.2.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/widget",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/widget"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/widget/releases/widget_4.9.2.zip",
+          "type": "zip"
+        }
+      }
     }
   ],
   "require": {
@@ -74,7 +254,25 @@
     "webmozart/path-util": "^2.3",
     "sebastian/version": "~1.0.6",
     "drupal/scheduler": "^1.0",
-    "zenorocha/clipboardjs": "^1.7"
+    "zenorocha/clipboardjs": "^1.7",
+    "league/commonmark": "^0.17.5",
+    "symfony/serializer": "^3.4",
+    "league/html-to-markdown": "^4.7",
+    "paquettg/php-html-parser": "^1.7",
+    "drupal/jsonapi": "^1.22",
+    "drupal/jsonapi_file": "1.x-dev",
+    "ckeditor/autoembed": "^4.9",
+    "ckeditor/autolink": "^4.9",
+    "ckeditor/balloonpanel": "^4.9",
+    "ckeditor/balloontoolbar": "^4.9",
+    "ckeditor/embedbase": "^4.9",
+    "ckeditor/filetools": "^4.9",
+    "ckeditor/notificationaggregator": "^4.9",
+    "ckeditor/sharedspace": "^4.9",
+    "ckeditor/undo": "^4.9",
+    "ckeditor/uploadimage": "^4.9",
+    "ckeditor/uploadwidget": "^4.9",
+    "ckeditor/widget": "^4.9"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",

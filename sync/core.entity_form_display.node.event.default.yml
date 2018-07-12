@@ -5,6 +5,12 @@ dependencies:
   config:
     - field.field.node.event.field_community_list
     - field.field.node.event.field_content
+    - field.field.node.event.field_content_html
+    - field.field.node.event.field_content_html_preview
+    - field.field.node.event.field_content_images
+    - field.field.node.event.field_content_images_preview
+    - field.field.node.event.field_content_json
+    - field.field.node.event.field_content_json_preview
     - field.field.node.event.field_content_processed_json
     - field.field.node.event.field_event_datetime
     - field.field.node.event.field_event_timezone
@@ -15,7 +21,7 @@ dependencies:
   module:
     - datetime_range
     - link
-    - paragraphs
+    - scheduler
     - text
 id: node.event.default
 targetEntityType: node
@@ -23,23 +29,11 @@ bundle: event
 mode: default
 content:
   field_community_list:
-    weight: 6
+    weight: 5
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
-    region: content
-  field_content:
-    weight: 5
-    settings:
-      title: 'Content item'
-      title_plural: 'Content items'
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
-    third_party_settings: {  }
-    type: entity_reference_paragraphs
     region: content
   field_event_datetime:
     weight: 2
@@ -71,18 +65,20 @@ content:
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 20
+    weight: 7
     region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 7
+    weight: 6
     third_party_settings: {  }
     region: content
   title:
@@ -95,12 +91,19 @@ content:
     region: content
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
+  field_content: true
+  field_content_html: true
+  field_content_html_preview: true
+  field_content_images: true
+  field_content_images_preview: true
+  field_content_json: true
+  field_content_json_preview: true
   field_content_processed_json: true
   field_order_date: true
   moderation_state: true

@@ -1,0 +1,59 @@
+uuid: a6184c12-5204-4e53-a411-ad36642516d2
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.interview.field_community_list
+    - field.field.node.interview.field_content
+    - field.field.node.interview.field_content_html
+    - field.field.node.interview.field_content_html_preview
+    - field.field.node.interview.field_content_images
+    - field.field.node.interview.field_content_images_preview
+    - field.field.node.interview.field_content_json
+    - field.field.node.interview.field_content_json_preview
+    - field.field.node.interview.field_content_processed_json
+    - field.field.node.interview.field_image
+    - field.field.node.interview.field_impact_statement
+    - field.field.node.interview.field_interview_cv
+    - field.field.node.interview.field_order_date
+    - field.field.node.interview.field_person_index_name
+    - field.field.node.interview.field_person_preferred_name
+    - node.type.interview
+  module:
+    - text
+    - user
+id: node.interview.full
+targetEntityType: node
+bundle: interview
+mode: full
+content:
+  field_content_html_preview:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_impact_statement:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden:
+  field_community_list: true
+  field_content: true
+  field_content_html: true
+  field_content_images: true
+  field_content_images_preview: true
+  field_content_json: true
+  field_content_json_preview: true
+  field_content_processed_json: true
+  field_image: true
+  field_interview_cv: true
+  field_order_date: true
+  field_person_index_name: true
+  field_person_preferred_name: true
+  links: true

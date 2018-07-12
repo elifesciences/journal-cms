@@ -1,0 +1,21 @@
+uuid: 985dfbe4-af8f-4769-bf8c-c5f29967664e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_html_preview
+    - node.type.event
+  module:
+    - text
+id: node.event.field_content_html_preview
+field_name: field_content_html_preview
+entity_type: node
+bundle: event
+label: 'Content (preview)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

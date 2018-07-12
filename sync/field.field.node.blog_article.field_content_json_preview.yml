@@ -1,0 +1,21 @@
+uuid: 5d806851-d065-4caa-af62-84da3a5e9572
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_json_preview
+    - node.type.blog_article
+  module:
+    - jsonb
+id: node.blog_article.field_content_json_preview
+field_name: field_content_json_preview
+entity_type: node
+bundle: blog_article
+label: 'Content (JSON preview)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json

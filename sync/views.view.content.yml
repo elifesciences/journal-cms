@@ -616,7 +616,7 @@ display:
         - user
         - 'user.node_grants:view'
         - user.permissions
-      max-age: 0
+      max-age: -1
       tags: {  }
   page_1:
     display_options:
@@ -648,5 +648,5 @@ display:
         - user
         - 'user.node_grants:view'
         - user.permissions
-      max-age: 0
+      max-age: -1
       tags: {  }

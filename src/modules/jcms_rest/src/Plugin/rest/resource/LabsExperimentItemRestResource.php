@@ -66,7 +66,12 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
           }
         }
 
-        $response['content'] = json_decode($node->get('field_content_processed_json')->getString());
+        if (!$this->viewUnpublished()) {
+          $response['content'] = json_decode($node->get('field_content_json')->getString());
+        }
+        else {
+          $response['content'] = json_decode($node->get('field_content_json_preview')->getString());
+        }
 
         $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
         $response->addCacheableDependency($node);

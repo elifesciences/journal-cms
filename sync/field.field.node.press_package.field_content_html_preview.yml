@@ -1,0 +1,21 @@
+uuid: a47d974b-6e4d-40c6-91de-8ad627b5228b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_html_preview
+    - node.type.press_package
+  module:
+    - text
+id: node.press_package.field_content_html_preview
+field_name: field_content_html_preview
+entity_type: node
+bundle: press_package
+label: 'Content (preview)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

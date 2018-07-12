@@ -5,6 +5,12 @@ dependencies:
   config:
     - field.field.node.interview.field_community_list
     - field.field.node.interview.field_content
+    - field.field.node.interview.field_content_html
+    - field.field.node.interview.field_content_html_preview
+    - field.field.node.interview.field_content_images
+    - field.field.node.interview.field_content_images_preview
+    - field.field.node.interview.field_content_json
+    - field.field.node.interview.field_content_json_preview
     - field.field.node.interview.field_content_processed_json
     - field.field.node.interview.field_image
     - field.field.node.interview.field_impact_statement
@@ -16,7 +22,7 @@ dependencies:
     - node.type.interview
   module:
     - focal_point
-    - paragraphs
+    - scheduler
     - text
 id: node.interview.default
 targetEntityType: node
@@ -24,23 +30,11 @@ bundle: interview
 mode: default
 content:
   field_community_list:
-    weight: 7
+    weight: 5
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
-    region: content
-  field_content:
-    weight: 5
-    settings:
-      title: 'Content item'
-      title_plural: 'Content items'
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
-    third_party_settings: {  }
-    type: entity_reference_paragraphs
     region: content
   field_image:
     weight: 2
@@ -60,18 +54,6 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_interview_cv:
-    type: entity_reference_paragraphs
-    weight: 6
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
-    third_party_settings: {  }
-    region: content
   field_person_index_name:
     weight: 1
     settings:
@@ -90,18 +72,20 @@ content:
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 20
+    weight: 7
     region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 8
+    weight: 6
     third_party_settings: {  }
     region: content
   title:
@@ -114,13 +98,21 @@ content:
     region: content
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
+  field_content: true
+  field_content_html: true
+  field_content_html_preview: true
+  field_content_images: true
+  field_content_images_preview: true
+  field_content_json: true
+  field_content_json_preview: true
   field_content_processed_json: true
+  field_interview_cv: true
   field_order_date: true
   moderation_state: true
   path: true

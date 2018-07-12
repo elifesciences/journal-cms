@@ -1,0 +1,11 @@
+{
+  "name": "drupal/jcms_admin",
+  "type": "drupal-module",
+  "license": "MIT",
+  "require": {
+    "league/commonmark": "^0.17.5",
+    "league/html-to-markdown": "^4.6",
+    "paquettg/php-html-parser": "^1.7",
+    "symfony/serializer": "^3.4"
+  }
+}

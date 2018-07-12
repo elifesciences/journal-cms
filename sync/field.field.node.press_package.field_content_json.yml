@@ -1,0 +1,21 @@
+uuid: 895ce08e-7e38-4152-bd07-918b70c8fd76
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_json
+    - node.type.press_package
+  module:
+    - jsonb
+id: node.press_package.field_content_json
+field_name: field_content_json
+entity_type: node
+bundle: press_package
+label: 'Content (JSON)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json

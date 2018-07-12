@@ -5,6 +5,12 @@ dependencies:
   config:
     - field.field.node.event.field_community_list
     - field.field.node.event.field_content
+    - field.field.node.event.field_content_html
+    - field.field.node.event.field_content_html_preview
+    - field.field.node.event.field_content_images
+    - field.field.node.event.field_content_images_preview
+    - field.field.node.event.field_content_json
+    - field.field.node.event.field_content_json_preview
     - field.field.node.event.field_content_processed_json
     - field.field.node.event.field_event_datetime
     - field.field.node.event.field_event_timezone
@@ -13,11 +19,6 @@ dependencies:
     - field.field.node.event.field_order_date
     - node.type.event
   module:
-    - datetime_range
-    - entity_reference_revisions
-    - jsonb
-    - link
-    - options
     - text
     - user
 id: node.event.default
@@ -25,79 +26,31 @@ targetEntityType: node
 bundle: event
 mode: default
 content:
-  field_community_list:
-    weight: 107
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
-  field_content:
-    weight: 102
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
-    region: content
-  field_content_processed_json:
-    weight: 110
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: jsonb_default
-    region: content
-  field_event_datetime:
-    weight: 103
-    label: above
-    settings:
-      separator: '-'
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: daterange_default
-    region: content
-  field_event_timezone:
-    weight: 106
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
-  field_event_uri:
-    weight: 108
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
-  field_impact_statement:
-    weight: 104
-    label: above
+  field_content_html_preview:
+    weight: 1
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
-  field_order_date:
-    weight: 109
-    label: above
-    settings:
-      date_format: medium
-      custom_date_format: ''
-      timezone: ''
+  field_impact_statement:
+    type: text_default
+    weight: 0
+    region: content
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
-    type: timestamp
-    region: content
-  links:
-    weight: 100
-    region: content
-hidden: {  }
+hidden:
+  field_community_list: true
+  field_content: true
+  field_content_html: true
+  field_content_images: true
+  field_content_images_preview: true
+  field_content_json: true
+  field_content_json_preview: true
+  field_content_processed_json: true
+  field_event_datetime: true
+  field_event_timezone: true
+  field_event_uri: true
+  field_order_date: true
+  links: true
