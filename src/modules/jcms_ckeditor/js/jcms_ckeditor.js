@@ -37,21 +37,24 @@
           return deletedIds;
         }
         
-        CKEDITOR.plugins.addExternal('imagealign', settings.pluginPath + 'imagealign/');
-        CKEDITOR.plugins.addExternal('elifebutton', settings.pluginPath + 'elifebutton/');
-        CKEDITOR.plugins.addExternal('embedbase', settings.pluginPath + 'embedbase/');
-        CKEDITOR.plugins.addExternal('embedvideo', settings.pluginPath + 'embedvideo/');
-        CKEDITOR.plugins.addExternal('captionedvideo', settings.pluginPath + 'captionedvideo/');
-        CKEDITOR.plugins.addExternal('balloonpanel', settings.pluginPath + 'balloonpanel/');
-        CKEDITOR.plugins.addExternal('balloontoolbar', settings.pluginPath + 'balloontoolbar/');
-        CKEDITOR.plugins.addExternal('autoembed', settings.pluginPath + 'autoembed/');
-        CKEDITOR.plugins.addExternal('filetools', settings.pluginPath + 'filetools/');
-        CKEDITOR.plugins.addExternal('notificationaggregator', settings.pluginPath + 'notificationaggregator/');
-        CKEDITOR.plugins.addExternal('uploadwidget', settings.pluginPath + 'uploadwidget/');
-        CKEDITOR.plugins.addExternal('uploadimage', settings.pluginPath + 'uploadimage/');
-        CKEDITOR.plugins.addExternal('autolink', settings.pluginPath + 'autolink/');
-        CKEDITOR.plugins.addExternal('undo', settings.pluginPath + 'undo/');
-        CKEDITOR.plugins.addExternal('sharedspace', settings.pluginPath + 'sharedspace/');
+        // Contrib plugins
+        CKEDITOR.plugins.addExternal('embedbase', settings.pluginPathContrib + 'embedbase/');
+        CKEDITOR.plugins.addExternal('embedvideo', settings.pluginPathContrib + 'embedvideo/');
+        CKEDITOR.plugins.addExternal('balloonpanel', settings.pluginPathContrib + 'balloonpanel/');
+        CKEDITOR.plugins.addExternal('balloontoolbar', settings.pluginPathContrib + 'balloontoolbar/');
+        CKEDITOR.plugins.addExternal('autoembed', settings.pluginPathContrib + 'autoembed/');
+        CKEDITOR.plugins.addExternal('filetools', settings.pluginPathContrib + 'filetools/');
+        CKEDITOR.plugins.addExternal('notificationaggregator', settings.pluginPathContrib + 'notificationaggregator/');
+        CKEDITOR.plugins.addExternal('uploadwidget', settings.pluginPathContrib + 'uploadwidget/');
+        CKEDITOR.plugins.addExternal('uploadimage', settings.pluginPathContrib + 'uploadimage/');
+        CKEDITOR.plugins.addExternal('autolink', settings.pluginPathContrib + 'autolink/');
+        CKEDITOR.plugins.addExternal('undo', settings.pluginPathContrib + 'undo/');
+        CKEDITOR.plugins.addExternal('sharedspace', settings.pluginPathContrib + 'sharedspace/');
+        
+        // Custom plugins
+        CKEDITOR.plugins.addExternal('imagealign', settings.pluginPathCustom + 'imagealign/');
+        CKEDITOR.plugins.addExternal('elifebutton', settings.pluginPathCustom + 'elifebutton/');
+        CKEDITOR.plugins.addExternal('captionedvideo', settings.pluginPathCustom + 'captionedvideo/');
         
         var $content = $(' .node__content .field--name-field-content-html-preview');
         
@@ -82,7 +85,7 @@
             {"name":"basicstyles","groups":["basicstyles"]},
             {"name":"links","groups":["links"]},
             {"name":"paragraph","groups":["list","blocks"]},
-            {"name":"document","groups":["mode"]},
+            //{"name":"document","groups":["mode"]},
             {"name":"insert","groups":["insert"]},
             {"name":"undo","groups":["undo"]},
             {"name": 'styles'}
