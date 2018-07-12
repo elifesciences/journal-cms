@@ -1,9 +1,14 @@
 <?php
 
 /**
- * Implements hook_theme_suggestions_HOOK_alter for blocks.
+ * @file
+ * Functions to support theming in the Plain Editor theme.
+ */
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
  *
- * Use base theme block templates
+ * Use base theme block templates.
  */
 function plain_editor_theme_suggestions_block_alter(&$suggestions, $variables) {
   // Load theme suggestions for blocks from parent theme.
