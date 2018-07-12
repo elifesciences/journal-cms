@@ -5,7 +5,6 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
-use Drupal\jcms_rest\Exception\JCMSBadRequestHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
@@ -42,7 +41,7 @@ class PersonListRestResource extends AbstractRestResourceBase {
     }
 
     $this->filterSubjects($base_query);
-    $this->filterType($base_query);
+    $this->filterTypes($base_query);
 
     $count_query = clone $base_query;
     $items_query = clone $base_query;
@@ -102,18 +101,10 @@ class PersonListRestResource extends AbstractRestResourceBase {
   /**
    * Apply filter for type by amending query.
    */
-  protected function filterType(QueryInterface &$query) {
-    $type = $this->getRequestOption('type');
-    if (!is_null($type)) {
-      $entityManager = \Drupal::service('entity_field.manager');
-      $fields = $entityManager->getFieldStorageDefinitions('node', 'person');
-      $options = options_allowed_values($fields['field_person_type']);
-      if (!in_array($type, array_keys($options))) {
-        throw new JCMSBadRequestHttpException(t('Invalid type'));
-      }
-      else {
-        $query->condition('field_person_type.value', $type);
-      }
+  protected function filterTypes(QueryInterface &$query) {
+    $types = (array) $this->getRequestOption('type');
+    if (!empty($types)) {
+      $query->condition('field_person_type.value', $types, 'IN');
     }
   }
 
