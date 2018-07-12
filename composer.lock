@@ -2203,16 +2203,16 @@
         },
         {
             "name": "drupal/core",
-            "version": "8.5.3",
+            "version": "8.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "b012f0ae51504880e920f2c6efdbdf03b6fe2129"
+                "reference": "6b4dc1cf3347761f63152a31786b4680b8ac7781"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core/zipball/b012f0ae51504880e920f2c6efdbdf03b6fe2129",
-                "reference": "b012f0ae51504880e920f2c6efdbdf03b6fe2129",
+                "url": "https://api.github.com/repos/drupal/core/zipball/6b4dc1cf3347761f63152a31786b4680b8ac7781",
+                "reference": "6b4dc1cf3347761f63152a31786b4680b8ac7781",
                 "shasum": ""
             },
             "require": {
@@ -2416,7 +2416,6 @@
                     "View output is not used for autocomplete display (2174633)": "https://www.drupal.org/files/issues/2174633-198.patch",
                     "Use new Transliteration functionality in core for file names (2492171)": "https://www.drupal.org/files/issues/use_new_transliteration-2492171-51.patch",
                     "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/move_permission_view-273595-129.patch",
-                    "NegotiationMiddleware calls $request->setRequestFormat('html') when there is no _format request parameter, but shouldn't (2854543)": "https://www.drupal.org/files/issues/2018-04-23/2854543-72-PASS--51_plus_test_plus_67.patch",
                     "Temporary fix for \\Drupal\\Core\\Field\\FieldItemList::generateSampleItems (2905527)": "src/patches/2905527-temporary-fix-generate-sample-items.patch"
                 }
             },
@@ -2441,7 +2440,7 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
-            "time": "2018-04-25T15:39:01+00:00"
+            "time": "2018-06-06T21:02:51+00:00"
         },
         {
             "name": "drupal/country",
