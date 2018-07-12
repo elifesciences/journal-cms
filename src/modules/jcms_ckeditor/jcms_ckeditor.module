@@ -28,6 +28,14 @@ function jcms_ckeditor_page_attachments(array &$attachments) {
     $attachments['#attached']['drupalSettings']['pluginPathContrib'] = '/libraries/ckeditor/plugins/';
     $attachments['#attached']['drupalSettings']['pluginPathCustom'] = '/' . drupal_get_path('module', 'jcms_ckeditor') . '/ckeditor/plugins/';
     $attachments['#attached']['drupalSettings']['placeholder'] = t('Type something here ...');
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof \Drupal\node\NodeInterface && $node->hasField('field_content_images_preview')) {
+      $bundle_fields = \Drupal::getContainer()->get('entity_field.manager')->getFieldDefinitions('node', $node->bundle());
+      $field_definition = $bundle_fields['field_content_images_preview'];
+      $file_directory = $field_definition->getSetting('file_directory');
+      $token_service = \Drupal::service('token');
+      $attachments['#attached']['drupalSettings']['imageFileDirectory'] = $token_service->replace($file_directory);
+    }
   }
 }
 
