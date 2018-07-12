@@ -21,8 +21,6 @@ dependencies:
     - node.type.blog_article
   module:
     - focal_point
-    - jsonb
-    - paragraphs
     - scheduler
     - text
 id: node.blog_article.default
@@ -31,55 +29,11 @@ bundle: blog_article
 mode: default
 content:
   field_community_list:
-    weight: 6
+    weight: 5
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
-    region: content
-  field_content:
-    weight: 4
-    settings:
-      title: 'Content item'
-      title_plural: 'Content items'
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: _none
-    third_party_settings: {  }
-    type: entity_reference_paragraphs
-    region: content
-  field_content_html:
-    type: text_textarea
-    weight: 11
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_content_html_preview:
-    type: text_textarea
-    weight: 13
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_content_json:
-    weight: 12
-    settings:
-      rows: '5'
-      placeholder: ''
-    third_party_settings: {  }
-    type: jsonb_textarea
-    region: content
-  field_content_json_preview:
-    weight: 14
-    settings:
-      rows: '5'
-      placeholder: ''
-    third_party_settings: {  }
-    type: jsonb_textarea
     region: content
   field_image:
     weight: 1
@@ -108,7 +62,7 @@ content:
     type: text_textarea
     region: content
   field_subjects:
-    weight: 5
+    weight: 4
     settings:
       match_operator: CONTAINS
       size: 60
@@ -118,12 +72,12 @@ content:
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 9
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 8
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -131,7 +85,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 7
+    weight: 6
     third_party_settings: {  }
     region: content
   title:
@@ -144,14 +98,19 @@ content:
     region: content
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 10
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
+  field_content: true
+  field_content_html: true
+  field_content_html_preview: true
   field_content_images: true
   field_content_images_preview: true
+  field_content_json: true
+  field_content_json_preview: true
   field_content_processed_json: true
   field_order_date: true
   moderation_state: true

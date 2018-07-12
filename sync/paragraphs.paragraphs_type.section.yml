@@ -5,5 +5,4 @@ dependencies: {  }
 id: section
 label: Section
 icon_uuid: null
-description: null
 behavior_plugins: {  }

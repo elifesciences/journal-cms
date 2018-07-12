@@ -1,0 +1,130 @@
+<?php
+
+/**
+ * @file
+ * JCMS CKEditor module file.
+ */
+
+use Drupal\Core\Breadcrumb\Breadcrumb;
+use Drupal\Core\Link;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\block\Entity\Block;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Access\AccessResult;
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Add inline editor libraries on all pages.
+ *
+ * @TODO: We could limit this to just node view pages
+ */
+function jcms_ckeditor_page_attachments(array &$attachments) {
+  $current_theme = \Drupal::theme()->getActiveTheme()->getName();
+  $default_theme = $config = \Drupal::config('system.theme')->get('default');
+  if (\Drupal::currentUser()->hasPermission('use inline editor') && $current_theme == $default_theme) {
+    $attachments['#attached']['library'][] = 'jcms_ckeditor/jcms_ckeditor';
+    $attachments['#attached']['drupalSettings']['pluginPathContrib'] = '/libraries/ckeditor/plugins/';
+    $attachments['#attached']['drupalSettings']['pluginPathCustom'] = '/' . drupal_get_path('module', 'jcms_ckeditor') . '/ckeditor/plugins/';
+    $attachments['#attached']['drupalSettings']['placeholder'] = t('Type something here ...');
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ *
+ * Add data fields to body tag so editor can find UUID and node type.
+ */
+function jcms_ckeditor_preprocess_html(array &$variables) {
+  $route = \Drupal::service('current_route_match');
+  if ($route->getRouteName() == 'entity.node.canonical') {
+    $node = $route->getParameter('node');
+    $node_type = $node->getType();
+    $variables['attributes']['data-uuid'] = $node->uuid();
+    $variables['attributes']['data-node-type'] = $node_type;
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ *
+ * For images save width and height in attached fields.
+ * For nodes to be edited make sure the display field and body field are
+ * not empty but content placeholders.
+ */
+function jcms_ckeditor_entity_presave(EntityInterface $entity) {
+  if ($entity->getEntityType()->id() == 'file' && strpos($entity->getMimeType(), 'image') === 0) {
+    // Save width and height in image fields so they are available to editor.
+    $uri = $entity->getFileUri();
+    $image = \Drupal::service('image.factory')->get($uri);
+    $entity->field_image_width = $image->getWidth();
+    $entity->field_image_height = $image->getHeight();
+  }
+  elseif ($entity->getEntityType()->id() == 'node') {
+    // Make body fields have placeholder set.
+    if ($entity->hasField('field_content_html_preview') && $entity->get('field_content_html_preview')->isEmpty()) {
+      $placeholder = t('Type something here ...');
+      $entity->field_content_html_preview->value = '<placeholder>' . $placeholder . '</placeholder>';
+      $entity->field_content_html_preview->format = 'basic_html';
+    }
+  }
+}
+
+/**
+ * Implements hook_block_access().
+ *
+ * Do not show tabs on node view page if user using inline editor.
+ */
+function jcms_ckeditor_block_access(Block $block, string $operation, AccountInterface $account) {
+  if ($operation == 'view' && $block->getPluginId() == 'local_tasks_block') {
+    $route = \Drupal::service('current_route_match');
+    if ($route->getRouteName() == 'entity.node.canonical') {
+      /** @var \Drupal\node\NodeInterface $node */
+      $node = $route->getParameter('node');
+      if ($node->hasField('field_content_html_preview') && \Drupal::currentUser()->hasPermission('use inline editor')) {
+        return AccessResult::forbidden()->cachePerPermissions();
+      }
+    }
+  }
+  return AccessResult::neutral()->cachePerPermissions();
+}
+
+/**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function jcms_ckeditor_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
+  if ($breadcrumb) {
+    $node = \Drupal::request()->get('node');
+    $types = ['article'];
+    $request = \Drupal::request();
+
+    // If the node is a type with no menu placement, attach a breadcrumb.
+    if ($node && in_array($node->bundle(), $types) && !\Drupal::service('router.admin_context')->isAdminRoute()) {
+      $breadcrumb->addLink(Link::createFromRoute(t('Create post'), 'entity.node.edit_form', ['node' => $node->id()]));
+      $breadcrumb->addLink(Link::createFromRoute(t('Editor'), '<nolink>'));
+
+      $breadcrumb->addCacheTags(['node:' . $node->id()]);
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_node_alter().
+ *
+ * Allow for toolbar on editable node views.
+ */
+function jcms_ckeditor_theme_suggestions_node_alter(&$suggestions, $variables) {
+  if (isset($variables['elements']['#node']) && isset($variables['elements']['#view_mode']) && $variables['elements']['#view_mode'] == 'full') {
+    $type = $variables['elements']['#node']->bundle();
+    if (in_array($type, [
+      'blog_article',
+      'event',
+      'interview',
+      'labs_experiment',
+      'press_package',
+    ])) {
+      array_splice($suggestions, 1, 0, 'node__editable');
+    }
+  }
+}

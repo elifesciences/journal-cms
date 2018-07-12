@@ -1,0 +1,22 @@
+uuid: ae092168-3135-444a-bba0-79df07dd7258
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - plain_editor
+_core:
+  default_config_hash: 9EoWV2Lot6FVSr50t4hoKgiz1LIXYWNG-IIPYsWxBqo
+id: plain_editor_content
+theme: plain_editor
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

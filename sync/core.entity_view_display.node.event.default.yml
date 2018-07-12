@@ -28,7 +28,7 @@ mode: default
 content:
   field_content_html_preview:
     weight: 1
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
@@ -37,7 +37,7 @@ content:
     type: text_default
     weight: 0
     region: content
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
 hidden:

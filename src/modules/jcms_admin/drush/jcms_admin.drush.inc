@@ -147,17 +147,11 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
         'value' => $new_html,
         'format' => 'full_html',
       ]);
-      $node->set('field_content_json', [
-        'value' => json_encode($normalizer->normalize($new_html, NULL, $normalizer_context)),
-      ]);
 
       $preview_html = $denormalizer->denormalize($data, Model::class, NULL, ['fids' => $preview_fids]);
       $node->set('field_content_html_preview', [
         'value' => $preview_html,
         'format' => 'full_html',
-      ]);
-      $node->set('field_content_json_preview', [
-        'value' => json_encode($normalizer->normalize($preview_html, NULL, $normalizer_context)),
       ]);
 
       drush_print(dt('Processed :num of :total (:nid).', [

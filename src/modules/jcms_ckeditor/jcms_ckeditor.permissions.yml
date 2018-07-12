@@ -1,0 +1,6 @@
+use inline editor:
+  title: 'Use the inline editor'
+  description: 'Use the inline editor on node view page and hide WYSIWYG on node edit form.'
+show wysiwyg editor:
+  title: 'Show WYSIWYG editor'
+  description: 'Show WYSIWYG editor on node create and edit forms if hidden by use of inline editor.'

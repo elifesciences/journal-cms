@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "be0d63c6ab7e87ef176239387cd149fb",
+    "content-hash": "018beb8c38c10c5d6bfb46fe4063fdd7",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -312,6 +312,174 @@
                 "html"
             ],
             "time": "2018-01-06T17:58:46+00:00"
+        },
+        {
+            "name": "ckeditor/autoembed",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/autoembed/releases/autoembed_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/autoembed"
+            }
+        },
+        {
+            "name": "ckeditor/autolink",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/autolink/releases/autolink_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/autolink"
+            }
+        },
+        {
+            "name": "ckeditor/balloonpanel",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/balloonpanel/releases/balloonpanel_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/balloonpanel"
+            }
+        },
+        {
+            "name": "ckeditor/balloontoolbar",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/balloontoolbar/releases/balloontoolbar_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/balloontoolbar"
+            }
+        },
+        {
+            "name": "ckeditor/embedbase",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/embedbase/releases/embedbase_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/embedbase"
+            }
+        },
+        {
+            "name": "ckeditor/filetools",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/filetools/releases/filetools_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/filetools"
+            }
+        },
+        {
+            "name": "ckeditor/notificationaggregator",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/notificationaggregator/releases/notificationaggregator_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/notificationaggregator"
+            }
+        },
+        {
+            "name": "ckeditor/sharedspace",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/sharedspace/releases/sharedspace_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/sharedspace"
+            }
+        },
+        {
+            "name": "ckeditor/undo",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/undo/releases/undo_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/undo"
+            }
+        },
+        {
+            "name": "ckeditor/uploadimage",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/uploadimage/releases/uploadimage_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/uploadimage"
+            }
+        },
+        {
+            "name": "ckeditor/uploadwidget",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/uploadwidget/releases/uploadwidget_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/uploadwidget"
+            }
+        },
+        {
+            "name": "ckeditor/widget",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/widget/releases/widget_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/widget"
+            }
         },
         {
             "name": "commerceguys/addressing",
@@ -3139,6 +3307,121 @@
             }
         },
         {
+            "name": "drupal/file_entity",
+            "version": "2.0.0-beta6",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/file_entity",
+                "reference": "8.x-2.0-beta6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/file_entity-8.x-2.0-beta6.zip",
+                "reference": "8.x-2.0-beta6",
+                "shasum": "f39fbb263528bff7442fbe9651a0124a0c7d20b4"
+            },
+            "require": {
+                "drupal/core": "*",
+                "drupal/token": "*"
+            },
+            "require-dev": {
+                "drupal/pathauto": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.0-beta6",
+                    "datestamp": "1522617782",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Berdir",
+                    "homepage": "https://www.drupal.org/user/214652"
+                },
+                {
+                    "name": "DamienMcKenna",
+                    "homepage": "https://www.drupal.org/user/108450"
+                },
+                {
+                    "name": "Dave Reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                },
+                {
+                    "name": "Devin Carlson",
+                    "homepage": "https://www.drupal.org/user/290182"
+                },
+                {
+                    "name": "Drupal Media Team",
+                    "homepage": "https://www.drupal.org/user/3260690"
+                },
+                {
+                    "name": "Drupal media CI",
+                    "homepage": "https://www.drupal.org/user/3057985"
+                },
+                {
+                    "name": "JacobSingh",
+                    "homepage": "https://www.drupal.org/user/68912"
+                },
+                {
+                    "name": "JeffM2001",
+                    "homepage": "https://www.drupal.org/user/262092"
+                },
+                {
+                    "name": "ParisLiakos",
+                    "homepage": "https://www.drupal.org/user/1011436"
+                },
+                {
+                    "name": "aaron",
+                    "homepage": "https://www.drupal.org/user/33420"
+                },
+                {
+                    "name": "arthurf",
+                    "homepage": "https://www.drupal.org/user/27259"
+                },
+                {
+                    "name": "dsnopek",
+                    "homepage": "https://www.drupal.org/user/266527"
+                },
+                {
+                    "name": "effulgentsia",
+                    "homepage": "https://www.drupal.org/user/78040"
+                },
+                {
+                    "name": "joseph.olstad",
+                    "homepage": "https://www.drupal.org/user/1321830"
+                },
+                {
+                    "name": "mpotter",
+                    "homepage": "https://www.drupal.org/user/616192"
+                },
+                {
+                    "name": "robeano",
+                    "homepage": "https://www.drupal.org/user/67660"
+                },
+                {
+                    "name": "slashrsm",
+                    "homepage": "https://www.drupal.org/user/744628"
+                }
+            ],
+            "description": "Extends Drupal file entities to be fieldable and viewable.",
+            "homepage": "https://www.drupal.org/project/file_entity",
+            "support": {
+                "source": "http://cgit.drupalcode.org/file_entity"
+            }
+        },
+        {
             "name": "drupal/focal_point",
             "version": "1.0.0-beta6",
             "source": {
@@ -3257,6 +3540,118 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/inline_entity_form"
             }
+        },
+        {
+            "name": "drupal/jsonapi",
+            "version": "1.22.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/jsonapi",
+                "reference": "8.x-1.22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/jsonapi-8.x-1.22.zip",
+                "reference": "8.x-1.22",
+                "shasum": "baea993454ef34a06db7caba8da77a35934efec6"
+            },
+            "require": {
+                "drupal/core": "^8.4.3"
+            },
+            "require-dev": {
+                "drupal/schemata": "1.x-dev#8325d172e1d6880aa24073f8f751ef089282cf9a",
+                "drupal/schemata_json_schema": "*",
+                "justinrainbow/json-schema": "^5.2"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.22",
+                    "datestamp": "1530258091",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Wim Leers",
+                    "homepage": "https://www.drupal.org/user/99777"
+                },
+                {
+                    "name": "dawehner",
+                    "homepage": "https://www.drupal.org/user/99340"
+                },
+                {
+                    "name": "e0ipso",
+                    "homepage": "https://www.drupal.org/user/550110"
+                },
+                {
+                    "name": "gabesullice",
+                    "homepage": "https://www.drupal.org/user/2287430"
+                }
+            ],
+            "description": "Provides a JSON API standards-compliant API for accessing and manipulating Drupal content and configuration entities.",
+            "homepage": "https://www.drupal.org/project/jsonapi",
+            "support": {
+                "source": "http://cgit.drupalcode.org/jsonapi"
+            }
+        },
+        {
+            "name": "drupal/jsonapi_file",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/jsonapi_file",
+                "reference": "5ecdff769cd975697136c0a19bfbe087d23fe87d"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/file_entity": "*",
+                "drupal/jsonapi": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.1+2-dev",
+                    "datestamp": "1524914284",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Spleshka",
+                    "homepage": "https://www.drupal.org/user/810676"
+                },
+                {
+                    "name": "e0ipso",
+                    "homepage": "https://www.drupal.org/user/550110"
+                }
+            ],
+            "description": "Provides enhanced integration with files for JSON API.",
+            "homepage": "https://www.drupal.org/project/jsonapi_file",
+            "support": {
+                "source": "http://cgit.drupalcode.org/jsonapi_file"
+            },
+            "time": "2018-04-29T09:07:09+00:00"
         },
         {
             "name": "drupal/jsonb",
@@ -3860,6 +4255,73 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/services",
                 "issues": "https://www.drupal.org/project/issues/services"
+            }
+        },
+        {
+            "name": "drupal/token",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/token",
+                "reference": "8.x-1.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/token-8.x-1.3.zip",
+                "reference": "8.x-1.3",
+                "shasum": "360f4f16985a2005b1ab5d8a8628b73a5012c902"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.3",
+                    "datestamp": "1527232684",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Berdir",
+                    "homepage": "https://www.drupal.org/user/214652"
+                },
+                {
+                    "name": "Dave Reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                },
+                {
+                    "name": "eaton",
+                    "homepage": "https://www.drupal.org/user/16496"
+                },
+                {
+                    "name": "fago",
+                    "homepage": "https://www.drupal.org/user/16747"
+                },
+                {
+                    "name": "greggles",
+                    "homepage": "https://www.drupal.org/user/36762"
+                },
+                {
+                    "name": "mikeryan",
+                    "homepage": "https://www.drupal.org/user/4420"
+                }
+            ],
+            "description": "Provides a user interface for the Token API and some missing core tokens.",
+            "homepage": "https://www.drupal.org/project/token",
+            "support": {
+                "source": "http://cgit.drupalcode.org/token"
             }
         },
         {
@@ -10515,6 +10977,7 @@
         "drupal/monolog": 15,
         "drupal/country": 10,
         "drupal/entity_reference_unpublished": 15,
+        "drupal/jsonapi_file": 20,
         "elife/api": 20,
         "elife/api-validator": 20
     },

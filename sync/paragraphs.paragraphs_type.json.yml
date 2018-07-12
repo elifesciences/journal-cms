@@ -5,5 +5,4 @@ dependencies: {  }
 id: json
 label: JSON
 icon_uuid: null
-description: null
 behavior_plugins: {  }
