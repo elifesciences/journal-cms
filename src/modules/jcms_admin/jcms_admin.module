@@ -14,6 +14,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\entityqueue\Entity\EntitySubqueue;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Drush\Log\LogLevel;
 use Embed\Embed;
 
@@ -608,4 +609,68 @@ function jcms_admin_theme($existing, $type, $theme, $path) {
       ],
     ],
   ];
+}
+
+/**
+ * Transfer HTML from content to content preview or vice versa.
+ */
+function _jcms_admin_transfer_content(NodeInterface $node, $to_live = TRUE) {
+  if ($node->hasField('field_content_json') && $node->hasField('field_content_json_preview')) {
+    if ($to_live) {
+      $from_html = _jcms_admin_field_value_clean($node->get('field_content_html_preview'));
+      $from_images = $node->get('field_content_images_preview')->referencedEntities();
+      $to_html_field = 'field_content_html';
+      $to_image_field = 'field_content_images';
+    }
+    else {
+      $from_html = _jcms_admin_field_value_clean($node->get('field_content_html'));
+      $from_images = $node->get('field_content_images')->referencedEntities();
+      $to_html_field = 'field_content_html_preview';
+      $to_image_field = 'field_content_images_preview';
+    }
+
+    $to_fids = [];
+    $fids = [];
+    /** @var \Drupal\file\FileInterface $image */
+    foreach ($from_images as $image) {
+      $from_fid = $image->id();
+      $new_image_uri = preg_replace('~(/[a-z+\-]+\-)(content|preview)/~', '$1' . ($to_live ? 'content' : 'preview') . '/', $image->getFileUri());
+      file_prepare_directory(\Drupal::service('file_system')->dirname($new_image_uri), FILE_CREATE_DIRECTORY);
+      $new_image = file_copy($image, $new_image_uri, FILE_EXISTS_RENAME);
+      $new_image->save();
+      $to_fids[] = ['target_id' => $new_image->id()];
+      $fids[$from_fid] = [
+        'fid' => $new_image->id(),
+        'uuid' => $new_image->uuid(),
+        'src' => file_url_transform_relative(file_create_url($new_image->getFileUri())),
+      ];
+    }
+
+    $to_html = preg_replace_callback('~<img [^>]*data-fid=\"(?P<fid>[^\"]+)\"[^>]+>~', function ($match) use ($fids) {
+      if (!empty($fids[$match['fid']])) {
+        $new = $fids[$match['fid']];
+        $pattern = [
+          '~ data-fid="[^\"]+\"~',
+          '~ data-uuid="[^\"]+\"~',
+          '~ src="[^\"]+\"~',
+        ];
+        $replacement = [
+          ' data-fid="' . $new['fid'] . '"',
+          ' data-uuid="' . $new['uuid'] . '"',
+          ' src="' . $new['src'] . '"',
+        ];
+        return preg_replace($pattern, $replacement, $match[0]);
+      }
+      else {
+        return $match[0];
+      }
+    }, $from_html);
+
+    $node->set($to_image_field, $to_fids);
+    $node->set($to_html_field, [
+      'value' => $to_html,
+      'format' => 'full_html',
+    ]);
+    $node->save();
+  }
 }

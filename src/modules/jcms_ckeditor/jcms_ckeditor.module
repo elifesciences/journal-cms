@@ -5,6 +5,7 @@
  * JCMS CKEditor module file.
  */
 
+use Drupal\node\NodeInterface;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -29,7 +30,7 @@ function jcms_ckeditor_page_attachments(array &$attachments) {
     $attachments['#attached']['drupalSettings']['pluginPathCustom'] = '/' . drupal_get_path('module', 'jcms_ckeditor') . '/ckeditor/plugins/';
     $attachments['#attached']['drupalSettings']['placeholder'] = t('Type something here ...');
     $node = \Drupal::routeMatch()->getParameter('node');
-    if ($node instanceof \Drupal\node\NodeInterface && $node->hasField('field_content_images_preview')) {
+    if ($node instanceof NodeInterface && $node->hasField('field_content_images_preview')) {
       $bundle_fields = \Drupal::getContainer()->get('entity_field.manager')->getFieldDefinitions('node', $node->bundle());
       $field_definition = $bundle_fields['field_content_images_preview'];
       $file_directory = $field_definition->getSetting('file_directory');

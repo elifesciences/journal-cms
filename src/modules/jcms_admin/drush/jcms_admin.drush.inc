@@ -6,7 +6,6 @@
  */
 
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Site\Settings;
 use Drupal\file\Entity\File;
 use Drupal\node\Entity\Node;
 use eLife\ApiSdk\Model\Model;
@@ -27,10 +26,33 @@ function jcms_admin_drush_command() {
         'skip-completed' => 'Skip completed (default: false)',
       ],
       'examples' => [
-        'drush son-html-migrate blog_article' => 'Migrate all blog_article content blocks to single ckeditor field.',
+        'drush json-html-migrate blog_article' => 'Migrate all blog_article content blocks to single ckeditor field.',
+      ],
+    ],
+    'jcms-transfer-content' => [
+      'description' => 'Transfer HTML from content to content preview or vice versa.',
+      'drupal dependencies' => ['jcms_admin'],
+      'arguments' => [
+        'id' => 'Node id of content to perform transfer.',
+      ],
+      'options' => [
+        'to-live' => 'Transfer from preview to live (default: true).',
+      ],
+      'examples' => [
+        'drush jcms-transfer-content 123' => 'Transfer HTML from content to content preview for node with ID 123.',
       ],
     ],
   ];
+}
+
+/**
+ * Callback function drush_jcms_migrate_jcms_transfer_content().
+ */
+function drush_jcms_migrate_jcms_transfer_content(int $nid) {
+  $to_live = ((int) drush_get_option('to-live', 1)) === 0 ? FALSE : TRUE;
+  $node = Node::load($nid);
+  _jcms_admin_transfer_content($node, $to_live);
+  drush_print(dt('Transfer complete!'));
 }
 
 /**
@@ -40,7 +62,6 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
   $limit = drush_get_option('limit') ? (int) drush_get_option('limit') : 0;
   $skip_completed = drush_get_option('skip-completed') ? TRUE : FALSE;
   $denormalizer = \Drupal::service('jcms_admin.json_html_denormalizer');
-  $normalizer = \Drupal::service('jcms_admin.html_json_normalizer');
   $new_fids = [];
   $preview_fids = [];
   $folders = [
