@@ -244,6 +244,41 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
       $form['#validate'][] = '_jcms_admin_form_node_highlight_list_form_validate';
       break;
   }
+
+  if (in_array($form_id, [
+    'node_blog_article_edit_form',
+    'node_event_edit_form',
+    'node_interview_edit_form',
+    'node_labs_experiment_edit_form',
+    'node_blog_article_edit_form',
+  ])) {
+    $max_weight = 0;
+    foreach ($form as $key => $value) {
+      $value = (array) $value;
+      if (!empty($value['#weight'])) {
+        $max_weight = max($max_weight, $value['#weight']);
+      }
+    }
+
+    $form['ckeditor_transfer_content'] = [
+      '#title' => t('Transfer preview content'),
+      '#type' => 'checkbox',
+      '#default_value' => FALSE,
+      '#weight' => ++$max_weight,
+    ];
+    foreach (array_keys($form['actions']) as $action) {
+      if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+        array_unshift($form['actions'][$action]['#submit'], '_jcms_admin_form_ckeditor_form_submit');
+      }
+    }
+  }
+}
+
+/**
+ * Submit function for node edit forms with inline ckeditor.
+ */
+function _jcms_admin_form_ckeditor_form_submit($form, FormStateInterface $form_state) {
+  _jcms_admin_static_store('ckeditor_transfer_content_' . $form_state->getFormObject()->getEntity()->id(), $form_state->getValue('ckeditor_transfer_content', 0));
 }
 
 /**
@@ -345,7 +380,7 @@ function _jcms_admin_form_node_article_form_validate($form, FormStateInterface $
  * @return bool
  *   True if unique.
  */
-function _jcms_admin_node_title_unique(string $title, Node $node, $content_type = NULL) {
+function _jcms_admin_node_title_unique(string $title, NodeInterface $node, $content_type = NULL) {
   $properties = ['title' => $title];
   if (is_string($content_type)) {
     $properties['type'] = $content_type;
@@ -511,7 +546,7 @@ function jcms_admin_node_insert(EntityInterface $entity) {
 /**
  * Implements hook_node_presave().
  */
-function jcms_admin_node_presave(Node $node) {
+function jcms_admin_node_presave(NodeInterface $node) {
   if ($node->bundle() != 'article') {
     $node->set('field_order_date', $node->getCreatedTime());
   }
@@ -534,6 +569,9 @@ function jcms_admin_node_presave(Node $node) {
     $normalizer_context = [];
     if ($iiif = Settings::get('jcms_iiif_base_uri')) {
       $normalizer_context['iiif'] = $iiif;
+    }
+    if (_jcms_admin_static_store('ckeditor_transfer_content_' . $node->id())) {
+      _jcms_admin_transfer_content($node);
     }
     $html = _jcms_admin_field_value_clean($node->get('field_content_html'));
     $preview = _jcms_admin_field_value_clean($node->get('field_content_html_preview'));
@@ -614,7 +652,7 @@ function jcms_admin_theme($existing, $type, $theme, $path) {
 /**
  * Transfer HTML from content to content preview or vice versa.
  */
-function _jcms_admin_transfer_content(NodeInterface $node, $to_live = TRUE) {
+function _jcms_admin_transfer_content(NodeInterface &$node, $to_live = TRUE, $save = FALSE) {
   if ($node->hasField('field_content_json') && $node->hasField('field_content_json_preview')) {
     if ($to_live) {
       $from_html = _jcms_admin_field_value_clean($node->get('field_content_html_preview'));
@@ -635,7 +673,8 @@ function _jcms_admin_transfer_content(NodeInterface $node, $to_live = TRUE) {
     foreach ($from_images as $image) {
       $from_fid = $image->id();
       $new_image_uri = preg_replace('~(/[a-z+\-]+\-)(content|preview)/~', '$1' . ($to_live ? 'content' : 'preview') . '/', $image->getFileUri());
-      file_prepare_directory(\Drupal::service('file_system')->dirname($new_image_uri), FILE_CREATE_DIRECTORY);
+      $directory = \Drupal::service('file_system')->dirname($new_image_uri);
+      file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
       $new_image = file_copy($image, $new_image_uri, FILE_EXISTS_RENAME);
       $new_image->save();
       $to_fids[] = ['target_id' => $new_image->id()];
@@ -669,8 +708,10 @@ function _jcms_admin_transfer_content(NodeInterface $node, $to_live = TRUE) {
     $node->set($to_image_field, $to_fids);
     $node->set($to_html_field, [
       'value' => $to_html,
-      'format' => 'full_html',
+      'format' => 'ckeditor_html',
     ]);
-    $node->save();
+    if ($save) {
+      $node->save();
+    }
   }
 }

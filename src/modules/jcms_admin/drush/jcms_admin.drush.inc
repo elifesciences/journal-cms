@@ -51,7 +51,7 @@ function jcms_admin_drush_command() {
 function drush_jcms_migrate_jcms_transfer_content(int $nid) {
   $to_live = ((int) drush_get_option('to-live', 1)) === 0 ? FALSE : TRUE;
   $node = Node::load($nid);
-  _jcms_admin_transfer_content($node, $to_live);
+  _jcms_admin_transfer_content($node, $to_live, TRUE);
   drush_print(dt('Transfer complete!'));
 }
 
@@ -166,13 +166,13 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
       $new_html = $denormalizer->denormalize($data, Model::class, NULL, ['fids' => $new_fids]);
       $node->set('field_content_html', [
         'value' => $new_html,
-        'format' => 'full_html',
+        'format' => 'ckeditor_html',
       ]);
 
       $preview_html = $denormalizer->denormalize($data, Model::class, NULL, ['fids' => $preview_fids]);
       $node->set('field_content_html_preview', [
         'value' => $preview_html,
-        'format' => 'full_html',
+        'format' => 'ckeditor_html',
       ]);
 
       drush_print(dt('Processed :num of :total (:nid).', [

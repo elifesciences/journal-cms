@@ -70,12 +70,12 @@ function jcms_ckeditor_entity_presave(EntityInterface $entity) {
     $entity->field_image_width = $image->getWidth();
     $entity->field_image_height = $image->getHeight();
   }
-  elseif ($entity->getEntityType()->id() == 'node') {
+  elseif ($entity->getEntityType()->id() === 'node') {
     // Make body fields have placeholder set.
     if ($entity->hasField('field_content_html_preview') && $entity->get('field_content_html_preview')->isEmpty()) {
       $placeholder = t('Type something here ...');
       $entity->field_content_html_preview->value = '<placeholder>' . $placeholder . '</placeholder>';
-      $entity->field_content_html_preview->format = 'basic_html';
+      $entity->field_content_html_preview->format = 'ckeditor_html';
     }
   }
 }

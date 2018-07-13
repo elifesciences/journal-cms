@@ -19,6 +19,7 @@ permissions:
   - 'create cover content'
   - 'create event content'
   - 'create field_subject_id'
+  - 'create files'
   - 'create highlight_item content'
   - 'create interview content'
   - 'create job_advert content'

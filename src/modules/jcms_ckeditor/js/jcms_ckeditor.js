@@ -211,7 +211,7 @@
                   attributes: {
                     field_content_html_preview: {
                       value: bodyEditor.getData(),
-                      format: 'basic_html'
+                      format: 'ckeditor_html'
                     },
                     field_content_images_preview: fids
                   }

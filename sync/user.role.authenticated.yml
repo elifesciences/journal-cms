@@ -43,6 +43,7 @@ permissions:
   - 'search content'
   - 'skip comment approval'
   - 'use text format basic_html'
+  - 'use text format ckeditor_html'
   - 'view field_content_processed_json'
   - 'view field_person_affiliation_json'
   - 'view field_person_profile_json'

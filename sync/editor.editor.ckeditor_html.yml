@@ -1,14 +1,12 @@
-uuid: c305ca16-2b5f-4f61-a844-2109fa118cb2
+uuid: 2793ae94-b20d-401c-b776-78f93232c81d
 langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.basic_html
+    - filter.format.ckeditor_html
   module:
     - ckeditor
-_core:
-  default_config_hash: AqlPmO16LvJI4D0Ih6u4GFQIzqr5OnLgAUSjcUGWk2g
-format: basic_html
+format: ckeditor_html
 editor: ckeditor
 settings:
   toolbar:
@@ -19,15 +17,15 @@ settings:
           items:
             - Bold
             - Italic
-            - Superscript
+            - Subscript
             - RemoveFormat
         -
-          name: 'Simple Lists'
+          name: Lists
           items:
             - BulletedList
             - NumberedList
         -
-          name: Linking
+          name: Links
           items:
             - DrupalLink
             - DrupalUnlink
