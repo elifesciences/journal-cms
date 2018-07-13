@@ -180,7 +180,7 @@ class JsonHtmlDeserializerTest extends TestCase {
           ],
         ],
         $this->lines([
-          '<figure class="image align-center"><img alt="" data-fid="123" data-uuid="UUID" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" height="2000" />',
+          '<figure class="image align-center"><img alt="" data-fid="123" data-uuid="123-UUID" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" height="2000" />',
           '<figcaption>A nice picture of a field. Courtesy of <a href="https://www.pexels.com/photo/biology-blur-close-up-dragonflies-287361/">Pexels</a>. Image attribution.</figcaption>',
           '</figure>',
           '<p>Trailing paragraph</p>',
@@ -189,6 +189,7 @@ class JsonHtmlDeserializerTest extends TestCase {
           'fids' => [
             'public://iiif/editor-images/image-20180427145110-1.jpeg' => [
               'fid' => 123,
+              'uuid' => '123-UUID',
               'src' => '/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg',
             ],
           ],
@@ -221,7 +222,7 @@ class JsonHtmlDeserializerTest extends TestCase {
           ],
         ],
         $this->lines([
-          '<figure class="image align-center"><img alt="Software Preservation Workshop by eLife" data-fid="123" data-uuid="UUID" src="/sites/default/files/iiif/content/2018-07/2018-07-11_ssi-software-preservation-workshop_elife_title.png" width="960" height="720" />',
+          '<figure class="image align-center"><img alt="Software Preservation Workshop by eLife" data-fid="123" data-uuid="123-UUID" src="/sites/default/files/iiif/content/2018-07/2018-07-11_ssi-software-preservation-workshop_elife_title.png" width="960" height="720" />',
           '<figcaption>The slides are available on <a href="https://docs.google.com/presentation/d/1XC-ATE-HuKL8WQkaAE54vsmA7xNL41WQq92gXT4FPaI/edit?usp=sharing">Google Slides</a> and Figshare with DOI: <a href="https://doi.org/10.6084/m9.figshare.6799097">10.6084/m9.figshare.6799097</a>.</figcaption>',
           '</figure>',
         ]),
@@ -229,6 +230,7 @@ class JsonHtmlDeserializerTest extends TestCase {
           'fids' => [
             'public://iiif/content/2018-07/2018-07-11_ssi-software-preservation-workshop_elife_title.png' => [
               'fid' => 123,
+              'uuid' => '123-UUID',
               'src' => '/sites/default/files/iiif/content/2018-07/2018-07-11_ssi-software-preservation-workshop_elife_title.png',
             ],
           ],
@@ -270,7 +272,7 @@ class JsonHtmlDeserializerTest extends TestCase {
           ],
         ],
         $this->lines([
-          '<figure class="image align-center"><img alt="" data-fid="123" data-uuid="UUID" src="/sites/default/files/iiif/content/2017-08/2017_09_27_ecr_webinar_panellists_long.png" width="4396" height="1397" />',
+          '<figure class="image align-center"><img alt="" data-fid="123" data-uuid="123-UUID" src="/sites/default/files/iiif/content/2017-08/2017_09_27_ecr_webinar_panellists_long.png" width="4396" height="1397" />',
           '<figcaption>Building Connections and Developing Research in Sub-Saharan Africa Panellists. Building Connections and Developing Research in Sub-Saharan Africa chair and panellists. Image of Kevin Marsh is from https://www.ndm.ox.ac.uk/principal-investigators/researcher/kevin-marsh, image of Simon Kay is from http://www.malariaconsortium.org/board/trustees/47/simon-kay, image of Catherine Kyobutungi is from http://aphrc.org/post/team/catherine-kyobutungi.</figcaption>',
           '</figure>',
         ]),
@@ -278,6 +280,7 @@ class JsonHtmlDeserializerTest extends TestCase {
           'fids' => [
             'public://iiif/content/2017-08/2017_09_27_ecr_webinar_panellists_long.png' => [
               'fid' => 123,
+              'uuid' => '123-UUID',
               'src' => '/sites/default/files/iiif/content/2017-08/2017_09_27_ecr_webinar_panellists_long.png',
             ],
           ],
@@ -310,13 +313,14 @@ class JsonHtmlDeserializerTest extends TestCase {
           ],
         ],
         $this->lines([
-          '<figure class="image align-left"><img alt="" data-fid="123" data-uuid="UUID" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" height="2000" />',
+          '<figure class="image align-left"><img alt="" data-fid="123" data-uuid="123-UUID" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" height="2000" />',
           '</figure>',
         ]),
         [
           'fids' => [
             'public://iiif/editor-images/image-20180427145110-1.jpeg' => [
               'fid' => 123,
+              'uuid' => '123-UUID',
               'src' => '/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg',
             ],
           ],

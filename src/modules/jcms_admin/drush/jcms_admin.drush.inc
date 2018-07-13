@@ -64,10 +64,6 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
   $result = $query->execute();
 
   if ($result) {
-    $normalizer_context = [];
-    if ($iiif = Settings::get('jcms_iiif_base_uri')) {
-      $normalizer_context['iiif'] = $iiif;
-    }
     $total = count($result);
     $nodes = Node::loadMultiple($result);
     $num = 0;
@@ -111,9 +107,11 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
               $new_file = file_copy($file, $new_file_uri, FILE_EXISTS_REPLACE);
               $new_file->save();
               $new_fid = $new_file->id();
+              $new_uuid = $new_file->uuid();
               $new_src = file_url_transform_relative(file_create_url($new_file->getFileUri()));
               $new_fids[$image] = [
                 'fid' => $new_fid,
+                'uuid' => $new_uuid,
                 'src' => $new_src,
               ];
               $new_values[] = [
@@ -125,9 +123,11 @@ function drush_jcms_migrate_json_html_migrate(string $type) {
               $preview_file = file_copy($file, $preview_file_uri, FILE_EXISTS_REPLACE);
               $preview_file->save();
               $preview_fid = $preview_file->id();
+              $preview_uuid = $preview_file->uuid();
               $preview_src = file_url_transform_relative(file_create_url($preview_file->getFileUri()));
               $preview_fids[$image] = [
                 'fid' => $preview_fid,
+                'uuid' => $preview_uuid,
                 'src' => $preview_src,
               ];
               $preview_values[] = [

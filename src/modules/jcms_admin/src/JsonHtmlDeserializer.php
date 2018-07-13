@@ -71,17 +71,19 @@ final class JsonHtmlDeserializer implements DenormalizerInterface {
           $src = $this->convertUri($item['image']['uri']);
           if (!empty($context['fids'][$src])) {
             $fid = $context['fids'][$src]['fid'];
+            $uuid = $context['fids'][$src]['uuid'];
             $src = $context['fids'][$src]['src'];
           }
           else {
             $fid = 1;
+            $uuid = 'UUID';
           }
           $class = [
             'image',
             ($item['inline'] ?? NULL) ? 'align-left' : 'align-center',
           ];
           $image = [
-            sprintf('<figure class="%s"><img alt="%s" data-fid="%d" data-uuid="UUID" src="%s" width="%d" height="%d" />', implode(' ', $class), ($item['image']['alt'] ?? ''), $fid, $src, $item['image']['size']['width'], $item['image']['size']['height']),
+            sprintf('<figure class="%s"><img alt="%s" data-fid="%d" data-uuid="%s" src="%s" width="%d" height="%d" />', implode(' ', $class), ($item['image']['alt'] ?? ''), $fid, $uuid, $src, $item['image']['size']['width'], $item['image']['size']['height']),
           ];
           if (!empty($item['title'])) {
             $image[] = sprintf('<figcaption>%s</figcaption>', $item['title']);
