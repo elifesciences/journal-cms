@@ -187,8 +187,21 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
               $text = $dom->find('p')[0];
               $caption = $this->prepareOutput($text->innerHtml(), $context);
             }
+            $type = (!empty($caption) && (bool) preg_match('/profile\-left/', $figure->getAttribute('class'))) ? 'profile' : 'image';
+            if ($type === 'profile') {
+              $content = [
+                [
+                  'type' => 'paragraph',
+                  'text' => $caption,
+                ],
+              ];
+              $caption = NULL;
+            }
+            else {
+              $content = NULL;
+            }
             return array_filter([
-              'type' => 'image',
+              'type' => $type,
               'image' => [
                 'uri' => $uri,
                 'alt' => $figure->getAttribute('alt') ?? '',
@@ -208,6 +221,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
               ],
               'title' => $caption,
               'inline' => (bool) preg_match('/align\-left/', $figure->getAttribute('class')),
+              'content' => $content,
             ]);
           }
         }
