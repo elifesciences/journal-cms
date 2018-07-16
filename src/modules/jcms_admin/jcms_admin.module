@@ -259,12 +259,22 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
       }
     }
 
+    /** @var NodeInterface $node */
+    $node = $form_state->getFormObject()->getEntity();
     $form['ckeditor_transfer_content'] = [
-      '#title' => t('Transfer preview content'),
+      '#title' => t('Transfer preview content' . (!$node->isPublished() ? ' and publish' : '')),
       '#type' => 'checkbox',
       '#default_value' => FALSE,
       '#weight' => ++$max_weight,
     ];
+    if ($node->isPublished()) {
+      $form['jcms_admin_unpublish'] = [
+        '#title' => t('Unpublish'),
+        '#type' => 'checkbox',
+        '#default_value' => FALSE,
+        '#weight' => ++$max_weight,
+      ];
+    }
     foreach (array_keys($form['actions']) as $action) {
       if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
         array_unshift($form['actions'][$action]['#submit'], '_jcms_admin_form_ckeditor_form_submit');
@@ -278,6 +288,7 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
  */
 function _jcms_admin_form_ckeditor_form_submit($form, FormStateInterface $form_state) {
   _jcms_admin_static_store('ckeditor_transfer_content_' . $form_state->getFormObject()->getEntity()->id(), $form_state->getValue('ckeditor_transfer_content', 0));
+  _jcms_admin_static_store('jcms_admin_unpublish_' . $form_state->getFormObject()->getEntity()->id(), $form_state->getValue('jcms_admin_unpublish', 0));
 }
 
 /**
@@ -571,6 +582,12 @@ function jcms_admin_node_presave(NodeInterface $node) {
     }
     if (_jcms_admin_static_store('ckeditor_transfer_content_' . $node->id())) {
       $node = \Drupal::service('jcms_admin.transfer_content')->transfer($node);
+      if (!$node->isPublished()) {
+        $node->setPublished(TRUE);
+      }
+    }
+    if (_jcms_admin_static_store('jcms_admin_unpublish_' . $node->id())) {
+      $node->setPublished(FALSE);
     }
     $html = \Drupal::service('jcms_admin.transfer_content')->cleanHtmlField($node->get('field_content_html'));
     $preview = \Drupal::service('jcms_admin.transfer_content')->cleanHtmlField($node->get('field_content_html_preview'));
