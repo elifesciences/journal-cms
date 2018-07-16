@@ -9,7 +9,7 @@ _core:
 id: plain_editor_local_tasks
 theme: plain_editor
 region: content
-weight: -40
+weight: -4
 provider: null
 plugin: local_tasks_block
 settings:

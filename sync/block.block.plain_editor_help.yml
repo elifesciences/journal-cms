@@ -11,7 +11,7 @@ _core:
 id: plain_editor_help
 theme: plain_editor
 region: content
-weight: -30
+weight: -4
 provider: null
 plugin: help_block
 settings:
