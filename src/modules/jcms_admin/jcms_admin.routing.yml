@@ -1,0 +1,9 @@
+jcms_admin.reset_content:
+  path: '/reset-content/{node}'
+  defaults:
+    _controller: '\Drupal\jcms_admin\Controller\ResetContentController::reset'
+  options:
+    no_cache: TRUE
+  requirements:
+    _entity_access: 'node.update'
+    node: \d+

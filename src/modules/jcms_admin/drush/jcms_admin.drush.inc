@@ -51,7 +51,8 @@ function jcms_admin_drush_command() {
 function drush_jcms_migrate_jcms_transfer_content(int $nid) {
   $to_live = ((int) drush_get_option('to-live', 1)) === 0 ? FALSE : TRUE;
   $node = Node::load($nid);
-  _jcms_admin_transfer_content($node, $to_live, TRUE);
+  $node = \Drupal::service('jcms_admin.transfer_content')->transfer($node, $to_live);
+  $node->save();
   drush_print(dt('Transfer complete!'));
 }
 

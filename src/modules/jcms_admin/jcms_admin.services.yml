@@ -23,3 +23,6 @@ services:
   jcms_admin.html_json_normalizer:
     class: Drupal\jcms_admin\HtmlJsonSerializer
     arguments: ['@jcms_admin.html_md_normalizer', '@jcms_admin.md_json_normalizer']
+  jcms_admin.transfer_content:
+    class: Drupal\jcms_admin\TransferContent
+    arguments: ['@file_system', '@renderer']
