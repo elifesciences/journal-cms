@@ -35,7 +35,7 @@
                    }
                  },
                  defaults: {
-                   caption: 'Default Caption',
+                   caption: '',
                    url: ''
                  },
                          
