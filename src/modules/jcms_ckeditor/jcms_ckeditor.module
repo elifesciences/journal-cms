@@ -14,7 +14,7 @@ use Drupal\block\Entity\Block;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Url;
-  
+
 /**
  * Implements hook_page_attachments().
  *
@@ -59,7 +59,7 @@ function jcms_ckeditor_preprocess_html(array &$variables) {
 /**
  * Implements hook_preprocess_page().
  *
- * Add page links
+ * Add page links.
  */
 function jcms_ckeditor_preprocess_page(array &$variables) {
   $route = \Drupal::service('current_route_match');
@@ -69,11 +69,11 @@ function jcms_ckeditor_preprocess_page(array &$variables) {
     $editable_types = jcms_ckeditor_editable_types();
     if (in_array($type, $editable_types)) {
       $links = [];
-      $url = Url::fromRoute('entity.node.edit_form', array('node' => $node->id()));
+      $url = Url::fromRoute('entity.node.edit_form', ['node' => $node->id()]);
       $links[] = Link::fromTextAndUrl(t('Create Post'), $url);
       $variables['top_left_links'] = ['#theme' => 'item_list', '#items' => $links];
       $links = [];
-      $url = Url::fromRoute('jcms_admin.reset_content', array('node' => $node->id()));
+      $url = Url::fromRoute('jcms_admin.reset_content', ['node' => $node->id()]);
       $links[] = Link::fromTextAndUrl(t('Discard Draft'), $url);
       $url = Url::fromRoute('<none>');
       $url->setOptions(['attributes' => ['class' => 'save-button']]);
@@ -164,7 +164,7 @@ function jcms_ckeditor_theme_suggestions_node_alter(&$suggestions, $variables) {
 /**
  * Implements hook_theme_suggestions_page_alter().
  *
- * Allow for page links
+ * Allow for page links.
  */
 function jcms_ckeditor_theme_suggestions_page_alter(&$suggestions, $variables) {
   $route = \Drupal::service('current_route_match');
@@ -178,6 +178,9 @@ function jcms_ckeditor_theme_suggestions_page_alter(&$suggestions, $variables) {
   }
 }
 
+/**
+ * Node types that support the inline editor.
+ */
 function jcms_ckeditor_editable_types() {
   return [
     'blog_article',
