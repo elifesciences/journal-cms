@@ -272,7 +272,8 @@
     "ckeditor/undo": "^4.9",
     "ckeditor/uploadimage": "^4.9",
     "ckeditor/uploadwidget": "^4.9",
-    "ckeditor/widget": "^4.9"
+    "ckeditor/widget": "^4.9",
+    "drupal/hide_revision_field": "^1.1"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",

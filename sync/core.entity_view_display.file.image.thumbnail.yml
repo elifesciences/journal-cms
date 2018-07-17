@@ -36,7 +36,9 @@ content:
     region: content
 hidden:
   field_image_alt_text: true
+  field_image_height: true
   field_image_title_text: true
+  field_image_width: true
   filemime: true
   filesize: true
   uid: true

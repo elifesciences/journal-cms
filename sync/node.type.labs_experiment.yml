@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - hide_revision_field
     - menu_ui
     - scheduler
 third_party_settings:
@@ -20,6 +21,9 @@ third_party_settings:
     unpublish_enable: false
     unpublish_required: false
     unpublish_revision: false
+  hide_revision_field:
+    hide: true
+    personalizable: true
 name: 'Labs experiment'
 type: labs_experiment
 description: ''
