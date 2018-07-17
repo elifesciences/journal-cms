@@ -244,12 +244,28 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
       break;
   }
 
+  if (isset($form['actions']['submit']) && in_array($form_id, [
+    'node_blog_article_form',
+    'node_event_form',
+    'node_interview_form',
+    'node_labs_experiment_form',
+    'node_press_package_form',
+    'node_blog_article_edit_form',
+    'node_event_edit_form',
+    'node_interview_edit_form',
+    'node_labs_experiment_edit_form',
+    'node_press_package_edit_form',
+  ])) {
+    $form['actions']['submit']['#value'] = t('Edit post');
+    $form['actions']['submit']['#submit'][] = '_jcms_ckeditor_callback_submit';
+  }
+
   if (in_array($form_id, [
     'node_blog_article_edit_form',
     'node_event_edit_form',
     'node_interview_edit_form',
     'node_labs_experiment_edit_form',
-    'node_blog_article_edit_form',
+    'node_press_package_edit_form',
   ])) {
     $max_weight = 0;
     foreach ($form as $key => $value) {
@@ -259,10 +275,10 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
       }
     }
 
-    /** @var NodeInterface $node */
+    /** @var \Drupal\node\Entity\NodeInterface $node */
     $node = $form_state->getFormObject()->getEntity();
     $form['ckeditor_transfer_content'] = [
-      '#title' => t('Transfer preview content' . (!$node->isPublished() ? ' and publish' : '')),
+      '#title' => !$node->isPublished() ? t('Publish post') : t('Transfer preview content'),
       '#type' => 'checkbox',
       '#default_value' => FALSE,
       '#weight' => ++$max_weight,
@@ -279,6 +295,22 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
       if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
         array_unshift($form['actions'][$action]['#submit'], '_jcms_admin_form_ckeditor_form_submit');
       }
+    }
+  }
+}
+
+/**
+ * Redirect use to inline editor after saving content.
+ */
+function _jcms_ckeditor_callback_submit($form, FormStateInterface $form_state) {
+  $node = $form_state->getFormObject()->getEntity();
+  if ($node->id()) {
+    if ($node->access('view')) {
+      \Drupal::request()->query->remove('destination');
+      $form_state->setRedirect(
+        'entity.node.canonical',
+        ['node' => $node->id()]
+      );
     }
   }
 }

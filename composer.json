@@ -305,7 +305,8 @@
     "ckeditor/widget": "^4.9",
     "drupal/hide_revision_field": "^1.1",
     "ckeditor/link": "^4.9",
-    "ckeditor/fakeobjects": "^4.9"
+    "ckeditor/fakeobjects": "^4.9",
+    "drupal/field_group": "~3.0-beta1"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",
