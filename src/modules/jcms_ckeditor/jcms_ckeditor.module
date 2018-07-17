@@ -64,21 +64,25 @@ function jcms_ckeditor_preprocess_html(array &$variables) {
 function jcms_ckeditor_preprocess_page(array &$variables) {
   $route = \Drupal::service('current_route_match');
   if ($route->getRouteName() == 'entity.node.canonical') {
+    /** @var \Drupal\node\NodeInterface $node */
     $node = $route->getParameter('node');
-    $type = $node->getType();
-    $editable_types = jcms_ckeditor_editable_types();
-    if (in_array($type, $editable_types)) {
-      $links = [];
-      $url = Url::fromRoute('entity.node.edit_form', ['node' => $node->id()]);
-      $links[] = Link::fromTextAndUrl(t('Create Post'), $url);
-      $variables['top_left_links'] = ['#theme' => 'item_list', '#items' => $links];
-      $links = [];
-      $url = Url::fromRoute('jcms_admin.reset_content', ['node' => $node->id()]);
-      $links[] = Link::fromTextAndUrl(t('Discard Draft'), $url);
-      $url = Url::fromRoute('<none>');
-      $url->setOptions(['attributes' => ['class' => 'save-button']]);
-      $links[] = Link::fromTextAndUrl(t('Save'), $url);
-      $variables['top_right_links'] = ['#theme' => 'item_list', '#items' => $links];
+    if (in_array($node->getType(), jcms_ckeditor_editable_types())) {
+      $variables['top_left_links'] = [
+        '#theme' => 'item_list',
+        '#items' => [
+          Link::fromTextAndUrl(t('Create post'), Url::fromRoute('entity.node.edit_form', ['node' => $node->id()])),
+          t('Editor'),
+        ],
+      ];
+      $items = [];
+      if ($node->isPublished()) {
+        $items[] = Link::fromTextAndUrl(t('Discard draft'), Url::fromRoute('jcms_admin.reset_content', ['node' => $node->id()]));
+      }
+      $items[] = Link::fromTextAndUrl(t('Save'), Url::fromRoute('<none>')->setOptions(['attributes' => ['class' => 'save-button']]));
+      $variables['top_right_links'] = [
+        '#theme' => 'item_list',
+        '#items' => $items,
+      ];
     }
   }
 }
@@ -181,7 +185,7 @@ function jcms_ckeditor_theme_suggestions_page_alter(&$suggestions, $variables) {
 /**
  * Node types that support the inline editor.
  */
-function jcms_ckeditor_editable_types() {
+function jcms_ckeditor_editable_types() : array {
   return [
     'blog_article',
     'event',

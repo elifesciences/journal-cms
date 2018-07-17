@@ -16,6 +16,7 @@ class ResetContentController extends ControllerBase {
   public function reset(NodeInterface $node) {
     $node = \Drupal::service('jcms_admin.transfer_content')->transfer($node, FALSE);
     $node->save();
+    $this->messenger()->addMessage($this->t('Draft content has been discarded.'));
     return $this->redirect('entity.node.canonical', ['node' => $node->id()]);
   }
 

@@ -320,6 +320,7 @@ function _jcms_ckeditor_callback_submit($form, FormStateInterface $form_state) {
  */
 function _jcms_admin_form_ckeditor_form_submit($form, FormStateInterface $form_state) {
   _jcms_admin_static_store('ckeditor_transfer_content_' . $form_state->getFormObject()->getEntity()->id(), $form_state->getValue('ckeditor_transfer_content', 0));
+  _jcms_admin_static_store('jcms_admin_publish_flag_' . $form_state->getFormObject()->getEntity()->id(), TRUE);
   _jcms_admin_static_store('jcms_admin_publish_' . $form_state->getFormObject()->getEntity()->id(), $form_state->getValue('jcms_admin_publish', 0));
 }
 
@@ -618,7 +619,7 @@ function jcms_admin_node_presave(NodeInterface $node) {
         $node->setPublished(TRUE);
       }
     }
-    elseif ($node->isPublished() && !_jcms_admin_static_store('jcms_admin_publish_' . $node->id())) {
+    elseif (_jcms_admin_static_store('jcms_admin_publish_flag_' . $node->id()) && !_jcms_admin_static_store('jcms_admin_publish_' . $node->id())) {
       $node->setPublished(FALSE);
     }
     $html = \Drupal::service('jcms_admin.transfer_content')->cleanHtmlField($node->get('field_content_html'));
