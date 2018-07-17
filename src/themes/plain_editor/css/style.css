@@ -1,1 +1,22 @@
-/* ------------ styles.css ------------ */
+.top-left-links {
+  float: left;
+}
+
+.top-right-links {
+  float: right;
+}
+
+.page-links {
+  padding-top: 1rem;
+}
+
+.page-links ul {
+  padding: 0;
+  margin:0;
+}
+
+.page-links ul li {
+  list-style: none;
+  float: left;
+  margin: 0 0.25rem;
+}

@@ -50,6 +50,8 @@
         CKEDITOR.plugins.addExternal('autolink', settings.pluginPathContrib + 'autolink/');
         CKEDITOR.plugins.addExternal('undo', settings.pluginPathContrib + 'undo/');
         CKEDITOR.plugins.addExternal('sharedspace', settings.pluginPathContrib + 'sharedspace/');
+        CKEDITOR.plugins.addExternal('fakeobjects', settings.pluginPathContrib + 'fakeobjects/');
+        CKEDITOR.plugins.addExternal('link', settings.pluginPathContrib + 'link/');
         
         // Custom plugins
         CKEDITOR.plugins.addExternal('imagealign', settings.pluginPathCustom + 'imagealign/');
@@ -80,7 +82,7 @@
         };
         
         var bodyEditorOptions = {
-          extraPlugins: 'image2,uploadimage,balloontoolbar,balloonpanel,imagealign,elifebutton,captionedvideo,autoembed,pastefromword,undo,sharedspace',
+          extraPlugins: 'image2,uploadimage,balloontoolbar,balloonpanel,imagealign,elifebutton,captionedvideo,autoembed,pastefromword,undo,sharedspace,link',
           toolbarGroups: [
             {"name":"basicstyles","groups":["basicstyles"]},
             {"name":"links","groups":["links"]},
@@ -94,12 +96,14 @@
           removeButtons: 'Underline,Strike,Anchor,SpecialChar,HorizontalRule,ImageAlignLeft,ImageAlignRight,ImageFullWidth,Styles',
           image2_alignClasses: ['align-left', 'align-center', 'profile-left'],
           image2_disableResizer: true,
-          extraAllowedContent: 'elifebutton[data-href](elife-button--default,elife-button--outline);oembed[data-videocaption](align-left,align-right,align-center);figure;figcaption;iframe[!src,width,height];img[data-fid,data-uuid];placeholder',
+          extraAllowedContent: 'elifebutton[data-href](elife-button--default,elife-button--outline);oembed[data-videocaption](align-left,align-right,align-center);figure;figcaption;iframe[!src,width,height];img[data-fid,data-uuid];placeholder;a',
           format_tags: 'p;h1;h2',
           embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
           autoEmbed_widget: 'embedVideo',
           customConfig: '',
           stylesSet: false,
+          linkShowAdvancedTab: false,
+          linkShowTargetTab: false,
           sharedSpaces: {top: 'cke-floating-toolbar'}
         };
 
@@ -115,6 +119,20 @@
         if (uuid) {
           // Disable autoinline as we are going to create a shared space toolbar
           CKEDITOR.disableAutoInline = true;
+          
+          // Remove link type option and unwanted protocols
+          // from link dialog window
+          CKEDITOR.on('dialogDefinition', function (event) {
+            var dialogName = event.data.name;
+            var dialogDefinition = event.data.definition;
+
+            if (dialogName == 'link') {
+              var infoTab = dialogDefinition.getContents('info');
+              infoTab.get('linkType').hidden = true;
+              infoTab.get('protocol')['items'].splice(2, 3);
+            }
+            
+          });
           
           var bodyEditor = $content.ckeditor(bodyEditorOptions).editor;
           
@@ -189,7 +207,7 @@
             };
             
             // Save the main field content
-            var saveBodyEditor = function(event){
+            var saveBodyEditor = function(showSaveNotification){
               // Remove any hidden placeholder text
               $(bodyEditor.editable().$).find('placeholder').remove();
               var content = bodyEditor.getData();
@@ -199,7 +217,7 @@
                 bodyEditor.setData('<p><placeholder>' + settings.placeholder + '</placeholder></p>');
               }
               images = editable.find('img');
-              var fids = [];
+              var fids = [], extraOptions;
               for (var i = 0; i < images.count(); i++) {
                 var fid = images.getItem(i).data('fid');
                 if (fid) fids.push({target_id: fid});
@@ -217,13 +235,22 @@
                   }
                 }            
               };
-              options = $.extend({}, ajaxOptions, {data: JSON.stringify(data), success: saveSuccess, error: saveError});
+              extraOptions = {
+                data: JSON.stringify(data),  
+                error: saveError
+              };
+              if (typeof showSaveNotification == 'undefined' || showSaveNotification) {
+                extraOptions.success = saveSuccess;
+              }
+              options = $.extend({}, ajaxOptions, extraOptions);
               $.ajax(options);
               clearTimeout(autosaveTimer);
             };
             
             // Save any changes when editor looses focus
-            bodyEditor.on('blur' , saveBodyEditor);
+            bodyEditor.on('blur' , function(e) {
+              saveBodyEditor();
+            });
             
             // Save image in backend when receive upload request
             bodyEditor.on('fileUploadRequest', function(e) {
@@ -278,6 +305,18 @@
               }
             });
             
+            // Save when editor gains focus to help initial paste work
+            bodyEditor.on('focus', function(e) {
+              saveBodyEditor(false);
+            });
+            
+            $('.save-button').once('save').each(function(){
+              $(this).click(function(event){
+                event.preventDefault();
+                saveBodyEditor();
+              });
+            });
+
           });
           
         }

@@ -13,7 +13,8 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\block\Entity\Block;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
-
+use Drupal\Core\Url;
+  
 /**
  * Implements hook_page_attachments().
  *
@@ -52,6 +53,33 @@ function jcms_ckeditor_preprocess_html(array &$variables) {
     $node_type = $node->getType();
     $variables['attributes']['data-uuid'] = $node->uuid();
     $variables['attributes']['data-node-type'] = $node_type;
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ *
+ * Add page links
+ */
+function jcms_ckeditor_preprocess_page(array &$variables) {
+  $route = \Drupal::service('current_route_match');
+  if ($route->getRouteName() == 'entity.node.canonical') {
+    $node = $route->getParameter('node');
+    $type = $node->getType();
+    $editable_types = jcms_ckeditor_editable_types();
+    if (in_array($type, $editable_types)) {
+      $links = [];
+      $url = Url::fromRoute('entity.node.edit_form', array('node' => $node->id()));
+      $links[] = Link::fromTextAndUrl(t('Create Post'), $url);
+      $variables['top_left_links'] = ['#theme' => 'item_list', '#items' => $links];
+      $links = [];
+      $url = Url::fromRoute('jcms_admin.reset_content', array('node' => $node->id()));
+      $links[] = Link::fromTextAndUrl(t('Discard Draft'), $url);
+      $url = Url::fromRoute('<none>');
+      $url->setOptions(['attributes' => ['class' => 'save-button']]);
+      $links[] = Link::fromTextAndUrl(t('Save'), $url);
+      $variables['top_right_links'] = ['#theme' => 'item_list', '#items' => $links];
+    }
   }
 }
 
@@ -126,14 +154,36 @@ function jcms_ckeditor_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMat
 function jcms_ckeditor_theme_suggestions_node_alter(&$suggestions, $variables) {
   if (isset($variables['elements']['#node']) && isset($variables['elements']['#view_mode']) && $variables['elements']['#view_mode'] == 'full') {
     $type = $variables['elements']['#node']->bundle();
-    if (in_array($type, [
-      'blog_article',
-      'event',
-      'interview',
-      'labs_experiment',
-      'press_package',
-    ])) {
+    $editable_types = jcms_ckeditor_editable_types();
+    if (in_array($type, $editable_types)) {
       array_splice($suggestions, 1, 0, 'node__editable');
     }
   }
+}
+
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ *
+ * Allow for page links
+ */
+function jcms_ckeditor_theme_suggestions_page_alter(&$suggestions, $variables) {
+  $route = \Drupal::service('current_route_match');
+  if ($route->getRouteName() == 'entity.node.canonical') {
+    $node = $route->getParameter('node');
+    $type = $node->getType();
+    $editable_types = jcms_ckeditor_editable_types();
+    if (in_array($type, $editable_types)) {
+      array_splice($suggestions, 1, 0, 'page__editable');
+    }
+  }
+}
+
+function jcms_ckeditor_editable_types() {
+  return [
+    'blog_article',
+    'event',
+    'interview',
+    'labs_experiment',
+    'press_package',
+  ];
 }
