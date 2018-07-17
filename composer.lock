@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "314063d941ba682f2ff60cd0045b7a59",
+    "content-hash": "0c24b2c3ae9afb885af6e85cdece5e2f",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -384,6 +384,20 @@
             }
         },
         {
+            "name": "ckeditor/fakeobjects",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/fakeobjects/releases/fakeobjects_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/fakeobjects"
+            }
+        },
+        {
             "name": "ckeditor/filetools",
             "version": "4.9.2",
             "dist": {
@@ -395,6 +409,20 @@
             "type": "drupal-library",
             "extra": {
                 "installer-name": "ckeditor/plugins/filetools"
+            }
+        },
+        {
+            "name": "ckeditor/link",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/link/releases/link_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/link"
             }
         },
         {

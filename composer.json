@@ -122,6 +122,36 @@
     {
       "type": "package",
       "package": {
+        "name": "ckeditor/link",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/link"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/link/releases/link_4.9.2.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/fakeobjects",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/fakeobjects"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/fakeobjects/releases/fakeobjects_4.9.2.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
         "name": "ckeditor/notificationaggregator",
         "version": "4.9.2",
         "type": "drupal-library",
@@ -273,7 +303,9 @@
     "ckeditor/uploadimage": "^4.9",
     "ckeditor/uploadwidget": "^4.9",
     "ckeditor/widget": "^4.9",
-    "drupal/hide_revision_field": "^1.1"
+    "drupal/hide_revision_field": "^1.1",
+    "ckeditor/link": "^4.9",
+    "ckeditor/fakeobjects": "^4.9"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",
