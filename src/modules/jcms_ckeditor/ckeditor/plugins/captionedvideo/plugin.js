@@ -31,7 +31,8 @@
                  template: '<figure class="video"><oembed>{url}</oembed><figcaption>{caption}</figcaption></figure>',
                  editables: {
                    caption: {
-                     selector: 'figcaption'
+                     selector: 'figcaption',
+                     allowedContent: 'br em strong sub sup u s; a[!href,target]'
                    }
                  },
                  defaults: {
