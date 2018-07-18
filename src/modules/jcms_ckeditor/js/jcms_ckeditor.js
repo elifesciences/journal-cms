@@ -7,6 +7,10 @@
   Drupal.behaviors.inlineEditor = {
     attach: function(context, settings) {
 
+      if ($('.node__content .field--name-field-impact-statement', context).length > 0) {
+        $('.node__content .field--name-field-impact-statement', context).appendTo($('.block-page-title-block .content', context));
+      }
+
       // Make sure we have the content field to process
       if ($('.node__content .field--name-field-content-html-preview', context).length > 0) {
         var autosaveTimer;
