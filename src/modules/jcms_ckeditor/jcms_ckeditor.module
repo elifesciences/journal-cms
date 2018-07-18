@@ -76,7 +76,7 @@ function jcms_ckeditor_preprocess_page(array &$variables) {
       ];
       $items = [];
       if ($node->isPublished()) {
-        $items[] = Link::fromTextAndUrl(t('Discard draft'), Url::fromRoute('jcms_admin.reset_content', ['node' => $node->id()]));
+        $items[] = Link::fromTextAndUrl(t('Discard draft'), Url::fromRoute('jcms_admin.reset_content', ['node' => $node->id()])->setOptions(['attributes' => ['class' => 'discard-button']]));
       }
       $items[] = Link::fromTextAndUrl(t('Save'), Url::fromRoute('<none>')->setOptions(['attributes' => ['class' => 'save-button']]));
       $variables['top_right_links'] = [

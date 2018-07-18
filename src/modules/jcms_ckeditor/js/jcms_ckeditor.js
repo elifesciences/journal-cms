@@ -321,6 +321,14 @@
               });
             });
 
+            $('.discard-button').once('discard').each(function(){
+              $(this).click(function(event){
+                if (!confirm('You are about to discard your changes?')) {
+                  event.preventDefault();
+                }
+              });
+            });
+            
           });
           
         }
