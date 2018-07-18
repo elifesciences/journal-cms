@@ -99,7 +99,7 @@ class TransferContent {
     $view = $data->view();
     unset($view['#theme']);
     $output = $this->renderer->renderPlain($view);
-    return trim(preg_replace('~[\S]*<p>([\S]*|&nbsp;)</p>~', '', $output));
+    return trim($output);
   }
 
 }
