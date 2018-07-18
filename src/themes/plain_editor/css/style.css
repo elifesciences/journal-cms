@@ -12,11 +12,18 @@
 
 .page-links ul {
   padding: 0;
-  margin:0;
+  margin: 0;
 }
 
 .page-links ul li {
   list-style: none;
   float: left;
-  margin: 0 0.25rem;
+}
+
+.page-links ul li:before {
+  content: ' \BB   ';
+}
+
+.page-links ul li:first-child:before {
+  content: '';
 }

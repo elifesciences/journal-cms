@@ -244,12 +244,28 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
       break;
   }
 
+  if (isset($form['actions']['submit']) && in_array($form_id, [
+    'node_blog_article_form',
+    'node_event_form',
+    'node_interview_form',
+    'node_labs_experiment_form',
+    'node_press_package_form',
+    'node_blog_article_edit_form',
+    'node_event_edit_form',
+    'node_interview_edit_form',
+    'node_labs_experiment_edit_form',
+    'node_press_package_edit_form',
+  ])) {
+    $form['actions']['submit']['#value'] = t('Edit post');
+    $form['actions']['submit']['#submit'][] = '_jcms_ckeditor_callback_submit';
+  }
+
   if (in_array($form_id, [
     'node_blog_article_edit_form',
     'node_event_edit_form',
     'node_interview_edit_form',
     'node_labs_experiment_edit_form',
-    'node_blog_article_edit_form',
+    'node_press_package_edit_form',
   ])) {
     $max_weight = 0;
     foreach ($form as $key => $value) {
@@ -259,10 +275,10 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
       }
     }
 
-    /** @var NodeInterface $node */
+    /** @var \Drupal\node\Entity\NodeInterface $node */
     $node = $form_state->getFormObject()->getEntity();
     $form['ckeditor_transfer_content'] = [
-      '#title' => t('Transfer preview content' . (!$node->isPublished() ? ' and publish' : '')),
+      '#title' => !$node->isPublished() ? t('Publish post') : t('Transfer preview content'),
       '#type' => 'checkbox',
       '#default_value' => FALSE,
       '#weight' => ++$max_weight,
@@ -284,10 +300,27 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
 }
 
 /**
+ * Redirect use to inline editor after saving content.
+ */
+function _jcms_ckeditor_callback_submit($form, FormStateInterface $form_state) {
+  $node = $form_state->getFormObject()->getEntity();
+  if ($node->id()) {
+    if ($node->access('view')) {
+      \Drupal::request()->query->remove('destination');
+      $form_state->setRedirect(
+        'entity.node.canonical',
+        ['node' => $node->id()]
+      );
+    }
+  }
+}
+
+/**
  * Submit function for node edit forms with inline ckeditor.
  */
 function _jcms_admin_form_ckeditor_form_submit($form, FormStateInterface $form_state) {
   _jcms_admin_static_store('ckeditor_transfer_content_' . $form_state->getFormObject()->getEntity()->id(), $form_state->getValue('ckeditor_transfer_content', 0));
+  _jcms_admin_static_store('jcms_admin_publish_flag_' . $form_state->getFormObject()->getEntity()->id(), TRUE);
   _jcms_admin_static_store('jcms_admin_publish_' . $form_state->getFormObject()->getEntity()->id(), $form_state->getValue('jcms_admin_publish', 0));
 }
 
@@ -586,7 +619,7 @@ function jcms_admin_node_presave(NodeInterface $node) {
         $node->setPublished(TRUE);
       }
     }
-    elseif ($node->isPublished() && !_jcms_admin_static_store('jcms_admin_publish_' . $node->id())) {
+    elseif (_jcms_admin_static_store('jcms_admin_publish_flag_' . $node->id()) && !_jcms_admin_static_store('jcms_admin_publish_' . $node->id())) {
       $node->setPublished(FALSE);
     }
     $html = \Drupal::service('jcms_admin.transfer_content')->cleanHtmlField($node->get('field_content_html'));
