@@ -18,7 +18,7 @@
         // Takes in two CKEditor Node Lists containing images
         // and finds any uuid of images that are no longer
         // in the updated list (i.e. deleted)
-        function diff(original, updated) {
+        var diff = function (original, updated) {
           var deletedIds = [], ids = [], id, i;
           // Get array of ids in the updated list
           if (updated.count() > 0) {
@@ -39,7 +39,7 @@
             }
           }
           return deletedIds;
-        }
+        };
         
         // Contrib plugins
         CKEDITOR.plugins.addExternal('embedbase', settings.pluginPathContrib + 'embedbase/');
