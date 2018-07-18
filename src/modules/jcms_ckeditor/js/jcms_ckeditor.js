@@ -192,9 +192,16 @@
               images = editable.find('img');
             });
 
-            // Callback if autosave is successfull
+            // Callback if save is successful
             var saveSuccess = function(response, status) {
-              var msg = Drupal.t('Auto save successfull');
+              var msg = Drupal.t('Save successful');
+              notification.update({message: msg, duration: 3000, type: 'info'});
+              notification.show();
+            };
+
+            // Callback if autosave is successful
+            var saveAutoSuccess = function(response, status) {
+              var msg = Drupal.t('Auto save successful');
               notification.update({message: msg, duration: 3000, type: 'info'});
               notification.show();
             };
@@ -243,8 +250,10 @@
                 data: JSON.stringify(data),  
                 error: saveError
               };
-              if (typeof showSaveNotification == 'undefined' || showSaveNotification) {
-                extraOptions.success = saveSuccess;
+              if (typeof showSaveNotification === 'undefined' || (typeof showSaveNotification === 'boolean' && showSaveNotification === true)) {
+                extraOptions.success = saveAutoSuccess;
+              } else if (typeof showSaveNotification === 'function') {
+                extraOptions.success = showSaveNotification;
               }
               options = $.extend({}, ajaxOptions, extraOptions);
               $.ajax(options);
@@ -317,7 +326,7 @@
             $('.save-button').once('save').each(function(){
               $(this).click(function(event){
                 event.preventDefault();
-                saveBodyEditor();
+                saveBodyEditor(saveSuccess);
               });
             });
 

@@ -103,18 +103,18 @@ elifebutton.elife-button--outline:hover {
   color: #0277bd;
 }
 
-.page-node-type-article .field--name-field-display-title,
-.page-node-type-article .field--name-field-impact-statement {
+.page-ckeditor-inline h1,
+.page-ckeditor-inline .field--name-field-impact-statement {
   font-family: Arial,Helvetica,sans-serif;
   text-align: center;
 }
 
-.page-node-type-article .node__content .field--name-field-display-title {
+.page-ckeditor-inline .node__content h1 {
   font-size: 36px;
   font-weight: 700;
 }
 
-.page-node-type-article .node__content .field--name-field-impact-statement {
+.page-ckeditor-inline .node__content .field--name-field-impact-statement {
   font-size: 16px;
   font-weight: 500;
 }
@@ -123,28 +123,28 @@ elifebutton.elife-button--outline:hover {
   margin: 0 16em;
 }
 
-.page-node-type-article .block .content {
-  margin-left: 5.25em;
-  margin-right: 5.25em;
+.page-ckeditor-inline .block-system-main-block .content {
+  margin-left: 20em;
+  margin-right: 20em;
 }
 
-.page-node-type-article .main-content h1,
-.page-node-type-article .main-content h2,
-.page-node-type-article .main-content h3,
-.page-node-type-article .main-content h4,
-.page-node-type-article .main-content h5 {
+.page-ckeditor-inline .main-content h1,
+.page-ckeditor-inline .main-content h2,
+.page-ckeditor-inline .main-content h3,
+.page-ckeditor-inline .main-content h4,
+.page-ckeditor-inline .main-content h5 {
   font-family: Arial,Helvetica,sans-serif;
   font-weight: 700;
 }
 
-.page-node-type-article .main-content h1 {
+.page-ckeditor-inline .main-content h1 {
   font-size: 26px;
 }
 
-.page-node-type-article .main-content h2,
-.page-node-type-article .main-content h3,
-.page-node-type-article .main-content h4,
-.page-node-type-article .main-content h5 {
+.page-ckeditor-inline .main-content h2,
+.page-ckeditor-inline .main-content h3,
+.page-ckeditor-inline .main-content h4,
+.page-ckeditor-inline .main-content h5 {
   font-size: 22px;
 }
 
