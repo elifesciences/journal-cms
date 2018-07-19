@@ -24,3 +24,19 @@ services:
   plugin.manager.field.field_type:
     class: Drupal\jcms_rest\FieldTypePluginManager
     arguments: ['@container.namespaces', '@cache.discovery', '@module_handler', '@typed_data_manager']
+  jcms_rest.schema_path:
+    class: Drupal\jcms_rest\SchemaPath
+  jcms_rest.schema_finder:
+    class: eLife\ApiValidator\SchemaFinder\PathBasedSchemaFinder
+    arguments: ['@jcms_rest.schema_path']
+  jcms_rest.schema_validator:
+    class: JsonSchema\Validator
+  jcms_rest.json_message_validator:
+    class: eLife\ApiValidator\MessageValidator\JsonMessageValidator
+    arguments: ['@jcms_rest.schema_finder', '@jcms_rest.schema_validator']
+  jcms_rest.message_validator:
+    class: eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator
+    arguments: ['@jcms_rest.json_message_validator']
+  jcms_rest.content_validator:
+    class: Drupal\jcms_rest\ContentValidator
+    arguments: ['@http_client', '@jcms_rest.message_validator', '@logger.channel.default']

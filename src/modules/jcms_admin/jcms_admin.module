@@ -15,6 +15,7 @@ use Drupal\entityqueue\Entity\EntitySubqueue;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drush\Log\LogLevel;
+use eLife\ApiValidator\Exception\InvalidMessage;
 use Embed\Embed;
 
 /**
@@ -277,11 +278,23 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
 
     /** @var \Drupal\node\Entity\NodeInterface $node */
     $node = $form_state->getFormObject()->getEntity();
+    $validator = \Drupal::service('jcms_rest.content_validator');
+    $disabled = FALSE;
+    try {
+      $json = $validator->validate($node, TRUE);
+      if (empty($json->content)) {
+        $disabled = TRUE;
+      }
+    } catch (InvalidMessage $message) {
+      $disabled = TRUE;
+    }
+
     $form['ckeditor_transfer_content'] = [
       '#title' => !$node->isPublished() ? t('Publish post') : t('Transfer preview content'),
       '#type' => 'checkbox',
       '#default_value' => FALSE,
       '#weight' => ++$max_weight,
+      '#disabled' => $disabled,
     ];
     if ($node->isPublished()) {
       $form['jcms_admin_publish'] = [
@@ -289,6 +302,7 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
         '#type' => 'checkbox',
         '#default_value' => TRUE,
         '#weight' => ++$max_weight,
+        '#disabled' => $disabled,
       ];
     }
     foreach (array_keys($form['actions']) as $action) {

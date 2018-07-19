@@ -793,6 +793,10 @@ class HtmlJsonSerializerTest extends TestCase {
           '<p><i>For the latest in innovation, eLife Labs and new open-source tools, sign up for <a href="https://crm.elifesciences.org/crm/node/8?_ga=2.213152084.1156933223.1498463747-1005832603.1488200227” with “https://crm.elifesciences.org/crm/tech-news?utm_source=Labs-Binder&amp;utm_medium=website&amp;utm_campaign=technews">our technology and innovation newsletter</a>. You can also follow <a href="https://twitter.com/eLifeInnovation">@eLifeInnovation</a> on Twitter. </i></p>',
         ]),
       ],
+      'placeholder text' => [
+        [],
+        '<p><placeholder>Type something here ...</placeholder></p>',
+      ],
     ];
   }
 

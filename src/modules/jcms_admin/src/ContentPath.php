@@ -34,9 +34,8 @@ class ContentPath {
       'labs_experiment',
       'podcast_episode',
     ];
-    $sns = \Drupal::service('jcms_notifications.entity_crud_notification_service');
     /** @var \Drupal\jcms_notifications\Notification\BusOutgoingMessage $message */
-    if (in_array($node->bundle(), $whitelist) && $message = $sns->getMessageFromEntity($node)) {
+    if (in_array($node->bundle(), $whitelist) && $message = $this->notificationService->getMessageFromEntity($node)) {
       $stem = $message->getTopic();
       $id = $message->getId();
       $separator = '/';
