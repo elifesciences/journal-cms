@@ -99,7 +99,14 @@ class TransferContent {
     $view = $data->view();
     unset($view['#theme']);
     $output = $this->renderer->renderPlain($view);
-    return trim($output);
+    return $this->stripEmptyParagraphs($output);
+  }
+
+  /**
+   * Strip empty paragraphs.
+   */
+  public function stripEmptyParagraphs(string $html) : string {
+    return trim($html);
   }
 
 }

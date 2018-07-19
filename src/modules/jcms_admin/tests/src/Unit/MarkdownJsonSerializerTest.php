@@ -15,6 +15,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
  * Tests for MarkdownJsonSerializer.
  */
 class MarkdownJsonSerializerTest extends TestCase {
+
+  use Helper;
+
   /**
    * Normalizer.
    *
@@ -565,13 +568,6 @@ class MarkdownJsonSerializerTest extends TestCase {
         ], 2),
       ],
     ];
-  }
-
-  /**
-   * Split strings into lines.
-   */
-  private function lines(array $lines, $breaks = 1) {
-    return implode(str_repeat(PHP_EOL, $breaks), $lines);
   }
 
 }

@@ -11,6 +11,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
  * Tests for HtmlMarkdownSerializer.
  */
 class HtmlMarkdownSerializerTest extends TestCase {
+
+  use Helper;
+
   /**
    * Normalizer.
    *
@@ -220,13 +223,6 @@ class HtmlMarkdownSerializerTest extends TestCase {
         ], 2),
       ],
     ];
-  }
-
-  /**
-   * Split strings into lines.
-   */
-  private function lines(array $lines, $breaks = 1) {
-    return implode(str_repeat(PHP_EOL, $breaks), $lines);
   }
 
 }

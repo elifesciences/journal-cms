@@ -18,12 +18,16 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
  * Tests for HtmlJsonSerializer.
  */
 class HtmlJsonSerializerTest extends TestCase {
+
+  use Helper;
+
   /**
    * Normalizer.
    *
    * @var \Drupal\jcms_admin\HtmlJsonSerializer
    */
   private $normalizer;
+
   /**
    * Mime type guesser.
    *
@@ -790,13 +794,6 @@ class HtmlJsonSerializerTest extends TestCase {
         ]),
       ],
     ];
-  }
-
-  /**
-   * Split strings into lines.
-   */
-  private function lines(array $lines, $breaks = 1) {
-    return implode(str_repeat(PHP_EOL, $breaks), $lines);
   }
 
 }

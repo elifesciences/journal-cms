@@ -11,6 +11,9 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
  * Tests for JsonHtmlDeserializer.
  */
 class JsonHtmlDeserializerTest extends TestCase {
+
+  use Helper;
+
   /**
    * Denormalizer.
    *
@@ -766,13 +769,6 @@ class JsonHtmlDeserializerTest extends TestCase {
     $actual = $this->denormalizer->gatherImages($json['content']);
 
     $this->assertEquals($expected, $actual);
-  }
-
-  /**
-   * Split strings into lines.
-   */
-  private function lines(array $lines, $breaks = 1) {
-    return implode(str_repeat(PHP_EOL, $breaks), $lines);
   }
 
 }
