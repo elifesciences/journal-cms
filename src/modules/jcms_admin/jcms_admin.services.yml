@@ -25,7 +25,7 @@ services:
     arguments: ['@jcms_admin.html_md_normalizer', '@jcms_admin.md_json_normalizer']
   jcms_admin.transfer_content:
     class: Drupal\jcms_admin\TransferContent
-    arguments: ['@file_system', '@renderer']
+    arguments: ['@file_system', '@renderer', '@jcms_rest.content_validator']
   jcms_admin.content_path:
     class: Drupal\jcms_admin\ContentPath
     arguments: ['@jcms_notifications.entity_crud_notification_service', '@database']

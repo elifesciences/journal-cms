@@ -632,8 +632,18 @@ function jcms_admin_node_presave(NodeInterface $node) {
     if ($iiif = Settings::get('jcms_iiif_base_uri')) {
       $normalizer_context['iiif'] = $iiif;
     }
-    if (_jcms_admin_static_store('ckeditor_transfer_content_' . $node->id())) {
-      $node = \Drupal::service('jcms_admin.transfer_content')->transfer($node);
+    if (($node->isPublished() && !$node->original->isPublished()) || _jcms_admin_static_store('ckeditor_transfer_content_' . $node->id())) {
+      if ($node->isPublished() && !$node->original->isPublished()) {
+        $validate = TRUE;
+        $context = [
+          'autopublish' => TRUE,
+        ];
+      }
+      else {
+        $validate = FALSE;
+        $context = [];
+      }
+      $node = \Drupal::service('jcms_admin.transfer_content')->transfer($node, TRUE, $validate, $context);
       if (!$node->isPublished()) {
         $node->setPublished(TRUE);
       }

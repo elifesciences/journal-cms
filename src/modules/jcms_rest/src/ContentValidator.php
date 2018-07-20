@@ -39,7 +39,7 @@ class ContentValidator {
    *
    * @throws InvalidMessage
    */
-  public function validate(NodeInterface $node, $preview = FALSE) {
+  public function validate(NodeInterface $node, $preview = FALSE, $context = []) {
     $paths = [
       'blog_article' => 'blog-articles',
       'event' => 'events',
@@ -58,11 +58,12 @@ class ContentValidator {
           $this->messageValidator->validate($response);
         }
         catch (InvalidMessage $message) {
-          $this->logger->error($message->getMessage(), [
+          $context += [
             'node' => $node->id(),
             'json' => $json,
             'html' => $node->get('field_content_html' . ($preview ? '_preview' : ''))->getValue(),
-          ]);
+          ];
+          $this->logger->error($message->getMessage(), $context);
           throw $message;
         }
       }

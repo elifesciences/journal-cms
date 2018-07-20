@@ -5,7 +5,9 @@ namespace Drupal\jcms_admin;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\jcms_rest\ContentValidator;
 use Drupal\node\NodeInterface;
+use eLife\ApiValidator\Exception\InvalidMessage;
 use function file_copy;
 use function file_create_url;
 use function file_prepare_directory;
@@ -17,20 +19,27 @@ use function file_url_transform_relative;
 class TransferContent {
   private $fileSystem;
   private $renderer;
+  private $contentValidator;
 
   /**
    * Constructor.
    */
-  public function __construct(FileSystemInterface $fileSystem, RendererInterface $renderer) {
+  public function __construct(FileSystemInterface $fileSystem, RendererInterface $renderer, ContentValidator $contentValidator) {
     $this->fileSystem = $fileSystem;
     $this->renderer = $renderer;
+    $this->contentValidator = $contentValidator;
   }
 
   /**
    * Transfer html from preview to live fields and vice versa.
+   *
+   * @throws InvalidMessage
    */
-  public function transfer(NodeInterface $node, $toLive = TRUE) : NodeInterface {
+  public function transfer(NodeInterface $node, $toLive = TRUE, $validate = FALSE, $context = []) : NodeInterface {
     if ($node->hasField('field_content_json') && $node->hasField('field_content_json_preview')) {
+      if ($validate) {
+        $this->contentValidator->validate($node, $toLive, $context);
+      }
       if ($toLive) {
         $fromHtml = $this->cleanHtmlField($node->get('field_content_html_preview'));
         $fromImages = $node->get('field_content_images_preview')->referencedEntities();
