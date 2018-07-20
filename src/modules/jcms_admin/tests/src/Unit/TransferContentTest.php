@@ -12,6 +12,8 @@ use PHPUnit\Framework\TestCase;
  */
 class TransferContentTest extends TestCase {
 
+  use Helper;
+
   /**
    * File system.
    *
@@ -52,6 +54,40 @@ class TransferContentTest extends TestCase {
       'empty' => [
         '',
         '',
+      ],
+      'empty paragraphs only' => [
+        '',
+        $this->lines([
+          '<p>&nbsp;</p>',
+          '<p></p>',
+          '<p> </p>',
+          '<p>Â </p>',
+          '<p>          </p>',
+          "<p>\t</p>",
+          "<p>\n</p>",
+        ]),
+      ],
+      'empty paragraphs' => [
+        $this->lines([
+          '<p>Not empty 1</p>',
+          '<p>Not empty 2</p>',
+          '<p>Not empty 3</p>',
+          '<p>Not empty 4</p>',
+          '<p>Not empty 5</p>',
+        ]),
+        $this->lines([
+          '<p>&nbsp;</p>',
+          '<p>Not empty 1</p>',
+          '<p></p>',
+          '<p> </p>',
+          '<p>          </p>',
+          '<p>Not empty 2</p>',
+          '<p>Not empty 3</p>',
+          "<p>\t</p>",
+          '<p>Not empty 4</p>',
+          "<p>\n</p>",
+          '<p>Not empty 5</p>',
+        ]),
       ],
     ];
   }

@@ -106,7 +106,7 @@ class TransferContent {
    * Strip empty paragraphs.
    */
   public function stripEmptyParagraphs(string $html) : string {
-    return trim($html);
+    return trim(preg_replace(['~[^(\x20-\x7F)\x0A\x0D]*~', '~[\s\r\n\t]*<p>(&nbsp;|[\s\r\n\t]*)</p>~'], '', $html));
   }
 
 }
