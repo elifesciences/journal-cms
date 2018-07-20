@@ -37,6 +37,9 @@ services:
   jcms_rest.message_validator:
     class: eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator
     arguments: ['@jcms_rest.json_message_validator']
+  jcms_rest.logger.channel.validator:
+    parent: logger.channel_base
+    arguments: ['jcms_rest_validator']
   jcms_rest.content_validator:
     class: Drupal\jcms_rest\ContentValidator
-    arguments: ['@http_client', '@jcms_rest.message_validator', '@logger.channel.default']
+    arguments: ['@http_client', '@jcms_rest.message_validator', '@jcms_rest.logger.channel.validator']

@@ -276,26 +276,30 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
       }
     }
 
-    /** @var \Drupal\node\Entity\NodeInterface $node */
+    /** @var \Drupal\node\NodeInterface $node */
     $node = $form_state->getFormObject()->getEntity();
     $validator = \Drupal::service('jcms_rest.content_validator');
     $disabled = FALSE;
+    $description = '';
     try {
       $json = $validator->validate($node, TRUE);
-      if (empty($json->content)) {
+      if ($node->bundle() !== 'event' && empty($json->content)) {
+        $description = t('You must add content to the post before :action.', [':action' => ($node->isPublished() ? 'transfer' : 'publication')]);
         $disabled = TRUE;
       }
     } catch (InvalidMessage $message) {
+      $description = t('Errors have been detected with the content. An admin has been notified.');
       $disabled = TRUE;
     }
 
-    $form['ckeditor_transfer_content'] = [
+    $form['ckeditor_transfer_content'] = array_filter([
       '#title' => !$node->isPublished() ? t('Publish post') : t('Transfer preview content'),
+      '#description' => $description,
       '#type' => 'checkbox',
       '#default_value' => FALSE,
       '#weight' => ++$max_weight,
       '#disabled' => $disabled,
-    ];
+    ]);
     if ($node->isPublished()) {
       $form['jcms_admin_publish'] = [
         '#title' => t('Publish'),
