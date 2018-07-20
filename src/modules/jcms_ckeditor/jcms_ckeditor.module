@@ -144,25 +144,6 @@ function jcms_ckeditor_block_access(Block $block, string $operation, AccountInte
 }
 
 /**
- * Implements hook_system_breadcrumb_alter().
- */
-function jcms_ckeditor_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
-  if ($breadcrumb) {
-    $node = \Drupal::request()->get('node');
-    $types = ['article'];
-    $request = \Drupal::request();
-
-    // If the node is a type with no menu placement, attach a breadcrumb.
-    if ($node && in_array($node->bundle(), $types) && !\Drupal::service('router.admin_context')->isAdminRoute()) {
-      $breadcrumb->addLink(Link::createFromRoute(t('Create post'), 'entity.node.edit_form', ['node' => $node->id()]));
-      $breadcrumb->addLink(Link::createFromRoute(t('Editor'), '<nolink>'));
-
-      $breadcrumb->addCacheTags(['node:' . $node->id()]);
-    }
-  }
-}
-
-/**
  * Implements hook_theme_suggestions_node_alter().
  *
  * Allow for toolbar on editable node views.
@@ -170,8 +151,7 @@ function jcms_ckeditor_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMat
 function jcms_ckeditor_theme_suggestions_node_alter(&$suggestions, $variables) {
   if (isset($variables['elements']['#node']) && isset($variables['elements']['#view_mode']) && $variables['elements']['#view_mode'] == 'full') {
     $type = $variables['elements']['#node']->bundle();
-    $editable_types = jcms_ckeditor_editable_types();
-    if (in_array($type, $editable_types)) {
+    if (in_array($type, jcms_ckeditor_editable_types())) {
       array_splice($suggestions, 1, 0, 'node__editable');
     }
   }
