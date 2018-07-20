@@ -7,7 +7,6 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\jcms_rest\ContentValidator;
 use Drupal\node\NodeInterface;
-use eLife\ApiValidator\Exception\InvalidMessage;
 use function file_copy;
 use function file_create_url;
 use function file_prepare_directory;
