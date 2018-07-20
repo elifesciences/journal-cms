@@ -639,6 +639,7 @@ function jcms_admin_node_presave(NodeInterface $node) {
     $html = \Drupal::service('jcms_admin.transfer_content')->cleanHtmlField($node->get('field_content_html'));
     $preview = \Drupal::service('jcms_admin.transfer_content')->cleanHtmlField($node->get('field_content_html_preview'));
 
+    $node->set('field_content_html_preview', ['value' => $preview, 'format' => 'ckeditor_html']);
     $node->field_content_json = json_encode($normalizer->normalize($html, NULL, $normalizer_context));
     $node->field_content_json_preview = json_encode($normalizer->normalize($preview, NULL, $normalizer_context));
   }
