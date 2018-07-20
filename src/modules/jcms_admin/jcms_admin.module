@@ -287,7 +287,8 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
         $description = t('You must add content to the post before :action.', [':action' => ($node->isPublished() ? 'transfer' : 'publication')]);
         $disabled = TRUE;
       }
-    } catch (InvalidMessage $message) {
+    }
+    catch (InvalidMessage $message) {
       $description = t('Errors have been detected with the content. An admin has been notified.');
       $disabled = TRUE;
     }

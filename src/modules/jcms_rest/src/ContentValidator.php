@@ -9,8 +9,10 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
 use Psr\Log\LoggerInterface;
 
-class ContentValidator
-{
+/**
+ * Validate whether the content matches the schema.
+ */
+class ContentValidator {
   private $baseUrl = 'http://journal-cms.local/';
   private $client;
   private $messageValidator;
@@ -25,11 +27,16 @@ class ContentValidator
     $this->logger = $logger;
   }
 
+  /**
+   * Allow the base url to be overridden.
+   */
   public function setBaseUrl(string $baseUrl) {
     $this->baseUrl = rtrim($baseUrl, '/') . '/';
   }
 
   /**
+   * Validate the content.
+   *
    * @throws InvalidMessage
    */
   public function validate(NodeInterface $node, $preview = FALSE) {
@@ -49,8 +56,13 @@ class ContentValidator
       if (!empty($json->content)) {
         try {
           $this->messageValidator->validate($response);
-        } catch (InvalidMessage $message) {
-          $this->logger->error($message->getMessage(), ['node' => $node->id(), 'json' => $json, 'html' => $node->get('field_content_html' . ($preview ? '_preview' : ''))->getValue()]);
+        }
+        catch (InvalidMessage $message) {
+          $this->logger->error($message->getMessage(), [
+            'node' => $node->id(),
+            'json' => $json,
+            'html' => $node->get('field_content_html' . ($preview ? '_preview' : ''))->getValue(),
+          ]);
           throw $message;
         }
       }

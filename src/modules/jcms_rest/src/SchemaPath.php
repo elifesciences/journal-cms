@@ -4,10 +4,16 @@ namespace Drupal\jcms_rest;
 
 use ComposerLocator;
 
-class SchemaPath
-{
-  public function __toString()
-  {
+/**
+ * Retrieve the path to the content schema.
+ */
+class SchemaPath {
+
+  /**
+   * Output the path to the content schema.
+   */
+  public function __toString() {
     return ComposerLocator::getPath('elife/api') . '/dist/model';
   }
+
 }
