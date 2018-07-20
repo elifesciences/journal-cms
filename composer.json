@@ -306,14 +306,14 @@
     "drupal/hide_revision_field": "^1.1",
     "ckeditor/link": "^4.9",
     "ckeditor/fakeobjects": "^4.9",
-    "drupal/field_group": "~3.0-beta1"
+    "drupal/field_group": "~3.0-beta1",
+    "elife/api": "dev-master",
+    "elife/api-validator": "^1.0@dev",
+    "justinrainbow/json-schema": "^5.2",
+    "mindplay/composer-locator": "^2.1"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",
-    "elife/api": "dev-master",
-    "elife/api-validator": "dev-master",
-    "justinrainbow/json-schema": "^5.2",
-    "mindplay/composer-locator": "^2.1",
     "phpunit/phpunit": "~4.8.36",
     "drupal/coder": "^8.2",
     "squizlabs/php_codesniffer": "~2.8"
