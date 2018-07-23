@@ -1314,14 +1314,12 @@ function jcms_migrate_update_8137(&$sandbox) {
     $sandbox['progress'] = 0;
     $sandbox['current_pk'] = 0;
     $query = \Drupal::entityQuery('node')
-      ->exists('field_image')
       ->condition('type', 'podcast_chapter');
     $sandbox['max'] = $query->count()->execute() - 1;
   }
 
   // Update 20 nodes at a time.
   $query = \Drupal::entityQuery('node')
-    ->exists('field_image')
     ->condition('type', 'podcast_chapter')
     ->condition('nid', $sandbox['current_pk'], '>')
     ->range(0, 20)
