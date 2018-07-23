@@ -1281,3 +1281,66 @@ function jcms_migrate_update_8134() {
     }
   }
 }
+
+/**
+ * Enable config_import module.
+ */
+function jcms_migrate_update_8135() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(['config_import']);
+}
+
+/**
+ * Update config to introduce new chapter time field.
+ */
+function jcms_migrate_update_8136() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $configs = [
+    'field.storage.node.field_chapter_time',
+    'field.field.node.podcast_chapter.field_chapter_time',
+    'core.extension',
+    'core.entity_view_display.node.podcast_chapter.default',
+    'core.entity_form_display.node.podcast_chapter.default',
+  ];
+  $config_importer->importConfigs($configs);
+}
+
+/**
+ * Resave all podcast chapters to populate duration field.
+ */
+function jcms_migrate_update_8137(&$sandbox) {
+  if (!isset($sandbox['progress'])) {
+    // This must be the first run. Initialize the sandbox.
+    $sandbox['progress'] = 0;
+    $sandbox['current_pk'] = 0;
+    $query = \Drupal::entityQuery('node')
+      ->exists('field_image')
+      ->condition('type', 'podcast_chapter');
+    $sandbox['max'] = $query->count()->execute() - 1;
+  }
+
+  // Update 20 nodes at a time.
+  $query = \Drupal::entityQuery('node')
+    ->exists('field_image')
+    ->condition('type', 'podcast_chapter')
+    ->condition('nid', $sandbox['current_pk'], '>')
+    ->range(0, 20)
+    ->sort('nid', 'ASC');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        $node->save();
+        $sandbox['progress']++;
+        $sandbox['current_pk'] = $node->id();
+      }
+    }
+  }
+  if (empty($sandbox['max']) ||  $sandbox['progress'] >= $sandbox['max']) {
+    $sandbox['#finished'] = TRUE;
+  }
+  else {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+}

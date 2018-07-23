@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Site\Settings;
+use Drupal\duration_field\Service\DurationService;
 use Drupal\entityqueue\Entity\EntitySubqueue;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
@@ -675,6 +676,18 @@ function jcms_admin_node_presave(NodeInterface $node) {
         }
       }
     }
+  }
+
+  if ($node->bundle() === 'podcast_chapter') {
+    $time = (int) $node->get('field_podcast_chapter_time')->getString();
+    $seconds = $time % 60;
+    $minutes = ($time - $seconds) / 60;
+    $node->set('field_chapter_time', [
+      'value' => DurationService::convertValue([
+        'minute' => $minutes,
+        'second' => $seconds,
+      ]),
+    ]);
   }
 
   // If content that is configured to use scheduler module and switches from

@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.podcast_chapter.field_chapter_time
     - field.field.node.podcast_chapter.field_impact_statement
     - field.field.node.podcast_chapter.field_long_title
     - field.field.node.podcast_chapter.field_order_date
@@ -10,6 +11,7 @@ dependencies:
     - field.field.node.podcast_chapter.field_related_content
     - node.type.podcast_chapter
   module:
+    - duration_field
     - text
     - user
 id: node.podcast_chapter.default
@@ -17,6 +19,15 @@ targetEntityType: node
 bundle: podcast_chapter
 mode: default
 content:
+  field_chapter_time:
+    weight: 106
+    label: above
+    settings:
+      text_length: full
+      separator: space
+    third_party_settings: {  }
+    type: duration_human_display
+    region: content
   field_impact_statement:
     weight: 102
     label: above

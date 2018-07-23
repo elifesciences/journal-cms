@@ -310,7 +310,8 @@
     "elife/api": "dev-master",
     "elife/api-validator": "^1.0@dev",
     "justinrainbow/json-schema": "^5.2",
-    "mindplay/composer-locator": "^2.1"
+    "mindplay/composer-locator": "^2.1",
+    "drupal/duration_field": "^1.6"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",
