@@ -9,7 +9,7 @@ use Drupal\node\NodeInterface;
 /**
  * Create content path from Node.
  */
-class ContentPath {
+final class ContentPath {
   private $notificationService;
   private $connection;
 

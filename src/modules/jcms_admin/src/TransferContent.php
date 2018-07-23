@@ -15,7 +15,7 @@ use function file_url_transform_relative;
 /**
  * Transfer content from preview to live and vice versa.
  */
-class TransferContent {
+final class TransferContent {
   private $fileSystem;
   private $renderer;
   private $contentValidator;
@@ -32,7 +32,7 @@ class TransferContent {
   /**
    * Transfer html from preview to live fields and vice versa.
    *
-   * @throws InvalidMessage
+   * @throws \eLife\ApiValidator\Exception\InvalidMessage
    */
   public function transfer(NodeInterface $node, $toLive = TRUE, $validate = FALSE, $context = []) : NodeInterface {
     if ($node->hasField('field_content_json') && $node->hasField('field_content_json_preview')) {
