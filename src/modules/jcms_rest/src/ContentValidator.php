@@ -12,7 +12,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Validate whether the content matches the schema.
  */
-class ContentValidator {
+final class ContentValidator implements ValidatorInterface {
   private $baseUrl = 'http://journal-cms.local/';
   private $client;
   private $messageValidator;

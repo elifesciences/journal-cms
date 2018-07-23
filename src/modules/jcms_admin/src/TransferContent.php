@@ -5,7 +5,7 @@ namespace Drupal\jcms_admin;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\jcms_rest\ContentValidator;
+use Drupal\jcms_rest\ValidatorInterface;
 use Drupal\node\NodeInterface;
 use function file_copy;
 use function file_create_url;
@@ -18,15 +18,15 @@ use function file_url_transform_relative;
 final class TransferContent {
   private $fileSystem;
   private $renderer;
-  private $contentValidator;
+  private $validator;
 
   /**
    * Constructor.
    */
-  public function __construct(FileSystemInterface $fileSystem, RendererInterface $renderer, ContentValidator $contentValidator) {
+  public function __construct(FileSystemInterface $fileSystem, RendererInterface $renderer, ValidatorInterface $validator) {
     $this->fileSystem = $fileSystem;
     $this->renderer = $renderer;
-    $this->contentValidator = $contentValidator;
+    $this->validator = $validator;
   }
 
   /**
@@ -37,7 +37,7 @@ final class TransferContent {
   public function transfer(NodeInterface $node, $toLive = TRUE, $validate = FALSE, $context = []) : NodeInterface {
     if ($node->hasField('field_content_json') && $node->hasField('field_content_json_preview')) {
       if ($validate) {
-        $this->contentValidator->validate($node, $toLive, $context);
+        $this->validator->validate($node, $toLive, $context);
       }
       if ($toLive) {
         $fromHtml = $this->cleanHtmlField($node->get('field_content_html_preview'));

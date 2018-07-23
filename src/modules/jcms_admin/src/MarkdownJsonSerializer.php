@@ -29,6 +29,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
   private $docParser;
   private $htmlRenderer;
   private $mimeTypeGuesser;
+  private $youtube;
   private $converter;
   private $depthOffset = NULL;
   private $iiif = '';
@@ -37,10 +38,11 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
   /**
    * Constructor.
    */
-  public function __construct(DocParser $docParser, ElementRendererInterface $htmlRenderer, MimeTypeGuesserInterface $mimeTypeGuesser, CommonMarkConverter $converter) {
+  public function __construct(DocParser $docParser, ElementRendererInterface $htmlRenderer, MimeTypeGuesserInterface $mimeTypeGuesser, YouTubeInterface $youtube, CommonMarkConverter $converter) {
     $this->docParser = $docParser;
     $this->htmlRenderer = $htmlRenderer;
     $this->mimeTypeGuesser = $mimeTypeGuesser;
+    $this->youtube = $youtube;
     $this->converter = $converter;
   }
 
@@ -135,14 +137,14 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
           $figure = $dom->find('figure')[0];
           $classes = preg_split('/\s+/', trim($figure->getAttribute('class') ?? ''));
           if (in_array('video', $classes)) {
-            if (preg_match('/<oembed>(?P<youtube>https:\/\/www\.youtube\.com\/watch\?v=.*)<\/oembed>/', $contents, $matches)) {
-              $id = preg_replace('/^(|.*[^a-zA-Z0-9_-])([a-zA-Z0-9_-]{11})(|[^a-zA-Z0-9_-].*)$/', '$2', $matches['youtube']);
-              // @todo - we need to store the width and height of videos on save.
+            if (preg_match('/<oembed>(?P<youtube>http[^<]+)<\/oembed>/', $contents, $matches)) {
+              $id = $this->youtube->getIdFromUri(trim($matches['youtube'])) ?? NULL;
+              $dimensions = $this->youtube->getDimensions($id);
               return [
                 'type' => 'youtube',
                 'id' => $id,
-                'width' => 16,
-                'height' => 9,
+                'width' => $dimensions['width'] ?? 16,
+                'height' => $dimensions['height'] ?? 9,
               ];
             }
           }

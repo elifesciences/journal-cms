@@ -5,6 +5,7 @@ namespace Drupal\Tests\jcms_admin\Unit;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\jcms_admin\TransferContent;
+use Drupal\jcms_rest\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -36,6 +37,13 @@ class TransferContentTest extends TestCase {
   private $transferContent;
 
   /**
+   * Validator.
+   *
+   * @var \Drupal\jcms_rest\ValidatorInterface
+   */
+  private $validator;
+
+  /**
    * Setup.
    *
    * @before
@@ -43,7 +51,8 @@ class TransferContentTest extends TestCase {
   protected function setUp() {
     $this->fileSystem = $this->getMock(FileSystemInterface::class);
     $this->renderer = $this->getMock(RendererInterface::class);
-    $this->transferContent = new TransferContent($this->fileSystem, $this->renderer);
+    $this->validator = $this->getMock(ValidatorInterface::class);
+    $this->transferContent = new TransferContent($this->fileSystem, $this->renderer, $this->validator);
   }
 
   /**

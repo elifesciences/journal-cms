@@ -3,6 +3,7 @@
 namespace Drupal\Tests\jcms_admin\Unit;
 
 use Drupal\jcms_admin\MarkdownJsonSerializer;
+use Drupal\jcms_admin\YouTubeInterface;
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\DocParser;
 use League\CommonMark\Environment;
@@ -24,12 +25,14 @@ class MarkdownJsonSerializerTest extends TestCase {
    * @var \Drupal\jcms_admin\MarkdownJsonSerializer
    */
   private $normalizer;
+
   /**
    * DocParser.
    *
    * @var \League\CommonMark\DocParser
    */
   private $docParser;
+
   /**
    * Mime type guesser.
    *
@@ -38,15 +41,23 @@ class MarkdownJsonSerializerTest extends TestCase {
   private $mimeTypeGuesser;
 
   /**
+   * YouTube.
+   *
+   * @var \Drupal\jcms_admin\YouTubeInterface
+   */
+  private $youtube;
+
+  /**
    * Setup.
    *
    * @before
    */
   protected function setUpNormalizer() {
     $environment = Environment::createCommonMarkEnvironment();
-    $this->mimeTypeGuesser = $this->getMock(MimeTypeGuesserInterface::class);
     $this->docParser = new DocParser($environment);
-    $this->normalizer = new MarkdownJsonSerializer($this->docParser, new HtmlRenderer($environment), $this->mimeTypeGuesser, new CommonMarkConverter());
+    $this->mimeTypeGuesser = $this->getMock(MimeTypeGuesserInterface::class);
+    $this->youtube = $this->getMock(YouTubeInterface::class);
+    $this->normalizer = new MarkdownJsonSerializer($this->docParser, new HtmlRenderer($environment), $this->mimeTypeGuesser, $this->youtube, new CommonMarkConverter());
   }
 
   /**

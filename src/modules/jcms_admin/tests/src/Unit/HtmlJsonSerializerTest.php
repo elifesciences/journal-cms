@@ -5,6 +5,7 @@ namespace Drupal\Tests\jcms_admin\Unit;
 use Drupal\jcms_admin\HtmlJsonSerializer;
 use Drupal\jcms_admin\HtmlMarkdownSerializer;
 use Drupal\jcms_admin\MarkdownJsonSerializer;
+use Drupal\jcms_admin\YouTubeInterface;
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\DocParser;
 use League\CommonMark\Environment;
@@ -36,6 +37,13 @@ class HtmlJsonSerializerTest extends TestCase {
   private $mimeTypeGuesser;
 
   /**
+   * YouTube.
+   *
+   * @var \Drupal\jcms_admin\YouTubeInterface
+   */
+  private $youtube;
+
+  /**
    * Setup.
    *
    * @before
@@ -43,7 +51,8 @@ class HtmlJsonSerializerTest extends TestCase {
   protected function setUpNormalizer() {
     $environment = Environment::createCommonMarkEnvironment();
     $this->mimeTypeGuesser = $this->getMock(MimeTypeGuesserInterface::class);
-    $this->normalizer = new HtmlJsonSerializer(new HtmlMarkdownSerializer(new HtmlConverter()), new MarkdownJsonSerializer(new DocParser($environment), new HtmlRenderer($environment), $this->mimeTypeGuesser, new CommonMarkConverter()));
+    $this->youtube = $this->getMock(YouTubeInterface::class);
+    $this->normalizer = new HtmlJsonSerializer(new HtmlMarkdownSerializer(new HtmlConverter()), new MarkdownJsonSerializer(new DocParser($environment), new HtmlRenderer($environment), $this->mimeTypeGuesser, $this->youtube, new CommonMarkConverter()));
   }
 
   /**
@@ -81,13 +90,37 @@ class HtmlJsonSerializerTest extends TestCase {
    * @test
    * @dataProvider normalizeProvider
    */
-  public function itWillNormalizeHtml(array $expected, string $html, array $mimeTypeGuesses = [], array $context = ['encode' => ['code', 'table']]) {
+  public function itWillNormalizeHtml(array $expected, string $html, array $mimeTypeGuesses = [], array $youtubes = [], array $context = ['encode' => ['code', 'table']]) {
     foreach ($mimeTypeGuesses as $uri => $mimeType) {
       $this->mimeTypeGuesser
         ->expects($this->once())
         ->method('guess')
         ->with($uri)
         ->willReturn($mimeType);
+    }
+    foreach ($youtubes as $uri => $details) {
+      $details += [
+        'id' => NULL,
+        'width' => NULL,
+        'height' => NULL,
+      ];
+      if ($details['id']) {
+        $this->youtube
+          ->expects($this->any())
+          ->method('getIdFromUri')
+          ->with($uri)
+          ->willReturn($details['id']);
+        if ($details['width'] && $details['height']) {
+          $this->youtube
+            ->expects($this->any())
+            ->method('getDimensions')
+            ->with($details['id'])
+            ->willReturn([
+              'width' => $details['width'],
+              'height' => $details['height'],
+            ]);
+        }
+      }
     }
     $this->assertEquals($expected, $this->normalizer->normalize($html, NULL, $context));
   }
@@ -774,11 +807,19 @@ class HtmlJsonSerializerTest extends TestCase {
           [
             'type' => 'youtube',
             'id' => 'oyBX9l9KzU8',
-            'width' => 16,
-            'height' => 9,
+            'width' => 2000,
+            'height' => 1500,
           ],
         ],
         '<figure class="video no-caption"><oembed>https://www.youtube.com/watch?v=oyBX9l9KzU8</oembed></figure>',
+        [],
+        [
+          'https://www.youtube.com/watch?v=oyBX9l9KzU8' => [
+            'id' => 'oyBX9l9KzU8',
+            'width' => 2000,
+            'height' => 1500,
+          ],
+        ],
       ],
       'curly brackets' => [
         [
