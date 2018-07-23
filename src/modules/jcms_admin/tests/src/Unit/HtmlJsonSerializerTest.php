@@ -208,6 +208,38 @@ class HtmlJsonSerializerTest extends TestCase {
           'public://iiif/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
         ],
       ],
+      'image with placeholder caption' => [
+        [
+          [
+            'type' => 'image',
+            'image' => [
+              'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg',
+              'alt' => '',
+              'source' => [
+                'mediaType' => 'image/jpeg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg/full/full/0/default.jpg',
+                'filename' => 'image-20180427145110-1.jpeg',
+              ],
+              'size' => [
+                'width' => 2000,
+                'height' => 2000,
+              ],
+              'focalPoint' => [
+                'x' => 50,
+                'y' => 50,
+              ],
+            ],
+          ],
+        ],
+        $this->lines([
+          '<figure class="image"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" />',
+          '<figcaption>Caption</figcaption>',
+          '</figure>',
+        ]),
+        [
+          'public://iiif/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
+        ],
+      ],
       'image inline' => [
         [
           [
@@ -264,14 +296,14 @@ class HtmlJsonSerializerTest extends TestCase {
             'content' => [
               [
                 'type' => 'paragraph',
-                'text' => 'Caption',
+                'text' => 'Profile caption',
               ],
             ],
           ],
         ],
         $this->lines([
           '<figure class="image profile-left"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" />',
-          '<figcaption>Caption</figcaption>',
+          '<figcaption>Profile caption</figcaption>',
           '</figure>',
         ]),
         [

@@ -44,7 +44,9 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
    * Clean HTML.
    */
   private function cleanHtml(string $html) : string {
-    $html = preg_replace('~<placeholder>[^<]+</placeholder>~', '', $html);
+    // Strip out placeholder text.
+    // @todo - Consider stripping this out of the saved HTML.
+    $html = preg_replace(['~<figcaption>\s*caption\s*</figcaption>~i', '~<placeholder>[^<]+</placeholder>~'], '', $html);
     $html = preg_replace_callback('~ href="([^\"]+)"~', function ($matches) {
       return ' href="' . str_replace([' ', '(', ')'], ['%20', '%28', '%29'], $matches[1]) . '"';
     }, $html);
