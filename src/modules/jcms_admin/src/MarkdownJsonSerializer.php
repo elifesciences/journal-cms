@@ -137,15 +137,23 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
           $figure = $dom->find('figure')[0];
           $classes = preg_split('/\s+/', trim($figure->getAttribute('class') ?? ''));
           if (in_array('video', $classes)) {
-            if (preg_match('/<oembed>(?P<youtube>http[^<]+)<\/oembed>/', $contents, $matches)) {
-              $id = $this->youtube->getIdFromUri(trim($matches['youtube'])) ?? NULL;
-              $dimensions = $this->youtube->getDimensions($id);
-              return [
-                'type' => 'youtube',
-                'id' => $id,
-                'width' => $dimensions['width'] ?? 16,
-                'height' => $dimensions['height'] ?? 9,
-              ];
+            if (preg_match('/<oembed>(?P<video>http[^<]+)<\/oembed>/', $contents, $matches)) {
+              $uri = trim($matches['video']);
+              if ($id = $this->youtube->getIdFromUri($uri)) {
+                $dimensions = $this->youtube->getDimensions($id);
+                return [
+                  'type' => 'youtube',
+                  'id' => $id,
+                  'width' => $dimensions['width'] ?? 16,
+                  'height' => $dimensions['height'] ?? 9,
+                ];
+              }
+              else {
+                return [
+                  'type' => 'paragraph',
+                  'text' => sprintf('<a href="%s">%s</a>', $uri, $uri),
+                ];
+              }
             }
           }
           else {

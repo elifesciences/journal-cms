@@ -821,6 +821,21 @@ class HtmlJsonSerializerTest extends TestCase {
           ],
         ],
       ],
+      'not youtube' => [
+        [
+          [
+            'type' => 'paragraph',
+            'text' => '<a href="https://vimeo.com/44314507">https://vimeo.com/44314507</a>',
+          ],
+        ],
+        '<figure class="video no-caption"><oembed>https://vimeo.com/44314507</oembed></figure>',
+        [],
+        [
+          'https://vimeo.com/44314507' => [
+            'id' => '',
+          ],
+        ],
+      ],
       'curly brackets' => [
         [
           [
