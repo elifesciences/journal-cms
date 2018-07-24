@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.podcast_chapter.field_impact_statement
     - field.field.node.podcast_chapter.field_long_title
     - field.field.node.podcast_chapter.field_order_date
-    - field.field.node.podcast_chapter.field_podcast_chapter_time
     - field.field.node.podcast_chapter.field_related_content
     - node.type.podcast_chapter
   module:
@@ -51,15 +50,6 @@ content:
       timezone: ''
     third_party_settings: {  }
     type: timestamp
-    region: content
-  field_podcast_chapter_time:
-    weight: 103
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    type: number_integer
     region: content
   field_related_content:
     weight: 101

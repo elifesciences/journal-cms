@@ -2,8 +2,10 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use DateInterval;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\duration_field\Service\DurationService;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
@@ -111,10 +113,11 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       }
     }
 
+    $time = new DateInterval($node->get('field_chapter_time')->getString());
     $chapter_values = [
       'number' => $number ?: $count,
       'title' => $node->getTitle(),
-      'time' => (int) $node->get('field_podcast_chapter_time')->getString(),
+      'time' => ($time->i * 60) + $time->s,
     ];
     if ($node->get('field_long_title')->count()) {
       $chapter_values['longTitle'] = $this->fieldValueFormatted($node->get('field_long_title'));

@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Database\Database;
+use Drupal\duration_field\Service\DurationService;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\migrate\MigrateExecutable;
@@ -1299,14 +1300,12 @@ function jcms_migrate_update_8136() {
     'field.storage.node.field_chapter_time',
     'field.field.node.podcast_chapter.field_chapter_time',
     'core.extension',
-    'core.entity_view_display.node.podcast_chapter.default',
-    'core.entity_form_display.node.podcast_chapter.default',
   ];
   $config_importer->importConfigs($configs);
 }
 
 /**
- * Resave all podcast chapters to populate duration field.
+ * Populate duration field before discarding the integer time field.
  */
 function jcms_migrate_update_8137(&$sandbox) {
   if (!isset($sandbox['progress'])) {
@@ -1329,6 +1328,15 @@ function jcms_migrate_update_8137(&$sandbox) {
     $nodes = Node::loadMultiple($nids);
     if (!empty($nodes)) {
       foreach ($nodes as $node) {
+        $time = (int) $node->get('field_podcast_chapter_time')->getString();
+        $seconds = $time % 60;
+        $minutes = ($time - $seconds) / 60;
+        $node->set('field_chapter_time', [
+          'value' => DurationService::convertValue([
+            'minute' => $minutes,
+            'second' => $seconds,
+          ]),
+        ]);
         $node->save();
         $sandbox['progress']++;
         $sandbox['current_pk'] = $node->id();
