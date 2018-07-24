@@ -103,7 +103,7 @@ elifebutton.elife-button--outline:hover {
   color: #0277bd;
 }
 
-.page-ckeditor-inline h1,
+.page-ckeditor-inline h1.page-title,
 .page-ckeditor-inline .field--name-field-impact-statement {
   font-family: Arial,Helvetica,sans-serif;
   text-align: center;
