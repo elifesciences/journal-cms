@@ -94,7 +94,7 @@ final class JsonHtmlDeserializer implements DenormalizerInterface {
       }
     }
 
-    return implode(PHP_EOL, $html);
+    return implode(PHP_EOL . PHP_EOL, $html);
   }
 
   /**
