@@ -395,11 +395,13 @@ class HtmlJsonSerializerTest extends TestCase {
                 'y' => 50,
               ],
             ],
+            'title' => 'Image caption',
           ],
         ],
         $this->lines([
           '<div class="align-center">',
-          '<figure class="image profile-left"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" /><figcaption>Caption</figcaption></figure></div>',
+          '<figure class="image profile-left"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" /><figcaption>Image caption</figcaption><p>1</p>',
+          '</figure></div>',
         ]),
         [
           'public://iiif/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
