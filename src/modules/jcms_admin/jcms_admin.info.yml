@@ -3,6 +3,7 @@ type: module
 description: Admin improvements.
 core: 8.x
 dependencies:
+  - jcms_notifications
   - jcms_rest
   - scheduler
 package: Journal CMS

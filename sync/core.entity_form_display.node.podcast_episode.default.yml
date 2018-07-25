@@ -14,11 +14,27 @@ dependencies:
     - image.style.thumbnail
     - node.type.podcast_episode
   module:
+    - field_group
     - focal_point
     - inline_entity_form
     - link
     - scheduler
     - text
+third_party_settings:
+  field_group:
+    group_image_attribution:
+      children:
+        - field_image_attribution
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: 'Image attribution'
+      region: content
 id: node.podcast_episode.default
 targetEntityType: node
 bundle: podcast_episode
@@ -32,7 +48,7 @@ content:
     type: boolean_checkbox
     region: content
   field_episode_chapter:
-    weight: 6
+    weight: 7
     settings:
       form_mode: default
       override_labels: true
@@ -45,7 +61,7 @@ content:
     type: inline_entity_form_complex
     region: content
   field_episode_mp3:
-    weight: 5
+    weight: 6
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -53,7 +69,7 @@ content:
     type: link_default
     region: content
   field_episode_number:
-    weight: 3
+    weight: 4
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -70,7 +86,7 @@ content:
     type: image_focal_point
     region: content
   field_image_attribution:
-    weight: 2
+    weight: 3
     settings:
       rows: 5
       placeholder: ''
@@ -78,7 +94,7 @@ content:
     type: text_textarea
     region: content
   field_impact_statement:
-    weight: 4
+    weight: 5
     settings:
       rows: 5
       placeholder: ''
@@ -87,13 +103,15 @@ content:
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 20
+    weight: 10
     region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
@@ -111,7 +129,7 @@ content:
     region: content
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
