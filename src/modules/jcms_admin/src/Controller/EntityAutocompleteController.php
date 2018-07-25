@@ -2,9 +2,13 @@
 
 namespace Drupal\jcms_admin\Controller;
 
+use Drupal\system\Controller\EntityAutocompleteController as CoreEntityAutocompleteController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class EntityAutocompleteController extends \Drupal\system\Controller\EntityAutocompleteController {
+/**
+ * {@inheritdoc}
+ */
+class EntityAutocompleteController extends CoreEntityAutocompleteController {
 
   /**
    * {@inheritdoc}

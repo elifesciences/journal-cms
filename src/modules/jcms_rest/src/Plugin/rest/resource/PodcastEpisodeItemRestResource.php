@@ -5,7 +5,6 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use DateInterval;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\duration_field\Service\DurationService;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
