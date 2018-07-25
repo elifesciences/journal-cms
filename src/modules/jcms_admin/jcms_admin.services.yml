@@ -35,3 +35,10 @@ services:
   jcms_admin.content_path:
     class: Drupal\jcms_admin\ContentPath
     arguments: ['@jcms_notifications.entity_crud_notification_service', '@database']
+  jcms_admin.route_subscriber:
+    class: Drupal\jcms_admin\Routing\AutocompleteRouteSubscriber
+    tags:
+      - { name: event_subscriber }
+  jcms_admin.autocomplete_matcher:
+    class: Drupal\jcms_admin\EntityAutocompleteMatcher
+    arguments: ['@plugin.manager.entity_reference_selection']
