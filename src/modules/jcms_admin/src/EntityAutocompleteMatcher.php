@@ -11,7 +11,7 @@ class EntityAutocompleteMatcher extends \Drupal\Core\Entity\EntityAutocompleteMa
    * {@inheritdoc}
    */
   public function getMatches($target_type, $selection_handler, $selection_settings, $string = '') {
-    $limit = 1;
+    $limit = 10;
     $matches = [];
 
     $options = $selection_settings + [
