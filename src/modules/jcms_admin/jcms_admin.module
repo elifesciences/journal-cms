@@ -228,6 +228,11 @@ function jcms_admin_query_interview_collections_filter_alter(SelectInterface $qu
  */
 function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   _jcms_admin_protect_id_field($form, $form_id);
+  if ($form['publish_on']) {
+    $zones = system_time_zones(NULL, TRUE);
+    $timezone = \Drupal::config('system.date')->get('timezone.default');
+    $form['publish_on']['widget'][0]['value']['#description'] .= ' ' . t('(Timezone: %timezone)', ['%timezone' => $zones[$timezone]]);
+  }
   switch ($form_id) {
     case 'node_article_form':
     case 'node_article_edit_form':
@@ -716,4 +721,15 @@ function jcms_admin_theme($existing, $type, $theme, $path) {
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function jcms_admin_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter' && isset($implementations['jcms_admin'])) {
+    $group = $implementations['jcms_admin'];
+    unset($implementations['jcms_admin']);
+    $implementations['jcms_admin'] = $group;
+  }
 }
