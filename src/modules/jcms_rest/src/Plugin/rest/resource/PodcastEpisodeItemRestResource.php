@@ -113,11 +113,17 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       }
     }
 
-    $time = new DateInterval($node->get('field_chapter_time')->getString());
+    if ($node->get('field_chapter_time')->getValue()) {
+      $time = new DateInterval($node->get('field_chapter_time')->getString());
+    }
+    else {
+      $time = 0;
+    }
+
     $chapter_values = [
       'number' => $number ?: $count,
       'title' => $node->getTitle(),
-      'time' => ($time->i * 60) + $time->s,
+      'time' => ($time instanceof DateInterval) ? ($time->i * 60 + $time->s) : $time,
     ];
     if ($node->get('field_long_title')->count()) {
       $chapter_values['longTitle'] = $this->fieldValueFormatted($node->get('field_long_title'));
