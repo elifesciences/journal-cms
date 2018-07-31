@@ -71,8 +71,8 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
       [
         '/annual-reports',
         [
-          'application/vnd.elife.annual-report-list+json;version=1',
-          'application/vnd.elife.annual-report+json;version=1',
+          'application/vnd.elife.annual-report-list+json;version=2',
+          'application/vnd.elife.annual-report+json;version=2',
         ],
         'year',
       ],
