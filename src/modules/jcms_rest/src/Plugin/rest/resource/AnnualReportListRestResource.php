@@ -93,7 +93,7 @@ class AnnualReportListRestResource extends AbstractRestResourceBase {
         $item['image'] = $image;
       }
       else {
-        throw new JCMSNotAcceptableHttpException('This annual report list requires version 2+.');
+        throw new JCMSNotAcceptableHttpException('At least one of the annual reports in the list requires version 2+.');
       }
     }
 
