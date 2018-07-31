@@ -69,7 +69,7 @@ class DeprecationEndpointValidatorTest extends FixtureBasedTestCase {
     return [
       [
         '/annual-reports',
-        'id',
+        'year',
         'application/vnd.elife.annual-report-list+json',
         'application/vnd.elife.annual-report+json;version=1',
         '299 api.elifesciences.org "Deprecation: Support for version 1 will be removed"',
