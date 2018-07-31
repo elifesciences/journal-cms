@@ -34,6 +34,9 @@ class DeprecationEndpointValidatorTest extends FixtureBasedTestCase {
   public function testDeprecationListEndpoints(string $endpoint, string $media_type_list, $check = []) {
     $per_page = 10;
     $page = 1;
+    if (is_string($check)) {
+      $check = ['Warning' => $check];
+    }
     do {
       $request = new Request('GET', $endpoint . '?per-page=' . $per_page . '&page=' . $page, [
         'Accept' => $media_type_list,
