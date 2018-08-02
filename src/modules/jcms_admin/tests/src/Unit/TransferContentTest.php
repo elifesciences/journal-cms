@@ -70,7 +70,6 @@ class TransferContentTest extends TestCase {
           '<p>&nbsp;</p>',
           '<p></p>',
           '<p> </p>',
-          '<p>Â </p>',
           '<p>          </p>',
           "<p>\t</p>",
           "<p>\n</p>",
