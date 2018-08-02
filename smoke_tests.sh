@@ -11,17 +11,21 @@ echo "Homepage"
 [ $(curl --write-out %{http_code} --silent --output /dev/null "$hostname") == 200 ]
 
 echo "APIs"
-[ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.blog-article-list+json; version=1" "${hostname}/blog-articles") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.collection-list+json; version=1" "${hostname}/collections") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.cover-list+json; version=1" "${hostname}/covers") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.event-list+json; version=1" "${hostname}/events") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.interview-list+json; version=1" "${hostname}/interviews") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.labs-post-list+json; version=1" "${hostname}/labs-posts") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.person-list+json; version=1" "${hostname}/people") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.person-list+json; version=1" "${hostname}/people?type=leadership") == 200 ] # Deprecated
-[ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.person-list+json; version=1" "${hostname}/people?type\[\]=leadership") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.podcast-episode-list+json; version=1" "${hostname}/podcast-episodes") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null -H "Accept: application/vnd.elife.subject-list+json; version=1" "${hostname}/subjects") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/annual-reports") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/blog-articles") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/collections") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/community") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/covers") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/events") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/interviews") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/job-adverts") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/labs-posts") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/people") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/people?type=leadership") == 200 ] # Deprecated
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/people?type\[\]=leadership") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/podcast-episodes") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/press-packages") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/subjects") == 200 ]
 
 echo "Redis"
 php -r '$redis = new \Redis(); $redis->connect($argv[1], 6379);' "$hostname"

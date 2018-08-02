@@ -3,6 +3,7 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
@@ -20,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class AnnualReportListRestResource extends AbstractRestResourceBase {
+  protected $latestVersion = 2;
 
   /**
    * Responds to GET requests.
@@ -28,8 +30,6 @@ class AnnualReportListRestResource extends AbstractRestResourceBase {
    *
    * @throws \Symfony\Component\HttpKernel\Exception\HttpException
    *   Throws exception expected.
-   *
-   * @todo - elife - nlisgo - Handle version specific requests
    */
   public function get() {
     $base_query = \Drupal::entityQuery('node')
@@ -87,8 +87,15 @@ class AnnualReportListRestResource extends AbstractRestResourceBase {
       }
     }
 
-    // Image is required.
-    $item['image'] = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail', TRUE);
+    // Image is required, for version 1.
+    if ($this->acceptVersion < 2) {
+      if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail', TRUE)) {
+        $item['image'] = $image;
+      }
+      else {
+        throw new JCMSNotAcceptableHttpException('At least one of the annual reports in the list requires version 2+.');
+      }
+    }
 
     return $item;
   }
