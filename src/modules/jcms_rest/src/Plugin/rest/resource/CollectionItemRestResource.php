@@ -2,9 +2,10 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\node\Entity\Node;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -28,110 +29,122 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
    * @throws JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
-    $query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
-      ->condition('type', 'collection')
-      ->condition('uuid', '%' . $id, 'LIKE');
+    if ($this->checkId($id)) {
+      $query = \Drupal::entityQuery('node')
+        ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+        ->condition('type', 'collection')
+        ->condition('uuid', '%' . $id, 'LIKE');
 
-    $nids = $query->execute();
-    if ($nids) {
-      $nid = reset($nids);
-      /* @var \Drupal\node\Entity\Node $node */
-      $node = Node::load($nid);
+      if (!$this->viewUnpublished()) {
+        $query->condition('status', NodeInterface::PUBLISHED);
+      }
 
-      $this->setSortBy('changed');
-      $response = $this->processDefault($node, $id);
+      $nids = $query->execute();
+      if ($nids) {
+        $nid = reset($nids);
+        /* @var \Drupal\node\Entity\Node $node */
+        $node = Node::load($nid);
 
-      // Image is optional.
-      if ($image = $this->processFieldImage($node->get('field_image'), FALSE)) {
-        $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
-        if (!empty($attribution)) {
-          foreach ($image as $key => $type) {
-            $image[$key]['attribution'] = $attribution;
+        $this->setSortBy('changed');
+        $response = $this->processDefault($node, $id);
+
+        // Image is optional.
+        if ($image = $this->processFieldImage($node->get('field_image'), FALSE)) {
+          $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
+          if (!empty($attribution)) {
+            foreach ($image as $key => $type) {
+              $image[$key]['attribution'] = $attribution;
+            }
+          }
+          $response['image'] = $image;
+        }
+
+        // Impact statement is optional.
+        if ($node->get('field_impact_statement')->count()) {
+          $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
+          if (empty($response['impactStatement'])) {
+            unset($response['impactStatement']);
           }
         }
-        $response['image'] = $image;
-      }
 
-      // Impact statement is optional.
-      if ($node->get('field_impact_statement')->count()) {
-        $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
-        if (empty($response['impactStatement'])) {
-          unset($response['impactStatement']);
+        // Subjects are optional.
+        $subjects = $this->processSubjects($node->get('field_subjects'));
+        if (!empty($subjects)) {
+          $response['subjects'] = $subjects;
         }
-      }
 
-      // Subjects are optional.
-      $subjects = $this->processSubjects($node->get('field_subjects'));
-      if (!empty($subjects)) {
-        $response['subjects'] = $subjects;
-      }
-
-      // Curators are required.
-      $co = 0;
-      $people_rest_resource = new PersonListRestResource([], 'person_list_rest_resource', [], $this->serializerFormats, $this->logger);
-      $response['curators'] = [];
-      foreach ($node->get('field_curators') as $curator) {
-        $curator_item = $people_rest_resource->getItem($curator->get('entity')->getTarget()->getValue());
-        $response['curators'][] = $curator_item;
-        if ($co === 0) {
-          $response['selectedCurator'] = $curator_item;
+        // Curators are required.
+        $co = 0;
+        $people_rest_resource = new PersonListRestResource([], 'person_list_rest_resource', [], $this->serializerFormats, $this->logger);
+        $response['curators'] = [];
+        foreach ($node->get('field_curators')->referencedEntities() as $curator) {
+          /* @var Node $curator */
+          if ($curator->isPublished() || $this->viewUnpublished()) {
+            $curator_item = $people_rest_resource->getItem($curator);
+            $response['curators'][] = $curator_item;
+            if ($co === 0) {
+              $response['selectedCurator'] = $curator_item;
+            }
+            elseif ($co === 1) {
+              $response['selectedCurator']['etAl'] = TRUE;
+            }
+            $co++;
+          }
         }
-        elseif ($co === 1) {
-          $response['selectedCurator']['etAl'] = TRUE;
+
+        // Summary is optional.
+        if ($content = $this->processFieldContent($node->get('field_summary'))) {
+          $response['summary'] = $content;
         }
-        $co++;
-      }
 
-      // Summary is optional.
-      if ($content = $this->processFieldContent($node->get('field_summary'))) {
-        $response['summary'] = $content;
-      }
+        // Collection content is required.
+        $response['content'] = [];
 
-      // Collection content is required.
-      $response['content'] = [];
+        $blog_article_rest_resource = new BlogArticleListRestResource([], 'blog_article_list_rest_resource', [], $this->serializerFormats, $this->logger);
+        $interview_rest_resource = new InterviewListRestResource([], 'interview_list_rest_resource', [], $this->serializerFormats, $this->logger);
 
-      $blog_article_rest_resource = new BlogArticleListRestResource([], 'blog_article_list_rest_resource', [], $this->serializerFormats, $this->logger);
-      $interview_rest_resource = new InterviewListRestResource([], 'interview_list_rest_resource', [], $this->serializerFormats, $this->logger);
+        foreach (['content' => 'field_collection_content', 'relatedContent' => 'field_collection_related_content'] as $k => $field) {
+          foreach ($node->get($field)->referencedEntities() as $content) {
+            /* @var Node $content */
+            if ($content->isPublished() || $this->viewUnpublished()) {
+              switch ($content->getType()) {
+                case 'blog_article':
+                  $response[$k][] = ['type' => 'blog-article'] + $blog_article_rest_resource->getItem($content);
+                  break;
 
-      foreach (['content' => 'field_collection_content', 'relatedContent' => 'field_collection_related_content'] as $k => $field) {
-        foreach ($node->get($field) as $content) {
-          /* @var \Drupal\node\Entity\Node $content_node */
-          $content_node = $content->get('entity')->getTarget()->getValue();
-          switch ($content_node->getType()) {
-            case 'blog_article':
-              $response[$k][] = ['type' => 'blog-article'] + $blog_article_rest_resource->getItem($content_node);
-              break;
+                case 'interview':
+                  $response[$k][] = ['type' => 'interview'] + $interview_rest_resource->getItem($content);
+                  break;
 
-            case 'interview':
-              $response[$k][] = ['type' => 'interview'] + $interview_rest_resource->getItem($content_node);
-              break;
+                case 'article':
+                  if ($snippet = $this->getArticleSnippet($content)) {
+                    $response[$k][] = $snippet;
+                  }
+                  break;
 
-            case 'article':
-              if ($snippet = $this->getArticleSnippet($content_node)) {
-                $response[$k][] = $snippet;
+                default:
               }
-              break;
-
-            default:
+            }
           }
         }
-      }
 
-      // Podcasts are optional.
-      if ($node->get('field_collection_podcasts')->count()) {
-        $response['podcastEpisodes'] = [];
-        $podcast_rest_resource = new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger);
-        foreach ($node->get('field_collection_podcasts') as $podcast) {
-          $response['podcastEpisodes'][] = $podcast_rest_resource->getItem($podcast->get('entity')->getTarget()->getValue());
+        // Podcasts are optional.
+        if ($node->get('field_collection_podcasts')->count()) {
+          $response['podcastEpisodes'] = [];
+          $podcast_rest_resource = new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger);
+          foreach ($node->get('field_collection_podcasts')->referencedEntities() as $podcast) {
+            /* @var Node $podcast */
+            if ($podcast->isPublished() || $this->viewUnpublished()) {
+              $response['podcastEpisodes'][] = $podcast_rest_resource->getItem($podcast);
+            }
+          }
         }
-      }
 
-      $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
-      $response->addCacheableDependency($node);
-      $this->processResponse($response);
-      return $response;
+        $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+        $response->addCacheableDependency($node);
+        $this->processResponse($response);
+        return $response;
+      }
     }
 
     throw new JCMSNotFoundHttpException(t('Collection with ID @id was not found', ['@id' => $id]));

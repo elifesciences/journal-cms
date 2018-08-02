@@ -183,18 +183,18 @@ class ArticleCrud {
   /**
    * Get article snippet from node.
    *
-   * @return mixed|bool
+   * @return array|bool
    *   Return article snippet, if found.
    */
   public function getArticle(EntityInterface $node, bool $preview = FALSE) {
     $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
     $paragraph = Paragraph::load($pid);
     if ($preview) {
-      return json_decode($paragraph->get('field_article_unpublished_json')->getString());
+      return json_decode($paragraph->get('field_article_unpublished_json')->getString(), TRUE);
     }
     else {
       if ($paragraph->get('field_article_published_json')->getValue()) {
-        return json_decode($paragraph->get('field_article_published_json')->getString());
+        return json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
       }
       else {
         return FALSE;

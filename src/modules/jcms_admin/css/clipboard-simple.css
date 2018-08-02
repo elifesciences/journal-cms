@@ -1,0 +1,9 @@
+.item-list ul.clipboard-simple-list li {
+  list-style-type: none;
+  margin-left: 0;
+}
+
+.clipboard-simple .button {
+  margin-left: 0;
+  margin-right: 2.5em;
+}

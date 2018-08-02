@@ -5,6 +5,7 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use Drupal\node\Entity\Node;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -29,52 +30,57 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
    * @throws JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
-    $query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
-      ->condition('type', 'interview')
-      ->condition('uuid', '%' . $id, 'LIKE');
+    if ($this->checkId($id)) {
+      $query = \Drupal::entityQuery('node')
+        ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+        ->condition('type', 'interview')
+        ->condition('uuid', '%' . $id, 'LIKE');
 
-    $nids = $query->execute();
-    if ($nids) {
-      $nid = reset($nids);
-      /* @var \Drupal\node\Entity\Node $node */
-      $node = Node::load($nid);
+      if (!$this->viewUnpublished()) {
+        $query->condition('status', NodeInterface::PUBLISHED);
+      }
 
-      $response = $this->processDefault($node, $id);
+      $nids = $query->execute();
+      if ($nids) {
+        $nid = reset($nids);
+        /* @var \Drupal\node\Entity\Node $node */
+        $node = Node::load($nid);
 
-      $response['interviewee']['name'] = $this->processPeopleNames($node->get('field_person_preferred_name')->getString(), $node->get('field_person_index_name'));
+        $response = $this->processDefault($node, $id);
 
-      if ($node->get('field_interview_cv')->count()) {
-        $response['interviewee']['cv'] = [];
-        foreach ($node->get('field_interview_cv') as $paragraph) {
-          $cv_item = $paragraph->get('entity')->getTarget()->getValue();
-          $response['interviewee']['cv'][] = [
-            'date' => $cv_item->get('field_cv_item_date')->getString(),
-            'text' => $this->fieldValueFormatted($cv_item->get('field_block_html')),
-          ];
+        $response['interviewee']['name'] = $this->processPeopleNames($node->get('field_person_preferred_name')->getString(), $node->get('field_person_index_name'));
+
+        if ($node->get('field_interview_cv')->count()) {
+          $response['interviewee']['cv'] = [];
+          foreach ($node->get('field_interview_cv') as $paragraph) {
+            $cv_item = $paragraph->get('entity')->getTarget()->getValue();
+            $response['interviewee']['cv'][] = [
+              'date' => $cv_item->get('field_cv_item_date')->getString(),
+              'text' => $this->fieldValueFormatted($cv_item->get('field_block_html')),
+            ];
+          }
         }
-      }
 
-      // Impact statement is optional.
-      if ($node->get('field_impact_statement')->count()) {
-        $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
-        if (empty($response['impactStatement'])) {
-          unset($response['impactStatement']);
+        // Impact statement is optional.
+        if ($node->get('field_impact_statement')->count()) {
+          $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
+          if (empty($response['impactStatement'])) {
+            unset($response['impactStatement']);
+          }
         }
+
+        // Image is optional.
+        if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {
+          $response['image'] = $image;
+        }
+
+        $response['content'] = json_decode($node->get('field_content_processed_json')->getString());
+
+        $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+        $response->addCacheableDependency($node);
+        $this->processResponse($response);
+        return $response;
       }
-
-      // Image is optional.
-      if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {
-        $response['image'] = $image;
-      }
-
-      $response['content'] = json_decode($node->get('field_content_processed_json')->getString());
-
-      $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
-      $response->addCacheableDependency($node);
-      $this->processResponse($response);
-      return $response;
     }
 
     throw new JCMSNotFoundHttpException(t('Interview with ID @id was not found', ['@id' => $id]));

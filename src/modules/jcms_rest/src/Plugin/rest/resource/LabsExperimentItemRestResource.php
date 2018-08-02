@@ -5,6 +5,7 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use Drupal\node\Entity\Node;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -29,44 +30,49 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
    * @throws JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
-    $query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
-      ->condition('type', 'labs_experiment')
-      ->condition('uuid', '%' . $id, 'LIKE');
+    if ($this->checkId($id)) {
+      $query = \Drupal::entityQuery('node')
+        ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+        ->condition('type', 'labs_experiment')
+        ->condition('uuid', '%' . $id, 'LIKE');
 
-    $nids = $query->execute();
-    if ($nids) {
-      $nid = reset($nids);
-      /* @var \Drupal\node\Entity\Node $node */
-      $node = Node::load($nid);
-
-      $this->setSortBy('created', TRUE);
-      $response = $this->processDefault($node);
-
-      // Image is required.
-      $response['image'] = $this->processFieldImage($node->get('field_image'), TRUE);
-      $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
-      if (!empty($attribution)) {
-        foreach ($response['image'] as $key => $type) {
-          $response['image'][$key]['attribution'] = $attribution;
-        }
+      if (!$this->viewUnpublished()) {
+        $query->condition('status', NodeInterface::PUBLISHED);
       }
 
-      // Impact statement is optional.
-      if ($node->get('field_impact_statement')->count()) {
-        $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
-        if (empty($response['impactStatement'])) {
-          unset($response['impactStatement']);
+      $nids = $query->execute();
+      if ($nids) {
+        $nid = reset($nids);
+        /* @var \Drupal\node\Entity\Node $node */
+        $node = Node::load($nid);
+
+        $this->setSortBy('created', TRUE);
+        $response = $this->processDefault($node);
+
+        // Image is required.
+        $response['image'] = $this->processFieldImage($node->get('field_image'), TRUE, 'thumbnail');
+        $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
+        if (!empty($attribution)) {
+          foreach ($response['image'] as $key => $type) {
+            $response['image'][$key]['attribution'] = $attribution;
+          }
         }
+
+        // Impact statement is optional.
+        if ($node->get('field_impact_statement')->count()) {
+          $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
+          if (empty($response['impactStatement'])) {
+            unset($response['impactStatement']);
+          }
+        }
+
+        $response['content'] = json_decode($node->get('field_content_processed_json')->getString());
+
+        $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+        $response->addCacheableDependency($node);
+        $this->processResponse($response);
+        return $response;
       }
-
-      $response['content'] = json_decode($node->get('field_content_processed_json')->getString());
-
-      $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
-      $response->addCacheableDependency($node);
-      $this->processResponse($response);
-      return $response;
     }
 
     throw new JCMSNotFoundHttpException(t('Lab experiment with ID @id was not found', ['@id' => $id]));

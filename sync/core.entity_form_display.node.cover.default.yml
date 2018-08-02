@@ -51,22 +51,16 @@ content:
     type: text_textarea
     region: content
   moderation_state:
-    weight: 122
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: moderation_state_default
     region: content
-  publish_on:
-    type: datetime_timestamp_no_default
-    weight: 30
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 121
+    weight: 4
     third_party_settings: {  }
     region: content
   title:
@@ -77,16 +71,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
-  unpublish_on:
-    type: datetime_timestamp_no_default
-    weight: 30
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   created: true
   field_order_date: true
   path: true
   promote: true
+  publish_on: true
   sticky: true
   uid: true
+  unpublish_on: true

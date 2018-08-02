@@ -60,14 +60,24 @@ function jcms_migrate_drush_command() {
  * Callback function drush_jcms_admin_msa_switch().
  */
 function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
+  // If $to is NULL then there is no need to trigger the save.
+  $skip_save = (is_null($to)) ? TRUE : FALSE;
   // Allow $to to be null to force save of all content under this MSA.
   $to = $to ?? $from;
 
+  $verbose = drush_get_context('DRUSH_VERBOSE');
+
   // Verify that $from and $to are recognised.
-  $msa_from = \Drupal::entityQuery('taxonomy_term')
-    ->condition('vid', 'subjects')
-    ->condition('field_subject_id.value', $from)
-    ->execute();
+  if (is_numeric($from)) {
+    $msa_from = [$from];
+  }
+  else {
+    $msa_from = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'subjects')
+      ->condition('field_subject_id.value', $from)
+      ->execute();
+  }
+
   if (!$msa_from) {
     return drush_set_error('jcms_migrate', dt('!from is not a recognised major subject area.', ['!from' => $from]));
   }
@@ -138,6 +148,7 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
       '!count' => count($nodes),
       '!type' => $type,
     ]));
+    /** @var \Drupal\node\NodeInterface $node */
     foreach ($nodes as $node) {
       if ($type === 'person') {
         $details = Paragraph::load($people[$node->id()]->research_details_id);
@@ -147,11 +158,24 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
       else {
         $swap_msa_values($node, 'field_subjects');
       }
-      $node->save();
+      if ($verbose) {
+        // This is useful if content needs to be manually reassigned.
+        drush_print(dt(':type (:uuid): :title (/node/!nid)', [
+          ':type' => $node->bundle(),
+          ':uuid' => substr($node->uuid(), -8),
+          ':title' => $node->getTitle(),
+          '!nid' => $node->id(),
+        ]));
+      }
+      if (!$skip_save) {
+        $node->save();
+      }
     }
   }
 
-  drush_print(dt('Switching complete!'));
+  if (!$skip_save) {
+    drush_print(dt('Switching complete!'));
+  }
 }
 
 /**

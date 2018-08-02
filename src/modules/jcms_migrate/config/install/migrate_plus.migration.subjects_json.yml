@@ -33,6 +33,10 @@ source:
       name: alt
       label: 'Subject image alt text'
       selector: alt
+    -
+      name: attribution
+      label: 'Subject image attribution'
+      selector: attribution
   ids:
     id:
       type: string
@@ -47,12 +51,12 @@ process:
     default_value: subjects
   name: name
   field_subject_id: id
-  'field_impact_statement/value': impact_statement
-  'field_impact_statement/format':
+  field_impact_statement/value: impact_statement
+  field_impact_statement/format:
     plugin: default_value
     default_value: basic_html
-  'field_aims_and_scope/value': aims_and_scope
-  'field_aims_and_scope/format':
+  field_aims_and_scope/value: aims_and_scope
+  field_aims_and_scope/format:
     plugin: default_value
     default_value: basic_html
   field_image:
@@ -60,5 +64,9 @@ process:
     source:
       - image
       - alt
+  field_image_attribution/value: attribution
+  field_image_attribution/format:
+    plugin: default_value
+    default_value: basic_html
 
 migration_dependencies: {}

@@ -37,24 +37,29 @@ class PersonItemRestResource extends AbstractRestResourceBase {
    * Get item response.
    */
   public function getItemResponse(string $id) : JCMSRestResponse {
-    $query = \Drupal::entityQuery('node')
-      ->condition('status', NodeInterface::PUBLISHED)
-      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
-      ->condition('field_archive.value', 0)
-      ->condition('type', 'person')
-      ->condition('uuid', '%' . $id, 'LIKE');
+    if ($this->checkId($id)) {
+      $query = \Drupal::entityQuery('node')
+        ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+        ->condition('field_archive.value', 0)
+        ->condition('type', 'person')
+        ->condition('uuid', '%' . $id, 'LIKE');
 
-    // @todo - elife - nlisgo - Handle version specific requests
-    // @todo - elife - nlisgo - Handle content negotiation
+      if (!$this->viewUnpublished()) {
+        $query->condition('status', NodeInterface::PUBLISHED);
+      }
 
-    $nids = $query->execute();
-    if ($nids) {
-      $nid = reset($nids);
-      $node = Node::load($nid);
-      $item = $this->getItem($node);
-      $response = new JCMSRestResponse($item, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
-      $response->addCacheableDependency($node);
-      return $response;
+      // @todo - elife - nlisgo - Handle version specific requests
+      // @todo - elife - nlisgo - Handle content negotiation
+
+      $nids = $query->execute();
+      if ($nids) {
+        $nid = reset($nids);
+        $node = Node::load($nid);
+        $item = $this->getItem($node);
+        $response = new JCMSRestResponse($item, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+        $response->addCacheableDependency($node);
+        return $response;
+      }
     }
 
     throw new JCMSNotFoundHttpException(t('Person with ID @id was not found', ['@id' => $id]));
@@ -80,6 +85,11 @@ class PersonItemRestResource extends AbstractRestResourceBase {
     // Affiliations are optional.
     if ($affiliations = $this->getAffiliations($node, FALSE)) {
       $item['affiliations'] = $affiliations;
+    }
+
+    // Competing interests are optional.
+    if ($competing = $this->fieldValueFormatted($node->get('field_person_competing'))) {
+      $item['competingInterests'] = $competing;
     }
 
     return $item;

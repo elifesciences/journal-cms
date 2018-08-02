@@ -5,6 +5,7 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use Drupal\node\Entity\Node;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -29,50 +30,55 @@ class EventItemRestResource extends AbstractRestResourceBase {
    * @throws JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
-    $query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
-      ->condition('type', 'event')
-      ->condition('uuid', '%' . $id, 'LIKE');
+    if ($this->checkId($id)) {
+      $query = \Drupal::entityQuery('node')
+        ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+        ->condition('type', 'event')
+        ->condition('uuid', '%' . $id, 'LIKE');
 
-    $nids = $query->execute();
-    if ($nids) {
-      $nid = reset($nids);
-      /* @var \Drupal\node\Entity\Node $node */
-      $node = Node::load($nid);
-
-      $this->setSortBy(FALSE);
-      $response = $this->processDefault($node, $id);
-
-      $response['starts'] = $this->formatDate(strtotime($node->get('field_event_datetime')->first()->getValue()['value']));
-      $response['ends'] = $this->formatDate(strtotime($node->get('field_event_datetime')->first()->getValue()['end_value']));
-
-      // Timezone is optional.
-      if ($node->get('field_event_timezone')->count()) {
-        $response['timezone'] = $node->get('field_event_timezone')->getString();
+      if (!$this->viewUnpublished()) {
+        $query->condition('status', NodeInterface::PUBLISHED);
       }
 
-      // Impact statement is optional.
-      if ($node->get('field_impact_statement')->count()) {
-        $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
-        if (empty($response['impactStatement'])) {
-          unset($response['impactStatement']);
+      $nids = $query->execute();
+      if ($nids) {
+        $nid = reset($nids);
+        /* @var \Drupal\node\Entity\Node $node */
+        $node = Node::load($nid);
+
+        $this->setSortBy(FALSE);
+        $response = $this->processDefault($node, $id);
+
+        $response['starts'] = $this->formatDate(strtotime($node->get('field_event_datetime')->first()->getValue()['value']));
+        $response['ends'] = $this->formatDate(strtotime($node->get('field_event_datetime')->first()->getValue()['end_value']));
+
+        // Timezone is optional.
+        if ($node->get('field_event_timezone')->count()) {
+          $response['timezone'] = $node->get('field_event_timezone')->getString();
         }
-      }
 
-      // URI is optional.
-      if ($node->get('field_event_uri')->count()) {
-        $response['uri'] = $node->get('field_event_uri')->first()->getValue()['uri'];
-      }
-      // Content is optional, only display if there is no Event URI.
-      elseif ($content = $node->get('field_content_processed_json')->getString()) {
-        $response['content'] = json_decode($content);
-      }
+        // Impact statement is optional.
+        if ($node->get('field_impact_statement')->count()) {
+          $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
+          if (empty($response['impactStatement'])) {
+            unset($response['impactStatement']);
+          }
+        }
 
-      $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
-      $response->addCacheableDependency($node);
-      $this->processResponse($response);
-      return $response;
+        // URI is optional.
+        if ($node->get('field_event_uri')->count()) {
+          $response['uri'] = $node->get('field_event_uri')->first()->getValue()['uri'];
+        }
+        // Content is optional, only display if there is no Event URI.
+        elseif ($content = $node->get('field_content_processed_json')->getString()) {
+          $response['content'] = json_decode($content);
+        }
+
+        $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+        $response->addCacheableDependency($node);
+        $this->processResponse($response);
+        return $response;
+      }
     }
 
     throw new JCMSNotFoundHttpException(t('Event with ID @id was not found', ['@id' => $id]));

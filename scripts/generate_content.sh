@@ -5,7 +5,7 @@ cd ./web
 ../vendor/bin/drush --nocolor -y en devel_generate
 
 echo "Creating content type subjects"
-../vendor/bin/drush --nocolor generate-terms subjects 20 --kill
+../vendor/bin/drush migrate-import jcms_subjects_json
 
 # labs_experiment is actually published as /labs-posts
 for type in blog_article labs_experiment person event podcast_episode interview collection cover press_package annual_report job_advert; do

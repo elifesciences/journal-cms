@@ -979,7 +979,7 @@ function jcms_migrate_update_8119() {
 /**
  * Enable config_import module.
  */
-function jcms_migrate_update_8210() {
+function jcms_migrate_update_8120() {
   drupal_flush_all_caches();
   \Drupal::service('module_installer')->install(['config_import']);
 }
@@ -987,7 +987,7 @@ function jcms_migrate_update_8210() {
 /**
  * Recreate field: field_aims_and_scope.
  */
-function jcms_migrate_update_8211() {
+function jcms_migrate_update_8121() {
   $subject_tids = \Drupal::entityQuery('taxonomy_term')
     ->condition('vid', 'subjects')->execute();
 
@@ -1020,5 +1020,264 @@ function jcms_migrate_update_8211() {
   foreach ($subjects as $subject) {
     $subject->set('field_aims_and_scope', ['value' => $aims[$subject->id()], 'format' => 'basic_html']);
     $subject->save();
+  }
+}
+
+/**
+ * Update taxonomy_term.field_aims_and_scope field.
+ */
+function jcms_migrate_update_8122() {
+  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+}
+
+/**
+ * Import the MSA chromosomes-gene-expression.
+ */
+function jcms_migrate_update_8123() {
+  $manager = \Drupal::service('plugin.manager.config_entity_migration');
+  $plugins = $manager->createInstances([]);
+  $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
+  $executable->import();
+}
+
+/**
+ * Remove genes-chromosomes msa.
+ */
+function jcms_migrate_update_8124() {
+  $msa = [
+    'genes-chromosomes',
+  ];
+  $tids = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'subjects')
+    ->condition('field_subject_id.value', $msa, 'IN')
+    ->execute();
+  $controller = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $entities = $controller->loadMultiple($tids);
+  // Delete taxonomy terms.
+  $controller->delete($entities);
+
+  // Remove from migration map.
+  $migrate_id_map = \Drupal::service('plugin.manager.config_entity_migration')->createInstance('jcms_subjects_json')->getIdMap();
+  foreach ($msa as $id) {
+    $migrate_id_map->delete([$id]);
+  }
+}
+
+/**
+ * Resave all person nodes with a competing interest.
+ */
+function jcms_migrate_update_8125() {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'person')
+    // Limit the person nodes to those with a competing interest.
+    ->condition('field_person_competing.format', 'basic_html');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        $node->save();
+      }
+    }
+  }
+}
+
+/**
+ * Resave all labs-post nodes.
+ */
+function jcms_migrate_update_8126() {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'labs_experiment');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        $node->save();
+      }
+    }
+  }
+}
+
+/**
+ * Enable config_import module.
+ */
+function jcms_migrate_update_8127() {
+  \Drupal::service('module_installer')->install(['config_import']);
+}
+
+/**
+ * Update migrate config for attribution import and import new MSA.
+ */
+function jcms_migrate_update_8128() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $configs = [
+    'migrate_plus.migration.jcms_subjects_json',
+  ];
+  $config_importer->importConfigs($configs);
+
+  $manager = \Drupal::service('plugin.manager.config_entity_migration');
+  $plugins = $manager->createInstances([]);
+  $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
+  $executable->import();
+}
+
+/**
+ * Remove genomics-evolutionary-biology msa.
+ */
+function jcms_migrate_update_8129() {
+  // Assign any remaining content to genetics-genomics, there shouldn't be any
+  // in production.
+  drush_invoke('msa-switch', ['genomics-evolutionary-biology', 'genetics-genomics']);
+  $msa = [
+    'genomics-evolutionary-biology',
+  ];
+  $tids = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'subjects')
+    ->condition('field_subject_id.value', $msa, 'IN')
+    ->execute();
+  $controller = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $entities = $controller->loadMultiple($tids);
+  // Delete taxonomy terms.
+  $controller->delete($entities);
+
+  // Remove from migration map.
+  $migrate_id_map = \Drupal::service('plugin.manager.config_entity_migration')->createInstance('jcms_subjects_json')->getIdMap();
+  foreach ($msa as $id) {
+    $migrate_id_map->delete([$id]);
+  }
+}
+
+/**
+ * Enable config_import module.
+ */
+function jcms_migrate_update_8130() {
+  \Drupal::service('module_installer')->install(['config_import']);
+}
+
+/**
+ * Update migrate config for attribution import and import new MSA.
+ */
+function jcms_migrate_update_8131() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $configs = [
+    'migrate_plus.migration.jcms_subjects_json',
+  ];
+  $config_importer->importConfigs($configs);
+
+  $manager = \Drupal::service('plugin.manager.config_entity_migration');
+  $plugins = $manager->createInstances([]);
+  $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
+  $executable->import();
+}
+
+/**
+ * Resave all nodes that need to presave processed output.
+ */
+function jcms_migrate_update_8132(&$sandbox) {
+  $types = [
+    'blog_article',
+    'event',
+    'interview',
+    'labs_experiment',
+    'person',
+    'press_package',
+  ];
+  if (!isset($sandbox['progress'])) {
+    // This must be the first run. Initialize the sandbox.
+    $sandbox['progress'] = 0;
+    $sandbox['current_pk'] = 0;
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', $types, 'IN');
+    $sandbox['max'] = $query->count()->execute() - 1;
+  }
+
+  // Update 20 nodes at a time.
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', $types, 'IN')
+    ->condition('nid', $sandbox['current_pk'], '>')
+    ->range(0, 20)
+    ->sort('nid', 'ASC');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        $node->save();
+        $sandbox['progress']++;
+        $sandbox['current_pk'] = $node->id();
+      }
+    }
+  }
+  if (empty($sandbox['max']) ||  $sandbox['progress'] >= $sandbox['max']) {
+    $sandbox['#finished'] = TRUE;
+  }
+  else {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+}
+
+/**
+ * Resave all nodes with field_image, not saved in previous update.
+ */
+function jcms_migrate_update_8133(&$sandbox) {
+  $types = [
+    'blog_article',
+    'event',
+    'interview',
+    'labs_experiment',
+    'person',
+    'press_package',
+  ];
+  if (!isset($sandbox['progress'])) {
+    // This must be the first run. Initialize the sandbox.
+    $sandbox['progress'] = 0;
+    $sandbox['current_pk'] = 0;
+    $query = \Drupal::entityQuery('node')
+      ->exists('field_image')
+      ->condition('type', $types, 'NOT IN');
+    $sandbox['max'] = $query->count()->execute() - 1;
+  }
+
+  // Update 20 nodes at a time.
+  $query = \Drupal::entityQuery('node')
+    ->exists('field_image')
+    ->condition('type', $types, 'NOT IN')
+    ->condition('nid', $sandbox['current_pk'], '>')
+    ->range(0, 20)
+    ->sort('nid', 'ASC');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        $node->save();
+        $sandbox['progress']++;
+        $sandbox['current_pk'] = $node->id();
+      }
+    }
+  }
+  if (empty($sandbox['max']) ||  $sandbox['progress'] >= $sandbox['max']) {
+    $sandbox['#finished'] = TRUE;
+  }
+  else {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+}
+
+/**
+ * Resave all subjects.
+ */
+function jcms_migrate_update_8134() {
+  $query = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'subjects');
+  $tids = $query->execute();
+  if ($tids) {
+    $terms = Term::loadMultiple($tids);
+    if (!empty($terms)) {
+      foreach ($terms as $term) {
+        $term->save();
+      }
+    }
   }
 }

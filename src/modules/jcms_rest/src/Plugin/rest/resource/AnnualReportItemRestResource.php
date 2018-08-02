@@ -2,9 +2,11 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
 use Drupal\node\Entity\Node;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -19,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class AnnualReportItemRestResource extends AbstractRestResourceBase {
+  protected $latestVersion = 2;
 
   /**
    * Responds to GET requests.
@@ -27,10 +30,13 @@ class AnnualReportItemRestResource extends AbstractRestResourceBase {
    */
   public function get(int $year) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
-      ->condition('status', NODE_PUBLISHED)
-      ->condition('changed', REQUEST_TIME, '<')
+      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'annual_report')
       ->condition('field_annual_report_year.value', $year);
+
+    if (!$this->viewUnpublished()) {
+      $query->condition('status', NodeInterface::PUBLISHED);
+    }
 
     $nids = $query->execute();
     if ($nids) {
@@ -57,8 +63,15 @@ class AnnualReportItemRestResource extends AbstractRestResourceBase {
         }
       }
 
-      // Image is required.
-      $response['image'] = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail', TRUE);
+      // Image is required, for version 1.
+      if ($this->acceptVersion < 2) {
+        if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail', TRUE)) {
+          $response['image'] = $image;
+        }
+        else {
+          throw new JCMSNotAcceptableHttpException('This annual report requires version 2+.');
+        }
+      }
 
       $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
       $response->addCacheableDependency($node);
