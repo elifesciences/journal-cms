@@ -16,6 +16,7 @@ use League\CommonMark\DocParser;
 use League\CommonMark\ElementRendererInterface;
 use League\CommonMark\Node\Node;
 use PHPHtmlParser\Dom;
+use PHPHtmlParser\Dom\Collection;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -141,12 +142,13 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
               $uri = trim($matches['video']);
               if ($id = $this->youtube->getIdFromUri($uri)) {
                 $dimensions = $this->youtube->getDimensions($id);
-                return [
+                return array_filter([
                   'type' => 'youtube',
                   'id' => $id,
                   'width' => $dimensions['width'] ?? 16,
                   'height' => $dimensions['height'] ?? 9,
-                ];
+                  'title' => $this->prepareCaption($figure->find('figcaption'), $contents, $context),
+                ]);
               }
               else {
                 return [
@@ -290,9 +292,24 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
   }
 
   /**
+   * Prepare caption.
+   */
+  private function prepareCaption($captions, string $contents, array $context = []) {
+    if ($captions->count()) {
+      $dom = new Dom();
+      $dom->load($this->converter->convertToHtml(trim(preg_replace('~^.*<figcaption[^>]*>\s*(.*)\s*</figcaption>.*~', '$1', $contents))));
+      /** @var \PHPHtmlParser\Dom\HtmlNode $text */
+      $text = $dom->find('p')[0];
+      return $this->prepareOutput($text->innerHtml(), $context);
+    }
+
+    return NULL;
+  }
+
+  /**
    * Prepare output.
    */
-  private function prepareOutput($content, $context = [], $decode = FALSE) {
+  private function prepareOutput($content, array $context = [], bool $decode = FALSE) {
     $regexes = $context['regexes'] ?? [];
     $output = trim(($decode) ? base64_decode($content) : $content);
     if (!empty($regexes)) {

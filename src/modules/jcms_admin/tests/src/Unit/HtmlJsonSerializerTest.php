@@ -854,6 +854,32 @@ class HtmlJsonSerializerTest extends TestCase {
           ],
         ],
       ],
+      'youtube with caption' => [
+        [
+          [
+            'type' => 'youtube',
+            'id' => 'xECI0AgS0DA',
+            'width' => 1280,
+            'height' => 720,
+            'title' => 'eLife Community Webinar Series – Removing Barriers for Women in Science',
+          ],
+        ],
+        $this->lines([
+          '<figure class="video with-caption">',
+          '<oembed>https://www.youtube.com/watch?v=xECI0AgS0DA</oembed>' . PHP_EOL,
+          '<figcaption>eLife Community Webinar Series – Removing Barriers for Women in Science',
+          '</figcaption>',
+          '</figure>',
+        ]),
+        [],
+        [
+          'https://www.youtube.com/watch?v=xECI0AgS0DA' => [
+            'id' => 'xECI0AgS0DA',
+            'width' => 1280,
+            'height' => 720,
+          ],
+        ],
+      ],
       'not youtube' => [
         [
           [

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c723ce86b4110454220dbe45e561ce9",
+    "content-hash": "9d6a6725c21c2c5b5fa8168d613449d0",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4737,12 +4737,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "06e690a91bec0b989ea4fb4a1db6362a4db81fe5"
+                "reference": "534c9dde2965337a91f5a41b0b9744d644e87249"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/06e690a91bec0b989ea4fb4a1db6362a4db81fe5",
-                "reference": "06e690a91bec0b989ea4fb4a1db6362a4db81fe5",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/534c9dde2965337a91f5a41b0b9744d644e87249",
+                "reference": "534c9dde2965337a91f5a41b0b9744d644e87249",
                 "shasum": ""
             },
             "conflict": {
@@ -4754,7 +4754,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API specification",
-            "time": "2018-07-19T12:50:10+00:00"
+            "time": "2018-08-06T07:01:55+00:00"
         },
         {
             "name": "elife/api-client",
@@ -9979,75 +9979,6 @@
                 "web"
             ],
             "time": "2017-12-06T20:35:40+00:00"
-        },
-        {
-            "name": "elife/api",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "3636c5ceea8bdf5fa50902a9b6940cb42bc44138"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/3636c5ceea8bdf5fa50902a9b6940cb42bc44138",
-                "reference": "3636c5ceea8bdf5fa50902a9b6940cb42bc44138",
-                "shasum": ""
-            },
-            "conflict": {
-                "justinrainbow/json-schema": "<3.0.0"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "eLife Sciences API specification",
-            "time": "2018-07-31T10:50:36+00:00"
-        },
-        {
-            "name": "elife/api-validator",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/elifesciences/api-validator-php.git",
-                "reference": "53f10fb73c68badc999e294ab22e5d340f9ab539"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-validator-php/zipball/53f10fb73c68badc999e294ab22e5d340f9ab539",
-                "reference": "53f10fb73c68badc999e294ab22e5d340f9ab539",
-                "shasum": ""
-            },
-            "require": {
-                "beberlei/assert": "^2.0",
-                "guzzlehttp/psr7": "^1.0",
-                "justinrainbow/json-schema": "^3.0 || ^4.0 || ^5.0",
-                "php": "^7.0",
-                "psr/http-message": "^1.0"
-            },
-            "require-dev": {
-                "phpspec/phpspec": "^2.4",
-                "phpspec/prophecy": "^1.5",
-                "phpunit/phpunit": "^5.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "eLife\\ApiValidator\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "eLife Sciences API validator",
-            "time": "2017-09-06T06:41:40+00:00"
         },
         {
             "name": "fabpot/goutte",
