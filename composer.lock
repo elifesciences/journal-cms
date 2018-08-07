@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d6a6725c21c2c5b5fa8168d613449d0",
+    "content-hash": "46a3cbd25793a8e357c3b7af7952162a",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -367,6 +367,20 @@
             "type": "drupal-library",
             "extra": {
                 "installer-name": "ckeditor/plugins/balloontoolbar"
+            }
+        },
+        {
+            "name": "ckeditor/codesnippet",
+            "version": "4.9.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/codesnippet/releases/codesnippet_4.9.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/codesnippet"
             }
         },
         {

@@ -238,6 +238,21 @@
           "type": "zip"
         }
       }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/codesnippet",
+        "version": "4.9.2",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/codesnippet"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/codesnippet/releases/codesnippet_4.9.2.zip",
+          "type": "zip"
+        }
+      }
     }
   ],
   "require": {
@@ -311,7 +326,8 @@
     "elife/api-validator": "^1.0@dev",
     "justinrainbow/json-schema": "^5.2",
     "mindplay/composer-locator": "^2.1",
-    "drupal/duration_field": "^1.6"
+    "drupal/duration_field": "^1.6",
+    "ckeditor/codesnippet": "^4.9"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",

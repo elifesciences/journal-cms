@@ -56,6 +56,7 @@
         CKEDITOR.plugins.addExternal('sharedspace', settings.pluginPathContrib + 'sharedspace/');
         CKEDITOR.plugins.addExternal('fakeobjects', settings.pluginPathContrib + 'fakeobjects/');
         CKEDITOR.plugins.addExternal('link', settings.pluginPathContrib + 'link/');
+        CKEDITOR.plugins.addExternal('codesnippet', settings.pluginPathContrib + 'codesnippet/');
         
         // Custom plugins
         CKEDITOR.plugins.addExternal('imagealign', settings.pluginPathCustom + 'imagealign/');
@@ -86,7 +87,7 @@
         };
         
         var bodyEditorOptions = {
-          extraPlugins: 'image2,uploadimage,balloontoolbar,balloonpanel,imagealign,elifebutton,captionedvideo,autoembed,pastefromword,undo,sharedspace,link',
+          extraPlugins: 'image2,uploadimage,balloontoolbar,balloonpanel,imagealign,elifebutton,captionedvideo,autoembed,pastefromword,undo,sharedspace,link,codesnippet',
           toolbarGroups: [
             {"name":"basicstyles","groups":["basicstyles"]},
             {"name":"links","groups":["links"]},
@@ -94,7 +95,8 @@
             //{"name":"document","groups":["mode"]},
             {"name":"insert","groups":["insert"]},
             {"name":"undo","groups":["undo"]},
-            {"name": 'styles'}
+            {"name":"codesnippet","groups":["codesnippet"]},
+            {"name": "styles"}
           ],
           imageUploadUrl: '/jsonapi/file/image',
           removeButtons: 'Underline,Strike,Anchor,SpecialChar,HorizontalRule,ImageAlignLeft,ImageAlignRight,ImageFullWidth,Styles',
