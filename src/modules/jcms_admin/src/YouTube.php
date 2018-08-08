@@ -22,7 +22,7 @@ final class YouTube implements YouTubeInterface {
    * {@inheritdoc}
    */
   public function getIdFromUri(string $uri) : string {
-    if (preg_match('/^(|.*[^a-zA-Z0-9_-])(?P<id>[a-zA-Z0-9_-]{11})(|[^a-zA-Z0-9_-].*)$/', $uri, $match)) {
+    if (preg_match('/^(|.*[^a-zA-Z0-9_-])(?P<id>[a-zA-Z0-9_-]{11})(|[^a-zA-Z0-9_-].*)$/', stripslashes($uri), $match)) {
       return $match['id'];
     }
 

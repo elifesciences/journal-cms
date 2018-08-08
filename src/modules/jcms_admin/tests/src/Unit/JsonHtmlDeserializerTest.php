@@ -1823,12 +1823,25 @@ class JsonHtmlDeserializerTest extends TestCase {
             [
               'type' => 'youtube',
               'id' => 'oyBX9l9KzU8',
-              'width' => '16',
-              'height' => '9',
+              'width' => 16,
+              'height' => 9,
             ],
           ],
         ],
         '<figure class="video no-caption"><oembed>https://www.youtube.com/watch?v=oyBX9l9KzU8</oembed></figure>',
+      ],
+      'another youtube' => [
+        [
+          'content' => [
+            [
+              'type' => 'youtube',
+              'id' => 'uDi7EU_zKbQ',
+              'width' => 1280,
+              'height' => 720,
+            ],
+          ],
+        ],
+        '<figure class="video no-caption"><oembed>https://www.youtube.com/watch?v=uDi7EU_zKbQ</oembed></figure>',
       ],
       'list soup' => [
         [
