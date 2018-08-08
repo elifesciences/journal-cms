@@ -52,7 +52,7 @@ final class JsonHtmlDeserializer implements DenormalizerInterface {
           break;
 
         case 'code':
-          $html[] = sprintf('<code>%s</code>', PHP_EOL . $item['code'] . PHP_EOL);
+          $html[] = sprintf('<pre><code>%s</code></pre>', PHP_EOL . preg_replace(['~<~', '~>~'], ['&lt;', '&gt;'], $item['code']) . PHP_EOL);
           break;
 
         case 'list':
@@ -83,7 +83,7 @@ final class JsonHtmlDeserializer implements DenormalizerInterface {
             ($item['inline'] ?? NULL) ? 'align-left' : 'align-center',
           ];
           $image = [
-            sprintf('<figure class="%s"><img alt="%s" data-fid="%d" data-uuid="%s" src="%s" width="%d" height="%d" />', implode(' ', $class), ($item['image']['alt'] ?? ''), $fid, $uuid, $src, $item['image']['size']['width'], $item['image']['size']['height']),
+            sprintf('<figure class="%s"><img alt="%s" data-fid="%d" data-uuid="%s" src="%s" width="%d" height="%d" />', implode(' ', $class), htmlentities($item['image']['alt'] ?? ''), $fid, $uuid, $src, $item['image']['size']['width'], $item['image']['size']['height']),
           ];
           if (!empty($item['title'])) {
             $image[] = sprintf('<figcaption>%s</figcaption>', $item['title']);

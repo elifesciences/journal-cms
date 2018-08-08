@@ -144,10 +144,10 @@ class HtmlMarkdownSerializerTest extends TestCase {
           '```',
         ], 2),
         $this->lines([
-          '<code>',
+          '<pre><code>',
           'Code sample line 1' . PHP_EOL,
           'Code sample line 2',
-          '</code>',
+          '</code></pre>',
         ]),
       ],
       'single section' => [
@@ -212,8 +212,8 @@ class HtmlMarkdownSerializerTest extends TestCase {
           '<p>Paragraph 1 in Section 1.1.</p>',
           '<blockquote>Blockquote 1 in Section 1.1.</blockquote>',
           '<p>Paragraph 2 in Section 1.1.</p>',
-          '<code>' . PHP_EOL . 'Code sample 1 line 1 in Section 1.1.',
-          'Code sample 1 line 2 in Section 1.1.' . PHP_EOL . '</code>',
+          '<pre><code>' . PHP_EOL . 'Code sample 1 line 1 in Section 1.1.',
+          'Code sample 1 line 2 in Section 1.1.' . PHP_EOL . '</code></pre>',
           '<h2>Section 1.2</h2>',
           '<p>Paragraph 1 in Section 1.2.</p>',
           '<h1>Section 2</h1>',

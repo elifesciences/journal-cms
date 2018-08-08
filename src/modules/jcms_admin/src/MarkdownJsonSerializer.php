@@ -290,7 +290,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
       }
       return [
         'type' => 'code',
-        'code' => $this->prepareOutput($contents, $context),
+        'code' => html_entity_decode($this->prepareOutput($contents, $context)),
       ];
     }
 
