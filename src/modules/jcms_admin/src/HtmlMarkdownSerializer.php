@@ -36,7 +36,7 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
     $html = $this->cleanHtml($html);
     $html = $this->htmlConverter->convert($html);
     $markdown = $this->prepareOutput($html);
-    $markdown = preg_replace('/(<\/table>|<\/figure>|<\/elifebutton>)\s*([^\s\n])/', '$1' . PHP_EOL . PHP_EOL . '$2', $markdown);
+    $markdown = preg_replace('~(</table>|</figure>|</elifebutton>)\s*([^\s\n])~', '$1' . PHP_EOL . PHP_EOL . '$2', $markdown);
     return trim($markdown);
   }
 
@@ -68,6 +68,7 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
    * Preserve output of code and tables.
    */
   private function preserveOutput(string $html, array $context = []) : string {
+    $html = preg_replace(['~(<pre>\s*<code[^>]*>)~', '~(</code>\s*</pre>)~'], ['$1' . PHP_EOL, PHP_EOL . '$1'], $html);
     $regexes = $context['regexes'] ?? [];
     $preserve = preg_replace(array_keys($regexes), array_values($regexes), $html);
     $encode = $context['encode'] ?? [];

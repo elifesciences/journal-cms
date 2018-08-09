@@ -530,10 +530,10 @@ class HtmlJsonSerializerTest extends TestCase {
           ],
         ],
         $this->lines([
-          '<pre><code>',
+          '<pre>',
+          '<code>',
           'Code sample line 1' . PHP_EOL,
-          'Code sample line 2',
-          '</code></pre>',
+          'Code sample line 2</code></pre>',
           '<p>This is not `code`.</p>',
         ]),
       ],
