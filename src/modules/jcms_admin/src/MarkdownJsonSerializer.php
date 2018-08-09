@@ -195,16 +195,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
               default:
                 $ext = 'jpg';
             }
-            $caption = NULL;
-            /** @var \PHPHtmlParser\Dom\Collection $captions */
-            $captions = $figure->find('figcaption');
-            if ($captions->count()) {
-              $dom = new Dom();
-              $dom->load($this->converter->convertToHtml(trim(preg_replace('~^.*<figcaption[^>]*>\s*(.*)\s*</figcaption>.*~', '$1', $contents))));
-              /** @var \PHPHtmlParser\Dom\HtmlNode $text */
-              $text = $dom->find('p')[0];
-              $caption = $this->prepareOutput($text->innerHtml(), $context);
-            }
+            $caption = $this->prepareCaption($figure->find('figcaption'), $contents, $context);
             $type = (!empty($caption) && (bool) preg_match('/profile\-left/', $figure->getAttribute('class'))) ? 'profile' : 'image';
             if ($type === 'profile') {
               $content = [
@@ -304,9 +295,11 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
     if ($captions->count()) {
       $dom = new Dom();
       $dom->load($this->converter->convertToHtml(trim(preg_replace('~^.*<figcaption[^>]*>\s*(.*)\s*</figcaption>.*~', '$1', $contents))));
-      /** @var \PHPHtmlParser\Dom\HtmlNode $text */
-      $text = $dom->find('p')[0];
-      return $this->prepareOutput($text->innerHtml(), $context);
+      if ($dom->find('p')->count()) {
+        /** @var \PHPHtmlParser\Dom\HtmlNode $text */
+        $text = $dom->find('p')[0];
+        return $this->prepareOutput($text->innerHtml(), $context);
+      }
     }
 
     return NULL;
