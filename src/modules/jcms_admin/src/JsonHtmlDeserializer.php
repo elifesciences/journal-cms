@@ -52,7 +52,7 @@ final class JsonHtmlDeserializer implements DenormalizerInterface {
           break;
 
         case 'code':
-          $html[] = sprintf('<pre><code>%s</code></pre>', PHP_EOL . preg_replace(['~<~', '~>~'], ['&lt;', '&gt;'], $item['code']) . PHP_EOL);
+          $html[] = sprintf('<pre><code>%s</code></pre>', PHP_EOL . preg_replace(['~&([a-z]+;)~', '~<~', '~>~'], ['&amp;$1', '&lt;', '&gt;'], $item['code']) . PHP_EOL);
           break;
 
         case 'list':
@@ -94,7 +94,7 @@ final class JsonHtmlDeserializer implements DenormalizerInterface {
       }
     }
 
-    return implode(PHP_EOL . PHP_EOL, $html);
+    return $this->cleanContent(implode(PHP_EOL . PHP_EOL, $html));
   }
 
   /**
@@ -207,7 +207,7 @@ final class JsonHtmlDeserializer implements DenormalizerInterface {
           if (!empty($captions)) {
             array_walk($captions, function (&$caption) {
               trim($caption);
-              if (substr($caption, -1) !== '.') {
+              if (substr(strip_tags($caption), -1) !== '.') {
                 $caption .= '.';
               }
             });
@@ -219,6 +219,13 @@ final class JsonHtmlDeserializer implements DenormalizerInterface {
     }
 
     return $items;
+  }
+
+  /**
+   * Clean content.
+   */
+  private function cleanContent(string $content) : string {
+    return trim(preg_replace('~<(span[^>]*|/span)>~', '', $content));
   }
 
   /**
