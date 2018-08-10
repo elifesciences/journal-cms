@@ -207,7 +207,7 @@ final class JsonHtmlDeserializer implements DenormalizerInterface {
           if (!empty($captions)) {
             array_walk($captions, function (&$caption) {
               trim($caption);
-              if (substr(strip_tags($caption), -1) !== '.') {
+              if (substr(trim(strip_tags($caption)), -1) !== '.') {
                 $caption .= '.';
               }
             });
