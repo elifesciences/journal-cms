@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AnnualReportItemRestResource extends AbstractRestResourceBase {
   protected $latestVersion = 2;
+  protected $minVersion = 2;
 
   /**
    * Responds to GET requests.
@@ -60,16 +61,6 @@ class AnnualReportItemRestResource extends AbstractRestResourceBase {
         $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
         if (empty($response['impactStatement'])) {
           unset($response['impactStatement']);
-        }
-      }
-
-      // Image is required, for version 1.
-      if ($this->acceptVersion < 2) {
-        if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail', TRUE)) {
-          $response['image'] = $image;
-        }
-        else {
-          throw new JCMSNotAcceptableHttpException('This annual report requires version 2+.');
         }
       }
 
