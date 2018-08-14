@@ -17,7 +17,7 @@ use RuntimeException;
  */
 abstract class FixtureBasedTestCase extends UnitTestCase {
 
-  protected static $contentGenerated = TRUE;
+  protected static $contentGenerated = FALSE;
 
   /**
    * Http client.
