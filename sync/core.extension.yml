@@ -16,7 +16,6 @@ module:
   ctools: 0
   datetime: 0
   datetime_range: 0
-  devel_generate: 0
   diff: 0
   editor: 0
   entity_reference: 0

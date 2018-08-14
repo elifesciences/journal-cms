@@ -100,10 +100,10 @@ class WrongVersionEndpointTest extends FixtureBasedTestCase {
       ]);
 
       $response = $this->client->send($request);
-      $this->assertEquals($response->getStatusCode(), Response::HTTP_NOT_ACCEPTABLE);
-      $this->assertEquals($response->getHeaderLine('Content-Type'), 'application/problem+json');
+      $this->assertEquals(Response::HTTP_NOT_ACCEPTABLE, $response->getStatusCode());
+      $this->assertEquals('application/problem+json', $response->getHeaderLine('Content-Type'));
       $data = \GuzzleHttp\json_decode((string) $response->getBody());
-      $this->assertEquals($data->title, $media_type . ' is not supported');
+      $this->assertEquals($media_type . ' is not supported', $data->title);
     }
   }
 
@@ -159,7 +159,7 @@ class WrongVersionEndpointTest extends FixtureBasedTestCase {
         '/subjects',
         'id',
         [
-          'application/vnd.elife.subject-list+json; version=3',
+          'application/vnd.elife.subject+json; version=2',
         ],
       ],
     ];
@@ -184,10 +184,10 @@ class WrongVersionEndpointTest extends FixtureBasedTestCase {
       ]);
 
       $response = $this->client->send($request);
-      $this->assertEquals($response->getStatusCode(), Response::HTTP_NOT_ACCEPTABLE);
-      $this->assertEquals($response->getHeaderLine('Content-Type'), 'application/problem+json');
+      $this->assertEquals(Response::HTTP_NOT_ACCEPTABLE, $response->getStatusCode());
+      $this->assertEquals('application/problem+json', $response->getHeaderLine('Content-Type'));
       $data = \GuzzleHttp\json_decode((string) $response->getBody());
-      $this->assertEquals($data->title, $media_type . ' is not supported');
+      $this->assertEquals($media_type . ' is not supported', $data->title);
     }
   }
 
