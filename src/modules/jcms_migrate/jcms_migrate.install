@@ -1333,7 +1333,7 @@ function jcms_migrate_update_8137() {
 /**
  * Populate duration field before discarding the integer time field.
  */
-function jcms_migrate_update_8137(&$sandbox) {
+function jcms_migrate_update_8138(&$sandbox) {
   if (!isset($sandbox['progress'])) {
     // This must be the first run. Initialize the sandbox.
     $sandbox['progress'] = 0;
