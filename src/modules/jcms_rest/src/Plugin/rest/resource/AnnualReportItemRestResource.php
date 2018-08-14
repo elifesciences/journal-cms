@@ -2,7 +2,6 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
 use Drupal\node\Entity\Node;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
