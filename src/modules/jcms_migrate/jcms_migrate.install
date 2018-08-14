@@ -1284,9 +1284,35 @@ function jcms_migrate_update_8134() {
 }
 
 /**
- * Enable config_import module.
+ * Remove developmental-biology-stem-cells msa.
  */
 function jcms_migrate_update_8135() {
+  // Assign any remaining content to developmental-biology, there shouldn't be
+  // any in production.
+  drush_invoke('msa-switch', ['developmental-biology-stem-cells', 'developmental-biology']);
+  $msa = [
+    'developmental-biology-stem-cells',
+  ];
+  $tids = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'subjects')
+    ->condition('field_subject_id.value', $msa, 'IN')
+    ->execute();
+  $controller = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $entities = $controller->loadMultiple($tids);
+  // Delete taxonomy terms.
+  $controller->delete($entities);
+
+  // Remove from migration map.
+  $migrate_id_map = \Drupal::service('plugin.manager.config_entity_migration')->createInstance('jcms_subjects_json')->getIdMap();
+  foreach ($msa as $id) {
+    $migrate_id_map->delete([$id]);
+  }
+}
+
+/**
+ * Enable config_import module.
+ */
+function jcms_migrate_update_8136() {
   drupal_flush_all_caches();
   \Drupal::service('module_installer')->install(['config_import']);
 }
@@ -1294,7 +1320,7 @@ function jcms_migrate_update_8135() {
 /**
  * Update config to introduce new chapter time field.
  */
-function jcms_migrate_update_8136() {
+function jcms_migrate_update_8137() {
   $config_importer = \Drupal::service('config_import.importer');
   $configs = [
     'field.storage.node.field_chapter_time',

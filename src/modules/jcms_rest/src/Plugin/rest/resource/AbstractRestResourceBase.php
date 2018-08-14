@@ -53,6 +53,13 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   protected $latestVersion = 1;
 
   /**
+   * Minimum version.
+   *
+   * @var int
+   */
+  protected $minVersion = 1;
+
+  /**
    * Latest accepted version.
    *
    * @var int
@@ -700,7 +707,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       $acceptable_version = (int) $accept_headers[$content_type]->getAttribute('version', $latest_version);
     }
 
-    if ($acceptable_version > $latest_version) {
+    if ($acceptable_version < $this->minVersion || $acceptable_version > $latest_version) {
       throw new JCMSNotAcceptableHttpException(sprintf('%s; version=%s is not supported', $content_type, $acceptable_version));
     }
     else {
