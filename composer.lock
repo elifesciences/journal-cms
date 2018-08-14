@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "5cda13e0042b6b282068c63d92bafe26",
@@ -1761,7 +1761,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -2466,7 +2466,11 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-beta3",
-                    "datestamp": "1467193139"
+                    "datestamp": "1467193139",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2568,7 +2572,11 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0",
-                    "datestamp": "1493401742"
+                    "datestamp": "1493401742",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2600,6 +2608,10 @@
                     "name": "Daniel Wehner (dawehner)",
                     "homepage": "https://www.drupal.org/u/dawehner",
                     "role": "Maintainer"
+                },
+                {
+                    "name": "joelpittet",
+                    "homepage": "https://www.drupal.org/user/160302"
                 },
                 {
                     "name": "merlinofchaos",
@@ -2736,7 +2748,11 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-rc1",
-                    "datestamp": "1484566683"
+                    "datestamp": "1484566683",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "RC releases are not covered by Drupal security advisories."
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2979,12 +2995,16 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-alpha1",
-                    "datestamp": "1460462939"
+                    "datestamp": "1460462939",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -3261,12 +3281,16 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-beta2",
-                    "datestamp": "1495467483"
+                    "datestamp": "1495467483",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -3371,7 +3395,11 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta1+12-dev",
-                    "datestamp": "1494424085"
+                    "datestamp": "1494424085",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3796,7 +3824,11 @@
                 },
                 "drupal": {
                     "version": "8.x-4.0-beta4",
-                    "datestamp": "1495725783"
+                    "datestamp": "1495725783",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -8903,12 +8935,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "3636c5ceea8bdf5fa50902a9b6940cb42bc44138"
+                "reference": "63e4e89d87e2ae9c6de4099f12d5afaa0c5319eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/3636c5ceea8bdf5fa50902a9b6940cb42bc44138",
-                "reference": "3636c5ceea8bdf5fa50902a9b6940cb42bc44138",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/63e4e89d87e2ae9c6de4099f12d5afaa0c5319eb",
+                "reference": "63e4e89d87e2ae9c6de4099f12d5afaa0c5319eb",
                 "shasum": ""
             },
             "conflict": {
@@ -8920,7 +8952,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API specification",
-            "time": "2018-07-31T10:50:36+00:00"
+            "time": "2018-08-14T08:41:24+00:00"
         },
         {
             "name": "elife/api-validator",
