@@ -6,8 +6,9 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.annual_report.field_annual_report_uri
     - field.field.node.annual_report.field_annual_report_year
-    - field.field.node.annual_report.field_image
     - field.field.node.annual_report.field_impact_statement
+    - field.field.node.annual_report.field_order_date
+    - field.field.node.annual_report.field_pdf
     - node.type.annual_report
   module:
     - user
@@ -22,7 +23,6 @@ content:
 hidden:
   field_annual_report_uri: true
   field_annual_report_year: true
-  field_image: true
   field_impact_statement: true
   field_order_date: true
   field_pdf: true

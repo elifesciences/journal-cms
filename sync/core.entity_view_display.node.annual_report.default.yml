@@ -5,13 +5,11 @@ dependencies:
   config:
     - field.field.node.annual_report.field_annual_report_uri
     - field.field.node.annual_report.field_annual_report_year
-    - field.field.node.annual_report.field_image
     - field.field.node.annual_report.field_impact_statement
     - field.field.node.annual_report.field_order_date
     - field.field.node.annual_report.field_pdf
     - node.type.annual_report
   module:
-    - image
     - link
     - text
     - user
@@ -40,15 +38,6 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_integer
-    region: content
-  field_image:
-    weight: 5
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
     region: content
   field_impact_statement:
     weight: 4

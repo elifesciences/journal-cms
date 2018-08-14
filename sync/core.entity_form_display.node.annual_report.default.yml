@@ -5,15 +5,13 @@ dependencies:
   config:
     - field.field.node.annual_report.field_annual_report_uri
     - field.field.node.annual_report.field_annual_report_year
-    - field.field.node.annual_report.field_image
     - field.field.node.annual_report.field_impact_statement
     - field.field.node.annual_report.field_order_date
     - field.field.node.annual_report.field_pdf
-    - image.style.thumbnail
     - node.type.annual_report
   module:
-    - focal_point
     - link
+    - scheduler
     - text
 id: node.annual_report.default
 targetEntityType: node
@@ -34,16 +32,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: number
-    region: content
-  field_image:
-    weight: 1
-    settings:
-      preview_image_style: thumbnail
-      progress_indicator: bar
-      preview_link: true
-      offsets: '50,50'
-    third_party_settings: {  }
-    type: image_focal_point
     region: content
   field_impact_statement:
     weight: 5
