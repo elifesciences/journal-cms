@@ -1381,7 +1381,7 @@ function jcms_migrate_update_8138(&$sandbox) {
  * Import all config.
  */
 function jcms_migrate_update_8139() {
-  drush_invoke('config-import', ['-y']);
+  drush_invoke('config-import');
 }
 
 /**
