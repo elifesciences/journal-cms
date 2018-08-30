@@ -1376,3 +1376,27 @@ function jcms_migrate_update_8138(&$sandbox) {
     $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
   }
 }
+
+/**
+ * Import all config.
+ */
+function jcms_migrate_update_8139() {
+  drush_invoke('config-import', ['-y']);
+}
+
+/**
+ * Migrate content to inline editor fields.
+ */
+function jcms_migrate_update_8140() {
+  $types = [
+    'blog_article',
+    'event',
+    'interview',
+    'labs_experiment',
+    'press_package',
+  ];
+
+  foreach ($types as $type) {
+    drush_invoke('json-html-migrate', [$type]);
+  }
+}
