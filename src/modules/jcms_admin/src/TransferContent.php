@@ -36,7 +36,7 @@ final class TransferContent {
    */
   public function transfer(NodeInterface $node, $toLive = TRUE, $validate = FALSE, $context = []) : NodeInterface {
     if ($node->hasField('field_content_json') && $node->hasField('field_content_json_preview')) {
-      if ($validate) {
+      if (!$node->isNew() && $validate) {
         $this->validator->validate($node, $toLive, $context);
       }
       if ($toLive) {

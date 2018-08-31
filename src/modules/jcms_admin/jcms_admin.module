@@ -637,8 +637,8 @@ function jcms_admin_node_presave(NodeInterface $node) {
     if ($iiif = Settings::get('jcms_iiif_base_uri')) {
       $normalizer_context['iiif'] = $iiif;
     }
-    if (($node->isPublished() && !$node->original->isPublished()) || _jcms_admin_static_store('ckeditor_transfer_content_' . $node->id())) {
-      if ($node->isPublished() && !$node->original->isPublished()) {
+    if (($node->status && !$node->original->status) || _jcms_admin_static_store('ckeditor_transfer_content_' . $node->id())) {
+      if ($node->status && !$node->original->status) {
         $validate = TRUE;
         $context = [
           'autopublish' => TRUE,
@@ -649,7 +649,7 @@ function jcms_admin_node_presave(NodeInterface $node) {
         $context = [];
       }
       $node = \Drupal::service('jcms_admin.transfer_content')->transfer($node, TRUE, $validate, $context);
-      if (!$node->isPublished()) {
+      if (!$node->status) {
         $node->setPublished(TRUE);
       }
     }
@@ -688,8 +688,8 @@ function jcms_admin_node_presave(NodeInterface $node) {
     $node->type->entity->getThirdPartySetting('scheduler', 'publish_enable', \Drupal::config('scheduler.settings')->get('default_publish_enable')) &&
     $node->id() &&
     !(bool) $node->get('publish_on')->getValue() &&
-    !$node->original->isPublished() &&
-    $node->isPublished()
+    !$node->original->status &&
+    $node->status
   ) {
     $node->setCreatedTime($node->getChangedTime());
   }
