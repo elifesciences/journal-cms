@@ -16,7 +16,6 @@ use League\CommonMark\DocParser;
 use League\CommonMark\ElementRendererInterface;
 use League\CommonMark\Node\Node;
 use PHPHtmlParser\Dom;
-use PHPHtmlParser\Dom\Collection;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 

@@ -52,7 +52,14 @@ final class JsonHtmlDeserializer implements DenormalizerInterface {
           break;
 
         case 'code':
-          $html[] = sprintf('<pre><code>%s</code></pre>', PHP_EOL . preg_replace(['~&([a-z]+;)~', '~<~', '~>~'], ['&amp;$1', '&lt;', '&gt;'], $item['code']) . PHP_EOL);
+          $html[] = sprintf('<pre><code>%s</code></pre>', PHP_EOL . preg_replace([
+            '~&([a-z]+;)~',
+            '~<~', '~>~',
+          ], [
+            '&amp;$1',
+            '&lt;',
+            '&gt;',
+          ], $item['code']) . PHP_EOL);
           break;
 
         case 'list':
