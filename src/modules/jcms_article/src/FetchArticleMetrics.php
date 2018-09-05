@@ -75,11 +75,12 @@ final class FetchArticleMetrics {
    * @throws BadResponseException
    */
   private function requestArticleMetrics(string $id, string $type = 'page-views') : ResponseInterface {
-    $options = [
-      'headers' => [
-        'Authorization' => Settings::get('jcms_article_auth_unpublished'),
-      ],
-    ];
+    $options = [];
+    if ($auth = Settings::get('jcms_article_auth_unpublished')) {
+      $options['headers'] = [
+        'Authorization' => $auth,
+      ];
+    }
     $url = $this->formatUrl($id, $type, $this->endpoint);
     try {
       $response = $this->client->get($url, $options);
