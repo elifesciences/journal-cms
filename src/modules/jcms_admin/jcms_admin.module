@@ -682,6 +682,18 @@ function jcms_admin_node_presave(NodeInterface $node) {
     }
   }
 
+  // Filter duplicates.
+  if ($node->hasField('field_related_content')) {
+    $related = $node->get('field_related_content')->getValue();
+    if (!empty($related)) {
+      $unique = [];
+      foreach ($related as $r) {
+        $unique[$r['target_id']] = $r;
+      }
+      $node->field_related_content = array_values($unique);
+    }
+  }
+
   // If content that is configured to use scheduler module and switches from
   // unpublished to published then set the created date to be now.
   if (
