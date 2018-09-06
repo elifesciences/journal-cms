@@ -631,14 +631,16 @@ function jcms_admin_node_presave(NodeInterface $node) {
     }
   }
 
+  $node_published = method_exists($node, 'isPublished') ? $node->isPublished() : FALSE;
+  $orig_published = method_exists($node->original, 'isPublished') ? $node->original->isPublished() : FALSE;
   if ($node->hasField('field_content_html') && $node->hasField('field_content_html_preview')) {
     $normalizer = \Drupal::service('jcms_admin.html_json_normalizer');
     $normalizer_context = [];
     if ($iiif = Settings::get('jcms_iiif_base_uri')) {
       $normalizer_context['iiif'] = $iiif;
     }
-    if (($node->status && !$node->original->status) || _jcms_admin_static_store('ckeditor_transfer_content_' . $node->id())) {
-      if ($node->status && !$node->original->status) {
+    if (($node_published && !$orig_published) || _jcms_admin_static_store('ckeditor_transfer_content_' . $node->id())) {
+      if ($node_published && !$orig_published) {
         $validate = TRUE;
         $context = [
           'autopublish' => TRUE,
@@ -649,7 +651,7 @@ function jcms_admin_node_presave(NodeInterface $node) {
         $context = [];
       }
       $node = \Drupal::service('jcms_admin.transfer_content')->transfer($node, TRUE, $validate, $context);
-      if (!$node->status) {
+      if (!$node_published) {
         $node->setPublished(TRUE);
       }
     }
@@ -700,8 +702,8 @@ function jcms_admin_node_presave(NodeInterface $node) {
     $node->type->entity->getThirdPartySetting('scheduler', 'publish_enable', \Drupal::config('scheduler.settings')->get('default_publish_enable')) &&
     $node->id() &&
     !(bool) $node->get('publish_on')->getValue() &&
-    !$node->original->status &&
-    $node->status
+    !$orig_published &&
+    $node_published
   ) {
     $node->setCreatedTime($node->getChangedTime());
   }
