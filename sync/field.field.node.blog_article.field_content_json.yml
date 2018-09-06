@@ -1,0 +1,21 @@
+uuid: 386c632a-a2b3-4489-bdaf-b73491821edb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_json
+    - node.type.blog_article
+  module:
+    - jsonb
+id: node.blog_article.field_content_json
+field_name: field_content_json
+entity_type: node
+bundle: blog_article
+label: 'Content (JSON)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json

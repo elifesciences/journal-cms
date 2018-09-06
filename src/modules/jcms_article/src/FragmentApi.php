@@ -35,14 +35,17 @@ class FragmentApi {
    */
   public function postImageFragment(string $articleId, string $payload) : ResponseInterface {
     $endpoint = sprintf(Settings::get('jcms_article_fragment_images_endpoint'), $articleId);
-    $response = $this->client->post($endpoint, [
+    $options = [
       'body' => $payload,
       'headers' => [
-        'Authorization' => Settings::get('jcms_article_auth_unpublished'),
         'Content-Type' => 'application/json',
       ],
       'http_errors' => FALSE,
-    ]);
+    ];
+    if ($auth = Settings::get('jcms_article_auth_unpublished')) {
+      $options['headers']['Authorization'] = $auth;
+    }
+    $response = $this->client->post($endpoint, $options);
 
     \Drupal::logger('jcms_article')
       ->notice(
@@ -64,13 +67,17 @@ class FragmentApi {
    */
   public function deleteImageFragment(string $articleId) : ResponseInterface {
     $endpoint = sprintf(Settings::get('jcms_article_fragment_images_endpoint'), $articleId);
-    $response = $this->client->delete($endpoint, [
+    $options = [
       'headers' => [
-        'Authorization' => Settings::get('jcms_article_auth_unpublished'),
         'Content-Type' => 'application/json',
       ],
       'http_errors' => FALSE,
-    ]);
+    ];
+    if ($auth = Settings::get('jcms_article_auth_unpublished')) {
+      $options['headers']['Authorization'] = $auth;
+    }
+
+    $response = $this->client->delete($endpoint, $options);
 
     \Drupal::logger('jcms_article')
       ->notice(

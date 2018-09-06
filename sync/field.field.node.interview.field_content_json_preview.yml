@@ -1,0 +1,21 @@
+uuid: 5ef2147d-41d4-478a-a0df-d5ccfd44d8fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_json_preview
+    - node.type.interview
+  module:
+    - jsonb
+id: node.interview.field_content_json_preview
+field_name: field_content_json_preview
+entity_type: node
+bundle: interview
+label: 'Content (JSON preview)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json

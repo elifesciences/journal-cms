@@ -1,0 +1,21 @@
+uuid: 49d23f47-d2f8-484b-826c-8230917539da
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_html_preview
+    - node.type.blog_article
+  module:
+    - text
+id: node.blog_article.field_content_html_preview
+field_name: field_content_html_preview
+entity_type: node
+bundle: blog_article
+label: 'Content (preview)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

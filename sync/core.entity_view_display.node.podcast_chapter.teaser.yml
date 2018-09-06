@@ -4,8 +4,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.podcast_chapter.field_chapter_time
     - field.field.node.podcast_chapter.field_impact_statement
-    - field.field.node.podcast_chapter.field_podcast_chapter_time
+    - field.field.node.podcast_chapter.field_long_title
+    - field.field.node.podcast_chapter.field_order_date
     - field.field.node.podcast_chapter.field_related_content
     - node.type.podcast_chapter
   module:
@@ -19,8 +21,8 @@ content:
     weight: 100
     region: content
 hidden:
+  field_chapter_time: true
   field_impact_statement: true
   field_long_title: true
   field_order_date: true
-  field_podcast_chapter_time: true
   field_related_content: true

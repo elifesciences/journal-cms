@@ -60,11 +60,15 @@ class FetchArticle {
    */
   public function requestArticle(string $id): ResponseInterface {
     $options = [
-      'headers' => [
-        'Authorization' => Settings::get('jcms_article_auth_unpublished'),
-      ],
       'http_errors' => FALSE,
     ];
+    if ($auth = Settings::get('jcms_article_auth_unpublished')) {
+      $options = [
+        'headers' => [
+          'Authorization' => $auth,
+        ],
+      ];
+    }
     $url = $this->formatUrl($id, $this->endpoint);
     $response = $this->client->get($url, $options);
     if ($response instanceof ResponseInterface) {
@@ -98,11 +102,13 @@ class FetchArticle {
       $page = 1;
       $per_page = 100;
       $options = [
-        'headers' => [
-          'Authorization' => Settings::get('jcms_article_auth_unpublished'),
-        ],
         'http_errors' => FALSE,
       ];
+      if ($auth = Settings::get('jcms_article_auth_unpublished')) {
+        $options['headers'] = [
+          'Authorization' => $auth,
+        ];
+      }
       while (!$stop) {
         $response = $this->client->get($endpoint, $options + ['query' => ['per-page' => $per_page, 'page' => $page]]);
         if ($response instanceof ResponseInterface) {

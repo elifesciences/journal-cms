@@ -1,0 +1,21 @@
+uuid: 8b55da6c-3695-4093-9e55-f32a9e288d33
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_html
+    - node.type.labs_experiment
+  module:
+    - text
+id: node.labs_experiment.field_content_html
+field_name: field_content_html
+entity_type: node
+bundle: labs_experiment
+label: Content
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

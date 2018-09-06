@@ -38,6 +38,7 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
+    parent::setUp();
     $this->validator = new FakeHttpsMessageValidator(
       new JsonMessageValidator(
         new PathBasedSchemaFinder(ComposerLocator::getPath('elife/api') . '/dist/model'),

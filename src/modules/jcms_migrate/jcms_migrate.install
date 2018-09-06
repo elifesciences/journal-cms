@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Database\Database;
+use Drupal\duration_field\Service\DurationService;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\migrate\MigrateExecutable;
@@ -1305,5 +1306,97 @@ function jcms_migrate_update_8135() {
   $migrate_id_map = \Drupal::service('plugin.manager.config_entity_migration')->createInstance('jcms_subjects_json')->getIdMap();
   foreach ($msa as $id) {
     $migrate_id_map->delete([$id]);
+  }
+}
+
+/**
+ * Enable config_import module.
+ */
+function jcms_migrate_update_8136() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(['config_import']);
+}
+
+/**
+ * Update config to introduce new chapter time field.
+ */
+function jcms_migrate_update_8137() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $configs = [
+    'field.storage.node.field_chapter_time',
+    'field.field.node.podcast_chapter.field_chapter_time',
+    'core.extension',
+  ];
+  $config_importer->importConfigs($configs);
+}
+
+/**
+ * Populate duration field before discarding the integer time field.
+ */
+function jcms_migrate_update_8138(&$sandbox) {
+  if (!isset($sandbox['progress'])) {
+    // This must be the first run. Initialize the sandbox.
+    $sandbox['progress'] = 0;
+    $sandbox['current_pk'] = 0;
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'podcast_chapter');
+    $sandbox['max'] = $query->count()->execute() - 1;
+  }
+
+  // Update 20 nodes at a time.
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'podcast_chapter')
+    ->condition('nid', $sandbox['current_pk'], '>')
+    ->range(0, 20)
+    ->sort('nid', 'ASC');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        $time = (int) $node->get('field_podcast_chapter_time')->getString();
+        $seconds = $time % 60;
+        $minutes = ($time - $seconds) / 60;
+        $node->set('field_chapter_time', [
+          'value' => DurationService::convertValue([
+            'minute' => $minutes,
+            'second' => $seconds,
+          ]),
+        ]);
+        $node->save();
+        $sandbox['progress']++;
+        $sandbox['current_pk'] = $node->id();
+      }
+    }
+  }
+  if (empty($sandbox['max']) ||  $sandbox['progress'] >= $sandbox['max']) {
+    $sandbox['#finished'] = TRUE;
+  }
+  else {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+}
+
+/**
+ * Import all config.
+ */
+function jcms_migrate_update_8139() {
+  drush_invoke('config-import');
+}
+
+/**
+ * Migrate content to inline editor fields.
+ */
+function jcms_migrate_update_8140() {
+  $types = [
+    'blog_article',
+    'event',
+    'interview',
+    'labs_experiment',
+    'press_package',
+  ];
+
+  foreach ($types as $type) {
+    drush_invoke('json-html-migrate', [$type]);
   }
 }

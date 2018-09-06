@@ -66,11 +66,12 @@ final class FetchArticleVersions {
    * @throws BadResponseException
    */
   private function requestArticleVersions(string $id): ResponseInterface {
-    $options = [
-      'headers' => [
-        'Authorization' => Settings::get('jcms_article_auth_unpublished'),
-      ],
-    ];
+    $options = [];
+    if ($auth = Settings::get('jcms_article_auth_unpublished')) {
+      $options['headers'] = [
+        'Authorization' => $auth,
+      ];
+    }
     $url = $this->formatUrl($id, $this->endpoint);
     try {
       $response = $this->client->get($url, $options);

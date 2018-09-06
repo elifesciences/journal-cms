@@ -1,0 +1,38 @@
+uuid: a6621cbf-26c6-46ab-8fe1-cf919ebbb410
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_images_preview
+    - node.type.event
+  module:
+    - image
+id: node.event.field_content_images_preview
+field_name: field_content_images_preview
+entity_type: node
+bundle: event
+label: 'Content (images preview)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: 'iiif/event-preview/[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: false
+  alt_field_required: false
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

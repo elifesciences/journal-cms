@@ -23,13 +23,14 @@ entity_type: node
 bundle: blog_article
 label: Content
 description: ''
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
+    negate: 0
     target_bundles:
       paragraph: paragraph
       image: image
@@ -89,5 +90,8 @@ settings:
         enabled: false
       venue:
         weight: -18
+        enabled: false
+      affiliation:
+        weight: 18
         enabled: false
 field_type: entity_reference_revisions

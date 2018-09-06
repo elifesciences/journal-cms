@@ -1,0 +1,21 @@
+uuid: f23f2ae8-3024-4c90-b78b-b8a1bec212be
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_json
+    - node.type.labs_experiment
+  module:
+    - jsonb
+id: node.labs_experiment.field_content_json
+field_name: field_content_json
+entity_type: node
+bundle: labs_experiment
+label: 'Content (JSON)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json

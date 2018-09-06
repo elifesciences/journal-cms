@@ -1,0 +1,172 @@
+.align-right,
+.align-left {
+  width: 50%;
+}
+
+figure {
+  box-sizing: border-box;
+  padding: 1em 40px;
+  margin: 0;
+}
+
+figure img {
+  width: 100%;
+  height: auto;
+}
+
+figure.video {
+  padding: 0;
+}
+
+figure.video figcaption {
+  margin: 10px 0;
+}
+
+.no-caption figcaption {
+  display: none;
+}
+
+.align-right figure,
+figure.align-right {
+  padding-right: 0;
+}
+
+.align-left figure,
+figure.align-left {
+  padding-left: 0;
+}
+
+.profile-left figure,
+figure.profile-left {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.profile-left figure::after,
+figure.profile-left::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.profile-left figure img,
+figure.profile-left img {
+  width: 25%;
+  margin-right: 5%;
+  float: left;
+}
+
+.profile-left figcaption {
+  width: 70%;
+  float: right;
+}
+
+elifebutton {
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  display: inline-block;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 14px;
+  font-size: .875rem;
+  line-height: 1;
+  font-weight: 500;
+  padding: 15px 36px 14px;
+  padding: .9375rem 2.25rem .875rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+elifebutton.elife-button--default {
+  background-color: #0288d1;
+  border: 1px solid #0288d1;
+  color: #fff;
+}
+
+elifebutton.elife-button--default:hover {
+  background-color: #0277bd;
+  border: 1px solid #0277bd;
+  color: #fff;
+}
+
+elifebutton.elife-button--outline {
+  background-color: #fff;
+  border: 1px solid #0288d1;
+  color: #0288d1;
+}
+
+elifebutton.elife-button--outline:hover {
+  background-color: #fff;
+  border: 1px solid #0277bd;
+  color: #0277bd;
+}
+
+.page-ckeditor-inline h1.page-title,
+.page-ckeditor-inline .field--name-field-impact-statement {
+  font-family: Arial,Helvetica,sans-serif;
+  text-align: center;
+}
+
+.page-ckeditor-inline .node__content h1 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.page-ckeditor-inline .node__content .field--name-field-impact-statement {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.field--name-body {
+  margin: 0 16em;
+}
+
+.page-ckeditor-inline .block-system-main-block .content {
+  margin-left: 20em;
+  margin-right: 20em;
+}
+
+.page-ckeditor-inline .main-content h1,
+.page-ckeditor-inline .main-content h2,
+.page-ckeditor-inline .main-content h3,
+.page-ckeditor-inline .main-content h4,
+.page-ckeditor-inline .main-content h5 {
+  font-family: Arial,Helvetica,sans-serif;
+  font-weight: 700;
+}
+
+.page-ckeditor-inline .main-content h1 {
+  font-size: 26px;
+}
+
+.page-ckeditor-inline .main-content h2,
+.page-ckeditor-inline .main-content h3,
+.page-ckeditor-inline .main-content h4,
+.page-ckeditor-inline .main-content h5 {
+  font-size: 22px;
+}
+
+.cke_focus placeholder {
+  display: none;
+}
+
+.cke_editable_inline {
+  min-height: 2.5em;
+}
+
+.cke_widget_mask {
+  height: 0 !important;
+  padding-top: 56.25% !important;
+}
+
+.cke_floating_toolbar {
+  z-index: 1000;
+  width: 100%;
+}
+
+.cke_toolbar_fixed {
+  position: fixed;
+  top: 0;
+}

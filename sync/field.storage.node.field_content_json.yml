@@ -1,0 +1,23 @@
+uuid: e63b209c-8dba-40bb-b31b-6e9583300187
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - jsonb
+    - node
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_content_json
+field_name: field_content_json
+entity_type: node
+type: json
+settings: {  }
+module: jsonb
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

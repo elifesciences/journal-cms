@@ -4,6 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.node.press_package.field_content
+    - field.field.node.press_package.field_content_html
+    - field.field.node.press_package.field_content_html_preview
+    - field.field.node.press_package.field_content_images
+    - field.field.node.press_package.field_content_images_preview
+    - field.field.node.press_package.field_content_json
+    - field.field.node.press_package.field_content_json_preview
     - field.field.node.press_package.field_content_processed_json
     - field.field.node.press_package.field_impact_statement
     - field.field.node.press_package.field_media_contact
@@ -14,24 +20,13 @@ dependencies:
   module:
     - inline_entity_form
     - paragraphs
+    - scheduler
     - text
 id: node.press_package.default
 targetEntityType: node
 bundle: press_package
 mode: default
 content:
-  field_content:
-    weight: 2
-    settings:
-      title: 'Content item'
-      title_plural: 'Content items'
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
-    third_party_settings: {  }
-    type: entity_reference_paragraphs
-    region: content
   field_impact_statement:
     weight: 1
     settings:
@@ -42,7 +37,7 @@ content:
     region: content
   field_media_contact:
     type: entity_reference_paragraphs
-    weight: 4
+    weight: 3
     settings:
       title: 'Media contact'
       title_plural: 'Media contacts'
@@ -54,7 +49,7 @@ content:
     region: content
   field_press_package_about:
     type: entity_reference_paragraphs
-    weight: 5
+    weight: 4
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -65,7 +60,7 @@ content:
     third_party_settings: {  }
     region: content
   field_related_content:
-    weight: 3
+    weight: 2
     settings:
       form_mode: default
       override_labels: true
@@ -79,20 +74,15 @@ content:
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 20
+    weight: 5
     region: content
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 6
+    settings: {  }
     third_party_settings: {  }
-    region: content
   title:
     type: string_textfield
     weight: 0
@@ -101,18 +91,21 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
-  unpublish_on:
-    type: datetime_timestamp_no_default
-    weight: 30
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   created: true
+  field_content: true
+  field_content_html: true
+  field_content_html_preview: true
+  field_content_images: true
+  field_content_images_preview: true
+  field_content_json: true
+  field_content_json_preview: true
   field_content_processed_json: true
   field_order_date: true
   moderation_state: true
   path: true
   promote: true
+  status: true
   sticky: true
   uid: true
+  unpublish_on: true

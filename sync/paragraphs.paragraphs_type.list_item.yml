@@ -5,4 +5,5 @@ dependencies: {  }
 id: list_item
 label: 'List item'
 icon_uuid: null
+description: null
 behavior_plugins: {  }

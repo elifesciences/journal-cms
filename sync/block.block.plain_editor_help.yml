@@ -1,0 +1,22 @@
+uuid: 31f4c889-d6df-4630-a572-b4debad09b3c
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - plain_editor
+_core:
+  default_config_hash: 8I8iACSa0sKO3k3jlvUG1ge52rfcKX7USJAQYnzuBgg
+id: plain_editor_help
+theme: plain_editor
+region: content
+weight: -4
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

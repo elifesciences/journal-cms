@@ -1,0 +1,186 @@
+<?php
+
+/**
+ * @file
+ * JCMS CKEditor module file.
+ */
+
+use Drupal\Core\Site\Settings;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\block\Entity\Block;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Add inline editor libraries on all pages.
+ *
+ * @TODO: We could limit this to just node view pages
+ */
+function jcms_ckeditor_page_attachments(array &$attachments) {
+  $current_theme = \Drupal::theme()->getActiveTheme()->getName();
+  $default_theme = $config = \Drupal::config('system.theme')->get('default');
+  if (\Drupal::currentUser()->hasPermission('use inline editor') && $current_theme == $default_theme) {
+    $attachments['#attached']['library'][] = 'jcms_ckeditor/jcms_ckeditor';
+    $attachments['#attached']['drupalSettings']['pluginPathContrib'] = '/libraries/ckeditor/plugins/';
+    $attachments['#attached']['drupalSettings']['pluginPathCustom'] = '/' . drupal_get_path('module', 'jcms_ckeditor') . '/ckeditor/plugins/';
+    $attachments['#attached']['drupalSettings']['placeholder'] = t('Type something here ...');
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof NodeInterface && $node->hasField('field_content_images_preview')) {
+      $bundle_fields = \Drupal::getContainer()->get('entity_field.manager')->getFieldDefinitions('node', $node->bundle());
+      $field_definition = $bundle_fields['field_content_images_preview'];
+      $file_directory = $field_definition->getSetting('file_directory');
+      $token_service = \Drupal::service('token');
+      $attachments['#attached']['drupalSettings']['imageFileDirectory'] = $token_service->replace($file_directory);
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ *
+ * Add data fields to body tag so editor can find UUID and node type.
+ */
+function jcms_ckeditor_preprocess_html(array &$variables) {
+  $route = \Drupal::service('current_route_match');
+  if ($route->getRouteName() == 'entity.node.canonical') {
+    $node = $route->getParameter('node');
+    $node_type = $node->getType();
+    $variables['attributes']['data-uuid'] = $node->uuid();
+    $variables['attributes']['data-node-type'] = $node_type;
+    if (in_array($node_type, jcms_ckeditor_editable_types())) {
+      $variables['attributes']['class'][] = 'page-ckeditor-inline';
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ *
+ * Add page links.
+ */
+function jcms_ckeditor_preprocess_page(array &$variables) {
+  $route = \Drupal::service('current_route_match');
+  if ($route->getRouteName() == 'entity.node.canonical') {
+    /** @var \Drupal\node\NodeInterface $node */
+    $node = $route->getParameter('node');
+    if (in_array($node->getType(), jcms_ckeditor_editable_types())) {
+      $variables['top_left_links'] = [
+        '#theme' => 'item_list',
+        '#items' => [
+          Link::fromTextAndUrl(t('Create post'), Url::fromRoute('entity.node.edit_form', ['node' => $node->id()])),
+          t('Editor'),
+        ],
+      ];
+      $journal_path = Settings::get('journal_path');
+      $journal_preview = Settings::get('journal_preview');
+      $items = [];
+      if ($journal_path && $node->isPublished()) {
+        $items[] = Link::fromTextAndUrl(t('View published'), Url::fromUri($journal_path . \Drupal::service('jcms_admin.content_path')->create($node))->setOption('attributes', ['target' => '_blank', 'class' => 'preview-link']));
+      }
+      if ($journal_preview) {
+        $items[] = Link::fromTextAndUrl(t('View draft'), Url::fromUri(Settings::get('journal_preview') . \Drupal::service('jcms_admin.content_path')->create($node))->setOption('attributes', ['target' => '_blank', 'class' => 'preview-link']));
+      }
+      if ($node->isPublished()) {
+        $items[] = Link::fromTextAndUrl(t('Discard draft'), Url::fromRoute('jcms_admin.reset_content', ['node' => $node->id()])->setOptions(['attributes' => ['class' => 'discard-button']]));
+      }
+      $items[] = Link::fromTextAndUrl(t('Save draft'), Url::fromRoute('<none>')->setOption('attributes', ['class' => 'save-button']));
+      $variables['top_right_links'] = [
+        '#theme' => 'item_list',
+        '#items' => $items,
+      ];
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ *
+ * For images save width and height in attached fields.
+ * For nodes to be edited make sure the display field and body field are
+ * not empty but content placeholders.
+ */
+function jcms_ckeditor_entity_presave(EntityInterface $entity) {
+  if ($entity->getEntityType()->id() == 'file' && strpos($entity->getMimeType(), 'image') === 0) {
+    // Save width and height in image fields so they are available to editor.
+    $uri = $entity->getFileUri();
+    $image = \Drupal::service('image.factory')->get($uri);
+    $entity->field_image_width = $image->getWidth();
+    $entity->field_image_height = $image->getHeight();
+  }
+  elseif ($entity->getEntityType()->id() === 'node') {
+    // Make body fields have placeholder set.
+    if ($entity->hasField('field_content_html_preview') && $entity->get('field_content_html_preview')->isEmpty()) {
+      $placeholder = t('Type something here ...');
+      $entity->field_content_html_preview->value = '<placeholder>' . $placeholder . '</placeholder>';
+      $entity->field_content_html_preview->format = 'ckeditor_html';
+    }
+  }
+}
+
+/**
+ * Implements hook_block_access().
+ *
+ * Do not show tabs on node view page if user using inline editor.
+ */
+function jcms_ckeditor_block_access(Block $block, string $operation, AccountInterface $account) {
+  if ($operation == 'view' && $block->getPluginId() == 'local_tasks_block') {
+    $route = \Drupal::service('current_route_match');
+    if ($route->getRouteName() == 'entity.node.canonical') {
+      /** @var \Drupal\node\NodeInterface $node */
+      $node = $route->getParameter('node');
+      if ($node->hasField('field_content_html_preview') && \Drupal::currentUser()->hasPermission('use inline editor')) {
+        return AccessResult::forbidden()->cachePerPermissions();
+      }
+    }
+  }
+  return AccessResult::neutral()->cachePerPermissions();
+}
+
+/**
+ * Implements hook_theme_suggestions_node_alter().
+ *
+ * Allow for toolbar on editable node views.
+ */
+function jcms_ckeditor_theme_suggestions_node_alter(&$suggestions, $variables) {
+  if (isset($variables['elements']['#node']) && isset($variables['elements']['#view_mode']) && $variables['elements']['#view_mode'] == 'full') {
+    $type = $variables['elements']['#node']->bundle();
+    if (in_array($type, jcms_ckeditor_editable_types())) {
+      array_splice($suggestions, 1, 0, 'node__editable');
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ *
+ * Allow for page links.
+ */
+function jcms_ckeditor_theme_suggestions_page_alter(&$suggestions, $variables) {
+  $route = \Drupal::service('current_route_match');
+  if ($route->getRouteName() == 'entity.node.canonical') {
+    $node = $route->getParameter('node');
+    $type = $node->getType();
+    $editable_types = jcms_ckeditor_editable_types();
+    if (in_array($type, $editable_types)) {
+      array_splice($suggestions, 1, 0, 'page__editable');
+    }
+  }
+}
+
+/**
+ * Node types that support the inline editor.
+ */
+function jcms_ckeditor_editable_types() : array {
+  return [
+    'blog_article',
+    'event',
+    'interview',
+    'labs_experiment',
+    'press_package',
+  ];
+}

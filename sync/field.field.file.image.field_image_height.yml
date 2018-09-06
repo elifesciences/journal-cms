@@ -1,0 +1,23 @@
+uuid: 105fbb7b-af3c-41ea-bd24-d8b8b79b1570
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.file.field_image_height
+    - file_entity.type.image
+id: file.image.field_image_height
+field_name: field_image_height
+entity_type: file
+bundle: image
+label: Height
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

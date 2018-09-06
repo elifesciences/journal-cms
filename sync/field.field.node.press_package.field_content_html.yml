@@ -1,0 +1,21 @@
+uuid: 169413c8-6969-4327-b8de-6a3543ab9d71
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_html
+    - node.type.press_package
+  module:
+    - text
+id: node.press_package.field_content_html
+field_name: field_content_html
+entity_type: node
+bundle: press_package
+label: Content
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,44 @@
+services:
+  jcms_admin.json_html_denormalizer:
+    class: Drupal\jcms_admin\JsonHtmlDeserializer
+  jcms_admin.html_converter:
+    class: League\HTMLToMarkdown\HtmlConverter
+  jcms_admin.html_md_normalizer:
+    class: Drupal\jcms_admin\HtmlMarkdownSerializer
+    arguments: ['@jcms_admin.html_converter']
+  jcms_admin.environment:
+    class: League\CommonMark\Environment
+    factory: League\CommonMark\Environment::createCommonMarkEnvironment
+  jcms_admin.html_renderer:
+    class: League\CommonMark\HtmlRenderer
+    arguments: ['@jcms_admin.environment']
+  jcms_admin.doc_parser:
+    class: League\CommonMark\DocParser
+    arguments: ['@jcms_admin.environment']
+  jcms_admin.md_converter:
+    class: League\CommonMark\CommonMarkConverter
+  jcms_admin.logger.channel.default:
+    parent: logger.channel_base
+    arguments: ['jcms_admin']
+  jcms_admin.youtube:
+    class: Drupal\jcms_admin\YouTube
+    arguments: ['@jcms_admin.logger.channel.default']
+  jcms_admin.md_json_normalizer:
+    class: Drupal\jcms_admin\MarkdownJsonSerializer
+    arguments: ['@jcms_admin.doc_parser', '@jcms_admin.html_renderer', '@file.mime_type.guesser', '@jcms_admin.youtube',  '@jcms_admin.md_converter']
+  jcms_admin.html_json_normalizer:
+    class: Drupal\jcms_admin\HtmlJsonSerializer
+    arguments: ['@jcms_admin.html_md_normalizer', '@jcms_admin.md_json_normalizer']
+  jcms_admin.transfer_content:
+    class: Drupal\jcms_admin\TransferContent
+    arguments: ['@file_system', '@renderer', '@jcms_rest.content_validator']
+  jcms_admin.content_path:
+    class: Drupal\jcms_admin\ContentPath
+    arguments: ['@jcms_notifications.entity_crud_notification_service', '@database']
+  jcms_admin.route_subscriber:
+    class: Drupal\jcms_admin\Routing\AutocompleteRouteSubscriber
+    tags:
+      - { name: event_subscriber }
+  jcms_admin.autocomplete_matcher:
+    class: Drupal\jcms_admin\EntityAutocompleteMatcher
+    arguments: ['@plugin.manager.entity_reference_selection']

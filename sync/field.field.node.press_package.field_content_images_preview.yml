@@ -1,0 +1,38 @@
+uuid: 6b05375a-b022-4cd7-82a5-2a0447b40244
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_images_preview
+    - node.type.press_package
+  module:
+    - image
+id: node.press_package.field_content_images_preview
+field_name: field_content_images_preview
+entity_type: node
+bundle: press_package
+label: 'Content (images preview)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: 'iiif/for-the-press-content/[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: false
+  alt_field_required: false
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

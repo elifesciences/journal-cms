@@ -24,6 +24,12 @@ content:
 hidden:
   field_community_list: true
   field_content: true
+  field_content_html: true
+  field_content_html_preview: true
+  field_content_images: true
+  field_content_images_preview: true
+  field_content_json: true
+  field_content_json_preview: true
   field_content_processed_json: true
   field_event_datetime: true
   field_event_timezone: true

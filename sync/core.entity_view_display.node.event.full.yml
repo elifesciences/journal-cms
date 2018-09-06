@@ -1,0 +1,57 @@
+uuid: 5a415bcc-f3af-4353-a140-26d2546b52d7
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.event.field_community_list
+    - field.field.node.event.field_content
+    - field.field.node.event.field_content_html
+    - field.field.node.event.field_content_html_preview
+    - field.field.node.event.field_content_images
+    - field.field.node.event.field_content_images_preview
+    - field.field.node.event.field_content_json
+    - field.field.node.event.field_content_json_preview
+    - field.field.node.event.field_content_processed_json
+    - field.field.node.event.field_event_datetime
+    - field.field.node.event.field_event_timezone
+    - field.field.node.event.field_event_uri
+    - field.field.node.event.field_impact_statement
+    - field.field.node.event.field_order_date
+    - node.type.event
+  module:
+    - text
+    - user
+id: node.event.full
+targetEntityType: node
+bundle: event
+mode: full
+content:
+  field_content_html_preview:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_impact_statement:
+    type: text_default
+    weight: 0
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_community_list: true
+  field_content: true
+  field_content_html: true
+  field_content_images: true
+  field_content_images_preview: true
+  field_content_json: true
+  field_content_json_preview: true
+  field_content_processed_json: true
+  field_event_datetime: true
+  field_event_timezone: true
+  field_event_uri: true
+  field_order_date: true
+  links: true

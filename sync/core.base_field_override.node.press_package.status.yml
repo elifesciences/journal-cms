@@ -1,0 +1,22 @@
+uuid: fd170d8c-7eb5-4abe-9878-23487a27e5bd
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.press_package
+id: node.press_package.status
+field_name: status
+entity_type: node
+bundle: press_package
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

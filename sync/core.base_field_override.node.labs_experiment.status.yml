@@ -1,0 +1,22 @@
+uuid: bff7840e-a909-4192-a69e-8e1cebcf245e
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.labs_experiment
+id: node.labs_experiment.status
+field_name: status
+entity_type: node
+bundle: labs_experiment
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

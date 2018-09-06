@@ -3,19 +3,27 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.podcast_chapter.field_chapter_time
     - field.field.node.podcast_chapter.field_impact_statement
     - field.field.node.podcast_chapter.field_long_title
     - field.field.node.podcast_chapter.field_order_date
-    - field.field.node.podcast_chapter.field_podcast_chapter_time
     - field.field.node.podcast_chapter.field_related_content
     - node.type.podcast_chapter
   module:
+    - duration_field
     - text
 id: node.podcast_chapter.default
 targetEntityType: node
 bundle: podcast_chapter
 mode: default
 content:
+  field_chapter_time:
+    type: duration_widget
+    weight: 2
+    region: content
+    settings:
+      duration: ''
+    third_party_settings: {  }
   field_impact_statement:
     weight: 3
     settings:
@@ -25,22 +33,15 @@ content:
     type: text_textarea
     region: content
   field_long_title:
-    weight: 1
+    weight: 4
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_podcast_chapter_time:
-    weight: 2
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
   field_related_content:
-    weight: 4
+    weight: 5
     settings:
       match_operator: CONTAINS
       size: 60

@@ -1,0 +1,56 @@
+uuid: 2793ae94-b20d-401c-b776-78f93232c81d
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.ckeditor_html
+  module:
+    - ckeditor
+format: ckeditor_html
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Formatting
+          items:
+            - Bold
+            - Italic
+            - Subscript
+            - RemoveFormat
+        -
+          name: Lists
+          items:
+            - BulletedList
+            - NumberedList
+        -
+          name: Links
+          items:
+            - DrupalLink
+            - DrupalUnlink
+        -
+          name: 'Block Formatting'
+          items:
+            - Table
+        -
+          name: Tools
+          items:
+            - Source
+        -
+          name: Paste
+          items:
+            - PasteText
+  plugins:
+    language:
+      language_list: un
+    stylescombo:
+      styles: ''
+image_upload:
+  status: false
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null

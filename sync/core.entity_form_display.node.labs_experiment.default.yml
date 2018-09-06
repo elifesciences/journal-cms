@@ -5,6 +5,12 @@ dependencies:
   config:
     - field.field.node.labs_experiment.field_community_list
     - field.field.node.labs_experiment.field_content
+    - field.field.node.labs_experiment.field_content_html
+    - field.field.node.labs_experiment.field_content_html_preview
+    - field.field.node.labs_experiment.field_content_images
+    - field.field.node.labs_experiment.field_content_images_preview
+    - field.field.node.labs_experiment.field_content_json
+    - field.field.node.labs_experiment.field_content_json_preview
     - field.field.node.labs_experiment.field_content_processed_json
     - field.field.node.labs_experiment.field_experiment_number
     - field.field.node.labs_experiment.field_image
@@ -14,42 +20,39 @@ dependencies:
     - image.style.thumbnail
     - node.type.labs_experiment
   module:
+    - field_group
     - focal_point
-    - paragraphs
+    - scheduler
     - text
+third_party_settings:
+  field_group:
+    group_image_attribution:
+      children:
+        - field_image_attribution
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: 'Image attribution'
+      region: content
 id: node.labs_experiment.default
 targetEntityType: node
 bundle: labs_experiment
 mode: default
 content:
   field_community_list:
-    weight: 6
+    weight: 5
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
-  field_content:
-    type: entity_reference_paragraphs
-    weight: 5
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
-    third_party_settings: {  }
-    region: content
-  field_experiment_number:
-    weight: 0
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
   field_image:
-    weight: 1
+    weight: 0
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -76,20 +79,15 @@ content:
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 20
+    weight: 6
     region: content
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 7
+    settings: {  }
     third_party_settings: {  }
-    region: content
   title:
     type: string_textfield
     weight: 3
@@ -98,18 +96,22 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
-  unpublish_on:
-    type: datetime_timestamp_no_default
-    weight: 30
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   created: true
+  field_content: true
+  field_content_html: true
+  field_content_html_preview: true
+  field_content_images: true
+  field_content_images_preview: true
+  field_content_json: true
+  field_content_json_preview: true
   field_content_processed_json: true
+  field_experiment_number: true
   field_order_date: true
   moderation_state: true
   path: true
   promote: true
+  status: true
   sticky: true
   uid: true
+  unpublish_on: true

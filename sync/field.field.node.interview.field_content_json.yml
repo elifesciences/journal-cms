@@ -1,0 +1,21 @@
+uuid: 3d408458-0dbd-46a7-823f-6639e6a82d05
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_json
+    - node.type.interview
+  module:
+    - jsonb
+id: node.interview.field_content_json
+field_name: field_content_json
+entity_type: node
+bundle: interview
+label: 'Content (JSON)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json
