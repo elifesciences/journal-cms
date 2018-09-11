@@ -39,7 +39,7 @@ class EntityReferenceItem extends EntityReferenceItemExtend {
         if (count($unique) === 10) {
           $unique = array_slice(array_values($unique), -2);
         }
-        while (in_array($values['target_id'], $unique)) {
+        while (in_array($values['target_id'] ?? [], $unique)) {
           $values = parent::generateSampleValue($field_definition);
         }
         $unique[] = $values['target_id'];
