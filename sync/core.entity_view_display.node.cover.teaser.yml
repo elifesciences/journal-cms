@@ -6,6 +6,8 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.cover.field_cover_content
     - field.field.node.cover.field_image
+    - field.field.node.cover.field_image_attribution
+    - field.field.node.cover.field_order_date
     - node.type.cover
   module:
     - user
@@ -17,9 +19,13 @@ content:
   content_moderation_control:
     weight: -20
     region: content
+    settings: {  }
+    third_party_settings: {  }
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_cover_content: true
   field_image: true

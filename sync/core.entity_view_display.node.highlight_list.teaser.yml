@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.highlight_list.field_highlight_items
+    - field.field.node.highlight_list.field_order_date
     - node.type.highlight_list
   module:
     - user
@@ -16,6 +17,8 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_highlight_items: true
   field_order_date: true

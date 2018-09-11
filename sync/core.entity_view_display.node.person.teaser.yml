@@ -4,13 +4,20 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.person.field_archive
     - field.field.node.person.field_image
+    - field.field.node.person.field_order_date
+    - field.field.node.person.field_person_affiliation
+    - field.field.node.person.field_person_affiliation_json
     - field.field.node.person.field_person_competing
     - field.field.node.person.field_person_index_name
     - field.field.node.person.field_person_orcid
     - field.field.node.person.field_person_profile
+    - field.field.node.person.field_person_profile_json
     - field.field.node.person.field_person_type
+    - field.field.node.person.field_person_type_label
     - field.field.node.person.field_research_details
+    - field.field.node.person.field_research_details_json
     - node.type.person
   module:
     - user
@@ -22,6 +29,8 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_archive: true
   field_image: true

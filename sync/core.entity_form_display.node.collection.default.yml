@@ -20,6 +20,7 @@ dependencies:
     - focal_point
     - inline_entity_form
     - paragraphs
+    - scheduler
     - text
 id: node.collection.default
 targetEntityType: node
@@ -133,6 +134,8 @@ content:
   scheduler_settings:
     weight: 20
     region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:

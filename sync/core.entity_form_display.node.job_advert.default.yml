@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.job_advert.field_order_date
     - node.type.job_advert
   module:
+    - scheduler
     - text
 id: node.job_advert.default
 targetEntityType: node
@@ -73,6 +74,8 @@ content:
   scheduler_settings:
     weight: 20
     region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
