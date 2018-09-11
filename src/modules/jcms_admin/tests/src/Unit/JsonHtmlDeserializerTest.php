@@ -3,14 +3,14 @@
 namespace Drupal\Tests\jcms_admin\Unit;
 
 use Drupal\jcms_admin\JsonHtmlDeserializer;
+use Drupal\Tests\UnitTestCase;
 use eLife\ApiSdk\Model\Model;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
  * Tests for JsonHtmlDeserializer.
  */
-class JsonHtmlDeserializerTest extends TestCase {
+class JsonHtmlDeserializerTest extends UnitTestCase {
 
   use Helper;
 

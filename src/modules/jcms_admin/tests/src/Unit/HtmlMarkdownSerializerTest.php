@@ -3,14 +3,14 @@
 namespace Drupal\Tests\jcms_admin\Unit;
 
 use Drupal\jcms_admin\HtmlMarkdownSerializer;
+use Drupal\Tests\UnitTestCase;
 use League\HTMLToMarkdown\HtmlConverter;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * Tests for HtmlMarkdownSerializer.
  */
-class HtmlMarkdownSerializerTest extends TestCase {
+class HtmlMarkdownSerializerTest extends UnitTestCase {
 
   use Helper;
 

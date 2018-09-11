@@ -6,19 +6,19 @@ use Drupal\jcms_admin\HtmlJsonSerializer;
 use Drupal\jcms_admin\HtmlMarkdownSerializer;
 use Drupal\jcms_admin\MarkdownJsonSerializer;
 use Drupal\jcms_admin\YouTubeInterface;
+use Drupal\Tests\UnitTestCase;
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\DocParser;
 use League\CommonMark\Environment;
 use League\CommonMark\HtmlRenderer;
 use League\HTMLToMarkdown\HtmlConverter;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * Tests for HtmlJsonSerializer.
  */
-class HtmlJsonSerializerTest extends TestCase {
+class HtmlJsonSerializerTest extends UnitTestCase {
 
   use Helper;
 
@@ -50,8 +50,8 @@ class HtmlJsonSerializerTest extends TestCase {
    */
   protected function setUpNormalizer() {
     $environment = Environment::createCommonMarkEnvironment();
-    $this->mimeTypeGuesser = $this->getMock(MimeTypeGuesserInterface::class);
-    $this->youtube = $this->getMock(YouTubeInterface::class);
+    $this->mimeTypeGuesser = $this->createMock(MimeTypeGuesserInterface::class);
+    $this->youtube = $this->createMock(YouTubeInterface::class);
     $this->normalizer = new HtmlJsonSerializer(new HtmlMarkdownSerializer(new HtmlConverter()), new MarkdownJsonSerializer(new DocParser($environment), new HtmlRenderer($environment), $this->mimeTypeGuesser, $this->youtube, new CommonMarkConverter()));
   }
 
