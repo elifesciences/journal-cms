@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb29b4a1442b453901932165b3d90b35",
+    "content-hash": "f9f70ce8f1bcd5d6b330e3e9ec42a4a7",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1684,16 +1684,16 @@
         },
         {
             "name": "drupal-composer/drupal-scaffold",
-            "version": "2.5.4",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal-composer/drupal-scaffold.git",
-                "reference": "fc6bf4ceecb5d47327f54d48d4d4f67b17da956d"
+                "reference": "745f0a2d4141fc83d3b42222beff43d66afb3dc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal-composer/drupal-scaffold/zipball/fc6bf4ceecb5d47327f54d48d4d4f67b17da956d",
-                "reference": "fc6bf4ceecb5d47327f54d48d4d4f67b17da956d",
+                "url": "https://api.github.com/repos/drupal-composer/drupal-scaffold/zipball/745f0a2d4141fc83d3b42222beff43d66afb3dc6",
+                "reference": "745f0a2d4141fc83d3b42222beff43d66afb3dc6",
                 "shasum": ""
             },
             "require": {
@@ -1703,9 +1703,7 @@
             },
             "require-dev": {
                 "composer/composer": "dev-master",
-                "g1a/composer-test-scenarios": "^2.1.0",
-                "phpunit/phpunit": "^6",
-                "squizlabs/php_codesniffer": "^2.8"
+                "phpunit/phpunit": "^4.4.0"
             },
             "type": "composer-plugin",
             "extra": {
@@ -1721,10 +1719,10 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0-or-later"
+                "GPL-2.0+"
             ],
             "description": "Composer Plugin for updating the Drupal scaffold files when using drupal/core",
-            "time": "2018-07-27T10:07:07+00:00"
+            "time": "2017-12-08T22:53:11+00:00"
         },
         {
             "name": "drupal/address",
