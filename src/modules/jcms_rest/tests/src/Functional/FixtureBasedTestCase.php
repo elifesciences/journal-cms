@@ -77,6 +77,7 @@ abstract class FixtureBasedTestCase extends UnitTestCase {
     $all_items = [];
     $per_page = 50;
     $page = 1;
+    $total = NULL;
     do {
       $request = new Request('GET', $endpoint . '?per-page=' . $per_page . '&page=' . $page, [
         'Accept' => $media_type_list,
@@ -85,6 +86,10 @@ abstract class FixtureBasedTestCase extends UnitTestCase {
       $response = $this->client->send($request);
       $data = \GuzzleHttp\json_decode((string) $response->getBody());
       $this->validator->validate($response);
+
+      if (is_null($total) && isset($data->total)) {
+        $total = $data->total;
+      }
 
       $items = isset($data->items) ? $data->items : $data;
       if (!empty($items)) {
@@ -98,6 +103,8 @@ abstract class FixtureBasedTestCase extends UnitTestCase {
         $page++;
       }
     } while ($page > 0);
+
+    $this->assertEquals($total, count($all_items));
 
     return $all_items;
   }
