@@ -552,8 +552,6 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       /* @var \CommerceGuys\Addressing\AddressInterface $address  */
       $address = $venue_field->get('field_block_address')->first();
       $postal_label_formatter = \Drupal::service('address.postal_label_formatter');
-      $postal_label_formatter->setOriginCountryCode('no_origin');
-      $postal_label_formatter->setLocale($locale);
       $components = [
         'streetAddress' => ['getAddressLine1', 'getAddressLine2'],
         'locality' => ['getLocality', 'getDependentLocality'],
@@ -561,7 +559,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       ];
 
       $venue['address'] = [
-        'formatted' => explode("\n", $postal_label_formatter->format($address)),
+        'formatted' => explode("\n", $postal_label_formatter->format($address, [
+          'origin_country' => 'no_origin',
+          'locale' => 'en',
+        ])),
         'components' => [],
       ];
 

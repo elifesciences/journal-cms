@@ -6,8 +6,17 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.interview.field_community_list
     - field.field.node.interview.field_content
+    - field.field.node.interview.field_content_html
+    - field.field.node.interview.field_content_html_preview
+    - field.field.node.interview.field_content_images
+    - field.field.node.interview.field_content_images_preview
+    - field.field.node.interview.field_content_json
+    - field.field.node.interview.field_content_json_preview
+    - field.field.node.interview.field_content_processed_json
+    - field.field.node.interview.field_image
     - field.field.node.interview.field_impact_statement
     - field.field.node.interview.field_interview_cv
+    - field.field.node.interview.field_order_date
     - field.field.node.interview.field_person_index_name
     - field.field.node.interview.field_person_preferred_name
     - node.type.interview
@@ -21,6 +30,8 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_community_list: true
   field_content: true

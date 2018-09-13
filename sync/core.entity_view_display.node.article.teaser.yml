@@ -7,6 +7,8 @@ dependencies:
     - field.field.node.article.field_article_json
     - field.field.node.article.field_community_list
     - field.field.node.article.field_image
+    - field.field.node.article.field_order_date
+    - field.field.node.article.field_page_views
     - field.field.node.article.field_subjects
     - node.type.article
   module:
@@ -19,6 +21,8 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_article_id: true
   field_article_json: true

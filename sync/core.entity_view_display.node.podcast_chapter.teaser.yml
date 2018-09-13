@@ -20,6 +20,8 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_chapter_time: true
   field_impact_statement: true

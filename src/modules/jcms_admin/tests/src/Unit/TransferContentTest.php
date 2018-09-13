@@ -6,12 +6,12 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\jcms_admin\TransferContent;
 use Drupal\jcms_rest\ValidatorInterface;
-use PHPUnit\Framework\TestCase;
+use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests for TransferContent.
  */
-class TransferContentTest extends TestCase {
+class TransferContentTest extends UnitTestCase {
 
   use Helper;
 
@@ -49,9 +49,9 @@ class TransferContentTest extends TestCase {
    * @before
    */
   protected function setUp() {
-    $this->fileSystem = $this->getMock(FileSystemInterface::class);
-    $this->renderer = $this->getMock(RendererInterface::class);
-    $this->validator = $this->getMock(ValidatorInterface::class);
+    $this->fileSystem = $this->createMock(FileSystemInterface::class);
+    $this->renderer = $this->createMock(RendererInterface::class);
+    $this->validator = $this->createMock(ValidatorInterface::class);
     $this->transferContent = new TransferContent($this->fileSystem, $this->renderer, $this->validator);
   }
 

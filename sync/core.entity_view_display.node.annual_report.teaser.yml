@@ -20,6 +20,8 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_annual_report_uri: true
   field_annual_report_year: true
