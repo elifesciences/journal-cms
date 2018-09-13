@@ -104,7 +104,9 @@ abstract class FixtureBasedTestCase extends UnitTestCase {
       }
     } while ($page > 0);
 
-    $this->assertEquals($total, count($all_items));
+    if (!is_null($total)) {
+      $this->assertEquals($total, count($all_items));
+    }
 
     return $all_items;
   }
