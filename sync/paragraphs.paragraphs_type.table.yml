@@ -1,9 +1,0 @@
-uuid: bef861c3-1aaa-49ba-aa3a-86ca54469982
-langcode: en
-status: true
-dependencies: {  }
-id: table
-label: Table
-icon_uuid: null
-description: null
-behavior_plugins: {  }

@@ -13,7 +13,6 @@ dependencies:
     - field.field.node.interview.field_content_json_preview
     - field.field.node.interview.field_image
     - field.field.node.interview.field_impact_statement
-    - field.field.node.interview.field_interview_cv
     - field.field.node.interview.field_order_date
     - field.field.node.interview.field_person_index_name
     - field.field.node.interview.field_person_preferred_name
@@ -48,7 +47,6 @@ hidden:
   field_content_json: true
   field_content_json_preview: true
   field_image: true
-  field_interview_cv: true
   field_order_date: true
   field_person_index_name: true
   field_person_preferred_name: true

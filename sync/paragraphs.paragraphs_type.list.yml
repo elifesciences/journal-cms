@@ -1,9 +1,0 @@
-uuid: db56a032-297a-437e-87ba-35bd0ca1c536
-langcode: en
-status: true
-dependencies: {  }
-id: list
-label: List
-icon_uuid: null
-description: null
-behavior_plugins: {  }
