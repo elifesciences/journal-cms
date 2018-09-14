@@ -1,6 +1,4 @@
 services:
-  jcms_admin.json_html_denormalizer:
-    class: Drupal\jcms_admin\JsonHtmlDeserializer
   jcms_admin.html_converter:
     class: League\HTMLToMarkdown\HtmlConverter
   jcms_admin.html_md_normalizer:
