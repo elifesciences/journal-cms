@@ -618,19 +618,6 @@ function jcms_admin_node_presave(NodeInterface $node) {
     $node->set('field_order_date', $node->getCreatedTime());
   }
 
-  if ($node->hasField('field_content')) {
-    if ($node->hasField('field_content_processed_json')) {
-      $pluginManager = \Drupal::service('plugin.manager.rest');
-      $processed = $pluginManager->createInstance($node->bundle() . '_item_rest_resource', [])->processFieldContent($node->get('field_content'));
-      $node->field_content_processed_json = json_encode($processed);
-    }
-    else {
-      // All instances of field_content should be accompanied with
-      // field_content_processed_json.
-      throw new Exception('Processed json field not found on entity');
-    }
-  }
-
   $node_published = method_exists($node, 'isPublished') ? $node->isPublished() : FALSE;
   $orig_published = method_exists($node->original, 'isPublished') ? $node->original->isPublished() : FALSE;
   if ($node->hasField('field_content_html') && $node->hasField('field_content_html_preview')) {

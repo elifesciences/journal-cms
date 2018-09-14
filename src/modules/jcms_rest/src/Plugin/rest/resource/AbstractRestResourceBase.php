@@ -170,11 +170,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * Process field content.
    */
   public function processFieldContent(FieldItemListInterface $data, bool $required = FALSE) : array {
-    $asset_ids = [
-      'image' => 0,
-      'table' => 0,
-    ];
-    $handle_paragraphs = function ($content, $list_flag = FALSE) use (&$handle_paragraphs, $asset_ids) {
+    $handle_paragraphs = function ($content, $list_flag = FALSE) use (&$handle_paragraphs) {
       $result = [];
       foreach ($content as $paragraph) {
         $content_item = $paragraph->get('entity')->getTarget()->getValue();
@@ -182,122 +178,33 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         $result_item = [
           'type' => $content_type,
         ];
-        switch ($content_type) {
-          case 'section':
-            $result_item['title'] = $content_item->get('field_block_title')->getString();
-            $result_item['content'] = $handle_paragraphs($content_item->get('field_block_content'));
-            break;
-
-          case 'paragraph':
-            if ($content_item->get('field_block_html')->count()) {
-              // Split paragraphs in the UI into separate paragraph blocks.
-              $texts = $this->splitParagraphs($this->fieldValueFormatted($content_item->get('field_block_html'), FALSE));
-              foreach ($texts as $text) {
-                if (!is_array($text)) {
-                  $text = trim($text);
-                  $loop_result_item = $result_item;
-                  if (!empty($text)) {
-                    $loop_result_item['text'] = $text;
-                    if ($list_flag && $content_type != 'list_item') {
-                      $loop_result_item = [$loop_result_item];
-                    }
-                    $result[] = $loop_result_item;
+        // Only paragraph is supported for existing paragraph content fields.
+        if ($content_type === 'paragraph') {
+          if ($content_item->get('field_block_html')->count()) {
+            // Split paragraphs in the UI into separate paragraph blocks.
+            $texts = $this->splitParagraphs($this->fieldValueFormatted($content_item->get('field_block_html'), FALSE));
+            foreach ($texts as $text) {
+              if (!is_array($text)) {
+                $text = trim($text);
+                $loop_result_item = $result_item;
+                if (!empty($text)) {
+                  $loop_result_item['text'] = $text;
+                  if ($list_flag && $content_type != 'list_item') {
+                    $loop_result_item = [$loop_result_item];
                   }
-                }
-                else {
-                  $result[] = $text;
+                  $result[] = $loop_result_item;
                 }
               }
-            }
-
-            unset($result_item);
-            break;
-
-          case 'question':
-            $result_item['question'] = $content_item->get('field_block_title')->getString();
-            $result_item['answer'] = $handle_paragraphs($content_item->get('field_block_question_answer'));
-            break;
-
-          case 'image':
-            if ($image = $content_item->get('field_block_image')->first()) {
-              $result_item['image'] = $this->processFieldImage($content_item->get('field_block_image'), TRUE, 'banner', TRUE);
-              $result_item['image'] = array_diff_key($result_item['image'], array_flip(['sizes']));
-              if ($content_item->get('field_block_html')->count()) {
-                $result_item['title'] = $this->fieldValueFormatted($content_item->get('field_block_html'));
-                if (empty($result_item['title'])) {
-                  unset($result_item['title']);
-                }
+              else {
+                $result[] = $text;
               }
-              if ($content_item->get('field_block_attribution')->count()) {
-                $result_item['image']['attribution'] = $this->fieldValueFormatted($content_item->get('field_block_attribution'), FALSE, TRUE);
-              }
-              $result_item = $this->processFigure($result_item, $content_item, $asset_ids[$content_type]);
             }
-            else {
-              unset($result_item);
-            }
-            break;
-
-          case 'blockquote':
-            $result_item['type'] = 'quote';
-            $text = $this->fieldValueFormatted($content_item->get('field_block_html'), TRUE);
-            if (!empty($text)) {
-              $result_item['text'] = [
-                [
-                  'type' => 'paragraph',
-                  'text' => $this->fieldValueFormatted($content_item->get('field_block_html'), TRUE),
-                ],
-              ];
-            }
-            else {
-              unset($result_item);
-            }
-            break;
-
-          case 'youtube':
-            $result_item['id'] = $content_item->get('field_block_youtube_id')->getString();
-            $result_item['width'] = (int) $content_item->get('field_block_youtube_width')->getString();
-            $result_item['height'] = (int) $content_item->get('field_block_youtube_height')->getString();
-            break;
-
-          case 'table':
-            $table_content = preg_replace('/\n/', '', $this->fieldValueFormatted($content_item->get('field_block_html'), FALSE));
-            if (preg_match("~(?P<table><table[^>]*>(?:.|\n)*?</table>)~", $table_content, $match)) {
-              $result_item['tables'] = [$match['table']];
-            }
-            else {
-              $result_item['tables'] = ['<table>' . $table_content . '</table>'];
-            }
-            $result_item = $this->processFigure($result_item, $content_item, $asset_ids[$content_type]);
-            break;
-
-          case 'code':
-            $result_item['code'] = $content_item->get('field_block_code')->getString();
-            break;
-
-          case 'list':
-            $result_item['prefix'] = $content_item->get('field_block_list_ordered')->getString() ? 'number' : 'bullet';
-            $result_item['items'] = $handle_paragraphs($content_item->get('field_block_list_items'), TRUE);
-            break;
-
-          case 'list_item':
-            $result_item = $this->fieldValueFormatted($content_item->get('field_block_html'));
-            break;
-
-          case 'button':
-            $result_item['text'] = $content_item->get('field_block_button')->first()->getValue()['title'];
-            $result_item['uri'] = $content_item->get('field_block_button')->first()->getValue()['uri'];
-            break;
-
-          default:
-            unset($result_item['type']);
-        }
-
-        if (!empty($result_item)) {
-          if ($list_flag && $content_type != 'list_item') {
-            $result_item = [$result_item];
           }
-          $result[] = $result_item;
+
+          unset($result_item);
+        }
+        else {
+          unset($result_item['type']);
         }
       }
 
@@ -309,24 +216,6 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     }
 
     return [];
-  }
-
-  /**
-   * Bump data to a figure if label is available.
-   */
-  protected function processFigure(array $data, EntityInterface $content_item, int &$asset_co = 0) : array {
-    if ($content_item->get('field_block_label')->count()) {
-      $asset_co++;
-      $asset_id = $content_item->getType() . '-' . (($content_item->get('field_block_html_id')->count()) ? $content_item->get('field_block_html_id')->getString() : $asset_co);
-      $data = [
-        'type' => 'figure',
-        'assets' => [['id' => $asset_id, 'label' => $content_item->get('field_block_label')->getString()] + $data],
-      ];
-    }
-    elseif ($content_item->hasField('field_block_image_inline') && !!$content_item->get('field_block_image_inline')->getString()) {
-      $data['inline'] = TRUE;
-    }
-    return $data;
   }
 
   /**
