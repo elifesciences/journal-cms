@@ -1400,3 +1400,31 @@ function jcms_migrate_update_8140() {
     drush_invoke('json-html-migrate', [$type]);
   }
 }
+
+/**
+ * Delete all paragraph of certain types in preparation for removal.
+ */
+function jcms_migrate_update_8141() {
+  $types = [
+    'youtube',
+    'table',
+    'section',
+    'question',
+    'list_item',
+    'list',
+    'image',
+    'cv_item',
+    'code',
+    'button',
+    'blockquote',
+  ];
+
+  foreach ($types as $type) {
+    $paragraphs = \Drupal::entityTypeManager()
+      ->getStorage('paragraph')
+      ->loadByProperties(['type' => $type]);
+    foreach ($paragraphs as $paragraph) {
+      $paragraph->delete();
+    }
+  }
+}
