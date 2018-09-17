@@ -27,6 +27,32 @@ function jcms_migrate_drush_command() {
         'drush msa-switch biochemistry biochemistry-chemical-biology' => 'Switch content from biochemistry to biochemistry-chemical-biology.',
       ],
     ],
+    'paragraphs-revisions-purge' => [
+      'description' => 'Purges unused paragraph revisions for the given field.',
+      'drupal dependencies' => ['jcms_migrate'],
+      'aliases' => ['pr-purge'],
+      'arguments' => [
+        'field' => 'Field name.',
+      ],
+      'options' => [
+        'limit' => 'Limit on the number of deletions to do.',
+        'feedback' => 'Receive feedback after a specified number of deletions. (default: 100)',
+      ],
+      'examples' => [
+        'drush paragraphs-revisions-purge field_article_json' => 'Purge all unused paragraph revisions for the field field_article_json.',
+        'drush paragraphs-revisions-purge' => 'Purge all unused paragraph revisions on any field.',
+        'drush paragraphs-revisions-purge --limit=1000' => 'Purge 1000 unused paragraph revisions on any field.',
+        'drush paragraphs-revisions-purge --feedback=100' => 'Provide feedback for every 100 unused paragraph revisions purged.',
+      ],
+    ],
+    'paragraphs-revisions-optimise' => [
+      'description' => "Optimise paragraph revision tables. Don't run until after purge.",
+      'drupal dependencies' => ['jcms_migrate'],
+      'aliases' => ['pr-optimise'],
+      'examples' => [
+        'drush paragraphs-revisions-optimise' => 'Optimise all paragraph revision tables.',
+      ],
+    ],
   ];
 }
 
@@ -150,4 +176,95 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
   if (!$skip_save) {
     drush_print(dt('Switching complete!'));
   }
+}
+
+/**
+ * Callback function drush_jcms_migrate_paragraphs_revisions_purge().
+ */
+function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
+  $limit = drush_get_option('limit') ? (int) drush_get_option('limit') : 0;
+  $feedback_frequency = drush_get_option('feedback') ? (int) drush_get_option('feedback') : 100;
+
+  // Count number of paragraph revisions that are not a default revision.
+  $query = Database::getConnection()->select('paragraphs_item_revision', 'pir');
+  if (!empty($field) && Database::getConnection()->schema()->tableExists('node__' . $field)) {
+    $query->join('node__' . $field, 'nf', 'nf.' . $field . '_target_id=pir.id');
+  }
+  $query->leftjoin('paragraphs_item', 'pi', 'pi.revision_id=pir.revision_id');
+  $query->isNull('pi.id');
+  $count = $query->countQuery()->execute()->fetch()->expression;
+  drush_print(dt('Number of revisions to be deleted is !count.', ['!count' => $count]));
+
+  if ($count > 0 && $limit >= 0) {
+    $count_deleted = 0;
+    do {
+      $query = Database::getConnection()->select('paragraphs_item_revision', 'pir');
+      if (!empty($field)) {
+        $query->join('node__' . $field, 'nf', 'nf.' . $field . '_target_id=pir.id');
+      }
+      $query->leftjoin('paragraphs_item', 'pi', 'pi.revision_id=pir.revision_id');
+      $query->isNull('pi.id');
+      $query->addField('pir', 'revision_id');
+      if ($limit > $feedback_frequency) {
+        $query->range(0, $feedback_frequency);
+        $limit -= $feedback_frequency;
+      }
+      elseif ($limit > 0) {
+        $query->range(0, $limit);
+        $limit = -1;
+      }
+      else {
+        $query->range(0, $feedback_frequency);
+      }
+      $revision_ids = $query->execute()->fetchCol();
+      if ($revision_ids) {
+        foreach ($revision_ids as $revision_id) {
+          try {
+            \Drupal::entityTypeManager()->getStorage('paragraph')->deleteRevision($revision_id);
+            $count_deleted++;
+            if (($count_deleted % $feedback_frequency) == 0) {
+              drush_print(dt('Number of revisions deleted is !count.', ['!count' => $count_deleted]));
+            }
+          }
+          catch (\Exception $e) {
+            // This should not be reached but is a precaution against attempts
+            // to delete default revision which would thrown an exception.
+          }
+        }
+      }
+      else {
+        // No more revisions to delete.
+        $limit = -1;
+        break;
+      }
+    } while ($limit >= 0);
+    drush_print(dt('Total number of revisions deleted is !count.', ['!count' => $count_deleted]));
+  }
+
+  // Get the number of revisions left to delete.
+  $query = Database::getConnection()->select('paragraphs_item_revision', 'pir');
+  if (!empty($field) && Database::getConnection()->schema()->tableExists('node__' . $field)) {
+    $query->join('node__' . $field, 'nf', 'nf.' . $field . '_target_id=pir.id');
+  }
+  $query->leftjoin('paragraphs_item', 'pi', 'pi.revision_id=pir.revision_id');
+  $query->isNull('pi.id');
+  $count = $query->countQuery()->execute()->fetch()->expression;
+  if ($count > 0) {
+    drush_print(dt('Completed with !count revisions left in place.', ['!count' => $count]));
+  }
+  else {
+    drush_print(dt('Success! All revisions for !field have been purged.', ['!field' => !empty($field) ? $field : 'all fields']));
+  }
+}
+
+/**
+ * Callback function drush_jcms_migrate_paragraphs_revisions_optimise().
+ */
+function drush_jcms_migrate_paragraphs_revisions_optimise() {
+  drush_print(dt('Optimise paragraph revision tables.'));
+  $table_list = Database::getConnection()->query("SHOW TABLES LIKE 'paragraph_r%'")->fetchCol();
+  $table_list[] = 'paragraphs_item_revision';
+  $table_list[] = 'paragraphs_item_revision_field_data';
+  Database::getConnection()->query('OPTIMIZE TABLE ' . implode(',', $table_list));
+  drush_print(dt('All paragraph revision tables have been optimised.'));
 }
