@@ -239,11 +239,6 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
       $form['#validate'][] = '_jcms_admin_form_node_article_form_validate';
       break;
 
-    case 'node_event_form':
-    case 'node_event_edit_form':
-      $form['#validate'][] = '_jcms_admin_form_node_event_form_validate';
-      break;
-
     case 'node_highlight_list_form':
     case 'node_highlight_list_edit_form':
       $form['#validate'][] = '_jcms_admin_form_node_highlight_list_form_validate';
@@ -466,24 +461,6 @@ function _jcms_admin_node_title_unique(string $title, NodeInterface $node, $cont
   }
 
   return TRUE;
-}
-
-/**
- * Validation function for node_event_form and node_event_edit_form.
- */
-function _jcms_admin_form_node_event_form_validate($form, FormStateInterface $form_state) {
-  // Cannot find a better way to check if field_content has a value at this
-  // stage.
-  $field_content = FALSE;
-  foreach (array_keys($form_state->getValue('field_content')) as $content_key) {
-    if (is_numeric($content_key)) {
-      $field_content = TRUE;
-      break;
-    }
-  }
-  if (!$field_content && (empty($form_state->getValue('field_event_uri')) || empty($form_state->getValue('field_event_uri')[0]['uri']))) {
-    $form_state->setErrorByName('field_content', t('Content and Event URI are both empty. One must be supplied.'));
-  }
 }
 
 /**
