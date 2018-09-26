@@ -228,7 +228,7 @@ function jcms_admin_query_interview_collections_filter_alter(SelectInterface $qu
  */
 function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   _jcms_admin_protect_id_field($form, $form_id);
-  if ($form['publish_on']) {
+  if (!empty($form['publish_on'])) {
     $zones = system_time_zones(NULL, TRUE);
     $timezone = \Drupal::config('system.date')->get('timezone.default');
     $form['publish_on']['widget'][0]['value']['#description'] .= ' ' . t('(Timezone: %timezone)', ['%timezone' => $zones[$timezone]]);
