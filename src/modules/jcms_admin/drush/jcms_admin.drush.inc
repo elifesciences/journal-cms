@@ -5,10 +5,7 @@
  * Drush commands for the module.
  */
 
-use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\file\Entity\File;
 use Drupal\node\Entity\Node;
-use eLife\ApiSdk\Model\Model;
 
 /**
  * Implements hook_drush_command().
