@@ -4,17 +4,14 @@ status: true
 dependencies:
   config:
     - field.field.node.interview.field_community_list
-    - field.field.node.interview.field_content
     - field.field.node.interview.field_content_html
     - field.field.node.interview.field_content_html_preview
     - field.field.node.interview.field_content_images
     - field.field.node.interview.field_content_images_preview
     - field.field.node.interview.field_content_json
     - field.field.node.interview.field_content_json_preview
-    - field.field.node.interview.field_content_processed_json
     - field.field.node.interview.field_image
     - field.field.node.interview.field_impact_statement
-    - field.field.node.interview.field_interview_cv
     - field.field.node.interview.field_order_date
     - field.field.node.interview.field_person_index_name
     - field.field.node.interview.field_person_preferred_name
@@ -107,15 +104,12 @@ content:
     region: content
 hidden:
   created: true
-  field_content: true
   field_content_html: true
   field_content_html_preview: true
   field_content_images: true
   field_content_images_preview: true
   field_content_json: true
   field_content_json_preview: true
-  field_content_processed_json: true
-  field_interview_cv: true
   field_order_date: true
   moderation_state: true
   path: true

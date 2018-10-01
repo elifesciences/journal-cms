@@ -4,14 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.node.blog_article.field_community_list
-    - field.field.node.blog_article.field_content
     - field.field.node.blog_article.field_content_html
     - field.field.node.blog_article.field_content_html_preview
     - field.field.node.blog_article.field_content_images
     - field.field.node.blog_article.field_content_images_preview
     - field.field.node.blog_article.field_content_json
     - field.field.node.blog_article.field_content_json_preview
-    - field.field.node.blog_article.field_content_processed_json
     - field.field.node.blog_article.field_image
     - field.field.node.blog_article.field_image_attribution
     - field.field.node.blog_article.field_impact_statement
@@ -107,14 +105,12 @@ content:
     region: content
 hidden:
   created: true
-  field_content: true
   field_content_html: true
   field_content_html_preview: true
   field_content_images: true
   field_content_images_preview: true
   field_content_json: true
   field_content_json_preview: true
-  field_content_processed_json: true
   field_order_date: true
   moderation_state: true
   path: true

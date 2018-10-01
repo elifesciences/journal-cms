@@ -1,9 +1,0 @@
-uuid: db0fc85c-b542-4597-80e5-a74e0c786898
-langcode: en
-status: true
-dependencies: {  }
-id: question
-label: Question
-icon_uuid: null
-description: null
-behavior_plugins: {  }

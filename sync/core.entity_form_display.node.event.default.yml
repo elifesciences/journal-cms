@@ -4,14 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.node.event.field_community_list
-    - field.field.node.event.field_content
     - field.field.node.event.field_content_html
     - field.field.node.event.field_content_html_preview
     - field.field.node.event.field_content_images
     - field.field.node.event.field_content_images_preview
     - field.field.node.event.field_content_json
     - field.field.node.event.field_content_json_preview
-    - field.field.node.event.field_content_processed_json
     - field.field.node.event.field_event_datetime
     - field.field.node.event.field_event_timezone
     - field.field.node.event.field_event_uri
@@ -84,14 +82,12 @@ content:
     region: content
 hidden:
   created: true
-  field_content: true
   field_content_html: true
   field_content_html_preview: true
   field_content_images: true
   field_content_images_preview: true
   field_content_json: true
   field_content_json_preview: true
-  field_content_processed_json: true
   field_order_date: true
   moderation_state: true
   path: true

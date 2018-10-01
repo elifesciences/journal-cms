@@ -3,14 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.press_package.field_content
     - field.field.node.press_package.field_content_html
     - field.field.node.press_package.field_content_html_preview
     - field.field.node.press_package.field_content_images
     - field.field.node.press_package.field_content_images_preview
     - field.field.node.press_package.field_content_json
     - field.field.node.press_package.field_content_json_preview
-    - field.field.node.press_package.field_content_processed_json
     - field.field.node.press_package.field_impact_statement
     - field.field.node.press_package.field_media_contact
     - field.field.node.press_package.field_order_date
@@ -40,13 +38,11 @@ content:
     type: text_default
     region: content
 hidden:
-  field_content: true
   field_content_html: true
   field_content_images: true
   field_content_images_preview: true
   field_content_json: true
   field_content_json_preview: true
-  field_content_processed_json: true
   field_media_contact: true
   field_order_date: true
   field_press_package_about: true
