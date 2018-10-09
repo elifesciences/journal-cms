@@ -1,0 +1,21 @@
+uuid: 6e230f1b-e89a-4e60-a649-dca0b85e23ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_order_date
+    - node.type.digest
+id: node.digest.field_order_date
+field_name: field_order_date
+entity_type: node
+bundle: digest
+label: 'Order date'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: 1538665405
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

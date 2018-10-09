@@ -1,0 +1,57 @@
+uuid: 5c419404-e0f0-4edd-ac8f-f49dea6b74a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.digest.field_digest_id
+    - field.field.node.digest.field_digest_json
+    - field.field.node.digest.field_order_date
+    - field.field.node.digest.field_subjects
+    - node.type.digest
+  module:
+    - jsonb
+    - user
+id: node.digest.default
+targetEntityType: node
+bundle: digest
+mode: default
+content:
+  field_digest_id:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_digest_json:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: jsonb_default
+    region: content
+  field_order_date:
+    weight: 4
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    type: timestamp
+    region: content
+  field_subjects:
+    weight: 2
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

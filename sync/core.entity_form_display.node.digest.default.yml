@@ -1,0 +1,44 @@
+uuid: 6a529103-01cc-4703-95ad-9c3cd6fed4eb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.digest.field_digest_id
+    - field.field.node.digest.field_digest_json
+    - field.field.node.digest.field_order_date
+    - field.field.node.digest.field_subjects
+    - node.type.digest
+id: node.digest.default
+targetEntityType: node
+bundle: digest
+mode: default
+content:
+  field_digest_id:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_digest_json: true
+  field_order_date: true
+  field_subjects: true
+  moderation_state: true
+  path: true
+  promote: true
+  publish_on: true
+  status: true
+  sticky: true
+  uid: true
+  unpublish_on: true
