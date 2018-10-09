@@ -348,6 +348,7 @@ function _jcms_admin_form_ckeditor_form_submit($form, FormStateInterface $form_s
  */
 function _jcms_admin_protect_id_field(&$form, $form_id) {
   $id_map = [
+    'digest' => ['title', 'field_digest_id'],
     'article' => ['title', 'field_page_views'],
     'highlight_list' => 'title',
     'annual_report' => 'field_annual_report_year',
