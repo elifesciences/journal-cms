@@ -38,10 +38,9 @@ class EntityAutocompleteMatcher extends CoreEntityAutocompleteMatcher {
           $entity = \Drupal::entityTypeManager()->getStorage($target_type)->load($entity_id);
           $entity = \Drupal::entityManager()->getTranslationFromContext($entity);
 
-          $type = $entity->type->entity->label();
-          $pub = '';
-          if ($entity->getEntityType()->id() == 'node') {
-            $pub = ($entity->isPublished()) ? ", Published" : ", Unpublished";
+          $info = '';
+          if ($entity->getEntityType()->id() === 'node') {
+            $info = ' [' . $entity->type->entity->label() . ', ' . ($entity->isPublished() ? 'Published' : 'Unpublished') . ']';
           }
 
           $key = "$label ($entity_id)";
@@ -50,7 +49,7 @@ class EntityAutocompleteMatcher extends CoreEntityAutocompleteMatcher {
           $key = preg_replace('/\s\s+/', ' ', str_replace("\n", '', trim(Html::decodeEntities(strip_tags($key)))));
           // Names containing commas or quotes must be wrapped in quotes.
           $key = Tags::encode($key);
-          $label = $label . ' (' . $entity_id . ') [' . $type . $pub . ']';
+          $label .= ' (' . $entity_id . ')' . $info;
           $matches[] = ['value' => $key, 'label' => $label];
         }
       }
