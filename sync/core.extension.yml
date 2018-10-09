@@ -40,6 +40,7 @@ module:
   jcms_admin: 0
   jcms_article: 0
   jcms_ckeditor: 0
+  jcms_digest: 0
   jcms_migrate: 0
   jcms_notifications: 0
   jcms_ping: 0

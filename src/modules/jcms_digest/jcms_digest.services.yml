@@ -1,0 +1,10 @@
+services:
+  jcms_digest.digest_crud:
+    class: Drupal\jcms_digest\DigestCrud
+    arguments: ["@entity_type.manager"]
+  jcms_digest.fetch_digest:
+    class: Drupal\jcms_digest\FetchDigest
+    arguments: ["@http_client"]
+  jcms_digest.hooks.node_presave:
+    class: Drupal\jcms_digest\Hooks\NodePresave
+    arguments: ["@jcms_digest.fetch_digest"]
