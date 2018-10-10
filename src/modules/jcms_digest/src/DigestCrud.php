@@ -4,11 +4,8 @@ namespace Drupal\jcms_digest;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\jcms_article\Entity\ArticleVersions;
 use Drupal\jcms_digest\Entity\Digest;
 use Drupal\node\Entity\Node;
-use Drupal\node\NodeInterface;
-use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Handle changes to Digest snippets.
@@ -125,8 +122,13 @@ class DigestCrud {
    * @return array|bool
    *   Return digest snippet, if found.
    */
-  public function getDigest(EntityInterface $node, bool $preview = FALSE) {
-    return json_decode($node->get('field_digest_json')->getString(), TRUE);
+  public function getDigest(EntityInterface $node) {
+    if ($node->get('field_digest_json')->getValue()) {
+      return json_decode($node->get('field_digest_json')->getString(), TRUE);
+    }
+    else {
+      return FALSE;
+    }
   }
 
 }
