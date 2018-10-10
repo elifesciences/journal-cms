@@ -10,6 +10,9 @@ echo "Creating content type subjects"
 echo "Import some articles"
 ../vendor/bin/drush article-import-all --limit=20
 
+echo "Import some digest"
+../vendor/bin/drush digest-import-all --limit=10
+
 for type in research_focuses research_organisms; do
     echo "Creating taxonomy $type"
     ../vendor/bin/drush --nocolor generate-terms $type 10 --kill
