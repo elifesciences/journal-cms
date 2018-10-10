@@ -80,14 +80,16 @@ class DigestCrud {
     else {
       return NULL;
     }
-    $node->title = $digest->getTitle();
-    $node->field_digest_json = [
-      [
-        'value' => $digest->getJson(),
-      ],
-    ];
-    $node->setOwnerId(1);
-    $node->save();
+    if ($nid && !$this->skipUpdates) {
+      $node->title = $digest->getTitle();
+      $node->field_digest_json = [
+        [
+          'value' => $digest->getJson(),
+        ],
+      ];
+      $node->setOwnerId(1);
+      $node->save();
+    }
     return $node;
   }
 
