@@ -63,7 +63,7 @@ class DigestCrud {
    *
    * @return \Drupal\Core\Entity\EntityInterface|null
    *   Return updated entity, if found.
-   * 
+   *
    * @throws \Exception
    */
   public function upsertDigest(Digest $digest) {
