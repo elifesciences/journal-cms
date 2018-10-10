@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
@@ -20,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class CollectionItemRestResource extends AbstractRestResourceBase {
+  protected $latestVersion = 2;
 
   /**
    * Responds to GET requests.
@@ -101,6 +103,7 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
         $response['content'] = [];
 
         $blog_article_rest_resource = new BlogArticleListRestResource([], 'blog_article_list_rest_resource', [], $this->serializerFormats, $this->logger);
+        $event_rest_resource = new EventListRestResource([], 'event_list_rest_resource', [], $this->serializerFormats, $this->logger);
         $interview_rest_resource = new InterviewListRestResource([], 'interview_list_rest_resource', [], $this->serializerFormats, $this->logger);
 
         foreach (['content' => 'field_collection_content', 'relatedContent' => 'field_collection_related_content'] as $k => $field) {
@@ -112,6 +115,13 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
                   $response[$k][] = ['type' => 'blog-article'] + $blog_article_rest_resource->getItem($content);
                   break;
 
+                case 'event':
+                  if ($this->acceptVersion < 2) {
+                    throw new JCMSNotAcceptableHttpException('This collection requires version 2+.');
+                  }
+                  $response[$k][] = ['type' => 'event'] + $event_rest_resource->getItem($content);
+                  break;
+
                 case 'interview':
                   $response[$k][] = ['type' => 'interview'] + $interview_rest_resource->getItem($content);
                   break;
@@ -121,6 +131,14 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
                     $response[$k][] = $snippet;
                   }
                   break;
+
+                case 'digest':
+                  if ($snippet = $this->getDigestSnippet($content)) {
+                    if ($this->acceptVersion < 2) {
+                      throw new JCMSNotAcceptableHttpException('This collection requires version 2+.');
+                    }
+                    $response[$k][] = $snippet;
+                  }
 
                 default:
               }
