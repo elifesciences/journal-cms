@@ -7,6 +7,7 @@ dependencies:
     - node.type.article
     - node.type.blog_article
     - node.type.collection
+    - node.type.digest
     - node.type.event
     - node.type.highlight_item
     - node.type.interview
@@ -30,6 +31,7 @@ settings:
       article: article
       blog_article: blog_article
       collection: collection
+      digest: digest
       event: event
       interview: interview
       labs_experiment: labs_experiment

@@ -7,6 +7,8 @@ dependencies:
     - node.type.article
     - node.type.blog_article
     - node.type.collection
+    - node.type.digest
+    - node.type.event
     - node.type.interview
 id: node.collection.field_collection_related_content
 field_name: field_collection_related_content
@@ -24,6 +26,8 @@ settings:
     target_bundles:
       article: article
       blog_article: blog_article
+      digest: digest
+      event: event
       interview: interview
     sort:
       field: _none
