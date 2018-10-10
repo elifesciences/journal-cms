@@ -61,8 +61,9 @@ class DigestCrud {
   /**
    * Upsert digest node.
    *
-   * @return \Drupal\Core\Entity\EntityInterface|NULL
+   * @return \Drupal\Core\Entity\EntityInterface|null
    *   Return updated entity, if found.
+   * 
    * @throws \Exception
    */
   public function upsertDigest(Digest $digest) {
