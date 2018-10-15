@@ -10,7 +10,7 @@ echo "Creating content type subjects"
 echo "Import some articles"
 ../vendor/bin/drush article-import-all --limit=20
 
-echo "Import some digest"
+echo "Import some digests"
 ../vendor/bin/drush digest-import-all --limit=10
 
 for type in research_focuses research_organisms; do
