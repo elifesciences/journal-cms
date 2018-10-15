@@ -73,6 +73,11 @@ class DigestCrud {
         'type' => 'digest',
         'title' => $digest->getId(),
       ]);
+      $node->field_digest_id = [
+        [
+          'value' => $digest->getId(),
+        ],
+      ];
     }
     elseif ($nid) {
       $node = Node::load($nid);
@@ -80,7 +85,7 @@ class DigestCrud {
     else {
       return NULL;
     }
-    if ($nid && !$this->skipUpdates) {
+    if (!$nid || !$this->skipUpdates) {
       $node->title = $digest->getTitle();
       $node->field_digest_json = [
         [
