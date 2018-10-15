@@ -650,14 +650,16 @@ function jcms_admin_node_presave(NodeInterface $node) {
   }
 
   // Filter duplicates.
-  if ($node->hasField('field_related_content')) {
-    $related = $node->get('field_related_content')->getValue();
-    if (!empty($related)) {
-      $unique = [];
-      foreach ($related as $r) {
-        $unique[$r['target_id']] = $r;
+  foreach (['field_related_content', 'field_collection_podcasts'] as $field) {
+    if ($node->hasField($field)) {
+      $items = $node->get($field)->getValue();
+      if (!empty($items)) {
+        $unique = [];
+        foreach ($items as $item) {
+          $unique[$item['target_id']] = $item;
+        }
+        $node->{$field} = array_values($unique);
       }
-      $node->field_related_content = array_values($unique);
     }
   }
 
