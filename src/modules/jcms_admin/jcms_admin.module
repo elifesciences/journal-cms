@@ -650,7 +650,12 @@ function jcms_admin_node_presave(NodeInterface $node) {
   }
 
   // Filter duplicates.
-  foreach (['field_related_content', 'field_collection_podcasts'] as $field) {
+  foreach ([
+    'field_related_content',
+    'field_collection_content',
+    'field_collection_podcasts',
+    'field_collection_related_content',
+  ] as $field) {
     if ($node->hasField($field)) {
       $items = $node->get($field)->getValue();
       if (!empty($items)) {
