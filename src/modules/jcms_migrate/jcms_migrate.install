@@ -1428,3 +1428,10 @@ function jcms_migrate_update_8141() {
     }
   }
 }
+
+/**
+ * Import all digest snippets.
+ */
+function jcms_migrate_update_8142() {
+  drush_invoke('digest-import-all');
+}
