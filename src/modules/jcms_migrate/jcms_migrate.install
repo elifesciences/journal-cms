@@ -1430,8 +1430,15 @@ function jcms_migrate_update_8141() {
 }
 
 /**
- * Import all digest snippets.
+ * Import all config.
  */
 function jcms_migrate_update_8142() {
+  drush_invoke('config-import');
+}
+
+/**
+ * Import all digest snippets.
+ */
+function jcms_migrate_update_8143() {
   drush_invoke('digest-import-all');
 }
