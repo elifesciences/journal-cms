@@ -1,0 +1,29 @@
+uuid: 4246b30e-6a3e-49fd-81de-fca627612527
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_subjects
+    - node.type.digest
+    - taxonomy.vocabulary.subjects
+id: node.digest.field_subjects
+field_name: field_subjects
+entity_type: node
+bundle: digest
+label: Subjects
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      subjects: subjects
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -5,6 +5,7 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Database\Query\Condition;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
@@ -23,6 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class HighlightListRestResource extends AbstractRestResourceBase {
+  protected $latestVersion = 2;
 
   /**
    * Responds to GET requests.
@@ -103,7 +105,10 @@ class HighlightListRestResource extends AbstractRestResourceBase {
         foreach ($items as $item) {
           $dependencies[] = $item;
           if ($highlight = $this->getItem($item)) {
-            $response_data['items'][] = $this->getItem($item);
+            if ($this->acceptVersion < 2 && $highlight['type'] === 'digest') {
+              throw new JCMSNotAcceptableHttpException('This collection requires version 2+.');
+            }
+            $response_data['items'][] = $highlight;
           }
         }
       }

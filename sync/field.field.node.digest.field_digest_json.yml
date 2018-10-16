@@ -1,0 +1,21 @@
+uuid: 06f8fb9a-a430-4b0a-a67a-fb810f066890
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_digest_json
+    - node.type.digest
+  module:
+    - jsonb
+id: node.digest.field_digest_json
+field_name: field_digest_json
+entity_type: node
+bundle: digest
+label: 'Digest JSON'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json

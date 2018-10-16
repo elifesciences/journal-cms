@@ -6,9 +6,9 @@
  */
 
 use Drupal\jcms_article\Entity\ArticleVersions;
-use GuzzleHttp\Exception\RequestException;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * Implements hook_drush_command().
@@ -16,7 +16,7 @@ use Drupal\taxonomy\Entity\Term;
 function jcms_notifications_drush_command() {
   $items = [];
   $items['article-import'] = [
-    'description' => 'Imports articles from Lax via SQS.',
+    'description' => 'Imports articles from Lax via SQS (Deprecated: use drush message-import).',
     'drupal dependencies' => ['jcms_notifications'],
     'aliases' => ['ai'],
     'arguments' => [
@@ -25,6 +25,17 @@ function jcms_notifications_drush_command() {
     'examples' => [
       'drush article-import 1' => 'Import articles from Lax as a long running process.',
       'drush article-import' => 'Import articles from Lax and return a message when finished.',
+    ],
+  ];
+  $items['message-import'] = [
+    'description' => 'Imports items from Lax and digests via SQS.',
+    'drupal dependencies' => ['jcms_notifications'],
+    'arguments' => [
+      'lrp' => 'Long running process or not. Defaults to false.',
+    ],
+    'examples' => [
+      'drush message-import 1' => 'Import items from Lax and digest as a long running process.',
+      'drush message-import' => 'Import items from Lax and digest and return a message when finished.',
     ],
   ];
   $items['article-import-all'] = [
@@ -39,6 +50,20 @@ function jcms_notifications_drush_command() {
       'drush article-import-all' => 'Import all articles from Lax and return a message when finished.',
       'drush article-import-all --limit=500' => 'Import first 500 articles from Lax and return a message when finished.',
       'drush article-import-all --skip-updates' => 'Import all articles from Lax, but skip over articles that exist already, and return a message when finished.',
+    ],
+  ];
+  $items['digest-import-all'] = [
+    'description' => 'Imports all digests.',
+    'options' => [
+      'limit' => 'Limit on the number of items to process in each import.',
+      'skip-updates' => 'Do not attempt to update articles that exist already.',
+    ],
+    'drupal dependencies' => ['jcms_notifications'],
+    'aliases' => ['dia'],
+    'examples' => [
+      'drush digest-import-all' => 'Import all digests and return a message when finished.',
+      'drush digest-import-all --limit=10' => 'Import first 10 digests and return a message when finished.',
+      'drush digest-import-all --skip-updates' => 'Import all digests, but skip over digests that exist already, and return a message when finished.',
     ],
   ];
   $items['article-metrics-import-all'] = [
@@ -65,7 +90,7 @@ function jcms_notifications_drush_command() {
     'drupal dependencies' => ['jcms_notifications'],
     'aliases' => ['sendn'],
     'examples' => [
-      'drush send-notifications' => 'Long running process that iterates infinitely over the notifications table .',
+      'drush send-notifications' => 'Long running process that iterates infinitely over the notifications table.',
       'drush send-notifications --iterations=20' => 'Iterate over the notifications table 20 times then stop.',
       'drush send-notifications --sleep=10' => 'Sleep for 10 seconds after each iteration.',
       'drush send-notifications --delay=2' => 'Sleep for 2 seconds before sending.',
@@ -106,6 +131,44 @@ function drush_jcms_notifications_article_import_all() {
     $time = round($time_end - $time_start, 0);
     drush_print(dt('Processed !count articles in !minutes minutes !seconds seconds.', [
       '!count' => count($ids),
+      '!minutes' => floor($time / 60),
+      '!seconds' => round($time % 60),
+    ]));
+  }
+}
+
+/**
+ * Callback function drush_jcms_notifications_digest_import_all().
+ */
+function drush_jcms_notifications_digest_import_all() {
+  $fetch_service = \Drupal::service('jcms_digest.fetch_digest');
+  $crud_service = \Drupal::service('jcms_digest.digest_crud');
+  drush_print(dt('Fetching all digest IDs. This may take a few minutes.'));
+  $limit = drush_get_option('limit') ? (int) drush_get_option('limit') : NULL;
+  if (!empty($limit)) {
+    $fetch_service->setLimit($limit);
+  }
+  $digests = $fetch_service->getAllDigests();
+  drush_print(dt('Received !count digest IDs to process.', ['!count' => count($digests)]));
+  if ($digests) {
+    $time_start = microtime(TRUE);
+    $num = 0;
+    /** @var \Drupal\jcms_digest\Entity\Digest $digest */
+    foreach ($digests as $digest) {
+      if (drush_get_option('skip-updates')) {
+        $crud_service->skipUpdates();
+      }
+      $crud_service->crudDigest($digest);
+      drush_print(dt('Processed digest !digest_id (!num of !count)', [
+        '!digest_id' => $digest->getId(),
+        '!num' => ++$num,
+        '!count' => count($digests),
+      ]));
+    }
+    $time_end = microtime(TRUE);
+    $time = round($time_end - $time_start, 0);
+    drush_print(dt('Processed !count digests in !minutes minutes !seconds seconds.', [
+      '!count' => count($digests),
       '!minutes' => floor($time / 60),
       '!seconds' => round($time % 60),
     ]));
@@ -160,13 +223,25 @@ function drush_jcms_notifications_article_metrics_import_all() {
 
 /**
  * Callback function drush_jcms_notifications_article_import().
+ *
+ * @deprecated
+ * This has been replaced with drush_jcms_notifications_message_import().
  */
 function drush_jcms_notifications_article_import($lrp = FALSE) {
-  $logger = \Drupal::logger('jcms_article_import');
+  drush_jcms_notifications_message_import($lrp);
+}
+
+/**
+ * Callback function drush_jcms_notifications_message_import().
+ */
+function drush_jcms_notifications_message_import($lrp = FALSE) {
+  $logger = \Drupal::logger('jcms_message_import');
   $queue_service = \Drupal::service('jcms_notifications.queue_service');
-  $fetch_service = \Drupal::service('jcms_article.fetch_article_versions');
+  $article_service = \Drupal::service('jcms_article.fetch_article_versions');
   $metrics_service = \Drupal::service('jcms_article.fetch_article_metrics');
-  $crud_service = \Drupal::service('jcms_article.article_crud');
+  $digest_service = \Drupal::service('jcms_digest.fetch_digest');
+  $article_crud_service = \Drupal::service('jcms_article.article_crud');
+  $digest_crud_service = \Drupal::service('jcms_digest.digest_crud');
   $limit_service = \Drupal::service('jcms_notifications.limit_service');
   $logger->info('Started');
   $count = 0;
@@ -195,19 +270,25 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
         switch ($message->getType()) {
           // Process article sqs items.
           case 'article':
-            $articleVersions = $fetch_service->getArticleVersions($id);
-            $crud_service->crudArticle($articleVersions);
+            $articleVersions = $article_service->getArticleVersions($id);
+            $article_crud_service->crudArticle($articleVersions);
             $logger->info('Article snippet updated', ['message' => $message->getMessage()]);
+            break;
+
+          case 'digest':
+            $digest = $digest_service->getDigestById($id);
+            $digest_crud_service->crudDigest($digest);
+            $logger->info('Digest snippet updated', ['message' => $message->getMessage()]);
             break;
 
           case 'metrics':
             // Process article views-downloads metrics sqs items.
             $body = $message->getMessage();
             if ($body['contentType'] == 'article' && $body['metric'] == 'views-downloads') {
-              $articleVersions = $fetch_service->getArticleVersions($id);
+              $articleVersions = $article_service->getArticleVersions($id);
               if ($articleVersions->getAction() == ArticleVersions::WRITE) {
                 // Make sure article has been created.
-                $node = $crud_service->crudArticle($articleVersions);
+                $node = $article_crud_service->crudArticle($articleVersions);
                 $metrics = $metrics_service->getArticleMetrics($id);
                 if ((int) $node->get('field_page_views')->getString() != $metrics->getPageViews()) {
                   $logger->info('Adjusted metrics', ['id' => $id, 'metrics' => $metrics->getPageViews()]);
@@ -241,7 +322,7 @@ function drush_jcms_notifications_article_import($lrp = FALSE) {
 }
 
 /**
- * Callback function drush_jcms_notifications_get_notifications().
+ * Callback function drush_jcms_notifications_send_notifications().
  */
 function drush_jcms_notifications_send_notifications() {
   $logger = \Drupal::logger('jcms_send_notifications');

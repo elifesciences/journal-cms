@@ -348,6 +348,7 @@ function _jcms_admin_form_ckeditor_form_submit($form, FormStateInterface $form_s
  */
 function _jcms_admin_protect_id_field(&$form, $form_id) {
   $id_map = [
+    'digest' => ['title', 'field_digest_id'],
     'article' => ['title', 'field_page_views'],
     'highlight_list' => 'title',
     'annual_report' => 'field_annual_report_year',
@@ -649,14 +650,21 @@ function jcms_admin_node_presave(NodeInterface $node) {
   }
 
   // Filter duplicates.
-  if ($node->hasField('field_related_content')) {
-    $related = $node->get('field_related_content')->getValue();
-    if (!empty($related)) {
-      $unique = [];
-      foreach ($related as $r) {
-        $unique[$r['target_id']] = $r;
+  foreach ([
+    'field_related_content',
+    'field_collection_content',
+    'field_collection_podcasts',
+    'field_collection_related_content',
+  ] as $field) {
+    if ($node->hasField($field)) {
+      $items = $node->get($field)->getValue();
+      if (!empty($items)) {
+        $unique = [];
+        foreach ($items as $item) {
+          $unique[$item['target_id']] = $item;
+        }
+        $node->{$field} = array_values($unique);
       }
-      $node->field_related_content = array_values($unique);
     }
   }
 

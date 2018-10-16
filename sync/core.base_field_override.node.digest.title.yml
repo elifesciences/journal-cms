@@ -1,0 +1,18 @@
+uuid: 1f5bbf00-d7e5-41d9-b784-8d94de4bf6c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.digest
+id: node.digest.title
+field_name: title
+entity_type: node
+bundle: digest
+label: Title
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

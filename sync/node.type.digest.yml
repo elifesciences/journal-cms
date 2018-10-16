@@ -1,0 +1,33 @@
+uuid: 8a4b7fd2-c13c-4878-a7be-36d8f9e7958f
+langcode: en
+status: true
+dependencies:
+  module:
+    - hide_revision_field
+    - menu_ui
+    - scheduler
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: false
+    publish_past_date: error
+    publish_required: false
+    publish_revision: false
+    publish_touch: false
+    unpublish_enable: false
+    unpublish_required: false
+    unpublish_revision: false
+  hide_revision_field:
+    hide: true
+    personalizable: true
+name: Digest
+type: digest
+description: ''
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Contains jcms_digest.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_node_presave().
+ */
+function jcms_digest_node_presave(EntityInterface $entity) {
+  if ($entity->bundle() !== 'digest') {
+    return NULL;
+  }
+  $node_presave = \Drupal::service('jcms_digest.hooks.node_presave');
+
+  $admin_ui = _jcms_admin_static_store('node_digest_form_admin_ui');
+
+  $digest = $node_presave->getDigestById($entity->get('field_digest_id')->getString());
+
+  // Only update the Json field in admin UI if the node is new.
+  if ((!empty($admin_ui) && $entity->isNew())) {
+    $entity->set('field_digest_json', [
+      [
+        'value' => $digest->getJson(),
+      ],
+    ]);
+  }
+
+  if (empty($admin_ui) || $entity->isNew()) {
+    $node_presave->setPublishedStatus($entity, $digest);
+    $node_presave->setPublishedDate($entity, $digest);
+    $node_presave->setUpdatedDate($entity, $digest);
+    $node_presave->setSubjectTerms($entity, $digest);
+  }
+
+  if (!$entity->isNew()) {
+    // Trigger save of nodes that reference this digest.
+    $query = Drupal::entityQuery('node')
+      ->condition('status', NodeInterface::PUBLISHED)
+      ->condition('type', 'collection');
+    $collection_ids = (clone $query)->condition('field_collection_related_content', $entity->id())->execute();
+    $collection_ids = array_unique(array_merge((clone $query)->condition('field_collection_related_content', $entity->id())->execute(), $collection_ids));
+    if ($collections = Node::loadMultiple($collection_ids)) {
+      foreach ($collections as $collection) {
+        $collection->set('changed', strtotime('now'));
+        $collection->save();
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function jcms_digest_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _jcms_admin_protect_id_field($form, $form_id);
+  switch ($form_id) {
+    case 'node_digest_form':
+    case 'node_digest_edit_form':
+      foreach (array_keys($form['actions']) as $action) {
+        if ($action !== 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+          array_unshift($form['actions'][$action]['#submit'], '_jcms_article_form_node_digest_edit_form_submit');
+        }
+      }
+      break;
+  }
+}
+
+/**
+ * Submit function for node_article_form and node_article_edit_form.
+ */
+function _jcms_article_form_node_digest_edit_form_submit($form, FormStateInterface $form_state) {
+  _jcms_admin_static_store('node_digest_form_admin_ui', 1);
+}

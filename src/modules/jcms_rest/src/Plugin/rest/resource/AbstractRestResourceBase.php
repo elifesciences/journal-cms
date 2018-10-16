@@ -410,6 +410,17 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   }
 
   /**
+   * Get the digest snippet from digest node.
+   *
+   * @return mixed|bool
+   *   Return digest snippet, if found.
+   */
+  protected function getDigestSnippet(Node $node) {
+    $crud_service = \Drupal::service('jcms_digest.digest_crud');
+    return $crud_service->getDigest($node);
+  }
+
+  /**
    * Get subject list from articles array.
    */
   protected function subjectsFromArticles(array $articles = NULL) : array {
@@ -529,6 +540,11 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     if ($related->getType() == 'article') {
       if ($article = $this->getArticleSnippet($related)) {
         $item_values['item'] = $article;
+      }
+    }
+    elseif ($related->getType() == 'digest') {
+      if ($digest = $this->getDigestSnippet($related)) {
+        $item_values['item'] = $digest;
       }
     }
     elseif ($related->getType() == 'podcast_chapter') {
