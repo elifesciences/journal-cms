@@ -8,7 +8,7 @@ id: node.person.title
 field_name: title
 entity_type: node
 bundle: person
-label: 'Preferred name'
+label: Surname
 description: ''
 required: true
 translatable: true

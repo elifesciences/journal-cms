@@ -1,0 +1,19 @@
+uuid: ab3c81a1-04ad-4aab-ad1c-d723cb0ef7ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_person_name_given
+    - node.type.person
+id: node.person.field_person_name_given
+field_name: field_person_name_given
+entity_type: node
+bundle: person
+label: 'Given names'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
