@@ -305,7 +305,7 @@ function drush_jcms_migrate_person_name_split() {
         $given = implode(', ', $names);
       }
       else {
-        $names = array_map('trim' ,explode(' ', $preferred));
+        $names = array_map('trim', explode(' ', $preferred));
         $surname = array_pop($names);
         $given = implode(' ', $names);
       }
@@ -319,19 +319,19 @@ function drush_jcms_migrate_person_name_split() {
       $person->set('field_person_name_surname', [
         [
           'value' => $surname,
-        ]
+        ],
       ]);
       $person->set('field_person_name_given', [
         [
           'value' => $given,
-        ]
+        ],
       ]);
       if ($infer_preferred !== $preferred) {
         $person->set('title', $preferred);
         $person->set('field_person_preferred_name', [
           [
             'value' => $preferred,
-          ]
+          ],
         ]);
       }
       else {
@@ -345,7 +345,7 @@ function drush_jcms_migrate_person_name_split() {
         $person->set('field_person_index_name', [
           [
             'value' => $index,
-          ]
+          ],
         ]);
       }
 
