@@ -10,7 +10,7 @@ field_name: field_person_preferred_name
 entity_type: node
 bundle: person
 label: 'Preferred name'
-description: "Preferred name is generally the name that is used by the person for English-language publications.\r\nFor example:\r\n<ul>\r\n  <li>Randy Schekman</li>\r\n  <li>K. VijayRaghavan</li>\r\n  <li>Wenhui Li</li>\r\n</ul>"
+description: "<em>Leave blank to autogenerate this value</em><br />Preferred name is generally the name that is used by the person for English-language publications.\r\nFor example:\r\n<ul>\r\n  <li>Randy Schekman</li>\r\n  <li>K. VijayRaghavan</li>\r\n  <li>Wenhui Li</li>\r\n</ul>"
 required: false
 translatable: true
 default_value: {  }

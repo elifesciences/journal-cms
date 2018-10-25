@@ -9,8 +9,10 @@ dependencies:
     - field.field.node.person.field_person_affiliation
     - field.field.node.person.field_person_affiliation_json
     - field.field.node.person.field_person_competing
+    - field.field.node.person.field_person_email
     - field.field.node.person.field_person_index_name
     - field.field.node.person.field_person_name_given
+    - field.field.node.person.field_person_name_surname
     - field.field.node.person.field_person_orcid
     - field.field.node.person.field_person_preferred_name
     - field.field.node.person.field_person_profile
@@ -48,14 +50,14 @@ bundle: person
 mode: default
 content:
   field_archive:
-    weight: 8
+    weight: 7
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_image:
-    weight: 5
+    weight: 4
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -66,7 +68,7 @@ content:
     region: content
   field_person_affiliation:
     type: entity_reference_paragraphs
-    weight: 10
+    weight: 9
     settings:
       title: Affiliation
       title_plural: Affiliations
@@ -77,12 +79,20 @@ content:
     third_party_settings: {  }
     region: content
   field_person_competing:
-    weight: 11
+    weight: 10
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_person_email:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
     region: content
   field_person_index_name:
     weight: 4
@@ -100,8 +110,16 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_person_name_surname:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_person_orcid:
-    weight: 9
+    weight: 8
     settings:
       size: 60
       placeholder: ''
@@ -118,7 +136,7 @@ content:
     region: content
   field_person_profile:
     type: entity_reference_paragraphs
-    weight: 12
+    weight: 11
     settings:
       title: 'Profile item'
       title_plural: 'Profile items'
@@ -129,13 +147,13 @@ content:
     third_party_settings: {  }
     region: content
   field_person_type:
-    weight: 6
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_person_type_label:
-    weight: 7
+    weight: 6
     settings:
       size: 60
       placeholder: ''
@@ -144,7 +162,7 @@ content:
     region: content
   field_research_details:
     type: entity_reference_paragraphs
-    weight: 13
+    weight: 12
     settings:
       title: 'Research details'
       title_plural: 'Research details'
@@ -158,15 +176,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 14
-    third_party_settings: {  }
-    region: content
-  title:
-    type: string_textfield
-    weight: 0
-    settings:
-      size: 60
-      placeholder: ''
+    weight: 13
     third_party_settings: {  }
     region: content
 hidden:
@@ -180,5 +190,6 @@ hidden:
   promote: true
   publish_on: true
   sticky: true
+  title: true
   uid: true
   unpublish_on: true
