@@ -127,6 +127,16 @@ class PersonListRestResource extends AbstractRestResourceBase {
       $item['orcid'] = $node->get('field_person_orcid')->getString();
     }
 
+    // Email is optional.
+    if ($node->get('field_person_email')->count()) {
+      $item['emailAddresses'] = [
+        [
+          'value' => $node->get('field_person_email')->getString(),
+          'access' => 'public',
+        ],
+      ];
+    }
+
     // Image is optional.
     if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail', TRUE)) {
       $item['image'] = $image;
