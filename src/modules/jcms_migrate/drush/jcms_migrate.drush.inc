@@ -53,6 +53,14 @@ function jcms_migrate_drush_command() {
         'drush paragraphs-revisions-optimise' => 'Optimise all paragraph revision tables.',
       ],
     ],
+    'person-name-split' => [
+      'description' => 'Split the preferred and index names in surname and given names',
+      'drupal dependencies' => ['jcms_migrate'],
+      'aliases' => ['pns'],
+      'examples' => [
+        'drush person-name-split' => 'Infer surname and given names from preferred and index names for all person nodes.',
+      ],
+    ],
   ];
 }
 
@@ -267,4 +275,82 @@ function drush_jcms_migrate_paragraphs_revisions_optimise() {
   $table_list[] = 'paragraphs_item_revision_field_data';
   Database::getConnection()->query('OPTIMIZE TABLE ' . implode(',', $table_list));
   drush_print(dt('All paragraph revision tables have been optimised.'));
+}
+
+/**
+ * Callback function drush_jcms_migrate_person_name_split().
+ */
+function drush_jcms_migrate_person_name_split() {
+  $ids = \Drupal::entityQuery('node')
+    ->condition('type', 'person')
+    ->execute();
+  $people = Node::loadMultiple($ids);
+
+  $clean_name = function ($name) {
+    return preg_replace(['/[\s]+/', '/[\s],/', '/’/'], [' ', ',', "'"], trim($name));
+  };
+
+  /** @var \Drupal\node\NodeInterface $person */
+  foreach ($people as $person) {
+    $given = $person->hasField('field_person_name_given') ? $person->get('field_person_name_given')->getString() : NULL;
+    if (empty($given)) {
+      $preferred = $clean_name($person->getTitle());
+      $index = $clean_name($person->get('field_person_index_name')->getString());
+      if ($index === $preferred) {
+        $index = '';
+      }
+      if (!empty($index) && strpos($index, ',') !== FALSE) {
+        $names = array_map('trim', explode(',', $index));
+        $surname = array_shift($names);
+        $given = implode(', ', $names);
+      }
+      else {
+        $names = array_map('trim', explode(' ', $preferred));
+        $surname = array_pop($names);
+        $given = implode(' ', $names);
+      }
+      $infer_preferred = implode(' ', array_filter([$given, $surname], function ($name) {
+        return !empty($name);
+      }));
+      $infer_index = implode(', ', array_filter([$surname, $given], function ($name) {
+        return !empty($name);
+      }));
+
+      $person->set('field_person_name_surname', [
+        [
+          'value' => $surname,
+        ],
+      ]);
+      $person->set('field_person_name_given', [
+        [
+          'value' => $given,
+        ],
+      ]);
+      if ($infer_preferred !== $preferred) {
+        $person->set('title', $preferred);
+        $person->set('field_person_preferred_name', [
+          [
+            'value' => $preferred,
+          ],
+        ]);
+      }
+      else {
+        $person->set('title', $infer_preferred);
+        $person->set('field_person_preferred_name', []);
+      }
+      if (empty($index) || ($infer_index === $index || str_replace(',', '', $infer_index) === $index)) {
+        $person->set('field_person_index_name', []);
+      }
+      else {
+        $person->set('field_person_index_name', [
+          [
+            'value' => $index,
+          ],
+        ]);
+      }
+
+      $person->save();
+    }
+  }
+  drush_print(dt('All person names have been split.'));
 }

@@ -1,17 +1,18 @@
-uuid: 70239564-a4ef-4ac7-a7e3-cbfc9453fb63
+uuid: 91d46539-0c74-49f9-8a7f-f60ff79d0ab3
 langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_person_name_surname
     - node.type.person
-id: node.person.title
-field_name: title
+id: node.person.field_person_name_surname
+field_name: field_person_name_surname
 entity_type: node
 bundle: person
-label: Title
+label: Surname
 description: ''
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }

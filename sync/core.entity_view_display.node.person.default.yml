@@ -9,8 +9,12 @@ dependencies:
     - field.field.node.person.field_person_affiliation
     - field.field.node.person.field_person_affiliation_json
     - field.field.node.person.field_person_competing
+    - field.field.node.person.field_person_email
     - field.field.node.person.field_person_index_name
+    - field.field.node.person.field_person_name_given
+    - field.field.node.person.field_person_name_surname
     - field.field.node.person.field_person_orcid
+    - field.field.node.person.field_person_preferred_name
     - field.field.node.person.field_person_profile
     - field.field.node.person.field_person_profile_json
     - field.field.node.person.field_person_type
@@ -82,6 +86,13 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
+  field_person_email:
+    weight: 120
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
   field_person_index_name:
     weight: 105
     label: above
@@ -90,8 +101,32 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_person_name_given:
+    weight: 117
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_person_name_surname:
+    weight: 119
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_person_orcid:
     weight: 104
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_person_preferred_name:
+    weight: 118
     label: above
     settings:
       link_to_entity: false

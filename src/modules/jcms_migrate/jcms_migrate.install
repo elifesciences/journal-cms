@@ -1442,3 +1442,17 @@ function jcms_migrate_update_8142() {
 function jcms_migrate_update_8143() {
   drush_invoke('digest-import-all');
 }
+
+/**
+ * Import all config.
+ */
+function jcms_migrate_update_8144() {
+  drush_invoke('config-import');
+}
+
+/**
+ * Split all person names.
+ */
+function jcms_migrate_update_8145() {
+  drush_invoke('person-name-split');
+}

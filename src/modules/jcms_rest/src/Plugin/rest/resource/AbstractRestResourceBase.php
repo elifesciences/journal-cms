@@ -647,6 +647,16 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   }
 
   /**
+   * Process people names.
+   */
+  public function processPeopleNamesSplit(string $surname, string $given, FieldItemListInterface $preferred_name, FieldItemListInterface $index_name) : array {
+    return [
+      'preferred' => ($preferred_name->count()) ? $preferred_name->getString() : implode(' ', array_filter([$given, $surname])),
+      'index' => ($index_name->count()) ? $index_name->getString() : implode(', ', array_filter([$surname, $given])),
+    ];
+  }
+
+  /**
    * Process response.
    */
   protected function processResponse(Response $response) {
