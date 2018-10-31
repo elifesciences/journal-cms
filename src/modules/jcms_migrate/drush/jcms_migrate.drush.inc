@@ -8,6 +8,7 @@
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
@@ -51,6 +52,22 @@ function jcms_migrate_drush_command() {
       'aliases' => ['pr-optimise'],
       'examples' => [
         'drush paragraphs-revisions-optimise' => 'Optimise all paragraph revision tables.',
+      ],
+    ],
+    'create-person' => [
+      'description' => "Create a person",
+      'drupal dependencies' => ['jcms_migrate'],
+      'arguments' => [
+        'type' => 'Must be one of the existing options (e.g. reviewing-editor, senior-editor etc).',
+        'surname' => 'Surname of person.',
+      ],
+      'options' => [
+        'given' => 'Given names of person.',
+        'email' => 'Email address of person.',
+        'match' => 'Override current person if match found.',
+      ],
+      'examples' => [
+        'drush create-person reviewing-editor Jones' => 'Create a person of type reviewing-editor with surname Jones.',
       ],
     ],
   ];
@@ -267,4 +284,74 @@ function drush_jcms_migrate_paragraphs_revisions_optimise() {
   $table_list[] = 'paragraphs_item_revision_field_data';
   Database::getConnection()->query('OPTIMIZE TABLE ' . implode(',', $table_list));
   drush_print(dt('All paragraph revision tables have been optimised.'));
+}
+
+/**
+ * Callback function drush_jcms_migrate_create_person().
+ */
+function drush_jcms_migrate_create_person(string $type, string $surname) {
+  $given = !is_bool(drush_get_option('given')) ? trim(drush_get_option('given')) : NULL;
+  $email = !is_bool(drush_get_option('email')) ? trim(drush_get_option('email')) : NULL;
+  $match = drush_get_option('match');
+  $person = NULL;
+
+  if ($match) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('field_person_name_surname.value', $surname)
+      ->condition('field_person_type.value', $type);
+
+    if ($given) {
+      $query
+        ->condition('field_person_name_given.value', $given . '%', 'LIKE');
+    }
+
+    if ($result = $query->execute()) {
+      $person = Node::load(array_shift($result));
+    }
+  }
+  else {
+    $person = Node::create([
+      'type' => 'person',
+      'title' => $surname,
+    ]);
+
+    $person->field_person_type = [
+      [
+        'value' => $type,
+      ],
+    ];
+
+    $person->field_person_name_surname = [
+      [
+        'value' => $surname,
+      ],
+    ];
+
+    if ($given) {
+      $person->field_person_name_given = [
+        [
+          'value' => $given,
+        ],
+      ];
+    }
+
+    $person->setOwnerId(1);
+    $person->setPublished();
+  }
+
+  if ($person instanceof NodeInterface) {
+    if ($email) {
+      $person->field_person_email = [
+        [
+          'value' => $email,
+        ],
+      ];
+    }
+
+    $person->save();
+    drush_print(dt($person->label() . ' (' . $type . ') - ' . ($match ? 'updated' : 'created') . '.'));
+  }
+  elseif ($match) {
+    drush_print(dt(implode(' ', array_filter([$given, $surname])) . ' (' . $type . ') - not found.'));
+  }
 }
