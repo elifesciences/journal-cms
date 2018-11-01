@@ -395,12 +395,12 @@ function drush_jcms_migrate_resave_nodes(string $type) {
       $feedback_frequency = $count;
     }
 
-    for ($i = 0; $i < $count; $i+=$feedback_frequency) {
+    for ($i = 0; $i < $count; $i += $feedback_frequency) {
       $nodes = Node::loadMultiple(array_slice($nids, $i, $feedback_frequency));
       foreach ($nodes as $node) {
         $node->save();
       }
-      drush_print(dt('Number of !type nodes resaved is !count.', ['!type' => $type, '!count' => $i+count($nodes)]));
+      drush_print(dt('Number of !type nodes resaved is !count.', ['!type' => $type, '!count' => $i + count($nodes)]));
     }
   }
 }
