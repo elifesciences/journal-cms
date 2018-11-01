@@ -55,7 +55,7 @@ function jcms_migrate_drush_command() {
       ],
     ],
     'create-person' => [
-      'description' => "Create a person",
+      'description' => 'Create a person.',
       'drupal dependencies' => ['jcms_migrate'],
       'arguments' => [
         'type' => 'Must be one of the existing options (e.g. reviewing-editor, senior-editor etc).',
@@ -68,6 +68,22 @@ function jcms_migrate_drush_command() {
       ],
       'examples' => [
         'drush create-person reviewing-editor Jones' => 'Create a person of type reviewing-editor with surname Jones.',
+      ],
+    ],
+    'resave-nodes' => [
+      'description' => 'Resave all nodes of a certain type.',
+      'drupal dependencies' => ['jcms_migrate'],
+      'arguments' => [
+        'type' => 'Content type.',
+      ],
+      'options' => [
+        'limit' => 'Limit on the number of resaves to do.',
+        'feedback' => 'Receive feedback after a specified number of resaves. (default: 100)',
+      ],
+      'examples' => [
+        'drush resave-nodes blog_article' => 'Create a person of type reviewing-editor with surname Jones.',
+        'drush resave-nodes person --limit=10' => 'Resave 10 nodes of content type person.',
+        'drush resave-nodes blog_article --feedback=100' => 'Provide feedback for every 50 blog_articles resaved.',
       ],
     ],
   ];
@@ -353,5 +369,38 @@ function drush_jcms_migrate_create_person(string $type, string $surname) {
   }
   elseif ($match) {
     drush_print(dt(implode(' ', array_filter([$given, $surname])) . ' (' . $type . ') - not found.'));
+  }
+}
+
+/**
+ * Callback function drush_jcms_migrate_resave_nodes().
+ */
+function drush_jcms_migrate_resave_nodes(string $type) {
+  $limit = drush_get_option('limit') ? (int) drush_get_option('limit') : 0;
+  $feedback_frequency = drush_get_option('feedback') ? (int) drush_get_option('feedback') : 100;
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', $type);
+
+  if ($limit > 0) {
+    $query->range(0, $limit);
+  }
+
+  $nids = $query->execute();
+
+  if ($nids) {
+    $count = count($nids);
+    drush_print(dt('Number of !type nodes to be resaved is !count.', ['!type' => $type, '!count' => count($nids)]));
+    if ($feedback_frequency > $count) {
+      $feedback_frequency = $count;
+    }
+
+    for ($i = 0; $i < $count; $i += $feedback_frequency) {
+      $nodes = Node::loadMultiple(array_slice($nids, $i, $feedback_frequency));
+      foreach ($nodes as $node) {
+        $node->save();
+      }
+      drush_print(dt('Number of !type nodes resaved is !count.', ['!type' => $type, '!count' => $i + count($nodes)]));
+    }
   }
 }
