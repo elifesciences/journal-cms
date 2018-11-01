@@ -127,12 +127,12 @@ class PersonListRestResource extends AbstractRestResourceBase {
       $item['orcid'] = $node->get('field_person_orcid')->getString();
     }
 
-    // Email is optional.
-    if ($node->get('field_person_email')->count()) {
+    // Email is restricted and optional.
+    if ($this->viewRestricted() && $node->get('field_person_email')->count()) {
       $item['emailAddresses'] = [
         [
           'value' => $node->get('field_person_email')->getString(),
-          'access' => 'public',
+          'access' => 'restricted',
         ],
       ];
     }

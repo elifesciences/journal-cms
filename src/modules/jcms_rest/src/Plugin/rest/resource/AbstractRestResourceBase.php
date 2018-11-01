@@ -628,12 +628,37 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     static $view_unpublished = NULL;
 
     if (is_null($view_unpublished)) {
-      $request = \Drupal::request();
-      $groups = normalize_header($request->headers->get('X-Consumer-Groups', 'user'));
-      $view_unpublished = in_array('view-unpublished-content', $groups);
+      $view_unpublished = $this->consumerGroup('view-unpublished-content');
     }
 
     return $view_unpublished;
+  }
+
+  /**
+   * Determine if the request user can view restricted content.
+   */
+  public function viewRestricted() : bool {
+    static $view_restricted = NULL;
+
+    if (is_null($view_restricted)) {
+      $view_restricted = $this->consumerGroup('view-restricted-content');
+    }
+
+    return $view_restricted;
+  }
+
+  /**
+   * Determine if X-Consumer-Group header set.
+   */
+  public function consumerGroup(string $group) : bool {
+    static $groups = NULL;
+
+    if (is_null($groups)) {
+      $request = \Drupal::request();
+      $groups = normalize_header($request->headers->get('X-Consumer-Groups', 'user'));
+    }
+
+    return in_array($group, $groups);
   }
 
   /**
