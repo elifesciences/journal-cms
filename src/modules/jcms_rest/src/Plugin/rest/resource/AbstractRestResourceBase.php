@@ -637,14 +637,14 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   /**
    * Determine if the request user can view restricted content.
    */
-  public function viewRestricted() : bool {
-    static $view_restricted = NULL;
+  public function viewRestricted(string $content = 'content') : bool {
+    static $view_restricted = [];
 
-    if (is_null($view_restricted)) {
-      $view_restricted = $this->consumerGroup('view-restricted-content');
+    if (!isset($view_restricted[$content])) {
+      $view_restricted[$content] = $this->consumerGroup('view-restricted-' . $content);
     }
 
-    return $view_restricted;
+    return $view_restricted[$content];
   }
 
   /**
