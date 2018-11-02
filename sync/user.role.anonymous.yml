@@ -46,4 +46,3 @@ permissions:
   - 'view field_subject_id'
   - 'view files'
   - 'view own field_subject_id'
-  - 'view revision field'

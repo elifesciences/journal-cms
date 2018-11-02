@@ -37,6 +37,9 @@ content:
       allow_existing: true
       match_operator: STARTS_WITH
       allow_new: false
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
@@ -59,6 +62,9 @@ content:
       allow_existing: true
       match_operator: CONTAINS
       allow_new: false
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
@@ -127,12 +133,12 @@ content:
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 20
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -153,7 +159,7 @@ content:
     region: content
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -163,5 +169,6 @@ hidden:
   moderation_state: true
   path: true
   promote: true
+  revision_log: true
   sticky: true
   uid: true

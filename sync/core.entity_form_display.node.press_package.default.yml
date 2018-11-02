@@ -67,6 +67,9 @@ content:
       allow_existing: true
       match_operator: STARTS_WITH
       allow_new: false
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
@@ -101,6 +104,7 @@ hidden:
   moderation_state: true
   path: true
   promote: true
+  revision_log: true
   status: true
   sticky: true
   uid: true

@@ -43,14 +43,14 @@ bundle: interview
 mode: default
 content:
   field_community_list:
-    weight: 6
+    weight: 5
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_image:
-    weight: 3
+    weight: 2
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -60,7 +60,7 @@ content:
     type: image_focal_point
     region: content
   field_impact_statement:
-    weight: 5
+    weight: 4
     settings:
       rows: 5
       placeholder: ''
@@ -85,18 +85,18 @@ content:
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 8
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 7
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 4
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -114,6 +114,7 @@ hidden:
   moderation_state: true
   path: true
   promote: true
+  revision_log: true
   status: true
   sticky: true
   uid: true

@@ -318,7 +318,7 @@
     "ckeditor/uploadimage": "^4.9",
     "ckeditor/uploadwidget": "^4.9",
     "ckeditor/widget": "^4.9",
-    "drupal/hide_revision_field": "^1.1",
+    "drupal/hide_revision_field": "^2.1",
     "ckeditor/link": "^4.9",
     "ckeditor/fakeobjects": "^4.9",
     "drupal/field_group": "~3.0-beta1",

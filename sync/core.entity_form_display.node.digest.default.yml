@@ -38,6 +38,7 @@ hidden:
   path: true
   promote: true
   publish_on: true
+  revision_log: true
   status: true
   sticky: true
   uid: true
