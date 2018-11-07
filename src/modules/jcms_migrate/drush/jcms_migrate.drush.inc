@@ -65,6 +65,7 @@ function jcms_migrate_drush_command() {
         'given' => 'Given names of person.',
         'email' => 'Email address of person.',
         'match' => 'Override current person if match found.',
+        'upsert' => 'Create new or update existing.',
       ],
       'examples' => [
         'drush create-person reviewing-editor Jones' => 'Create a person of type reviewing-editor with surname Jones.',
@@ -309,9 +310,10 @@ function drush_jcms_migrate_create_person(string $type, string $surname) {
   $given = !is_bool(drush_get_option('given')) ? trim(drush_get_option('given')) : NULL;
   $email = !is_bool(drush_get_option('email')) ? trim(drush_get_option('email')) : NULL;
   $match = drush_get_option('match');
+  $upsert = (!$match && drush_get_option('upsert'));
   $person = NULL;
 
-  if ($match) {
+  if ($match || $upsert) {
     $query = \Drupal::entityQuery('node')
       ->condition('field_person_name_surname.value', $surname)
       ->condition('field_person_type.value', $type);
@@ -325,7 +327,9 @@ function drush_jcms_migrate_create_person(string $type, string $surname) {
       $person = Node::load(array_shift($result));
     }
   }
-  else {
+
+  if ((!$match && !$upsert) || ($upsert && is_null($person))) {
+    /** @var NodeInterface $person */
     $person = Node::create([
       'type' => 'person',
       'title' => $surname,
@@ -365,7 +369,7 @@ function drush_jcms_migrate_create_person(string $type, string $surname) {
     }
 
     $person->save();
-    drush_print(dt($person->label() . ' (' . $type . ') - ' . ($match ? 'updated' : 'created') . '.'));
+    drush_print(dt($person->label() . ' (' . $type . ') - ' . ($person->isNew() ? 'created' : 'updated') . '.'));
   }
   elseif ($match) {
     drush_print(dt(implode(' ', array_filter([$given, $surname])) . ' (' . $type . ') - not found.'));
