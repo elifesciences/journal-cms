@@ -23,6 +23,9 @@ content:
       allow_new: true
       allow_existing: true
       match_operator: CONTAINS
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
@@ -48,6 +51,7 @@ hidden:
   path: true
   promote: true
   publish_on: true
+  revision_log: true
   sticky: true
   uid: true
   unpublish_on: true

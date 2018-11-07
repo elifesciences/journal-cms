@@ -19,13 +19,13 @@ mode: default
 content:
   field_chapter_time:
     type: duration_widget
-    weight: 2
+    weight: 1
     region: content
     settings:
       duration: ''
     third_party_settings: {  }
   field_impact_statement:
-    weight: 3
+    weight: 2
     settings:
       rows: 5
       placeholder: ''
@@ -33,7 +33,7 @@ content:
     type: text_textarea
     region: content
   field_long_title:
-    weight: 4
+    weight: 3
     settings:
       rows: 5
       placeholder: ''
@@ -41,7 +41,7 @@ content:
     type: text_textarea
     region: content
   field_related_content:
-    weight: 5
+    weight: 4
     settings:
       match_operator: CONTAINS
       size: 60
@@ -64,6 +64,7 @@ hidden:
   path: true
   promote: true
   publish_on: true
+  revision_log: true
   status: true
   sticky: true
   uid: true

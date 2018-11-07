@@ -56,6 +56,7 @@ hidden:
   path: true
   promote: true
   publish_on: true
+  revision_log: true
   sticky: true
   uid: true
   unpublish_on: true

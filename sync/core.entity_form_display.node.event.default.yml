@@ -92,6 +92,7 @@ hidden:
   moderation_state: true
   path: true
   promote: true
+  revision_log: true
   status: true
   sticky: true
   uid: true

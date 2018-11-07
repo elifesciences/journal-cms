@@ -34,7 +34,6 @@ module:
   filter: 0
   focal_point: 0
   help: 0
-  hide_revision_field: 0
   image: 0
   inline_entity_form: 0
   jcms_admin: 0
@@ -75,6 +74,7 @@ module:
   update: 0
   user: 0
   workflows: 0
+  hide_revision_field: 1
   menu_link_content: 1
   views: 10
   config_installer: 1000
