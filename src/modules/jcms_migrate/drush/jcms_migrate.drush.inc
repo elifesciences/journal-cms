@@ -329,7 +329,7 @@ function drush_jcms_migrate_create_person(string $type, string $surname) {
   }
 
   if ((!$match && !$upsert) || ($upsert && is_null($person))) {
-    /** @var NodeInterface $person */
+    /** @var \Drupal\node\Entity\NodeInterface $person */
     $person = Node::create([
       'type' => 'person',
       'title' => $surname,
