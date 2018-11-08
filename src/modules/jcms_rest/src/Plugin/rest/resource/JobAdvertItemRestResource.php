@@ -99,12 +99,14 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
       if (!$field->count()) {
         continue;
       }
+
+      $json = $this->getFieldJson($field, $this->getFieldLabel($node, $fieldData['name']), $fieldData['isSection']);
       if ($fieldData['isSection']) {
-        array_push($contentJson, $this->getFieldJson($field, $this->getFieldLabel($node, $fieldData['name']), TRUE));
+        array_push($contentJson, $json);
       }
       else {
-        foreach ($this->getFieldJson($field) as $item) {
-          array_push($contentJson, $item);
+        foreach ($json as $json_item) {
+          array_push($contentJson, $json_item);
         }
       }
     }
@@ -134,23 +136,31 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
       return self::getFieldJsonAsSection($fieldLabel, $texts);
     }
 
-    return self::getFieldJsonAsParagraphs($texts);
+    return self::getFieldJsonContent($texts);
   }
 
   /**
    * Get field json as section.
    */
   public static function getFieldJsonAsSection(string $title, array $content) : array {
+    return [
+      'type' => 'section',
+      'title' => $title,
+      'content' => self::getFieldJsonContent($content),
+    ];
+  }
+
+  /**
+   * Get content items as an array.
+   */
+  public static function getFieldJsonContent(array $content) : array {
     foreach ($content as $i => $item) {
       if (!is_array($item)) {
         $content[$i] = self::getFieldJsonAsParagraphs($item);
       }
     }
-    return [
-      'type' => 'section',
-      'title' => $title,
-      'content' => $content,
-    ];
+
+    return $content;
   }
 
   /**
