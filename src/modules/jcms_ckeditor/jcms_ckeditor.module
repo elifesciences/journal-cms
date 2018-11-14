@@ -113,6 +113,7 @@ function jcms_ckeditor_entity_presave(EntityInterface $entity) {
     $entity->field_image_height = $image->getHeight();
   }
   elseif ($entity->getEntityType()->id() === 'node' && $entity->hasField('field_content_html_preview') && $entity->get('field_content_html_preview')->isEmpty()) {
+    // Make body fields have placeholder set.
     $placeholder = t('Type something here ...');
     $entity->field_content_html_preview->value = '<placeholder>' . $placeholder . '</placeholder>';
     $entity->field_content_html_preview->format = 'ckeditor_html';
