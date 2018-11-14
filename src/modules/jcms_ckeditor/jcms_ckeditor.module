@@ -105,20 +105,17 @@ function jcms_ckeditor_preprocess_page(array &$variables) {
  * not empty but content placeholders.
  */
 function jcms_ckeditor_entity_presave(EntityInterface $entity) {
-  if ($entity->getEntityType()->id() == 'file' && strpos($entity->getMimeType(), 'image') === 0) {
+  if ($entity->getEntityType()->id() == 'file' && strpos($entity->getMimeType(), 'image') === 0 && $entity->hasField('field_image_width') && $entity->hasField('field_image_height')) {
     // Save width and height in image fields so they are available to editor.
     $uri = $entity->getFileUri();
     $image = \Drupal::service('image.factory')->get($uri);
     $entity->field_image_width = $image->getWidth();
     $entity->field_image_height = $image->getHeight();
   }
-  elseif ($entity->getEntityType()->id() === 'node') {
-    // Make body fields have placeholder set.
-    if ($entity->hasField('field_content_html_preview') && $entity->get('field_content_html_preview')->isEmpty()) {
-      $placeholder = t('Type something here ...');
-      $entity->field_content_html_preview->value = '<placeholder>' . $placeholder . '</placeholder>';
-      $entity->field_content_html_preview->format = 'ckeditor_html';
-    }
+  elseif ($entity->getEntityType()->id() === 'node' && $entity->hasField('field_content_html_preview') && $entity->get('field_content_html_preview')->isEmpty()) {
+    $placeholder = t('Type something here ...');
+    $entity->field_content_html_preview->value = '<placeholder>' . $placeholder . '</placeholder>';
+    $entity->field_content_html_preview->format = 'ckeditor_html';
   }
 }
 
