@@ -277,7 +277,7 @@
                     type: "file--image",
                     attributes: {
                       data: image[1],
-                      uri: 'public://' + settings.imageFileDirectory + '/' + e.data.fileLoader.fileName.replace(/\s+/g, '-').toLowerCase()
+                      uri: 'public://' + settings.imageFileDirectory + '/' + e.data.fileLoader.fileName.replace(/[^0-9A-Za-z_\.]+/g, '-').toLowerCase()
                     }
                   }            
                 };
