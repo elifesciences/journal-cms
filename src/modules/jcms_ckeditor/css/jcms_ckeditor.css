@@ -156,11 +156,6 @@ elifebutton.elife-button--outline:hover {
   min-height: 2.5em;
 }
 
-.cke_widget_mask {
-  height: 0 !important;
-  padding-top: 56.25% !important;
-}
-
 .cke_floating_toolbar {
   z-index: 1000;
   width: 100%;
