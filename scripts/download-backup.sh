@@ -8,14 +8,21 @@ delay="${1:-1}" # default to 1 day back
 TMP="${TMP:-/ext/tmp/}"
 
 backupLocation='s3://elife-app-backups/journal-cms/'
-selectedMonth="$(date -d "-$delay days" +%Y%m)"
-searchPrefix="${selectedMonth}/$(date -d "-$delay days" +%Y%m%d)"
+if [ "$(uname -s)" == "Darwin" ]; then
+    # Mac OS X
+    selectedMonth="$(date "-v-${delay}d" +%Y%m)"
+    searchPrefix="${selectedMonth}/$(date "-v-${delay}d" +%Y%m%d)"
+else
+    # Linux
+    selectedMonth="$(date -d "-$delay days" +%Y%m)"
+    searchPrefix="${selectedMonth}/$(date -d "-$delay days" +%Y%m%d)"
+fi
 downloadPrefix="${backupLocation}${selectedMonth}/"
 echo "Looking for backups into ${backupLocation}${searchPrefix}"
 
 databaseArchive="$(aws s3 ls "${backupLocation}${searchPrefix}" | grep prod | grep elife_2_0 | awk '{print $4}')"
 filesArchive="$(aws s3 ls "${backupLocation}${searchPrefix}" | grep prod | grep archive | awk '{print $4}')"
-echo "Found ${databaseArchive}, $filesArchive}"
+echo "Found ${databaseArchive}, ${filesArchive}"
 
 aws s3 cp "${downloadPrefix}${databaseArchive}" "$TMP"
 aws s3 cp "${downloadPrefix}${filesArchive}" "$TMP"
