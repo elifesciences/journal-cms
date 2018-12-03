@@ -10,8 +10,8 @@ TMP="${TMP:-/ext/tmp/}"
 backupLocation='s3://elife-app-backups/journal-cms/'
 if [ "$(uname -s)" == "Darwin" ]; then
     # Mac OS X
-    selectedMonth="$(date "-v-${delay}d" +%Y%m)"
-    searchPrefix="${selectedMonth}/$(date "-v-${delay}d" +%Y%m%d)"
+    selectedMonth="$(date "-v -${delay}d" +%Y%m)"
+    searchPrefix="${selectedMonth}/$(date "-v -${delay}d" +%Y%m%d)"
 else
     # Linux
     selectedMonth="$(date -d "-$delay days" +%Y%m)"
