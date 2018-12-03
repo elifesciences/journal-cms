@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-# Usage: TMP=FOLDER scripts/donload-backup.sh DELAY_IN_DAYS
+# Usage: TMP=FOLDER scripts/download-backup.sh DELAY_IN_DAYS
 # Example: TMP=/ext/tmp scripts/download-backup.sh 1
 
 # arguments and environment variables to influence behavior
