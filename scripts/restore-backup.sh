@@ -2,8 +2,8 @@
 set -e
 
 TMP="${TMP:-/ext/tmp}"
-filesArchive="$(ls "$TMP/*-archive-*.tar.gz")"
-databaseArchive="$(ls "$TMP/*-elife_2_0-mysql.gz")"
+filesArchive=$(find $TMP/*-archive-*.tar.gz)
+databaseArchive=$(find $TMP/*-elife_2_0-mysql.gz)
 
 echo "Extracting $filesArchive"
 tar -xzf "$filesArchive" -C /ext/tmp
