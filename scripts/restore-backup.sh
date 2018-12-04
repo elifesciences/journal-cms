@@ -2,7 +2,10 @@
 set -e
 
 TMP="${TMP:-/ext/tmp}"
+# cannot use double quotes to allow bash to resolve * wildcards
+# shellcheck disable=SC2086
 filesArchive=$(find $TMP/*-archive-*.tar.gz)
+# shellcheck disable=SC2086
 databaseArchive=$(find $TMP/*-elife_2_0-mysql.gz)
 
 echo "Extracting $filesArchive"
