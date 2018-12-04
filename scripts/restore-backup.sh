@@ -13,6 +13,7 @@ rm -rf /srv/journal-cms/web/sites/default/files
 mv /ext/tmp/srv/journal-cms/web/sites/default/files web/sites/default/
 sudo chown -R www-data:www-data /srv/journal-cms/web/sites/default/files
 rm -rf /ext/tmp/srv
+rm -f "$filesArchive"
 
 echo "Restoring $databaseArchive"
 cd web
