@@ -14,17 +14,17 @@ filesArchive=$(find $TMP/*-archive-*.tar.gz)
 databaseArchive=$(find $TMP/*-elife_2_0-mysql.gz)
 
 echo "Extracting $filesArchive"
-tar -xzf "$filesArchive" -C $TMP
+tar -xzf "$filesArchive" -C "$TMP"
 
 echo "Restoring $filesArchive"
-rm -rf $ROOT/web/sites/default/files
-mv $TMP/srv/journal-cms/web/sites/default/files $ROOT/web/sites/default/
-sudo chown -R www-data:www-data $ROOT/web/sites/default/files
-rm -rf $TMP/srv
+rm -rf "$ROOT/web/sites/default/files"
+mv "$TMP/srv/journal-cms/web/sites/default/files" "$ROOT/web/sites/default/"
+sudo chown -R www-data:www-data "$ROOT/web/sites/default/files"
+rm -rf "$TMP/srv"
 rm -f "$filesArchive"
 
 echo "Restoring $databaseArchive"
-cd $ROOT/web
+cd "$ROOT/web"
 ../vendor/bin/drush sql-drop -y
 zcat "$databaseArchive" | ../vendor/bin/drush sql-cli
 rm "$databaseArchive"
