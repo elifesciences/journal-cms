@@ -9,9 +9,9 @@ ROOT="${ROOT:-/srv/journal-cms}"
 
 # cannot use double quotes to allow bash to resolve * wildcards
 # shellcheck disable=SC2086
-filesArchive=$(find $TMP/*-archive-*.tar.gz)
+filesArchive=$(find "$(cd $TMP; pwd)" -name "*-archive-*.tar.gz")
 # shellcheck disable=SC2086
-databaseArchive=$(find $TMP/*-elife_2_0-mysql.gz)
+databaseArchive=$(find "$(cd $TMP; pwd)" -name "*-elife_2_0-mysql.gz")
 
 echo "Extracting $filesArchive"
 tar -xzf "$filesArchive" -C "$TMP"
