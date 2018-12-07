@@ -53,7 +53,8 @@ class PersonListRestResource extends AbstractRestResourceBase {
     if ($total = $count_query->count()->execute()) {
       $person_item_rest_resource = new PersonItemRestResource([], 'person_item_rest_resource', [], $this->serializerFormats, $this->logger);
       $response_data['total'] = (int) $total;
-      $this->filterPageAndOrder($items_query, 'field_person_index_name.value');
+      // Title is a derived field contining the index name.
+      $this->filterPageAndOrder($items_query, 'title');
       $nids = $items_query->execute();
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
