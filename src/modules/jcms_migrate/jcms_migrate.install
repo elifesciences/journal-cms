@@ -1456,3 +1456,10 @@ function jcms_migrate_update_8144() {
 function jcms_migrate_update_8145() {
   drush_invoke('person-name-split');
 }
+
+/**
+ * Resave person nodes to store index name in title field.
+ */
+function jcms_migrate_update_8146() {
+  drush_invoke('resave-nodes', ['person']);
+}
