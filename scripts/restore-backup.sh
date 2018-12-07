@@ -5,6 +5,7 @@ set -e
 
 # arguments and environment variables to influence behavior
 TMP="${TMP:-/ext/tmp}"
+TMP="$(cd $TMP; pwd)"
 ROOT="${ROOT:-/srv/journal-cms}"
 
 # cannot use double quotes to allow bash to resolve * wildcards
