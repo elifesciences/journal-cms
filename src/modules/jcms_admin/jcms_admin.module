@@ -648,13 +648,14 @@ function jcms_admin_node_presave(NodeInterface $node) {
       }
     }
 
-    if ($node->get('field_person_preferred_name')->getValue()) {
-      $node->set('title', $node->get('field_person_preferred_name')->getString());
+    // Store index name in title field to allow easy ordering of people.
+    if ($node->get('field_person_index_name')->getValue()) {
+      $node->set('title', $node->get('field_person_index_name')->getString());
     }
     else {
-      $node->set('title', implode(' ', array_filter([
-        $node->get('field_person_name_given')->getString(),
+      $node->set('title', implode(', ', array_filter([
         $node->get('field_person_name_surname')->getString(),
+        $node->get('field_person_name_given')->getString(),
       ])));
     }
   }
