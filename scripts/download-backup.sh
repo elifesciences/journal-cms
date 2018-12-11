@@ -20,8 +20,8 @@ fi
 downloadPrefix="${backupLocation}${selectedMonth}/"
 echo "Looking for backups into ${backupLocation}${searchPrefix}"
 
-databaseArchive="$(aws s3 ls "${backupLocation}${searchPrefix}" | grep prod | grep elife_2_0 | awk '{print $4}')"
-filesArchive="$(aws s3 ls "${backupLocation}${searchPrefix}" | grep prod | grep archive | awk '{print $4}')"
+databaseArchive="$(aws s3 ls "${backupLocation}${searchPrefix}" | grep prod | grep elife_2_0 | sort -r | head -n 1 | awk '{print $4}')"
+filesArchive="$(aws s3 ls "${backupLocation}${searchPrefix}" | grep prod | grep archive | sort -r | head -n 1 | awk '{print $4}')"
 echo "Found ${databaseArchive}, ${filesArchive}"
 
 aws s3 cp "${downloadPrefix}${databaseArchive}" "$TMP"
