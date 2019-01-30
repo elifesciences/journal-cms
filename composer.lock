@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b65c8c9358163a62872d23af736083b7",
+    "content-hash": "3682de73e9a24377c6d4b9c08b48526c",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2522,6 +2522,7 @@
                 },
                 "patches_applied": {
                     "View output is not used for autocomplete display (2174633)": "https://www.drupal.org/files/issues/2174633-198.patch",
+                    "Use new Transliteration functionality in core for file names (2492171)": "https://www.drupal.org/files/issues/2019-01-29/2492171-3-151.patch",
                     "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/move_permission_view-273595-129.patch",
                     "Temporary fix for \\Drupal\\Core\\Field\\FieldItemList::generateSampleItems (2905527)": "src/patches/2905527-temporary-fix-generate-sample-items.patch"
                 }
@@ -5009,16 +5010,16 @@
         },
         {
             "name": "geerlingguy/drupal-vm",
-            "version": "4.9.0",
+            "version": "4.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geerlingguy/drupal-vm.git",
-                "reference": "4fc4a3a89231e8d4cea077e6541c771f1b46d66c"
+                "reference": "b3fb327832e5d78c7889c1d1428e85ded1592a28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/4fc4a3a89231e8d4cea077e6541c771f1b46d66c",
-                "reference": "4fc4a3a89231e8d4cea077e6541c771f1b46d66c",
+                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/b3fb327832e5d78c7889c1d1428e85ded1592a28",
+                "reference": "b3fb327832e5d78c7889c1d1428e85ded1592a28",
                 "shasum": ""
             },
             "type": "vm",
@@ -5044,7 +5045,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2018-06-01T15:22:24+00:00"
+            "time": "2019-01-03T16:19:18+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
