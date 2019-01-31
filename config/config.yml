@@ -1,7 +1,15 @@
 ---
-# `vagrant_box` can also be set to geerlingguy/centos6, geerlingguy/centos7,
-# geerlingguy/ubuntu1404, geerlingguy/ubuntu1204, parallels/ubuntu-14.04, etc.
-vagrant_box: geerlingguy/ubuntu1604
+# Available `vagrant_box` values include:
+#   - beet/box (pre-provisioned, based on Ubuntu 16.04)
+#   - geerlingguy/drupal-vm (pre-provisioned, based on Ubuntu 16.04)
+#   - geerlingguy/centos7
+#   - geerlingguy/centos6
+#   - geerlingguy/debian9
+#   - geerlingguy/debian8
+#   - geerlingguy/ubuntu1804
+#   - geerlingguy/ubuntu1604
+vagrant_box: geerlingguy/drupal-vm
+
 vagrant_user: vagrant
 vagrant_synced_folder_default_type: nfs
 vagrant_gui: false
@@ -33,9 +41,14 @@ vagrant_synced_folders:
 vagrant_memory: 2048
 vagrant_cpus: 4
 
+# Ensure vagrant plugins are installed.
+vagrant_plugins:
+- name: vagrant-vbguest
+- name: vagrant-hostsupdater
+
 # Minimum required versions.
 drupalvm_vagrant_version_min: '1.8.6'
-drupalvm_ansible_version_min: '2.2'
+drupalvm_ansible_version_min: '2.4'
 
 # Force use of ansible_local provisioner, even if Ansible is installed on host.
 force_ansible_local: false
@@ -52,15 +65,15 @@ drupal_build_makefile: false
 drush_makefile_path: "{{ config_dir }}/drupal.make.yml"
 drush_make_options: "--no-gitinfofile"
 
-# Set 'build_makefile' to 'false' and this to 'true' if you are using a
+# Set 'drupal_build_makefile' to 'false' and this to 'true' if you are using a
 # composer based site deployment strategy.
 drupal_build_composer: true
 drupal_composer_path: "{{ config_dir }}/../composer.json"
 drupal_composer_install_dir: "/var/www/journal-cms"
 drupal_composer_dependencies: []
 
-# Set this to 'true' and 'build_makefile', 'build_composer' to 'false' if you
-# are using Composer's create-project as a site deployment strategy.
+# Set this to 'true' and 'drupal_build_makefile', 'drupal_build_composer' to 'false'
+# if you are using Composer's create-project as a site deployment strategy.
 drupal_build_composer_project: false
 drupal_composer_project_package: "drupal-composer/drupal-project:8.x-dev"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
@@ -75,8 +88,9 @@ drupal_core_owner: "{{ drupalvm_user }}"
 drupal_db_user: journal_cms
 drupal_db_password: journal_cms
 drupal_db_name: journal_cms
+drupal_db_host: localhost
 
-# Settings for installing a Drupal site if 'install_site:' is 'true'.
+# Settings for installing a Drupal site if 'drupal_install_site:' is 'true'.
 drupal_major_version: 8
 drupal_domain: "{{ vagrant_hostname }}"
 drupal_site_name: "Journal CMS"
@@ -95,6 +109,10 @@ drupalvm_cron_jobs: []
 # Drupal VM automatically creates a drush alias file in your ~/.drush folder if
 # this variable is 'true'.
 configure_drush_aliases: true
+drush_aliases_host_template: "templates/drupalvm.aliases.drushrc.php.j2"
+drush_aliases_host_template_yml: "templates/drupalvm.aliases.yml.j2"
+drush_aliases_guest_template: "templates/drupalvm-local.aliases.drushrc.php.j2"
+drush_aliases_guest_template_yml: "templates/drupalvm-local.aliases.yml.j2"
 
 # Helper variable to configure the PHP-FPM connection for each Apache
 # VirtualHost in the `apache_vhosts` list.
@@ -133,6 +151,7 @@ apache_packages_state: latest
 apache_remove_default_vhost: true
 apache_mods_enabled:
   - expires.load
+  - headers.load
   - ssl.load
   - rewrite.load
   - proxy.load
@@ -164,6 +183,7 @@ nginx_hosts:
 
 nginx_remove_default_vhost: true
 nginx_ppa_use: true
+nginx_vhost_template: "templates/nginx-vhost.conf.j2"
 
 # MySQL databases and users.
 mysql_databases:
@@ -209,7 +229,7 @@ installed_extras:
   # - upload-progress
   - varnish
   - xdebug
-  # - xhprof
+  # - xhprof # use `tideways` if you're installing PHP 7+
 
 # Add any extra apt or yum packages you would like installed.
 extra_packages:
@@ -231,6 +251,7 @@ extra_security_enabled: false
 drush_version: "8.1.10"
 drush_composer_cli_options: "--prefer-dist --no-interaction"
 
+firewall_enabled: false
 firewall_allowed_tcp_ports:
   - "22"
   - "25"
@@ -247,7 +268,7 @@ firewall_log_dropped_packets: false
 firewall_disable_firewalld: true
 firewall_disable_ufw: true
 
-# PHP Configuration. Currently-supported versions: 5.6, 7.0, 7.1.
+# PHP Configuration. Currently-supported versions: 5.6, 7.0, 7.1, 7.2.
 # See version-specific notes: http://docs.drupalvm.com/en/latest/configurations/php/
 php_version: "7.1"
 php_install_recommends: no
@@ -274,8 +295,9 @@ composer_home_group: "{{ drupalvm_user }}"
 composer_global_packages:
   - { name: hirak/prestissimo, release: '^0.3' }
 
-# Run specified scripts before or after VM is provisioned. Path is relative to
-# the `provisioning/playbook.yml` file.
+# Run specified scripts before or after VM is provisioned. Use {{ playbook_dir }}
+# to reference the provisioning/ folder in Drupal VM or {{ config_dir }} to
+# reference the directory where your `config.yml` is.
 pre_provision_scripts:
   - "../../../../scripts/pre-provision.sh"
 post_provision_scripts:
@@ -315,22 +337,29 @@ pimpmylog_grant_all_privs: true
 # XDebug configuration. XDebug is disabled by default for better performance.
 php_xdebug_default_enable: 0
 php_xdebug_coverage_enable: 0
-php_xdebug_cli_enable: 1
+php_xdebug_cli_disable: yes
 php_xdebug_remote_enable: 1
 php_xdebug_remote_connect_back: 1
-# Use PHPSTORM for PHPStorm, sublime.xdebug for Sublime Text.
 php_xdebug_idekey: PHPSTORM
 php_xdebug_max_nesting_level: 512
+php_xdebug_remote_host: "{{ ansible_default_ipv4.gateway }}"
 
 # Solr Configuration (if enabled above).
-solr_version: "5.5.3"
+solr_version: "5.5.5"
 solr_xms: "64M"
 solr_xmx: "128M"
 
 # Selenium configuration.
 selenium_version: 2.53.0
 
+# Docker configuration.
+docker_container_name: drupal-vm
+docker_image_name: drupal-vm
+docker_image_path: ~/Downloads
+
 # Other configuration.
 dashboard_install_dir: /var/www/dashboard
 known_hosts_path: ~/.ssh/known_hosts
-#ssh_home: "{{ drupal_core_path }}"
+hostname_configure: true
+hostname_fqdn: "{{ vagrant_hostname }}"
+# ssh_home: "{{ drupal_core_path }}"

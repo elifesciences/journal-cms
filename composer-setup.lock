@@ -1,24 +1,23 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "9e3418f57e144e9c28506efb885b9c72",
     "content-hash": "df72ad46bf20877e05ade2616bd03ad2",
     "packages": [
         {
             "name": "geerlingguy/drupal-vm",
-            "version": "4.4.1",
+            "version": "4.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geerlingguy/drupal-vm.git",
-                "reference": "cb5ef2d9182b53c97dba57c5d926b46425adc3a3"
+                "reference": "b3fb327832e5d78c7889c1d1428e85ded1592a28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/cb5ef2d9182b53c97dba57c5d926b46425adc3a3",
-                "reference": "cb5ef2d9182b53c97dba57c5d926b46425adc3a3",
+                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/b3fb327832e5d78c7889c1d1428e85ded1592a28",
+                "reference": "b3fb327832e5d78c7889c1d1428e85ded1592a28",
                 "shasum": ""
             },
             "type": "vm",
@@ -28,12 +27,12 @@
             ],
             "authors": [
                 {
-                    "name": "Jeff Geerling",
-                    "homepage": "http://www.jeffgeerling.com"
-                },
-                {
                     "name": "Oskar Schöldström",
                     "homepage": "http://oxy.fi"
+                },
+                {
+                    "name": "Jeff Geerling",
+                    "homepage": "https://www.jeffgeerling.com"
                 }
             ],
             "description": "A VM for local Drupal development, built with Vagrant + Ansible",
@@ -44,7 +43,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2017-04-01 12:22:15"
+            "time": "2019-01-03T16:19:18+00:00"
         }
     ],
     "packages-dev": [],
