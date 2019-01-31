@@ -386,7 +386,7 @@
         "Use new Transliteration functionality in core for file names (2492171)": "https://www.drupal.org/files/issues/2019-01-29/2492171-3-151.patch",
         "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/move_permission_view-273595-129.patch",
         "Temporary fix for \\Drupal\\Core\\Field\\FieldItemList::generateSampleItems (2905527)": "src/patches/2905527-temporary-fix-generate-sample-items.patch",
-        "This patch should not apply and should block": "https://www.drupal.org/files/issues/use_new_transliteration-2492171-51.patch"
+        "This patch should not apply and should block": "https://patch.not/found.patch"
       },
       "drupal/entity_reference_revisions": {
         "Allow entities to be generated if none exist (2910326)": "https://www.drupal.org/files/issues/entity_reference_revisions-stop_checking_for_entities_before_generating_sample-2910326-2.patch"
