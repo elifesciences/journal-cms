@@ -6,3 +6,9 @@ temporary_maximum_age: 21600
 _core:
   default_config_hash: t48gCU9DzYfjb3bAOIqHLzhL0ChBlXh6_5B5Pyo9t8g
 filename_transliteration: true
+filename_sanitization:
+  transliterate: true
+  replace_whitespace: '-'
+  remove_non_alpha_characters: true
+  dedupe_consecutive_separators: true
+  force_lowercase: true
