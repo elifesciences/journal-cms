@@ -38,9 +38,13 @@ hidden:
   field_person_affiliation: true
   field_person_affiliation_json: true
   field_person_competing: true
+  field_person_email: true
   field_person_id: true
   field_person_index_name: true
+  field_person_name_given: true
+  field_person_name_surname: true
   field_person_orcid: true
+  field_person_preferred_name: true
   field_person_profile: true
   field_person_profile_json: true
   field_person_type: true
