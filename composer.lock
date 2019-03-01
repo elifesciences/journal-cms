@@ -318,9 +318,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/autoembed/releases/autoembed_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/autoembed/releases/autoembed_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -332,9 +330,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/autolink/releases/autolink_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/autolink/releases/autolink_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -346,9 +342,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/balloonpanel/releases/balloonpanel_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/balloonpanel/releases/balloonpanel_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -360,9 +354,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/balloontoolbar/releases/balloontoolbar_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/balloontoolbar/releases/balloontoolbar_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -374,9 +366,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/codesnippet/releases/codesnippet_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/codesnippet/releases/codesnippet_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -388,9 +378,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/embedbase/releases/embedbase_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/embedbase/releases/embedbase_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -402,9 +390,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/fakeobjects/releases/fakeobjects_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/fakeobjects/releases/fakeobjects_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -416,9 +402,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/filetools/releases/filetools_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/filetools/releases/filetools_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -430,9 +414,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/link/releases/link_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/link/releases/link_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -444,9 +426,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/notificationaggregator/releases/notificationaggregator_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/notificationaggregator/releases/notificationaggregator_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -458,9 +438,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/sharedspace/releases/sharedspace_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/sharedspace/releases/sharedspace_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -472,9 +450,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/undo/releases/undo_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/undo/releases/undo_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -486,9 +462,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/uploadimage/releases/uploadimage_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/uploadimage/releases/uploadimage_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -500,9 +474,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/uploadwidget/releases/uploadwidget_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/uploadwidget/releases/uploadwidget_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -514,9 +486,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/widget/releases/widget_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/widget/releases/widget_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
