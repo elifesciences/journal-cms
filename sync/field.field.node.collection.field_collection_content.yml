@@ -10,6 +10,7 @@ dependencies:
     - node.type.digest
     - node.type.event
     - node.type.interview
+    - node.type.press_package
 id: node.collection.field_collection_content
 field_name: field_collection_content
 entity_type: node
@@ -29,6 +30,7 @@ settings:
       digest: digest
       event: event
       interview: interview
+      press_package: press_package
     sort:
       field: _none
     auto_create: false

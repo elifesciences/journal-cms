@@ -523,6 +523,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       'labs_experiment' => new LabsExperimentListRestResource([], 'labs_experiment_list_rest_resource', [], $this->serializerFormats, $this->logger),
       'podcast_episode' => new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger),
       'podcast_chapter' => new PodcastEpisodeItemRestResource([], 'podcast_episode_item_rest_resource', [], $this->serializerFormats, $this->logger),
+      'press_package' => new PressPackageItemRestResource([], 'press_package_item_rest_resource', [], $this->serializerFormats, $this->logger),
     ];
 
     $item_values = [

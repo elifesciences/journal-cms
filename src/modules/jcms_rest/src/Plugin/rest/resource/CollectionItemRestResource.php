@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class CollectionItemRestResource extends AbstractRestResourceBase {
-  protected $latestVersion = 2;
+  protected $latestVersion = 3;
 
   /**
    * Responds to GET requests.
@@ -105,6 +105,7 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
         $blog_article_rest_resource = new BlogArticleListRestResource([], 'blog_article_list_rest_resource', [], $this->serializerFormats, $this->logger);
         $event_rest_resource = new EventListRestResource([], 'event_list_rest_resource', [], $this->serializerFormats, $this->logger);
         $interview_rest_resource = new InterviewListRestResource([], 'interview_list_rest_resource', [], $this->serializerFormats, $this->logger);
+        $press_package_rest_resource = new PressPackageListRestResource([], 'press_package_list_rest_resource', [], $this->serializerFormats, $this->logger);
 
         foreach (['content' => 'field_collection_content', 'relatedContent' => 'field_collection_related_content'] as $k => $field) {
           foreach ($node->get($field)->referencedEntities() as $content) {
@@ -139,6 +140,13 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
                     }
                     $response[$k][] = $snippet;
                   }
+
+                case 'press_package':
+                  if ($this->acceptVersion < 3) {
+                    throw new JCMSNotAcceptableHttpException('This collection requires version 3+.');
+                  }
+                  $response[$k][] = ['type' => 'press-package'] + $press_package_rest_resource->getItem($content);
+                  break;
 
                 default:
               }
