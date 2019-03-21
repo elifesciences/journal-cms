@@ -7,7 +7,6 @@ elifePipeline {
 
     stage 'Project tests', {
         lock('journal-cms--ci') {
-            throw new RuntimeException("Intentional build failure")
             builderDeployRevision 'journal-cms--ci', commit
             builderProjectTests 'journal-cms--ci', '/srv/journal-cms', ['build/phpunit.xml']
         }
