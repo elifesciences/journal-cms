@@ -1463,3 +1463,28 @@ function jcms_migrate_update_8145() {
 function jcms_migrate_update_8146() {
   drush_invoke('resave-nodes', ['person']);
 }
+
+/**
+ * Amend content publication dates.
+ */
+function jcms_migrate_update_8147() {
+  $content = [
+    '0976e32a' => '2019-01-16',
+  ];
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+    ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
+    ->condition('type', 'interview');
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $id = substr($node->uuid(), -8);
+      $current = $node->getCreatedTime();
+      $node->set('created', strtotime($content[$id] . ' ' . date('H:i:s', $current)));
+      $node->save();
+    }
+  }
+}
