@@ -22,43 +22,13 @@ CKEDITOR.dialog.add('elifeButtonDialog', function(editor) {
             }
           },
           {
-            type: 'hbox',
-            widths: [ '25%', '75%'],
-            children: [
-              {
-                type: 'select',
-                id: 'linkproto',
-                label: 'Link protocol',
-                items: [ [ 'http://' ], [ 'https://' ], [ 'other' ] ],
-                'default': 'http://',
-                setup: function(element) {
-                  var uri_parts = element.getAttribute("data-href").split('://');
-                  console.log(uri_parts.length);
-                  if (uri_parts.length > 1) {
-                    this.setValue(uri_parts[0] + '://');
-                  }
-                  else {
-                    this.setValue('other');
-                  }
-                }
-              },
-              {
-                type: 'text',
-                id: 'linklink',
-                label: 'Button link',
-                validate: CKEDITOR.dialog.validate.notEmpty("The link for the button."),
-                setup: function(element) {
-                  var uri_parts = element.getAttribute("data-href").split('://');
-                  console.log(uri_parts);
-                  if (uri_parts.length > 1) {
-                    this.setValue(uri_parts[1]);
-                  }
-                  else {
-                    this.setValue(uri_parts[0]);
-                  }
-                }
-              }
-            ]
+            type: 'text',
+            id: 'buttonlink',
+            label: 'Button link',
+            validate: CKEDITOR.dialog.validate.notEmpty("The link for the button."),
+            setup: function(element) {
+              this.setValue(element.getAttribute("data-href"));
+            }
           }
         ]
       }
@@ -87,7 +57,7 @@ CKEDITOR.dialog.add('elifeButtonDialog', function(editor) {
       var button = this.element;
       this.commitContent(button);
 
-      button.setAttribute('data-href', dialog.getValueOf('options', 'linkproto') + dialog.getValueOf('options', 'linklink'));
+      button.setAttribute('data-href', dialog.getValueOf('options', 'buttonlink'));
       button.addClass('elife-button--default');
       
       if (this.insertMode) {
