@@ -166,11 +166,11 @@ class HtmlJsonSerializerTest extends UnitTestCase {
           [
             'type' => 'table',
             'tables' => [
-              '<table><tr><td>Cell one</td></tr></table>',
+              '<table><tr><td>Cell ône</td></tr></table>',
             ],
           ],
         ],
-        '<table><tr><td>Cell one</td></tr></table>',
+        '<table><tr><td>Cell ône</td></tr></table>',
       ],
       'simple image' => [
         [

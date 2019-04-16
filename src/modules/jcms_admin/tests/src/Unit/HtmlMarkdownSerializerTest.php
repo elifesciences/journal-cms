@@ -97,11 +97,11 @@ class HtmlMarkdownSerializerTest extends UnitTestCase {
       'multiple tables' => [
         $this->lines([
           '<table><tr><td>Cell one</td></tr></table>',
-          '<table><tr><td>Cell two</td></tr></table>',
+          '<table><tr><td>Cell twö</td></tr></table>',
         ], 2),
         $this->lines([
           '<table><tr><td>Cell one</td></tr></table>',
-          '<table><tr><td>Cell two</td></tr></table>',
+          '<table><tr><td>Cell twö</td></tr></table>',
         ], 2),
       ],
       'table multiple lines' => [
