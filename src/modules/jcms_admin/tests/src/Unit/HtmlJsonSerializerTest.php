@@ -172,6 +172,17 @@ class HtmlJsonSerializerTest extends UnitTestCase {
         ],
         '<table><tr><td>Cell one</td></tr></table>',
       ],
+      'single table with special characters' => [
+        [
+          [
+            'type' => 'table',
+            'tables' => [
+              '<table><tr><td>Cell oné</td></tr></table>',
+            ],
+          ],
+        ],
+        '<table><tr><td>Cell oné</td></tr></table>',
+      ],
       'simple image' => [
         [
           [

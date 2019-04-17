@@ -94,6 +94,10 @@ class HtmlMarkdownSerializerTest extends UnitTestCase {
         '<table><tr><td>Cell one</td></tr></table>',
         '<table><tr><td>Cell one</td></tr></table>',
       ],
+      'single table with special characters' => [
+        '<table><tr><td>Cell oné</td></tr></table>',
+        '<table><tr><td>Cell oné</td></tr></table>',
+      ],
       'multiple tables' => [
         $this->lines([
           '<table><tr><td>Cell one</td></tr></table>',
