@@ -101,6 +101,12 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
     if ($node instanceof Heading && $rendered = $this->htmlRenderer->renderBlock($node)) {
       $depthOffset = $this->getDepthOffset();
       $heading = (int) preg_replace('/^h([1-5])$/', '$1', $rendered->getTagName());
+      $title = $this->prepareOutput($rendered->getContents(), $context);
+
+      if (empty($title)) {
+        return [];
+      }
+
       if (is_null($depthOffset) || $heading === 1) {
         $depthOffset = 1 - $heading;
         $this->setDepthOffset($depthOffset, ($heading === 1));
@@ -111,7 +117,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
 
       return [
         'type' => 'section',
-        'title' => $this->prepareOutput($rendered->getContents(), $context),
+        'title' => $title,
         'depth' => $depth,
       ];
     }

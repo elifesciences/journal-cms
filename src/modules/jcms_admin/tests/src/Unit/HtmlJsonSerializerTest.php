@@ -686,6 +686,10 @@ class HtmlJsonSerializerTest extends UnitTestCase {
                 'type' => 'paragraph',
                 'text' => 'Nominees will be asked to provide a short (~200-word) statement that describes their vision for how different approaches to research communication might improve the career development of early-stage researchers, why they are enthusiastic to join, and how they would contribute to the work of the ECAG.',
               ],
+              [
+                'type' => 'paragraph',
+                'text' => 'Paragraph under empty section heading.',
+              ],
             ],
           ],
         ],
@@ -709,6 +713,8 @@ class HtmlJsonSerializerTest extends UnitTestCase {
           '<p>Individuals meeting the criteria set above may nominate themselves through <a href="https://crm.elifesciences.org/crm/node/35">the nominations form</a>. During the process they will be asked to confirm their details in relation to the criteria set by eLife.</p>' . PHP_EOL,
           '<p>&nbsp;</p>' . PHP_EOL,
           '<p>Nominees will be asked to provide a short (~200-word) statement that describes their vision for how different approaches to research communication might improve the career development of early-stage researchers, why they are enthusiastic to join, and how they would contribute to the work of the ECAG.</p>',
+          '<h2></h2>',
+          '<p>Paragraph under empty section heading.</p>',
         ]),
       ],
       'bold edge-case' => [
