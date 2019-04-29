@@ -341,7 +341,7 @@
     "drupal/drupal": "*"
   },
   "config": {
-    "platform": {"php": "7.2.17"}
+    "platform": {"php": "7.0.17"}
   },
   "autoload": {
     "classmap": [
