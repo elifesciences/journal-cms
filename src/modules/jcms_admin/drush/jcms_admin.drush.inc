@@ -25,6 +25,17 @@ function jcms_admin_drush_command() {
         'drush jcms-transfer-content 123' => 'Transfer HTML from content to content preview for node with ID 123.',
       ],
     ],
+    'jcms-profile-orcid' => [
+      'description' => 'update a profile with the orcid ID',
+      'drupal dependencies' => ['jcms_admin'],
+      'arguments' => [
+        'id' => 'ID of profile.',
+        'orcid' => 'ORCID ID',
+      ],
+      'examples' => [
+        'drush jcms-profile-orcid 3ec1c7f1 0000-0001-8615-6409' => 'Set the ORCID ID to 0000-0001-8615-6409 for the profile with ID 3ec1c7f1',
+      ],
+    ],
   ];
 }
 
@@ -37,4 +48,35 @@ function drush_jcms_migrate_jcms_transfer_content(int $nid) {
   $node = \Drupal::service('jcms_admin.transfer_content')->transfer($node, $to_live);
   $node->save();
   drush_print(dt('Transfer complete!'));
+}
+
+/**
+ * Callback function drush_jcms_admin_jcms_profile_orcid().
+ */
+function drush_jcms_admin_jcms_profile_orcid(string $id, string $orcid) {
+  if (!preg_match('/^0000\-000(1\-[5-9]|2\-[0-9]|3\-[0-4])\d{3}\-\d{3}[\dX]$/', $orcid)) {
+    drush_print(dt('Invalid ORCID ID detected: :orcid', [':orcid' => $orcid]));
+  }
+  else {
+    $query = \Drupal::entityQuery('node')
+      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+      ->condition('type', 'person')
+      ->condition('uuid', '%' . $id, 'LIKE');
+
+    $nids = $query->execute();
+    if ($nids) {
+      $nid = reset($nids);
+      $node = Node::load($nid);
+      $node->set('field_person_orcid', $orcid);
+      $node->save();
+      drush_print(dt('Profile updated! (:id, ":title", :orcid)', [
+        ':id' => $id,
+        ':title' => $node->getTitle(),
+        ':orcid' => $orcid,
+      ]));
+    }
+    else {
+      drush_print(dt('No profile found: (:id)', [':id' => $id]));
+    }
+  }
 }
