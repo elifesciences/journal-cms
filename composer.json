@@ -290,7 +290,7 @@
     "drupal/diff": "^1.0@RC",
     "embed/embed": "^3.0",
     "drupal/devel": "^1.2",
-    "drupal/core": "~8.4",
+    "drupal/core": "^8.7",
     "drupal/monolog": "^1.0@alpha",
     "monolog/monolog": "~1.6",
     "drupal/country": "^1.0@beta",
@@ -304,8 +304,6 @@
     "symfony/serializer": "^3.4",
     "league/html-to-markdown": "^4.7",
     "paquettg/php-html-parser": "^1.7",
-    "drupal/jsonapi": "^1.22",
-    "drupal/jsonapi_file": "1.x-dev",
     "ckeditor/autoembed": "^4.9",
     "ckeditor/autolink": "^4.9",
     "ckeditor/balloonpanel": "^4.9",
@@ -327,7 +325,9 @@
     "justinrainbow/json-schema": "^5.2",
     "mindplay/composer-locator": "^2.1",
     "drupal/duration_field": "^1.6",
-    "ckeditor/codesnippet": "^4.9"
+    "ckeditor/codesnippet": "^4.9",
+    "drupal/file_entity": "~2.0-beta6",
+    "egulias/email-validator": "^2.1"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",
@@ -383,11 +383,10 @@
     },
     "patches": {
       "drupal/core": {
-        "View output is not used for autocomplete display (2174633)": "https://www.drupal.org/files/issues/2174633-198.patch",
-        "Use new Transliteration functionality in core for file names (2492171)": "https://www.drupal.org/files/issues/2019-03-20/2492171-279.patch",
-        "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/move_permission_view-273595-129.patch",
-        "Temporary fix for \\Drupal\\Core\\Field\\FieldItemList::generateSampleItems (2905527)": "src/patches/2905527-temporary-fix-generate-sample-items.patch",
-        "Updating Drupal 8.6.x to twig 1.40.0 causes twig exceptions": "https://www.drupal.org/files/issues/2019-04-29/3051269-45.patch"
+        "View output is not used for autocomplete display (2174633)": "https://www.drupal.org/files/issues/2019-07-08/view-output-is-not-used-for-entityreference-options-2174633-311.patch",
+        "Use new Transliteration functionality in core for file names (2492171)": "https://www.drupal.org/files/issues/2019-05-04/2492171-285.patch",
+        "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/2019-05-08/273595-160.patch",
+        "Temporary fix for \\Drupal\\Core\\Field\\FieldItemList::generateSampleItems (2905527)": "src/patches/2905527-temporary-fix-generate-sample-items.patch"
       },
       "drupal/entity_reference_revisions": {
         "Allow entities to be generated if none exist (2910326)": "https://www.drupal.org/files/issues/entity_reference_revisions-stop_checking_for_entities_before_generating_sample-2910326-2.patch"
@@ -403,6 +402,9 @@
       },
       "drupal/scheduler": {
         "Notice: Undefined index: unpublish_on in scheduler_form_node_form_alter() (line 181 of modules/contrib/scheduler/scheduler.module (2983667)": "https://www.drupal.org/files/issues/2018-09-18/2983667-4.patch"
+      },
+      "drupal/file_entity" : {
+        "D8.6 file rest upload PluginNotFoundException error": "https://www.drupal.org/files/issues/2018-07-11/file-rest-upload-pluginnotfoundexception-error-2959947-8.patch"
       }
     }
   }

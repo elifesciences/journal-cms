@@ -226,14 +226,14 @@
               var content = bodyEditor.getData();
               if ($.trim(content).length === 0) {
                 // if we are left with an empty string 
-                // reinstace placeholder
+                // reinstate placeholder
                 bodyEditor.setData('<p><placeholder>' + settings.placeholder + '</placeholder></p>');
               }
               images = editable.find('img');
               var fids = [], extraOptions;
               for (var i = 0; i < images.count(); i++) {
-                var fid = images.getItem(i).data('fid');
-                if (fid) fids.push({target_id: fid});
+                var fid = images.getItem(i).data('uuid');
+                if (fid) fids.push({type: 'file--image', id: fid});
               }
               data = {
                 data: {
@@ -243,8 +243,12 @@
                     field_content_html_preview: {
                       value: bodyEditor.getData(),
                       format: 'ckeditor_html'
-                    },
-                    field_content_images_preview: fids
+                    }
+                  },
+                  relationships: {
+                    field_content_images_preview: {
+                      data: fids
+                    }
                   }
                 }            
               };
