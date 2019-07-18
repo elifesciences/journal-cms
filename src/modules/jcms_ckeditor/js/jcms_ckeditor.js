@@ -98,7 +98,7 @@
             {"name":"codesnippet","groups":["codesnippet"]},
             {"name": "styles"}
           ],
-          imageUploadUrl: '/jsonapi/file/image',
+          imageUploadUrl: url + '/field_content_images_preview',
           removeButtons: 'Underline,Strike,Anchor,SpecialChar,HorizontalRule,ImageAlignLeft,ImageAlignRight,ImageFullWidth,Styles',
           image2_alignClasses: ['align-left', 'align-center', 'profile-left'],
           image2_disableResizer: true,
@@ -152,12 +152,12 @@
             //bodyEditor.removeMenuItem('copy');
             bodyEditor.removeMenuItem('image');
             
-            // Insert a figure widget when image is uploaded with fid and uuid
+            // Insert a figure widget when image is uploaded with uuid
             bodyEditor.widgets.registered.uploadimage.onUploaded = function(upload) {
               this.replaceWith( '<figure class="image"><img src="' + upload.url + '" ' +
                 'width="' + upload.responseData.width + '" ' +
                 'height="' + upload.responseData.height + '" ' +
-                'data-fid="' + upload.responseData.fid + '" ' +
+                //'data-fid="' + upload.responseData.fid + '" ' +
                 'data-uuid="' + upload.responseData.uuid + '">' +
                 '<figcaption>Caption</figcaption></figure>');
               // force images list to be rebuilt
@@ -187,6 +187,7 @@
                     method: 'DELETE',
                     dataType: 'json',
                     contentType: 'application/vnd.api+json',
+                    headers: {'X-CSRF-Token': ajaxOptions.headers['X-CSRF-Token']},
                     url: '/jsonapi/file/image/' + deletedIds[i]
                   });
                 }
@@ -230,10 +231,20 @@
                 bodyEditor.setData('<p><placeholder>' + settings.placeholder + '</placeholder></p>');
               }
               images = editable.find('img');
-              var fids = [], extraOptions;
+              var image_fields = [], image_field, image;
               for (var i = 0; i < images.count(); i++) {
-                var fid = images.getItem(i).data('uuid');
-                if (fid) fids.push({type: 'file--image', id: fid});
+                image = images.getItem(i);
+                if (image.data('uuid')) {
+                  image_field = {
+                    id: image.data('uuid'),
+                    type: 'file--image',
+                    meta: {
+                      height: image.data('height'),
+                      width: image.data('width'),
+                    }
+                  }
+                  image_fields.push(image_field);
+                }
               }
               data = {
                 data: {
@@ -246,13 +257,11 @@
                     }
                   },
                   relationships: {
-                    field_content_images_preview: {
-                      data: fids
-                    }
+                    field_content_images_preview: {data: image_fields}
                   }
                 }            
               };
-              extraOptions = {
+              var extraOptions = {
                 data: JSON.stringify(data),  
                 error: saveError
               };
@@ -273,24 +282,20 @@
             
             // Save image in backend when receive upload request
             bodyEditor.on('fileUploadRequest', function(e) {
-              var image = e.data.fileLoader.data.split(',');
+              var fileLoader = e.data.fileLoader;
+              var image = fileLoader.data.split(',');
               if (image[0] === 'data:image/jpeg;base64' ||
                   image[0] === 'data:image/png;base64') {
-                data = {
-                  data: {
-                    type: "file--image",
-                    attributes: {
-                      data: image[1],
-                      uri: 'public://' + settings.imageFileDirectory + '/' + e.data.fileLoader.fileName.replace(/[^0-9a-z_\.]+/gi, '-').toLowerCase()
-                    }
-                  }            
-                };
-                var xhr = e.data.fileLoader.xhr;
 
-                xhr.setRequestHeader('Content-Type', 'application/vnd.api+json');
+                //data = image[1];
+                data = b64toBlob(image[1]);
+                var xhr = fileLoader.xhr;
+
+                xhr.setRequestHeader('Content-Type', 'application/octet-stream');
                 xhr.setRequestHeader('Accept', 'application/vnd.api+json');
                 xhr.setRequestHeader('X-CSRF-Token', ajaxOptions.headers['X-CSRF-Token']);
-                xhr.send(JSON.stringify(data));
+                xhr.setRequestHeader('Content-Disposition', 'file; filename="' + fileLoader.fileName + '"');
+                xhr.send(data);
 
                 // Prevent the default behavior.
                 e.stop();
@@ -306,18 +311,25 @@
               e.stop();
 
               // Get XHR and response.
-              var data = e.data, xhr = data.fileLoader.xhr;
+              var data = e.data,
+                fileLoader = data.fileLoader,
+                xhr = fileLoader.xhr;
 
-              if (xhr.status == 201) { 
+              if (xhr.status == 200) { 
                 // New file created so set attributes so they are
                 // available to the editor
                 var response = JSON.parse(xhr.responseText);
-                var attr = response.data.attributes;
-                data.url = attr.url;
-                data.fid = attr.fid;
-                data.uuid = attr.uuid;
-                data.width = attr.field_image_width;
-                data.height = attr.field_image_height;
+                for (var i in response.data) {
+                  var attr = response.data[i].attributes;
+                  if (attr.filename == fileLoader.fileName) {
+                    data.url = attr.uri.url;
+                    //data.fid = attr.drupal_internal__fid;
+                    data.uuid = response.data[i].id;
+                    data.width = attr.field_image_width;
+                    data.height = attr.field_image_height;
+                    break;
+                  }
+                }
               } else {
                 // File upload error
                 e.cancel();
@@ -382,6 +394,26 @@
           });
         });
       }
+      
+      const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+          const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+
+          const byteArray = new Uint8Array(byteNumbers);
+          byteArrays.push(byteArray);
+        }
+
+        const blob = new Blob(byteArrays, {type: contentType});
+        return blob;
+      };
       
     }
     
