@@ -72,8 +72,7 @@ function jcms_ckeditor_preprocess_page(array &$variables) {
       $variables['top_left_links'] = [
         '#theme' => 'item_list',
         '#items' => [
-          Link::fromTextAndUrl(t('Create post'), Url::fromRoute('entity.node.edit_form', ['node' => $node->id()])),
-          t('Editor'),
+          Link::fromTextAndUrl(t('Save & Close'), Url::fromRoute('<none>')->setOption('attributes', ['class' => 'save-button'])),
         ],
       ];
       $journal_path = Settings::get('journal_path');
@@ -83,12 +82,12 @@ function jcms_ckeditor_preprocess_page(array &$variables) {
         $items[] = Link::fromTextAndUrl(t('View published'), Url::fromUri($journal_path . \Drupal::service('jcms_admin.content_path')->create($node))->setOption('attributes', ['target' => '_blank', 'class' => 'preview-link']));
       }
       if ($journal_preview) {
-        $items[] = Link::fromTextAndUrl(t('View draft'), Url::fromUri(Settings::get('journal_preview') . \Drupal::service('jcms_admin.content_path')->create($node))->setOption('attributes', ['target' => '_blank', 'class' => 'preview-link']));
+        $items[] = Link::fromTextAndUrl(t('Preview'), Url::fromUri(Settings::get('journal_preview') . \Drupal::service('jcms_admin.content_path')->create($node))->setOption('attributes', ['target' => '_blank', 'class' => 'preview-link']));
       }
       if ($node->isPublished()) {
-        $items[] = Link::fromTextAndUrl(t('Discard draft'), Url::fromRoute('jcms_admin.reset_content', ['node' => $node->id()])->setOptions(['attributes' => ['class' => 'discard-button']]));
+        $items[] = Link::fromTextAndUrl(t('Reset to published'), Url::fromRoute('jcms_admin.reset_content', ['node' => $node->id()])->setOptions(['attributes' => ['class' => 'discard-button']]));
       }
-      $items[] = Link::fromTextAndUrl(t('Save draft'), Url::fromRoute('<none>')->setOption('attributes', ['class' => 'save-button']));
+      $items[] = Link::fromTextAndUrl(t('Publish/Update'), Url::fromRoute('<none>')->setOption('attributes', ['class' => 'publish-button']));
       $variables['top_right_links'] = [
         '#theme' => 'item_list',
         '#items' => $items,

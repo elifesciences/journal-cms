@@ -195,11 +195,35 @@
               images = editable.find('img');
             });
 
-            // Callback if save is successful
+            // Callback if publish/save is successful
             var saveSuccess = function(response, status) {
-              var msg = Drupal.t('Save successful');
-              notification.update({message: msg, duration: 3000, type: 'info'});
-              notification.show();
+              // Delay validation by 1s because of recent save
+              setTimeout(function(){
+                $.ajax({
+                  method: 'GET',
+                  url: '/validate/' + uuid.substring(uuid.length - 8),
+                  success: function(response) {
+                    if (response.validated) {
+                      var msg = Drupal.t('Content has been published.');
+                      notification.update({message: msg, duration: 3000, type: 'info'});
+                      notification.show();
+                    } else {
+                      var msg = Drupal.t('Content validation failed. Content will NOT be published.');
+                      notification.update({message: msg, duration: 3000, type: 'info'});
+                      notification.show();
+                    }
+                  },
+                  error: function(xhr, status, error) {
+                    var msg = Drupal.t('Content publication failed');
+                    if (xhr && xhr.responseJSON && xhr.responseJSON.errors[0]) {
+                      var err = xhr.responseJSON.errors[0];
+                      msg += '<br>' + err.title + ': ' + err.detail;
+                    }
+                    notification.update({message: msg, duration: 0, type: 'warning'});
+                    notification.show();
+                  }
+                });
+              }, 1000);
             };
 
             // Callback if autosave is successful
@@ -207,6 +231,18 @@
               var msg = Drupal.t('Auto save successful');
               notification.update({message: msg, duration: 3000, type: 'info'});
               notification.show();
+            };
+
+            // Callback if save and redirect to edit (close)
+            var saveCloseSuccess = function(response, status) {
+              var msg = Drupal.t('Save successful');
+              notification.update({message: msg, duration: 3000, type: 'info'});
+              notification.show();
+              var href = window.location.href;
+              if (href.match(/node\/[0-9]+/i)) {
+                // Redirect after 1 sec to avoid race condition with node just being saved
+                setTimeout(function(){window.location.href = href + "/edit";}, 1000);
+              }
             };
             
             // Callback if autosave fails
@@ -341,13 +377,22 @@
               saveBodyEditor(false);
             });
             
+            // Save and close button just saves the current text
             $('.save-button').once('save').each(function(){
+              $(this).click(function(event){
+                event.preventDefault();
+                saveBodyEditor(saveCloseSuccess);
+              });
+            });
+            
+            // Publish button just saves the current text
+            $('.publish-button').once('publish').each(function(){
               $(this).click(function(event){
                 event.preventDefault();
                 saveBodyEditor(saveSuccess);
               });
             });
-
+            
             $('.discard-button').once('discard').each(function(){
               $(this).click(function(event){
                 if (!confirm('You are about to discard your changes?')) {
