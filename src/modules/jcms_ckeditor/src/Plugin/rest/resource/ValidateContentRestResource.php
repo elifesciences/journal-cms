@@ -2,12 +2,12 @@
 
 namespace Drupal\jcms_ckeditor\Plugin\rest\resource;
 
-use Drupal\rest\Plugin\ResourceBase;
-use Drupal\rest\ResourceResponse;
-use Psr\Log\LoggerInterface;
 use Drupal\node\Entity\Node;
 use eLife\ApiValidator\Exception\InvalidMessage;
 use Drupal\jcms_rest\Plugin\rest\resource\AbstractRestResourceBase;
+use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
 * Provides an rest resource to validate content
@@ -24,12 +24,16 @@ class ValidateContentRestResource extends AbstractRestResourceBase {
           
   /**
    * Responds to GET requests.
+   * 
+   * Returns a indication of whether current preview content for given
+   * node validates. If it does it is published.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+   *   Throws exception expected.
    */
   public function get(string $id) {
     
-    $validated = FALSE;
+    $response['validated'] = FALSE;
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
         ->condition('changed', \Drupal::time()->getRequestTime(), '<')
@@ -44,7 +48,7 @@ class ValidateContentRestResource extends AbstractRestResourceBase {
         
         try {
           $json = $validator->validate($node, TRUE);
-          $validated = TRUE;
+          $response['validated'] = TRUE;
           // Save and publish node
           _jcms_admin_static_store('ckeditor_transfer_content_' . $node->id(), TRUE);
           $node->save();
@@ -53,17 +57,14 @@ class ValidateContentRestResource extends AbstractRestResourceBase {
           
         }
       }
+      
+      $response = new JCMSRestResponse($response, Response::HTTP_OK);
+      $response->addCacheableDependency($node);
+      $this->processResponse($response);
+      return $response;
     }
     
-    // Configure caching settings.
-    $build = [
-      '#cache' => [
-        'max-age' => 0,
-      ],
-    ];
-
-    return (new ResourceResponse(['validated' => $validated], 200))->addCacheableDependency($build);
-  
+    throw new JCMSNotFoundHttpException(t('Node with ID @id was not found so could not be validated', ['@id' => $id]));
   }
   
 }
