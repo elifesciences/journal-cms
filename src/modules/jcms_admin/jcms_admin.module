@@ -580,7 +580,7 @@ function jcms_admin_node_presave(NodeInterface $node) {
     if ($iiif = Settings::get('jcms_iiif_base_uri')) {
       $normalizer_context['iiif'] = $iiif;
     }
-    if (($node_published && !$orig_published)) {
+    if (($node_published && !$orig_published) || _jcms_admin_static_store('ckeditor_transfer_content_' . $node->id())) {
       if ($node_published && !$orig_published) {
         $validate = TRUE;
         $context = [

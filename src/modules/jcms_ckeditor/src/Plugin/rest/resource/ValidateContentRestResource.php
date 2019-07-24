@@ -45,6 +45,9 @@ class ValidateContentRestResource extends AbstractRestResourceBase {
         try {
           $json = $validator->validate($node, TRUE);
           $validated = TRUE;
+          // Save and publish node
+          _jcms_admin_static_store('ckeditor_transfer_content_' . $node->id(), TRUE);
+          $node->save();
         }
         catch (InvalidMessage $message) {
           
