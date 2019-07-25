@@ -4,6 +4,10 @@
 (function ($) {
   'use strict';
 
+  const VALIDATE = 1;
+  const PUBLISH = 2;
+  const VALIDATE_AND_PUBLISH = 3;
+  
   Drupal.behaviors.inlineEditor = {
     attach: function(context, settings) {
 
@@ -201,12 +205,13 @@
               setTimeout(function(){
                 $.ajax({
                   method: 'GET',
-                  url: '/validate/' + uuid.substring(uuid.length - 8),
+                  url: '/validate-publish/' + VALIDATE_AND_PUBLISH + '/' + uuid.substring(uuid.length - 8),
                   success: function(response) {
-                    if (response.validated) {
+                    if (response.validated && response.published) {
                       var msg = Drupal.t('Content has been published.');
                       notification.update({message: msg, duration: 3000, type: 'info'});
                       notification.show();
+                      setTimeout(function(){window.location.reload();}, 1000);
                     } else {
                       var msg = Drupal.t('Content validation failed. Content will NOT be published.');
                       notification.update({message: msg, duration: 3000, type: 'info'});
@@ -218,6 +223,9 @@
                     if (xhr && xhr.responseJSON && xhr.responseJSON.errors[0]) {
                       var err = xhr.responseJSON.errors[0];
                       msg += '<br>' + err.title + ': ' + err.detail;
+                    }
+                    else if (xhr && xhr.responseText) {
+                      msg += '<br>' + xhr.responseText;
                     }
                     notification.update({message: msg, duration: 0, type: 'warning'});
                     notification.show();
@@ -251,6 +259,9 @@
               if (xhr && xhr.responseJSON && xhr.responseJSON.errors[0]) {
                 var err = xhr.responseJSON.errors[0];
                 msg += '<br>' + err.title + ': ' + err.detail;
+              }
+              else if (xhr && xhr.responseText) {
+                msg += '<br>' + xhr.responseText;
               }
               notification.update({message: msg, duration: 0, type: 'warning'});
               notification.show();
@@ -326,11 +337,12 @@
                 //data = image[1];
                 data = b64toBlob(image[1]);
                 var xhr = fileLoader.xhr;
-
+                var filename = fileLoader.fileName.replace(' ', '_');
+                
                 xhr.setRequestHeader('Content-Type', 'application/octet-stream');
                 xhr.setRequestHeader('Accept', 'application/vnd.api+json');
                 xhr.setRequestHeader('X-CSRF-Token', ajaxOptions.headers['X-CSRF-Token']);
-                xhr.setRequestHeader('Content-Disposition', 'file; filename="' + fileLoader.fileName + '"');
+                xhr.setRequestHeader('Content-Disposition', 'file; filename="' + filename + '"');
                 xhr.send(data);
 
                 // Prevent the default behavior.
@@ -357,7 +369,7 @@
                 var response = JSON.parse(xhr.responseText);
                 for (var i in response.data) {
                   var attr = response.data[i].attributes;
-                  if (attr.filename == fileLoader.fileName) {
+                  if (attr.filename == fileLoader.fileName.replace(' ', '_')) {
                     data.url = attr.uri.url;
                     //data.fid = attr.drupal_internal__fid;
                     data.uuid = response.data[i].id;
