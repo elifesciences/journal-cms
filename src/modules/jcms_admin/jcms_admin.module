@@ -615,15 +615,17 @@ function jcms_admin_entity_presave(EntityInterface $entity) {
  *   An array of profile ids.
  */
 function _jcms_admin_profiles_from_focuses_organisms($vocabulary, $term) {
-  $research_details = Database::getConnection()->select('node__field_research_details', 'rd');
-  $research_details->addField('rd', 'entity_id', 'person_nid');
-  $research_details->addField('rd', 'field_research_details_target_id', 'research_details_id');
-  $research_details->innerJoin('paragraph__field_' . $vocabulary, 'rt', 'rt.entity_id = rd.field_research_details_target_id');
-  $research_details->condition('rt.field_' . $vocabulary . '_target_id', $term);
-  $research_details->condition('rd.bundle', 'person');
-  $people = $research_details->execute()->fetchAllAssoc('person_nid');
-  if ($people) {
-    return array_keys($people);
+  if (in_array($vocabulary, ['research_focuses', 'research_organisms'])) {
+    $research_details = Database::getConnection()->select('node__field_research_details', 'rd');
+    $research_details->addField('rd', 'entity_id', 'person_nid');
+    $research_details->addField('rd', 'field_research_details_target_id', 'research_details_id');
+    $research_details->innerJoin('paragraph__field_' . $vocabulary, 'rt', 'rt.entity_id = rd.field_research_details_target_id');
+    $research_details->condition('rt.field_' . $vocabulary . '_target_id', $term);
+    $research_details->condition('rd.bundle', 'person');
+    $people = $research_details->execute()->fetchAllAssoc('person_nid');
+    if ($people) {
+      return array_keys($people);
+    }
   }
 
   return [];
