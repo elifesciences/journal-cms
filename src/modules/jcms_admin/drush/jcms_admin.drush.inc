@@ -5,6 +5,7 @@
  * Drush commands for the module.
  */
 
+use Drupal\Core\Database\Database;
 use Drupal\node\Entity\Node;
 
 /**
@@ -34,6 +35,19 @@ function jcms_admin_drush_command() {
       ],
       'examples' => [
         'drush jcms-profile-orcid 3ec1c7f1 0000-0001-8615-6409' => 'Set the ORCID ID to 0000-0001-8615-6409 for the profile with ID 3ec1c7f1',
+      ],
+    ],
+    'jcms-profile-notify' => [
+      'description' => 'trigger re-save of profiles',
+      'drupal dependencies' => ['jcms_admin'],
+      'options' => [
+        'focus' => 'filter by research focus',
+        'organism' => 'filter by research organism',
+      ],
+      'examples' => [
+        'drush jcms-profile-notify' => 'Re-save all profiles to trigger notifications',
+        'drush jcms-profile-notify --focus="<i>Sulfolobus</i>"' => 'Re-save all profiles to trigger notifications with focus "<i>Sulfolobus</i>"',
+        'drush jcms-profile-notify --organism="amphibians"' => 'Re-save all profiles to trigger notifications with organism "amphibians"',
       ],
     ],
   ];
@@ -77,6 +91,66 @@ function drush_jcms_admin_jcms_profile_orcid(string $id, string $orcid) {
     }
     else {
       drush_print(dt('No profile found: (:id)', [':id' => $id]));
+    }
+  }
+}
+
+/**
+ * Callback function drush_jcms_migrate_jcms_profile_notify().
+ */
+function drush_jcms_migrate_jcms_profile_notify() {
+  $verbose = drush_get_context('DRUSH_VERBOSE');
+  $focus = drush_get_option('focus');
+  $organism = drush_get_option('organism');
+
+  foreach (['focus', 'organism'] as $i) {
+    if (!is_string(${$i}) || empty(${$i})) {
+      ${$i} = NULL;
+    }
+  }
+
+  $profiles = [];
+
+  $load_profiles = function ($type, $value) {
+    $tid = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', $type)
+      ->condition('name', $value)
+      ->execute();
+
+    return _jcms_admin_profiles_from_focuses_organisms($type, $tid);
+  };
+
+  if ($focus) {
+    $profiles = $load_profiles('research_focuses', $focus);
+  }
+  elseif ($organism) {
+    $profiles = $load_profiles('research_organisms', $organism);
+  }
+  else {
+    $people = \Drupal::entityQuery('node')
+      ->condition('type', 'person')
+      ->execute();
+    if ($people) {
+      $profiles = array_values($people);
+    }
+  }
+
+  $nodes = Node::loadMultiple($profiles);
+  if (!empty($nodes)) {
+    drush_print(dt('Processing !count profile(s)', [
+      '!count' => count($nodes),
+    ]));
+    foreach ($nodes as $node) {
+      if ($verbose) {
+        // This is useful if content needs to be manually reassigned.
+        drush_print(dt(':type: :title (/node/!nid)', [
+          ':type' => $node->bundle(),
+          ':title' => $node->getTitle(),
+          '!nid' => $node->id(),
+        ]));
+      }
+      $node->setChangedTime(\Drupal::time()->getRequestTime());
+      $node->save();
     }
   }
 }
