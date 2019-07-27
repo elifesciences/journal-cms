@@ -5,7 +5,6 @@
  * Drush commands for the module.
  */
 
-use Drupal\Core\Database\Database;
 use Drupal\node\Entity\Node;
 
 /**
