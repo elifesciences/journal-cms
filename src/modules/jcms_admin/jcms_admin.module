@@ -605,16 +605,8 @@ function jcms_admin_entity_presave(EntityInterface $entity) {
 
 /**
  * Return array of profiles from vocabulary and term.
- *
- * @param string $vocabulary
- *   Machine name of vocabulary.
- * @param int $term
- *   Term id.
- *
- * @return array
- *   An array of profile ids.
  */
-function _jcms_admin_profiles_from_focuses_organisms($vocabulary, $term) {
+function _jcms_admin_profiles_from_focuses_organisms(string $vocabulary, int $term) : array {
   if (in_array($vocabulary, ['research_focuses', 'research_organisms'])) {
     $research_details = Database::getConnection()->select('node__field_research_details', 'rd');
     $research_details->addField('rd', 'entity_id', 'person_nid');
