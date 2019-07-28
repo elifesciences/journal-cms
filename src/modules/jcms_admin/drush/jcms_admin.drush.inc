@@ -116,7 +116,7 @@ function drush_jcms_migrate_jcms_profile_notify() {
       ->condition('name', $value)
       ->execute();
 
-    return _jcms_admin_profiles_from_focuses_organisms($type, $tid);
+    return !empty($tid) ? _jcms_admin_profiles_from_focuses_organisms($type, $tid) : [];
   };
 
   if ($focus) {
