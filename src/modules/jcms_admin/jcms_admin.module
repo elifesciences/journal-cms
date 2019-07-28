@@ -593,7 +593,7 @@ function jcms_admin_node_insert(EntityInterface $entity) {
  * Implements hook_entity_presave().
  */
 function jcms_admin_entity_presave(EntityInterface $entity) {
-  if ($entity->getEntityType()->id() === 'taxonomy_term') {
+  if ($entity->getEntityType()->id() === 'taxonomy_term' && !$entity->isNew()) {
     $profiles = _jcms_admin_profiles_from_focuses_organisms($entity->get('vid')->getString(), $entity->id());
     $nodes = Node::loadMultiple($profiles);
     foreach ($nodes as $node) {
