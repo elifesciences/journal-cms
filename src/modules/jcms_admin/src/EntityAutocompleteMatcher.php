@@ -56,9 +56,11 @@ class EntityAutocompleteMatcher extends CoreEntityAutocompleteMatcher {
 
       if (count($matches) > $limit && $match_operator === 'CONTAINS') {
         $matches = array_slice($matches, 0, $limit);
+        $exact = $this->getMatches($target_type, $selection_handler, ['match_operator' => '='] + $selection_settings, $string);
         $starts_with = $this->getMatches($target_type, $selection_handler, ['match_operator' => 'STARTS_WITH'] + $selection_settings, $string);
-        if (count($starts_with) > 0) {
-          foreach (array_reverse($starts_with, TRUE) as $item) {
+        $prioritise = array_merge($exact, $starts_with);
+        if (count($prioritise) > 0) {
+          foreach (array_reverse($prioritise, TRUE) as $item) {
             array_unshift($matches, $item);
           }
           array_unique($matches);
