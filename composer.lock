@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ecfce20868868e9b7dc4bdc10b3b494b",
+    "content-hash": "e3e0ceed084f8ca613e50ac927ccfb82",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -354,9 +354,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/autoembed/releases/autoembed_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/autoembed/releases/autoembed_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -368,9 +366,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/autolink/releases/autolink_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/autolink/releases/autolink_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -382,9 +378,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/balloonpanel/releases/balloonpanel_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/balloonpanel/releases/balloonpanel_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -396,9 +390,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/balloontoolbar/releases/balloontoolbar_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/balloontoolbar/releases/balloontoolbar_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -410,9 +402,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/codesnippet/releases/codesnippet_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/codesnippet/releases/codesnippet_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -424,9 +414,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/embedbase/releases/embedbase_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/embedbase/releases/embedbase_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -438,9 +426,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/fakeobjects/releases/fakeobjects_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/fakeobjects/releases/fakeobjects_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -452,9 +438,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/filetools/releases/filetools_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/filetools/releases/filetools_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -466,9 +450,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/link/releases/link_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/link/releases/link_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -480,9 +462,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/notificationaggregator/releases/notificationaggregator_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/notificationaggregator/releases/notificationaggregator_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -494,9 +474,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/sharedspace/releases/sharedspace_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/sharedspace/releases/sharedspace_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -508,9 +486,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/undo/releases/undo_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/undo/releases/undo_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -522,9 +498,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/uploadimage/releases/uploadimage_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/uploadimage/releases/uploadimage_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -536,9 +510,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/uploadwidget/releases/uploadwidget_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/uploadwidget/releases/uploadwidget_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -550,9 +522,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/widget/releases/widget_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/widget/releases/widget_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -3731,6 +3701,59 @@
             "homepage": "https://www.drupal.org/project/inline_entity_form",
             "support": {
                 "source": "https://git.drupalcode.org/project/inline_entity_form"
+            }
+        },
+        {
+            "name": "drupal/jsonapi_file",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/jsonapi_file.git",
+                "reference": "8.x-1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/jsonapi_file-8.x-1.1.zip",
+                "reference": "8.x-1.1",
+                "shasum": "414884fc314f31be3c60e38e3984ce22c095bf1e"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/file_entity": "*",
+                "drupal/jsonapi": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.1",
+                    "datestamp": "1501089243",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Spleshka",
+                    "homepage": "https://www.drupal.org/user/810676"
+                },
+                {
+                    "name": "e0ipso",
+                    "homepage": "https://www.drupal.org/user/550110"
+                }
+            ],
+            "description": "Provides enhanced integration with files for JSON API.",
+            "homepage": "https://www.drupal.org/project/jsonapi_file",
+            "support": {
+                "source": "https://git.drupalcode.org/project/jsonapi_file"
             }
         },
         {
