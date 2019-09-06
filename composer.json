@@ -269,7 +269,7 @@
     "drupal/field_collection": "~1.0-alpha1",
     "drupal/inline_entity_form": "~1.0-beta1",
     "drupal/jsonb": "~1.0-beta1",
-    "drupal/paragraphs": "^1.2",
+    "drupal/paragraphs": "^1.9",
     "drupal/migrate_plus": "~3.0-rc1",
     "drupal/migrate_tools": "~3.0-rc1",
     "drupal/migrate_manifest": "^1",
@@ -298,7 +298,7 @@
     "drupal/confi": "^1.4",
     "webmozart/path-util": "^2.3",
     "sebastian/version": "~2.0.1",
-    "drupal/scheduler": "^1.0",
+    "drupal/scheduler": "^1.1",
     "zenorocha/clipboardjs": "^1.7",
     "league/commonmark": "^0.17.5",
     "symfony/serializer": "^3.4",
@@ -396,9 +396,6 @@
       },
       "drupal/inline_entity_form": {
         "Field name/label disappears when I create a new entity inline (2842744)": "https://www.drupal.org/files/issues/inline_entity_form-no_label_required_field_with_no_entries-2842744.patch"
-      },
-      "drupal/scheduler": {
-        "Notice: Undefined index: unpublish_on in scheduler_form_node_form_alter() (line 181 of modules/contrib/scheduler/scheduler.module (2983667)": "https://www.drupal.org/files/issues/2018-09-18/2983667-4.patch"
       },
       "drupal/file_entity" : {
         "D8.6 file rest upload PluginNotFoundException error (2959947)": "https://www.drupal.org/files/issues/2018-07-11/file-rest-upload-pluginnotfoundexception-error-2959947-8.patch"
