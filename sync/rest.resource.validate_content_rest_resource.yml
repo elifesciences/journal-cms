@@ -1,0 +1,18 @@
+uuid: 2fc6b433-0ec7-4d22-b7c9-e7193f428aee
+langcode: en
+status: true
+dependencies:
+  module:
+    - jcms_ckeditor
+    - serialization
+    - user
+id: validate_content_rest_resource
+plugin_id: validate_content_rest_resource
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - json
+  authentication:
+    - cookie
