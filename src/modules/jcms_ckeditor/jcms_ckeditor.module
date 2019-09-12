@@ -82,10 +82,35 @@ function jcms_ckeditor_preprocess_page(array &$variables) {
       $journal_preview = Settings::get('journal_preview');
       $items = [];
       if ($journal_path && $node->isPublished()) {
-        $items[] = Link::fromTextAndUrl(t('View published'), Url::fromUri($journal_path . \Drupal::service('jcms_admin.content_path')->create($node))->setOption('attributes', ['target' => '_blank', 'class' => ['published-link', 'button']]));
+        $items[] = Link::fromTextAndUrl(
+          t('View published'),
+          Url::fromUri(
+            $journal_path .
+            \Drupal::service('jcms_admin.content_path')
+              ->create($node)
+          )->setOption('attributes', [
+            'target' => '_blank',
+            'class' => [
+              'published-link',
+              'button',
+            ],
+          ])
+        );
       }
       if ($journal_preview) {
-        $items[] = Link::fromTextAndUrl(t('Preview'), Url::fromUri(Settings::get('journal_preview') . \Drupal::service('jcms_admin.content_path')->create($node))->setOption('attributes', ['target' => '_blank', 'class' => ['preview-link', 'button']]));
+        $items[] = Link::fromTextAndUrl(
+          t('Preview'),
+          Url::fromUri(
+            Settings::get('journal_preview') .
+            \Drupal::service('jcms_admin.content_path')
+              ->create($node)
+          )->setOption('attributes', [
+            'target' => '_blank',
+            'class' => [
+              'preview-link',
+              'button',
+            ],
+          ]));
       }
       if ($node->isPublished()) {
         $items[] = Link::fromTextAndUrl(t('Reset to published'), Url::fromRoute('jcms_admin.reset_content', ['node' => $node->id()])->setOptions(['attributes' => ['class' => ['discard-button', 'button']]]));
