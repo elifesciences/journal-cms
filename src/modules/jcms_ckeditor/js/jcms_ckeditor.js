@@ -4,6 +4,15 @@
 (function ($) {
   'use strict';
 
+  Drupal.behaviors.customCKEditorConfig = {
+    attach: function (context, settings) {
+      if (typeof CKEDITOR !== "undefined") {
+        CKEDITOR.dtd.placeholder = {span: 1, img: 1};
+        CKEDITOR.dtd.$inline['placeholder'] = 1;
+      }
+    }
+  };
+
   Drupal.behaviors.inlineEditor = {
     attach: function(context, settings) {
 
@@ -223,6 +232,12 @@
             // Save the main field content
             var saveBodyEditor = function(showSaveNotification){
               // Remove any hidden placeholder text
+              if ($(bodyEditor.editable().$).find('placeholder').length > 0) {
+                var placeholder = $(bodyEditor.editable().$).find('placeholder').html().replace(settings.placeholder, '');
+                if ($.trim(placeholder).length === 0) {
+                  $(bodyEditor.editable().$).find('placeholder').remove();
+                }
+              }
               $(bodyEditor.editable().$).find('placeholder').remove();
               var content = bodyEditor.getData();
               if ($.trim(content).length === 0) {
