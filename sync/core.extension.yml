@@ -45,7 +45,6 @@ module:
   jcms_ping: 0
   jcms_rest: 0
   jsonapi: 0
-  jsonapi_file: 0
   jsonb: 0
   link: 0
   menu_ui: 0
