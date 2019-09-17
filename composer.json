@@ -327,8 +327,7 @@
     "drupal/duration_field": "^1.6",
     "ckeditor/codesnippet": "^4.9",
     "drupal/file_entity": "~2.0-beta6",
-    "egulias/email-validator": "^2.1",
-    "drupal/jsonapi_file": "^1.1"
+    "egulias/email-validator": "^2.1"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",
