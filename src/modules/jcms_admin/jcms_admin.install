@@ -8,6 +8,16 @@
 use Drupal\content_moderation\Entity\ContentModerationState;
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function jcms_admin_update_dependencies() {
+  $dependencies['paragraphs'][8016] = [
+    'jcms_admin' => 8104,
+  ];
+  return $dependencies;
+}
+
+/**
  * Reset content_moderation schema version to 8000 after applying patch.
  */
 function jcms_admin_update_8101() {
@@ -35,4 +45,23 @@ function jcms_admin_update_8102() {
  */
 function jcms_admin_update_8103() {
   drupal_set_installed_schema_version('jcms_migrate', 8123);
+}
+
+/**
+ * Enable config_import module.
+ */
+function jcms_admin_update_8104() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(['config_import']);
+}
+
+/**
+ * Import core.extension configuration.
+ */
+function jcms_admin_update_8105() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $configs = [
+    'core.extension',
+  ];
+  $config_importer->importConfigs($configs);
 }
