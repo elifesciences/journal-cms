@@ -7,7 +7,6 @@
 
 use Drupal\content_moderation\Entity\ContentModerationState;
 
-
 /**
  * Implements hook_update_dependencies().
  */
