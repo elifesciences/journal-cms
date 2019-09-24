@@ -400,6 +400,9 @@
       },
       "drupal/file_entity" : {
         "D8.6 file rest upload PluginNotFoundException error (2959947)": "https://www.drupal.org/files/issues/2018-07-11/file-rest-upload-pluginnotfoundexception-error-2959947-8.patch"
+      },
+      "drupal/jsonapi_file" : {
+        "Temporarily removal of services.yml (local)": "patches/jsonapi_file-remove_services.patch"
       }
     }
   }
