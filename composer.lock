@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39d828273e714a3bf7161ee5185f2e32",
+    "content-hash": "31942d634c81e3a59bbb8c9ba5e246da",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -354,9 +354,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/autoembed/releases/autoembed_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/autoembed/releases/autoembed_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -368,9 +366,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/autolink/releases/autolink_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/autolink/releases/autolink_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -382,9 +378,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/balloonpanel/releases/balloonpanel_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/balloonpanel/releases/balloonpanel_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -396,9 +390,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/balloontoolbar/releases/balloontoolbar_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/balloontoolbar/releases/balloontoolbar_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -410,9 +402,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/codesnippet/releases/codesnippet_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/codesnippet/releases/codesnippet_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -424,9 +414,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/embedbase/releases/embedbase_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/embedbase/releases/embedbase_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -438,9 +426,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/fakeobjects/releases/fakeobjects_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/fakeobjects/releases/fakeobjects_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -452,9 +438,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/filetools/releases/filetools_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/filetools/releases/filetools_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -466,9 +450,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/link/releases/link_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/link/releases/link_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -480,9 +462,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/notificationaggregator/releases/notificationaggregator_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/notificationaggregator/releases/notificationaggregator_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -494,9 +474,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/sharedspace/releases/sharedspace_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/sharedspace/releases/sharedspace_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -508,9 +486,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/undo/releases/undo_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/undo/releases/undo_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -522,9 +498,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/uploadimage/releases/uploadimage_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/uploadimage/releases/uploadimage_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -536,9 +510,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/uploadwidget/releases/uploadwidget_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/uploadwidget/releases/uploadwidget_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -550,9 +522,7 @@
             "version": "4.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://download.ckeditor.com/widget/releases/widget_4.9.2.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://download.ckeditor.com/widget/releases/widget_4.9.2.zip"
             },
             "type": "drupal-library",
             "extra": {
@@ -3026,7 +2996,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_reference_revisions.git",
-                "reference": "65067ad99268e91b1d76bafce244acfacdb77b7d"
+                "reference": "ac17b1c6f571f9e307221861142b3c05860cb3b9"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -3040,8 +3010,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.5+0-dev",
-                    "datestamp": "1527240184",
+                    "version": "8.x-1.6+2-dev",
+                    "datestamp": "1563568681",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -3056,6 +3026,10 @@
                 "GPL-2.0-or-later"
             ],
             "authors": [
+                {
+                    "name": "Berdir",
+                    "homepage": "https://www.drupal.org/user/214652"
+                },
                 {
                     "name": "Frans",
                     "homepage": "https://www.drupal.org/user/514222"
@@ -3072,9 +3046,9 @@
             "description": "Adds a Entity Reference field type with revision support.",
             "homepage": "https://www.drupal.org/project/entity_reference_revisions",
             "support": {
-                "source": "http://cgit.drupalcode.org/entity_reference_revisions"
+                "source": "https://git.drupalcode.org/project/entity_reference_revisions"
             },
-            "time": "2018-05-25T09:19:38+00:00"
+            "time": "2019-09-19T06:27:14+00:00"
         },
         {
             "name": "drupal/entity_reference_unpublished",
@@ -3816,7 +3790,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.7",
-                    "datestamp": "1516746485",
+                    "datestamp": "1541449380",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4163,7 +4137,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/restui.git",
-                "reference": "12f80d60385d5ee6219d0cd9b75f5d6fbdf47e84"
+                "reference": "cabe5e1069f783778f4d5b69f09cc0d9f0dec7fb"
             },
             "require": {
                 "drupal/core": "^8.2.0"
@@ -4174,8 +4148,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.15+0-dev",
-                    "datestamp": "1496919543",
+                    "version": "8.x-1.17+2-dev",
+                    "datestamp": "1559751185",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -4204,12 +4178,12 @@
                     "homepage": "https://www.drupal.org/user/262198"
                 }
             ],
-            "description": "Provides a user interface to manage REST resources",
+            "description": "Provides a user interface to manage REST resources.",
             "homepage": "https://www.drupal.org/project/restui",
             "support": {
-                "source": "http://cgit.drupalcode.org/restui"
+                "source": "https://git.drupalcode.org/project/restui"
             },
-            "time": "2018-08-25T16:10:53+00:00"
+            "time": "2019-09-09T11:20:41+00:00"
         },
         {
             "name": "drupal/scheduler",
@@ -4673,12 +4647,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-client-php.git",
-                "reference": "804a33fad1507975468b251d9c02157551103f8c"
+                "reference": "abc08e2b8ae22864d7dbc30a1e96912fbd81cb42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-client-php/zipball/804a33fad1507975468b251d9c02157551103f8c",
-                "reference": "804a33fad1507975468b251d9c02157551103f8c",
+                "url": "https://api.github.com/repos/elifesciences/api-client-php/zipball/abc08e2b8ae22864d7dbc30a1e96912fbd81cb42",
+                "reference": "abc08e2b8ae22864d7dbc30a1e96912fbd81cb42",
                 "shasum": ""
             },
             "require": {
@@ -4721,7 +4695,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API client",
-            "time": "2018-07-19T13:30:10+00:00"
+            "time": "2019-08-06T08:48:30+00:00"
         },
         {
             "name": "elife/api-sdk",
@@ -4729,12 +4703,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-sdk-php.git",
-                "reference": "de800ac59ed67824a245b1c529a74276eb7b5ea9"
+                "reference": "9e8929f74a86412a437b7bafd4e57bc0f50f3468"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-sdk-php/zipball/de800ac59ed67824a245b1c529a74276eb7b5ea9",
-                "reference": "de800ac59ed67824a245b1c529a74276eb7b5ea9",
+                "url": "https://api.github.com/repos/elifesciences/api-sdk-php/zipball/9e8929f74a86412a437b7bafd4e57bc0f50f3468",
+                "reference": "9e8929f74a86412a437b7bafd4e57bc0f50f3468",
                 "shasum": ""
             },
             "require": {
@@ -4751,6 +4725,7 @@
                 "guzzlehttp/guzzle": "^6.0",
                 "justinrainbow/json-schema": "^3.0 || ^4.0 || ^5.0",
                 "mindplay/composer-locator": "^2.1.1",
+                "mtdowling/jmespath.php": "^2.0",
                 "phpunit/phpunit": "^5.2",
                 "psr/http-message": "^1.0"
             },
@@ -4770,7 +4745,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API SDK",
-            "time": "2018-10-04T10:38:07+00:00"
+            "time": "2019-08-22T12:07:31+00:00"
         },
         {
             "name": "elife/api-validator",
@@ -5678,16 +5653,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "0.17.5",
+            "version": "0.18.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "82d7ab62d7f68391cb9d323f3ccce50be24a5369"
+                "reference": "b1ec41ce15c3bd6f7cbe86a645b3efc78d927446"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/82d7ab62d7f68391cb9d323f3ccce50be24a5369",
-                "reference": "82d7ab62d7f68391cb9d323f3ccce50be24a5369",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/b1ec41ce15c3bd6f7cbe86a645b3efc78d927446",
+                "reference": "b1ec41ce15c3bd6f7cbe86a645b3efc78d927446",
                 "shasum": ""
             },
             "require": {
@@ -5703,7 +5678,7 @@
                 "erusev/parsedown": "~1.0",
                 "michelf/php-markdown": "~1.4",
                 "mikehaertl/php-shellcommand": "^1.2",
-                "phpunit/phpunit": "^5.7|^6.5",
+                "phpunit/phpunit": "^5.7.27|^6.5.14",
                 "scrutinizer/ocular": "^1.1",
                 "symfony/finder": "^3.0|^4.0"
             },
@@ -5716,7 +5691,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.18-dev"
+                    "dev-master": "0.19-dev"
                 }
             },
             "autoload": {
@@ -5731,19 +5706,19 @@
             "authors": [
                 {
                     "name": "Colin O'Dell",
+                    "role": "Lead Developer",
                     "email": "colinodell@gmail.com",
-                    "homepage": "https://www.colinodell.com",
-                    "role": "Lead Developer"
+                    "homepage": "https://www.colinodell.com"
                 }
             ],
-            "description": "Markdown parser for PHP based on the CommonMark spec",
+            "description": "PHP Markdown parser based on the CommonMark spec",
             "homepage": "https://github.com/thephpleague/commonmark",
             "keywords": [
                 "commonmark",
                 "markdown",
                 "parser"
             ],
-            "time": "2018-03-29T14:35:19+00:00"
+            "time": "2019-03-21T22:47:25+00:00"
         },
         {
             "name": "league/html-to-markdown",
