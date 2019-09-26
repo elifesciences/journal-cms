@@ -352,7 +352,7 @@
                 //data = image[1];
                 data = b64toBlob(image[1]);
                 var xhr = fileLoader.xhr;
-                var filename = fileLoader.fileName.replace(' ', '_');
+                var filename = fileLoader.fileName.toLowerCase().replace(' ', '_');
                 
                 xhr.setRequestHeader('Content-Type', 'application/octet-stream');
                 xhr.setRequestHeader('Accept', 'application/vnd.api+json');
@@ -384,7 +384,7 @@
                 var response = JSON.parse(xhr.responseText);
                 for (var i in response.data) {
                   var attr = response.data[i].attributes;
-                  if (attr.filename == fileLoader.fileName.replace(' ', '_')) {
+                  if (attr.filename == fileLoader.fileName.toLowerCase().replace(' ', '_')) {
                     data.url = attr.uri.url;
                     //data.fid = attr.drupal_internal__fid;
                     data.uuid = response.data[i].id;
