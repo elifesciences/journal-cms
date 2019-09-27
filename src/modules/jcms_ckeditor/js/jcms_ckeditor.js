@@ -223,7 +223,7 @@
                       setTimeout(function(){window.location.reload();}, 1000);
                     } else {
                       var msg = Drupal.t('Content validation failed. Content will NOT be published.');
-                      notification.update({message: msg, duration: 3000, type: 'info'});
+                      notification.update({message: msg, duration: 0, type: 'warning'});
                       notification.show();
                     }
                   },
