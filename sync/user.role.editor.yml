@@ -58,6 +58,7 @@ permissions:
   - 'edit any podcast_episode content'
   - 'edit any press_package content'
   - 'manipulate entityqueues'
+  - 'restful get validate_content_rest_resource'
   - 'revert cover revisions'
   - 'schedule publishing of nodes'
   - 'show wysiwyg editor'
