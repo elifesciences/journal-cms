@@ -1538,3 +1538,28 @@ function jcms_migrate_update_8149() {
     }
   }
 }
+
+/**
+ * Amend content publication dates.
+ */
+function jcms_migrate_update_8150() {
+  $content = [
+    '09d713c1' => '2019-09-26',
+  ];
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+    ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
+    ->condition('type', 'interview');
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $id = substr($node->uuid(), -8);
+      $current = $node->getCreatedTime();
+      $node->set('created', strtotime($content[$id] . ' ' . date('H:i:s', $current)));
+      $node->save();
+    }
+  }
+}
