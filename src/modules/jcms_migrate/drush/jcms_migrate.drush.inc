@@ -87,6 +87,19 @@ function jcms_migrate_drush_command() {
         'drush resave-nodes blog_article --feedback=100' => 'Provide feedback for every 50 blog_articles resaved.',
       ],
     ],
+    'amend-publish-date' => [
+      'description' => 'Amend publish date of content.',
+      'drupal dependencies' => ['jcms_migrate'],
+      'aliases' => ['apd'],
+      'arguments' => [
+        'type' => 'Content type.',
+        'id' => 'ID.',
+        'date' => 'Date.',
+      ],
+      'examples' => [
+        'drush amend-publish-date interview "09d713c1" "2019-09-26"' => 'Set the date for interview with ID "09d713c1" to "2019-09-26".',
+      ],
+    ],
   ];
 }
 
@@ -405,6 +418,40 @@ function drush_jcms_migrate_resave_nodes(string $type) {
         $node->save();
       }
       drush_print(dt('Number of !type nodes resaved is !count.', ['!type' => $type, '!count' => $i + count($nodes)]));
+    }
+  }
+}
+
+/**
+ * Callback function drush_jcms_migrate_amend_publish_date().
+ */
+function drush_jcms_migrate_amend_publish_date(string $type, string $id, string $date) {
+  $content = [
+    $id => $date,
+  ];
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+    ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
+    ->condition('type', $type);
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $id = substr($node->uuid(), -8);
+      $current_date = $node->getCreatedTime();
+      $new_date = strtotime($content[$id] . ' ' . date('H:i:s', $current_date));
+      $node->set('created', $new_date);
+      $node->save();
+      drush_print(dt('!type (!uuid): "!title" publish date changed from "!current-date" to "!new-date" (/node/!nid)', [
+        '!type' => $node->bundle(),
+        '!uuid' => substr($node->uuid(), -8),
+        '!title' => trim($node->getTitle()),
+        '!current-date' => date('Y-m-d', $current_date),
+        '!new-date' => date('Y-m-d', $new_date),
+        '!nid' => $node->id(),
+      ]));
     }
   }
 }
