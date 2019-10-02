@@ -21,7 +21,7 @@ field_validation_rules:
     uuid: aa8c9daf-f25d-4278-af39-9232c439e061
     id: regex_field_validation_rule
     title: 'Valid HTML ID'
-    weight: '1'
+    weight: 1
     field_name: field_block_html_id
     column: value
     error_message: 'Could not detect a valid HTML ID (image)'

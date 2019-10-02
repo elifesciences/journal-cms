@@ -148,6 +148,10 @@ elifebutton.elife-button--outline:hover {
   font-size: 22px;
 }
 
+.page-ckeditor-inline .page-links ul li:before {
+  content: '';
+}
+
 .cke_focus placeholder {
   display: none;
 }

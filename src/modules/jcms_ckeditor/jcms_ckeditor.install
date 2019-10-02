@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for Journal CMS (CKEditor).
+ */
+
+/**
+ * Flush all caches to pickup ValidateContentRestResource.
+ */
+function jcms_ckeditor_update_8101() {
+  drupal_flush_all_caches();
+}
