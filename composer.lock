@@ -1923,7 +1923,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -1949,22 +1949,22 @@
             ],
             "homepage": "https://www.drupal.org/project/confi",
             "support": {
-                "source": "http://cgit.drupalcode.org/confi"
+                "source": "https://git.drupalcode.org/project/confi"
             }
         },
         {
             "name": "drupal/config_devel",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/config_devel.git",
-                "reference": "8.x-1.3"
+                "reference": "8.x-1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/config_devel-8.x-1.3.zip",
-                "reference": "8.x-1.3",
-                "shasum": "ab880088bbbe955d9c9521655d73bf1a40ca75b8"
+                "url": "https://ftp.drupal.org/files/projects/config_devel-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "93cbecd4811cbf357cd0a8be19e480f7af32f756"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -1975,8 +1975,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.3",
-                    "datestamp": "1562862184",
+                    "version": "8.x-1.4",
+                    "datestamp": "1569934685",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2066,7 +2066,7 @@
             ],
             "homepage": "https://www.drupal.org/project/config_installer",
             "support": {
-                "source": "http://cgit.drupalcode.org/config_installer"
+                "source": "https://git.drupalcode.org/project/config_installer"
             }
         },
         {
@@ -2600,7 +2600,11 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-beta3",
-                    "datestamp": "1467193139"
+                    "datestamp": "1467193139",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2674,7 +2678,7 @@
             "description": "Provides storage and API for image crops.",
             "homepage": "https://www.drupal.org/project/crop",
             "support": {
-                "source": "http://cgit.drupalcode.org/crop",
+                "source": "https://git.drupalcode.org/project/crop",
                 "issues": "https://www.drupal.org/project/issues/crop"
             }
         },
@@ -2983,7 +2987,7 @@
             "description": "Provides a new field type of Duration, as well as a Form API duration element",
             "homepage": "https://www.drupal.org/project/duration_field",
             "support": {
-                "source": "http://cgit.drupalcode.org/duration_field"
+                "source": "https://git.drupalcode.org/project/duration_field"
             }
         },
         {
@@ -3072,8 +3076,8 @@
                     "version": "8.x-1.1",
                     "datestamp": "1508332743",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -3090,7 +3094,7 @@
             "description": "Allows unpublished content to be referenced in an entity reference.",
             "homepage": "https://www.drupal.org/project/entity_reference_unpublished",
             "support": {
-                "source": "http://cgit.drupalcode.org/entity_reference_unpublished"
+                "source": "https://git.drupalcode.org/project/entity_reference_unpublished"
             }
         },
         {
@@ -3180,14 +3184,22 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-alpha1",
-                    "datestamp": "1460462939"
+                    "datestamp": "1460462939",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
+                {
+                    "name": "RenatoG",
+                    "homepage": "https://www.drupal.org/user/3326031"
+                },
                 {
                     "name": "fago",
                     "homepage": "https://www.drupal.org/user/16747"
@@ -3199,12 +3211,20 @@
                 {
                     "name": "larowlan",
                     "homepage": "https://www.drupal.org/user/395439"
+                },
+                {
+                    "name": "nedjo",
+                    "homepage": "https://www.drupal.org/user/4481"
+                },
+                {
+                    "name": "ram4nd",
+                    "homepage": "https://www.drupal.org/user/601534"
                 }
             ],
             "description": "Provides a field collection field, to which any number of fields can be attached.",
             "homepage": "https://www.drupal.org/project/field_collection",
             "support": {
-                "source": "http://cgit.drupalcode.org/field_collection"
+                "source": "https://git.drupalcode.org/project/field_collection"
             }
         },
         {
@@ -3326,7 +3346,7 @@
             "description": "The Field Permissions module allows site administrators to set field-level permissions to edit, view and create fields on any entity.",
             "homepage": "https://www.drupal.org/project/field_permissions",
             "support": {
-                "source": "http://cgit.drupalcode.org/field_permissions",
+                "source": "https://git.drupalcode.org/project/field_permissions",
                 "issues": "https://www.drupal.org/project/issues/field_permissions"
             }
         },
@@ -3711,12 +3731,16 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-beta2",
-                    "datestamp": "1495467483"
+                    "datestamp": "1495467483",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -3739,7 +3763,7 @@
             "description": "Creates field types that use the JSON/JSONB data type to store JSON object data.",
             "homepage": "https://www.drupal.org/project/jsonb",
             "support": {
-                "source": "http://cgit.drupalcode.org/jsonb"
+                "source": "https://git.drupalcode.org/project/jsonb"
             }
         },
         {
@@ -3821,7 +3845,11 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta1+12-dev",
-                    "datestamp": "1494424085"
+                    "datestamp": "1494424085",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3895,7 +3923,7 @@
             "description": "Tools to assist in developing and running migrations.",
             "homepage": "https://www.drupal.org/project/migrate_tools",
             "support": {
-                "source": "http://cgit.drupalcode.org/migrate_tools"
+                "source": "https://git.drupalcode.org/project/migrate_tools"
             },
             "time": "2017-07-12T15:50:55+00:00"
         },
@@ -4357,7 +4385,7 @@
             "description": "Provides a user interface for the Token API and some missing core tokens.",
             "homepage": "https://www.drupal.org/project/token",
             "support": {
-                "source": "http://cgit.drupalcode.org/token"
+                "source": "https://git.drupalcode.org/project/token"
             }
         },
         {
@@ -6370,18 +6398,18 @@
             "authors": [
                 {
                     "name": "Greg Beaver",
-                    "email": "cellog@php.net",
-                    "role": "Helper"
+                    "role": "Helper",
+                    "email": "cellog@php.net"
                 },
                 {
                     "name": "Andrei Zmievski",
-                    "email": "andrei@php.net",
-                    "role": "Lead"
+                    "role": "Lead",
+                    "email": "andrei@php.net"
                 },
                 {
                     "name": "Stig Bakken",
-                    "email": "stig@php.net",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "stig@php.net"
                 }
             ],
             "description": "More info available on: http://pear.php.net/package/Console_Getopt",
