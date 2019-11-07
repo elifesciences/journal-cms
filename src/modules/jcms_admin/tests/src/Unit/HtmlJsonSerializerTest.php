@@ -926,7 +926,7 @@ class HtmlJsonSerializerTest extends UnitTestCase {
           ],
           [
             'type' => 'paragraph',
-            'text' => 'How to use it: <a href="https://www.hack24.co.uk/how-to-use-hackbot%29">https://www.hack24.co.uk/how-to-use-hackbot </a>',
+            'text' => 'How to use it: <a href="https://www.hack24.co.uk/how-to-use-hackbot)">https://www.hack24.co.uk/how-to-use-hackbot </a>',
           ],
           [
             'type' => 'paragraph',
