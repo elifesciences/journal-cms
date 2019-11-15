@@ -266,7 +266,6 @@
     "drupal/config_devel": "~1.0-rc1",
     "drupal/config_installer": "~1",
     "drupal/entity_reference_revisions": "1.x-dev",
-    "drupal/field_collection": "~1.0-alpha1",
     "drupal/inline_entity_form": "~1.0-beta1",
     "drupal/jsonb": "~1.0-beta1",
     "drupal/paragraphs": "^1.9",
