@@ -49,13 +49,27 @@ function jcms_admin_drush_command() {
         'drush jcms-profile-notify --organism="amphibians"' => 'Re-save all profiles to trigger notifications with organism "amphibians"',
       ],
     ],
+    'jcms-detect-duplicate-organisms' => [
+      'description' => 'detect duplicate research organism entries',
+      'drupal dependencies' => ['jcms_admin'],
+      'examples' => [
+        'drush jcms-detect-duplicate-organisms' => 'Outputs a list of research organisms that are duplicate entries in the database.',
+      ],
+    ],
+    'jcms-detect-duplicate-focuses' => [
+      'description' => 'detect duplicate research focus entries',
+      'drupal dependencies' => ['jcms_admin'],
+      'examples' => [
+        'drush jcms-detect-duplicate-organisms' => 'Outputs a list of research focuses that are duplicate entries in the database.',
+      ],
+    ],
   ];
 }
 
 /**
- * Callback function drush_jcms_migrate_jcms_transfer_content().
+ * Callback function drush_jcms_admin_jcms_transfer_content().
  */
-function drush_jcms_migrate_jcms_transfer_content(int $nid) {
+function drush_jcms_admin_jcms_transfer_content(int $nid) {
   $to_live = ((int) drush_get_option('to-live', 1)) === 0 ? FALSE : TRUE;
   $node = Node::load($nid);
   $node = \Drupal::service('jcms_admin.transfer_content')->transfer($node, $to_live);
@@ -152,4 +166,97 @@ function drush_jcms_migrate_jcms_profile_notify() {
       $node->save();
     }
   }
+}
+
+/**
+ * Callback function drush_jcms_admin_jcms_detect_duplicate_organisms().
+ */
+function drush_jcms_admin_jcms_detect_duplicate_organisms() {
+  drush_print(_jcms_admin_term_duplicates_csv(_jcms_admin_term_duplicates('research_organisms')));
+}
+
+/**
+ * Callback function drush_jcms_admin_jcms_detect_duplicate_focuses().
+ */
+function drush_jcms_admin_jcms_detect_duplicate_focuses() {
+  drush_print(_jcms_admin_term_duplicates_csv(_jcms_admin_term_duplicates('research_focuses')));
+}
+
+/**
+ * Convert term duplicates array to csv output.
+ */
+function _jcms_admin_term_duplicates_csv(array $dups) {
+  $output = [
+    implode(',', [
+      '"id"',
+      '"duplicate group"',
+      '"raw"',
+      '"clean"',
+      '"profile ids"',
+      '"profile labels"',
+      '"profile count"',
+    ]),
+  ];
+
+  foreach ($dups as $k => $group) {
+    foreach ($group as $tid => $item) {
+      $output[] = implode(',', [
+        $tid,
+        '"' . $k . '"',
+        '"' . $item['raw'] . '"',
+        '"' . $item['label'] . '"',
+        '"' . $item['profile_ids'] . '"',
+        '"' . $item['profile_labels'] . '"',
+        $item['profile_count'],
+      ]);
+    }
+  }
+
+  return implode(PHP_EOL, $output);
+}
+
+/**
+ * Get array of term data from vid.
+ */
+function _jcms_admin_term_duplicates(string $vid) {
+  $tids = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', $vid)
+    ->execute();
+  $controller = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $terms = $controller->loadMultiple($tids);
+  $dups = [];
+  foreach ($terms as $term) {
+    $clean_label = preg_replace('/(>|<)\s+/', '$1', trim($term->label()));
+    $lower = strtolower($clean_label);
+    $dups[$lower][$term->id()] = [
+      'raw' => $term->label(),
+      'label' => $clean_label,
+    ];
+  }
+
+  foreach ($dups as $k => $dup) {
+    if (count($dup) > 1) {
+      foreach ($dup as $tid => $data) {
+        $people = _jcms_admin_profiles_from_focuses_organisms($vid, $tid);
+        $profile_labels = [];
+        if ($people) {
+          $profiles = Node::loadMultiple($people);
+          foreach ($profiles as $profile) {
+            $profile_labels[] = $profile->label() . ' (' . $profile->id() . ')';
+          }
+        }
+
+        $dups[$k][$tid] = $data + [
+          'profile_ids' => $people ? implode(',', $people) : '',
+          'profile_labels' => $profile_labels ? implode('|', $profile_labels) : '',
+          'profile_count' => count($people),
+        ];
+      }
+    }
+    else {
+      unset($dups[$k]);
+    }
+  }
+
+  return $dups;
 }
