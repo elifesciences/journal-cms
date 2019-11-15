@@ -65,3 +65,10 @@ function jcms_admin_update_8105() {
   ];
   $config_importer->importConfigs($configs);
 }
+
+/**
+ * Flush all caches before config import.
+ */
+function jcms_admin_update_8106() {
+  drupal_flush_all_caches();
+}
