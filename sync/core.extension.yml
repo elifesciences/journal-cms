@@ -24,7 +24,6 @@ module:
   entity_reference_unpublished: 0
   entityqueue: 0
   field: 0
-  field_collection: 0
   field_group: 0
   field_permissions: 0
   field_ui: 0
