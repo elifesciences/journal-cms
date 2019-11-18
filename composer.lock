@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d726928e1f924581e70153618c6f556",
+    "content-hash": "e3e9b6c0f6d7d2dcdca4eb4759eedc6d",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3158,57 +3158,6 @@
                 "source": "http://cgit.drupalcode.org/entityqueue",
                 "issues": "https://www.drupal.org/project/issues/entityqueue",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            }
-        },
-        {
-            "name": "drupal/field_collection",
-            "version": "1.0.0-alpha1",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/field_collection.git",
-                "reference": "8.x-1.0-alpha1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/field_collection-8.x-1.0-alpha1.zip",
-                "reference": "8.x-1.0-alpha1",
-                "shasum": "4d529021cf113e3026b3fd88ac2571dc72e70e8d"
-            },
-            "require": {
-                "drupal/core": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0-alpha1",
-                    "datestamp": "1460462939"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "fago",
-                    "homepage": "https://www.drupal.org/user/16747"
-                },
-                {
-                    "name": "jmuzz",
-                    "homepage": "https://www.drupal.org/user/2607886"
-                },
-                {
-                    "name": "larowlan",
-                    "homepage": "https://www.drupal.org/user/395439"
-                }
-            ],
-            "description": "Provides a field collection field, to which any number of fields can be attached.",
-            "homepage": "https://www.drupal.org/project/field_collection",
-            "support": {
-                "source": "http://cgit.drupalcode.org/field_collection"
             }
         },
         {
