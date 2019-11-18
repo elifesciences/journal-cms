@@ -262,7 +262,7 @@
     "cweagans/composer-patches": "^1.6",
     "drush/drush": "~8.1.17",
     "drupal/console": "^1.0.2",
-    "drupal/admin_toolbar": "^2.0",
+    "drupal/admin_toolbar": "~1.0",
     "drupal/config_devel": "~1.0-rc1",
     "drupal/config_installer": "~1",
     "drupal/entity_reference_revisions": "1.x-dev",
