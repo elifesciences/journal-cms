@@ -382,9 +382,8 @@
     },
     "patches": {
       "drupal/core": {
-        "View output is not used for autocomplete display (2174633)": "https://www.drupal.org/files/issues/2019-07-08/view-output-is-not-used-for-entityreference-options-2174633-311.patch",
-        "Use new Transliteration functionality in core for file names (2492171)": "https://www.drupal.org/files/issues/2019-05-04/2492171-285.patch",
-        "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/2019-05-08/273595-160.patch",
+        "Use new Transliteration functionality in core for file names (2492171)": "https://www.drupal.org/files/issues/2019-12-06/2492171-294.patch",
+        "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/2019-12-06/273595-164.patch",
         "Temporary fix for \\Drupal\\Core\\Field\\FieldItemList::generateSampleItems (2905527)": "src/patches/2905527-temporary-fix-generate-sample-items.patch"
       },
       "drupal/entity_reference_revisions": {
