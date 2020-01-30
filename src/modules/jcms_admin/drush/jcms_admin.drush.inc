@@ -6,6 +6,7 @@
  */
 
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_drush_command().
@@ -47,6 +48,13 @@ function jcms_admin_drush_command() {
         'drush jcms-profile-notify' => 'Re-save all profiles to trigger notifications',
         'drush jcms-profile-notify --focus="<i>Sulfolobus</i>"' => 'Re-save all profiles to trigger notifications with focus "<i>Sulfolobus</i>"',
         'drush jcms-profile-notify --organism="amphibians"' => 'Re-save all profiles to trigger notifications with organism "amphibians"',
+      ],
+    ],
+    'jcms-profile-list' => [
+      'description' => 'list of profiles (SE and BRE) with organisms and focuses',
+      'drupal dependencies' => ['jcms_admin'],
+      'examples' => [
+        'drush jcms-profile-lis' => 'Outputs a list of senior editors and BRE with associated research organisms and focuses.',
       ],
     ],
   ];
@@ -152,4 +160,72 @@ function drush_jcms_admin_jcms_profile_notify() {
       $node->save();
     }
   }
+}
+
+/**
+ * Callback function drush_jcms_admin_jcms_profile_list().
+ */
+function drush_jcms_admin_jcms_profile_list() {
+  drush_print(_jcms_admin_profile_list_csv(_jcms_admin_profile_list()));
+}
+
+/**
+ * Convert profile list array to csv output.
+ */
+function _jcms_admin_profile_list_csv(array $profiles) {
+  $output = [
+    implode(',', [
+      '"profile id"',
+      '"profile label"',
+      '"profile type"',
+      '"research organisms"',
+      '"research focuses"',
+      '"archived"',
+      '"published"',
+    ]),
+  ];
+
+  foreach ($profiles as $nid => $profile) {
+    $output[] = implode(',', [
+      $nid,
+      '"' . $profile['profile_label'] . '"',
+      '"' . $profile['profile_type'] . '"',
+      !empty($profile['organisms']) ? '"' . implode('|', $profile['organisms']) . '"' : '',
+      !empty($profile['focuses']) ? '"' . implode('|', $profile['focuses']) . '"' : '',
+      $profile['archived'],
+      $profile['published'],
+    ]);
+  }
+
+  return implode(PHP_EOL, $output);
+}
+
+/**
+ * Get array of senior editor and BRE profiles.
+ *
+ * With associated research organisms and focuses.
+ */
+function _jcms_admin_profile_list($types = ['senior-editor', 'reviewing-editor']) {
+  $nids = \Drupal::entityQuery('node')
+    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+    ->condition('type', 'person')
+    ->condition('field_person_type.value', $types, 'IN')
+    ->execute();
+  $nodes = Node::loadMultiple($nids);
+
+  $list = [];
+
+  foreach ($nodes as $nid => $node) {
+    $details = json_decode($node->get('field_research_details_json')->getString(), TRUE);
+    $list[$nid] = [
+      'profile_label' => $node->get('field_person_preferred_name')->count() ? $node->get('field_person_preferred_name')->getString() : implode(' ', array_filter([$node->get('field_person_name_given')->getString(), $node->get('field_person_name_surname')->getString()])),
+      'profile_type' => $node->get('field_person_type')->getString(),
+      'organisms' => !empty($details['organisms']) ? $details['organisms'] : [],
+      'focuses' => !empty($details['focuses']) ? $details['focuses'] : [],
+      'archived' => $node->get('field_archive')->getString(),
+      'published' => $node->isPublished() ? 1 : 0,
+    ];
+  }
+
+  return $list;
 }
