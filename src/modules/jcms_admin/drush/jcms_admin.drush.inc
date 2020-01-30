@@ -109,9 +109,9 @@ function drush_jcms_admin_jcms_profile_orcid(string $id, string $orcid) {
 }
 
 /**
- * Callback function drush_jcms_migrate_jcms_profile_notify().
+ * Callback function drush_jcms_admin_jcms_profile_notify().
  */
-function drush_jcms_migrate_jcms_profile_notify() {
+function drush_jcms_admin_jcms_profile_notify() {
   $verbose = drush_get_context('DRUSH_VERBOSE');
   $focus = drush_get_option('focus');
   $organism = drush_get_option('organism');
