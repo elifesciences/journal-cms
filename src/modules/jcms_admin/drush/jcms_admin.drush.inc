@@ -175,6 +175,7 @@ function drush_jcms_admin_jcms_profile_list() {
 function _jcms_admin_profile_list_csv(array $profiles) {
   $output = [
     implode(',', [
+      '"profile nid"',
       '"profile id"',
       '"profile label"',
       '"profile type"',
@@ -188,6 +189,7 @@ function _jcms_admin_profile_list_csv(array $profiles) {
   foreach ($profiles as $nid => $profile) {
     $output[] = implode(',', [
       $nid,
+      '"' . $profile['profile_id'] . '"',
       '"' . $profile['profile_label'] . '"',
       '"' . $profile['profile_type'] . '"',
       !empty($profile['organisms']) ? '"' . implode('|', $profile['organisms']) . '"' : '',
@@ -218,6 +220,7 @@ function _jcms_admin_profile_list($types = ['senior-editor', 'reviewing-editor']
   foreach ($nodes as $nid => $node) {
     $details = json_decode($node->get('field_research_details_json')->getString(), TRUE);
     $list[$nid] = [
+      'profile_id' => substr($node->uuid(), -8),
       'profile_label' => $node->get('field_person_preferred_name')->count() ? $node->get('field_person_preferred_name')->getString() : implode(' ', array_filter([$node->get('field_person_name_given')->getString(), $node->get('field_person_name_surname')->getString()])),
       'profile_type' => $node->get('field_person_type')->getString(),
       'organisms' => !empty($details['organisms']) ? $details['organisms'] : [],
