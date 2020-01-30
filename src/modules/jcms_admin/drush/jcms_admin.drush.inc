@@ -53,9 +53,9 @@ function jcms_admin_drush_command() {
 }
 
 /**
- * Callback function drush_jcms_migrate_jcms_transfer_content().
+ * Callback function drush_jcms_admin_jcms_transfer_content().
  */
-function drush_jcms_migrate_jcms_transfer_content(int $nid) {
+function drush_jcms_admin_jcms_transfer_content(int $nid) {
   $to_live = ((int) drush_get_option('to-live', 1)) === 0 ? FALSE : TRUE;
   $node = Node::load($nid);
   $node = \Drupal::service('jcms_admin.transfer_content')->transfer($node, $to_live);
@@ -95,9 +95,9 @@ function drush_jcms_admin_jcms_profile_orcid(string $id, string $orcid) {
 }
 
 /**
- * Callback function drush_jcms_migrate_jcms_profile_notify().
+ * Callback function drush_jcms_admin_jcms_profile_notify().
  */
-function drush_jcms_migrate_jcms_profile_notify() {
+function drush_jcms_admin_jcms_profile_notify() {
   $verbose = drush_get_context('DRUSH_VERBOSE');
   $focus = drush_get_option('focus');
   $organism = drush_get_option('organism');
