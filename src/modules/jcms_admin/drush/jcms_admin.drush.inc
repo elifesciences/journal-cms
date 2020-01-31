@@ -6,7 +6,6 @@
  */
 
 use Drupal\node\Entity\Node;
-use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_drush_command().
