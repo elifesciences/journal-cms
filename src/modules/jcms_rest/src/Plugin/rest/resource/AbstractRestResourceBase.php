@@ -428,8 +428,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     foreach ($articles as $article) {
       if (!empty($article['subjects'])) {
         foreach ($article['subjects'] as $subject) {
-          if (!isset($subjects[$subject->id])) {
-            $subjects[$subject->id] = $subject;
+          if (!isset($subjects[$subject['id']])) {
+            $subjects[$subject['id']] = $subject;
           }
         }
       }
