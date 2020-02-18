@@ -545,7 +545,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     }
     elseif ($related->getType() == 'digest') {
       if ($digest = $this->getDigestSnippet($related)) {
-        $item_values['item'] = $digest;
+        $item_values['item']['type'] = 'digest';
+        $item_values['item'] += $digest;
       }
     }
     elseif ($related->getType() == 'podcast_chapter') {
