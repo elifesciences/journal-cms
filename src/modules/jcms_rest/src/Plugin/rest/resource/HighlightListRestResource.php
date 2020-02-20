@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class HighlightListRestResource extends AbstractRestResourceBase {
-  protected $latestVersion = 2;
+  protected $latestVersion = 3;
 
   /**
    * Responds to GET requests.
@@ -107,6 +107,9 @@ class HighlightListRestResource extends AbstractRestResourceBase {
           if ($highlight = $this->getItem($item)) {
             if ($this->acceptVersion < 2 && $highlight['item']['type'] === 'digest') {
               throw new JCMSNotAcceptableHttpException('This highlight list requires version 2+.');
+            }
+            if ($this->acceptVersion < 3 && $highlight['item']['type'] === 'press-package') {
+              throw new JCMSNotAcceptableHttpException('This highlight list requires version 3+.');
             }
             $response_data['items'][] = $highlight;
           }
