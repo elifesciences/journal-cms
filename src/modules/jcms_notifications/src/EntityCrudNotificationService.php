@@ -72,12 +72,6 @@ final class EntityCrudNotificationService {
       'key' => 'number',
       'field' => 'field_episode_number',
     ],
-    'press_package' => [
-      'topic' => 'press-packages',
-      'type' => 'press-package',
-      'key' => 'id',
-      'field' => 'uuid_last_8',
-    ],
     'subjects' => [
       'topic' => 'subjects',
       'type' => 'subject',
