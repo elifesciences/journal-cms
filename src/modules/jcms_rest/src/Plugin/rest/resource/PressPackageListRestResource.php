@@ -87,8 +87,8 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
     // Subjects are optional.
     if ($node->get('field_related_content')->count()) {
       $articles = [];
-      foreach ($node->get('field_related_content') as $related) {
-        if ($article = $this->getArticleSnippet($related->get('entity')->getTarget()->getValue())) {
+      foreach ($node->get('field_related_content')->referencedEntities() as $related) {
+        if ($article = $this->getArticleSnippet($related)) {
           $articles[] = $article;
         }
       }

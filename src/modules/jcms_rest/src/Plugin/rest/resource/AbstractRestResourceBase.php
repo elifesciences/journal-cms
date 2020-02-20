@@ -426,10 +426,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   protected function subjectsFromArticles(array $articles = NULL) : array {
     $subjects = [];
     foreach ($articles as $article) {
-      if (property_exists($article, 'subjects') && !empty($article->subjects)) {
-        foreach ($article->subjects as $subject) {
-          if (!isset($subjects[$subject->id])) {
-            $subjects[$subject->id] = $subject;
+      if (!empty($article['subjects'])) {
+        foreach ($article['subjects'] as $subject) {
+          if (!isset($subjects[$subject['id']])) {
+            $subjects[$subject['id']] = $subject;
           }
         }
       }
