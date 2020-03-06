@@ -26,7 +26,7 @@ final class YouTube implements YouTubeInterface {
       return $match['id'];
     }
 
-    $this->logger->warning('YouTube ID not forund in uri.', ['uri' => $uri]);
+    $this->logger->warning('YouTube ID not found in uri.', ['uri' => $uri]);
     return '';
   }
 
@@ -50,7 +50,7 @@ final class YouTube implements YouTubeInterface {
       }
     }
     catch (\Exception $e) {
-      $this->logger->error('YoutTube could not be reached.', ['id' => $id]);
+      $this->logger->error('YouTube could not be reached.', ['id' => $id]);
     }
 
     return [
