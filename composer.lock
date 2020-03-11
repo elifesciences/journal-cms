@@ -11921,5 +11921,6 @@
     "platform-dev": [],
     "platform-overrides": {
         "php": "7.0.17"
-    }
+    },
+    "plugin-api-version": "1.1.0"
 }
