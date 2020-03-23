@@ -1,0 +1,36 @@
+uuid: a705591b-1806-40e9-96ad-2154c189946d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_collection_related_content
+    - node.type.article
+    - node.type.blog_article
+    - node.type.digest
+    - node.type.event
+    - node.type.interview
+    - node.type.regional_collection
+id: node.regional_collection.field_collection_related_content
+field_name: field_collection_related_content
+entity_type: node
+bundle: regional_collection
+label: 'Related content'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      article: article
+      blog_article: blog_article
+      digest: digest
+      event: event
+      interview: interview
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: article
+field_type: entity_reference

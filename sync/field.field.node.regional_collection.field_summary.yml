@@ -1,0 +1,46 @@
+uuid: 8f2a898f-2271-401e-a84f-cab58e550ab0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_summary
+    - node.type.regional_collection
+    - paragraphs.paragraphs_type.paragraph
+  module:
+    - entity_reference_revisions
+id: node.regional_collection.field_summary
+field_name: field_summary
+entity_type: node
+bundle: regional_collection
+label: Summary
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      paragraph: paragraph
+    target_bundles_drag_drop:
+      affiliation:
+        weight: 7
+        enabled: false
+      json:
+        weight: 8
+        enabled: false
+      media_contact:
+        weight: 9
+        enabled: false
+      paragraph:
+        enabled: true
+        weight: 10
+      research_details:
+        weight: 11
+        enabled: false
+      venue:
+        weight: 12
+        enabled: false
+field_type: entity_reference_revisions

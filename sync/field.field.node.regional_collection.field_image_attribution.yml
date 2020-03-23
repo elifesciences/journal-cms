@@ -1,0 +1,21 @@
+uuid: f13783c8-2dcf-43a3-8e2d-e70dcc68f12b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image_attribution
+    - node.type.regional_collection
+  module:
+    - text
+id: node.regional_collection.field_image_attribution
+field_name: field_image_attribution
+entity_type: node
+bundle: regional_collection
+label: 'Image attribution'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
