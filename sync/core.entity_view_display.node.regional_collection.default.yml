@@ -25,7 +25,7 @@ bundle: regional_collection
 mode: default
 content:
   field_collection_content:
-    weight: 107
+    weight: 7
     label: above
     settings:
       link: true
@@ -33,7 +33,7 @@ content:
     type: entity_reference_label
     region: content
   field_collection_podcasts:
-    weight: 108
+    weight: 9
     label: above
     settings:
       link: true
@@ -41,7 +41,7 @@ content:
     type: entity_reference_label
     region: content
   field_collection_related_content:
-    weight: 109
+    weight: 8
     label: above
     settings:
       link: true
@@ -49,7 +49,7 @@ content:
     type: entity_reference_label
     region: content
   field_editors:
-    weight: 102
+    weight: 5
     label: above
     settings:
       link: true
@@ -57,7 +57,7 @@ content:
     type: entity_reference_label
     region: content
   field_image:
-    weight: 103
+    weight: 2
     label: above
     settings:
       image_style: ''
@@ -66,21 +66,21 @@ content:
     type: image
     region: content
   field_image_attribution:
-    weight: 104
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_impact_statement:
-    weight: 105
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_order_date:
-    weight: 106
+    weight: 10
     label: above
     settings:
       date_format: medium
@@ -90,7 +90,7 @@ content:
     type: timestamp
     region: content
   field_subjects:
-    weight: 110
+    weight: 4
     label: above
     settings:
       link: true
@@ -98,7 +98,7 @@ content:
     type: entity_reference_label
     region: content
   field_summary:
-    weight: 111
+    weight: 6
     label: above
     settings:
       view_mode: default
@@ -107,8 +107,8 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   links:
-    weight: 100
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden: {  }
