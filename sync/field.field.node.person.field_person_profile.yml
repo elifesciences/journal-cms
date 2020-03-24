@@ -21,31 +21,26 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
+    negate: 0
     target_bundles:
       paragraph: paragraph
     target_bundles_drag_drop:
-      blockquote:
+      affiliation:
+        weight: 7
+        enabled: false
+      json:
+        weight: 8
+        enabled: false
+      media_contact:
         weight: 9
         enabled: false
-      image:
-        weight: 10
-        enabled: false
-      list:
+      research_details:
         weight: 11
         enabled: false
-      list_item:
+      venue:
         weight: 12
         enabled: false
       paragraph:
         enabled: true
         weight: 13
-      section:
-        weight: 14
-        enabled: false
-      table:
-        weight: 15
-        enabled: false
-      youtube:
-        weight: 16
-        enabled: false
 field_type: entity_reference_revisions
