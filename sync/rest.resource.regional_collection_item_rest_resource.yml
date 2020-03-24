@@ -1,0 +1,17 @@
+uuid: c51b9b12-fe69-4a39-99fe-8848d173c2b0
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - jcms_rest
+id: regional_collection_item_rest_resource
+plugin_id: regional_collection_item_rest_resource
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - jcms_json
+  authentication:
+    - basic_auth

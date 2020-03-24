@@ -38,6 +38,8 @@ permissions:
   - 'restful get podcast_episode_list_rest_resource'
   - 'restful get press_package_item_rest_resource'
   - 'restful get press_package_list_rest_resource'
+  - 'restful get regional_collection_item_rest_resource'
+  - 'restful get regional_collection_list_rest_resource'
   - 'restful get subject_item_rest_resource'
   - 'restful get subject_list_rest_resource'
   - 'search content'
