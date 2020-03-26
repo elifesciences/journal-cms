@@ -42,7 +42,6 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         ],
         'id',
       ],
-      /* 500 error when content is in there
       [
         '/people',
         [
@@ -51,7 +50,6 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         ],
         'id',
       ],
-       */
       [
         '/podcast-episodes',
         [
