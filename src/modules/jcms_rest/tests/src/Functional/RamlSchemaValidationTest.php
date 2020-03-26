@@ -52,10 +52,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.labs-post-list+json;version=1',
         'application/vnd.elife.labs-post+json;version=1',
       ],
-      /*
-       Turns out this is failing validation
-       [items[0].orcid] Does not match the regex pattern:
-       ^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$
       [
         'GET',
         '/people',
@@ -63,7 +59,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.person-list+json;version=1',
         'application/vnd.elife.person+json;version=1',
       ],
-       */
       [
         'GET',
         '/events',
@@ -71,8 +66,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.event-list+json;version=1',
         'application/vnd.elife.event+json;version=1',
       ],
-      /*
-       * fails because there is no `chapters` property
       [
         'GET',
         '/podcast-episodes',
@@ -80,7 +73,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.podcast-episode-list+json;version=1',
         'application/vnd.elife.podcast-episode+json;version=1',
       ],
-       */
       [
         'GET',
         '/interviews',
@@ -95,19 +87,13 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.job-advert-list+json;version=1',
         'application/vnd.elife.job-advert+json;version=1',
       ],
-      /*
-       * fails because
-       * [items[0].selectedCurator.orcid] Does not match the regex pattern:
-       * ^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$
-       * and similar
       [
         'GET',
         '/collections',
         'id',
         'application/vnd.elife.collection-list+json;version=1',
-        'application/vnd.elife.collection+json;version=1',
+        'application/vnd.elife.collection+json;version=2',
       ],
-       */
       [
         'GET',
         '/covers',
@@ -115,11 +101,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.cover-list+json;version=1',
         'application/vnd.elife.cover+json;version=1',
       ],
-      /*
-       * fails because
-       * [mediaContacts[2].phoneNumbers[1]] Does not match the regex pattern:
-       * ^\+[0-9]{8,15}(;ext=[0-9]+)?$
-       *
       [
         'GET',
         '/press-packages',
@@ -127,7 +108,6 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         'application/vnd.elife.press-package-list+json;version=1',
         'application/vnd.elife.press-package+json;version=2',
       ],
-       */
       [
         'GET',
         '/annual-reports',

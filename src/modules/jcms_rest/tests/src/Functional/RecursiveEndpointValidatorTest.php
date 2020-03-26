@@ -74,7 +74,6 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
         'application/vnd.elife.labs-post-list+json',
         'application/vnd.elife.labs-post+json',
       ],
-      /*
       [
         '/people',
         'id',
@@ -87,7 +86,6 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
         'application/vnd.elife.podcast-episode-list+json',
         'application/vnd.elife.podcast-episode+json',
       ],
-       */
       [
         '/interviews',
         'id',
@@ -106,27 +104,23 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
         'application/vnd.elife.event-list+json',
         'application/vnd.elife.event+json',
       ],
-      /*
       [
         '/collections',
         'id',
         'application/vnd.elife.collection-list+json',
         'application/vnd.elife.collection+json',
       ],
-       */
       [
         '/press-packages',
         'id',
         'application/vnd.elife.press-package-list+json',
         'application/vnd.elife.press-package+json',
       ],
-      /*
       [
         '/community',
         'type',
         'application/vnd.elife.community-list+json',
       ],
-       */
       [
         '/covers',
         'type',
