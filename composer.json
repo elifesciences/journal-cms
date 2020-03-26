@@ -288,7 +288,7 @@
     "drupal/focal_point": "^1.1",
     "drupal/diff": "^1.0@RC",
     "embed/embed": "^3.0",
-    "drupal/devel": "^1.2",
+    "drupal/devel": "^3.0",
     "drupal/core": "^8.7",
     "drupal/monolog": "^1.0@alpha",
     "monolog/monolog": "~1.6",
@@ -397,6 +397,9 @@
       },
       "drupal/file_entity" : {
         "D8.6 file rest upload PluginNotFoundException error (2959947)": "https://www.drupal.org/files/issues/2018-07-11/file-rest-upload-pluginnotfoundexception-error-2959947-8.patch"
+      },
+      "drupal/country": {
+        "generateSampleValue (2819257)": "https://git.drupalcode.org/project/country/commit/c8e2eb2.patch"
       }
     }
   }
