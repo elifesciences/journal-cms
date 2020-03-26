@@ -417,7 +417,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    */
   protected function getDigestSnippet(Node $node) {
     $crud_service = \Drupal::service('jcms_digest.digest_crud');
-    return $crud_service->getDigest($node);
+    return ['type' => 'digest'] + $crud_service->getDigest($node);
   }
 
   /**
