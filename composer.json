@@ -260,7 +260,7 @@
     "composer/installers": "^1.2",
     "drupal-composer/drupal-scaffold": "~2.4.0",
     "cweagans/composer-patches": "^1.6",
-    "drush/drush": "~8.1.17",
+    "drush/drush": "^9.0.0",
     "drupal/console": "^1.0.2",
     "drupal/admin_toolbar": "^2.0",
     "drupal/config_devel": "~1.0-rc1",
