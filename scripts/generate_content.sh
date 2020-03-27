@@ -19,7 +19,7 @@ for type in research_focuses research_organisms; do
 done
 
 # labs_experiment is actually published as /labs-posts
-for type in blog_article labs_experiment person event interview podcast_chapter podcast_episode collection annual_report job_advert cover press_package; do
+for type in blog_article labs_experiment person event interview podcast_chapter podcast_episode collection regional_collection annual_report job_advert cover press_package; do
     echo "Creating content type $type"
     ../vendor/bin/drush --nocolor generate-content 5 --bundles=$type --kill
 done

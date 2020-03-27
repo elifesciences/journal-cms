@@ -2,7 +2,6 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
@@ -21,7 +20,6 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class RegionalCollectionItemRestResource extends AbstractRestResourceBase {
-  protected $latestVersion = 2;
 
   /**
    * Responds to GET requests.
@@ -109,9 +107,6 @@ class RegionalCollectionItemRestResource extends AbstractRestResourceBase {
                   break;
 
                 case 'event':
-                  if ($this->acceptVersion < 2) {
-                    throw new JCMSNotAcceptableHttpException('This collection requires version 2+.');
-                  }
                   $response[$k][] = ['type' => 'event'] + $event_rest_resource->getItem($content);
                   break;
 
@@ -127,9 +122,6 @@ class RegionalCollectionItemRestResource extends AbstractRestResourceBase {
 
                 case 'digest':
                   if ($snippet = $this->getDigestSnippet($content)) {
-                    if ($this->acceptVersion < 2) {
-                      throw new JCMSNotAcceptableHttpException('This collection requires version 2+.');
-                    }
                     $response[$k][] = $snippet;
                   }
 
