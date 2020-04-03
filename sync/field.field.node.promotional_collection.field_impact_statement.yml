@@ -4,13 +4,13 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_impact_statement
-    - node.type.regional_collection
+    - node.type.promotional_collection
   module:
     - text
-id: node.regional_collection.field_impact_statement
+id: node.promotional_collection.field_impact_statement
 field_name: field_impact_statement
 entity_type: node
-bundle: regional_collection
+bundle: promotional_collection
 label: 'Impact statement'
 description: ''
 required: false

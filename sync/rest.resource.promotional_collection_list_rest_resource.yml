@@ -5,8 +5,8 @@ dependencies:
   module:
     - basic_auth
     - jcms_rest
-id: regional_collection_list_rest_resource
-plugin_id: regional_collection_list_rest_resource
+id: promotional_collection_list_rest_resource
+plugin_id: promotional_collection_list_rest_resource
 granularity: resource
 configuration:
   methods:

@@ -43,8 +43,8 @@ class PathMediaTypeMapper {
       '/highlights/{list}' => 'application/vnd.elife.highlight-list+json',
       '/job-adverts' => 'application/vnd.elife.job-advert-list+json',
       '/job-adverts/{id}' => 'application/vnd.elife.job-advert+json',
-      '/regional-collections' => 'application/vnd.elife.regional-collection-list+json',
-      '/regional-collections/{id}' => 'application/vnd.elife.regional-collection+json',
+      '/promotional-collections' => 'application/vnd.elife.promotional-collection-list+json',
+      '/promotional-collections/{id}' => 'application/vnd.elife.promotional-collection+json',
     ];
     return $map;
   }

@@ -4,14 +4,14 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_summary
-    - node.type.regional_collection
+    - node.type.promotional_collection
     - paragraphs.paragraphs_type.paragraph
   module:
     - entity_reference_revisions
-id: node.regional_collection.field_summary
+id: node.promotional_collection.field_summary
 field_name: field_summary
 entity_type: node
-bundle: regional_collection
+bundle: promotional_collection
 label: Summary
 description: ''
 required: false

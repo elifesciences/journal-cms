@@ -13,14 +13,14 @@ use Symfony\Component\HttpFoundation\Response;
  * Provides a resource to get view modes by entity and bundle.
  *
  * @RestResource(
- *   id = "regional_collection_list_rest_resource",
- *   label = @Translation("Regional collection list rest resource"),
+ *   id = "promotional_collection_list_rest_resource",
+ *   label = @Translation("Promotional collection list rest resource"),
  *   uri_paths = {
- *     "canonical" = "/regional-collections"
+ *     "canonical" = "/promotional-collections"
  *   }
  * )
  */
-class RegionalCollectionListRestResource extends AbstractRestResourceBase {
+class PromotionalCollectionListRestResource extends AbstractRestResourceBase {
 
   /**
    * Responds to GET requests.
@@ -32,7 +32,7 @@ class RegionalCollectionListRestResource extends AbstractRestResourceBase {
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
       ->condition('changed', \Drupal::time()->getRequestTime(), '<')
-      ->condition('type', 'regional_collection');
+      ->condition('type', 'promotional_collection');
 
     if (!$this->viewUnpublished()) {
       $base_query->condition('status', NodeInterface::PUBLISHED);

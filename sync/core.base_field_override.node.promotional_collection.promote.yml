@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - node.type.regional_collection
-id: node.regional_collection.promote
+    - node.type.promotional_collection
+id: node.promotional_collection.promote
 field_name: promote
 entity_type: node
-bundle: regional_collection
+bundle: promotional_collection
 label: 'Promoted to front page'
 description: ''
 required: false

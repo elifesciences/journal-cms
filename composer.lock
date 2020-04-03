@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21e345e9336c6b1e9d415ef9652e190c",
+    "content-hash": "7cbea62b13de88b071586fc7e2153b5b",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2646,6 +2646,9 @@
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
                     }
+                },
+                "patches_applied": {
+                    "generateSampleValue (2819257)": "https://git.drupalcode.org/project/country/commit/c8e2eb2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4638,12 +4641,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "46b713ee4c523da0aa83a243b344a7ac1cdcafb7"
+                "reference": "9d0e27ae9da366dcf3478573d19941e2cebf3a30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/46b713ee4c523da0aa83a243b344a7ac1cdcafb7",
-                "reference": "46b713ee4c523da0aa83a243b344a7ac1cdcafb7",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/9d0e27ae9da366dcf3478573d19941e2cebf3a30",
+                "reference": "9d0e27ae9da366dcf3478573d19941e2cebf3a30",
                 "shasum": ""
             },
             "conflict": {
@@ -4655,7 +4658,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API specification",
-            "time": "2020-03-25T21:22:08+00:00"
+            "time": "2020-04-02T13:59:53+00:00"
         },
         {
             "name": "elife/api-client",

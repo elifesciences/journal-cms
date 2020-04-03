@@ -12,14 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
  * Provides a resource to get view modes by entity and bundle.
  *
  * @RestResource(
- *   id = "regional_collection_item_rest_resource",
- *   label = @Translation("Regional collection item rest resource"),
+ *   id = "promotional_collection_item_rest_resource",
+ *   label = @Translation("Promotional collection item rest resource"),
  *   uri_paths = {
- *     "canonical" = "/regional-collections/{id}"
+ *     "canonical" = "/promotional-collections/{id}"
  *   }
  * )
  */
-class RegionalCollectionItemRestResource extends AbstractRestResourceBase {
+class PromotionalCollectionItemRestResource extends AbstractRestResourceBase {
 
   /**
    * Responds to GET requests.
@@ -32,7 +32,7 @@ class RegionalCollectionItemRestResource extends AbstractRestResourceBase {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
         ->condition('changed', \Drupal::time()->getRequestTime(), '<')
-        ->condition('type', 'regional_collection')
+        ->condition('type', 'promotional_collection')
         ->condition('uuid', '%' . $id, 'LIKE');
 
       if (!$this->viewUnpublished()) {
@@ -73,15 +73,16 @@ class RegionalCollectionItemRestResource extends AbstractRestResourceBase {
           $response['subjects'] = $subjects;
         }
 
-        // Curators are required.
-        $co = 0;
-        $people_rest_resource = new PersonListRestResource([], 'person_list_rest_resource', [], $this->serializerFormats, $this->logger);
-        $response['editors'] = [];
-        foreach ($node->get('field_editors')->referencedEntities() as $editor) {
-          /* @var Node $editor */
-          if ($editor->isPublished() || $this->viewUnpublished()) {
-            $editor_item = $people_rest_resource->getItem($editor);
-            $response['editors'][] = $editor_item;
+        // Editors are optional.
+        if ($node->get('field_editors')->count()) {
+          $people_rest_resource = new PersonListRestResource([], 'person_list_rest_resource', [], $this->serializerFormats, $this->logger);
+          $response['editors'] = [];
+          foreach ($node->get('field_editors')->referencedEntities() as $editor) {
+            /* @var Node $editor */
+            if ($editor->isPublished() || $this->viewUnpublished()) {
+              $editor_item = $people_rest_resource->getItem($editor);
+              $response['editors'][] = $editor_item;
+            }
           }
         }
 
@@ -150,7 +151,7 @@ class RegionalCollectionItemRestResource extends AbstractRestResourceBase {
       }
     }
 
-    throw new JCMSNotFoundHttpException(t('Regional collection with ID @id was not found', ['@id' => $id]));
+    throw new JCMSNotFoundHttpException(t('Promotional collection with ID @id was not found', ['@id' => $id]));
   }
 
 }

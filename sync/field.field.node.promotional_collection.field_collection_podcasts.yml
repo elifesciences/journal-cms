@@ -5,11 +5,11 @@ dependencies:
   config:
     - field.storage.node.field_collection_podcasts
     - node.type.podcast_episode
-    - node.type.regional_collection
-id: node.regional_collection.field_collection_podcasts
+    - node.type.promotional_collection
+id: node.promotional_collection.field_collection_podcasts
 field_name: field_collection_podcasts
 entity_type: node
-bundle: regional_collection
+bundle: promotional_collection
 label: 'Podcast episodes'
 description: ''
 required: false

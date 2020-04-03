@@ -110,10 +110,10 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
       ],
       [
         'GET',
-        '/regional-collections',
+        '/promotional-collections',
         'id',
-        'application/vnd.elife.regional-collection-list+json;version=1',
-        'application/vnd.elife.regional-collection+json;version=1',
+        'application/vnd.elife.promotional-collection-list+json;version=1',
+        'application/vnd.elife.promotional-collection+json;version=1',
       ],
       [
         'GET',

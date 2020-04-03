@@ -3,27 +3,27 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.regional_collection.field_collection_content
-    - field.field.node.regional_collection.field_collection_podcasts
-    - field.field.node.regional_collection.field_collection_related_content
-    - field.field.node.regional_collection.field_editors
-    - field.field.node.regional_collection.field_image
-    - field.field.node.regional_collection.field_image_attribution
-    - field.field.node.regional_collection.field_impact_statement
-    - field.field.node.regional_collection.field_order_date
-    - field.field.node.regional_collection.field_subjects
-    - field.field.node.regional_collection.field_summary
+    - field.field.node.promotional_collection.field_collection_content
+    - field.field.node.promotional_collection.field_collection_podcasts
+    - field.field.node.promotional_collection.field_collection_related_content
+    - field.field.node.promotional_collection.field_editors
+    - field.field.node.promotional_collection.field_image
+    - field.field.node.promotional_collection.field_image_attribution
+    - field.field.node.promotional_collection.field_impact_statement
+    - field.field.node.promotional_collection.field_order_date
+    - field.field.node.promotional_collection.field_subjects
+    - field.field.node.promotional_collection.field_summary
     - image.style.thumbnail
-    - node.type.regional_collection
+    - node.type.promotional_collection
   module:
     - focal_point
     - inline_entity_form
     - paragraphs
     - scheduler
     - text
-id: node.regional_collection.default
+id: node.promotional_collection.default
 targetEntityType: node
-bundle: regional_collection
+bundle: promotional_collection
 mode: default
 content:
   field_collection_content:
