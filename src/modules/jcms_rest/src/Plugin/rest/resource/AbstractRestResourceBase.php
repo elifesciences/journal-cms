@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\node\NodeInterface;
 use function GuzzleHttp\Psr7\normalize_header;
 use DateTimeImmutable;
 use DateTimeZone;
@@ -33,6 +34,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     'page' => 1,
     'order' => 'desc',
     'subject' => [],
+    'containing' => [],
     'start-date' => '2000-01-01',
     'end-date' => '2999-12-31',
     'use-date' => 'default',
@@ -132,6 +134,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         'per-page' => (int) $request->query->get('per-page', $this->defaultOptions['per-page']),
         'order' => $request->query->get('order', $this->defaultOptions['order']),
         'subject' => (array) $request->query->get('subject', $this->defaultOptions['subject']),
+        'containing' => (array) $request->query->get('containing', $this->defaultOptions['containing']),
         'start-date' => $request->query->get('start-date', $this->defaultOptions['start-date']),
         'end-date' => $request->query->get('end-date', $this->defaultOptions['end-date']),
         'use-date' => $request->query->get('use-date', $this->defaultOptions['use-date']),
@@ -143,6 +146,19 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
     if (!in_array($this::$requestOptions['order'], ['asc', 'desc'])) {
       throw new JCMSBadRequestHttpException(t('Invalid order option'));
+    }
+
+    if (!empty($this::$requestOptions['containing'])) {
+      foreach ($this::$requestOptions['containing'] as $k => $item) {
+        if (!is_array($item)) {
+          preg_match('~^(article|blog-article|interview|digest|event)/([a-z0-9-]+)$~', $item, $matches);
+
+          if (empty($matches[1]) || empty($matches[2])) {
+            throw new JCMSBadRequestHttpException(t('Invalid containing parameter'));
+          }
+          $this::$requestOptions['containing'][$k] = $matches;
+        }
+      }
     }
 
     return $this::$requestOptions;
@@ -242,6 +258,40 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     $subjects = $this->getRequestOption('subject');
     if (!empty($subjects)) {
       $query->condition('field_subjects.entity.field_subject_id.value', $subjects, 'IN');
+    }
+  }
+
+  /**
+   * Apply filter for containing by amending query.
+   */
+  protected function filterContaining(QueryInterface &$query) {
+    $containing = $this->getRequestOption('containing');
+
+    if (!empty($containing)) {
+      $orCondition = $query->orConditionGroup();
+
+      foreach ($containing as $item) {
+        $andCondition = $query->andConditionGroup()
+          ->condition('field_collection_content.entity.type', str_replace('-', '_', $item[1]));
+
+        if (!$this->viewUnpublished()) {
+          $andCondition->condition('field_collection_content.entity.status', NodeInterface::PUBLISHED);
+        }
+
+        if ($item[1] === 'article') {
+          $andCondition = $andCondition->condition('field_collection_content.entity.title', $item[2], '=');
+        }
+        elseif ($item[1] === 'digest') {
+          $andCondition = $andCondition->condition('field_collection_content.entity.field_digest_id.value', $item[2], '=');
+        }
+        else {
+          $andCondition = $andCondition->condition('field_collection_content.entity.uuid', $item[2], 'ENDS_WITH');
+        }
+
+        $orCondition = $orCondition->condition($andCondition);
+      }
+
+      $query->condition($orCondition);
     }
   }
 
