@@ -3,7 +3,6 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\jcms_rest\Exception\JCMSBadRequestHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
@@ -39,33 +38,7 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
     }
 
     $this->filterSubjects($base_query);
-
-    $containing = \Drupal::request()->query->get('containing', []);
-    if (!empty($containing)) {
-      $orCondition = $base_query->orConditionGroup();
-
-      foreach ($containing as $item) {
-        preg_match('~^(article|collection)/([a-z0-9-]+)$~', $item, $matches);
-
-        if (empty($matches[1]) || empty($matches[2])) {
-          throw new JCMSBadRequestHttpException(t('Invalid containing parameter'));
-        }
-
-        $andCondition = $base_query->andConditionGroup()
-          ->condition('field_episode_chapter.entity.field_related_content.entity.type', str_replace('-', '_', $matches[1]));
-
-        if ('article' === $matches[1]) {
-          $andCondition = $andCondition->condition('field_episode_chapter.entity.field_related_content.entity.title', $matches[2], '=');
-        }
-        else {
-          $andCondition = $andCondition->condition('field_episode_chapter.entity.field_related_content.entity.uuid', $matches[2], 'ENDS_WITH');
-        }
-
-        $orCondition = $orCondition->condition($andCondition);
-      }
-
-      $base_query = $base_query->condition($orCondition);
-    }
+    $this->filterContaining($base_query, 'field_episode_chapter.entity.field_related_content', ['article', 'collection']);
 
     $count_query = clone $base_query;
     $items_query = clone $base_query;

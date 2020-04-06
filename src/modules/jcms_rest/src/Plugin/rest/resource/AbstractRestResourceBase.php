@@ -148,19 +148,6 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       throw new JCMSBadRequestHttpException(t('Invalid order option'));
     }
 
-    if (!empty($this::$requestOptions['containing'])) {
-      foreach ($this::$requestOptions['containing'] as $k => $item) {
-        if (!is_array($item)) {
-          preg_match('~^(article|blog-article|interview|digest|event)/([a-z0-9-]+)$~', $item, $matches);
-
-          if (empty($matches[1]) || empty($matches[2])) {
-            throw new JCMSBadRequestHttpException(t('Invalid containing parameter'));
-          }
-          $this::$requestOptions['containing'][$k] = $matches;
-        }
-      }
-    }
-
     return $this::$requestOptions;
   }
 
@@ -264,28 +251,44 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   /**
    * Apply filter for containing by amending query.
    */
-  protected function filterContaining(QueryInterface &$query) {
+  protected function filterContaining(
+    QueryInterface &$query,
+    string $field,
+    array $permitted = [
+      'article',
+      'blog-article',
+      'digest',
+      'event',
+      'interview',
+    ]
+  ) {
     $containing = $this->getRequestOption('containing');
 
     if (!empty($containing)) {
       $orCondition = $query->orConditionGroup();
 
       foreach ($containing as $item) {
+        preg_match('~^(' . implode('|', $permitted) . ')/([a-z0-9-]+)$~', $item, $matches);
+
+        if (empty($matches[1]) || empty($matches[2])) {
+          throw new JCMSBadRequestHttpException(t('Invalid containing parameter'));
+        }
+
         $andCondition = $query->andConditionGroup()
-          ->condition('field_collection_content.entity.type', str_replace('-', '_', $item[1]));
+          ->condition($field . '.entity.type', str_replace('-', '_', $item[1]));
 
         if (!$this->viewUnpublished()) {
-          $andCondition->condition('field_collection_content.entity.status', NodeInterface::PUBLISHED);
+          $andCondition->condition($field . '.entity.status', NodeInterface::PUBLISHED);
         }
 
         if ($item[1] === 'article') {
-          $andCondition = $andCondition->condition('field_collection_content.entity.title', $item[2], '=');
+          $andCondition = $andCondition->condition($field . '.entity.title', $item[2], '=');
         }
         elseif ($item[1] === 'digest') {
-          $andCondition = $andCondition->condition('field_collection_content.entity.field_digest_id.value', $item[2], '=');
+          $andCondition = $andCondition->condition($field . '.entity.field_digest_id.value', $item[2], '=');
         }
         else {
-          $andCondition = $andCondition->condition('field_collection_content.entity.uuid', $item[2], 'ENDS_WITH');
+          $andCondition = $andCondition->condition($field . '.entity.uuid', $item[2], 'ENDS_WITH');
         }
 
         $orCondition = $orCondition->condition($andCondition);

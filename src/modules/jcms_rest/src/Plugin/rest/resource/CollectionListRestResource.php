@@ -38,7 +38,7 @@ class CollectionListRestResource extends AbstractRestResourceBase {
     }
 
     $this->filterSubjects($base_query);
-    $this->filterContaining($base_query);
+    $this->filterContaining($base_query, 'field_collection_content');
 
     $count_query = clone $base_query;
     $items_query = clone $base_query;
