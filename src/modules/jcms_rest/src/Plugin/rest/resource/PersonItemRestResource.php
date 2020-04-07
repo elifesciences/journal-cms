@@ -48,9 +48,6 @@ class PersonItemRestResource extends AbstractRestResourceBase {
         $query->condition('status', NodeInterface::PUBLISHED);
       }
 
-      // @todo - elife - nlisgo - Handle version specific requests
-      // @todo - elife - nlisgo - Handle content negotiation
-
       $nids = $query->execute();
       if ($nids) {
         $nid = reset($nids);
