@@ -25,8 +25,6 @@ class InterviewListRestResource extends AbstractRestResourceBase {
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
-   *
-   * @todo - elife - nlisgo - Handle version specific requests
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
