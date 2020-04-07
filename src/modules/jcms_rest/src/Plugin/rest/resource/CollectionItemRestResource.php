@@ -82,41 +82,16 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
       }
     }
 
-    // Summary is optional.
-    if ($summary = $this->processFieldContent($node->get('field_summary'))) {
-      $item['summary'] = $summary;
-    }
+    $item += $this->extendedCollectionItem($node);
 
-    // Collection content is required.
-    $item['content'] = [];
-
-    $blog_article_rest_resource = new BlogArticleListRestResource([], 'blog_article_list_rest_resource', [], $this->serializerFormats, $this->logger);
-    $event_rest_resource = new EventListRestResource([], 'event_list_rest_resource', [], $this->serializerFormats, $this->logger);
-    $interview_rest_resource = new InterviewListRestResource([], 'interview_list_rest_resource', [], $this->serializerFormats, $this->logger);
-
-    foreach (['content' => 'field_collection_content', 'relatedContent' => 'field_collection_related_content'] as $k => $field) {
+    foreach (['field_collection_content', 'field_collection_related_content'] as $field) {
       foreach ($node->get($field)->referencedEntities() as $content) {
         /* @var Node $content */
         if ($content->isPublished() || $this->viewUnpublished()) {
           switch ($content->getType()) {
-            case 'blog_article':
-              $item[$k][] = ['type' => 'blog-article'] + $blog_article_rest_resource->getItem($content);
-              break;
-
             case 'event':
               if ($this->acceptVersion < 2) {
                 throw new JCMSNotAcceptableHttpException('This collection requires version 2+.');
-              }
-              $item[$k][] = ['type' => 'event'] + $event_rest_resource->getItem($content);
-              break;
-
-            case 'interview':
-              $item[$k][] = ['type' => 'interview'] + $interview_rest_resource->getItem($content);
-              break;
-
-            case 'article':
-              if ($snippet = $this->getArticleSnippet($content)) {
-                $item[$k][] = $snippet;
               }
               break;
 
@@ -125,23 +100,10 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
                 if ($this->acceptVersion < 2) {
                   throw new JCMSNotAcceptableHttpException('This collection requires version 2+.');
                 }
-                $item[$k][] = $snippet;
               }
 
             default:
           }
-        }
-      }
-    }
-
-    // Podcasts are optional.
-    if ($node->get('field_collection_podcasts')->count()) {
-      $item['podcastEpisodes'] = [];
-      $podcast_rest_resource = new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger);
-      foreach ($node->get('field_collection_podcasts')->referencedEntities() as $podcast) {
-        /* @var Node $podcast */
-        if ($podcast->isPublished() || $this->viewUnpublished()) {
-          $item['podcastEpisodes'][] = $podcast_rest_resource->getItem($podcast);
         }
       }
     }
