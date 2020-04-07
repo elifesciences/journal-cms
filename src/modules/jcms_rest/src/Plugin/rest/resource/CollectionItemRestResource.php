@@ -49,6 +49,7 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
         $item = $this->getItem($node);
         $response = new JCMSRestResponse($item, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
         $response->addCacheableDependency($node);
+        $this->processResponse($response);
         return $response;
       }
     }
