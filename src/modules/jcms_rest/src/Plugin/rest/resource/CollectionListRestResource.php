@@ -25,8 +25,6 @@ class CollectionListRestResource extends AbstractRestResourceBase {
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
-   *
-   * @todo - elife - nlisgo - Handle version specific requests
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
@@ -54,7 +52,7 @@ class CollectionListRestResource extends AbstractRestResourceBase {
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
         foreach ($nodes as $node) {
-          $response_data['items'][] = $this->getItem($node);
+          $response_data['items'][] = $this->getItem($node, 'thumbnail');
         }
       }
     }
@@ -67,13 +65,13 @@ class CollectionListRestResource extends AbstractRestResourceBase {
   /**
    * Takes a node and builds an item from it.
    */
-  public function getItem(EntityInterface $node) : array {
+  public function getItem(EntityInterface $node, $image_size_types = ['banner', 'thumbnail']) : array {
     /* @var Node $node */
     $this->setSortBy('changed');
     $item = $this->processDefault($node);
 
     // Image is optional.
-    if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {
+    if ($image = $this->processFieldImage($node->get('field_image'), FALSE, $image_size_types)) {
       $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
       if (!empty($attribution)) {
         foreach ($image as $key => $type) {
