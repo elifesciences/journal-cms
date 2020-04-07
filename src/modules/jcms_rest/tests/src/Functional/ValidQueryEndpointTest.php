@@ -26,6 +26,15 @@ class ValidQueryEndpointTest extends FixtureBasedTestCase {
         400,
         'Invalid containing parameter',
       ],
+      'containing - promotional-collections' => [
+        '/collections?containing[]=article/1&containing[]=blog-article/2&containing[]=digest/3&containing[]=event/4&containing[]=interview/5',
+        200,
+      ],
+      'containing - promotional-collections - unsupported' => [
+        '/collections?containing[]=article/1&containing[]=promotional-collection/2',
+        400,
+        'Invalid containing parameter',
+      ],
       'containing - podcast-episodes' => [
         '/podcast-episodes?containing[]=article/1&containing[]=collection/2',
         200,
