@@ -91,7 +91,7 @@ class PromotionalCollectionItemRestResource extends AbstractRestResourceBase {
           $response['summary'] = $content;
         }
 
-        // Collection content is required.
+        // Promotional collection content is required.
         $response['content'] = [];
 
         $blog_article_rest_resource = new BlogArticleListRestResource([], 'blog_article_list_rest_resource', [], $this->serializerFormats, $this->logger);
