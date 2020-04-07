@@ -28,8 +28,6 @@ class BlogArticleListRestResource extends AbstractRestResourceBase {
    *
    * @throws \Symfony\Component\HttpKernel\Exception\HttpException
    *   Throws exception expected.
-   *
-   * @todo - elife - nlisgo - Handle version specific requests
    */
   public function get() {
     $base_query = \Drupal::entityQuery('node')
