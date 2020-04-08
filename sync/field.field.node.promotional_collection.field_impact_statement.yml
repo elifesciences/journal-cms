@@ -1,0 +1,21 @@
+uuid: 08265e0b-4d9c-42ff-bb2d-c598686fbae9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_impact_statement
+    - node.type.promotional_collection
+  module:
+    - text
+id: node.promotional_collection.field_impact_statement
+field_name: field_impact_statement
+entity_type: node
+bundle: promotional_collection
+label: 'Impact statement'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
