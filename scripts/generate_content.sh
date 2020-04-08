@@ -23,7 +23,14 @@ for type in blog_article labs_experiment person event interview podcast_chapter 
     echo "Creating content type $type"
     ../vendor/bin/drush --nocolor generate-content 5 --bundles=$type --kill
 done
-# community is missing
-# highlights is missing
+
+echo "Populate covers list"
+../vendor/bin/drush jcms-covers-random
+
+echo "Creating content type highlight_item"
+    ../vendor/bin/drush --nocolor generate-content 15 --bundles=highlight_item --kill
+
+echo "Creating content type highlight_list"
+    ../vendor/bin/drush --nocolor generate-content 3 --bundles=highlight_list --kill
 
 ../vendor/bin/drush --nocolor -y pm-uninstall devel_generate

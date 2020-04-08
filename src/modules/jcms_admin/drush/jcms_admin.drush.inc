@@ -5,6 +5,7 @@
  * Drush commands for the module.
  */
 
+use Drupal\entityqueue\Entity\EntitySubqueue;
 use Drupal\node\Entity\Node;
 
 /**
@@ -48,6 +49,10 @@ function jcms_admin_drush_command() {
         'drush jcms-profile-notify --focus="<i>Sulfolobus</i>"' => 'Re-save all profiles to trigger notifications with focus "<i>Sulfolobus</i>"',
         'drush jcms-profile-notify --organism="amphibians"' => 'Re-save all profiles to trigger notifications with organism "amphibians"',
       ],
+    ],
+    'jcms-covers-random' => [
+      'description' => 'populate covers entityqueue with random covers',
+      'drupal dependencies' => ['jcms_admin'],
     ],
   ];
 }
@@ -151,4 +156,30 @@ function drush_jcms_admin_jcms_profile_notify() {
       $node->save();
     }
   }
+}
+
+/**
+ * Callback function drush_jcms_admin_jcms_covers_random().
+ */
+function drush_jcms_admin_jcms_covers_random() {
+  $covers = \Drupal::entityQuery('node')
+    ->condition('type', 'cover')
+    ->exists('field_image')
+    ->execute();
+  shuffle($covers);
+  $covers = array_slice($covers, 0, 3);
+  array_walk($covers, function (&$cover) {
+    $node = Node::load($cover);
+    $node->set('moderation_state', 'published');
+    $node->save();
+    $cover = [
+      'target_id' => $cover,
+    ];
+  });
+
+  $subqueue = EntitySubqueue::load('covers');
+  $subqueue->set('items', $covers);
+  $subqueue->save();
+
+  drush_print(dt('Covers list populated with random covers'));
 }

@@ -116,6 +116,24 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
           'application/vnd.elife.cover-list+json;version=1',
         ],
       ],
+      [
+        '/highlights/magazine',
+        [
+          'application/vnd.elife.highlight-list+json;version=3',
+        ],
+      ],
+      [
+        '/highlights/community',
+        [
+          'application/vnd.elife.highlight-list+json;version=3',
+        ],
+      ],
+      [
+        '/highlights/announcements',
+        [
+          'application/vnd.elife.highlight-list+json;version=3',
+        ],
+      ],
     ];
   }
 
