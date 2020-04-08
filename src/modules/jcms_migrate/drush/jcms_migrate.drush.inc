@@ -431,7 +431,6 @@ function drush_jcms_migrate_amend_publish_date(string $type, string $id, string 
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', $type);
 

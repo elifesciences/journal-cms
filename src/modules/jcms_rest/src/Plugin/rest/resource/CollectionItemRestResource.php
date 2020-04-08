@@ -34,7 +34,6 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
-        ->condition('changed', \Drupal::time()->getRequestTime(), '<')
         ->condition('type', 'collection')
         ->condition('uuid', '%' . $id, 'LIKE');
 

@@ -182,7 +182,6 @@ function jcms_admin_form_node_interview_form_alter(&$form, FormStateInterface $f
 
   $query = \Drupal::entityQuery('node')
     ->condition('status', NODE_PUBLISHED)
-    ->condition('changed', REQUEST_TIME, '<')
     ->condition('type', 'collection')
     ->addTag('interview_collections_filter');
   $collection_nids = $query->execute();

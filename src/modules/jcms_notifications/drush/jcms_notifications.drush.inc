@@ -184,7 +184,6 @@ function drush_jcms_notifications_article_metrics_import_all() {
   $limit = drush_get_option('limit') ? (int) drush_get_option('limit') : NULL;
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('type', 'article');
   if (!empty($limit)) {
     $query->range(0, $limit);

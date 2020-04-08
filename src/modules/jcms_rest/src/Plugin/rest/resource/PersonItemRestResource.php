@@ -39,7 +39,6 @@ class PersonItemRestResource extends AbstractRestResourceBase {
   public function getItemResponse(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
-        ->condition('changed', \Drupal::time()->getRequestTime(), '<')
         ->condition('field_archive.value', 0)
         ->condition('type', 'person')
         ->condition('uuid', '%' . $id, 'LIKE');

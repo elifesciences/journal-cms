@@ -28,7 +28,6 @@ class InterviewListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
-      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'interview');
 
     if (!$this->viewUnpublished()) {
