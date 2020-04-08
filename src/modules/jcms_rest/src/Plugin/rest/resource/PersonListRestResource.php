@@ -30,7 +30,6 @@ class PersonListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
-      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('field_archive.value', 0)
       ->condition('type', 'person');
 

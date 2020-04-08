@@ -42,7 +42,6 @@ class ValidateContentRestResource extends AbstractRestResourceBase {
     $response['published'] = FALSE;
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
-        ->condition('changed', \Drupal::time()->getRequestTime(), '<')
         ->condition('uuid', '%' . $id, 'LIKE');
 
       $nids = $query->execute();

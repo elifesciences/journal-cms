@@ -61,7 +61,6 @@ function jcms_migrate_update_8101() {
   $regex = sprintf('(%s)$', implode('|', array_keys($type_labels)));
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('type', 'person')
     ->condition('uuid', $regex, 'REGEXP');
 
@@ -188,7 +187,6 @@ function jcms_migrate_update_8102() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('type', 'person');
 
   $nids = $query->execute();
@@ -523,7 +521,6 @@ function jcms_migrate_update_8103() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('type', 'person');
 
   $nids = $query->execute();
@@ -588,7 +585,6 @@ function jcms_migrate_update_8105() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'press_package');
 
@@ -658,7 +654,6 @@ function jcms_migrate_update_8107() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'press_package');
 
@@ -773,7 +768,6 @@ function jcms_migrate_update_8109() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'blog_article');
 
@@ -798,7 +792,6 @@ function jcms_migrate_update_8110() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'press_package');
 
@@ -1473,7 +1466,6 @@ function jcms_migrate_update_8147() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'interview');
 
@@ -1498,7 +1490,6 @@ function jcms_migrate_update_8148() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'interview');
 
@@ -1523,7 +1514,6 @@ function jcms_migrate_update_8149() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'job_advert');
 
@@ -1548,7 +1538,6 @@ function jcms_migrate_update_8150() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'interview');
 

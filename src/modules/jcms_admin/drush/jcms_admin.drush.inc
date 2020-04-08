@@ -72,7 +72,6 @@ function drush_jcms_admin_jcms_profile_orcid(string $id, string $orcid) {
   }
   else {
     $query = \Drupal::entityQuery('node')
-      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'person')
       ->condition('uuid', '%' . $id, 'LIKE');
 
