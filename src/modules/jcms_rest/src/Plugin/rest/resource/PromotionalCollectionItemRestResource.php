@@ -66,10 +66,10 @@ class PromotionalCollectionItemRestResource extends AbstractRestResourceBase {
     if ($node->get('field_editors')->count()) {
       $people_rest_resource = new PersonListRestResource([], 'person_list_rest_resource', [], $this->serializerFormats, $this->logger);
       $item['editors'] = [];
-      foreach ($node->get('field_curators')->referencedEntities() as $editor) {
+      foreach ($node->get('field_editors')->referencedEntities() as $editor) {
         /* @var Node $editor */
         if ($editor->isPublished() || $this->viewUnpublished()) {
-          $item['curators'][] = $people_rest_resource->getItem($editor);
+          $item['editors'][] = $people_rest_resource->getItem($editor);
         }
       }
     }
