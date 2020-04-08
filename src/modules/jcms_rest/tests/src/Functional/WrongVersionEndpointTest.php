@@ -79,6 +79,12 @@ class WrongVersionEndpointTest extends FixtureBasedTestCase {
         ],
       ],
       [
+        '/promotional-collections',
+        [
+          'application/vnd.elife.promotional-collection-list+json; version=2',
+        ],
+      ],
+      [
         '/subjects',
         [
           'application/vnd.elife.subject-list+json; version=2',
@@ -171,6 +177,13 @@ class WrongVersionEndpointTest extends FixtureBasedTestCase {
         'id',
         [
           'application/vnd.elife.person+json; version=2',
+        ],
+      ],
+      [
+        '/promotional-collections',
+        'id',
+        [
+          'application/vnd.elife.promotional-collection+json; version=2',
         ],
       ],
       [

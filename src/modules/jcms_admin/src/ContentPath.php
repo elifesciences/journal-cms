@@ -85,6 +85,9 @@ final class ContentPath {
     elseif ($node->bundle() === 'press_package') {
       return sprintf('/%s/%s', 'for-the-press', substr($node->uuid(), -8));
     }
+    elseif ($node->bundle() === 'promotional_collection') {
+      return sprintf('/%s/%s', 'highlights', substr($node->uuid(), -8));
+    }
 
     return NULL;
   }

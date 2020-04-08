@@ -136,6 +136,12 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
         'id',
         'application/vnd.elife.job-advert+json',
       ],
+      'promotional-collections' => [
+        '/promotional-collections',
+        'id',
+        'application/vnd.elife.promotional-collection-list+json',
+        'application/vnd.elife.promotional-collection+json',
+      ],
     ];
   }
 
