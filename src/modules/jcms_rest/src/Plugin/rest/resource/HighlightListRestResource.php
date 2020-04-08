@@ -35,7 +35,6 @@ class HighlightListRestResource extends AbstractRestResourceBase {
    */
   public function get(string $list) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
-      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'highlight_list')
       ->condition('title', $list);
 
