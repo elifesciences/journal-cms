@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.cover.field_order_date
     - image.style.thumbnail
     - node.type.cover
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - focal_point

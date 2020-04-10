@@ -41,3 +41,4 @@ type_settings:
   entity_types:
     node:
       - cover
+  default_moderation_state: draft

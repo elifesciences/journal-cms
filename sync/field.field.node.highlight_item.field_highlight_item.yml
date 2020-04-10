@@ -14,6 +14,7 @@ dependencies:
     - node.type.labs_experiment
     - node.type.podcast_chapter
     - node.type.podcast_episode
+    - node.type.press_package
 id: node.highlight_item.field_highlight_item
 field_name: field_highlight_item
 entity_type: node
@@ -37,6 +38,7 @@ settings:
       labs_experiment: labs_experiment
       podcast_chapter: podcast_chapter
       podcast_episode: podcast_episode
+      press_package: press_package
     sort:
       field: _none
     auto_create: false

@@ -53,19 +53,17 @@ final class ContentValidator implements ValidatorInterface {
       ]);
       $response = $this->client->send($request);
       $json = json_decode($response->getBody()->getContents());
-      if (!empty($json->content)) {
-        try {
-          $this->messageValidator->validate($response);
-        }
-        catch (InvalidMessage $message) {
-          $context += [
-            'node' => $node->id(),
-            'json' => $json,
-            'html' => $node->get('field_content_html' . ($preview ? '_preview' : ''))->getValue(),
-          ];
-          $this->logger->error($message->getMessage(), $context);
-          throw $message;
-        }
+      try {
+        $this->messageValidator->validate($response);
+      }
+      catch (InvalidMessage $message) {
+        $context += [
+          'node' => $node->id(),
+          'json' => $json,
+          'html' => $node->get('field_content_html' . ($preview ? '_preview' : ''))->getValue(),
+        ];
+        $this->logger->error($message->getMessage(), $context);
+        throw $message;
       }
       return $json;
     }

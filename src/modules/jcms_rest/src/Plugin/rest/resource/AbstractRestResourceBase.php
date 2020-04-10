@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\node\NodeInterface;
 use function GuzzleHttp\Psr7\normalize_header;
 use DateTimeImmutable;
 use DateTimeZone;
@@ -33,6 +34,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     'page' => 1,
     'order' => 'desc',
     'subject' => [],
+    'containing' => [],
     'start-date' => '2000-01-01',
     'end-date' => '2999-12-31',
     'use-date' => 'default',
@@ -132,6 +134,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         'per-page' => (int) $request->query->get('per-page', $this->defaultOptions['per-page']),
         'order' => $request->query->get('order', $this->defaultOptions['order']),
         'subject' => (array) $request->query->get('subject', $this->defaultOptions['subject']),
+        'containing' => (array) $request->query->get('containing', $this->defaultOptions['containing']),
         'start-date' => $request->query->get('start-date', $this->defaultOptions['start-date']),
         'end-date' => $request->query->get('end-date', $this->defaultOptions['end-date']),
         'use-date' => $request->query->get('use-date', $this->defaultOptions['use-date']),
@@ -242,6 +245,56 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     $subjects = $this->getRequestOption('subject');
     if (!empty($subjects)) {
       $query->condition('field_subjects.entity.field_subject_id.value', $subjects, 'IN');
+    }
+  }
+
+  /**
+   * Apply filter for containing by amending query.
+   */
+  protected function filterContaining(
+    QueryInterface &$query,
+    string $field,
+    array $permitted = [
+      'article',
+      'blog-article',
+      'digest',
+      'event',
+      'interview',
+    ]
+  ) {
+    $containing = $this->getRequestOption('containing');
+
+    if (!empty($containing)) {
+      $orCondition = $query->orConditionGroup();
+
+      foreach ($containing as $item) {
+        preg_match('~^(' . implode('|', $permitted) . ')/([a-z0-9-]+)$~', $item, $matches);
+
+        if (empty($matches[1]) || empty($matches[2])) {
+          throw new JCMSBadRequestHttpException(t('Invalid containing parameter'));
+        }
+
+        $andCondition = $query->andConditionGroup()
+          ->condition($field . '.entity.type', str_replace('-', '_', $item[1]));
+
+        if (!$this->viewUnpublished()) {
+          $andCondition->condition($field . '.entity.status', NodeInterface::PUBLISHED);
+        }
+
+        if ($item[1] === 'article') {
+          $andCondition = $andCondition->condition($field . '.entity.title', $item[2], '=');
+        }
+        elseif ($item[1] === 'digest') {
+          $andCondition = $andCondition->condition($field . '.entity.field_digest_id.value', $item[2], '=');
+        }
+        else {
+          $andCondition = $andCondition->condition($field . '.entity.uuid', $item[2], 'ENDS_WITH');
+        }
+
+        $orCondition = $orCondition->condition($andCondition);
+      }
+
+      $query->condition($orCondition);
     }
   }
 
@@ -417,7 +470,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    */
   protected function getDigestSnippet(Node $node) {
     $crud_service = \Drupal::service('jcms_digest.digest_crud');
-    return $crud_service->getDigest($node);
+    return ['type' => 'digest'] + $crud_service->getDigest($node);
   }
 
   /**
@@ -426,10 +479,10 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   protected function subjectsFromArticles(array $articles = NULL) : array {
     $subjects = [];
     foreach ($articles as $article) {
-      if (property_exists($article, 'subjects') && !empty($article->subjects)) {
-        foreach ($article->subjects as $subject) {
-          if (!isset($subjects[$subject->id])) {
-            $subjects[$subject->id] = $subject;
+      if (!empty($article['subjects'])) {
+        foreach ($article['subjects'] as $subject) {
+          if (!isset($subjects[$subject['id']])) {
+            $subjects[$subject['id']] = $subject;
           }
         }
       }
@@ -495,6 +548,72 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   }
 
   /**
+   * Prepare extended collection item which can be added the snippet.
+   */
+  protected function extendedCollectionItem(EntityInterface $node) {
+    $item = [];
+
+    // Summary is optional.
+    if ($summary = $this->processFieldContent($node->get('field_summary'))) {
+      $item['summary'] = $summary;
+    }
+
+    // Collection content is required.
+    $item['content'] = [];
+
+    $blog_article_rest_resource = new BlogArticleListRestResource([], 'blog_article_list_rest_resource', [], $this->serializerFormats, $this->logger);
+    $event_rest_resource = new EventListRestResource([], 'event_list_rest_resource', [], $this->serializerFormats, $this->logger);
+    $interview_rest_resource = new InterviewListRestResource([], 'interview_list_rest_resource', [], $this->serializerFormats, $this->logger);
+
+    foreach (['content' => 'field_collection_content', 'relatedContent' => 'field_collection_related_content'] as $k => $field) {
+      foreach ($node->get($field)->referencedEntities() as $content) {
+        /* @var Node $content */
+        if ($content->isPublished() || $this->viewUnpublished()) {
+          switch ($content->getType()) {
+            case 'blog_article':
+              $item[$k][] = ['type' => 'blog-article'] + $blog_article_rest_resource->getItem($content);
+              break;
+
+            case 'event':
+              $item[$k][] = ['type' => 'event'] + $event_rest_resource->getItem($content);
+              break;
+
+            case 'interview':
+              $item[$k][] = ['type' => 'interview'] + $interview_rest_resource->getItem($content);
+              break;
+
+            case 'article':
+              if ($snippet = $this->getArticleSnippet($content)) {
+                $item[$k][] = $snippet;
+              }
+              break;
+
+            case 'digest':
+              if ($snippet = $this->getDigestSnippet($content)) {
+                $item[$k][] = $snippet;
+              }
+
+            default:
+          }
+        }
+      }
+    }
+
+    // Podcasts are optional.
+    if ($node->get('field_collection_podcasts')->count()) {
+      $item['podcastEpisodes'] = [];
+      $podcast_rest_resource = new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger);
+      foreach ($node->get('field_collection_podcasts')->referencedEntities() as $podcast) {
+        /* @var Node $podcast */
+        if ($podcast->isPublished() || $this->viewUnpublished()) {
+          $item['podcastEpisodes'][] = $podcast_rest_resource->getItem($podcast);
+        }
+      }
+    }
+    return $item;
+  }
+
+  /**
    * Takes a node and builds an item from it.
    *
    * @param \Drupal\Core\Entity\EntityInterface $node
@@ -523,6 +642,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       'labs_experiment' => new LabsExperimentListRestResource([], 'labs_experiment_list_rest_resource', [], $this->serializerFormats, $this->logger),
       'podcast_episode' => new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger),
       'podcast_chapter' => new PodcastEpisodeItemRestResource([], 'podcast_episode_item_rest_resource', [], $this->serializerFormats, $this->logger),
+      'press_package' => new PressPackageListRestResource([], 'press_package_list_rest_resource', [], $this->serializerFormats, $this->logger),
     ];
 
     $item_values = [
@@ -544,7 +664,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     }
     elseif ($related->getType() == 'digest') {
       if ($digest = $this->getDigestSnippet($related)) {
-        $item_values['item'] = $digest;
+        $item_values['item']['type'] = 'digest';
+        $item_values['item'] += $digest;
       }
     }
     elseif ($related->getType() == 'podcast_chapter') {

@@ -395,6 +395,10 @@ class MarkdownJsonSerializerTest extends UnitTestCase {
                 'type' => 'paragraph',
                 'text' => 'Paragraph 2 in Section 2.',
               ],
+              [
+                'type' => 'paragraph',
+                'text' => 'Paragraph under empty section heading.',
+              ],
             ],
           ],
         ],
@@ -418,6 +422,8 @@ class MarkdownJsonSerializerTest extends UnitTestCase {
           'Paragraph 1 in Section 2.',
           '<table><tr><td>Table 1 in Section 2.</td></tr></table>',
           'Paragraph 2 in Section 2.',
+          '## ',
+          'Paragraph under empty section heading.',
         ], 2),
       ],
       'offset hierarchy' => [

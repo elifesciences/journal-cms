@@ -7,6 +7,9 @@ set -e
 delay="${1:-1}" # default to 1 day back
 TMP="${TMP:-/ext/tmp/}"
 
+echo "Cleaning leftover backups"
+rm -rf "${TMP}/*.gz"
+
 backupLocation='s3://elife-app-backups/journal-cms/'
 if [ "$(uname -s)" == "Darwin" ]; then
     # Mac OS X

@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class HighlightListRestResource extends AbstractRestResourceBase {
-  protected $latestVersion = 2;
+  protected $latestVersion = 3;
 
   /**
    * Responds to GET requests.
@@ -35,7 +35,6 @@ class HighlightListRestResource extends AbstractRestResourceBase {
    */
   public function get(string $list) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
-      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'highlight_list')
       ->condition('title', $list);
 
@@ -105,8 +104,11 @@ class HighlightListRestResource extends AbstractRestResourceBase {
         foreach ($items as $item) {
           $dependencies[] = $item;
           if ($highlight = $this->getItem($item)) {
-            if ($this->acceptVersion < 2 && $highlight['type'] === 'digest') {
-              throw new JCMSNotAcceptableHttpException('This collection requires version 2+.');
+            if ($this->acceptVersion < 2 && $highlight['item']['type'] === 'digest') {
+              throw new JCMSNotAcceptableHttpException('This highlight list requires version 2+.');
+            }
+            if ($this->acceptVersion < 3 && $highlight['item']['type'] === 'press-package') {
+              throw new JCMSNotAcceptableHttpException('This highlight list requires version 3+.');
             }
             $response_data['items'][] = $highlight;
           }

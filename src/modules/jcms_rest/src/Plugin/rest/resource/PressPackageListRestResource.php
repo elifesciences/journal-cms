@@ -26,12 +26,9 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
-   *
-   * @todo - elife - nlisgo - Handle version specific requests
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
-      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'press_package');
 
     if (!$this->viewUnpublished()) {
@@ -87,8 +84,8 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
     // Subjects are optional.
     if ($node->get('field_related_content')->count()) {
       $articles = [];
-      foreach ($node->get('field_related_content') as $related) {
-        if ($article = $this->getArticleSnippet($related->get('entity')->getTarget()->getValue())) {
+      foreach ($node->get('field_related_content')->referencedEntities() as $related) {
+        if ($article = $this->getArticleSnippet($related)) {
           $articles[] = $article;
         }
       }

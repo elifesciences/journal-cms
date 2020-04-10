@@ -4,4 +4,5 @@ description: Provide inline editing using CKEditor
 core: 8.x
 package: Journal CMS
 dependencies:
-  - jsonapi
+  - jsonapi:jsonapi
+  - jcms_admin

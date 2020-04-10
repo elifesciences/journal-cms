@@ -3,7 +3,6 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\jcms_rest\Exception\JCMSBadRequestHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
@@ -26,12 +25,9 @@ class CollectionListRestResource extends AbstractRestResourceBase {
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
-   *
-   * @todo - elife - nlisgo - Handle version specific requests
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
-      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'collection');
 
     if (!$this->viewUnpublished()) {
@@ -39,37 +35,7 @@ class CollectionListRestResource extends AbstractRestResourceBase {
     }
 
     $this->filterSubjects($base_query);
-
-    $containing = \Drupal::request()->query->get('containing', []);
-    if (!empty($containing)) {
-      $orCondition = $base_query->orConditionGroup();
-
-      foreach ($containing as $item) {
-        preg_match('~^(article|blog-article|interview)/([a-z0-9-]+)$~', $item, $matches);
-
-        if (empty($matches[1]) || empty($matches[2])) {
-          throw new JCMSBadRequestHttpException(t('Invalid containing parameter'));
-        }
-
-        $andCondition = $base_query->andConditionGroup()
-          ->condition('field_collection_content.entity.type', str_replace('-', '_', $matches[1]));
-
-        if (!$this->viewUnpublished()) {
-          $andCondition->condition('field_collection_content.entity.status', NodeInterface::PUBLISHED);
-        }
-
-        if ('article' === $matches[1]) {
-          $andCondition = $andCondition->condition('field_collection_content.entity.title', $matches[2], '=');
-        }
-        else {
-          $andCondition = $andCondition->condition('field_collection_content.entity.uuid', $matches[2], 'ENDS_WITH');
-        }
-
-        $orCondition = $orCondition->condition($andCondition);
-      }
-
-      $base_query = $base_query->condition($orCondition);
-    }
+    $this->filterContaining($base_query, 'field_collection_content');
 
     $count_query = clone $base_query;
     $items_query = clone $base_query;
@@ -85,7 +51,7 @@ class CollectionListRestResource extends AbstractRestResourceBase {
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
         foreach ($nodes as $node) {
-          $response_data['items'][] = $this->getItem($node);
+          $response_data['items'][] = $this->getItem($node, 'thumbnail');
         }
       }
     }
@@ -98,13 +64,13 @@ class CollectionListRestResource extends AbstractRestResourceBase {
   /**
    * Takes a node and builds an item from it.
    */
-  public function getItem(EntityInterface $node) : array {
+  public function getItem(EntityInterface $node, $image_size_types = ['banner', 'thumbnail']) : array {
     /* @var Node $node */
     $this->setSortBy('changed');
     $item = $this->processDefault($node);
 
     // Image is optional.
-    if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {
+    if ($image = $this->processFieldImage($node->get('field_image'), FALSE, $image_size_types)) {
       $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
       if (!empty($attribution)) {
         foreach ($image as $key => $type) {

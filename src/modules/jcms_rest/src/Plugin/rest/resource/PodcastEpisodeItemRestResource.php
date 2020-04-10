@@ -33,7 +33,6 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
    */
   public function get(int $number) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
-      ->condition('changed', \Drupal::time()->getRequestTime(), '<')
       ->condition('type', 'podcast_episode')
       ->condition('field_episode_number.value', $number);
 
@@ -124,12 +123,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       'title' => $node->getTitle(),
       'time' => ($time instanceof DateInterval) ? ($time->i * 60 + $time->s) : $time,
     ];
-    if ($node->get('field_long_title')->count()) {
-      $chapter_values['longTitle'] = $this->fieldValueFormatted($node->get('field_long_title'));
-      if (!empty($chapter_values['longTitle'])) {
-        unset($chapter_values['longTitle']);
-      }
-    }
+
     if ($node->get('field_impact_statement')->count()) {
       $chapter_values['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
       if (empty($chapter_values['impactStatement'])) {
@@ -145,16 +139,14 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
     if ($node->get('field_related_content')->count()) {
       $chapter_content = [];
       $collection_rest_resource = new CollectionListRestResource([], 'collection_list_rest_resource', [], $this->serializerFormats, $this->logger);
-      foreach ($node->get('field_related_content') as $content) {
-        /* @var \Drupal\node\Entity\Node $content_node */
-        $content_node = $content->get('entity')->getTarget()->getValue();
-        switch ($content_node->getType()) {
+      foreach ($node->get('field_related_content')->referencedEntities() as $related) {
+        switch ($related->getType()) {
           case 'collection':
-            $chapter_content[] = ['type' => 'collection'] + $collection_rest_resource->getItem($content_node);
+            $chapter_content[] = ['type' => 'collection'] + $collection_rest_resource->getItem($related);
             break;
 
           case 'article':
-            if ($article = $this->getArticleSnippet($content_node)) {
+            if ($article = $this->getArticleSnippet($related)) {
               $chapter_content[] = $article;
             }
             break;

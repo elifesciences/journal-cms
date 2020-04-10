@@ -30,9 +30,6 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
-   *
-   * @todo - elife - nlisgo - Handle version specific requests
-   * @todo - elife - nlisgo - some of the migrated covers did not retain images.
    */
   public function get() : JCMSRestResponse {
     if ($this->viewUnpublished()) {

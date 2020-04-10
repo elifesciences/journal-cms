@@ -5,6 +5,7 @@
  * JCMS admin module file.
  */
 
+use Drupal\Core\Database\Database;
 use Drupal\Core\Database\Query\Condition;
 use Drupal\Core\Database\Query\SelectInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -181,7 +182,6 @@ function jcms_admin_form_node_interview_form_alter(&$form, FormStateInterface $f
 
   $query = \Drupal::entityQuery('node')
     ->condition('status', NODE_PUBLISHED)
-    ->condition('changed', REQUEST_TIME, '<')
     ->condition('type', 'collection')
     ->addTag('interview_collections_filter');
   $collection_nids = $query->execute();
@@ -257,7 +257,7 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
     'node_labs_experiment_edit_form',
     'node_press_package_edit_form',
   ])) {
-    $form['actions']['submit']['#value'] = t('Edit post');
+    $form['actions']['submit']['#value'] = t('Save & Continue');
     $form['actions']['submit']['#submit'][] = '_jcms_ckeditor_callback_submit';
   }
 
@@ -293,27 +293,12 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
       $disabled = TRUE;
     }
 
-    $form['ckeditor_transfer_content'] = array_filter([
-      '#title' => !$node->isPublished() ? t('Publish post') : t('Transfer preview content'),
-      '#description' => $description,
-      '#type' => 'checkbox',
-      '#default_value' => FALSE,
-      '#weight' => ++$max_weight,
-      '#disabled' => $disabled,
-    ]);
-    if ($node->isPublished()) {
-      $form['jcms_admin_publish'] = [
-        '#title' => t('Publish'),
-        '#type' => 'checkbox',
-        '#default_value' => TRUE,
+    if (!empty($description)) {
+      $form['error_description'] = [
+        '#type' => 'markup',
+        '#markup' => $description,
         '#weight' => ++$max_weight,
-        '#disabled' => $disabled,
       ];
-    }
-    foreach (array_keys($form['actions']) as $action) {
-      if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
-        array_unshift($form['actions'][$action]['#submit'], '_jcms_admin_form_ckeditor_form_submit');
-      }
     }
   }
 }
@@ -332,15 +317,6 @@ function _jcms_ckeditor_callback_submit($form, FormStateInterface $form_state) {
       );
     }
   }
-}
-
-/**
- * Submit function for node edit forms with inline ckeditor.
- */
-function _jcms_admin_form_ckeditor_form_submit($form, FormStateInterface $form_state) {
-  _jcms_admin_static_store('ckeditor_transfer_content_' . $form_state->getFormObject()->getEntity()->id(), $form_state->getValue('ckeditor_transfer_content', 0));
-  _jcms_admin_static_store('jcms_admin_publish_flag_' . $form_state->getFormObject()->getEntity()->id(), TRUE);
-  _jcms_admin_static_store('jcms_admin_publish_' . $form_state->getFormObject()->getEntity()->id(), $form_state->getValue('jcms_admin_publish', 0));
 }
 
 /**
@@ -589,6 +565,40 @@ function jcms_admin_node_insert(EntityInterface $entity) {
 }
 
 /**
+ * Implements hook_entity_presave().
+ */
+function jcms_admin_entity_presave(EntityInterface $entity) {
+  if ($entity->getEntityType()->id() === 'taxonomy_term' && !$entity->isNew()) {
+    $profiles = _jcms_admin_profiles_from_focuses_organisms($entity->get('vid')->getString(), $entity->id());
+    $nodes = Node::loadMultiple($profiles);
+    foreach ($nodes as $node) {
+      $node->setChangedTime(\Drupal::time()->getRequestTime());
+      $node->save();
+    }
+  }
+}
+
+/**
+ * Return array of profiles from vocabulary and term.
+ */
+function _jcms_admin_profiles_from_focuses_organisms(string $vocabulary, int $term) : array {
+  if (in_array($vocabulary, ['research_focuses', 'research_organisms'])) {
+    $research_details = Database::getConnection()->select('node__field_research_details', 'rd');
+    $research_details->addField('rd', 'entity_id', 'person_nid');
+    $research_details->addField('rd', 'field_research_details_target_id', 'research_details_id');
+    $research_details->innerJoin('paragraph__field_' . $vocabulary, 'rt', 'rt.entity_id = rd.field_research_details_target_id');
+    $research_details->condition('rt.field_' . $vocabulary . '_target_id', $term);
+    $research_details->condition('rd.bundle', 'person');
+    $people = $research_details->execute()->fetchAllAssoc('person_nid');
+    if ($people) {
+      return array_keys($people);
+    }
+  }
+
+  return [];
+}
+
+/**
  * Implements hook_node_presave().
  */
 function jcms_admin_node_presave(NodeInterface $node) {
@@ -619,9 +629,6 @@ function jcms_admin_node_presave(NodeInterface $node) {
       if (!$node_published) {
         $node->setPublished(TRUE);
       }
-    }
-    elseif (_jcms_admin_static_store('jcms_admin_publish_flag_' . $node->id()) && !_jcms_admin_static_store('jcms_admin_publish_' . $node->id())) {
-      $node->setPublished(FALSE);
     }
     $html = \Drupal::service('jcms_admin.transfer_content')->cleanHtmlField($node->get('field_content_html'));
     $preview = \Drupal::service('jcms_admin.transfer_content')->cleanHtmlField($node->get('field_content_html_preview'));

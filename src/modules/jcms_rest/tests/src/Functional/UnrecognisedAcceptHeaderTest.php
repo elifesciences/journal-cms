@@ -42,7 +42,6 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         ],
         'id',
       ],
-      /* 500 error when content is in there
       [
         '/people',
         [
@@ -51,7 +50,6 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         ],
         'id',
       ],
-       */
       [
         '/podcast-episodes',
         [
@@ -117,6 +115,14 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         [
           'application/vnd.elife.cover-list+json;version=1',
         ],
+      ],
+      [
+        '/promotional-collections',
+        [
+          'application/vnd.elife.promotional-collection-list+json;version=1',
+          'application/vnd.elife.promotional-collection+json;version=1',
+        ],
+        'id',
       ],
     ];
   }

@@ -61,7 +61,6 @@ function jcms_migrate_update_8101() {
   $regex = sprintf('(%s)$', implode('|', array_keys($type_labels)));
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('type', 'person')
     ->condition('uuid', $regex, 'REGEXP');
 
@@ -188,7 +187,6 @@ function jcms_migrate_update_8102() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('type', 'person');
 
   $nids = $query->execute();
@@ -523,7 +521,6 @@ function jcms_migrate_update_8103() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('type', 'person');
 
   $nids = $query->execute();
@@ -588,7 +585,6 @@ function jcms_migrate_update_8105() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'press_package');
 
@@ -658,7 +654,6 @@ function jcms_migrate_update_8107() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'press_package');
 
@@ -773,7 +768,6 @@ function jcms_migrate_update_8109() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'blog_article');
 
@@ -798,7 +792,6 @@ function jcms_migrate_update_8110() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'press_package');
 
@@ -1473,7 +1466,78 @@ function jcms_migrate_update_8147() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('changed', \Drupal::time()->getRequestTime(), '<')
+    ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
+    ->condition('type', 'interview');
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $id = substr($node->uuid(), -8);
+      $current = $node->getCreatedTime();
+      $node->set('created', strtotime($content[$id] . ' ' . date('H:i:s', $current)));
+      $node->save();
+    }
+  }
+}
+
+/**
+ * Amend content publication dates.
+ */
+function jcms_migrate_update_8148() {
+  $content = [
+    '9231bab7' => '2019-08-30',
+  ];
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
+    ->condition('type', 'interview');
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $id = substr($node->uuid(), -8);
+      $current = $node->getCreatedTime();
+      $node->set('created', strtotime($content[$id] . ' ' . date('H:i:s', $current)));
+      $node->save();
+    }
+  }
+}
+
+/**
+ * Amend content publication dates.
+ */
+function jcms_migrate_update_8149() {
+  $content = [
+    '9231bab7' => '2019-08-30',
+  ];
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
+    ->condition('type', 'job_advert');
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $id = substr($node->uuid(), -8);
+      $current = $node->getCreatedTime();
+      $node->set('created', strtotime($content[$id] . ' ' . date('H:i:s', $current)));
+      $node->save();
+    }
+  }
+}
+
+/**
+ * Amend content publication dates.
+ */
+function jcms_migrate_update_8150() {
+  $content = [
+    '09d713c1' => '2019-09-26',
+  ];
+
+  $query = \Drupal::entityQuery('node')
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'interview');
 
