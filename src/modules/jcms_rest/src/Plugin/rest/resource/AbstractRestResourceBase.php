@@ -275,20 +275,20 @@ abstract class AbstractRestResourceBase extends ResourceBase {
         }
 
         $andCondition = $query->andConditionGroup()
-          ->condition($field . '.entity.type', str_replace('-', '_', $item[1]));
+          ->condition($field . '.entity.type', str_replace('-', '_', $matches[1]));
 
         if (!$this->viewUnpublished()) {
           $andCondition->condition($field . '.entity.status', NodeInterface::PUBLISHED);
         }
 
-        if ($item[1] === 'article') {
-          $andCondition = $andCondition->condition($field . '.entity.title', $item[2], '=');
+        if ($matches[1] === 'article') {
+          $andCondition = $andCondition->condition($field . '.entity.title', $matches[2], '=');
         }
-        elseif ($item[1] === 'digest') {
-          $andCondition = $andCondition->condition($field . '.entity.field_digest_id.value', $item[2], '=');
+        elseif ($matches[1] === 'digest') {
+          $andCondition = $andCondition->condition($field . '.entity.field_digest_id.value', $matches[2], '=');
         }
         else {
-          $andCondition = $andCondition->condition($field . '.entity.uuid', $item[2], 'ENDS_WITH');
+          $andCondition = $andCondition->condition($field . '.entity.uuid', $matches[2], 'ENDS_WITH');
         }
 
         $orCondition = $orCondition->condition($andCondition);
