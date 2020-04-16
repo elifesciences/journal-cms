@@ -181,7 +181,7 @@ function jcms_admin_form_node_interview_form_alter(&$form, FormStateInterface $f
   }
 
   $query = \Drupal::entityQuery('node')
-    ->condition('status', NODE_PUBLISHED)
+    ->condition('status', NodeInterface::PUBLISHED)
     ->condition('type', 'collection')
     ->addTag('interview_collections_filter');
   $collection_nids = $query->execute();
@@ -696,6 +696,17 @@ function jcms_admin_node_presave(NodeInterface $node) {
     $node_published
   ) {
     $node->setCreatedTime($node->getChangedTime());
+  }
+
+  // Amend titles of first 3 highlight lists to be generated for testing.
+  if (\Drupal::moduleHandler()->moduleExists('devel_generate') && $node->bundle() === 'highlight_list' && $node->isNew()) {
+    $titles = ['magazine', 'community', 'announcements'];
+    $count = (int) \Drupal::entityQuery('node')
+      ->condition('type', 'highlight_list')
+      ->count()->execute();
+    if (isset($titles[$count])) {
+      $node->setTitle($titles[$count]);
+    }
   }
 }
 
