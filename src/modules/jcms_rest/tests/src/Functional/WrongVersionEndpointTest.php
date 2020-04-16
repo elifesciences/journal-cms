@@ -90,6 +90,24 @@ class WrongVersionEndpointTest extends FixtureBasedTestCase {
           'application/vnd.elife.subject-list+json; version=2',
         ],
       ],
+      [
+        '/highlights/magazine',
+        [
+          'application/vnd.elife.highlight-list+json; version=4',
+        ],
+      ],
+      [
+        '/highlights/community',
+        [
+          'application/vnd.elife.highlight-list+json; version=4',
+        ],
+      ],
+      [
+        '/highlights/announcements',
+        [
+          'application/vnd.elife.highlight-list+json; version=4',
+        ],
+      ],
     ];
   }
 
