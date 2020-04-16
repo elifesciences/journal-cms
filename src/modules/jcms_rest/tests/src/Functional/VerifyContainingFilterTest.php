@@ -37,12 +37,12 @@ class VerifyContainingFilterTest extends FixtureBasedTestCase {
    * @test
    */
   public function testVerifyContainingQuery() {
-    $list_request = new Request('GET', '/collections?per-page=1');
+    $list_request = new Request('GET', '/collections?per-page=2');
     $list_response = $this->client->send($list_request);
     $this->assertEquals(Response::HTTP_OK, $list_response->getStatusCode());
     $list = \GuzzleHttp\json_decode((string) $list_response->getBody());
-    $this->assertEquals(1, count($list->items));
-    $item_id = $list->items[0]->id;
+    $this->assertEquals(2, count($list->items));
+    $item_id = $list->items[1]->id;
     $item_request = new Request('GET', 'collections/' . $item_id);
     $item_response = $this->client->send($item_request);
     $this->assertEquals(Response::HTTP_OK, $item_response->getStatusCode());
