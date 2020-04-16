@@ -73,13 +73,13 @@ abstract class FixtureBasedTestCase extends UnitTestCase {
   /**
    * Gather list items.
    */
-  public function gatherListItems(string $endpoint, string $media_type_list) {
+  public function gatherListItems(string $endpoint, string $media_type_list, string $additional_parameters = '') {
     $all_items = [];
     $per_page = 50;
     $page = 1;
     $total = NULL;
     do {
-      $request = new Request('GET', $endpoint . '?per-page=' . $per_page . '&page=' . $page, [
+      $request = new Request('GET', $endpoint . '?per-page=' . $per_page . '&page=' . $page . $additional_parameters, [
         'Accept' => $media_type_list,
       ]);
 
