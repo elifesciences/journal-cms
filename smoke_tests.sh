@@ -25,6 +25,7 @@ echo "APIs"
 [ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/people?type\[\]=leadership") == 200 ]
 [ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/podcast-episodes") == 200 ]
 [ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/press-packages") == 200 ]
+[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/promotional-collections") == 200 ]
 [ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/subjects") == 200 ]
 
 echo "Redis"
