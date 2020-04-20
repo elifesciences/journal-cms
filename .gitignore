@@ -9,4 +9,3 @@ console/
 private/
 *.gz
 *.sql
-nbproject/
