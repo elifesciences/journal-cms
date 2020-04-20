@@ -33,6 +33,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
   private $youtube;
   private $tweet;
   private $googleMap;
+  private $figshare;
   private $converter;
   private $depthOffset = NULL;
   private $iiif = '';
@@ -48,6 +49,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
     YouTubeInterface $youtube,
     TweetInterface $tweet,
     GoogleMapInterface $googleMap,
+    FigshareInterface $figshare,
     CommonMarkConverter $converter
   ) {
     $this->docParser = $docParser;
@@ -56,6 +58,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
     $this->youtube = $youtube;
     $this->tweet = $tweet;
     $this->googleMap = $googleMap;
+    $this->figshare = $figshare;
     $this->converter = $converter;
   }
 
@@ -209,32 +212,26 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
               ];
             }
           }
-          elseif (in_array('figshare', $classes)) {
-            $iframe = $figure->find('iframe');
-            if (!empty($iframe) && !empty($iframe->getAttribute('src'))) {
-              $src = $iframe->getAttribute('src');
-              $figshare_pattern = '/^(((https?:)?\/\/|www\.)(widgets\.)?figshare\.com\/articles(\/[^\/]+)?\/([0-9]+))/i';
-              if (preg_match($figshare_pattern, $src, $matches)) {
-                $figshare_uri = 'https://figshare.com/articles/og/' . $matches[6];
-                $info = Embed::create($figshare_uri);
-                $attr_full = $figure->getAttribute('data-fullscreen');
-                $fullscreen = !empty($attr_full) && $attr_full == 'true';
-                $attr_width = $figure->getAttribute('data-width');
-                $width = !empty($attr_full) && $attr_width == 'true';
-                $attr_height = $figure->getAttribute('data-height');
-                $height = !empty($attr_full) && $attr_height == 'true';
-                if (!empty($info)) {
-                  $opengraph = $info->getProviders()['opengraph'];
-                  return array_filter([
-                    'type' => 'figshare',
-                    'id' => $matches[6],
-                    'title' => $opengraph->getTitle(),
-                    'width' => $width,
-                    'height' => $height,
-                    'allowFullscreen' => $fullscreen,
-                  ]);
-                }
-              }
+          elseif (in_array('figshare', $classes) && !empty($figure->find('iframe'))) {
+            $uri = $figure->find('iframe')->getAttribute('src');
+            if (!empty($uri) && $id = $this->figshare->getIdFromUri($uri)) {
+              $fullscreen = $figure->getAttribute('data-fullscreen');
+              $width = $figure->getAttribute('data-width');
+              $height = $figure->getAttribute('data-height');
+              return array_filter([
+                'type' => 'figshare',
+                'id' => $id,
+                'title' => $this->figshare->getTitle($id),
+                'width' => $width,
+                'height' => $height,
+                'allowFullscreen' => !empty($fullscreen) && $fullscreen === 'true',
+              ]);
+            }
+            else {
+              return [
+                'type' => 'paragraph',
+                'text' => sprintf('<a href="%s">%s</a>', $uri, $uri),
+              ];
             }
           }
           elseif (in_array('gmap', $classes) && preg_match('/<oembed>(?P<gmap>http[^<]+)<\/oembed>/', $contents, $matches)) {
@@ -251,6 +248,12 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
                 'height' => $height,
                 'allowFullscreen' => !empty($fullscreen) && $fullscreen === 'true',
               ]);
+            }
+            else {
+              return [
+                'type' => 'paragraph',
+                'text' => sprintf('<a href="%s">%s</a>', $uri, $uri),
+              ];
             }
           }
           else {

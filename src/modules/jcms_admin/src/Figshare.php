@@ -9,12 +9,14 @@ use Psr\Log\LoggerInterface;
  * Class Figshare.
  */
 final class Figshare implements FigshareInterface {
+  private $embed;
   private $logger;
 
   /**
    * GoogleMap constructor.
    */
-  public function __construct(LoggerInterface $logger) {
+  public function __construct(Embed $embed, LoggerInterface $logger) {
+    $this->embed = $embed;
     $this->logger = $logger;
   }
 
@@ -35,11 +37,11 @@ final class Figshare implements FigshareInterface {
    */
   public function getTitle(string $id): string {
     try {
-      if ($info = Embed::create('https://figshare.com/articles/og/' . $id)) {
+      if ($info = $this->embed->create('https://figshare.com/articles/og/' . $id)) {
         if (isset($info->getProviders()['opengraph'])) {
           /* @var \Embed\Providers\OpenGraph $opengraph */
           $opengraph = $info->getProviders()['opengraph'];
-          // Retrieve title of the fighsare.
+          // Retrieve title of the Fighsare.
           if ($title = $opengraph->getTitle()) {
             return $title;
           }
