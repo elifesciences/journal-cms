@@ -22,8 +22,8 @@ final class Tweet implements TweetInterface {
   /**
    * {@inheritdoc}
    */
-  public function getIdFromUri(string $uri) : string {
-    if (preg_match('/^(|.*[^a-zA-Z0-9_-])(?P<id>[a-zA-Z0-9_-]{11})(|[^a-zA-Z0-9_-].*)$/', stripslashes($uri), $match)) {
+  public function getIdFromUri(string $uri): string {
+    if (preg_match('/\/status\/(?P<id>[0-9]+)(|[^0-9].*)$/', stripslashes($uri), $match)) {
       return $match['id'];
     }
 
@@ -34,7 +34,7 @@ final class Tweet implements TweetInterface {
   /**
    * {@inheritdoc}
    */
-  public function getDetails(string $id) : array {
+  public function getDetails(string $id): array {
     try {
       if ($info = Embed::create('https://twitter.com/eLife/status/' . $id)) {
         if (isset($info->getProviders()['opengraph'])) {
@@ -58,7 +58,7 @@ final class Tweet implements TweetInterface {
           else {
             $account_id = $opengraph->getTitle();
           }
-          // Store details of tweet.
+          // Retrieve details of the tweet.
           return array_filter([
             'date' => $date,
             'accountId' => $account_id,

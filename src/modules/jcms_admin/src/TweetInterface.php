@@ -10,11 +10,11 @@ interface TweetInterface {
   /**
    * Get ID from Tweet status URI.
    */
-  public function getIdFromUri(string $uri);
+  public function getIdFromUri(string $uri): string;
 
   /**
    * Get details of Tweet.
    */
-  public function getDetails(string $id);
+  public function getDetails(string $id): array;
 
 }

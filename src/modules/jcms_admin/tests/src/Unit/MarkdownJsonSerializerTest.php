@@ -2,7 +2,9 @@
 
 namespace Drupal\Tests\jcms_admin\Unit;
 
+use Drupal\jcms_admin\GoogleMapInterface;
 use Drupal\jcms_admin\MarkdownJsonSerializer;
+use Drupal\jcms_admin\TweetInterface;
 use Drupal\jcms_admin\YouTubeInterface;
 use Drupal\Tests\UnitTestCase;
 use League\CommonMark\CommonMarkConverter;
@@ -48,6 +50,20 @@ class MarkdownJsonSerializerTest extends UnitTestCase {
   private $youtube;
 
   /**
+   * Tweet.
+   *
+   * @var \Drupal\jcms_admin\TweetInterface
+   */
+  private $tweet;
+
+  /**
+   * GoogleMap.
+   *
+   * @var \Drupal\jcms_admin\GoogleMapInterface
+   */
+  private $googleMap;
+
+  /**
    * Setup.
    *
    * @before
@@ -57,7 +73,9 @@ class MarkdownJsonSerializerTest extends UnitTestCase {
     $this->docParser = new DocParser($environment);
     $this->mimeTypeGuesser = $this->createMock(MimeTypeGuesserInterface::class);
     $this->youtube = $this->createMock(YouTubeInterface::class);
-    $this->normalizer = new MarkdownJsonSerializer($this->docParser, new HtmlRenderer($environment), $this->mimeTypeGuesser, $this->youtube, new CommonMarkConverter());
+    $this->tweet = $this->createMock(TweetInterface::class);
+    $this->googleMap = $this->createMock(GoogleMapInterface::class);
+    $this->normalizer = new MarkdownJsonSerializer($this->docParser, new HtmlRenderer($environment), $this->mimeTypeGuesser, $this->youtube, $this->tweet, $this->googleMap, new CommonMarkConverter());
   }
 
   /**

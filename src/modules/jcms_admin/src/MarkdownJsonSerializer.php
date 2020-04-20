@@ -32,6 +32,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
   private $mimeTypeGuesser;
   private $youtube;
   private $tweet;
+  private $googleMap;
   private $converter;
   private $depthOffset = NULL;
   private $iiif = '';
@@ -46,6 +47,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
     MimeTypeGuesserInterface $mimeTypeGuesser,
     YouTubeInterface $youtube,
     TweetInterface $tweet,
+    GoogleMapInterface $googleMap,
     CommonMarkConverter $converter
   ) {
     $this->docParser = $docParser;
@@ -53,6 +55,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
     $this->mimeTypeGuesser = $mimeTypeGuesser;
     $this->youtube = $youtube;
     $this->tweet = $tweet;
+    $this->googleMap = $googleMap;
     $this->converter = $converter;
   }
 
@@ -224,13 +227,11 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
                   $opengraph = $info->getProviders()['opengraph'];
                   return array_filter([
                     'type' => 'figshare',
-                    'src' => $src,
                     'id' => $matches[6],
                     'title' => $opengraph->getTitle(),
-                    'allowfullscreen' => $fullscreen,
                     'width' => $width,
                     'height' => $height,
-                    'padding' => 75,
+                    'allowFullscreen' => $fullscreen,
                   ]);
                 }
               }
@@ -238,23 +239,17 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
           }
           elseif (in_array('gmap', $classes) && preg_match('/<oembed>(?P<gmap>http[^<]+)<\/oembed>/', $contents, $matches)) {
             $uri = trim($matches['gmap']);
-            $info = Embed::create($uri);
-            $attr_full = $figure->getAttribute('data-fullscreen');
-            $fullscreen = !empty($attr_full) && $attr_full == 'true';
-            $attr_width = $figure->getAttribute('data-width');
-            $width = !empty($attr_full) && $attr_width == 'true';
-            $attr_height = $figure->getAttribute('data-height');
-            $height = !empty($attr_full) && $attr_height == 'true';
-            if (!empty($info)) {
-              $opengraph = $info->getProviders()['opengraph'];
+            if ($id = $this->googleMap->getIdFromUri($uri)) {
+              $fullscreen = $figure->getAttribute('data-fullscreen');
+              $width = (int) $figure->getAttribute('data-width');
+              $height = (int) $figure->getAttribute('data-height');
               return array_filter([
-                'type' => 'googlemap',
-                'src' => $uri,
-                'title' => $opengraph->getTitle(),
-                'allowfullscreen' => $fullscreen,
+                'type' => 'google-map',
+                'id' => $id,
+                'title' => $this->googleMap->getTitle($id),
                 'width' => $width,
                 'height' => $height,
-                'padding' => 75,
+                'allowFullscreen' => !empty($fullscreen) && $fullscreen === 'true',
               ]);
             }
           }
