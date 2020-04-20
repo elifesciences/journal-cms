@@ -18,6 +18,7 @@ use League\CommonMark\Node\Node;
 use PHPHtmlParser\Dom;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Embed\Embed;
 
 /**
  * Convert Markdown to Json.
@@ -166,6 +167,110 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
                   'type' => 'paragraph',
                   'text' => sprintf('<a href="%s">%s</a>', $uri, $uri),
                 ];
+              }
+            }
+          }
+          else if (in_array('tweet', $classes)) {
+            if (preg_match('/<oembed>(?P<tweet>http[^<]+)<\/oembed>/', $contents, $matches)) {
+              $uri = trim($matches['tweet']);
+              $info = Embed::create($uri);
+              if (!empty($info)) {
+                $opengraph = $info->getProviders()['opengraph'];
+                $oembed = $info->getProviders()['oembed'];
+                $oembed_dom = new Dom();
+                $oembed_dom->setOptions([
+                  'preserveLineBreaks' => TRUE,
+                ]);
+                $oembed_dom->load($oembed->getCode());
+                $blockquote = $oembed_dom->find('blockquote');
+                $datestr = $blockquote->lastChild()->text();
+                $date = strtotime($datestr);
+                if (empty($date)) {
+                  $date = time();
+                }
+                if (preg_match('/\(\@([^\)]+)\)/', $blockquote->text(), $matches)) {
+                  $accountId = $matches[1];
+                }
+                if (empty($accountId)) {
+                  $accountId = $opengraph->getTitle();
+                }
+                $attr_conversation = $figure->getAttribute('data-conversation');
+                $conversation = !empty($attr_conversation) && $attr_conversation == "true";
+                $attr_mediacard = $figure->getAttribute('data-mediacard');
+                $mediacard = !empty($attr_mediacard) && $attr_mediacard == "true";
+                return array_filter([
+                  "type" => 'twitter',  
+                  "url" => $uri,
+                  "accountId" => $accountId,
+                  "accountLabel" => $opengraph->getTitle(),
+                  "text" => [
+                    "text" => $opengraph->getDescription(),
+                  ],
+                  "conversation" => $conversation,
+                  "mediacard" => $mediacard,  
+                  "date" => [
+                    "forHuman" => [
+                      "dayOfMonth" => date('j', $date),
+                      "month" => date('M', $date),
+                      "year" => date('Y', $date),
+                    ],
+                    "forMachine" => date('Y-m-d', $date),
+                  ],
+                ]);
+              }
+            }
+          }
+          else if (in_array('figshare', $classes)) {
+            $iframe = $figure->find('iframe');
+            if (!empty($iframe) && !empty($iframe->getAttribute('src'))){
+              $src = $iframe->getAttribute('src');
+              $figshare_pattern = "/^(((https?:)?\/\/|www\.)(widgets\.)?figshare\.com\/articles(\/[^\/]+)?\/([0-9]+))/i";
+              if (preg_match($figshare_pattern, $src, $matches)) {
+                $figshare_uri = "https://figshare.com/articles/og/" . $matches[6];
+                $info = Embed::create($figshare_uri);
+                $attr_full = $figure->getAttribute('data-fullscreen');
+                $fullscreen = !empty($attr_full) && $attr_full == "true";
+                $attr_width = $figure->getAttribute('data-width');
+                $width = !empty($attr_full) && $attr_width == "true";
+                $attr_height = $figure->getAttribute('data-height');
+                $height = !empty($attr_full) && $attr_height == "true";
+                if (!empty($info)) {
+                  $opengraph = $info->getProviders()['opengraph'];
+                  return array_filter([
+                    "type" => 'figshare',  
+                    "src" => $src,
+                    "id" => $matches[6],
+                    "title" => $opengraph->getTitle(),
+                    "allowfullscreen" => $fullscreen,
+                    "width" => $width,
+                    "height" => $height,  
+                    "padding" => 75,
+                  ]);
+                }
+              }
+            }
+          }
+          else if (in_array('gmap', $classes)) {
+            if (preg_match('/<oembed>(?P<gmap>http[^<]+)<\/oembed>/', $contents, $matches)) {
+              $uri = trim($matches['gmap']);
+              $info = Embed::create($uri);
+              $attr_full = $figure->getAttribute('data-fullscreen');
+              $fullscreen = !empty($attr_full) && $attr_full == "true";
+              $attr_width = $figure->getAttribute('data-width');
+              $width = !empty($attr_full) && $attr_width == "true";
+              $attr_height = $figure->getAttribute('data-height');
+              $height = !empty($attr_full) && $attr_height == "true";
+              if (!empty($info)) {
+                $opengraph = $info->getProviders()['opengraph'];
+                return array_filter([
+                  "type" => 'googlemap',  
+                  "src" => $uri,
+                  "title" => $opengraph->getTitle(),
+                  "allowfullscreen" => $fullscreen,
+                  "width" => $width,
+                  "height" => $height,                    
+                  "padding" => 75,                    
+                ]);
               }
             }
           }

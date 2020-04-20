@@ -75,6 +75,9 @@
         CKEDITOR.plugins.addExternal('imagealign', settings.pluginPathCustom + 'imagealign/');
         CKEDITOR.plugins.addExternal('elifebutton', settings.pluginPathCustom + 'elifebutton/');
         CKEDITOR.plugins.addExternal('captionedvideo', settings.pluginPathCustom + 'captionedvideo/');
+        CKEDITOR.plugins.addExternal('twitterembed', settings.pluginPathCustom + 'twitterembed/');
+        CKEDITOR.plugins.addExternal('googlemapembed', settings.pluginPathCustom + 'googlemapembed/');
+        CKEDITOR.plugins.addExternal('figshareembed', settings.pluginPathCustom + 'figshareembed/');
         
         var $content = $(' .node__content .field--name-field-content-html-preview');
         
@@ -100,7 +103,7 @@
         };
         
         var bodyEditorOptions = {
-          extraPlugins: 'image2,uploadimage,balloontoolbar,balloonpanel,imagealign,elifebutton,captionedvideo,autoembed,pastefromword,undo,sharedspace,link,codesnippet',
+          extraPlugins: 'image2,uploadimage,balloontoolbar,balloonpanel,imagealign,elifebutton,captionedvideo,twitterembed,googlemapembed,figshareembed,autoembed,pastefromword,undo,sharedspace,link,codesnippet',
           toolbarGroups: [
             {"name":"basicstyles","groups":["basicstyles"]},
             {"name":"links","groups":["links"]},
@@ -115,7 +118,7 @@
           removeButtons: 'Underline,Strike,Anchor,SpecialChar,HorizontalRule,ImageAlignLeft,ImageAlignRight,ImageFullWidth,Styles',
           image2_alignClasses: ['align-left', 'align-center', 'profile-left'],
           image2_disableResizer: true,
-          extraAllowedContent: 'elifebutton[data-href](elife-button--default,elife-button--outline);oembed[data-videocaption](align-left,align-right,align-center);figure;figcaption;iframe[!src,width,height];img[data-fid,data-uuid];placeholder;a',
+          extraAllowedContent: 'elifebutton[data-href](elife-button--default,elife-button--outline);oembed[data-videocaption](align-left,align-right,align-center);figure[data-*](figshare,tweet,gmap);figcaption;iframe[!src,width,height,frameborder](no-events);img[data-fid,data-uuid];placeholder;a',
           format_tags: 'p;h1;h2',
           embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
           autoEmbed_widget: 'embedVideo',
