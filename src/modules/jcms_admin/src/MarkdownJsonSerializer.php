@@ -31,6 +31,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
   private $htmlRenderer;
   private $mimeTypeGuesser;
   private $youtube;
+  private $tweet;
   private $converter;
   private $depthOffset = NULL;
   private $iiif = '';
@@ -39,11 +40,19 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
   /**
    * Constructor.
    */
-  public function __construct(DocParser $docParser, ElementRendererInterface $htmlRenderer, MimeTypeGuesserInterface $mimeTypeGuesser, YouTubeInterface $youtube, CommonMarkConverter $converter) {
+  public function __construct(
+    DocParser $docParser,
+    ElementRendererInterface $htmlRenderer,
+    MimeTypeGuesserInterface $mimeTypeGuesser,
+    YouTubeInterface $youtube,
+    TweetInterface $tweet,
+    CommonMarkConverter $converter
+  ) {
     $this->docParser = $docParser;
     $this->htmlRenderer = $htmlRenderer;
     $this->mimeTypeGuesser = $mimeTypeGuesser;
     $this->youtube = $youtube;
+    $this->tweet = $tweet;
     $this->converter = $converter;
   }
 
@@ -143,84 +152,58 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
           /** @var \PHPHtmlParser\Dom\HtmlNode $figure */
           $figure = $dom->find('figure')[0];
           $classes = preg_split('/\s+/', trim($figure->getAttribute('class') ?? ''));
-          if (in_array('video', $classes)) {
-            if (preg_match('/<oembed>(?P<video>http[^<]+)<\/oembed>/', $contents, $matches)) {
-              $uri = trim($matches['video']);
-              if ($id = $this->youtube->getIdFromUri($uri)) {
-                if (preg_match('~with\-caption~', $figure->getAttribute('class'))) {
-                  $caption = $this->prepareCaption($figure->find('figcaption'), $contents, $context);
-                }
-                else {
-                  $caption = NULL;
-                }
-                $dimensions = $this->youtube->getDimensions($id);
-                return array_filter([
-                  'type' => 'youtube',
-                  'id' => $id,
-                  'width' => $dimensions['width'] ?? 16,
-                  'height' => $dimensions['height'] ?? 9,
-                  'title' => $caption,
-                ]);
+          if (in_array('video', $classes) && preg_match('/<oembed>(?P<video>http[^<]+)<\/oembed>/', $contents, $matches)) {
+            $uri = trim($matches['video']);
+            if ($id = $this->youtube->getIdFromUri($uri)) {
+              if (preg_match('~with\-caption~', $figure->getAttribute('class'))) {
+                $caption = $this->prepareCaption($figure->find('figcaption'), $contents, $context);
               }
               else {
-                return [
-                  'type' => 'paragraph',
-                  'text' => sprintf('<a href="%s">%s</a>', $uri, $uri),
-                ];
+                $caption = NULL;
               }
+              $dimensions = $this->youtube->getDimensions($id);
+              return array_filter([
+                'type' => 'youtube',
+                'id' => $id,
+                'width' => $dimensions['width'] ?? 16,
+                'height' => $dimensions['height'] ?? 9,
+                'title' => $caption,
+              ]);
+            }
+            else {
+              return [
+                'type' => 'paragraph',
+                'text' => sprintf('<a href="%s">%s</a>', $uri, $uri),
+              ];
             }
           }
-          elseif (in_array('tweet', $classes)) {
-            if (preg_match('/<oembed>(?P<tweet>http[^<]+)<\/oembed>/', $contents, $matches)) {
-              $uri = trim($matches['tweet']);
-              $info = Embed::create($uri);
-              if (!empty($info)) {
-                $opengraph = $info->getProviders()['opengraph'];
-                $oembed = $info->getProviders()['oembed'];
-                $oembed_dom = new Dom();
-                $oembed_dom->setOptions([
-                  'preserveLineBreaks' => TRUE,
-                ]);
-                $oembed_dom->load($oembed->getCode());
-                $blockquote = $oembed_dom->find('blockquote');
-                $datestr = $blockquote->lastChild()->text();
-                $date = strtotime($datestr);
-                if (empty($date)) {
-                  $date = time();
-                }
-                if (preg_match('/\(\@([^\)]+)\)/', $blockquote->text(), $matches)) {
-                  $accountId = $matches[1];
-                }
-                if (empty($accountId)) {
-                  $accountId = $opengraph->getTitle();
-                }
-                $attr_conversation = $figure->getAttribute('data-conversation');
-                $conversation = !empty($attr_conversation) && $attr_conversation == 'true';
-                $attr_mediacard = $figure->getAttribute('data-mediacard');
-                $mediacard = !empty($attr_mediacard) && $attr_mediacard == 'true';
-                return array_filter([
-                  'type' => 'twitter',
-                  'url' => $uri,
-                  'accountId' => $accountId,
-                  'accountLabel' => $opengraph->getTitle(),
-                  'text' => [
-                    [
-                      'type' => 'paragraph',
-                      'text' => $opengraph->getDescription(),
-                    ],
+          elseif (in_array('tweet', $classes) && preg_match('/<oembed>(?P<tweet>http[^<]+)<\/oembed>/', $contents, $matches)) {
+            $uri = trim($matches['tweet']);
+            if ($id = $this->tweet->getIdFromUri($uri)) {
+              $details = $this->tweet->getDetails($id);
+              $conversation = $figure->getAttribute('data-conversation');
+              $media_card = $figure->getAttribute('data-mediacard');
+              return array_filter([
+                'type' => 'tweet',
+                'id' => $id,
+                'date' => date('Y-m-d', $details['date']),
+                'accountId' => $details['accountId'],
+                'accountLabel' => $details['accountLabel'],
+                'text' => [
+                  [
+                    'type' => 'paragraph',
+                    'text' => $details['text'],
                   ],
-                  'conversation' => $conversation,
-                  'mediacard' => $mediacard,
-                  'date' => [
-                    'forHuman' => [
-                      'dayOfMonth' => date('j', $date),
-                      'month' => date('M', $date),
-                      'year' => date('Y', $date),
-                    ],
-                    'forMachine' => date('Y-m-d', $date),
-                  ],
-                ]);
-              }
+                ],
+                'conversation' => !empty($conversation) && $conversation === 'true',
+                'mediaCard' => !empty($media_card) && $media_card === 'true',
+              ]);
+            }
+            else {
+              return [
+                'type' => 'paragraph',
+                'text' => sprintf('<a href="%s">%s</a>', $uri, $uri),
+              ];
             }
           }
           elseif (in_array('figshare', $classes)) {
