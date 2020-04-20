@@ -2,19 +2,20 @@
 
 namespace Drupal\jcms_admin;
 
-use Embed\Embed;
 use Psr\Log\LoggerInterface;
 
 /**
  * Class YouTube.
  */
 final class YouTube implements YouTubeInterface {
+  private $embed;
   private $logger;
 
   /**
    * YouTube constructor.
    */
-  public function __construct(LoggerInterface $logger) {
+  public function __construct(Embed $embed, LoggerInterface $logger) {
+    $this->embed = $embed;
     $this->logger = $logger;
   }
 
@@ -26,7 +27,7 @@ final class YouTube implements YouTubeInterface {
       return $match['id'];
     }
 
-    $this->logger->warning('YouTube ID not forund in uri.', ['uri' => $uri]);
+    $this->logger->warning('YouTube ID not found in uri.', ['uri' => $uri]);
     return '';
   }
 
@@ -35,22 +36,25 @@ final class YouTube implements YouTubeInterface {
    */
   public function getDimensions(string $id) : array {
     try {
-      if ($info = Embed::create('https://www.youtube.com/watch?v=' . $id)) {
-        if (isset($info->getProviders()['opengraph'])) {
+      if ($info = $this->embed->create('https://www.youtube.com/watch?v=' . $id)) {
+        $providers = $info->getProviders();
+        if (isset($providers['opengraph'])) {
           /* @var \Embed\Providers\OpenGraph $opengraph */
-          $opengraph = $info->getProviders()['opengraph'];
-          // Store width and height of video.
-          if ($opengraph->getWidth() && $opengraph->getHeight()) {
+          $opengraph = $providers['opengraph'];
+          $width = $opengraph->getWidth();
+          $height = $opengraph->getHeight();
+          // Return width and height of video.
+          if ($width && $height) {
             return [
-              'width' => (int) $opengraph->getWidth(),
-              'height' => (int) $opengraph->getHeight(),
+              'width' => (int) $width,
+              'height' => (int) $height,
             ];
           }
         }
       }
     }
     catch (\Exception $e) {
-      $this->logger->error('YoutTube could not be reached.', ['id' => $id]);
+      $this->logger->error('YouTube could not be reached.', ['id' => $id]);
     }
 
     return [
