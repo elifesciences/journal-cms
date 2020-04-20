@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9dd80e641e49b231359127884393a9a",
+    "content-hash": "24a522767690a15569d39b4524178c37",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1980,7 +1980,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -2006,7 +2006,7 @@
             ],
             "homepage": "https://www.drupal.org/project/confi",
             "support": {
-                "source": "http://cgit.drupalcode.org/confi"
+                "source": "https://git.drupalcode.org/project/confi"
             }
         },
         {
@@ -2123,7 +2123,7 @@
             ],
             "homepage": "https://www.drupal.org/project/config_installer",
             "support": {
-                "source": "http://cgit.drupalcode.org/config_installer"
+                "source": "https://git.drupalcode.org/project/config_installer"
             }
         },
         {
@@ -3052,7 +3052,7 @@
             "description": "Provides a new field type of Duration, as well as a Form API duration element",
             "homepage": "https://www.drupal.org/project/duration_field",
             "support": {
-                "source": "http://cgit.drupalcode.org/duration_field"
+                "source": "https://git.drupalcode.org/project/duration_field"
             }
         },
         {
@@ -3141,8 +3141,8 @@
                     "version": "8.x-1.1",
                     "datestamp": "1508332743",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -3159,7 +3159,7 @@
             "description": "Allows unpublished content to be referenced in an entity reference.",
             "homepage": "https://www.drupal.org/project/entity_reference_unpublished",
             "support": {
-                "source": "http://cgit.drupalcode.org/entity_reference_unpublished"
+                "source": "https://git.drupalcode.org/project/entity_reference_unpublished"
             }
         },
         {
@@ -3344,7 +3344,7 @@
             "description": "The Field Permissions module allows site administrators to set field-level permissions to edit, view and create fields on any entity.",
             "homepage": "https://www.drupal.org/project/field_permissions",
             "support": {
-                "source": "http://cgit.drupalcode.org/field_permissions",
+                "source": "https://git.drupalcode.org/project/field_permissions",
                 "issues": "https://www.drupal.org/project/issues/field_permissions"
             }
         },
@@ -3741,12 +3741,16 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-beta2",
-                    "datestamp": "1495467483"
+                    "datestamp": "1495467483",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -3769,7 +3773,7 @@
             "description": "Creates field types that use the JSON/JSONB data type to store JSON object data.",
             "homepage": "https://www.drupal.org/project/jsonb",
             "support": {
-                "source": "http://cgit.drupalcode.org/jsonb"
+                "source": "https://git.drupalcode.org/project/jsonb"
             }
         },
         {
@@ -3851,7 +3855,11 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta1+12-dev",
-                    "datestamp": "1494424085"
+                    "datestamp": "1494424085",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3925,7 +3933,7 @@
             "description": "Tools to assist in developing and running migrations.",
             "homepage": "https://www.drupal.org/project/migrate_tools",
             "support": {
-                "source": "http://cgit.drupalcode.org/migrate_tools"
+                "source": "https://git.drupalcode.org/project/migrate_tools"
             },
             "time": "2017-07-12T15:50:55+00:00"
         },
@@ -4629,16 +4637,16 @@
         },
         {
             "name": "elife/api",
-            "version": "dev-master",
+            "version": "dev-block-figshare-google-map-twitter-compiled",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "537aff4efe86f706d604b3c368268ab5ad85fc58"
+                "reference": "ba72cfc4a0cfbb889461ff6294e2074ca1e8e333"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/537aff4efe86f706d604b3c368268ab5ad85fc58",
-                "reference": "537aff4efe86f706d604b3c368268ab5ad85fc58",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/ba72cfc4a0cfbb889461ff6294e2074ca1e8e333",
+                "reference": "ba72cfc4a0cfbb889461ff6294e2074ca1e8e333",
                 "shasum": ""
             },
             "conflict": {
@@ -4650,7 +4658,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API specification",
-            "time": "2020-04-06T15:19:49+00:00"
+            "time": "2020-04-20T11:56:11+00:00"
         },
         {
             "name": "elife/api-client",
