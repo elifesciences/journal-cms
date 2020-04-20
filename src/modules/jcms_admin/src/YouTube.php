@@ -9,12 +9,14 @@ use Psr\Log\LoggerInterface;
  * Class YouTube.
  */
 final class YouTube implements YouTubeInterface {
+  private $embed;
   private $logger;
 
   /**
    * YouTube constructor.
    */
-  public function __construct(LoggerInterface $logger) {
+  public function __construct(Embed $embed, LoggerInterface $logger) {
+    $this->embed = $embed;
     $this->logger = $logger;
   }
 
@@ -35,7 +37,7 @@ final class YouTube implements YouTubeInterface {
    */
   public function getDimensions(string $id) : array {
     try {
-      if ($info = Embed::create('https://www.youtube.com/watch?v=' . $id)) {
+      if ($info = $this->embed::create('https://www.youtube.com/watch?v=' . $id)) {
         if (isset($info->getProviders()['opengraph'])) {
           /* @var \Embed\Providers\OpenGraph $opengraph */
           $opengraph = $info->getProviders()['opengraph'];
