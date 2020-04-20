@@ -18,9 +18,11 @@ services:
   jcms_admin.logger.channel.default:
     parent: logger.channel_base
     arguments: ['jcms_admin']
+  jcms_admin.embed:
+    class: Drupal\jcms_admin\Embed
   jcms_admin.youtube:
     class: Drupal\jcms_admin\YouTube
-    arguments: ['@jcms_admin.logger.channel.default']
+    arguments: ['@jcms_admin.embed', '@jcms_admin.logger.channel.default']
   jcms_admin.tweet:
     class: Drupal\jcms_admin\Tweet
     arguments: ['@jcms_admin.logger.channel.default']
