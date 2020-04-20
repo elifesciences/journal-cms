@@ -4,7 +4,6 @@ namespace Drupal\Tests\jcms_admin\Unit;
 
 use Drupal\jcms_admin\YouTube;
 use Drupal\Tests\UnitTestCase;
-use Embed\Embed;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -20,13 +19,6 @@ class YouTubeTest extends UnitTestCase {
   private $logger;
 
   /**
-   * Embed.
-   *
-   * @var \Embed\Embed
-   */
-  private $embed;
-
-  /**
    * Figshare.
    *
    * @var \Drupal\jcms_admin\YouTube
@@ -39,9 +31,8 @@ class YouTubeTest extends UnitTestCase {
    * @before
    */
   protected function setUp() {
-    $this->embed = $this->createMock(Embed::class);
     $this->logger = $this->createMock(LoggerInterface::class);
-    $this->youtube = new YouTube($this->embed, $this->logger);
+    $this->youtube = new YouTube($this->logger);
   }
 
   /**
