@@ -18,9 +18,11 @@ services:
   jcms_admin.logger.channel.default:
     parent: logger.channel_base
     arguments: ['jcms_admin']
+  jcms_admin.embed:
+    class: Drupal\jcms_admin\Embed
   jcms_admin.youtube:
     class: Drupal\jcms_admin\YouTube
-    arguments: ['@jcms_admin.logger.channel.default']
+    arguments: ['@jcms_admin.embed', '@jcms_admin.logger.channel.default']
   jcms_admin.md_json_normalizer:
     class: Drupal\jcms_admin\MarkdownJsonSerializer
     arguments: ['@jcms_admin.doc_parser', '@jcms_admin.html_renderer', '@file.mime_type.guesser', '@jcms_admin.youtube',  '@jcms_admin.md_converter']
