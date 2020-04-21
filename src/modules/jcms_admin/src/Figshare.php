@@ -2,7 +2,6 @@
 
 namespace Drupal\jcms_admin;
 
-use Embed\Embed;
 use Psr\Log\LoggerInterface;
 
 /**
