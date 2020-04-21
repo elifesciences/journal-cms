@@ -42,6 +42,7 @@ final class Tweet implements TweetInterface {
         if (isset($providers['opengraph'])) {
           /* @var \Embed\Providers\OpenGraph $opengraph */
           $opengraph = $providers['opengraph'];
+          /* @var \Embed\Providers\OEmbed $oembed */
           $oembed = $providers['oembed'];
           $oembed_dom = new Dom();
           $oembed_dom->setOptions([
@@ -54,17 +55,18 @@ final class Tweet implements TweetInterface {
           if (empty($date)) {
             $date = time();
           }
+          $account_label = $opengraph->getTitle();
           if (preg_match('/\(\@([^\)]+)\)/', $blockquote->text(), $matches)) {
             $account_id = $matches[1];
           }
           else {
-            $account_id = $opengraph->getTitle();
+            $account_id = $account_label;
           }
           // Retrieve details of the tweet.
           return array_filter([
             'date' => $date,
             'accountId' => $account_id,
-            'accountLabel' => $opengraph->getTitle(),
+            'accountLabel' => $account_label,
             'text' => $opengraph->getDescription(),
           ]);
         }
