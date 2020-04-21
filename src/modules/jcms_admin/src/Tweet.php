@@ -67,7 +67,7 @@ final class Tweet implements TweetInterface {
             'date' => $date,
             'accountId' => $account_id,
             'accountLabel' => $account_label,
-            'text' => $opengraph->getDescription(),
+            'text' => trim($opengraph->getDescription(), '“”'),
           ]);
         }
       }

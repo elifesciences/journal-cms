@@ -89,7 +89,7 @@ class TweetTest extends UnitTestCase {
     $opengraph
       ->expects($this->once())
       ->method('getDescription')
-      ->willReturn('text');
+      ->willReturn('“text”');
     $adapter
       ->expects($this->once())
       ->method('getProviders')
