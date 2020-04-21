@@ -25,7 +25,7 @@ services:
     arguments: ['@jcms_admin.embed', '@jcms_admin.logger.channel.default']
   jcms_admin.tweet:
     class: Drupal\jcms_admin\Tweet
-    arguments: ['@jcms_admin.logger.channel.default']
+    arguments: ['@jcms_admin.embed', '@jcms_admin.logger.channel.default']
   jcms_admin.google_map:
     class: Drupal\jcms_admin\GoogleMap
     arguments: ['@jcms_admin.logger.channel.default']

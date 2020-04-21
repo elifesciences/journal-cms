@@ -2,7 +2,6 @@
 
 namespace Drupal\jcms_admin;
 
-use Embed\Embed;
 use PHPHtmlParser\Dom;
 use Psr\Log\LoggerInterface;
 
@@ -10,12 +9,14 @@ use Psr\Log\LoggerInterface;
  * Class YouTube.
  */
 final class Tweet implements TweetInterface {
+  private $embed;
   private $logger;
 
   /**
    * Tweet constructor.
    */
-  public function __construct(LoggerInterface $logger) {
+  public function __construct(Embed $embed, LoggerInterface $logger) {
+    $this->embed = $embed;
     $this->logger = $logger;
   }
 
@@ -36,11 +37,12 @@ final class Tweet implements TweetInterface {
    */
   public function getDetails(string $id): array {
     try {
-      if ($info = Embed::create('https://twitter.com/eLife/status/' . $id)) {
-        if (isset($info->getProviders()['opengraph'])) {
+      if ($info = $this->embed->create('https://twitter.com/eLife/status/' . $id)) {
+        $providers = $info->getProviders();
+        if (isset($providers['opengraph'])) {
           /* @var \Embed\Providers\OpenGraph $opengraph */
-          $opengraph = $info->getProviders()['opengraph'];
-          $oembed = $info->getProviders()['oembed'];
+          $opengraph = $providers['opengraph'];
+          $oembed = $providers['oembed'];
           $oembed_dom = new Dom();
           $oembed_dom->setOptions([
             'preserveLineBreaks' => TRUE,
