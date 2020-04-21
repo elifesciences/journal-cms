@@ -37,9 +37,10 @@ final class Figshare implements FigshareInterface {
   public function getTitle(string $id): string {
     try {
       if ($info = $this->embed->create('https://figshare.com/articles/og/' . $id)) {
-        if (isset($info->getProviders()['opengraph'])) {
+        $providers = $info->getProviders();
+        if (isset($providers['opengraph'])) {
           /* @var \Embed\Providers\OpenGraph $opengraph */
-          $opengraph = $info->getProviders()['opengraph'];
+          $opengraph = $providers['opengraph'];
           // Retrieve title of the Fighsare.
           if ($title = $opengraph->getTitle()) {
             return $title;
@@ -50,6 +51,8 @@ final class Figshare implements FigshareInterface {
     catch (\Exception $e) {
       $this->logger->error('Figshare could not be reached.', ['id' => $id]);
     }
+
+    return '';
   }
 
 }

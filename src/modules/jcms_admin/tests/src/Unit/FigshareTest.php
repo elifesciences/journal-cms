@@ -5,6 +5,8 @@ namespace Drupal\Tests\jcms_admin\Unit;
 use Drupal\jcms_admin\Embed;
 use Drupal\jcms_admin\Figshare;
 use Drupal\Tests\UnitTestCase;
+use Embed\Adapters\Adapter;
+use Embed\Providers\OpenGraph;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -68,6 +70,30 @@ class FigshareTest extends UnitTestCase {
    */
   public function itWillGetIdFromUri(string $expected, string $uri) {
     $this->assertEquals($expected, $this->figshare->getIdFromUri($uri));
+  }
+
+  /**
+   * It will get the title of the Figshare.
+   *
+   * @test
+   */
+  public function itWillGetTitle() {
+    $opengraph = $this->createMock(OpenGraph::class);
+    $adapter = $this->createMock(Adapter::class);
+    $opengraph
+      ->expects($this->once())
+      ->method('getTitle')
+      ->willReturn('title');
+    $adapter
+      ->expects($this->once())
+      ->method('getProviders')
+      ->willReturn(['opengraph' => $opengraph]);
+    $this->embed
+      ->expects($this->once())
+      ->method('create')
+      ->with('https://figshare.com/articles/og/id')
+      ->willReturn($adapter);
+    $this->assertEquals('title', $this->figshare->getTitle('id'));
   }
 
 }
