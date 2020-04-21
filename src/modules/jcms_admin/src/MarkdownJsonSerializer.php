@@ -215,8 +215,8 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
             $uri = $figure->find('iframe')->getAttribute('src');
             if (!empty($uri) && $id = $this->figshare->getIdFromUri($uri)) {
               $fullscreen = $figure->getAttribute('data-fullscreen');
-              $width = $figure->getAttribute('data-width');
-              $height = $figure->getAttribute('data-height');
+              $width = (int) $figure->getAttribute('data-width');
+              $height = (int) $figure->getAttribute('data-height');
               return array_filter([
                 'type' => 'figshare',
                 'id' => $id,
