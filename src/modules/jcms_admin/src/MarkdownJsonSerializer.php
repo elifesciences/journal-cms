@@ -18,7 +18,6 @@ use League\CommonMark\Node\Node;
 use PHPHtmlParser\Dom;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Embed\Embed;
 
 /**
  * Convert Markdown to Json.
