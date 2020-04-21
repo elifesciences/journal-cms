@@ -117,7 +117,21 @@ class HtmlJsonSerializerTest extends UnitTestCase {
    * @test
    * @dataProvider normalizeProvider
    */
-  public function itWillNormalizeHtml(array $expected, string $html, array $mimeTypeGuesses = [], array $youtubes = [], array $tweets = [], array $googleMaps = [], array $context = ['encode' => ['code', 'table']]) {
+  public function itWillNormalizeHtml(
+    array $expected,
+    string $html,
+    array $mimeTypeGuesses = [],
+    array $youtubes = [],
+    array $tweets = [],
+    array $googleMaps = [],
+    array $figshares = [],
+    array $context = [
+      'encode' => [
+        'code',
+        'table',
+      ],
+    ]
+  ) {
     foreach ($mimeTypeGuesses as $uri => $mimeType) {
       $this->mimeTypeGuesser
         ->expects($this->once())
@@ -190,6 +204,26 @@ class HtmlJsonSerializerTest extends UnitTestCase {
           ->willReturn($details['id']);
         if ($details['title']) {
           $this->googleMap
+            ->expects($this->any())
+            ->method('getTitle')
+            ->with($details['id'])
+            ->willReturn($details['title']);
+        }
+      }
+    }
+    foreach ($figshares as $uri => $details) {
+      $details += [
+        'id' => NULL,
+        'title' => NULL,
+      ];
+      if ($details['id']) {
+        $this->figshare
+          ->expects($this->any())
+          ->method('getIdFromUri')
+          ->with($uri)
+          ->willReturn($details['id']);
+        if ($details['title']) {
+          $this->figshare
             ->expects($this->any())
             ->method('getTitle')
             ->with($details['id'])
@@ -1025,6 +1059,29 @@ class HtmlJsonSerializerTest extends UnitTestCase {
           'https://www.google.com/maps/d/u/0/viewer?mid=13cEQIsP3F9-iEVDDgradCs2Z9F-ODLyx&ll=-3.81666561775622e-14%2C-94.2847887407595&z=1' => [
             'id' => '13cEQIsP3F9-iEVDDgradCs2Z9F-ODLyx',
             'title' => 'eLife Community Ambassadors 2019',
+          ],
+        ],
+      ],
+      'single figshare' => [
+        [
+          [
+            'type' => 'figshare',
+            'id' => '8210360',
+            'title' => 'Shared Open Source Infrastructure with the Libero Community',
+            'width' => 568,
+            'height' => 426,
+            'allowFullscreen' => TRUE,
+          ],
+        ],
+        '<figure class="figshare" data-fullscreen="true" data-height="426" data-width="568"><iframe src="https://widgets.figshare.com/articles/8210360/embed"></iframe></figure>',
+        [],
+        [],
+        [],
+        [],
+        [
+          'https://widgets.figshare.com/articles/8210360/embed' => [
+            'id' => '8210360',
+            'title' => 'Shared Open Source Infrastructure with the Libero Community',
           ],
         ],
       ],
