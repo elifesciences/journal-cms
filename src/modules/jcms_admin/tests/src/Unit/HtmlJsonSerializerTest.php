@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\jcms_admin\Unit;
 
+use Drupal\jcms_admin\FigshareInterface;
 use Drupal\jcms_admin\GoogleMapInterface;
 use Drupal\jcms_admin\HtmlJsonSerializer;
 use Drupal\jcms_admin\HtmlMarkdownSerializer;
@@ -60,6 +61,13 @@ class HtmlJsonSerializerTest extends UnitTestCase {
   private $googleMap;
 
   /**
+   * Figshare.
+   *
+   * @var \Drupal\jcms_admin\FigshareInterface
+   */
+  private $figshare;
+
+  /**
    * Setup.
    *
    * @before
@@ -70,7 +78,8 @@ class HtmlJsonSerializerTest extends UnitTestCase {
     $this->youtube = $this->createMock(YouTubeInterface::class);
     $this->tweet = $this->createMock(TweetInterface::class);
     $this->googleMap = $this->createMock(GoogleMapInterface::class);
-    $this->normalizer = new HtmlJsonSerializer(new HtmlMarkdownSerializer(new HtmlConverter()), new MarkdownJsonSerializer(new DocParser($environment), new HtmlRenderer($environment), $this->mimeTypeGuesser, $this->youtube, $this->tweet, $this->googleMap, new CommonMarkConverter()));
+    $this->figshare = $this->createMock(FigshareInterface::class);
+    $this->normalizer = new HtmlJsonSerializer(new HtmlMarkdownSerializer(new HtmlConverter()), new MarkdownJsonSerializer(new DocParser($environment), new HtmlRenderer($environment), $this->mimeTypeGuesser, $this->youtube, $this->tweet, $this->googleMap, $this->figshare, new CommonMarkConverter()));
   }
 
   /**
