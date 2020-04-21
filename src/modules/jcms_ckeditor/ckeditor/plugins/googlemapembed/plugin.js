@@ -28,9 +28,11 @@
           editor.config.embed_provider ||
           '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}'
         ),
-        template: '<figure class="gmap"><oembed>{url}</oembed></figure>',
+        template: '<figure class="gmap" data-width="{width}" data-height="{height}"><oembed>{url}</oembed></figure>',
         defaults: {
-          url: ''
+          url: '',
+          width: '600',
+          height: '400',
         },
 
         init: function() {
