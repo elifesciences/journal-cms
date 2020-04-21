@@ -37,7 +37,7 @@ final class Tweet implements TweetInterface {
    */
   public function getDetails(string $id): array {
     try {
-      if ($info = $this->embed->create('https://twitter.com/eLife/status/' . $id)) {
+      if ($info = $this->embed->create('https://twitter.com/og/status/' . $id)) {
         $providers = $info->getProviders();
         if (isset($providers['opengraph'])) {
           /* @var \Embed\Providers\OpenGraph $opengraph */

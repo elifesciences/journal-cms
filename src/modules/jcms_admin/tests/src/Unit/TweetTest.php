@@ -100,7 +100,7 @@ class TweetTest extends UnitTestCase {
     $this->embed
       ->expects($this->once())
       ->method('create')
-      ->with('https://twitter.com/eLife/status/id')
+      ->with('https://twitter.com/og/status/id')
       ->willReturn($adapter);
     $this->assertEquals([
       'date' => 1587304800,
