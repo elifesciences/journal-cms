@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\jcms_admin\Unit;
 
+use Drupal\jcms_admin\Embed;
 use Drupal\jcms_admin\GoogleMap;
 use Drupal\Tests\UnitTestCase;
 use Psr\Log\LoggerInterface;
@@ -10,6 +11,13 @@ use Psr\Log\LoggerInterface;
  * Tests for GoogleMap.
  */
 class GoogleMapTest extends UnitTestCase {
+
+  /**
+   * Embed.
+   *
+   * @var \Drupal\jcms_admin\Embed
+   */
+  private $embed;
 
   /**
    * Logger.
@@ -31,8 +39,9 @@ class GoogleMapTest extends UnitTestCase {
    * @before
    */
   protected function setUp() {
+    $this->embed = $this->createMock(Embed::class);
     $this->logger = $this->createMock(LoggerInterface::class);
-    $this->googleMap = new GoogleMap($this->logger);
+    $this->googleMap = new GoogleMap($this->embed, $this->logger);
   }
 
   /**

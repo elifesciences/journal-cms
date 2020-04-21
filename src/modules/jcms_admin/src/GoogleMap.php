@@ -2,19 +2,20 @@
 
 namespace Drupal\jcms_admin;
 
-use Embed\Embed;
 use Psr\Log\LoggerInterface;
 
 /**
  * Class GoogleMap.
  */
 final class GoogleMap implements GoogleMapInterface {
+  private $embed;
   private $logger;
 
   /**
    * GoogleMap constructor.
    */
-  public function __construct(LoggerInterface $logger) {
+  public function __construct(Embed $embed, LoggerInterface $logger) {
+    $this->embed = $embed;
     $this->logger = $logger;
   }
 
@@ -35,7 +36,7 @@ final class GoogleMap implements GoogleMapInterface {
    */
   public function getTitle(string $id): string {
     try {
-      if ($info = Embed::create('https://www.youtube.com/watch?v=' . $id)) {
+      if ($info = $this->embed->create('https://www.google.com/maps/d/embed?mid=' . $id)) {
         if (isset($info->getProviders()['opengraph'])) {
           /* @var \Embed\Providers\OpenGraph $opengraph */
           $opengraph = $info->getProviders()['opengraph'];
