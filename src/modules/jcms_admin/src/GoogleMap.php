@@ -37,9 +37,10 @@ final class GoogleMap implements GoogleMapInterface {
   public function getTitle(string $id): string {
     try {
       if ($info = $this->embed->create('https://www.google.com/maps/d/embed?mid=' . $id)) {
-        if (isset($info->getProviders()['opengraph'])) {
+        $providers = $info->getProviders();
+        if (isset($providers['opengraph'])) {
           /* @var \Embed\Providers\OpenGraph $opengraph */
-          $opengraph = $info->getProviders()['opengraph'];
+          $opengraph = $providers['opengraph'];
           // Retrieve title of the google map.
           if ($title = $opengraph->getTitle()) {
             return $title;
@@ -50,6 +51,8 @@ final class GoogleMap implements GoogleMapInterface {
     catch (\Exception $e) {
       $this->logger->error('Google maps could not be reached.', ['id' => $id]);
     }
+
+    return '';
   }
 
 }
