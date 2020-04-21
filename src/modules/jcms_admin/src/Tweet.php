@@ -75,6 +75,8 @@ final class Tweet implements TweetInterface {
     catch (\Exception $e) {
       $this->logger->error('Twitter could not be reached.', ['id' => $id]);
     }
+
+    return [];
   }
 
 }
