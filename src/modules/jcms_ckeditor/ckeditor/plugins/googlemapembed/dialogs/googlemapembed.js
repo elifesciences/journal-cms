@@ -1,11 +1,9 @@
 /**
- * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @file
+ * Google map embed.
  */
 
-/* global alert */
-
-CKEDITOR.dialog.add( 'googlemapembed', function( editor ) {
+CKEDITOR.dialog.add('googlemapembed', function (editor) {
   'use strict';
 
   return {
@@ -13,11 +11,11 @@ CKEDITOR.dialog.add( 'googlemapembed', function( editor ) {
       minWidth: 350,
       minHeight: 50,
 
-      onLoad: function() {
-        var that = this,
+      onLoad: function () {
+        let that = this,
           loadContentRequest = null;
 
-        this.on( 'ok', function( evt ) {
+        this.on('ok', function (evt) {
           // We're going to hide it manually, after remote response is fetched.
           evt.data.hide = false;
 
@@ -25,43 +23,43 @@ CKEDITOR.dialog.add( 'googlemapembed', function( editor ) {
           evt.stop();
 
           // Indicate visually that waiting for the response (https://dev.ckeditor.com/ticket/13213).
-          that.setState( CKEDITOR.DIALOG_STATE_BUSY );
+          that.setState(CKEDITOR.DIALOG_STATE_BUSY);
 
-          var url = that.getValueOf( 'info', 'url' );
-          loadContentRequest = that.widget.loadContent( url, {
+          const url = that.getValueOf('info', 'url');
+          loadContentRequest = that.widget.loadContent(url, {
             noNotifications: true,
 
-            callback: function() {
-              if ( !that.widget.isReady() ) {
-                editor.widgets.finalizeCreation( that.widget.wrapper.getParent( true ) );
+            callback: function () {
+              if (!that.widget.isReady()) {
+                editor.widgets.finalizeCreation(that.widget.wrapper.getParent(true));
               }
 
-              editor.fire( 'saveSnapshot' );
+              editor.fire('saveSnapshot');
 
               that.hide();
               unlock();
             },
 
-            errorCallback: function( messageTypeOrMessage ) {
-              that.getContentElement( 'info', 'url' ).select();
+            errorCallback: function (messageTypeOrMessage) {
+              that.getContentElement('info', 'url').select();
 
-              alert( that.widget.getErrorMessage( messageTypeOrMessage, url, 'Given' ) );
+              alert(that.widget.getErrorMessage(messageTypeOrMessage, url, 'Given'));
 
               unlock();
             }
-          } );
-        }, null, null, 15 );
+          });
+        }, null, null, 15);
 
-        this.on( 'cancel', function( evt ) {
-          if ( evt.data.hide && loadContentRequest ) {
+        this.on('cancel', function (evt) {
+          if (evt.data.hide && loadContentRequest) {
             loadContentRequest.cancel();
             unlock();
           }
-        } );
+        });
 
         function unlock() {
           // Visual waiting indicator is no longer needed (https://dev.ckeditor.com/ticket/13213).
-          that.setState( CKEDITOR.DIALOG_STATE_IDLE );
+          that.setState(CKEDITOR.DIALOG_STATE_IDLE);
           loadContentRequest = null;
         }
       },
@@ -77,12 +75,12 @@ CKEDITOR.dialog.add( 'googlemapembed', function( editor ) {
               label: editor.lang.common.url,
               required: true,
 
-              setup: function(widget) {
+              setup: function (widget) {
                 this.setValue(widget.data.url);
               },
 
-              validate: function() {
-                if ( !this.getDialog().widget.isUrlValid( this.getValue() ) ) {
+              validate: function () {
+                if (!this.getDialog().widget.isUrlValid(this.getValue())) {
                   return 'The specified URL is not supported.';
                 }
                 return true;
@@ -92,10 +90,10 @@ CKEDITOR.dialog.add( 'googlemapembed', function( editor ) {
               type: 'text',
               id: 'width',
               label: 'Width (px)',
-              setup: function(widget) {
+              setup: function (widget) {
                 this.setValue(widget.data.width);
               },
-              commit: function(widget) {
+              commit: function (widget) {
                 widget.setData('width', this.getValue());
               }
             },
@@ -103,21 +101,21 @@ CKEDITOR.dialog.add( 'googlemapembed', function( editor ) {
               type: 'text',
               id: 'height',
               label: 'Height (px)',
-              setup: function(widget) {
+              setup: function (widget) {
                 this.setValue(widget.data.height);
               },
-              commit: function(widget) {
+              commit: function (widget) {
                 widget.setData('height', this.getValue());
               }
-            },            
+            },
             {
               type: 'checkbox',
               id: 'fullscreen',
               label: 'Allow fullscreen',
-              setup: function(widget) {
+              setup: function (widget) {
                 this.setValue(widget.data.fullscreen);
               },
-              commit: function(widget) {
+              commit: function (widget) {
                 widget.setData('fullscreen', this.getValue());
               }
             }
@@ -126,4 +124,3 @@ CKEDITOR.dialog.add( 'googlemapembed', function( editor ) {
       ]
   };
 });
-
