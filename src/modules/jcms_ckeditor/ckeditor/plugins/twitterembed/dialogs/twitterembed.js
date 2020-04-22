@@ -1,11 +1,9 @@
 /**
- * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @file
+ * Twitter embed.
  */
 
-/* global alert */
-
-CKEDITOR.dialog.add( 'twitterembed', function( editor ) {
+CKEDITOR.dialog.add('twitterembed', function (editor) {
   'use strict';
 
   return {
@@ -13,11 +11,11 @@ CKEDITOR.dialog.add( 'twitterembed', function( editor ) {
     minWidth: 350,
     minHeight: 50,
 
-    onLoad: function() {
+    onLoad: function () {
       var that = this,
         loadContentRequest = null;
 
-      this.on( 'ok', function( evt ) {
+      this.on('ok', function (evt) {
         // We're going to hide it manually, after remote response is fetched.
         evt.data.hide = false;
 
@@ -25,43 +23,43 @@ CKEDITOR.dialog.add( 'twitterembed', function( editor ) {
         evt.stop();
 
         // Indicate visually that waiting for the response (https://dev.ckeditor.com/ticket/13213).
-        that.setState( CKEDITOR.DIALOG_STATE_BUSY );
+        that.setState(CKEDITOR.DIALOG_STATE_BUSY);
 
-        var url = that.getValueOf( 'info', 'url' );
-        loadContentRequest = that.widget.loadContent( url, {
+        var url = that.getValueOf('info', 'url');
+        loadContentRequest = that.widget.loadContent(url, {
           noNotifications: true,
 
-          callback: function() {
-            if ( !that.widget.isReady() ) {
-              editor.widgets.finalizeCreation( that.widget.wrapper.getParent( true ) );
+          callback: function () {
+            if (!that.widget.isReady()) {
+              editor.widgets.finalizeCreation(that.widget.wrapper.getParent(true));
             }
 
-            editor.fire( 'saveSnapshot' );
+            editor.fire('saveSnapshot');
 
             that.hide();
             unlock();
           },
 
-          errorCallback: function( messageTypeOrMessage ) {
-            that.getContentElement( 'info', 'url' ).select();
+          errorCallback: function (messageTypeOrMessage) {
+            that.getContentElement('info', 'url').select();
 
-            alert( that.widget.getErrorMessage( messageTypeOrMessage, url, 'Given' ) );
+            alert(that.widget.getErrorMessage(messageTypeOrMessage, url, 'Given'));
 
             unlock();
           }
         });
-      }, null, null, 15 );
+      }, null, null, 15);
 
-      this.on( 'cancel', function( evt ) {
-        if ( evt.data.hide && loadContentRequest ) {
+      this.on('cancel', function (evt) {
+        if (evt.data.hide && loadContentRequest) {
           loadContentRequest.cancel();
           unlock();
         }
-      } );
+      });
 
       function unlock() {
         // Visual waiting indicator is no longer needed (https://dev.ckeditor.com/ticket/13213).
-        that.setState( CKEDITOR.DIALOG_STATE_IDLE );
+        that.setState(CKEDITOR.DIALOG_STATE_IDLE);
         loadContentRequest = null;
       }
     },
@@ -77,12 +75,12 @@ CKEDITOR.dialog.add( 'twitterembed', function( editor ) {
             label: editor.lang.common.url,
             required: true,
 
-            setup: function( widget ) {
-              this.setValue( widget.data.url );
+            setup: function (widget) {
+              this.setValue(widget.data.url);
             },
 
-            validate: function() {
-              if ( !this.getDialog().widget.isUrlValid( this.getValue() ) ) {
+            validate: function () {
+              if (!this.getDialog().widget.isUrlValid(this.getValue())) {
                 return 'The specified URL is not supported.';
               }
 
@@ -93,10 +91,10 @@ CKEDITOR.dialog.add( 'twitterembed', function( editor ) {
             type: 'checkbox',
             id: 'conversation',
             label: 'Display the conversation',
-            setup: function(widget) {
+            setup: function (widget) {
               this.setValue(widget.data.conversation);
             },
-            commit: function(widget) {
+            commit: function (widget) {
               widget.setData('conversation', this.getValue());
             }
           },
@@ -104,10 +102,10 @@ CKEDITOR.dialog.add( 'twitterembed', function( editor ) {
             type: 'checkbox',
             id: 'mediacard',
             label: 'Display the media card',
-            setup: function(widget) {
+            setup: function (widget) {
               this.setValue(widget.data.mediacard);
             },
-            commit: function(widget) {
+            commit: function (widget) {
               widget.setData('mediacard', this.getValue());
             }
           }
@@ -116,5 +114,4 @@ CKEDITOR.dialog.add( 'twitterembed', function( editor ) {
     ]
   };
 
-} );
-
+});
