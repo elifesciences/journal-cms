@@ -32,20 +32,15 @@
         providerUrl: new CKEDITOR.template(editor.config.embed_provider ||
           '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}'
         ),
-        template: '<figure class="gmap" data-width="{width}" data-height="{height}"><oembed>{url}</oembed></figure>',
+        template: '<figure class="gmap"><oembed>{url}</oembed></figure>',
         defaults: {
           url: '',
-          width: '600',
-          height: '400',
         },
 
         init: function () {
           const that = this;
 
           origInit.call(this);
-
-          this.setData('width', this.element.getAttribute('data-width'));
-          this.setData('height', this.element.getAttribute('data-height'));
 
           // Need to wait for #ready with the initial content loading, because on #init there's no data yet.
           this.once('ready', function () {
@@ -64,11 +59,6 @@
               });
             }
           });
-        },
-
-        data: function () {
-          this.element.setAttribute('data-width', this.data.width);
-          this.element.setAttribute('data-height', this.data.height);
         },
 
         upcast: function (element, data) {
@@ -101,12 +91,6 @@
           ret.add(embed);
           if (element.attributes['class']) {
             ret.attributes['class'] = element.attributes['class'];
-          }
-          if (element.attributes['data-width']) {
-            ret.attributes['data-width'] = element.attributes['data-width'];
-          }
-          if (element.attributes['data-height']) {
-            ret.attributes['data-height'] = element.attributes['data-height'];
           }
           return ret;
         },

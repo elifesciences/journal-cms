@@ -8,8 +8,6 @@ CKEDITOR.dialog.add('googlemapembed', function (editor) {
 
   return {
       title: 'Insert Google Map',
-      minWidth: 350,
-      minHeight: 50,
 
       onLoad: function () {
         let that = this,
@@ -84,28 +82,6 @@ CKEDITOR.dialog.add('googlemapembed', function (editor) {
                   return 'The specified URL is not supported.';
                 }
                 return true;
-              }
-            },
-            {
-              type: 'text',
-              id: 'width',
-              label: 'Width (px)',
-              setup: function (widget) {
-                this.setValue(widget.data.width);
-              },
-              commit: function (widget) {
-                widget.setData('width', this.getValue());
-              }
-            },
-            {
-              type: 'text',
-              id: 'height',
-              label: 'Height (px)',
-              setup: function (widget) {
-                this.setValue(widget.data.height);
-              },
-              commit: function (widget) {
-                widget.setData('height', this.getValue());
               }
             }
           ]

@@ -194,12 +194,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
                 'date' => date('Y-m-d', $details['date']),
                 'accountId' => $details['accountId'],
                 'accountLabel' => $details['accountLabel'],
-                'text' => [
-                  [
-                    'type' => 'paragraph',
-                    'text' => $details['text'],
-                  ],
-                ],
+                'text' => $details['text'],
                 'conversation' => !empty($conversation) && $conversation === 'true',
                 'mediaCard' => !empty($media_card) && $media_card === 'true',
               ]);
@@ -234,14 +229,10 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
           elseif (in_array('gmap', $classes) && preg_match('/<oembed>(?P<gmap>http[^<]+)<\/oembed>/', $contents, $matches)) {
             $uri = trim($matches['gmap']);
             if ($id = $this->googleMap->getIdFromUri($uri)) {
-              $width = (int) $figure->getAttribute('data-width');
-              $height = (int) $figure->getAttribute('data-height');
               return array_filter([
                 'type' => 'google-map',
                 'id' => $id,
                 'title' => $this->googleMap->getTitle($id),
-                'width' => $width,
-                'height' => $height,
               ]);
             }
             else {
