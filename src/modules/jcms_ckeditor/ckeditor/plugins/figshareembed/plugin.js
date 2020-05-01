@@ -19,20 +19,18 @@
       editor.widgets.add('figshareembed', {
         init: function () {
           this.setData('src', this.element.findOne('iframe').getAttribute('src'));
-          this.setData('fullscreen', (/true/i).test(this.element.getAttribute('data-fullscreen')));
           this.setData('width', this.element.getAttribute('data-width'));
           this.setData('height', this.element.getAttribute('data-height'));
         },
         data: function () {
           this.element.findOne('iframe').setAttribute('src', this.data.src);
-          this.element.setAttribute('data-fullscreen', this.data.fullscreen);
           this.element.setAttribute('data-width', this.data.width);
           this.element.setAttribute('data-height', this.data.height);
         },
         button: 'Insert Figshare',
         dialog: 'figshare',
         template: '<figure class="figshare" data-width="{width}" data-height="{height}"><iframe class="no-events" src="{src}" width="100%" height="400px"></iframe></figure>',
-        allowedContent: 'figure[data-fullscreen](figshare),iframe[!src,width,height](no-events)',
+        allowedContent: 'figure(figshare),iframe[!src,width,height](no-events)',
         requiredContent: 'figure',
         upcast: function (element) {
           return element.name === 'figure' && element.hasClass('figshare');

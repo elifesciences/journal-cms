@@ -57,17 +57,6 @@ CKEDITOR.dialog.add('figshare', function (editor) {
             commit: function (widget) {
               widget.setData('height', this.getValue());
             }
-          },
-          {
-            type: 'checkbox',
-            id: 'fullscreen',
-            label: 'Allow fullscreen',
-            setup: function (widget) {
-              this.setValue(widget.data.fullscreen);
-            },
-            commit: function (widget) {
-              widget.setData('fullscreen', this.getValue());
-            }
           }
         ]
       }

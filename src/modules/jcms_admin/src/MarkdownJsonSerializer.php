@@ -214,7 +214,6 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
           elseif (in_array('figshare', $classes) && !empty($figure->find('iframe'))) {
             $uri = $figure->find('iframe')->getAttribute('src');
             if (!empty($uri) && $id = $this->figshare->getIdFromUri($uri)) {
-              $fullscreen = $figure->getAttribute('data-fullscreen');
               $width = (int) $figure->getAttribute('data-width');
               $height = (int) $figure->getAttribute('data-height');
               return array_filter([
@@ -223,7 +222,6 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
                 'title' => $this->figshare->getTitle($id),
                 'width' => $width,
                 'height' => $height,
-                'allowFullscreen' => !empty($fullscreen) && $fullscreen === 'true',
               ]);
             }
             else {
@@ -236,7 +234,6 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
           elseif (in_array('gmap', $classes) && preg_match('/<oembed>(?P<gmap>http[^<]+)<\/oembed>/', $contents, $matches)) {
             $uri = trim($matches['gmap']);
             if ($id = $this->googleMap->getIdFromUri($uri)) {
-              $fullscreen = $figure->getAttribute('data-fullscreen');
               $width = (int) $figure->getAttribute('data-width');
               $height = (int) $figure->getAttribute('data-height');
               return array_filter([
@@ -245,7 +242,6 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
                 'title' => $this->googleMap->getTitle($id),
                 'width' => $width,
                 'height' => $height,
-                'allowFullscreen' => !empty($fullscreen) && $fullscreen === 'true',
               ]);
             }
             else {

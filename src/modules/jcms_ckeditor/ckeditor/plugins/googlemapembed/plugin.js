@@ -44,7 +44,6 @@
 
           origInit.call(this);
 
-          this.setData('fullscreen', (/true/i).test(this.element.getAttribute('data-fullscreen')));
           this.setData('width', this.element.getAttribute('data-width'));
           this.setData('height', this.element.getAttribute('data-height'));
 
@@ -68,7 +67,6 @@
         },
 
         data: function () {
-          this.element.setAttribute('data-fullscreen', this.data.fullscreen);
           this.element.setAttribute('data-width', this.data.width);
           this.element.setAttribute('data-height', this.data.height);
         },
@@ -103,9 +101,6 @@
           ret.add(embed);
           if (element.attributes['class']) {
             ret.attributes['class'] = element.attributes['class'];
-          }
-          if (element.attributes['data-fullscreen']) {
-            ret.attributes['data-fullscreen'] = element.attributes['data-fullscreen'];
           }
           if (element.attributes['data-width']) {
             ret.attributes['data-width'] = element.attributes['data-width'];
