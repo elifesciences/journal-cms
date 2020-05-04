@@ -110,7 +110,7 @@
           return ret;
         },
 
-        _setContent: function(url, content) {
+        _setContent: function (url, content) {
           this.setData('url', url);
           for (let i = 0; i < this.element.$.childNodes.length; i++) {
             if (this.element.$.childNodes[i].localName === 'oembed') {
