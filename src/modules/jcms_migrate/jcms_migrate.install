@@ -1564,8 +1564,8 @@ function jcms_migrate_update_8151() {
   ];
 
   $query = \Drupal::entityQuery('node')
-    ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
-    ->condition('type', 'blog-article');
+    ->condition('uuid', '(' . implode('|', array_keys($content)) . ')$', 'REGEXP')
+    ->condition('type', 'blog_article');
 
   $nids = $query->execute();
   if ($nids) {
