@@ -1552,3 +1552,27 @@ function jcms_migrate_update_8150() {
     }
   }
 }
+
+/**
+ * Unpublish content.
+ */
+function jcms_migrate_update_8151() {
+  $content = [
+    '719e655d',
+    'a058ec77',
+    'b6365b76',
+  ];
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('uuid', '(' . implode('|', $content) . ')$', 'REGEXP')
+    ->condition('type', 'blog_article');
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $node->setUnpublished();
+      $node->save();
+    }
+  }
+}
