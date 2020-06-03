@@ -32,7 +32,7 @@ filters:
     status: true
     weight: -50
     settings:
-      allowed_html: '<a href hreflang class=""> <i> <em> <b> <strong> <cite> <blockquote cite> <code class=""> <pre class=""> <ul type> <ol start type> <li> <dl> <dt> <dd> <h1 id> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <p> <br> <span> <img src alt height width data-entity-type data-entity-uuid data-align data-caption data-fid data-uuid class=""> <s> <sup> <sub> <figure class=""> <figcaption> <div class=""> <iframe src width height> <elifebutton data-href class=""> <oembed class="" data-videocaption> <table> <thead> <th> <tr> <tbody> <td> <placeholder>'
+      allowed_html: '<a href hreflang class=""> <i> <em> <b> <strong> <cite> <blockquote cite> <code class=""> <pre class=""> <ul type> <ol start type> <li> <dl> <dt> <dd> <h1 id> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <p> <br> <span> <img src alt height width data-entity-type data-entity-uuid data-align data-caption data-fid data-uuid class=""> <s> <sup> <sub> <figure class="" data-conversation data-mediacard> <figcaption> <div class=""> <iframe src width height> <elifebutton data-href class=""> <oembed class="" data-videocaption> <table> <thead> <th> <tr> <tbody> <td> <placeholder>'
       filter_html_help: true
       filter_html_nofollow: false
   filter_autop:
