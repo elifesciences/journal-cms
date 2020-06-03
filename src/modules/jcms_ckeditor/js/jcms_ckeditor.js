@@ -76,8 +76,6 @@
         CKEDITOR.plugins.addExternal('elifebutton', settings.pluginPathCustom + 'elifebutton/');
         CKEDITOR.plugins.addExternal('captionedvideo', settings.pluginPathCustom + 'captionedvideo/');
         CKEDITOR.plugins.addExternal('twitterembed', settings.pluginPathCustom + 'twitterembed/');
-        CKEDITOR.plugins.addExternal('googlemapembed', settings.pluginPathCustom + 'googlemapembed/');
-        CKEDITOR.plugins.addExternal('figshareembed', settings.pluginPathCustom + 'figshareembed/');
         
         var $content = $(' .node__content .field--name-field-content-html-preview');
         
@@ -103,7 +101,7 @@
         };
         
         var bodyEditorOptions = {
-          extraPlugins: 'image2,uploadimage,balloontoolbar,balloonpanel,imagealign,elifebutton,captionedvideo,twitterembed,googlemapembed,figshareembed,autoembed,pastefromword,undo,sharedspace,link,codesnippet',
+          extraPlugins: 'image2,uploadimage,balloontoolbar,balloonpanel,imagealign,elifebutton,captionedvideo,twitterembed,autoembed,pastefromword,undo,sharedspace,link,codesnippet',
           toolbarGroups: [
             {"name":"basicstyles","groups":["basicstyles"]},
             {"name":"links","groups":["links"]},

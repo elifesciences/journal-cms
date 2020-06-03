@@ -319,7 +319,7 @@
     "ckeditor/link": "^4.9",
     "ckeditor/fakeobjects": "^4.9",
     "drupal/field_group": "~3.0-beta1",
-    "elife/api": "dev-block-figshare-google-map-twitter-compiled",
+    "elife/api": "dev-master",
     "elife/api-validator": "^1.0@dev",
     "justinrainbow/json-schema": "^5.2",
     "mindplay/composer-locator": "^2.1",

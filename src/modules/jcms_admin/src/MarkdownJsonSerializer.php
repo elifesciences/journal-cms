@@ -31,8 +31,6 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
   private $mimeTypeGuesser;
   private $youtube;
   private $tweet;
-  private $googleMap;
-  private $figshare;
   private $converter;
   private $depthOffset = NULL;
   private $iiif = '';
@@ -47,8 +45,6 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
     MimeTypeGuesserInterface $mimeTypeGuesser,
     YouTubeInterface $youtube,
     TweetInterface $tweet,
-    GoogleMapInterface $googleMap,
-    FigshareInterface $figshare,
     CommonMarkConverter $converter
   ) {
     $this->docParser = $docParser;
@@ -56,8 +52,6 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
     $this->mimeTypeGuesser = $mimeTypeGuesser;
     $this->youtube = $youtube;
     $this->tweet = $tweet;
-    $this->googleMap = $googleMap;
-    $this->figshare = $figshare;
     $this->converter = $converter;
   }
 
@@ -197,42 +191,6 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
                 'text' => $details['text'],
                 'conversation' => !empty($conversation) && $conversation === 'true',
                 'mediaCard' => !empty($media_card) && $media_card === 'true',
-              ]);
-            }
-            else {
-              return [
-                'type' => 'paragraph',
-                'text' => sprintf('<a href="%s">%s</a>', $uri, $uri),
-              ];
-            }
-          }
-          elseif (in_array('figshare', $classes) && !empty($figure->find('iframe'))) {
-            $uri = $figure->find('iframe')->getAttribute('src');
-            if (!empty($uri) && $id = $this->figshare->getIdFromUri($uri)) {
-              $width = (int) $figure->getAttribute('data-width');
-              $height = (int) $figure->getAttribute('data-height');
-              return array_filter([
-                'type' => 'figshare',
-                'id' => $id,
-                'title' => $this->figshare->getTitle($id),
-                'width' => $width,
-                'height' => $height,
-              ]);
-            }
-            else {
-              return [
-                'type' => 'paragraph',
-                'text' => sprintf('<a href="%s">%s</a>', $uri, $uri),
-              ];
-            }
-          }
-          elseif (in_array('gmap', $classes) && preg_match('/<oembed>(?P<gmap>http[^<]+)<\/oembed>/', $contents, $matches)) {
-            $uri = trim($matches['gmap']);
-            if ($id = $this->googleMap->getIdFromUri($uri)) {
-              return array_filter([
-                'type' => 'google-map',
-                'id' => $id,
-                'title' => $this->googleMap->getTitle($id),
               ]);
             }
             else {
