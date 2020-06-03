@@ -116,7 +116,7 @@
           removeButtons: 'Underline,Strike,Anchor,SpecialChar,HorizontalRule,ImageAlignLeft,ImageAlignRight,ImageFullWidth,Styles',
           image2_alignClasses: ['align-left', 'align-center', 'profile-left'],
           image2_disableResizer: true,
-          extraAllowedContent: 'elifebutton[data-href](elife-button--default,elife-button--outline);oembed[data-videocaption](align-left,align-right,align-center);figure[data-*](figshare,tweet,gmap);figcaption;iframe[!src,width,height,frameborder](no-events);img[data-fid,data-uuid];placeholder;a',
+          extraAllowedContent: 'elifebutton[data-href](elife-button--default,elife-button--outline);oembed[data-videocaption](align-left,align-right,align-center);figure[data-*](tweet);figcaption;iframe[!src,width,height,frameborder](no-events);img[data-fid,data-uuid];placeholder;a',
           format_tags: 'p;h1;h2',
           embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
           autoEmbed_widget: 'embedVideo',
