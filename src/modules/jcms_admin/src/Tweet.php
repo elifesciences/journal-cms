@@ -55,7 +55,7 @@ final class Tweet implements TweetInterface {
           if (empty($date)) {
             $date = time();
           }
-          $account_label = $opengraph->getTitle();
+          $account_label = $oembed->getAuthorName();
           if (preg_match('/\(\@([^\)]+)\)/', $blockquote->text(), $matches)) {
             $account_id = $matches[1];
           }

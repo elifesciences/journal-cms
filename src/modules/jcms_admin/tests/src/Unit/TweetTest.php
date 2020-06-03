@@ -82,9 +82,9 @@ class TweetTest extends UnitTestCase {
       ->expects($this->once())
       ->method('getCode')
       ->willReturn('<blockquote><p>text</p>&mdash; accountLabel (@accountId) <a href="https://twitter.com/eLife/status/id">April 20, 2020</a></blockquote>');
-    $opengraph
+    $oembed
       ->expects($this->once())
-      ->method('getTitle')
+      ->method('getAuthorName')
       ->willReturn('accountLabel');
     $opengraph
       ->expects($this->once())
