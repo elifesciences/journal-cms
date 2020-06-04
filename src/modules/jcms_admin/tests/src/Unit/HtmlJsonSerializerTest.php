@@ -5,6 +5,7 @@ namespace Drupal\Tests\jcms_admin\Unit;
 use Drupal\jcms_admin\HtmlJsonSerializer;
 use Drupal\jcms_admin\HtmlMarkdownSerializer;
 use Drupal\jcms_admin\MarkdownJsonSerializer;
+use Drupal\jcms_admin\TweetInterface;
 use Drupal\jcms_admin\YouTubeInterface;
 use Drupal\Tests\UnitTestCase;
 use League\CommonMark\CommonMarkConverter;
@@ -44,6 +45,13 @@ class HtmlJsonSerializerTest extends UnitTestCase {
   private $youtube;
 
   /**
+   * Tweet.
+   *
+   * @var \Drupal\jcms_admin\TweetInterface
+   */
+  private $tweet;
+
+  /**
    * Setup.
    *
    * @before
@@ -52,7 +60,8 @@ class HtmlJsonSerializerTest extends UnitTestCase {
     $environment = Environment::createCommonMarkEnvironment();
     $this->mimeTypeGuesser = $this->createMock(MimeTypeGuesserInterface::class);
     $this->youtube = $this->createMock(YouTubeInterface::class);
-    $this->normalizer = new HtmlJsonSerializer(new HtmlMarkdownSerializer(new HtmlConverter()), new MarkdownJsonSerializer(new DocParser($environment), new HtmlRenderer($environment), $this->mimeTypeGuesser, $this->youtube, new CommonMarkConverter()));
+    $this->tweet = $this->createMock(TweetInterface::class);
+    $this->normalizer = new HtmlJsonSerializer(new HtmlMarkdownSerializer(new HtmlConverter()), new MarkdownJsonSerializer(new DocParser($environment), new HtmlRenderer($environment), $this->mimeTypeGuesser, $this->youtube, $this->tweet, new CommonMarkConverter()));
   }
 
   /**
@@ -90,7 +99,19 @@ class HtmlJsonSerializerTest extends UnitTestCase {
    * @test
    * @dataProvider normalizeProvider
    */
-  public function itWillNormalizeHtml(array $expected, string $html, array $mimeTypeGuesses = [], array $youtubes = [], array $context = ['encode' => ['code', 'table']]) {
+  public function itWillNormalizeHtml(
+    array $expected,
+    string $html,
+    array $mimeTypeGuesses = [],
+    array $youtubes = [],
+    array $tweets = [],
+    array $context = [
+      'encode' => [
+        'code',
+        'table',
+      ],
+    ]
+  ) {
     foreach ($mimeTypeGuesses as $uri => $mimeType) {
       $this->mimeTypeGuesser
         ->expects($this->once())
@@ -118,6 +139,34 @@ class HtmlJsonSerializerTest extends UnitTestCase {
             ->willReturn([
               'width' => $details['width'],
               'height' => $details['height'],
+            ]);
+        }
+      }
+    }
+    foreach ($tweets as $uri => $details) {
+      $details += [
+        'id' => NULL,
+        'date' => NULL,
+        'accountId' => NULL,
+        'accountLabel' => NULL,
+        'text' => NULL,
+      ];
+      if ($details['id']) {
+        $this->tweet
+          ->expects($this->any())
+          ->method('getIdFromUri')
+          ->with($uri)
+          ->willReturn($details['id']);
+        if ($details['date'] && $details['accountId'] && $details['accountLabel'] && $details['text']) {
+          $this->tweet
+            ->expects($this->any())
+            ->method('getDetails')
+            ->with($details['id'])
+            ->willReturn([
+              'date' => $details['date'],
+              'accountId' => $details['accountId'],
+              'accountLabel' => $details['accountLabel'],
+              'text' => $details['text'],
             ]);
         }
       }
@@ -898,6 +947,31 @@ class HtmlJsonSerializerTest extends UnitTestCase {
         [
           'https://vimeo.com/44314507' => [
             'id' => '',
+          ],
+        ],
+      ],
+      'single tweet' => [
+        [
+          [
+            'type' => 'tweet',
+            'id' => '1244671264595288065',
+            'date' => '2020-03-30',
+            'text' => 'In this time of crisis and uncertainty, publishing should not be anybody’s first priority.<br><br>The last thing we want, however, is for publishing to contribute to delays, so we&#39;re changing our peer-review policies to help authors affected by the pandemic <a href="https://t.co/xfvhh1Je8X">https://t.co/xfvhh1Je8X</a> <a href="https://t.co/wVdyO9rhwB">pic.twitter.com/wVdyO9rhwB</a>',
+            'accountId' => 'eLife',
+            'accountLabel' => 'eLife - the journal',
+            'mediaCard' => TRUE,
+          ],
+        ],
+        '<figure class="tweet" data-conversation="false" data-mediacard="true"><oembed>https://twitter.com/eLife/status/1252168634010656768</oembed></figure>',
+        [],
+        [],
+        [
+          'https://twitter.com/eLife/status/1252168634010656768' => [
+            'id' => '1244671264595288065',
+            'date' => 1585491341,
+            'accountId' => 'eLife',
+            'accountLabel' => 'eLife - the journal',
+            'text' => 'In this time of crisis and uncertainty, publishing should not be anybody’s first priority.<br><br>The last thing we want, however, is for publishing to contribute to delays, so we&#39;re changing our peer-review policies to help authors affected by the pandemic <a href="https://t.co/xfvhh1Je8X">https://t.co/xfvhh1Je8X</a> <a href="https://t.co/wVdyO9rhwB">pic.twitter.com/wVdyO9rhwB</a>',
           ],
         ],
       ],
