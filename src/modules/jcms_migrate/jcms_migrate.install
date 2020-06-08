@@ -1576,3 +1576,25 @@ function jcms_migrate_update_8151() {
     }
   }
 }
+
+/**
+ * Unpublish libero publisher press package.
+ */
+function jcms_migrate_update_8152() {
+  $content = [
+    'd5b3c1bf',
+  ];
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('uuid', '(' . implode('|', $content) . ')$', 'REGEXP')
+    ->condition('type', 'press_package');
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $node->setUnpublished();
+      $node->save();
+    }
+  }
+}
