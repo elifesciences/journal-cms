@@ -26,9 +26,15 @@ services:
   jcms_admin.tweet:
     class: Drupal\jcms_admin\Tweet
     arguments: ['@jcms_admin.embed', '@jcms_admin.logger.channel.default']
+  jcms_admin.google_map:
+    class: Drupal\jcms_admin\GoogleMap
+    arguments: ['@jcms_admin.embed', '@jcms_admin.logger.channel.default']
+  jcms_admin.figshare:
+    class: Drupal\jcms_admin\Figshare
+    arguments: ['@jcms_admin.embed', '@jcms_admin.logger.channel.default']
   jcms_admin.md_json_normalizer:
     class: Drupal\jcms_admin\MarkdownJsonSerializer
-    arguments: ['@jcms_admin.doc_parser', '@jcms_admin.html_renderer', '@file.mime_type.guesser', '@jcms_admin.youtube', '@jcms_admin.tweet', '@jcms_admin.md_converter']
+    arguments: ['@jcms_admin.doc_parser', '@jcms_admin.html_renderer', '@file.mime_type.guesser', '@jcms_admin.youtube', '@jcms_admin.tweet', '@jcms_admin.google_map',  '@jcms_admin.figshare',  '@jcms_admin.md_converter']
   jcms_admin.html_json_normalizer:
     class: Drupal\jcms_admin\HtmlJsonSerializer
     arguments: ['@jcms_admin.html_md_normalizer', '@jcms_admin.md_json_normalizer']

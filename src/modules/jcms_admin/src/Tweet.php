@@ -39,7 +39,9 @@ final class Tweet implements TweetInterface {
     try {
       if ($info = $this->embed->create('https://twitter.com/og/status/' . $id)) {
         $providers = $info->getProviders();
-        if (isset($providers['oembed'])) {
+        if (isset($providers['opengraph'])) {
+          /* @var \Embed\Providers\OpenGraph $opengraph */
+          $opengraph = $providers['opengraph'];
           /* @var \Embed\Providers\OEmbed $oembed */
           $oembed = $providers['oembed'];
           $oembed_dom = new Dom();
@@ -48,13 +50,12 @@ final class Tweet implements TweetInterface {
           ]);
           $oembed_dom->load($oembed->getCode());
           $blockquote = $oembed_dom->find('blockquote');
-          $text = $blockquote->firstChild()->innerHtml();
           $datestr = $blockquote->lastChild()->text();
           $date = strtotime($datestr);
           if (empty($date)) {
             $date = time();
           }
-          $account_label = $oembed->getAuthorName();
+          $account_label = $opengraph->getTitle();
           if (preg_match('/\(\@([^\)]+)\)/', $blockquote->text(), $matches)) {
             $account_id = $matches[1];
           }
@@ -66,7 +67,7 @@ final class Tweet implements TweetInterface {
             'date' => $date,
             'accountId' => $account_id,
             'accountLabel' => $account_label,
-            'text' => $text,
+            'text' => trim($opengraph->getDescription(), '“”'),
           ]);
         }
       }
