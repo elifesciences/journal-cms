@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9dd80e641e49b231359127884393a9a",
+    "content-hash": "e8c9b18c562019dcef1d8074805ed32b",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3611,6 +3611,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "Call to a member function getComponent() on null in hide_revision_field_form_user_form_alter() (3018160)": "https://www.drupal.org/files/issues/2019-05-15/hide-revision-field-3018160-5-8.x-2.1.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
