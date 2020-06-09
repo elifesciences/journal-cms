@@ -7,7 +7,6 @@ use Drupal\jcms_admin\Tweet;
 use Drupal\Tests\UnitTestCase;
 use Embed\Adapters\Adapter;
 use Embed\Providers\OEmbed;
-use Embed\Providers\OpenGraph;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -76,26 +75,20 @@ class TweetTest extends UnitTestCase {
    */
   public function itWillGetDetails() {
     $oembed = $this->createMock(OEmbed::class);
-    $opengraph = $this->createMock(OpenGraph::class);
     $adapter = $this->createMock(Adapter::class);
     $oembed
       ->expects($this->once())
       ->method('getCode')
       ->willReturn('<blockquote><p>text</p>&mdash; accountLabel (@accountId) <a href="https://twitter.com/eLife/status/id">April 20, 2020</a></blockquote>');
-    $opengraph
+    $oembed
       ->expects($this->once())
-      ->method('getTitle')
+      ->method('getAuthorName')
       ->willReturn('accountLabel');
-    $opengraph
-      ->expects($this->once())
-      ->method('getDescription')
-      ->willReturn('“text”');
     $adapter
       ->expects($this->once())
       ->method('getProviders')
       ->willReturn([
         'oembed' => $oembed,
-        'opengraph' => $opengraph,
       ]);
     $this->embed
       ->expects($this->once())
