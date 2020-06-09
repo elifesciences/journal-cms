@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\jcms_admin\Unit;
 
+use Drupal\jcms_admin\FigshareInterface;
+use Drupal\jcms_admin\GoogleMapInterface;
 use Drupal\jcms_admin\HtmlJsonSerializer;
 use Drupal\jcms_admin\HtmlMarkdownSerializer;
 use Drupal\jcms_admin\MarkdownJsonSerializer;
@@ -52,6 +54,20 @@ class HtmlJsonSerializerTest extends UnitTestCase {
   private $tweet;
 
   /**
+   * GoogleMap.
+   *
+   * @var \Drupal\jcms_admin\GoogleMapInterface
+   */
+  private $googleMap;
+
+  /**
+   * Figshare.
+   *
+   * @var \Drupal\jcms_admin\FigshareInterface
+   */
+  private $figshare;
+
+  /**
    * Setup.
    *
    * @before
@@ -61,7 +77,9 @@ class HtmlJsonSerializerTest extends UnitTestCase {
     $this->mimeTypeGuesser = $this->createMock(MimeTypeGuesserInterface::class);
     $this->youtube = $this->createMock(YouTubeInterface::class);
     $this->tweet = $this->createMock(TweetInterface::class);
-    $this->normalizer = new HtmlJsonSerializer(new HtmlMarkdownSerializer(new HtmlConverter()), new MarkdownJsonSerializer(new DocParser($environment), new HtmlRenderer($environment), $this->mimeTypeGuesser, $this->youtube, $this->tweet, new CommonMarkConverter()));
+    $this->googleMap = $this->createMock(GoogleMapInterface::class);
+    $this->figshare = $this->createMock(FigshareInterface::class);
+    $this->normalizer = new HtmlJsonSerializer(new HtmlMarkdownSerializer(new HtmlConverter()), new MarkdownJsonSerializer(new DocParser($environment), new HtmlRenderer($environment), $this->mimeTypeGuesser, $this->youtube, $this->tweet, $this->googleMap, $this->figshare, new CommonMarkConverter()));
   }
 
   /**
@@ -105,6 +123,8 @@ class HtmlJsonSerializerTest extends UnitTestCase {
     array $mimeTypeGuesses = [],
     array $youtubes = [],
     array $tweets = [],
+    array $googleMaps = [],
+    array $figshares = [],
     array $context = [
       'encode' => [
         'code',
@@ -168,6 +188,46 @@ class HtmlJsonSerializerTest extends UnitTestCase {
               'accountLabel' => $details['accountLabel'],
               'text' => $details['text'],
             ]);
+        }
+      }
+    }
+    foreach ($googleMaps as $uri => $details) {
+      $details += [
+        'id' => NULL,
+        'title' => NULL,
+      ];
+      if ($details['id']) {
+        $this->googleMap
+          ->expects($this->any())
+          ->method('getIdFromUri')
+          ->with($uri)
+          ->willReturn($details['id']);
+        if ($details['title']) {
+          $this->googleMap
+            ->expects($this->any())
+            ->method('getTitle')
+            ->with($details['id'])
+            ->willReturn($details['title']);
+        }
+      }
+    }
+    foreach ($figshares as $uri => $details) {
+      $details += [
+        'id' => NULL,
+        'title' => NULL,
+      ];
+      if ($details['id']) {
+        $this->figshare
+          ->expects($this->any())
+          ->method('getIdFromUri')
+          ->with($uri)
+          ->willReturn($details['id']);
+        if ($details['title']) {
+          $this->figshare
+            ->expects($this->any())
+            ->method('getTitle')
+            ->with($details['id'])
+            ->willReturn($details['title']);
         }
       }
     }
@@ -972,6 +1032,47 @@ class HtmlJsonSerializerTest extends UnitTestCase {
             'accountId' => 'eLife',
             'accountLabel' => 'eLife - the journal',
             'text' => 'In this time of crisis and uncertainty, publishing should not be anybody’s first priority.<br><br>The last thing we want, however, is for publishing to contribute to delays, so we&#39;re changing our peer-review policies to help authors affected by the pandemic <a href="https://t.co/xfvhh1Je8X">https://t.co/xfvhh1Je8X</a> <a href="https://t.co/wVdyO9rhwB">pic.twitter.com/wVdyO9rhwB</a>',
+          ],
+        ],
+      ],
+      'single google map' => [
+        [
+          [
+            'type' => 'google-map',
+            'id' => '13cEQIsP3F9-iEVDDgradCs2Z9F-ODLyx',
+            'title' => 'eLife Community Ambassadors 2019',
+          ],
+        ],
+        '<figure class="gmap"><oembed>https://www.google.com/maps/d/u/0/viewer?mid=13cEQIsP3F9-iEVDDgradCs2Z9F-ODLyx&ll=-3.81666561775622e-14%2C-94.2847887407595&z=1</oembed></figure>',
+        [],
+        [],
+        [],
+        [
+          'https://www.google.com/maps/d/u/0/viewer?mid=13cEQIsP3F9-iEVDDgradCs2Z9F-ODLyx&ll=-3.81666561775622e-14%2C-94.2847887407595&z=1' => [
+            'id' => '13cEQIsP3F9-iEVDDgradCs2Z9F-ODLyx',
+            'title' => 'eLife Community Ambassadors 2019',
+          ],
+        ],
+      ],
+      'single figshare' => [
+        [
+          [
+            'type' => 'figshare',
+            'id' => '8210360',
+            'title' => 'Shared Open Source Infrastructure with the Libero Community',
+            'width' => 568,
+            'height' => 426,
+          ],
+        ],
+        '<figure class="figshare" data-height="426" data-width="568"><iframe src="https://widgets.figshare.com/articles/8210360/embed"></iframe></figure>',
+        [],
+        [],
+        [],
+        [],
+        [
+          'https://widgets.figshare.com/articles/8210360/embed' => [
+            'id' => '8210360',
+            'title' => 'Shared Open Source Infrastructure with the Libero Community',
           ],
         ],
       ],
