@@ -1598,3 +1598,19 @@ function jcms_migrate_update_8152() {
     }
   }
 }
+
+/**
+ * Introduce new MSA - Medicine.
+ */
+function jcms_migrate_update_8153() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $configs = [
+    'migrate_plus.migration.jcms_subjects_json',
+  ];
+  $config_importer->importConfigs($configs);
+
+  $manager = \Drupal::service('plugin.manager.config_entity_migration');
+  $plugins = $manager->createInstances([]);
+  $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
+  $executable->import();
+}

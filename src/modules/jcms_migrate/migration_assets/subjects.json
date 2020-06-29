@@ -54,6 +54,15 @@
     "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
+    "id": "medicine",
+    "name": "Medicine",
+    "impact_statement": "eLife publishes research and clinical studies that deal with etiology, pathophysiology, diagnosis, genetics, prevention, and treatment of human disease.",
+    "aims_and_scope": "We aim to publish significant research and clinical studies that deal with etiology, pathophysiology, diagnosis, genetics, prevention, and treatment of human disease. Our interests include, but are not limited to, the biological, environmental and socioeconomic determinants of health and disease and their productive modification through population health, clinical inquiry, medical practice, and/or health policy initiatives.",
+    "image": "subjects/elife-sciences-medicine-illustration.jpg",
+    "alt": "Medicine",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
+  },
+  {
     "id": "immunology-inflammation",
     "name": "Immunology and Inflammation",
     "impact_statement": "eLife publishes research spanning allergy, immunity and immunoregulation, inflammation and T-cell receptor signalling. Decisions are made by <a href=\"https://elifesciences.org/about/people/immunology\">journal editors</a> who are active researchers in the field of immunology.",
