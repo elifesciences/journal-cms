@@ -35,9 +35,9 @@ final class Tweet implements TweetInterface {
   /**
    * {@inheritdoc}
    */
-  public function getDetails(string $id): array {
+  public function getDetails(string $uri): array {
     try {
-      if ($info = $this->embed->create('https://twitter.com/og/status/' . $id)) {
+      if ($info = $this->embed->create($uri)) {
         $providers = $info->getProviders();
         if (isset($providers['oembed'])) {
           /* @var \Embed\Providers\OEmbed $oembed */
@@ -45,7 +45,7 @@ final class Tweet implements TweetInterface {
           $oembed_dom = new Dom();
           $oembed_dom->setOptions([
             'preserveLineBreaks' => TRUE,
-          ]); 
+          ]);
           $oembed_dom->load($oembed->getCode());
           $blockquote = $oembed_dom->find('blockquote');
           $text = $blockquote->firstChild()->innerHtml();
@@ -72,7 +72,7 @@ final class Tweet implements TweetInterface {
       }
     }
     catch (\Exception $e) {
-      $this->logger->error('Twitter could not be reached.', ['id' => $id, 'error' => $e->getMessage()]);
+      $this->logger->error('Twitter could not be reached.', ['uri' => $uri, 'error' => $e->getMessage()]);
     }
 
     return [];

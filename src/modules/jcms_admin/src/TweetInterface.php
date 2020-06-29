@@ -15,6 +15,6 @@ interface TweetInterface {
   /**
    * Get details of Tweet.
    */
-  public function getDetails(string $id): array;
+  public function getDetails(string $uri): array;
 
 }

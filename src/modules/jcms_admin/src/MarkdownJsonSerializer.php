@@ -185,7 +185,7 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
           elseif (in_array('tweet', $classes) && preg_match('/<oembed>(?P<tweet>http[^<]+)<\/oembed>/', $contents, $matches)) {
             $uri = trim($matches['tweet']);
             if ($id = $this->tweet->getIdFromUri($uri)) {
-              $details = $this->tweet->getDetails($id);
+              $details = $this->tweet->getDetails($uri);
               $conversation = $figure->getAttribute('data-conversation');
               $media_card = $figure->getAttribute('data-mediacard');
               return array_filter([

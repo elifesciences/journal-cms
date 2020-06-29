@@ -79,7 +79,7 @@ class TweetTest extends UnitTestCase {
     $oembed
       ->expects($this->once())
       ->method('getCode')
-      ->willReturn('<blockquote><p>text</p>&mdash; accountLabel (@accountId) <a href="https://twitter.com/eLife/status/id">April 20, 2020</a></blockquote>');
+      ->willReturn('<blockquote><p>text</p>&mdash; accountLabel (@accountId) <a href="https://twitter.com/accountId/status/id">April 20, 2020</a></blockquote>');
     $oembed
       ->expects($this->once())
       ->method('getAuthorName')
@@ -93,14 +93,14 @@ class TweetTest extends UnitTestCase {
     $this->embed
       ->expects($this->once())
       ->method('create')
-      ->with('https://twitter.com/og/status/id')
+      ->with('https://twitter.com/accountId/status/id')
       ->willReturn($adapter);
     $this->assertEquals([
       'date' => 1587304800,
       'accountId' => 'accountId',
       'accountLabel' => 'accountLabel',
       'text' => 'text',
-    ], $this->tweet->getDetails('id'));
+    ], $this->tweet->getDetails('https://twitter.com/accountId/status/id'));
   }
 
 }
