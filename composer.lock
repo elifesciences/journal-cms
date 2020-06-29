@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8c9b18c562019dcef1d8074805ed32b",
+    "content-hash": "9d1f00e030274df132bcf18e056bd71b",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1980,7 +1980,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -2006,7 +2006,7 @@
             ],
             "homepage": "https://www.drupal.org/project/confi",
             "support": {
-                "source": "http://cgit.drupalcode.org/confi"
+                "source": "https://git.drupalcode.org/project/confi"
             }
         },
         {
@@ -2123,7 +2123,7 @@
             ],
             "homepage": "https://www.drupal.org/project/config_installer",
             "support": {
-                "source": "http://cgit.drupalcode.org/config_installer"
+                "source": "https://git.drupalcode.org/project/config_installer"
             }
         },
         {
@@ -3053,7 +3053,7 @@
             "description": "Provides a new field type of Duration, as well as a Form API duration element",
             "homepage": "https://www.drupal.org/project/duration_field",
             "support": {
-                "source": "http://cgit.drupalcode.org/duration_field"
+                "source": "https://git.drupalcode.org/project/duration_field"
             }
         },
         {
@@ -3142,8 +3142,8 @@
                     "version": "8.x-1.1",
                     "datestamp": "1508332743",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -3160,7 +3160,7 @@
             "description": "Allows unpublished content to be referenced in an entity reference.",
             "homepage": "https://www.drupal.org/project/entity_reference_unpublished",
             "support": {
-                "source": "http://cgit.drupalcode.org/entity_reference_unpublished"
+                "source": "https://git.drupalcode.org/project/entity_reference_unpublished"
             }
         },
         {
@@ -3345,7 +3345,7 @@
             "description": "The Field Permissions module allows site administrators to set field-level permissions to edit, view and create fields on any entity.",
             "homepage": "https://www.drupal.org/project/field_permissions",
             "support": {
-                "source": "http://cgit.drupalcode.org/field_permissions",
+                "source": "https://git.drupalcode.org/project/field_permissions",
                 "issues": "https://www.drupal.org/project/issues/field_permissions"
             }
         },
@@ -3745,12 +3745,16 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-beta2",
-                    "datestamp": "1495467483"
+                    "datestamp": "1495467483",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -3773,7 +3777,7 @@
             "description": "Creates field types that use the JSON/JSONB data type to store JSON object data.",
             "homepage": "https://www.drupal.org/project/jsonb",
             "support": {
-                "source": "http://cgit.drupalcode.org/jsonb"
+                "source": "https://git.drupalcode.org/project/jsonb"
             }
         },
         {
@@ -3855,7 +3859,11 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta1+12-dev",
-                    "datestamp": "1494424085"
+                    "datestamp": "1494424085",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3929,7 +3937,7 @@
             "description": "Tools to assist in developing and running migrations.",
             "homepage": "https://www.drupal.org/project/migrate_tools",
             "support": {
-                "source": "http://cgit.drupalcode.org/migrate_tools"
+                "source": "https://git.drupalcode.org/project/migrate_tools"
             },
             "time": "2017-07-12T15:50:55+00:00"
         },
@@ -4931,6 +4939,11 @@
                 "phpunit/phpunit": "^4.8|^5.7"
             },
             "type": "library",
+            "extra": {
+                "patches_applied": {
+                    "Add twitter adapter to prevent errors on 429 status code": "https://github.com/denniszon/Embed/commit/56fc5273c02971ade656991dc9173b01753a07d9.patch"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Embed\\": "src"
