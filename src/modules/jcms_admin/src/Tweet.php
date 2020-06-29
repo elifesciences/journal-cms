@@ -46,6 +46,7 @@ final class Tweet implements TweetInterface {
           $oembed_dom->setOptions([
             'preserveLineBreaks' => TRUE,
           ]);
+          $this->logger->debug('twitter oembed code', ['code' => $oembed->getCode()]);
           $oembed_dom->load($oembed->getCode());
           $blockquote = $oembed_dom->find('blockquote');
           $text = $blockquote->firstChild()->innerHtml();
