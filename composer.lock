@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8c9b18c562019dcef1d8074805ed32b",
+    "content-hash": "9d1f00e030274df132bcf18e056bd71b",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4931,6 +4931,11 @@
                 "phpunit/phpunit": "^4.8|^5.7"
             },
             "type": "library",
+            "extra": {
+                "patches_applied": {
+                    "Add twitter adapter to prevent errors on 429 status code": "https://github.com/denniszon/Embed/commit/56fc5273c02971ade656991dc9173b01753a07d9.patch"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Embed\\": "src"
