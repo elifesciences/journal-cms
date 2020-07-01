@@ -1622,3 +1622,29 @@ function jcms_migrate_update_8154() {
   $executable = new MigrateExecutable($plugins['jcms_subjects_json'], new MigrateMessage());
   $executable->import();
 }
+
+/**
+ * Enable config_import module.
+ */
+function jcms_migrate_update_8155() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(['config_import']);
+}
+
+/**
+ * Update MSA.
+ */
+function jcms_migrate_update_8156() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $configs = [
+    'migrate_plus.migration.jcms_subjects_json',
+  ];
+  $config_importer->importConfigs($configs);
+
+  $manager = \Drupal::service('plugin.manager.config_entity_migration');
+  $migration = $manager->createInstances([])['jcms_subjects_json'];
+  $migration->getIdMap()->prepareUpdate();
+
+  $executable = new MigrateExecutable($migration, new MigrateMessage());
+  $executable->import();
+}
