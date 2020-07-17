@@ -63,6 +63,7 @@ class FetchDigest {
    */
   public function requestDigest(string $id): ResponseInterface {
     $options = [
+      'http_errors' => FALSE,
       'headers' => [
         'Accept' => 'application/vnd.elife.digest+json;version=' . self::VERSION_DIGEST,
       ],
@@ -104,6 +105,7 @@ class FetchDigest {
       $page = 1;
       $per_page = 100;
       $options = [
+        'http_errors' => FALSE,
         'headers' => [
           'Accept' => 'application/vnd.elife.digest-list+json;version=' . self::VERSION_DIGEST_LIST,
         ],

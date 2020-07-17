@@ -72,6 +72,7 @@ class FetchArticle {
       $page = 1;
       $per_page = 100;
       $options = [
+        'http_errors' => FALSE,
         'headers' => [
           'Accept' => 'application/vnd.elife.article-list+json; version=' . self::VERSION_ARTICLE_LIST,
         ],
