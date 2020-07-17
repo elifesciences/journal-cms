@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class FetchArticleVersions {
 
+  const VERSION_ARTICLE_HISTORY = 1;
+
   /**
    * GuzzleHttp\Client definition.
    *
@@ -66,9 +68,13 @@ final class FetchArticleVersions {
    * @throws BadResponseException
    */
   private function requestArticleVersions(string $id): ResponseInterface {
-    $options = [];
+    $options = [
+      'headers' => [
+        'Accept' => 'application/vnd.elife.article-history+json;version=' . self::VERSION_ARTICLE_HISTORY,
+      ],
+    ];
     if ($auth = Settings::get('jcms_article_auth_unpublished')) {
-      $options['headers'] = [
+      $options['headers'] += [
         'Authorization' => $auth,
       ];
     }

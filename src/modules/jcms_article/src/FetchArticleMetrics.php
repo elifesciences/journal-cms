@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class FetchArticleMetrics {
 
+  const VERSION_METRIC_TIME_PERIOD = 1;
+
   /**
    * GuzzleHttp\Client definition.
    *
@@ -75,9 +77,13 @@ final class FetchArticleMetrics {
    * @throws BadResponseException
    */
   private function requestArticleMetrics(string $id, string $type = 'page-views') : ResponseInterface {
-    $options = [];
+    $options = [
+      'headers' => [
+        'Accept' => 'application/vnd.elife.metric-time-period+json;version=' . self::VERSION_METRIC_TIME_PERIOD,
+      ],
+    ];
     if ($auth = Settings::get('jcms_article_auth_unpublished')) {
-      $options['headers'] = [
+      $options['headers'] += [
         'Authorization' => $auth,
       ];
     }
