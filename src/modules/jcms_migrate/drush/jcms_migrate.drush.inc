@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_drush_command().
@@ -168,24 +169,51 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
     $content['person'] = array_keys($people);
   }
 
+  $msa_from_id = function (int $tid) {
+    static $msa = [];
+
+    if (empty($msa[$tid])) {
+      $term = Term::load($tid);
+      $msa[$tid] = $term->get('field_subject_id')->getString();
+    }
+
+    return $msa[$tid];
+  };
+
+  $msa_from_ids = function (array $tids = []) use ($msa_from_id) {
+    $msa = [];
+
+    foreach ($tids as $tid) {
+      $msa[$tid] = $msa_from_id($tid);
+    }
+
+    return $msa;
+  };
+
   // Function to set new MSA values if $from and $to are different.
-  $swap_msa_values = function (EntityInterface $entity, $field_name) use ($msa_from_target_id, $msa_to_target_id) {
-    if ($msa_from_target_id !== $msa_to_target_id) {
+  $swap_msa_values = function (EntityInterface $entity, $field_name, &$old = [], &$new = []) use ($msa_from_target_id, $msa_to_target_id, $msa_from_ids) {
+    if ($msa_from_target_id !== $msa_to_target_id || drush_get_context('DRUSH_VERBOSE')) {
       $values = $entity->get($field_name)->getValue();
       $new_values = [];
       foreach ($values as $k => $value) {
         $target_id = $value['target_id'];
+        $old[$target_id] = TRUE;
         if ($target_id === $msa_from_target_id) {
           $target_id = $msa_to_target_id;
         }
         // Remove duplicates.
         if (!isset($new_values[$target_id])) {
+          $new[$target_id] = TRUE;
           $new_values[$target_id] = [
             'target_id' => $target_id,
           ];
         }
       }
-      $entity->set($field_name, array_values($new_values));
+      $old = $msa_from_ids(array_keys($old));
+      $new = $msa_from_ids(array_keys($new));
+      if ($msa_from_target_id !== $msa_to_target_id) {
+        $entity->set($field_name, array_values($new_values));
+      }
     }
   };
 
@@ -197,20 +225,24 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
     ]));
     /** @var \Drupal\node\NodeInterface $node */
     foreach ($nodes as $node) {
+      $old = [];
+      $new = [];
       if ($type === 'person') {
         $details = Paragraph::load($people[$node->id()]->research_details_id);
-        $swap_msa_values($details, 'field_research_expertises');
+        $swap_msa_values($details, 'field_research_expertises', $old, $new);
         $details->save();
       }
       else {
-        $swap_msa_values($node, 'field_subjects');
+        $swap_msa_values($node, 'field_subjects', $old, $new);
       }
       if ($verbose) {
         // This is useful if content needs to be manually reassigned.
-        drush_print(dt(':type (:uuid): :title (/node/!nid)', [
+        drush_print(dt(':type (:uuid): :title from (":old" to ":new") (/node/!nid)', [
           ':type' => $node->bundle(),
           ':uuid' => substr($node->uuid(), -8),
           ':title' => $node->getTitle(),
+          ':old' => implode(', ', $old),
+          ':new' => implode(', ', $new),
           '!nid' => $node->id(),
         ]));
       }
