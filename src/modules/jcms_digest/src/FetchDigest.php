@@ -14,6 +14,9 @@ use Psr\Http\Message\ResponseInterface;
  */
 class FetchDigest {
 
+  const VERSION_DIGEST = 1;
+  const VERSION_DIGEST_LIST = 1;
+
   /**
    * GuzzleHttp\Client definition.
    *
@@ -61,12 +64,13 @@ class FetchDigest {
   public function requestDigest(string $id): ResponseInterface {
     $options = [
       'http_errors' => FALSE,
+      'headers' => [
+        'Accept' => 'application/vnd.elife.digest+json;version=' . self::VERSION_DIGEST,
+      ],
     ];
     if ($auth = Settings::get('jcms_article_auth_unpublished')) {
-      $options = [
-        'headers' => [
-          'Authorization' => $auth,
-        ],
+      $options['headers'] += [
+        'Authorization' => $auth,
       ];
     }
     $response = $this->client->get(Settings::get('jcms_all_digests_endpoint') . '/' . $id, $options);
@@ -102,9 +106,12 @@ class FetchDigest {
       $per_page = 100;
       $options = [
         'http_errors' => FALSE,
+        'headers' => [
+          'Accept' => 'application/vnd.elife.digest-list+json;version=' . self::VERSION_DIGEST_LIST,
+        ],
       ];
       if ($auth = Settings::get('jcms_article_auth_unpublished')) {
-        $options['headers'] = [
+        $options['headers'] += [
           'Authorization' => $auth,
         ];
       }

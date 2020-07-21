@@ -14,6 +14,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 class FetchArticle {
 
+  const VERSION_ARTICLE_LIST = 1;
+
   /**
    * GuzzleHttp\Client definition.
    *
@@ -46,38 +48,6 @@ class FetchArticle {
   }
 
   /**
-   * Gets article versions by ID.
-   */
-  public function getArticleById(string $id): Article {
-    $response = $this->requestArticle($id);
-    return new Article($id, (string) $response->getBody());
-  }
-
-  /**
-   * Makes the request to get the article versions.
-   *
-   * @throws \TypeError
-   */
-  public function requestArticle(string $id): ResponseInterface {
-    $options = [
-      'http_errors' => FALSE,
-    ];
-    if ($auth = Settings::get('jcms_article_auth_unpublished')) {
-      $options = [
-        'headers' => [
-          'Authorization' => $auth,
-        ],
-      ];
-    }
-    $url = $this->formatUrl($id, $this->endpoint);
-    $response = $this->client->get($url, $options);
-    if ($response instanceof ResponseInterface) {
-      return $response;
-    }
-    throw new \TypeError('Network connection interrupted on request.');
-  }
-
-  /**
    * Gets the IDs for every article in Lax.
    */
   public function getAllArticleIds() : array {
@@ -103,9 +73,12 @@ class FetchArticle {
       $per_page = 100;
       $options = [
         'http_errors' => FALSE,
+        'headers' => [
+          'Accept' => 'application/vnd.elife.article-list+json; version=' . self::VERSION_ARTICLE_LIST,
+        ],
       ];
       if ($auth = Settings::get('jcms_article_auth_unpublished')) {
-        $options['headers'] = [
+        $options['headers'] += [
           'Authorization' => $auth,
         ];
       }
