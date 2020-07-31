@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -ex
 
 cd ./web
 ../vendor/bin/drush --nocolor -y en devel_generate
