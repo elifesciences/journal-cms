@@ -256,7 +256,7 @@
     }
   ],
   "require": {
-    "php": "^7.0",
+    "php": "^7.2",
     "composer/installers": "^1.2",
     "drupal-composer/drupal-scaffold": "~2.4.0",
     "cweagans/composer-patches": "^1.6",
@@ -302,7 +302,7 @@
     "league/commonmark": "^0.18.5",
     "symfony/serializer": "^3.4",
     "league/html-to-markdown": "^4.7",
-    "paquettg/php-html-parser": "^1.7",
+    "paquettg/php-html-parser": "^2.0",
     "ckeditor/autoembed": "^4.9",
     "ckeditor/autolink": "^4.9",
     "ckeditor/balloonpanel": "^4.9",
@@ -340,7 +340,9 @@
     "drupal/drupal": "*"
   },
   "config": {
-    "platform": {"php": "7.0.17"}
+    "platform": {
+      "php": "7.2"
+    }
   },
   "autoload": {
     "classmap": [
@@ -397,9 +399,6 @@
       },
       "drupal/file_entity" : {
         "D8.6 file rest upload PluginNotFoundException error (2959947)": "https://www.drupal.org/files/issues/2018-07-11/file-rest-upload-pluginnotfoundexception-error-2959947-8.patch"
-      },
-      "drupal/country": {
-        "generateSampleValue (2819257)": "https://git.drupalcode.org/project/country/commit/c8e2eb2.patch"
       },
       "drupal/hide_revision_field": {
         "Call to a member function getComponent() on null in hide_revision_field_form_user_form_alter() (3018160)": "https://www.drupal.org/files/issues/2019-05-15/hide-revision-field-3018160-5-8.x-2.1.patch"
