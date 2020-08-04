@@ -256,7 +256,7 @@
     }
   ],
   "require": {
-    "php": "^7.0",
+    "php": "^7.2",
     "composer/installers": "^1.2",
     "drupal-composer/drupal-scaffold": "~2.4.0",
     "cweagans/composer-patches": "^1.6",
@@ -302,7 +302,7 @@
     "league/commonmark": "^0.18.5",
     "symfony/serializer": "^3.4",
     "league/html-to-markdown": "^4.7",
-    "paquettg/php-html-parser": "^1.7",
+    "paquettg/php-html-parser": "^2.0",
     "ckeditor/autoembed": "^4.9",
     "ckeditor/autolink": "^4.9",
     "ckeditor/balloonpanel": "^4.9",
@@ -340,7 +340,7 @@
     "drupal/drupal": "*"
   },
   "config": {
-    "platform": {"php": "7.0.17"}
+    "platform": {"php": "7.2.24"}
   },
   "autoload": {
     "classmap": [
