@@ -13,11 +13,38 @@ Ensure the you have the following installed:
 ## Instructions
 
 ```
-$ COMPOSER=composer-setup.json composer install
-$ vagrant up
-``` 
+COMPOSER=composer-setup.json composer install
+vagrant up
+```
 
 Once it is setup, visit `http://journal-cms.local`.
+
+## Running the Tests
+
+First, ssh into the VM.
+
+```
+vagrant ssh
+cd /var/www/journal-cms
+```
+
+Next, you need to install some additional deps.
+
+```
+composer install
+```
+
+Then, you can run the project tests...
+
+```
+./project_tests.sh
+```
+
+Or you can run the smoke tests.
+
+```
+./project_tests.sh
+```
 
 ## Git hooks
 
