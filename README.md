@@ -26,3 +26,13 @@ To install the Git precommit that prevents committing large files, run:
 ```
 cp .git-hooks-pre-commit .git/hooks/pre-commit
 ```
+
+## Project reset
+
+If you want to completely replay the set up of this project locally then you can run the following commands:
+
+```
+vagrant destroy -f
+vagrant box remove geerlingguy/drupal-vm
+composer run-script clean-up
+```
