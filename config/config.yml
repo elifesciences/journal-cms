@@ -237,7 +237,6 @@ extra_security_enabled: false
 
 drush_version: "8.1.10"
 drush_composer_cli_options: "--prefer-dist --no-interaction"
-drupal_composer_no_dev: false
 
 firewall_enabled: false
 firewall_allowed_tcp_ports:
