@@ -28,7 +28,7 @@ vagrant ssh
 cd /var/www/journal-cms
 ```
 
-Next, you need to install some additional deps.
+Next, you need to install the dev dependencies.
 
 ```
 composer install
@@ -43,7 +43,7 @@ Then, you can run the project tests...
 Or you can run the smoke tests.
 
 ```
-./project_tests.sh
+./smoke_tests.sh
 ```
 
 ## Git hooks
