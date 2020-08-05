@@ -1,5 +1,5 @@
 {
   "require": {
-    "geerlingguy/drupal-vm": "^4.4"
+    "geerlingguy/drupal-vm": "^6.0"
   }
 }

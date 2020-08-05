@@ -282,7 +282,7 @@
     "aws/aws-sdk-php": "~3.0",
     "giggsey/libphonenumber-for-php": "^7.7",
     "drupal/entityqueue": "~1.0-alpha4",
-    "geerlingguy/drupal-vm": "^4.4",
+    "geerlingguy/drupal-vm": "^6.0",
     "elife/bus-sdk": "dev-master",
     "drupal/field_validation": "^1.0@alpha",
     "drupal/focal_point": "^1.1",
