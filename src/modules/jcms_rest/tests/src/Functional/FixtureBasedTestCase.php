@@ -65,7 +65,8 @@ abstract class FixtureBasedTestCase extends UnitTestCase {
       $logFile = '/tmp/generate_content.log';
       exec("$script >$logFile 2>&1", $output, $exitCode);
       if ($exitCode != 0) {
-        throw new RuntimeException("$script failed. Check log file $logFile: {implode(PHP_EOL, $output)}");
+        $output = implode(PHP_EOL, $output);
+        throw new RuntimeException("$script failed. Check log file $logFile: $output");
       }
     }
   }
