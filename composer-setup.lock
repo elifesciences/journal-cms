@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "df72ad46bf20877e05ade2616bd03ad2",
+    "content-hash": "7c499e4ffb207cf904eb6b6cc40c1fb3",
     "packages": [
         {
             "name": "geerlingguy/drupal-vm",
-            "version": "4.9.2",
+            "version": "6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geerlingguy/drupal-vm.git",
-                "reference": "b3fb327832e5d78c7889c1d1428e85ded1592a28"
+                "reference": "0257c5dfaaca71f2125d3076976b143a4fd63a86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/b3fb327832e5d78c7889c1d1428e85ded1592a28",
-                "reference": "b3fb327832e5d78c7889c1d1428e85ded1592a28",
+                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/0257c5dfaaca71f2125d3076976b143a4fd63a86",
+                "reference": "0257c5dfaaca71f2125d3076976b143a4fd63a86",
                 "shasum": ""
             },
             "type": "vm",
@@ -27,12 +27,12 @@
             ],
             "authors": [
                 {
-                    "name": "Oskar Schöldström",
-                    "homepage": "http://oxy.fi"
-                },
-                {
                     "name": "Jeff Geerling",
                     "homepage": "https://www.jeffgeerling.com"
+                },
+                {
+                    "name": "Oskar Schöldström",
+                    "homepage": "http://oxy.fi"
                 }
             ],
             "description": "A VM for local Drupal development, built with Vagrant + Ansible",
@@ -43,7 +43,17 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2019-01-03T16:19:18+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/geerlingguy",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/geerlingguy",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-07-14T17:07:45+00:00"
         }
     ],
     "packages-dev": [],
@@ -53,5 +63,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
