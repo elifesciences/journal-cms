@@ -1,13 +1,9 @@
 ---
 # Available `vagrant_box` values include:
-#   - beet/box (pre-provisioned, based on Ubuntu 16.04)
-#   - geerlingguy/drupal-vm (pre-provisioned, based on Ubuntu 16.04)
-#   - geerlingguy/centos7
-#   - geerlingguy/centos6
-#   - geerlingguy/debian9
-#   - geerlingguy/debian8
+#   - geerlingguy/drupal-vm (pre-provisioned, based on Ubuntu 18.04)
+#   - geerlingguy/centos8
+#   - geerlingguy/debian10
 #   - geerlingguy/ubuntu1804
-#   - geerlingguy/ubuntu1604
 vagrant_box: geerlingguy/drupal-vm
 
 vagrant_user: vagrant
@@ -43,12 +39,14 @@ vagrant_cpus: 4
 
 # Ensure vagrant plugins are installed.
 vagrant_plugins:
-- name: vagrant-vbguest
-- name: vagrant-hostsupdater
+  - name: vagrant-vbguest
+  - name: vagrant-hostsupdater
+
+ansible_python_interpreter: python3
 
 # Minimum required versions.
-drupalvm_vagrant_version_min: '1.8.6'
-drupalvm_ansible_version_min: '2.4'
+drupalvm_vagrant_version_min: '2.2.0'
+drupalvm_ansible_version_min: '2.8'
 
 # Force use of ansible_local provisioner, even if Ansible is installed on host.
 force_ansible_local: false
@@ -75,7 +73,7 @@ drupal_composer_dependencies: []
 # Set this to 'true' and 'drupal_build_makefile', 'drupal_build_composer' to 'false'
 # if you are using Composer's create-project as a site deployment strategy.
 drupal_build_composer_project: false
-drupal_composer_project_package: "drupal-composer/drupal-project:8.x-dev"
+drupal_composer_project_package: "drupal/recommended-project:^9@dev"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 
 # Set this to 'false' if you don't need to install drupal (using the drupal_*
@@ -126,7 +124,7 @@ apache_vhost_php_fpm_parameters: |
 # View the geerlingguy.apache Ansible Role README for more options.
 apache_vhosts:
   - servername: "{{ drupal_domain }}"
-    serveralias: "*.vagrantshare.com"
+    serveralias: "www.{{ drupal_domain }}"
     documentroot: "{{ drupal_core_path }}"
     extra_parameters: "{{ apache_vhost_php_fpm_parameters }}"
 
@@ -161,7 +159,7 @@ apache_mods_enabled:
 # here. Set the 'is_php' property for document roots that contain PHP apps like
 # Drupal.
 nginx_hosts:
-  - server_name: "{{ drupal_domain }} *.vagrantshare.com"
+  - server_name: "{{ drupal_domain }} www.{{ drupal_domain }}"
     root: "{{ drupal_core_path }}"
     is_php: true
 
@@ -198,14 +196,13 @@ mysql_users:
     priv: "{{ drupal_db_name }}.*:ALL"
 
 # PostgreSQL databases and users.
-postgresql_databases:
-  - name: "{{ drupal_db_name }}"
-
 postgresql_users:
   - name: "{{ drupal_db_user }}"
     password: "{{ drupal_db_password }}"
-    db: "{{ drupal_db_name }}"
-    priv: "ALL"
+
+postgresql_databases:
+  - name: "{{ drupal_db_name }}"
+    owner: "{{ drupal_db_user }}"
 
 # Comment out any extra utilities you don't want to install. If you don't want
 # to install *any* extras, set this value to an empty set, e.g. `[]`.
@@ -227,23 +224,13 @@ installed_extras:
   # - solr
   # - tideways
   # - upload-progress
-  - varnish
-  - xdebug
+  # - varnish
+  # - xdebug
   # - xhprof # use `tideways` if you're installing PHP 7+
 
 # Add any extra apt or yum packages you would like installed.
 extra_packages:
   - sqlite
-
-# `nodejs` must be in installed_extras for this to work. Valid examples: "0.10",
-# "0.12", "4.x", "5.x".
-nodejs_version: "0.12"
-nodejs_npm_global_packages: []
-nodejs_install_npm_user: "{{ drupalvm_user }}"
-
-# `ruby` must be in installed_extras for this to work.
-ruby_install_gems_user: "{{ drupalvm_user }}"
-ruby_install_gems: []
 
 # You can configure almost anything else on the server in the rest of this file.
 extra_security_enabled: false
@@ -268,9 +255,9 @@ firewall_log_dropped_packets: false
 firewall_disable_firewalld: true
 firewall_disable_ufw: true
 
-# PHP Configuration. Currently-supported versions: 5.6, 7.0, 7.1, 7.2.
+# PHP Configuration. Currently-supported versions: 7.2, 7.3, 7.4.
 # See version-specific notes: http://docs.drupalvm.com/en/latest/configurations/php/
-php_version: "7.1"
+php_version: "7.2"
 php_install_recommends: no
 php_memory_limit: "256M"
 php_display_errors: "On"
@@ -301,8 +288,8 @@ composer_global_packages:
 pre_provision_scripts:
   - "../../../../scripts/pre-provision.sh"
 post_provision_scripts:
-  - "../../../../scripts/post-provision.sh"
   - "../../../../scripts/go-aws.sh"
+  # - "{{ playbook_dir }}/../examples/scripts/configure-solr.sh"
 
 # MySQL Configuration.
 mysql_root_password: root
@@ -314,9 +301,10 @@ mysql_query_cache_size: "32M"
 adminer_install_filename: index.php
 
 # Node.js configuration (if enabled above).
-# Valid examples: "0.10", "0.12", "4.x", "5.x".
-nodejs_version: "0.12"
-nodejs_npm_global_packages: []
+# Valid examples: "6.x", "8.x", "10.x", etc.
+nodejs_version: "10.x"
+nodejs_npm_global_packages:
+  - name: npm
 nodejs_install_npm_user: "{{ drupalvm_user }}"
 npm_config_prefix: "/home/{{ drupalvm_user }}/.npm-global"
 
@@ -335,6 +323,7 @@ pimpmylog_install_dir: /usr/share/php/pimpmylog
 pimpmylog_grant_all_privs: true
 
 # XDebug configuration. XDebug is disabled by default for better performance.
+php_xdebug_version: 2.9.5
 php_xdebug_default_enable: 0
 php_xdebug_coverage_enable: 0
 php_xdebug_cli_disable: yes
@@ -344,8 +333,12 @@ php_xdebug_idekey: PHPSTORM
 php_xdebug_max_nesting_level: 512
 php_xdebug_remote_host: "{{ ansible_default_ipv4.gateway }}"
 
-# Solr Configuration (if enabled above).
-solr_version: "5.5.5"
+# Java configuration.
+java_packages:
+  - "{{ 'openjdk-8-jdk' if ansible_os_family == 'Debian' else 'java-1.8.0-openjdk' }}"
+
+# Solr configuration.
+solr_version: "7.7.2"
 solr_xms: "64M"
 solr_xmx: "128M"
 
@@ -362,4 +355,4 @@ dashboard_install_dir: /var/www/dashboard
 known_hosts_path: ~/.ssh/known_hosts
 hostname_configure: true
 hostname_fqdn: "{{ vagrant_hostname }}"
-# ssh_home: "{{ drupal_core_path }}"
+ssh_home: "{{ drupal_core_path }}"
