@@ -22,3 +22,4 @@ queue_settings:
   min_size: 1
   max_size: 3
   act_as_queue: false
+  reverse: false
