@@ -1,0 +1,10 @@
+type:
+  - mapping
+label:
+  - 'Country filter value'
+mapping:
+  type:
+    type:
+      - string
+    label:
+      - Type
