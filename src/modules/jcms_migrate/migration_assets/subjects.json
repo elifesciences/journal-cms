@@ -72,15 +72,6 @@
     "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
-    "id": "human-biology-medicine",
-    "name": "Human Biology and Medicine",
-    "impact_statement": "eLife publishes research in clinical and translational research, human genetics, cancer, diabetes and developmental disorders. Learn more about <a href=\"https://elifesciences.org/about/aims-scope#human-biology-medicine\">what we publish</a> and <a href=\"https://crm.elifesciences.org/crm/content-alerts?utm_source=website&amp;utm_medium=link&amp;utm_campaign=human_bio\">sign up for the latest research</a>.",
-    "aims_and_scope": "We aim to publish studies that use diverse methodologies to robustly define pathogenic mechanisms and/or creatively leverage such information to conceive of, rigorously test, and/or most effectively implement treatment strategies with broad relevance to human health and disease. Our interests include epidemiological and natural history studies, disease modeling, and randomized clinical trials that have the strong potential to impact public health or to address unmet patient needs in areas that include, but are not limited to, cancer, cardiovascular medicine and infectious or orphan diseases. We also welcome studies in all areas of human genetics that explore traits of broad relevance to health and disease. Read the <a href=\"https://elifesciences.org/subjects/human-biology-medicine\">latest research</a> in this subject area.",
-    "image": "subjects/elife-sciences-human-biology-and-medicine-illustration.jpg",
-    "alt": "Human Biology and Medicine",
-    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
-  },
-  {
     "id": "genetics-genomics",
     "name": "Genetics and Genomics",
     "impact_statement": "eLife publishes research including the genetic basis of health and disease, epigenetics, genomics, medical genetics, genetic epidemiology, and population genetics. Learn more about <a href=\"https://elifesciences.org/about/aims-scope#genetics-genomics\">what we publish</a> and <a href=\"https://crm.elifesciences.org/crm/content-alerts?utm_source=website&amp;utm_medium=link&amp;utm_campaign=gene_genomics\">sign up for the latest research</a>.",
