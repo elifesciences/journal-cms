@@ -1129,7 +1129,7 @@ class HtmlJsonSerializerTest extends UnitTestCase {
         [
           [
             'type' => 'paragraph',
-            'text' => 'Some Title',
+            'text' => 'Some Title:',
           ],
           [
             'type' => 'list',
@@ -1137,11 +1137,13 @@ class HtmlJsonSerializerTest extends UnitTestCase {
             'items' => [
               'Item 1',
               'Item 2',
+              'Item 3',
+              'Item 4',
             ],
           ],
           [
             'type' => 'paragraph',
-            'text' => 'Another Title',
+            'text' => 'Another Title:',
           ],
           [
             'type' => 'list',
@@ -1149,19 +1151,25 @@ class HtmlJsonSerializerTest extends UnitTestCase {
             'items' => [
               'Item 1',
               'Item 2',
+              'Item 3',
+              'Item 4',
             ],
           ],
         ],
         $this->lines([
-          '<p>Some Title</p>',
+          '<p>Some Title:</p>',
           '<ul>',
           '<li>Item 1</li>',
           '<li>Item 2</li>',
+          '<li>Item 3</li>',
+          '<li>Item 4</li>',
           '</ul>',
-          '<p>Another Title</p>',
+          '<p>Another Title:</p>',
           '<ul>',
           '<li>Item 1</li>',
-          '<li>Item 1</li>',
+          '<li>Item 2</li>',
+          '<li>Item 3</li>',
+          '<li>Item 4</li>',
           '</ul>'
         ]),
       ],
