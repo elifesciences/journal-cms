@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a02a7cac04dd85d4d43d766a796d7cf8",
+    "content-hash": "bac582a279b0b480cf987628694a07cd",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5366,6 +5366,11 @@
                 "shasum": ""
             },
             "type": "vm",
+            "extra": {
+                "patches_applied": {
+                    "Fix php 7.4 not purged on debian": "https://github.com/oxyc/drupal-vm/commit/cec3dd6487a7ab5f2b1d315044e512b3695070d1.patch"
+                }
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
