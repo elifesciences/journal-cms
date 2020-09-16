@@ -9,3 +9,8 @@ ENV['DRUPALVM_DIR'] = "vendor/geerlingguy/drupal-vm"
 
 # Load the real Vagrantfile
 load "#{__dir__}/#{ENV['DRUPALVM_DIR']}/Vagrantfile"
+
+# Lock to v2.0.10 of the geerlingguy/drupal-vm box image
+Vagrant.configure("2") do |config|
+  config.vm.box_version = "2.0.10"
+end

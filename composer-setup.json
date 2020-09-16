@@ -1,7 +1,7 @@
 {
   "require": {
-    "geerlingguy/drupal-vm": "^6.0",
-    "cweagans/composer-patches": "^1.6"
+    "geerlingguy/drupal-vm": "6.0.0",
+    "cweagans/composer-patches": "1.6.7"
   },
   "extra": {
     "patches": {
