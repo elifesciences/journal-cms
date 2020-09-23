@@ -2158,7 +2158,7 @@
                 "GPL-2.0+"
             ],
             "description": "Composer Plugin for updating the Drupal scaffold files when using drupal/core",
-            "abandoned": "drupal / core-composer-scaffold",
+            "abandoned": "drupal/core-composer-scaffold",
             "time": "2017-12-08T22:53:11+00:00"
         },
         {
