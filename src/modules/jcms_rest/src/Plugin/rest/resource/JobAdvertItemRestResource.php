@@ -130,12 +130,14 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
    * Get field json.
    */
   public function getFieldJson(FieldItemListInterface $field, string $fieldLabel = '', bool $isSection = FALSE) : array {
-    $texts = $this->splitParagraphs($this->fieldValueFormatted($field, FALSE));
+    $normalizer = \Drupal::service('jcms_admin.html_json_normalizer');
+    $html = \Drupal::service('jcms_admin.transfer_content')->cleanHtmlField($field);
+    $content = $normalizer->normalize($html);
     if ($isSection) {
-      return self::getFieldJsonAsSection($fieldLabel, $texts);
+      return self::getFieldJsonAsSection($fieldLabel, $content);
     }
 
-    return self::getFieldJsonContent($texts);
+    return $content;
   }
 
   /**
@@ -145,45 +147,7 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
     return [
       'type' => 'section',
       'title' => $title,
-      'content' => self::getFieldJsonContent($content),
-    ];
-  }
-
-  /**
-   * Get content items as an array.
-   */
-  public static function getFieldJsonContent(array $content) : array {
-    foreach ($content as $i => $item) {
-      if (!is_array($item)) {
-        $content[$i] = self::getFieldJsonAsParagraphs($item);
-      }
-    }
-
-    return $content;
-  }
-
-  /**
-   * Get field json as paragraphs.
-   *
-   * @param string|array $text
-   *   Can be array or string.
-   *
-   * @return array
-   *   Paragraph blocks.
-   */
-  public static function getFieldJsonAsParagraphs($text) : array {
-    if (is_array($text)) {
-      foreach ($text as $i => $para) {
-        $text[$i] = [
-          'type' => 'paragraph',
-          'text' => trim($para),
-        ];
-      }
-      return $text;
-    }
-    return [
-      'type' => 'paragraph',
-      'text' => trim($text),
+      'content' => $content,
     ];
   }
 
