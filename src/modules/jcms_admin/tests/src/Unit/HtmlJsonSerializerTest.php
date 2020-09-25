@@ -1125,54 +1125,6 @@ class HtmlJsonSerializerTest extends UnitTestCase {
         [],
         '<p><placeholder>Type something here ...</placeholder></p>',
       ],
-      'bulleted lists' => [
-        [
-          [
-            'type' => 'paragraph',
-            'text' => 'Some Title:',
-          ],
-          [
-            'type' => 'list',
-            'prefix' => 'bullet',
-            'items' => [
-              'Item 1',
-              'Item 2',
-              'Item 3',
-              'Item 4',
-            ],
-          ],
-          [
-            'type' => 'paragraph',
-            'text' => 'Another Title:',
-          ],
-          [
-            'type' => 'list',
-            'prefix' => 'bullet',
-            'items' => [
-              'Item 1',
-              'Item 2',
-              'Item 3',
-              'Item 4',
-            ],
-          ],
-        ],
-        $this->lines([
-          '<p>Some Title:</p>',
-          '<ul>',
-          '<li>Item 1</li>',
-          '<li>Item 2</li>',
-          '<li>Item 3</li>',
-          '<li>Item 4</li>',
-          '</ul>',
-          '<p>Another Title:</p>',
-          '<ul>',
-          '<li>Item 1</li>',
-          '<li>Item 2</li>',
-          '<li>Item 3</li>',
-          '<li>Item 4</li>',
-          '</ul>'
-        ]),
-      ],
     ];
   }
 
