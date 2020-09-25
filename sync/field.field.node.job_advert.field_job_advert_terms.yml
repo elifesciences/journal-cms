@@ -6,7 +6,15 @@ dependencies:
     - field.storage.node.field_job_advert_terms
     - node.type.job_advert
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    basic_html_plus: basic_html_plus
+    basic_html: '0'
+    ckeditor_html: '0'
+    full_html: '0'
+    plain_text: '0'
 id: node.job_advert.field_job_advert_terms
 field_name: field_job_advert_terms
 entity_type: node
@@ -18,7 +26,7 @@ translatable: false
 default_value:
   -
     value: "<p>The post is a permanent position, 37.5 hours per week, and offers a competitive basic salary and benefits. The post holder will be required to work at the eLife office in Cambridge (UK), and applicants must be able to demonstrate the right to live and work in the UK to be considered for the vacancy.</p>\r\n"
-    format: basic_html
+    format: basic_html_plus
 default_value_callback: ''
 settings: {  }
 field_type: text_long

@@ -1,14 +1,12 @@
-uuid: c305ca16-2b5f-4f61-a844-2109fa118cb2
+uuid: 4548e854-e092-44c4-bdf6-5165516cd0ac
 langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.basic_html
+    - filter.format.basic_html_plus
   module:
     - ckeditor
-_core:
-  default_config_hash: AqlPmO16LvJI4D0Ih6u4GFQIzqr5OnLgAUSjcUGWk2g
-format: basic_html
+format: basic_html_plus
 editor: ckeditor
 settings:
   toolbar:
@@ -20,6 +18,7 @@ settings:
             - Bold
             - Italic
             - Superscript
+            - Subscript
             - RemoveFormat
         -
           name: 'Simple Lists'

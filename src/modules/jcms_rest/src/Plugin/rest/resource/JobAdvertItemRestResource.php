@@ -122,69 +122,26 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
   /**
    * Get field label.
    */
-  public function getFieldLabel(Node $node, string $fieldName) : string {
+  private function getFieldLabel(Node $node, string $fieldName) : string {
     return $node->{$fieldName}->getFieldDefinition()->getLabel();
   }
 
   /**
    * Get field json.
    */
-  public function getFieldJson(FieldItemListInterface $field, string $fieldLabel = '', bool $isSection = FALSE) : array {
-    $texts = $this->splitParagraphs($this->fieldValueFormatted($field, FALSE));
+  private function getFieldJson(FieldItemListInterface $field, string $fieldLabel = '', bool $isSection = FALSE) : array {
+    $normalizer = \Drupal::service('jcms_admin.html_json_normalizer');
+    $html = \Drupal::service('jcms_admin.transfer_content')->cleanHtmlField($field);
+    $content = $normalizer->normalize($html);
     if ($isSection) {
-      return self::getFieldJsonAsSection($fieldLabel, $texts);
-    }
-
-    return self::getFieldJsonContent($texts);
-  }
-
-  /**
-   * Get field json as section.
-   */
-  public static function getFieldJsonAsSection(string $title, array $content) : array {
-    return [
-      'type' => 'section',
-      'title' => $title,
-      'content' => self::getFieldJsonContent($content),
-    ];
-  }
-
-  /**
-   * Get content items as an array.
-   */
-  public static function getFieldJsonContent(array $content) : array {
-    foreach ($content as $i => $item) {
-      if (!is_array($item)) {
-        $content[$i] = self::getFieldJsonAsParagraphs($item);
-      }
+      return [
+        'type' => 'section',
+        'title' => $fieldLabel,
+        'content' => $content,
+      ];
     }
 
     return $content;
-  }
-
-  /**
-   * Get field json as paragraphs.
-   *
-   * @param string|array $text
-   *   Can be array or string.
-   *
-   * @return array
-   *   Paragraph blocks.
-   */
-  public static function getFieldJsonAsParagraphs($text) : array {
-    if (is_array($text)) {
-      foreach ($text as $i => $para) {
-        $text[$i] = [
-          'type' => 'paragraph',
-          'text' => trim($para),
-        ];
-      }
-      return $text;
-    }
-    return [
-      'type' => 'paragraph',
-      'text' => trim($text),
-    ];
   }
 
 }

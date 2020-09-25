@@ -56,90 +56,88 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
    */
   public function dataProvider() : array {
     return [
-      [
+      '/subjects' => [
         '/subjects',
-        'id',
         'application/vnd.elife.subject-list+json',
+        'id',
         'application/vnd.elife.subject+json',
       ],
-      [
+      '/blog-articles' => [
         '/blog-articles',
-        'id',
         'application/vnd.elife.blog-article-list+json',
+        'id',
         'application/vnd.elife.blog-article+json',
       ],
-      [
+      '/labs-posts' => [
         '/labs-posts',
-        'id',
         'application/vnd.elife.labs-post-list+json',
+        'id',
         'application/vnd.elife.labs-post+json',
       ],
-      [
+      '/people' => [
         '/people',
-        'id',
         'application/vnd.elife.person-list+json',
+        'id',
         'application/vnd.elife.person+json',
       ],
-      [
+      '/podcast-episodes' => [
         '/podcast-episodes',
-        'number',
         'application/vnd.elife.podcast-episode-list+json',
+        'number',
         'application/vnd.elife.podcast-episode+json',
       ],
-      [
+      '/interviews' => [
         '/interviews',
-        'id',
         'application/vnd.elife.interview-list+json',
+        'id',
         'application/vnd.elife.interview+json',
       ],
-      [
+      '/annual-reports' => [
         '/annual-reports',
-        'year',
         'application/vnd.elife.annual-report-list+json',
+        'year',
         'application/vnd.elife.annual-report+json',
       ],
-      [
+      '/events' => [
         '/events',
-        'id',
         'application/vnd.elife.event-list+json',
+        'id',
         'application/vnd.elife.event+json',
       ],
-      [
+      '/collections' => [
         '/collections',
-        'id',
         'application/vnd.elife.collection-list+json',
+        'id',
         'application/vnd.elife.collection+json',
       ],
-      [
+      '/press-packages' => [
         '/press-packages',
-        'id',
         'application/vnd.elife.press-package-list+json',
+        'id',
         'application/vnd.elife.press-package+json',
       ],
-      [
+      '/community' => [
         '/community',
-        'type',
         'application/vnd.elife.community-list+json',
       ],
-      [
+      '/covers' => [
         '/covers',
-        'type',
         'application/vnd.elife.cover-list+json',
       ],
-      [
+      '/covers/current' => [
         '/covers/current',
-        'type',
         'application/vnd.elife.cover-list+json',
       ],
-      'job-adverts' => [
+      '/job-adverts' => [
         '/job-adverts',
+        'application/vnd.elife.job-advert-list+json',
         'id',
         'application/vnd.elife.job-advert+json',
       ],
-      'promotional-collections' => [
+      '/promotional-collections' => [
         '/promotional-collections',
-        'id',
         'application/vnd.elife.promotional-collection-list+json',
+        'id',
         'application/vnd.elife.promotional-collection+json',
       ],
     ];
@@ -151,27 +149,24 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
    * @test
    * @dataProvider dataProvider
    */
-  public function testValidEndpointsRecursively(string $endpoint, string $id_key, string $media_type_list, $media_type_item = NULL, $check = []) {
+  public function testValidEndpointsRecursively(string $endpoint, string $media_type_list, string $id_key = NULL, $media_type_item = NULL, $check = []) {
     $items = $this->gatherListItems($endpoint, $media_type_list);
+
+    if (is_null($id_key)) {
+      return;
+    }
 
     foreach ($items as $item) {
       if (isset($item->item)) {
         $item = $item->item;
       }
 
-      if ($id_key != 'type') {
-        $request = new Request('GET', $endpoint . '/' . $item->{$id_key}, [
-          'Accept' => $media_type_item,
-        ]);
+      if ($id_key !== 'type' && is_string($media_type_item)) {
+        $path = $endpoint . '/' . $item->{$id_key};
       }
-      elseif (isset($item->{$id_key}) && in_array($item->{$id_key}, [
-        'blog-article',
-        'collection',
-        'event',
-        'interview',
-        'labs-experiment',
-        'podcast-episode',
-      ])) {
+      else {
+        // Expecting blog-article, collection, event, interview,
+        // labs-experiment or podcast-episode.
         switch ($item->{$id_key}) {
           case 'podcast-episode':
             $id = $item->number;
@@ -181,13 +176,15 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
             $id = $item->id;
         }
 
-        $request = new Request('GET', $item->{$id_key} . 's/' . $id, [
-          'Accept' => 'application/vnd.elife.' . $item->{$id_key} . '+json',
-        ]);
+        $path = $item->{$id_key} . 's/' . $id;
+        if (is_null($media_type_item)) {
+          $media_type_item = $media_type_item ?? 'application/vnd.elife.' . $item->{$id_key} . '+json';
+        }
       }
-      else {
-        continue;
-      }
+
+      $request = new Request('GET', $path, [
+        'Accept' => $media_type_item,
+      ]);
 
       $response = $this->client->send($request);
       $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());

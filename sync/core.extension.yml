@@ -3,6 +3,7 @@ module:
   admin_toolbar: 0
   admin_toolbar_search: 0
   admin_toolbar_tools: 0
+  allowed_formats: 0
   basic_auth: 0
   block: 0
   block_content: 0

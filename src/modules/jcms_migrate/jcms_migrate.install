@@ -1699,3 +1699,48 @@ function jcms_migrate_update_8160() {
   $migrate_id_map = \Drupal::service('plugin.manager.config_entity_migration')->createInstance('jcms_subjects_json')->getIdMap();
   $migrate_id_map->delete(['human-biology-medicine']);
 }
+
+/**
+ * Enable config_import module.
+ */
+function jcms_migrate_update_8161() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(['config_import']);
+}
+
+/**
+ * Update config to introduce new text format basic_html_plus.
+ */
+function jcms_migrate_update_8162() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $configs = [
+    'filter.format.basic_html_plus.yml',
+  ];
+  $config_importer->importConfigs($configs);
+}
+
+/**
+ * Set format of existing job_adverts to basic_html_plus.
+ */
+function jcms_migrate_update_8163() {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'job_advert')
+    ->sort('nid', 'ASC');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        foreach ([
+          'field_job_advert_role_summary',
+          'field_job_advert_respons',
+          'field_job_advert_experience',
+          'field_job_advert_terms',
+        ] as $field) {
+          $node->set($field, ['format' => 'basic_html_plus'] + $node->get($field)->getValue()[0]);
+        }
+        $node->save();
+      }
+    }
+  }
+}
