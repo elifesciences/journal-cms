@@ -122,33 +122,26 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
   /**
    * Get field label.
    */
-  public function getFieldLabel(Node $node, string $fieldName) : string {
+  private function getFieldLabel(Node $node, string $fieldName) : string {
     return $node->{$fieldName}->getFieldDefinition()->getLabel();
   }
 
   /**
    * Get field json.
    */
-  public function getFieldJson(FieldItemListInterface $field, string $fieldLabel = '', bool $isSection = FALSE) : array {
+  private function getFieldJson(FieldItemListInterface $field, string $fieldLabel = '', bool $isSection = FALSE) : array {
     $normalizer = \Drupal::service('jcms_admin.html_json_normalizer');
     $html = \Drupal::service('jcms_admin.transfer_content')->cleanHtmlField($field);
     $content = $normalizer->normalize($html);
     if ($isSection) {
-      return self::getFieldJsonAsSection($fieldLabel, $content);
+      return [
+        'type' => 'section',
+        'title' => $fieldLabel,
+        'content' => $content,
+      ];
     }
 
     return $content;
-  }
-
-  /**
-   * Get field json as section.
-   */
-  public static function getFieldJsonAsSection(string $title, array $content) : array {
-    return [
-      'type' => 'section',
-      'title' => $title,
-      'content' => $content,
-    ];
   }
 
 }
