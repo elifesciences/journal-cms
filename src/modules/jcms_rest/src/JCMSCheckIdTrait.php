@@ -16,7 +16,8 @@ trait JCMSCheckIdTrait {
         !is_null($type) &&
         (
           (in_array($type, ['article', 'digest', 'subject']) && preg_match('/^[a-z0-9-]+$/', $id)) ||
-          ($type === 'podcast-episode' && preg_match('/^[1-9][0-9]*$/', $id))
+          ($type === 'podcast-episode' && preg_match('/^[1-9][0-9]*$/', $id)) ||
+          ($type === 'annual-report' && preg_match('/^(?:20(?:1[2-9]|[2-9][0-9])|2[1-9][0-9][0-9]|[3-9][0-9][0-9][0-9])$/', $id))
         )
       ) ||
       preg_match('/^[0-9a-f]{8}$/', $id)

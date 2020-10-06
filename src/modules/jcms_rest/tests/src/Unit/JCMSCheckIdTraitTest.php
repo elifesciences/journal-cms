@@ -94,6 +94,26 @@ class JCMSCheckIdTraitTest extends UnitTestCase {
         'subject',
         FALSE,
       ],
+      'id-annual-report-less-than-2012' => [
+        2011,
+        'annual-report',
+        FALSE,
+      ],
+      'id-annual-report-2012' => [
+        2012,
+        'annual-report',
+        TRUE,
+      ],
+      'id-annual-report-9999' => [
+        9999,
+        'annual-report',
+        TRUE,
+      ],
+      'id-annual-report-more-than-9999' => [
+        10000,
+        'annual-report',
+        FALSE,
+      ],
     ];
   }
 
