@@ -6,46 +6,62 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Entity\EntityInterface;
+use Drupal\jcms_digest\Entity\Digest;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_node_presave().
  */
-function jcms_digest_node_presave(EntityInterface $entity) {
-  if ($entity->bundle() !== 'digest') {
+function jcms_digest_node_presave(NodeInterface $node) {
+  if ($node->bundle() !== 'digest') {
     return NULL;
   }
   $node_presave = \Drupal::service('jcms_digest.hooks.node_presave');
 
   $admin_ui = _jcms_admin_static_store('node_digest_form_admin_ui');
 
-  $digest = $node_presave->getDigestById($entity->get('field_digest_id')->getString());
+  $id = $node->get('field_digest_id')->getString();
+
+  // Detect if a sample digest has been generated.
+  if (!preg_match('/^[0-9]{5,}$/', $id)) {
+    $id = _jcms_article_entity_title_unique($node, 'digest');
+    $node->set('title', 'Digest ' . $id);
+    $node->set('field_digest_id', [
+      'value' => $id,
+    ]);
+    $digest = new Digest($id, '');
+    $digest->generateSampleJson();
+    $forceAddJson = TRUE;
+  }
+  else {
+    $digest = $node_presave->getDigestById($id);
+    $forceAddJson = FALSE;
+  }
 
   // Only update the Json field in admin UI if the node is new.
-  if ((!empty($admin_ui) && $entity->isNew())) {
-    $entity->set('field_digest_json', [
+  if ($forceAddJson || (!empty($admin_ui) && $node->isNew())) {
+    $node->set('field_digest_json', [
       [
         'value' => $digest->getJson(),
       ],
     ]);
   }
 
-  if (empty($admin_ui) || $entity->isNew()) {
-    $node_presave->setPublishedStatus($entity, $digest);
-    $node_presave->setPublishedDate($entity, $digest);
-    $node_presave->setUpdatedDate($entity, $digest);
-    $node_presave->setSubjectTerms($entity, $digest);
+  if (empty($admin_ui) || $node->isNew()) {
+    $node_presave->setPublishedStatus($node, $digest);
+    $node_presave->setPublishedDate($node, $digest);
+    $node_presave->setUpdatedDate($node, $digest);
+    $node_presave->setSubjectTerms($node, $digest);
   }
 
-  if (!$entity->isNew()) {
+  if (!$node->isNew()) {
     // Trigger save of nodes that reference this digest.
     $query = Drupal::entityQuery('node')
       ->condition('status', NodeInterface::PUBLISHED)
       ->condition('type', 'collection');
-    $collection_ids = (clone $query)->condition('field_collection_related_content', $entity->id())->execute();
-    $collection_ids = array_unique(array_merge((clone $query)->condition('field_collection_related_content', $entity->id())->execute(), $collection_ids));
+    $collection_ids = (clone $query)->condition('field_collection_related_content', $node->id())->execute();
+    $collection_ids = array_unique(array_merge((clone $query)->condition('field_collection_related_content', $node->id())->execute(), $collection_ids));
     if ($collections = Node::loadMultiple($collection_ids)) {
       foreach ($collections as $collection) {
         $collection->set('changed', strtotime('now'));
