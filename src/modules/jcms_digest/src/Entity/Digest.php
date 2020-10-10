@@ -51,7 +51,9 @@ final class Digest {
     $this->id = $id;
     $this->action = $action;
     $this->json = $json;
-    $this->title = $this->getJsonObject()->title;
+    if ($json !== '{}') {
+      $this->title = $this->getJsonObject()->title;
+    }
   }
 
   /**
