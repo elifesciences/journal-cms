@@ -32,61 +32,63 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
    * @throws JCMSNotFoundHttpException
    */
   public function get(int $number) : JCMSRestResponse {
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'podcast_episode')
-      ->condition('field_episode_number.value', $number);
+    if ($this->checkId($number, 'podcast-episode')) {
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'podcast_episode')
+        ->condition('field_episode_number.value', $number);
 
-    if (!$this->viewUnpublished()) {
-      $query->condition('status', NodeInterface::PUBLISHED);
-    }
-
-    $nids = $query->execute();
-    if ($nids) {
-      $nid = reset($nids);
-      /* @var \Drupal\node\Entity\Node $node */
-      $node = Node::load($nid);
-
-      $response = $this->processDefault($node, $number, 'number');
-
-      // Image is required.
-      $response['image'] = $this->processFieldImage($node->get('field_image'), TRUE);
-      $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
-      if (!empty($attribution)) {
-        foreach ($response['image'] as $key => $type) {
-          $response['image'][$key]['attribution'] = $attribution;
-        }
+      if (!$this->viewUnpublished()) {
+        $query->condition('status', NodeInterface::PUBLISHED);
       }
 
-      // mp3 is required.
-      $response['sources'] = [
-        [
-          'mediaType' => 'audio/mpeg',
-          'uri' => $node->get('field_episode_mp3')->first()->getValue()['uri'],
-        ],
-      ];
+      $nids = $query->execute();
+      if ($nids) {
+        $nid = reset($nids);
+        /* @var \Drupal\node\Entity\Node $node */
+        $node = Node::load($nid);
 
-      // Impact statement is optional.
-      if ($node->get('field_impact_statement')->count()) {
-        $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
-        if (empty($response['impactStatement'])) {
-          unset($response['impactStatement']);
-        }
-      }
+        $response = $this->processDefault($node, $number, 'number');
 
-      if ($node->get('field_episode_chapter')->count()) {
-        $response['chapters'] = [];
-        foreach ($node->get('field_episode_chapter')->referencedEntities() as $chapter) {
-          /* @var Node $chapter */
-          if ($chapter->isPublished() || $this->viewUnpublished()) {
-            $response['chapters'][] = $this->getChapterItem($chapter, 0);
+        // Image is required.
+        $response['image'] = $this->processFieldImage($node->get('field_image'), TRUE);
+        $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
+        if (!empty($attribution)) {
+          foreach ($response['image'] as $key => $type) {
+            $response['image'][$key]['attribution'] = $attribution;
           }
         }
-      }
 
-      $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
-      $response->addCacheableDependency($node);
-      $this->processResponse($response);
-      return $response;
+        // mp3 is required.
+        $response['sources'] = [
+          [
+            'mediaType' => 'audio/mpeg',
+            'uri' => $node->get('field_episode_mp3')->first()->getValue()['uri'],
+          ],
+        ];
+
+        // Impact statement is optional.
+        if ($node->get('field_impact_statement')->count()) {
+          $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
+          if (empty($response['impactStatement'])) {
+            unset($response['impactStatement']);
+          }
+        }
+
+        if ($node->get('field_episode_chapter')->count()) {
+          $response['chapters'] = [];
+          foreach ($node->get('field_episode_chapter')->referencedEntities() as $chapter) {
+            /* @var Node $chapter */
+            if ($chapter->isPublished() || $this->viewUnpublished()) {
+              $response['chapters'][] = $this->getChapterItem($chapter, 0);
+            }
+          }
+        }
+
+        $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+        $response->addCacheableDependency($node);
+        $this->processResponse($response);
+        return $response;
+      }
     }
 
     throw new JCMSNotFoundHttpException(t('Podcast episode with ID @id was not found', ['@id' => $number]));

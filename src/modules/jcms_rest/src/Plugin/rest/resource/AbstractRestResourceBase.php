@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\jcms_rest\JCMSCheckIdTrait;
 use Drupal\node\NodeInterface;
 use function GuzzleHttp\Psr7\normalize_header;
 use DateTimeImmutable;
@@ -28,6 +29,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
   use JCMSImageUriTrait;
   use JCMSHtmlHelperTrait;
+  use JCMSCheckIdTrait;
 
   protected $defaultOptions = [
     'per-page' => 10,
@@ -823,18 +825,6 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   protected function getWarningText() {
     if ($this->acceptVersion < $this->latestVersion) {
       return sprintf('Deprecation: Support for version %d will be removed', $this->acceptVersion);
-    }
-  }
-
-  /**
-   * Check ID matches expected regex pattern.
-   */
-  protected function checkId(string $id) : bool {
-    if (preg_match('/^[0-9a-f]{8}$/', $id)) {
-      return TRUE;
-    }
-    else {
-      return FALSE;
     }
   }
 
