@@ -11,8 +11,6 @@ final class Digest {
 
   const WRITE = 1;
   const DELETE = 2;
-  const PUBLISHED = 'published';
-  const UNPUBLISHED = 'preview';
 
   /**
    * Digest ID.
@@ -46,13 +44,44 @@ final class Digest {
    * Digest constructor.
    */
   public function __construct(string $id, string $json, int $action = self::WRITE) {
+    $json = $json ?: '{}';
     if (!$this->isValidJson($json)) {
       throw new \InvalidArgumentException('JSON error: ' . json_last_error_msg());
     }
     $this->id = $id;
     $this->action = $action;
     $this->json = $json;
-    $this->title = $this->getJsonObject()->title;
+    if ($json !== '{}') {
+      $this->title = $this->getJsonObject()->title;
+    }
+  }
+
+  /**
+   * Generate sample json.
+   */
+  public function generateSampleJson() {
+    $this->json = json_encode([
+      'id' => (string) $this->id,
+      'title' => 'Digest ' . $this->id,
+      'stage' => 'published',
+      'published' => '2018-07-05T10:21:01Z',
+      'updated' => '2018-07-05T10:21:01Z',
+      'image' => [
+        'thumbnail' => [
+          'uri' => 'https://iiif.elifesciences.org/digests/' . $this->id . '%2Fdigest-' . $this->id . '.jpg',
+          'alt' => '',
+          'source' => [
+            'uri' => 'https://iiif.elifesciences.org/digests/' . $this->id . '%2Fdigest-' . $this->id . '.jpg/full/full/0/default.jpg',
+            'filename' => 'digest-' . $this->id . '.jpg',
+            'mediaType' => 'image/jpeg',
+          ],
+          'size' => [
+            'width' => 1920,
+            'height' => 1421,
+          ],
+        ],
+      ],
+    ]);
   }
 
   /**

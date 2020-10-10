@@ -7,11 +7,11 @@ cd ./web
 echo "Creating content type subjects"
 ../vendor/bin/drush migrate-import jcms_subjects_json
 
-echo "Import some articles"
-../vendor/bin/drush article-import-all --limit=20
+echo "Creating some articles"
+../vendor/bin/drush --nocolor generate-content 20 --bundles=article --kill
 
-echo "Import some digests"
-../vendor/bin/drush digest-import-all --limit=10
+echo "Creating some digests"
+../vendor/bin/drush --nocolor generate-content 10 --bundles=digest --kill
 
 for type in research_focuses research_organisms; do
     echo "Creating taxonomy $type"

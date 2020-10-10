@@ -90,4 +90,33 @@ class ArticleVersionsTest extends UnitTestCase {
     $this->assertEmpty($actual);
   }
 
+  /**
+   * Test sample content generation.
+   *
+   * @test
+   * @group journal-cms-tests
+   */
+  public function testGenerateSampleJson() {
+    $versions = new ArticleVersions(19887, '');
+    $versions->generateSampleJson();
+    $this->assertEquals(json_decode(json_encode([
+      'versions' => [
+        [
+          'stage' => 'published',
+          'status' => 'vor',
+          'id' => '19887',
+          'version' => 1,
+          'type' => 'research-article',
+          'doi' => '10.7554/eLife.19887',
+          'title' => 'Article 19887',
+          'published' => '2016-03-28T00:00:00Z',
+          'versionDate' => '2016-03-28T00:00:00Z',
+          'statusDate' => '2016-03-28T00:00:00Z',
+          'volume' => 1,
+          'elocationId' => 'e19887',
+        ],
+      ],
+    ])), $versions->getJsonObject());
+  }
+
 }

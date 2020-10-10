@@ -7,7 +7,8 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Entity\EntityInterface;
+use Drupal\jcms_article\Entity\ArticleVersions;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_help().
@@ -28,12 +29,12 @@ function jcms_article_help($route_name, RouteMatchInterface $route_match) {
 /**
  * Implements hook_node_presave().
  */
-function jcms_article_node_presave(EntityInterface $entity) {
-  if ($entity->bundle() != 'article') {
+function jcms_article_node_presave(NodeInterface $node) {
+  if ($node->bundle() !== 'article') {
     return NULL;
   }
   $node_presave = \Drupal::service('jcms_article.hooks.node_presave');
-  if (!empty($entity->migration)) {
+  if (!empty($node->migration)) {
     $node_presave->forMigrationOnly();
   }
 
@@ -41,23 +42,61 @@ function jcms_article_node_presave(EntityInterface $entity) {
 
   // Only post to the fragmentApi if article node was saved in the admin UI.
   if (!empty($admin_ui)) {
-    $node_presave->updateFragmentApi($entity, $entity->label());
+    $node_presave->updateFragmentApi($node, $node->label());
   }
 
-  // @todo - elife - nlisgo - Ensure we're not requesting in ArticleCrud and here.
-  $article = $node_presave->getArticleById($entity->label());
+  // Detect if a sample article has be generated.
+  if (!preg_match('/^[0-9]{5,}$/', $node->label())) {
+    $node->set('title', _jcms_article_entity_title_unique($node));
+    $article = new ArticleVersions($node->label(), '');
+    $article->generateSampleJson();
+    $forceAddJson = TRUE;
+  }
+  else {
+    // @todo - elife - nlisgo - Ensure we're not requesting in ArticleCrud and here.
+    $article = $node_presave->getArticleById($node->label());
+    $forceAddJson = FALSE;
+  }
 
   // Only update the Json fields in admin UI if the node is new.
-  if (!empty($entity->migration) || (!empty($admin_ui) && $entity->isNew())) {
-    $node_presave->addJsonFields($entity, $article);
+  if ($forceAddJson || !empty($node->migration) || (!empty($admin_ui) && $node->isNew())) {
+    $node_presave->addJsonFields($node, $article);
   }
 
-  if (empty($admin_ui) || $entity->isNew()) {
-    $node_presave->setPublishedStatus($entity, $article);
-    $node_presave->setStatusDate($entity, $article);
-    $node_presave->setPublishedDate($entity, $article);
-    $node_presave->setSubjectTerms($entity, $article);
+  if (empty($admin_ui) || $node->isNew()) {
+    $node_presave->setPublishedStatus($node, $article);
+    $node_presave->setStatusDate($node, $article);
+    $node_presave->setPublishedDate($node, $article);
+    $node_presave->setSubjectTerms($node, $article);
   }
+}
+
+/**
+ * Create unique entity title.
+ *
+ * @return string
+ *   Unique entity title.
+ */
+function _jcms_article_entity_title_unique(NodeInterface $node, string $content_type = 'article') {
+  $label = (string) rand(10000, 99999);
+  $properties = [
+    'title' => $label,
+    'type' => $content_type,
+  ];
+
+  $nodes = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadByProperties($properties);
+
+  if ($node instanceof NodeInterface) {
+    unset($nodes[$node->id()]);
+  }
+
+  if (!empty($nodes)) {
+    return _jcms_article_entity_title_unique($node, $content_type);
+  }
+
+  return $label;
 }
 
 /**

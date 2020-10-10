@@ -143,7 +143,6 @@ final class NodePresave {
    * Updates existing JSON field paragraphs.
    */
   private function updateJsonParagraph(EntityInterface $entity, ArticleVersions $article) {
-    $id = $entity->label();
     $pid = $entity->get('field_article_json')->getValue()[0]['target_id'];
     $paragraph = Paragraph::load($pid);
     $published = $article->getLatestPublishedVersionJson();
