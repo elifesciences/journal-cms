@@ -3,7 +3,9 @@
 namespace Drupal\jcms_article;
 
 use Drupal\Core\Site\Settings;
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Message;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,12 +31,12 @@ class FragmentApi {
   }
 
   /**
-   * Post the image fragment.
+   * Post a fragment to the article store.
    *
-   * @throws \Exception
+   * @throws Exception
    */
-  public function postImageFragment(string $articleId, string $payload) : ResponseInterface {
-    $endpoint = sprintf(Settings::get('jcms_article_fragment_images_endpoint'), $articleId);
+  public function postFragment(string $fragmentPath, string $articleId, string $payload) {
+    $endpoint = $this->endpointFullPath($articleId, $fragmentPath);
     $options = [
       'body' => $payload,
       'headers' => [
@@ -49,24 +51,28 @@ class FragmentApi {
 
     \Drupal::logger('jcms_article')
       ->notice(
-        'An image fragment has been posted to @endpoint with the response: @response',
-        ['@endpoint' => $endpoint, '@response' => \GuzzleHttp\Psr7\str($response)]
+        'A @fragmentPath fragment has been posted to @endpoint with the response: @response',
+        [
+          '@fragmentPath' => $fragmentPath,
+          '@endpoint' => $endpoint,
+          '@response' => Message::toString($response),
+        ]
       );
 
     if ($response->getStatusCode() !== Response::HTTP_OK) {
-      throw new \Exception("Fragment API update could not be performed.");
+      throw new Exception('Fragment API update could not be performed.');
     }
 
     return $response;
   }
 
   /**
-   * Delete the image fragment.
+   * Delete a fragment from the article store.
    *
-   * @throws \Exception
+   * @throws Exception
    */
-  public function deleteImageFragment(string $articleId) : ResponseInterface {
-    $endpoint = sprintf(Settings::get('jcms_article_fragment_images_endpoint'), $articleId);
+  public function deleteFragment(string $fragmentPath, string $articleId) : ResponseInterface {
+    $endpoint = $this->endpointFullPath($articleId, $fragmentPath);
     $options = [
       'headers' => [
         'Content-Type' => 'application/json',
@@ -81,15 +87,26 @@ class FragmentApi {
 
     \Drupal::logger('jcms_article')
       ->notice(
-        'An image fragment has been deleted at @endpoint with the response: @response',
-        ['@endpoint' => $endpoint, '@response' => \GuzzleHttp\Psr7\str($response)]
+        'A @fragmentPath fragment has been deleted at @endpoint with the response: @response',
+        [
+          '@fragmentPath' => $fragmentPath,
+          '@endpoint' => $endpoint,
+          '@response' => Message::toString($response),
+        ]
       );
 
     if (!in_array($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_FOUND])) {
-      throw new \Exception("Fragment API delete could not be performed.");
+      throw new Exception("Fragment API delete could not be performed.");
     }
 
     return $response;
+  }
+
+  /**
+   * Get the full path to the fragment api.
+   */
+  private function endpointFullPath(string $articleId, string $path) {
+    return sprintf(Settings::get('jcms_article_fragments_endpoint'), $articleId) . $path;
   }
 
 }

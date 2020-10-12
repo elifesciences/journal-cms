@@ -9,6 +9,7 @@ use Drupal\jcms_article\FetchArticleVersions;
 use Drupal\jcms_article\FragmentApi;
 use Drupal\jcms_rest\JCMSImageUriTrait;
 use Drupal\paragraphs\Entity\Paragraph;
+use Exception;
 
 /**
  * Class NodePresave.
@@ -125,6 +126,8 @@ final class NodePresave {
 
   /**
    * Update or delete the article fragment.
+   *
+   * @throws Exception
    */
   public function updateFragmentApi(EntityInterface $entity, string $articleId) {
     if (empty(Settings::get('jcms_article_auth_unpublished', FALSE))) {
@@ -132,10 +135,10 @@ final class NodePresave {
     }
 
     if ($image = $this->processFieldImage($entity->get('field_image'), FALSE, 'thumbnail')) {
-      $this->fragmentApi->postImageFragment($articleId, json_encode(['image' => $image]));
+      $this->fragmentApi->postFragment('/image', $articleId, json_encode(['image' => $image]));
     }
     else {
-      $this->fragmentApi->deleteImageFragment($articleId);
+      $this->fragmentApi->deleteFragment('/image', $articleId);
     }
   }
 
