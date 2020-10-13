@@ -125,6 +125,8 @@ final class NodePresave {
 
   /**
    * Update or delete the article fragment.
+   *
+   * @throws \Exception
    */
   public function updateFragmentApi(EntityInterface $entity, string $articleId) {
     if (empty(Settings::get('jcms_article_auth_unpublished', FALSE))) {
@@ -132,10 +134,10 @@ final class NodePresave {
     }
 
     if ($image = $this->processFieldImage($entity->get('field_image'), FALSE, 'thumbnail')) {
-      $this->fragmentApi->postImageFragment($articleId, json_encode(['image' => $image]));
+      $this->fragmentApi->postFragment($articleId, 'image', json_encode(['image' => $image]));
     }
     else {
-      $this->fragmentApi->deleteImageFragment($articleId);
+      $this->fragmentApi->deleteFragment($articleId, 'image');
     }
   }
 
