@@ -44,7 +44,8 @@ function jcms_article_node_presave(NodeInterface $node) {
   if (!empty($admin_ui)) {
     try {
       $node_presave->updateFragmentApi($node, $node->label());
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       \Drupal::messenger()->addError($e->getMessage());
     }
   }
