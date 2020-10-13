@@ -84,7 +84,6 @@ $settings['jcms_articles_endpoint'] = $settings['jcms_gateway'] . '/articles/%s/
 $settings['jcms_metrics_endpoint'] = $settings['jcms_gateway'] . '/metrics/article/%s/%s';
 $settings['jcms_all_digests_endpoint'] = $settings['jcms_gateway'] . '/digests';
 $settings['jcms_article_fragments_endpoint'] = $settings['jcms_gateway'] . '/articles/%s/fragments/%s';
-$settings['jcms_article_fragment_images_endpoint'] = $settings['jcms_gateway'] . '/articles/%s/fragments/image';
 $settings['jcms_article_auth_unpublished'] = NULL;
 $settings['jcms_iiif_base_uri'] = 'https://iiif.elifesciences.org/journal-cms/';
 // This folder should be relative to the sites/default/files folder.
