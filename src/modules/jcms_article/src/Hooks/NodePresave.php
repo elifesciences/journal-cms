@@ -9,7 +9,6 @@ use Drupal\jcms_article\FetchArticleVersions;
 use Drupal\jcms_article\FragmentApi;
 use Drupal\jcms_rest\JCMSImageUriTrait;
 use Drupal\paragraphs\Entity\Paragraph;
-use Exception;
 
 /**
  * Class NodePresave.
@@ -127,7 +126,7 @@ final class NodePresave {
   /**
    * Update or delete the article fragment.
    *
-   * @throws Exception
+   * @throws \Exception
    */
   public function updateFragmentApi(EntityInterface $entity, string $articleId) {
     if (empty(Settings::get('jcms_article_auth_unpublished', FALSE))) {
