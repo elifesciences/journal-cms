@@ -60,7 +60,7 @@ class FragmentApi {
       );
 
     if ($response->getStatusCode() !== Response::HTTP_OK) {
-      throw new Exception('Fragment API update could not be performed.');
+      throw new Exception('Fragment API post could not be performed.');
     }
 
     return $response;
@@ -96,7 +96,7 @@ class FragmentApi {
       );
 
     if (!in_array($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_FOUND])) {
-      throw new Exception("Fragment API delete could not be performed.");
+      throw new Exception('Fragment API delete could not be performed.');
     }
 
     return $response;

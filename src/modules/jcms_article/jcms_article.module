@@ -42,7 +42,11 @@ function jcms_article_node_presave(NodeInterface $node) {
 
   // Only post to the fragmentApi if article node was saved in the admin UI.
   if (!empty($admin_ui)) {
-    $node_presave->updateFragmentApi($node, $node->label());
+    try {
+      $node_presave->updateFragmentApi($node, $node->label());
+    } catch (Exception $e) {
+      \Drupal::messenger()->addError($e->getMessage());
+    }
   }
 
   // Detect if a sample article has be generated.
