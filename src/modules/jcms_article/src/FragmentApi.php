@@ -35,8 +35,8 @@ class FragmentApi {
    *
    * @throws Exception
    */
-  public function postFragment(string $fragmentPath, string $articleId, string $payload) {
-    $endpoint = $this->endpointFullPath($articleId, $fragmentPath);
+  public function postFragment(string $articleId, string $fragmentId, string $payload) {
+    $endpoint = $this->endpointFullPath($articleId, $fragmentId);
     $options = [
       'body' => $payload,
       'headers' => [
@@ -51,9 +51,9 @@ class FragmentApi {
 
     \Drupal::logger('jcms_article')
       ->notice(
-        'A @fragmentPath fragment has been posted to @endpoint with the response: @response',
+        'A @fragmentId fragment has been posted to @endpoint with the response: @response',
         [
-          '@fragmentPath' => $fragmentPath,
+          '@fragmentId' => $fragmentId,
           '@endpoint' => $endpoint,
           '@response' => Message::toString($response),
         ]
@@ -71,8 +71,8 @@ class FragmentApi {
    *
    * @throws Exception
    */
-  public function deleteFragment(string $fragmentPath, string $articleId) : ResponseInterface {
-    $endpoint = $this->endpointFullPath($articleId, $fragmentPath);
+  public function deleteFragment(string $articleId, string $fragmentId) : ResponseInterface {
+    $endpoint = $this->endpointFullPath($articleId, $fragmentId);
     $options = [
       'headers' => [
         'Content-Type' => 'application/json',
@@ -87,9 +87,9 @@ class FragmentApi {
 
     \Drupal::logger('jcms_article')
       ->notice(
-        'A @fragmentPath fragment has been deleted at @endpoint with the response: @response',
+        'A @fragmentId fragment has been deleted at @endpoint with the response: @response',
         [
-          '@fragmentPath' => $fragmentPath,
+          '@fragmentId' => $fragmentId,
           '@endpoint' => $endpoint,
           '@response' => Message::toString($response),
         ]
@@ -105,8 +105,8 @@ class FragmentApi {
   /**
    * Get the full path to the fragment api.
    */
-  private function endpointFullPath(string $articleId, string $path) {
-    return sprintf(Settings::get('jcms_article_fragments_endpoint'), $articleId) . $path;
+  private function endpointFullPath(string $articleId, string $fragmentId) {
+    return sprintf(Settings::get('jcms_article_fragments_endpoint'), $articleId, $fragmentId);
   }
 
 }

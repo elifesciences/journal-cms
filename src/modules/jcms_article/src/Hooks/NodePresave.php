@@ -135,10 +135,10 @@ final class NodePresave {
     }
 
     if ($image = $this->processFieldImage($entity->get('field_image'), FALSE, 'thumbnail')) {
-      $this->fragmentApi->postFragment('/image', $articleId, json_encode(['image' => $image]));
+      $this->fragmentApi->postFragment($articleId, 'image', json_encode(['image' => $image]));
     }
     else {
-      $this->fragmentApi->deleteFragment('/image', $articleId);
+      $this->fragmentApi->deleteFragment($articleId, 'image');
     }
   }
 
