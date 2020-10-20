@@ -49,6 +49,11 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
 
         $response['interviewee']['name'] = $this->processPeopleNames($node->get('field_person_preferred_name')->getString(), $node->get('field_person_index_name'));
 
+        // Social image is optional.
+        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+          $item['image']['social'] = $socialImage;
+        }
+
         // Impact statement is optional.
         if ($node->get('field_impact_statement')->count()) {
           $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
