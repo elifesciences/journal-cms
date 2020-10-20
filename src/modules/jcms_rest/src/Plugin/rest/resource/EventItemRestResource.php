@@ -56,6 +56,11 @@ class EventItemRestResource extends AbstractRestResourceBase {
           $response['timezone'] = $node->get('field_event_timezone')->getString();
         }
 
+        // Social image is optional.
+        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+          $item['image']['social'] = $socialImage;
+        }
+
         // Impact statement is optional.
         if ($node->get('field_impact_statement')->count()) {
           $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
