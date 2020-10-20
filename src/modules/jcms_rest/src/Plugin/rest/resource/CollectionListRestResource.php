@@ -77,19 +77,12 @@ class CollectionListRestResource extends AbstractRestResourceBase {
     $item = $this->processDefault($node);
 
     $image_size_intersect = array_intersect(['banner', 'thumbnail'], (array) $image_size_types);
-    $image = $this->processFieldImage($node->get('field_image'), TRUE, $image_size_intersect);
+    $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE, $image_size_intersect);
     $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
     if (!empty($attribution)) {
-      foreach ($image as $key => $type) {
-        $image[$key]['attribution'] = $attribution;
+      foreach ($item['image'] as $key => $type) {
+        $item['image'][$key]['attribution'] = $attribution;
       }
-    }
-    $item['image'] = $image;
-
-    $image_size_intersect = array_intersect(['social'], (array) $image_size_types);
-    // Social mage is optional.
-    if (!empty($image_size_intersect) && $socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, $image_size_intersect)) {
-      $item['image'] = $item['image'] + $socialImage;
     }
 
     // Impact statement is optional.
