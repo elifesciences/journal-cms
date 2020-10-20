@@ -80,6 +80,11 @@ class CollectionListRestResource extends AbstractRestResourceBase {
       $item['image'] = $image;
     }
 
+    // Social mage is optional.
+    if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+      $item['image'] = $item['image'] ?? [] + $socialImage;
+    }
+
     // Impact statement is optional.
     if ($node->get('field_impact_statement')->count()) {
       $item['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
