@@ -13,10 +13,12 @@ dependencies:
     - field.field.node.labs_experiment.field_experiment_number
     - field.field.node.labs_experiment.field_image
     - field.field.node.labs_experiment.field_image_attribution
+    - field.field.node.labs_experiment.field_image_social
     - field.field.node.labs_experiment.field_impact_statement
     - field.field.node.labs_experiment.field_order_date
     - node.type.labs_experiment
   module:
+    - image
     - text
     - user
 id: node.labs_experiment.default
@@ -31,6 +33,15 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
+  field_image_social:
+    weight: 2
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
   field_impact_statement:
     weight: 0
     label: hidden
