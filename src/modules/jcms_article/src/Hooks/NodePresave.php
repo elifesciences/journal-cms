@@ -133,8 +133,18 @@ final class NodePresave {
       return;
     }
 
-    if ($image = $this->processFieldImage($entity->get('field_image'), FALSE, 'thumbnail')) {
-      $this->fragmentApi->postFragment($articleId, 'image', json_encode(['image' => $image]));
+    $images = [];
+
+    if ($thumbnail = $this->processFieldImage($entity->get('field_image'), FALSE, 'thumbnail', TRUE)) {
+      $images['thumbnail'] = $thumbnail;
+    }
+
+    if ($socialImage = $this->processFieldImage($entity->get('field_image_social'), FALSE, 'social', TRUE)) {
+      $images['social'] = $socialImage;
+    }
+
+    if (!empty($images)) {
+      $this->fragmentApi->postFragment($articleId, 'image', json_encode(['image' => $images]));
     }
     else {
       $this->fragmentApi->deleteFragment($articleId, 'image');
