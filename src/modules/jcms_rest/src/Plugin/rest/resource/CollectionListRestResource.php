@@ -76,6 +76,7 @@ class CollectionListRestResource extends AbstractRestResourceBase {
     $this->setSortBy('changed');
     $item = $this->processDefault($node);
 
+    // Image is required.
     $image_size_intersect = array_intersect(['banner', 'thumbnail'], (array) $image_size_types);
     $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE, $image_size_intersect);
     $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
