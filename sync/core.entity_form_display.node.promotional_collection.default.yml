@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.promotional_collection.field_editors
     - field.field.node.promotional_collection.field_image
     - field.field.node.promotional_collection.field_image_attribution
+    - field.field.node.promotional_collection.field_image_social
     - field.field.node.promotional_collection.field_impact_statement
     - field.field.node.promotional_collection.field_order_date
     - field.field.node.promotional_collection.field_subjects
@@ -27,7 +28,7 @@ bundle: promotional_collection
 mode: default
 content:
   field_collection_content:
-    weight: 7
+    weight: 8
     settings:
       form_mode: default
       override_labels: true
@@ -39,11 +40,12 @@ content:
       collapsed: false
       allow_new: false
       allow_duplicate: false
+      revision: false
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
   field_collection_podcasts:
-    weight: 9
+    weight: 10
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -53,7 +55,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_collection_related_content:
-    weight: 8
+    weight: 9
     settings:
       form_mode: default
       override_labels: true
@@ -65,11 +67,12 @@ content:
       collapsed: false
       allow_new: false
       allow_duplicate: false
+      revision: false
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
   field_editors:
-    weight: 6
+    weight: 7
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -96,8 +99,18 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_impact_statement:
+  field_image_social:
     weight: 3
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings: {  }
+    type: image_focal_point
+    region: content
+  field_impact_statement:
+    weight: 4
     settings:
       rows: 5
       placeholder: ''
@@ -105,7 +118,7 @@ content:
     type: text_textarea
     region: content
   field_subjects:
-    weight: 5
+    weight: 6
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -115,7 +128,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_summary:
-    weight: 4
+    weight: 5
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -128,12 +141,12 @@ content:
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 12
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -141,7 +154,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 10
+    weight: 11
     region: content
     third_party_settings: {  }
   title:
@@ -154,7 +167,7 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
