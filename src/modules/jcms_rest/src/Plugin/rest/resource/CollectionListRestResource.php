@@ -64,25 +64,32 @@ class CollectionListRestResource extends AbstractRestResourceBase {
   /**
    * Takes a node and builds an item from it.
    */
-  public function getItem(EntityInterface $node, $image_size_types = ['banner', 'thumbnail']) : array {
+  public function getItem(
+    EntityInterface $node,
+    $image_size_types = [
+      'banner',
+      'thumbnail',
+      'social',
+    ]
+  ) : array {
     /* @var Node $node */
     $this->setSortBy('changed');
     $item = $this->processDefault($node);
 
-    // Image is optional.
-    if ($image = $this->processFieldImage($node->get('field_image'), FALSE, $image_size_types)) {
-      $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
-      if (!empty($attribution)) {
-        foreach ($image as $key => $type) {
-          $image[$key]['attribution'] = $attribution;
-        }
+    $image_size_intersect = array_intersect(['banner', 'thumbnail'], (array) $image_size_types);
+    $image = $this->processFieldImage($node->get('field_image'), TRUE, $image_size_intersect);
+    $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
+    if (!empty($attribution)) {
+      foreach ($image as $key => $type) {
+        $image[$key]['attribution'] = $attribution;
       }
-      $item['image'] = $image;
     }
+    $item['image'] = $image;
 
+    $image_size_intersect = array_intersect(['social'], (array) $image_size_types);
     // Social mage is optional.
-    if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
-      $item['image'] = $item['image'] ?? [] + $socialImage;
+    if (!empty($image_size_intersect) && $socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, $image_size_intersect)) {
+      $item['image'] = $item['image'] + $socialImage;
     }
 
     // Impact statement is optional.
