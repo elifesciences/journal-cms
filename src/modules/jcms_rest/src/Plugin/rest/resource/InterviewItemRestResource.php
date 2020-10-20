@@ -49,11 +49,6 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
 
         $response['interviewee']['name'] = $this->processPeopleNames($node->get('field_person_preferred_name')->getString(), $node->get('field_person_index_name'));
 
-        // Social image is optional.
-        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
-          $item['image']['social'] = $socialImage;
-        }
-
         // Impact statement is optional.
         if ($node->get('field_impact_statement')->count()) {
           $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
@@ -65,6 +60,11 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
         // Image is optional.
         if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {
           $response['image'] = $image;
+        }
+
+        // Social image is optional.
+        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+          $response['image']['social'] = $socialImage;
         }
 
         if (!$this->viewUnpublished()) {

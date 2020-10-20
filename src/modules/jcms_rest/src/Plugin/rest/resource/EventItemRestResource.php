@@ -58,7 +58,7 @@ class EventItemRestResource extends AbstractRestResourceBase {
 
         // Social image is optional.
         if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
-          $item['image']['social'] = $socialImage;
+          $response['image']['social'] = $socialImage;
         }
 
         // Impact statement is optional.
