@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.job_advert.field_image_social
     - field.field.node.job_advert.field_impact_statement
     - field.field.node.job_advert.field_job_advert_closing_date
     - field.field.node.job_advert.field_job_advert_experience
@@ -25,6 +26,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_image_social: true
   field_impact_statement: true
   field_job_advert_closing_date: true
   field_job_advert_experience: true
