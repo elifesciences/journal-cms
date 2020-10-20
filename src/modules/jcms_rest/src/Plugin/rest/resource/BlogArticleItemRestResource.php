@@ -59,7 +59,7 @@ class BlogArticleItemRestResource extends AbstractRestResourceBase {
           $response['image'] = $image;
         }
 
-        // Social mage is optional.
+        // Social image is optional.
         if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
           $response['image']['social'] = $socialImage;
         }

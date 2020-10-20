@@ -63,7 +63,7 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
     $collection_list_rest_resource = new CollectionListRestResource([], 'collection_list_rest_resource', [], $this->serializerFormats, $this->logger);
     $item = $collection_list_rest_resource->getItem($node);
 
-    // Social mage is optional.
+    // Social image is optional.
     if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
       $item['image']['social'] = $socialImage;
     }
