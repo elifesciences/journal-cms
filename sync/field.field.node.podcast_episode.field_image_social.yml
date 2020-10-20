@@ -1,0 +1,38 @@
+uuid: 1cdd4e4d-8dc1-4f54-83b7-1c26e96ad5ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image_social
+    - node.type.podcast_episode
+  module:
+    - image
+id: node.podcast_episode.field_image_social
+field_name: field_image_social
+entity_type: node
+bundle: podcast_episode
+label: 'Social image'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: 'iiif/podcast_episode/social/[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: 600x600
+  alt_field: false
+  alt_field_required: false
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

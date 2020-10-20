@@ -58,6 +58,11 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
           }
         }
 
+        // Social image is optional.
+        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+          $response['image']['social'] = $socialImage;
+        }
+
         // mp3 is required.
         $response['sources'] = [
           [
