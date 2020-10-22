@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.event.field_event_datetime
     - field.field.node.event.field_event_timezone
     - field.field.node.event.field_event_uri
+    - field.field.node.event.field_image_social
     - field.field.node.event.field_impact_statement
     - field.field.node.event.field_order_date
     - node.type.event
@@ -49,5 +50,6 @@ hidden:
   field_event_datetime: true
   field_event_timezone: true
   field_event_uri: true
+  field_image_social: true
   field_order_date: true
   links: true

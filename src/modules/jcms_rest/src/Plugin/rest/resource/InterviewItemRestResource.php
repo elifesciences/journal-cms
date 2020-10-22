@@ -62,6 +62,11 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
           $response['image'] = $image;
         }
 
+        // Social image is optional.
+        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+          $response['image']['social'] = $socialImage;
+        }
+
         if (!$this->viewUnpublished()) {
           $response['content'] = json_decode($node->get('field_content_json')->getString());
         }

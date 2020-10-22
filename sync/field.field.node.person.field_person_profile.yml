@@ -34,13 +34,13 @@ settings:
       media_contact:
         weight: 9
         enabled: false
+      paragraph:
+        enabled: true
+        weight: 13
       research_details:
         weight: 11
         enabled: false
       venue:
         weight: 12
         enabled: false
-      paragraph:
-        enabled: true
-        weight: 13
 field_type: entity_reference_revisions

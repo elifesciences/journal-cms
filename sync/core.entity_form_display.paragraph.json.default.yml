@@ -16,7 +16,7 @@ content:
   field_article_published_json:
     weight: 0
     settings:
-      rows: '5'
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: jsonb_textarea
@@ -24,7 +24,7 @@ content:
   field_article_unpublished_json:
     weight: 1
     settings:
-      rows: '5'
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: jsonb_textarea

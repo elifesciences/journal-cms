@@ -1,29 +1,29 @@
-uuid: d03930dd-45b1-4226-8a84-ee2eb997aada
+uuid: 8dc08910-1517-468f-8e6a-600bf9dcecaa
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_image
+    - field.storage.node.field_image_social
     - node.type.promotional_collection
   module:
     - image
-id: node.promotional_collection.field_image
-field_name: field_image
+id: node.promotional_collection.field_image_social
+field_name: field_image_social
 entity_type: node
 bundle: promotional_collection
-label: 'Image (banner)'
+label: 'Social image'
 description: ''
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  file_directory: 'iiif/promotional-collection/[date:custom:Y]-[date:custom:m]'
+  file_directory: 'iiif/promotional-collection/social/[date:custom:Y]-[date:custom:m]'
   file_extensions: 'png jpg jpeg'
   max_filesize: ''
   max_resolution: ''
-  min_resolution: 1800x900
-  alt_field: true
+  min_resolution: 600x600
+  alt_field: false
   alt_field_required: false
   title_field: false
   title_field_required: false

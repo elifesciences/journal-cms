@@ -22,6 +22,7 @@ trait JCMSImageUriTrait {
   protected $imageSizes = [
     'banner',
     'thumbnail',
+    'social',
   ];
 
   /**

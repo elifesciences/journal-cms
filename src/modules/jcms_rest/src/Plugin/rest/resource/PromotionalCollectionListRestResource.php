@@ -69,15 +69,13 @@ class PromotionalCollectionListRestResource extends AbstractRestResourceBase {
     $this->setSortBy('changed');
     $item = $this->processDefault($node);
 
-    // Image is optional.
-    if ($image = $this->processFieldImage($node->get('field_image'), FALSE, $image_size_types)) {
-      $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
-      if (!empty($attribution)) {
-        foreach ($image as $key => $type) {
-          $image[$key]['attribution'] = $attribution;
-        }
+    // Image is required.
+    $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE, $image_size_types);
+    $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
+    if (!empty($attribution)) {
+      foreach ($item['image'] as $key => $type) {
+        $item['image'][$key]['attribution'] = $attribution;
       }
-      $item['image'] = $image;
     }
 
     // Impact statement is optional.

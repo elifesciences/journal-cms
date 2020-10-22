@@ -28,12 +28,12 @@ settings:
       affiliation:
         weight: 7
         enabled: false
-      media_contact:
-        enabled: true
-        weight: 16
       json:
         weight: 21
         enabled: false
+      media_contact:
+        enabled: true
+        weight: 16
       paragraph:
         weight: 24
         enabled: false
