@@ -9,7 +9,7 @@ dependencies:
     - node
 third_party_settings:
   field_permissions:
-    permission_type: custom
+    permission_type: public
 id: node.field_image_social
 field_name: field_image_social
 entity_type: node
