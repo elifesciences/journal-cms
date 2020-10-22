@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "70dcc6f8cd563bb8729abf65b9863907",
+    "content-hash": "2725fd68e879f37dfe77fc288ffaea8f",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5012,16 +5012,16 @@
         },
         {
             "name": "elife/api",
-            "version": "dev-doi-social-image-required-bug-compiled",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "fa405919083f23742b2ce877c8cd4e12b11dd04f"
+                "reference": "c0454e4f28df49bff3327c096795f5d56db5e54e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/fa405919083f23742b2ce877c8cd4e12b11dd04f",
-                "reference": "fa405919083f23742b2ce877c8cd4e12b11dd04f",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/c0454e4f28df49bff3327c096795f5d56db5e54e",
+                "reference": "c0454e4f28df49bff3327c096795f5d56db5e54e",
                 "shasum": ""
             },
             "conflict": {
@@ -5033,7 +5033,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API specification",
-            "time": "2020-10-16T19:27:42+00:00"
+            "time": "2020-10-22T15:51:49+00:00"
         },
         {
             "name": "elife/api-client",
