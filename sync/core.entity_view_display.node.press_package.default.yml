@@ -33,14 +33,14 @@ content:
     type: text_default
     region: content
   field_image_social:
-    weight: 2
+    type: image
+    weight: 11
+    region: content
     label: above
     settings:
       image_style: ''
       image_link: ''
     third_party_settings: {  }
-    type: image
-    region: content
   field_impact_statement:
     weight: 0
     label: hidden

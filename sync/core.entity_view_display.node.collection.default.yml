@@ -84,15 +84,6 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
-  field_image_social:
-    weight: 12
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
-    region: content
   field_impact_statement:
     weight: 1
     label: above
@@ -132,4 +123,5 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_image_social: true
