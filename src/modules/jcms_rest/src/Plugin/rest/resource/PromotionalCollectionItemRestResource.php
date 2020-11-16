@@ -61,6 +61,11 @@ class PromotionalCollectionItemRestResource extends AbstractRestResourceBase {
     $promotional_collection_list_rest_resource = new PromotionalCollectionListRestResource([], 'promotional_collection_list_rest_resource', [], $this->serializerFormats, $this->logger);
     $item = $promotional_collection_list_rest_resource->getItem($node);
 
+    // Social image is optional.
+    if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+      $item['image']['social'] = $socialImage;
+    }
+
     // Editors are optional.
     if ($node->get('field_editors')->count()) {
       $people_rest_resource = new PersonListRestResource([], 'person_list_rest_resource', [], $this->serializerFormats, $this->logger);

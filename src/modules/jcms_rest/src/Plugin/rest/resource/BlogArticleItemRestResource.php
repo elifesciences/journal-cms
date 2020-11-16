@@ -59,6 +59,11 @@ class BlogArticleItemRestResource extends AbstractRestResourceBase {
           $response['image'] = $image;
         }
 
+        // Social image is optional.
+        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+          $response['image']['social'] = $socialImage;
+        }
+
         // Impact statement is optional.
         if ($node->get('field_impact_statement')->count()) {
           $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));

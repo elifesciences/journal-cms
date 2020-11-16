@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.labs_experiment.field_experiment_number
     - field.field.node.labs_experiment.field_image
     - field.field.node.labs_experiment.field_image_attribution
+    - field.field.node.labs_experiment.field_image_social
     - field.field.node.labs_experiment.field_impact_statement
     - field.field.node.labs_experiment.field_order_date
     - image.style.thumbnail
@@ -43,7 +44,7 @@ bundle: labs_experiment
 mode: default
 content:
   field_community_list:
-    weight: 4
+    weight: 5
     settings:
       display_label: true
     third_party_settings: {  }
@@ -67,8 +68,18 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_impact_statement:
+  field_image_social:
     weight: 3
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings: {  }
+    type: image_focal_point
+    region: content
+  field_impact_statement:
+    weight: 4
     settings:
       rows: 5
       placeholder: ''
@@ -77,12 +88,12 @@ content:
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }

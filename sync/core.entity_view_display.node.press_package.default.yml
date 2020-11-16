@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.press_package.field_content_images_preview
     - field.field.node.press_package.field_content_json
     - field.field.node.press_package.field_content_json_preview
+    - field.field.node.press_package.field_image_social
     - field.field.node.press_package.field_impact_statement
     - field.field.node.press_package.field_media_contact
     - field.field.node.press_package.field_order_date
@@ -16,6 +17,7 @@ dependencies:
     - field.field.node.press_package.field_related_content
     - node.type.press_package
   module:
+    - image
     - text
     - user
 id: node.press_package.default
@@ -29,6 +31,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  field_image_social:
+    weight: 2
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
     region: content
   field_impact_statement:
     weight: 0

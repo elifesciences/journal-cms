@@ -51,7 +51,7 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
         foreach ($nodes as $node) {
-          $response_data['items'][] = $this->getItem($node);
+          $response_data['items'][] = $this->getItem($node, 'thumbnail');
         }
       }
     }
@@ -64,7 +64,7 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
   /**
    * Takes a node and builds an item from it.
    */
-  public function getItem(EntityInterface $node) : array {
+  public function getItem(EntityInterface $node, $image_size_types = ['banner', 'thumbnail']) : array {
     /* @var Node $node */
     $this->setSortBy('created', TRUE);
     $item = $this->processDefault($node, (int) $node->get('field_episode_number')->getString(), 'number');
@@ -78,7 +78,7 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
     }
 
     // Image is required.
-    $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE);
+    $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE, $image_size_types);
     $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
     if (!empty($attribution)) {
       foreach ($item['image'] as $key => $type) {

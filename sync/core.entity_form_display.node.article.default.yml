@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.article.field_article_json
     - field.field.node.article.field_community_list
     - field.field.node.article.field_image
+    - field.field.node.article.field_image_social
     - field.field.node.article.field_order_date
     - field.field.node.article.field_page_views
     - field.field.node.article.field_subjects
@@ -19,7 +20,7 @@ bundle: article
 mode: default
 content:
   field_community_list:
-    weight: 3
+    weight: 4
     settings:
       display_label: true
     third_party_settings: {  }
@@ -27,6 +28,16 @@ content:
     region: content
   field_image:
     weight: 2
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+      preview_link: true
+      offsets: '50,50'
+    third_party_settings: {  }
+    type: image_focal_point
+    region: content
+  field_image_social:
+    weight: 3
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail

@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.promotional_collection.field_editors
     - field.field.node.promotional_collection.field_image
     - field.field.node.promotional_collection.field_image_attribution
+    - field.field.node.promotional_collection.field_image_social
     - field.field.node.promotional_collection.field_impact_statement
     - field.field.node.promotional_collection.field_order_date
     - field.field.node.promotional_collection.field_subjects
@@ -71,6 +72,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  field_image_social:
+    weight: 11
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
     region: content
   field_impact_statement:
     weight: 1

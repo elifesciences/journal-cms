@@ -1,29 +1,29 @@
-uuid: d03930dd-45b1-4226-8a84-ee2eb997aada
+uuid: 42078543-d3d1-47c2-97e1-23148afaefb9
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_image
-    - node.type.promotional_collection
+    - field.storage.node.field_image_social
+    - node.type.press_package
   module:
     - image
-id: node.promotional_collection.field_image
-field_name: field_image
+id: node.press_package.field_image_social
+field_name: field_image_social
 entity_type: node
-bundle: promotional_collection
-label: 'Image (banner)'
+bundle: press_package
+label: 'Social image'
 description: ''
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  file_directory: 'iiif/promotional-collection/[date:custom:Y]-[date:custom:m]'
+  file_directory: 'iiif/for-the-press-content/social/[date:custom:Y]-[date:custom:m]'
   file_extensions: 'png jpg jpeg'
   max_filesize: ''
   max_resolution: ''
-  min_resolution: 1800x900
-  alt_field: true
+  min_resolution: 600x600
+  alt_field: false
   alt_field_required: false
   title_field: false
   title_field_required: false
