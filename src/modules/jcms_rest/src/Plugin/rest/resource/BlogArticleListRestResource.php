@@ -70,17 +70,6 @@ class BlogArticleListRestResource extends AbstractRestResourceBase {
     /* @var Node $node */
     $item = $this->processDefault($node);
 
-    // Image is optional.
-    if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {
-      $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
-      if (!empty($attribution)) {
-        foreach ($image as $key => $type) {
-          $image[$key]['attribution'] = $attribution;
-        }
-      }
-      $item['image'] = $image;
-    }
-
     // Impact statement is optional.
     if ($node->get('field_impact_statement')->count()) {
       $item['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
