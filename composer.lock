@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2725fd68e879f37dfe77fc288ffaea8f",
+    "content-hash": "2c9186cf9a612b3ca039aeac4874497c",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2796,16 +2796,16 @@
         },
         {
             "name": "drupal/core",
-            "version": "8.9.8",
+            "version": "8.9.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "e16f650e7bd7f0cfb4ff4dd8ed753625313cdfdb"
+                "reference": "724ada1a6c497a663797c40e4ee3d0c7c618371d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core/zipball/e16f650e7bd7f0cfb4ff4dd8ed753625313cdfdb",
-                "reference": "e16f650e7bd7f0cfb4ff4dd8ed753625313cdfdb",
+                "url": "https://api.github.com/repos/drupal/core/zipball/724ada1a6c497a663797c40e4ee3d0c7c618371d",
+                "reference": "724ada1a6c497a663797c40e4ee3d0c7c618371d",
                 "shasum": ""
             },
             "require": {
@@ -3002,7 +3002,7 @@
                     }
                 },
                 "patches_applied": {
-                    "Composer-friendly patches for filename sanitation while #2492171 awaits #3032390 (3094052)": "https://www.drupal.org/files/issues/2019-12-08/3094052-2.patch",
+                    "Composer-friendly patches for filename sanitation while #2492171 awaits #3032390 (3094052)": "https://www.drupal.org/files/issues/2020-11-19/3094052-9.patch",
                     "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/2020-08-20/273595-166.patch",
                     "Temporary fix for \\Drupal\\Core\\Field\\FieldItemList::generateSampleItems (2905527)": "src/patches/2905527-temporary-fix-generate-sample-items.patch"
                 }
@@ -3028,7 +3028,7 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
-            "time": "2020-11-05T16:34:55+00:00"
+            "time": "2020-11-17T22:05:46+00:00"
         },
         {
             "name": "drupal/country",
