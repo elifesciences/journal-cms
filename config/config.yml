@@ -49,7 +49,7 @@ drupalvm_vagrant_version_min: '2.2.0'
 drupalvm_ansible_version_min: '2.8'
 
 # Force use of ansible_local provisioner, even if Ansible is installed on host.
-force_ansible_local: false
+force_ansible_local: true
 
 # The web server software to use. Can be either 'apache' or 'nginx'.
 drupalvm_webserver: nginx
