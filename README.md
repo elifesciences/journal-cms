@@ -8,7 +8,6 @@ Ensure the you have the following installed:
 
 - VirtualBox
 - Vagrant
-- Ansible
 - Hostupdater (`vagrant plugin install vagrant-hostsupdater`)
 - Composer
 
