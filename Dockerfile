@@ -15,7 +15,7 @@ USER root
 RUN chown -R www-data:www-data ./
 
 RUN apt-get update
-RUN apt-get install git zip unzip libpng-dev -y --no-install-recommends
+RUN apt-get install mysql-client git zip unzip libpng-dev -y --no-install-recommends
 
 # sqlite3? looks like it's a built in now
 RUN pecl install redis igbinary uploadprogress
@@ -33,7 +33,8 @@ RUN curl https://getcomposer.org/installer > composer-setup.php && \
 
 USER www-data
 
-COPY --chown=www-data:www-data config ./config
+# moved after composer
+#COPY --chown=www-data:www-data config ./config
 COPY --chown=www-data:www-data features ./features
 COPY --chown=www-data:www-data src ./src
 COPY --chown=www-data:www-data sync ./sync
@@ -48,20 +49,20 @@ RUN composer --no-interaction install --optimize-autoloader
 # default settings
 # these are overridden when instance is launched by mounting custom per-environment versions
 # see docker-compose.yml
-RUN cp config/drupal-vm.settings.php config/local.settings.php
-RUN cp config/drupal-vm.services.yml config/local.services.yml
+COPY --chown=www-data:www-data config ./config
+RUN cp config/drupal-container.settings.php config/local.settings.php
+RUN cp config/drupal-container.services.yml config/local.services.yml
 
 WORKDIR ${PROJECT_FOLDER}/web
 
-USER root
-RUN apt-get install mysql-client -y --no-install-recommends
+COPY --chown=www-data:www-data wait-for-it.sh wait-for-it.sh
 
-USER www-data
-
-RUN ../vendor/bin/drush site-install config_installer -y
+# requires other services. see docker-composer.yml from here on out
+#RUN ../vendor/bin/drush site-install config_installer -y
 
 # `assert_fpm`, see: `elife-base-images/utils/assert_fpm`
-HEALTHCHECK --interval=5s CMD HTTP_HOST=localhost assert_fpm /ping 'pong'
+# disabled temporarily
+#HEALTHCHECK --interval=5s CMD HTTP_HOST=localhost assert_fpm /ping 'pong'
 
 # this image inherits from `elifesciences/php_7.3_fpm`, which inherits from `php:7.3.4-fpm-stretch`, which has it's own
 # custom EXECUTE command that starts `php-fpm`.
