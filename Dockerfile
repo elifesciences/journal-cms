@@ -33,8 +33,7 @@ RUN curl https://getcomposer.org/installer > composer-setup.php && \
 
 USER www-data
 
-# moved after composer
-#COPY --chown=www-data:www-data config ./config
+COPY --chown=www-data:www-data config ./config # required by composer
 COPY --chown=www-data:www-data features ./features
 COPY --chown=www-data:www-data src ./src
 COPY --chown=www-data:www-data sync ./sync
@@ -49,7 +48,6 @@ RUN composer --no-interaction install --optimize-autoloader
 # default settings
 # these are overridden when instance is launched by mounting custom per-environment versions
 # see docker-compose.yml
-COPY --chown=www-data:www-data config ./config
 RUN cp config/drupal-container.settings.php config/local.settings.php
 RUN cp config/drupal-container.services.yml config/local.services.yml
 
