@@ -25,11 +25,12 @@ RUN docker-php-ext-install gd mysqli pdo_mysql # cli mbstring xsl curl
 RUN docker-php-ext-enable redis igbinary uploadprogress
 RUN rm -rf /tmp/pear/
 
-# TODO: sendmail.ini
-
 RUN curl https://getcomposer.org/installer > composer-setup.php && \
     php composer-setup.php --install-dir=/srv/bin --filename=composer --version=1.10.16 && \
     rm composer-setup.php
+
+RUN echo "memory_limit = -1" > /usr/local/etc/php/conf.d/elife-fpm.ini
+RUN echo "sendmail_path = /bin/true" > /usr/local/etc/php/conf.d/elife-sendmail.ini
 
 USER www-data
 
@@ -55,12 +56,6 @@ RUN cp config/drupal-container.services.yml config/local.services.yml
 WORKDIR ${PROJECT_FOLDER}/web
 
 COPY --chown=www-data:www-data wait-for-it.sh wait-for-it.sh
-
-# todo: shift up
-USER root
-RUN echo "memory_limit = -1" > /usr/local/etc/php/conf.d/elife-fpm.ini
-
-USER www-data
 
 # requires other services. see docker-composer.yml from here on out
 #RUN ../vendor/bin/drush site-install config_installer -y
