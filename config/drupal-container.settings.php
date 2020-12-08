@@ -49,11 +49,15 @@ if (class_exists(\Composer\Autoload\ClassLoader::class)) {
   ];
 }
 
-if (!drupal_installation_attempted()) {
-  $settings['cache']['default'] = 'cache.backend.redis';
   $settings['redis.connection']['interface'] = 'PhpRedis';
   $settings['redis.connection']['host'] = 'redis';
   $settings['redis.connection']['port'] = '6379';
+
+if (!drupal_installation_attempted()) {
+  $settings['cache']['default'] = 'cache.backend.redis';
+  //$settings['redis.connection']['interface'] = 'PhpRedis';
+  //$settings['redis.connection']['host'] = 'redis';
+  //$settings['redis.connection']['port'] = '6379';
   // Always set the fast backend for bootstrap, discover and config, otherwise
   // this gets lost when redis is enabled.
   $settings['cache']['bins']['bootstrap'] = 'cache.backend.chainedfast';

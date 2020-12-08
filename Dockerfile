@@ -33,7 +33,8 @@ RUN curl https://getcomposer.org/installer > composer-setup.php && \
 
 USER www-data
 
-COPY --chown=www-data:www-data config ./config # required by composer
+# required by composer
+COPY --chown=www-data:www-data config ./config
 COPY --chown=www-data:www-data features ./features
 COPY --chown=www-data:www-data src ./src
 COPY --chown=www-data:www-data sync ./sync
@@ -54,6 +55,12 @@ RUN cp config/drupal-container.services.yml config/local.services.yml
 WORKDIR ${PROJECT_FOLDER}/web
 
 COPY --chown=www-data:www-data wait-for-it.sh wait-for-it.sh
+
+# todo: shift up
+USER root
+RUN echo "memory_limit = -1" > /usr/local/etc/php/conf.d/elife-fpm.ini
+
+USER www-data
 
 # requires other services. see docker-composer.yml from here on out
 #RUN ../vendor/bin/drush site-install config_installer -y
