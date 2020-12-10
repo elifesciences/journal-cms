@@ -14,8 +14,9 @@ USER root
 
 RUN chown -R www-data:www-data ./
 
+# todo: vim can be removed
 RUN apt-get update
-RUN apt-get install mysql-client git zip unzip libpng-dev -y --no-install-recommends
+RUN apt-get install mysql-client git zip unzip libpng-dev redis-tools vim -y --no-install-recommends
 
 # sqlite3? looks like it's a built in now
 RUN pecl install redis igbinary uploadprogress
@@ -40,10 +41,10 @@ COPY --chown=www-data:www-data features ./features
 COPY --chown=www-data:www-data src ./src
 COPY --chown=www-data:www-data sync ./sync
 COPY --chown=www-data:www-data scripts ./scripts
-COPY --chown=www-data:www-data composer.json composer.lock ./
+COPY --chown=www-data:www-data composer.json composer.lock composer-setup.json composer-setup.lock ./
 
 ENV COMPOSER_DISCARD_CHANGES=true
-RUN composer --no-interaction install --optimize-autoloader
+RUN composer --no-interaction install --optimize-autoloader --no-dev
 
 # TODO: further file/dir permissions
 
@@ -57,12 +58,13 @@ WORKDIR ${PROJECT_FOLDER}/web
 
 COPY --chown=www-data:www-data wait-for-it.sh wait-for-it.sh
 
-# requires other services. see docker-composer.yml from here on out
-#RUN ../vendor/bin/drush site-install config_installer -y
+COPY --chown=www-data:www-data ./container/prod/configure.sh configure.sh
+
+USER www-data
 
 # `assert_fpm`, see: `elife-base-images/utils/assert_fpm`
 # disabled temporarily
-#HEALTHCHECK --interval=5s CMD HTTP_HOST=localhost assert_fpm /ping 'pong'
+HEALTHCHECK --interval=5s CMD HTTP_HOST=localhost assert_fpm /ping 'pong'
 
 # this image inherits from `elifesciences/php_7.3_fpm`, which inherits from `php:7.3.4-fpm-stretch`, which has it's own
 # custom EXECUTE command that starts `php-fpm`.

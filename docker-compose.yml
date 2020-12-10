@@ -8,6 +8,7 @@ services:
         volumes:
             # todo: ensure writeable by www-data
             - /var/log/journal-cms:/srv/journal/private/monolog
+            - ./web/sites/default:/srv/journal/web/sites/default
         ports:
             - 80:80
         networks:
@@ -41,7 +42,7 @@ services:
     configure:
         image: elifesciences/journal-cms
         entrypoint: ["./wait-for-it.sh", "db:3306", "-t", "120", "--"]
-        command: ../vendor/bin/drush site-install config_installer -y
+        command: ./configure.sh
         depends_on:
             - app
             - db
