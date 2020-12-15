@@ -189,17 +189,20 @@ class ArticleCrud {
   public function getArticle(EntityInterface $node, bool $preview = FALSE) {
     $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
     $paragraph = Paragraph::load($pid);
+    $snippet = [];
     if ($preview) {
-      return json_decode($paragraph->get('field_article_unpublished_json')->getString(), TRUE);
+      $snippet = json_decode($paragraph->get('field_article_unpublished_json')->getString(), TRUE);
     }
-    else {
-      if ($paragraph->get('field_article_published_json')->getValue()) {
-        return json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
-      }
-      else {
-        return FALSE;
-      }
+    elseif ($paragraph->get('field_article_published_json')->getValue()) {
+      $snippet = json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
     }
+
+    // Remove all but the thumbnail image from article snippet.
+    if (!empty($snippet) && !empty($snippet['image']) && empty($snippet['image']['thumbnail'])) {
+      unset($snippet['image']);
+    }
+
+    return !empty($snippet) ? $snippet : FALSE;
   }
 
 }
