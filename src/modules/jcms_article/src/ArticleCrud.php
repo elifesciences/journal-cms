@@ -189,17 +189,20 @@ class ArticleCrud {
   public function getArticle(EntityInterface $node, bool $preview = FALSE) {
     $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
     $paragraph = Paragraph::load($pid);
+    $snippet = [];
     if ($preview) {
-      return json_decode($paragraph->get('field_article_unpublished_json')->getString(), TRUE);
+      $snippet = json_decode($paragraph->get('field_article_unpublished_json')->getString(), TRUE);
     }
-    else {
-      if ($paragraph->get('field_article_published_json')->getValue()) {
-        return json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
-      }
-      else {
-        return FALSE;
-      }
+    else if ($paragraph->get('field_article_published_json')->getValue()) {
+      $snippet = json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
     }
+
+    // This is a temporary fix until social image isn't included in the article store snippet.
+    if (!empty($snippet) && !empty($snippet['image']) && empty($snippet['image']['thumbnail'])) {
+      unset($snippet['image']);
+    }
+
+    return !empty($snippet) ? $snippet : FALSE;
   }
 
 }
