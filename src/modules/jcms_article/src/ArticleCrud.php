@@ -197,7 +197,7 @@ class ArticleCrud {
       $snippet = json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
     }
 
-    // This is a temporary fix until social image isn't included in the article store snippet.
+    // Remove all but the thumbnail image from article snippet.
     if (!empty($snippet) && !empty($snippet['image']) && empty($snippet['image']['thumbnail'])) {
       unset($snippet['image']);
     }
