@@ -193,7 +193,7 @@ class ArticleCrud {
     if ($preview) {
       $snippet = json_decode($paragraph->get('field_article_unpublished_json')->getString(), TRUE);
     }
-    else if ($paragraph->get('field_article_published_json')->getValue()) {
+    elseif ($paragraph->get('field_article_published_json')->getValue()) {
       $snippet = json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
     }
 
