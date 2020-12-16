@@ -50,6 +50,19 @@ services:
         networks:
             - internal
 
+    web:
+        build:
+            context: .
+            dockerfile: Dockerfile.web
+        image: elifesciences/journal-cms-web
+        ports:
+            - 5001:80
+        depends_on:
+            - configure
+        networks:
+            - internal
+            - external
+
 networks:
     external:
         driver: bridge
