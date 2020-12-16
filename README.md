@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/elifesciences/journal-cms.svg?branch=develop)](https://travis-ci.org/elifesciences/journal-cms)
+# eLife Journal CMS
+
+[![Build Status](http://ci--alfred.elifesciences.org/buildStatus/icon?job=test-journal-cms)](http://ci--alfred.elifesciences.org/job/test-journal-cms/)
 
 ## Preparation
 
@@ -6,7 +8,6 @@ Ensure the you have the following installed:
 
 - VirtualBox
 - Vagrant
-- Ansible
 - Hostupdater (`vagrant plugin install vagrant-hostsupdater`)
 - Composer
 

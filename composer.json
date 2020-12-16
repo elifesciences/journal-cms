@@ -383,7 +383,7 @@
     },
     "patches": {
       "drupal/core": {
-        "Composer-friendly patches for filename sanitation while #2492171 awaits #3032390 (3094052)": "https://www.drupal.org/files/issues/2019-12-08/3094052-2.patch",
+        "Composer-friendly patches for filename sanitation while #2492171 awaits #3032390 (3094052)": "https://www.drupal.org/files/issues/2020-11-19/3094052-9.patch",
         "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/2020-08-20/273595-166.patch",
         "Temporary fix for \\Drupal\\Core\\Field\\FieldItemList::generateSampleItems (2905527)": "src/patches/2905527-temporary-fix-generate-sample-items.patch"
       },
@@ -404,9 +404,6 @@
       },
       "embed/embed": {
         "Add twitter adapter to prevent errors on 429 status code": "https://github.com/denniszon/Embed/commit/56fc5273c02971ade656991dc9173b01753a07d9.patch"
-      },
-      "geerlingguy/drupal-vm": {
-        "Fix php 7.4 not purged on debian": "https://github.com/oxyc/drupal-vm/commit/cec3dd6487a7ab5f2b1d315044e512b3695070d1.patch"
       }
     }
   }

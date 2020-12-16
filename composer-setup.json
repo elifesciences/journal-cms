@@ -1,13 +1,5 @@
 {
   "require": {
-    "geerlingguy/drupal-vm": "6.0.0",
-    "cweagans/composer-patches": "1.6.7"
-  },
-  "extra": {
-    "patches": {
-      "geerlingguy/drupal-vm": {
-        "Fix php 7.4 not purged on debian": "https://github.com/oxyc/drupal-vm/commit/cec3dd6487a7ab5f2b1d315044e512b3695070d1.patch"
-      }
-    }
+    "geerlingguy/drupal-vm": "^6.0"
   }
 }
