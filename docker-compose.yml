@@ -54,7 +54,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.web
-        image: elifesciences/journal-cms-web
+        image: elifesciences/journal-cms_web
         ports:
             - 5001:80
         depends_on:
