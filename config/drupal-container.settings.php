@@ -48,9 +48,9 @@ if (class_exists(\Composer\Autoload\ClassLoader::class)) {
   ];
 }
 
-  $settings['redis.connection']['interface'] = 'PhpRedis';
-  $settings['redis.connection']['host'] = 'redis';
-  $settings['redis.connection']['port'] = '6379';
+$settings['redis.connection']['interface'] = 'PhpRedis';
+$settings['redis.connection']['host'] = 'redis';
+$settings['redis.connection']['port'] = '6379';
 
 if (!drupal_installation_attempted()) {
   $settings['cache']['default'] = 'cache.backend.redis';
