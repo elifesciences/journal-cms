@@ -12,8 +12,7 @@ $databases['default']['default'] = [
 ];
 
 $settings['trusted_host_patterns'] = [
-  '^journal\-cms\.local$',
-  '^[a-z0-9\-]+\.vagrantshare\.com$',
+  '^localhost$',
 ];
   
 if (class_exists(\Composer\Autoload\ClassLoader::class)) {
