@@ -1,5 +1,7 @@
+ARG image_tag=latest
 FROM elifesciences/journal-cms AS app
 FROM nginx:1.13.12-alpine
 
 COPY config/nginx-default.conf /etc/nginx/conf.d/default.conf
+COPY --from=app /srv/journal-cms/src/ /srv/journal-cms/src/
 COPY --from=app /srv/journal-cms/web/ /srv/journal-cms/web/
