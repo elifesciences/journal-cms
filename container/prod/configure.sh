@@ -16,7 +16,7 @@ fi
 
 if ! $site_installed; then
     ../vendor/bin/drush site-install config_installer -y
-    redis-cli flushall
+    redis-cli -h redis flushall
 fi
 
 ../vendor/bin/drush updatedb -y
