@@ -56,6 +56,26 @@ final class QueueService {
   }
 
   /**
+   * Prepare a message as if from SQS.
+   *
+   * @throws \Exception
+   */
+  public function prepareMessage(string $id, string $type = 'article') {
+    return $this->mapSqsMessage(
+      [
+        [
+          'MessageId' => sprintf('%s:%s', $type, $id),
+          'Body' => json_encode([
+            'id' => $id,
+            'type' => $type,
+          ]),
+          'ReceiptHandle' => sprintf('receipt:%s:%s', $type, $id),
+        ],
+      ]
+    );
+  }
+
+  /**
    * Gets the article data from SQS.
    *
    * @return \Drupal\jcms_notifications\Queue\SqsMessage|null

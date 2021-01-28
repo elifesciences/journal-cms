@@ -27,6 +27,18 @@ function jcms_notifications_drush_command() {
       'drush article-import' => 'Import articles from Lax and return a message when finished.',
     ],
   ];
+  $items['message-import-force'] = [
+    'description' => 'Imports items from Lax and digests via input.',
+    'drupal dependencies' => ['jcms_notifications'],
+    'arguments' => [
+      'id' => 'ID of article or digest.',
+      'type' => 'article or digest.',
+    ],
+    'examples' => [
+      'drush message-import-force 00288 article' => 'Retrieve the current snippet for article 00288.',
+      'drush message-import-force 00288 digest' => 'Retrieve the current snippet for digest 00288.',
+    ],
+  ];
   $items['message-import'] = [
     'description' => 'Imports items from Lax and digests via SQS.',
     'drupal dependencies' => ['jcms_notifications'],
@@ -228,6 +240,53 @@ function drush_jcms_notifications_article_metrics_import_all() {
  */
 function drush_jcms_notifications_article_import($lrp = FALSE) {
   drush_jcms_notifications_message_import($lrp);
+}
+
+/**
+ * Callback function drush_jcms_notifications_message_import_force().
+ */
+function drush_jcms_notifications_message_import_force(string $id, string $type = 'article') {
+  $logger = \Drupal::logger('jcms_message_import');
+  $queue_service = \Drupal::service('jcms_notifications.queue_service');
+  $article_service = \Drupal::service('jcms_article.fetch_article_versions');
+  $digest_service = \Drupal::service('jcms_digest.fetch_digest');
+  $article_crud_service = \Drupal::service('jcms_article.article_crud');
+  $digest_crud_service = \Drupal::service('jcms_digest.digest_crud');
+  $message = $queue_service->prepareMessage($id, $type);
+  $logger->info('Prepared message', ['message' => $message->getMessage()]);
+
+  try {
+    switch ($message->getType()) {
+      case 'article':
+        $articleVersions = $article_service->getArticleVersions($message->getId());
+        $article_crud_service->crudArticle($articleVersions);
+        $logger->info('Article snippet updated', ['message' => $message->getMessage()]);
+        drush_print(dt('Article snippet updated (!id)', [
+          '!id' => $message->getId(),
+        ]));
+        break;
+
+      case 'digest':
+        $digest = $digest_service->getDigestById($message->getId());
+        $digest_crud_service->crudDigest($digest);
+        $logger->info('Digest snippet updated', ['message' => $message->getMessage()]);
+        drush_print(dt('Digest snippet updated (!id)', [
+          '!id' => $message->getId(),
+        ]));
+        break;
+    }
+    $logger->info('Processed message', ['message_id' => $message->getMessageId()]);
+  }
+  catch (Exception $e) {
+    $e_message = "Message: {$e->getMessage()}\n";
+    $e_line = "Line: {$e->getLine()}\n";
+    $e_trace = "Trace: {$e->getTraceAsString()}\n";
+    $error = $e_message . $e_line . $e_trace;
+    error_log($error);
+    if (!$e instanceof RequestException) {
+      throw $e;
+    }
+  }
 }
 
 /**
