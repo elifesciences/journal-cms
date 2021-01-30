@@ -362,17 +362,24 @@ function drush_jcms_notifications_message_import($lrp = FALSE) {
           case 'metrics':
             // Process article views-downloads metrics sqs items.
             $body = $message->getMessage();
-            if ($body['contentType'] == 'article' && $body['metric'] == 'views-downloads') {
-              $articleVersions = $article_service->getArticleVersions($id);
-              if ($articleVersions->getAction() == ArticleVersions::WRITE) {
-                // Make sure article has been created.
-                $node = $article_crud_service->crudArticle($articleVersions);
+            if ($body['contentType'] === 'article' && $body['metric'] === 'views-downloads' && $nid = $article_crud_service->getNodeIdByArticleId($id)) {
+              $node = Node::load($nid);
+              $logger->info('Logging', ['nid' => $node->id()]);
+              $pageViews = NULL;
+              if (isset($body['totalViews'])) {
+                $pageViews = $body['totalViews'];
+              }
+              else {
                 $metrics = $metrics_service->getArticleMetrics($id);
                 if ((int) $node->get('field_page_views')->getString() != $metrics->getPageViews()) {
-                  $logger->info('Adjusted metrics', ['id' => $id, 'metrics' => $metrics->getPageViews()]);
-                  $node->set('field_page_views', $metrics->getPageViews());
-                  $node->save();
+                  $pageViews = $metrics->getPageViews();
                 }
+              }
+
+              if ($pageViews) {
+                $logger->info('Adjusted metrics - wtf', ['id' => $id, 'metrics' => $pageViews]);
+                $node->set('field_page_views', $pageViews);
+                $node->save();
               }
             }
             break;
