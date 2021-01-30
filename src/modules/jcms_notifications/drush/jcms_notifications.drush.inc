@@ -50,6 +50,14 @@ function jcms_notifications_drush_command() {
       'drush message-import' => 'Import items from Lax and digest and return a message when finished.',
     ],
   ];
+  $items['create-sqs-message'] = [
+    'description' => 'Create an SQS message.',
+    'drupal dependencies' => ['jcms_notifications'],
+    'arguments' => [
+      'id' => 'ID of article or digest.',
+      'type' => 'article or digest.',
+    ],
+  ];
   $items['article-import-all'] = [
     'description' => 'Imports all articles from Lax.',
     'options' => [
@@ -185,6 +193,18 @@ function drush_jcms_notifications_digest_import_all() {
       '!seconds' => round($time % 60),
     ]));
   }
+}
+
+/**
+ * Callback function drush_jcms_notifications_create_sqs_message().
+ */
+function drush_jcms_notifications_create_sqs_message(string $id, string $type = 'article') {
+  $queue_service = \Drupal::service('jcms_notifications.queue_service');
+  $message = $queue_service->prepareMessage($id, $type);
+  $queue_service->sendMessage($message);
+  drush_print(dt('SQS message created: !message', [
+    '!message' => json_encode($message->getMessage()),
+  ]));
 }
 
 /**
