@@ -5,7 +5,6 @@
  * Drush commands for the module.
  */
 
-use Drupal\jcms_article\Entity\ArticleVersions;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use GuzzleHttp\Exception\RequestException;
