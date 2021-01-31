@@ -205,4 +205,24 @@ class ArticleCrud {
     return !empty($snippet) ? $snippet : FALSE;
   }
 
+  /**
+   * Get ArticleVersions from node.
+   */
+  public function getNodeArticleVersions(EntityInterface $node) {
+    $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
+    $paragraph = Paragraph::load($pid);
+    $versions = [];
+    if ($paragraph->get('field_article_published_json')->getValue()) {
+      $versions[] = json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
+    }
+    if ($paragraph->get('field_article_unpublished_json')->getValue()) {
+      $preview = json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
+      if ($preview['stage'] === 'preview') {
+        $versions[] = $preview;
+      }
+    }
+
+    return new ArticleVersions($node->label(), json_encode(['versions' => $versions]));
+  }
+
 }
