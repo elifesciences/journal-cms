@@ -52,7 +52,7 @@ function jcms_digest_node_presave(NodeInterface $node) {
 
   if (empty($admin_ui) || $node->isNew()) {
     if (!($digest instanceof Digest)) {
-      $digest = $node_presave->getDigestById($id);
+      $digest = \Drupal::service('jcms_digest.digest_crud')->getNodeDigest($node);
     }
     $node_presave->setPublishedStatus($node, $digest);
     $node_presave->setPublishedDate($node, $digest);
