@@ -217,7 +217,7 @@ class ArticleCrud {
       $versions[] = $published;
     }
 
-    if ($preview && (!$published || ($published && $published['version'] !== $preview['version']))) {
+    if ($preview && (!$published || ($published && $published['stage'] !== $preview['stage']))) {
       $versions[] = $preview;
     }
 
