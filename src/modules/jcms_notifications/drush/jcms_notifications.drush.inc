@@ -376,7 +376,7 @@ function drush_jcms_notifications_message_import($lrp = FALSE) {
               }
 
               if ($pageViews) {
-                $logger->info('Adjusted metrics - wtf', ['id' => $id, 'metrics' => $pageViews]);
+                $logger->info('Adjusted metrics', ['id' => $id, 'metrics' => $pageViews]);
                 $node->set('field_page_views', $pageViews);
                 $node->save();
               }
