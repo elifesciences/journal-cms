@@ -209,17 +209,16 @@ class ArticleCrud {
    * Get ArticleVersions from node.
    */
   public function getNodeArticleVersions(EntityInterface $node) {
-    $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
-    $paragraph = Paragraph::load($pid);
     $versions = [];
-    if ($paragraph->get('field_article_published_json')->getValue()) {
-      $versions[] = json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
+    $published = $this->getArticle($node, FALSE);
+    $preview = $this->getArticle($node, TRUE);
+
+    if ($published) {
+      $versions[] = $published;
     }
-    if ($paragraph->get('field_article_unpublished_json')->getValue()) {
-      $preview = json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
-      if ($preview['stage'] === 'preview') {
-        $versions[] = $preview;
-      }
+
+    if ($preview && (!$published || ($published && $published['version'] !== $preview['version']))) {
+      $versions[] = $preview;
     }
 
     return new ArticleVersions($node->label(), json_encode(['versions' => $versions]));
