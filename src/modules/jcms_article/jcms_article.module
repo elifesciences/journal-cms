@@ -72,6 +72,7 @@ function jcms_article_node_presave(NodeInterface $node) {
 
   if (empty($admin_ui) || $node->isNew()) {
     if (!($article instanceof ArticleVersions)) {
+      // Retrieve article versions json from database.
       $article = \Drupal::service('jcms_article.article_crud')->getNodeArticleVersions($node);
     }
     $node_presave->setPublishedStatus($node, $article);
