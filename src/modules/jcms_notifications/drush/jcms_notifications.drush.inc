@@ -363,19 +363,9 @@ function drush_jcms_notifications_message_import($lrp = FALSE) {
             $body = $message->getMessage();
             if ($body['contentType'] === 'article' && $body['metric'] === 'views-downloads' && $nid = $article_crud_service->getNodeIdByArticleId($id)) {
               $node = Node::load($nid);
-              $logger->info('Logging', ['nid' => $node->id()]);
-              $pageViews = NULL;
-              if (isset($body['totalViews'])) {
-                $pageViews = $body['totalViews'];
-              }
-              else {
-                $metrics = $metrics_service->getArticleMetrics($id);
-                if ((int) $node->get('field_page_views')->getString() != $metrics->getPageViews()) {
-                  $pageViews = $metrics->getPageViews();
-                }
-              }
-
-              if ($pageViews) {
+              $metrics = $metrics_service->getArticleMetrics($id);
+              if ((int) $node->get('field_page_views')->getString() != $metrics->getPageViews()) {
+                $pageViews = $metrics->getPageViews();
                 $logger->info('Adjusted metrics', ['id' => $id, 'metrics' => $pageViews]);
                 $node->set('field_page_views', $pageViews);
                 $node->save();
