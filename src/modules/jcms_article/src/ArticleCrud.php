@@ -205,23 +205,4 @@ class ArticleCrud {
     return !empty($snippet) ? $snippet : FALSE;
   }
 
-  /**
-   * Get ArticleVersions from node.
-   */
-  public function getNodeArticleVersions(EntityInterface $node) {
-    $versions = [];
-    $published = $this->getArticle($node, FALSE);
-    $preview = $this->getArticle($node, TRUE);
-
-    if ($published) {
-      $versions[] = $published;
-    }
-
-    if ($preview && (!$published || ($published && $published['stage'] !== $preview['stage']))) {
-      $versions[] = $preview;
-    }
-
-    return new ArticleVersions($node->label(), json_encode(['versions' => $versions]));
-  }
-
 }

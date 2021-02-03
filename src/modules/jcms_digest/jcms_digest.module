@@ -23,9 +23,6 @@ function jcms_digest_node_presave(NodeInterface $node) {
 
   $id = $node->get('field_digest_id')->getString();
 
-  $digest = FALSE;
-  $forceAddJson = FALSE;
-
   // Detect if a sample digest has been generated.
   if (!preg_match('/^[0-9]{5,}$/', $id)) {
     $id = _jcms_article_entity_title_unique($node, 'digest');
@@ -37,12 +34,13 @@ function jcms_digest_node_presave(NodeInterface $node) {
     $digest->generateSampleJson();
     $forceAddJson = TRUE;
   }
+  else {
+    $digest = $node_presave->getDigestById($id);
+    $forceAddJson = FALSE;
+  }
 
   // Only update the Json field in admin UI if the node is new.
   if ($forceAddJson || (!empty($admin_ui) && $node->isNew())) {
-    if (!($digest instanceof Digest)) {
-      $digest = $node_presave->getDigestById($id);
-    }
     $node->set('field_digest_json', [
       [
         'value' => $digest->getJson(),
@@ -51,10 +49,6 @@ function jcms_digest_node_presave(NodeInterface $node) {
   }
 
   if (empty($admin_ui) || $node->isNew()) {
-    if (!($digest instanceof Digest)) {
-      // Retrieve digest json from database.
-      $digest = \Drupal::service('jcms_digest.digest_crud')->getNodeDigest($node);
-    }
     $node_presave->setPublishedStatus($node, $digest);
     $node_presave->setPublishedDate($node, $digest);
     $node_presave->setUpdatedDate($node, $digest);

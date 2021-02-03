@@ -5,6 +5,7 @@
  * Drush commands for the module.
  */
 
+use Drupal\jcms_article\Entity\ArticleVersions;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use GuzzleHttp\Exception\RequestException;
@@ -47,14 +48,6 @@ function jcms_notifications_drush_command() {
     'examples' => [
       'drush message-import 1' => 'Import items from Lax and digest as a long running process.',
       'drush message-import' => 'Import items from Lax and digest and return a message when finished.',
-    ],
-  ];
-  $items['create-sqs-message'] = [
-    'description' => 'Create an SQS message.',
-    'drupal dependencies' => ['jcms_notifications'],
-    'arguments' => [
-      'id' => 'ID of article or digest.',
-      'type' => 'article or digest.',
     ],
   ];
   $items['article-import-all'] = [
@@ -192,18 +185,6 @@ function drush_jcms_notifications_digest_import_all() {
       '!seconds' => round($time % 60),
     ]));
   }
-}
-
-/**
- * Callback function drush_jcms_notifications_create_sqs_message().
- */
-function drush_jcms_notifications_create_sqs_message(string $id, string $type = 'article') {
-  $queue_service = \Drupal::service('jcms_notifications.queue_service');
-  $message = $queue_service->prepareMessage($id, $type);
-  $queue_service->sendMessage($message);
-  drush_print(dt('SQS message created: !message', [
-    '!message' => json_encode($message->getMessage()),
-  ]));
 }
 
 /**
@@ -361,14 +342,17 @@ function drush_jcms_notifications_message_import($lrp = FALSE) {
           case 'metrics':
             // Process article views-downloads metrics sqs items.
             $body = $message->getMessage();
-            if ($body['contentType'] === 'article' && $body['metric'] === 'views-downloads' && $nid = $article_crud_service->getNodeIdByArticleId($id)) {
-              $node = Node::load($nid);
-              $metrics = $metrics_service->getArticleMetrics($id);
-              if ((int) $node->get('field_page_views')->getString() != $metrics->getPageViews()) {
-                $pageViews = $metrics->getPageViews();
-                $logger->info('Adjusted metrics', ['id' => $id, 'metrics' => $pageViews]);
-                $node->set('field_page_views', $pageViews);
-                $node->save();
+            if ($body['contentType'] == 'article' && $body['metric'] == 'views-downloads') {
+              $articleVersions = $article_service->getArticleVersions($id);
+              if ($articleVersions->getAction() == ArticleVersions::WRITE) {
+                // Make sure article has been created.
+                $node = $article_crud_service->crudArticle($articleVersions);
+                $metrics = $metrics_service->getArticleMetrics($id);
+                if ((int) $node->get('field_page_views')->getString() != $metrics->getPageViews()) {
+                  $logger->info('Adjusted metrics', ['id' => $id, 'metrics' => $metrics->getPageViews()]);
+                  $node->set('field_page_views', $metrics->getPageViews());
+                  $node->save();
+                }
               }
             }
             break;
