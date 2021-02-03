@@ -50,31 +50,25 @@ function jcms_article_node_presave(NodeInterface $node) {
     }
   }
 
-  $article = NULL;
-  $forceAddJson = FALSE;
-
-  // Detect if a sample article has been generated.
+  // Detect if a sample article has be generated.
   if (!preg_match('/^[0-9]{5,}$/', $node->label())) {
     $node->set('title', _jcms_article_entity_title_unique($node));
     $article = new ArticleVersions($node->label(), '');
     $article->generateSampleJson();
     $forceAddJson = TRUE;
   }
+  else {
+    // @todo - elife - nlisgo - Ensure we're not requesting in ArticleCrud and here.
+    $article = $node_presave->getArticleById($node->label());
+    $forceAddJson = FALSE;
+  }
 
   // Only update the Json fields in admin UI if the node is new.
   if ($forceAddJson || !empty($node->migration) || (!empty($admin_ui) && $node->isNew())) {
-    if (!($article instanceof ArticleVersions)) {
-      // @todo - elife - nlisgo - Ensure we're not requesting in ArticleCrud and here.
-      $article = $node_presave->getArticleById($node->label());
-    }
     $node_presave->addJsonFields($node, $article);
   }
 
   if (empty($admin_ui) || $node->isNew()) {
-    if (!($article instanceof ArticleVersions)) {
-      // Retrieve article versions json from database.
-      $article = \Drupal::service('jcms_article.article_crud')->getNodeArticleVersions($node);
-    }
     $node_presave->setPublishedStatus($node, $article);
     $node_presave->setStatusDate($node, $article);
     $node_presave->setPublishedDate($node, $article);

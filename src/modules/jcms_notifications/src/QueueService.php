@@ -65,12 +65,10 @@ final class QueueService {
       [
         [
           'MessageId' => sprintf('%s:%s', $type, $id),
-          'Body' => json_encode(array_filter([
+          'Body' => json_encode([
             'id' => $id,
             'type' => $type,
-            'contentType' => 'metrics' === $type ? 'article' : NULL,
-            'metric' => 'metrics' === $type ? 'views-downloads' : NULL,
-          ])),
+          ]),
           'ReceiptHandle' => sprintf('receipt:%s:%s', $type, $id),
         ],
       ]
@@ -109,17 +107,6 @@ final class QueueService {
     return $this->sqsClient->deleteMessage([
       'QueueUrl' => $queue['QueueUrl'],
       'ReceiptHandle' => $sqsMessage->getReceipt(),
-    ]);
-  }
-
-  /**
-   * Send a message to the queue.
-   */
-  public function sendMessage(SqsMessage $sqsMessage) : Result {
-    $queue = $this->getQueue();
-    return $this->sqsClient->sendMessage([
-      'QueueUrl' => $queue['QueueUrl'],
-      'MessageBody' => json_encode($sqsMessage->getMessage()),
     ]);
   }
 

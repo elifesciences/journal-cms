@@ -139,12 +139,4 @@ class DigestCrud {
     }
   }
 
-  /**
-   * Get Digest from node.
-   */
-  public function getNodeDigest(EntityInterface $node) {
-    $json = $node->get('field_digest_json')->getString();
-    return new Digest(json_decode($json)->id, $json);
-  }
-
 }
