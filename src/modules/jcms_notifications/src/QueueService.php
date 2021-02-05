@@ -56,6 +56,28 @@ final class QueueService {
   }
 
   /**
+   * Prepare a message as if from SQS.
+   *
+   * @throws \Exception
+   */
+  public function prepareMessage(string $id, string $type = 'article') {
+    return $this->mapSqsMessage(
+      [
+        [
+          'MessageId' => sprintf('%s:%s', $type, $id),
+          'Body' => json_encode(array_filter([
+            'id' => $id,
+            'type' => $type,
+            'contentType' => 'metrics' === $type ? 'article' : NULL,
+            'metric' => 'metrics' === $type ? 'views-downloads' : NULL,
+          ])),
+          'ReceiptHandle' => sprintf('receipt:%s:%s', $type, $id),
+        ],
+      ]
+    );
+  }
+
+  /**
    * Gets the article data from SQS.
    *
    * @return \Drupal\jcms_notifications\Queue\SqsMessage|null
@@ -87,6 +109,17 @@ final class QueueService {
     return $this->sqsClient->deleteMessage([
       'QueueUrl' => $queue['QueueUrl'],
       'ReceiptHandle' => $sqsMessage->getReceipt(),
+    ]);
+  }
+
+  /**
+   * Send a message to the queue.
+   */
+  public function sendMessage(SqsMessage $sqsMessage) : Result {
+    $queue = $this->getQueue();
+    return $this->sqsClient->sendMessage([
+      'QueueUrl' => $queue['QueueUrl'],
+      'MessageBody' => json_encode($sqsMessage->getMessage()),
     ]);
   }
 
