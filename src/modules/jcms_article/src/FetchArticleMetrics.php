@@ -6,6 +6,7 @@ use Drupal\jcms_article\Entity\ArticleMetrics;
 use GuzzleHttp\Client;
 use Drupal\Core\Site\Settings;
 use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Psr7\Message;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -93,7 +94,7 @@ final class FetchArticleMetrics {
       \Drupal::logger('jcms_article')
         ->notice(
           'Article metrics have been requested @url with the response: @response',
-          ['@url' => $url, '@response' => \GuzzleHttp\Psr7\str($response)]
+          ['@url' => $url, '@response' => Message::toString($response)]
         );
       return $response;
     }
@@ -102,7 +103,7 @@ final class FetchArticleMetrics {
         \Drupal::logger('jcms_article')
           ->notice(
             'Article metrics have been requested but not found @url with the response: @response',
-            ['@url' => $url, '@response' => \GuzzleHttp\Psr7\str($exception->getResponse())]
+            ['@url' => $url, '@response' => Message::toString($exception->getResponse())]
           );
         return $exception->getResponse();
       }
