@@ -5,6 +5,7 @@ namespace Drupal\jcms_digest;
 use Drupal\Core\Site\Settings;
 use Drupal\jcms_digest\Entity\Digest;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Message;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -73,8 +74,14 @@ class FetchDigest {
         'Authorization' => $auth,
       ];
     }
-    $response = $this->client->get(Settings::get('jcms_all_digests_endpoint') . '/' . $id, $options);
+    $url = Settings::get('jcms_all_digests_endpoint') . '/' . $id;
+    $response = $this->client->get($url, $options);
     if ($response instanceof ResponseInterface) {
+      \Drupal::logger('jcms_digest')
+        ->notice(
+          'Digest has been requested @url with the response: @response',
+          ['@url' => $url, '@response' => Message::toString($response)]
+        );
       return $response;
     }
     throw new \TypeError('Network connection interrupted on request.');
