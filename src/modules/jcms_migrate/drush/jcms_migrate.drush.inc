@@ -261,7 +261,7 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
  * Callback function drush_jcms_migrate_paragraphs_revisions_purge().
  */
 function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
-  $logger = \Drupal::logger('jcms_message_import');
+  $logger = \Drupal::logger('jcms_revisions_purge');
   $limit = drush_get_option('limit') ? (int) drush_get_option('limit') : 0;
   $feedback_frequency = drush_get_option('feedback') ? (int) drush_get_option('feedback') : 100;
 
@@ -347,7 +347,7 @@ function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
  * Callback function drush_jcms_migrate_paragraphs_revisions_optimise().
  */
 function drush_jcms_migrate_paragraphs_revisions_optimise() {
-  $logger = \Drupal::logger('jcms_message_import');
+  $logger = \Drupal::logger('jcms_revisions_optimise');
   drush_print(dt('Optimise paragraph revision tables.'));
   $logger->info('Optimise paragraph revision tables.');
   $table_list = Database::getConnection()->query("SHOW TABLES LIKE 'paragraph_r%'")->fetchCol();
