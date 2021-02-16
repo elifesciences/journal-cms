@@ -22,6 +22,9 @@ function jcms_digest_node_presave(NodeInterface $node) {
   $admin_ui = _jcms_admin_static_store('node_digest_form_admin_ui');
 
   $id = $node->get('field_digest_id')->getString();
+  $digest = FALSE;
+
+  $crud_service = \Drupal::service('jcms_digest.digest_crud');
 
   // Detect if a sample digest has been generated.
   if (!preg_match('/^[0-9]{5,}$/', $id)) {
@@ -34,18 +37,24 @@ function jcms_digest_node_presave(NodeInterface $node) {
     $digest->generateSampleJson();
     $forceAddJson = TRUE;
   }
-  else {
+  elseif (!$node->get('field_digest_json')->getValue()) {
+    // Only get digest if we haven't stored a value already.
     $digest = $node_presave->getDigestById($id);
     $forceAddJson = FALSE;
   }
 
-  // Only update the Json field in admin UI if the node is new.
-  if ($forceAddJson || (!empty($admin_ui) && $node->isNew())) {
-    $node->set('field_digest_json', [
-      [
-        'value' => $digest->getJson(),
-      ],
-    ]);
+  if ($digest instanceof Digest) {
+    // Only update the Json field in admin UI if the node is new.
+    if ($forceAddJson || (!empty($admin_ui) && $node->isNew())) {
+      $node->set('field_digest_json', [
+        [
+          'value' => $digest->getJson(),
+        ],
+      ]);
+    }
+  }
+  else {
+    $digest = $crud_service->getNodeDigest($node);
   }
 
   if (empty($admin_ui) || $node->isNew()) {
