@@ -39,6 +39,7 @@ function jcms_article_node_presave(NodeInterface $node) {
   }
 
   $admin_ui = _jcms_admin_static_store('node_article_form_admin_ui');
+  $article = FALSE;
 
   // Only post to the fragmentApi if article node was saved in the admin UI.
   if (!empty($admin_ui)) {
@@ -50,6 +51,8 @@ function jcms_article_node_presave(NodeInterface $node) {
     }
   }
 
+  $crud_service = \Drupal::service('jcms_article.article_crud');
+
   // Detect if a sample article has be generated.
   if (!preg_match('/^[0-9]{5,}$/', $node->label())) {
     $node->set('title', _jcms_article_entity_title_unique($node));
@@ -57,15 +60,20 @@ function jcms_article_node_presave(NodeInterface $node) {
     $article->generateSampleJson();
     $forceAddJson = TRUE;
   }
-  else {
+  elseif (!$crud_service->getArticle($node, FALSE)) {
     // @todo - elife - nlisgo - Ensure we're not requesting in ArticleCrud and here.
     $article = $node_presave->getArticleById($node->label());
     $forceAddJson = FALSE;
   }
 
-  // Only update the Json fields in admin UI if the node is new.
-  if ($forceAddJson || !empty($node->migration) || (!empty($admin_ui) && $node->isNew())) {
-    $node_presave->addJsonFields($node, $article);
+  if ($article instanceof ArticleVersions) {
+    // Only update the Json fields in admin UI if the node is new.
+    if ($forceAddJson || !empty($node->migration) || (!empty($admin_ui) && $node->isNew())) {
+      $node_presave->addJsonFields($node, $article);
+    }
+  }
+  else {
+    $article = $crud_service->getNodeArticleVersions($node);
   }
 
   if (empty($admin_ui) || $node->isNew()) {
