@@ -60,7 +60,7 @@ function jcms_article_node_presave(NodeInterface $node) {
     $article->generateSampleJson();
     $forceAddJson = TRUE;
   }
-  else if (!$crud_service->getArticle($node, FALSE)) {
+  elseif (!$crud_service->getArticle($node, FALSE)) {
     // @todo - elife - nlisgo - Ensure we're not requesting in ArticleCrud and here.
     $article = $node_presave->getArticleById($node->label());
     $forceAddJson = FALSE;
