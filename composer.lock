@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0afdc36f0c8243dc79948108ae9756f6",
+    "content-hash": "49cc3f703eb63938836a5857cf04f78d",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5035,16 +5035,16 @@
         },
         {
             "name": "elife/api",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "ed40f6ecdffc11ebeb11d4387c09399ae27edce2"
+                "reference": "b306396174371caa5e13d0dd74fa6012b38f3462"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/ed40f6ecdffc11ebeb11d4387c09399ae27edce2",
-                "reference": "ed40f6ecdffc11ebeb11d4387c09399ae27edce2",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/b306396174371caa5e13d0dd74fa6012b38f3462",
+                "reference": "b306396174371caa5e13d0dd74fa6012b38f3462",
                 "shasum": ""
             },
             "conflict": {
@@ -5056,7 +5056,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API specification",
-            "time": "2021-02-25T17:35:35+00:00"
+            "time": "2021-03-04T08:16:22+00:00"
         },
         {
             "name": "elife/api-client",
@@ -5117,16 +5117,16 @@
         },
         {
             "name": "elife/api-sdk",
-            "version": "dev-reference-journal-without-pages",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-sdk-php.git",
-                "reference": "71a12df4f0a09891030da1b417e3f568050f79dc"
+                "reference": "8c582e68c383c64e505fdbfaf282f4e0d1e8f036"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-sdk-php/zipball/71a12df4f0a09891030da1b417e3f568050f79dc",
-                "reference": "71a12df4f0a09891030da1b417e3f568050f79dc",
+                "url": "https://api.github.com/repos/elifesciences/api-sdk-php/zipball/8c582e68c383c64e505fdbfaf282f4e0d1e8f036",
+                "reference": "8c582e68c383c64e505fdbfaf282f4e0d1e8f036",
                 "shasum": ""
             },
             "require": {
@@ -5167,7 +5167,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences API SDK",
-            "time": "2021-03-01T13:52:55+00:00"
+            "time": "2021-03-02T18:09:19+00:00"
         },
         {
             "name": "elife/api-validator",
@@ -5216,22 +5216,22 @@
         },
         {
             "name": "elife/bus-sdk",
-            "version": "dev-reference-journal-without-pages",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/bus-sdk-php.git",
-                "reference": "cfddd594453fb37db9d02d784a63b2cf634136e2"
+                "reference": "7be1eac38aa3a39f5773b44db442de4be1206dce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/bus-sdk-php/zipball/cfddd594453fb37db9d02d784a63b2cf634136e2",
-                "reference": "cfddd594453fb37db9d02d784a63b2cf634136e2",
+                "url": "https://api.github.com/repos/elifesciences/bus-sdk-php/zipball/7be1eac38aa3a39f5773b44db442de4be1206dce",
+                "reference": "7be1eac38aa3a39f5773b44db442de4be1206dce",
                 "shasum": ""
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "doctrine/cache": "^1.6",
-                "elife/api-sdk": "dev-reference-journal-without-pages",
+                "elife/api-sdk": "^1.0",
                 "elife/logging-sdk": "^1.0",
                 "jms/serializer": "^1.4",
                 "php": "^7.0",
@@ -5264,7 +5264,7 @@
                 "MIT"
             ],
             "description": "eLife Sciences Bus SDK",
-            "time": "2021-03-01T17:24:01+00:00"
+            "time": "2021-02-16T14:20:23+00:00"
         },
         {
             "name": "elife/logging-sdk",
@@ -13028,13 +13028,14 @@
         "drupal/entity_reference_revisions": 20,
         "drupal/restui": 20,
         "drupal/address": 5,
+        "elife/bus-sdk": 20,
         "drupal/field_validation": 15,
         "drupal/diff": 5,
         "drupal/monolog": 15,
         "drupal/country": 10,
         "drupal/entity_reference_unpublished": 15,
         "elife/api-validator": 20,
-        "elife/bus-sdk": 20
+        "elife/api-sdk": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
