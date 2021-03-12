@@ -31,11 +31,22 @@ class FragmentApi {
   }
 
   /**
+   * Availability check.
+   */
+  public function available() {
+    return !is_null(Settings::get('jcms_article_fragments_endpoint'));
+  }
+
+  /**
    * Post a fragment to the article store.
    *
    * @throws Exception
    */
   public function postFragment(string $articleId, string $fragmentId, string $payload) {
+    if (!$this->available()) {
+      throw new FragmentApiUnavailable();
+    }
+
     $endpoint = $this->endpointFullPath($articleId, $fragmentId);
     $options = [
       'body' => $payload,
@@ -60,7 +71,7 @@ class FragmentApi {
       );
 
     if ($response->getStatusCode() !== Response::HTTP_OK) {
-      throw new Exception('Fragment API post could not be performed.');
+      throw new FragmentApiUpdateFailure('Fragment API post could not be performed.');
     }
 
     return $response;
@@ -72,6 +83,10 @@ class FragmentApi {
    * @throws Exception
    */
   public function deleteFragment(string $articleId, string $fragmentId) : ResponseInterface {
+    if (!$this->available()) {
+      throw new FragmentApiUnavailable();
+    }
+
     $endpoint = $this->endpointFullPath($articleId, $fragmentId);
     $options = [
       'headers' => [
@@ -96,7 +111,7 @@ class FragmentApi {
       );
 
     if (!in_array($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_FOUND])) {
-      throw new Exception('Fragment API delete could not be performed.');
+      throw new FragmentApiUpdateFailure('Fragment API delete could not be performed.');
     }
 
     return $response;

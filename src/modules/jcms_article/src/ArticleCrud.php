@@ -187,19 +187,21 @@ class ArticleCrud {
    *   Return article snippet, if found.
    */
   public function getArticle(EntityInterface $node, bool $preview = FALSE) {
-    $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
-    $paragraph = Paragraph::load($pid);
     $snippet = [];
-    if ($preview) {
-      $snippet = json_decode($paragraph->get('field_article_unpublished_json')->getString(), TRUE);
-    }
-    elseif ($paragraph->get('field_article_published_json')->getValue()) {
-      $snippet = json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
-    }
+    if ($article_json = $node->get('field_article_json')->getValue()) {
+      $pid = $article_json[0]['target_id'];
+      $paragraph = Paragraph::load($pid);
+      if ($preview) {
+        $snippet = json_decode($paragraph->get('field_article_unpublished_json')->getString(), TRUE);
+      }
+      elseif ($paragraph->get('field_article_published_json')->getValue()) {
+        $snippet = json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
+      }
 
-    // Remove all but the thumbnail image from article snippet.
-    if (!empty($snippet) && !empty($snippet['image']) && empty($snippet['image']['thumbnail'])) {
-      unset($snippet['image']);
+      // Remove all but the thumbnail image from article snippet.
+      if (!empty($snippet) && !empty($snippet['image']) && empty($snippet['image']['thumbnail'])) {
+        unset($snippet['image']);
+      }
     }
 
     return !empty($snippet) ? $snippet : FALSE;
