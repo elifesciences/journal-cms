@@ -34,7 +34,7 @@ class FragmentApi {
    * Availability check.
    */
   public function available() {
-    return !is_null(Settings::get('jcms_article_fragments_endpoint'));
+    return !is_null(Settings::get('jcms_article_auth_unpublished')) && !is_null(Settings::get('jcms_article_fragments_endpoint'));
   }
 
   /**
