@@ -129,10 +129,6 @@ final class NodePresave {
    * @throws \Exception
    */
   public function updateFragmentApi(EntityInterface $entity, string $articleId) {
-    if (empty(Settings::get('jcms_article_auth_unpublished', FALSE))) {
-      return;
-    }
-
     $images = [];
 
     if ($thumbnail = $this->processFieldImage($entity->get('field_image'), FALSE, 'thumbnail', TRUE)) {
