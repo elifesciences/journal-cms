@@ -38,8 +38,6 @@ class FragmentApi {
 
   /**
    * Post a fragment to the article store.
-   *
-   * @throws Exception
    */
   public function postFragment(string $articleId, string $fragmentId, string $payload) {
     if (!$this->available()) {
@@ -59,9 +57,23 @@ class FragmentApi {
     }
     $response = $this->client->post($endpoint, $options);
 
-    \Drupal::logger('jcms_article')
+    if ($response->getStatusCode() !== Response::HTTP_OK) {
+      \Drupal::logger('jcms_article_fragment_api')
+        ->error(
+          'A @fragmentId fragment has been posted to @endpoint with the response: @response',
+          [
+            '@fragmentId' => $fragmentId,
+            '@endpoint' => $endpoint,
+            '@response' => Message::toString($response),
+          ]
+        );
+
+      throw new FragmentApiUpdateFailure('Fragment API post could not be performed.');
+    }
+
+    \Drupal::logger('jcms_article_fragment_api')
       ->notice(
-        'A @fragmentId fragment has been posted to @endpoint with the response: @response',
+        'A @fragmentId fragment has been posted to @endpoint with the response (@statusCode): @response',
         [
           '@fragmentId' => $fragmentId,
           '@endpoint' => $endpoint,
@@ -69,17 +81,11 @@ class FragmentApi {
         ]
       );
 
-    if ($response->getStatusCode() !== Response::HTTP_OK) {
-      throw new FragmentApiUpdateFailure('Fragment API post could not be performed.');
-    }
-
     return $response;
   }
 
   /**
    * Delete a fragment from the article store.
-   *
-   * @throws Exception
    */
   public function deleteFragment(string $articleId, string $fragmentId) : ResponseInterface {
     if (!$this->available()) {
@@ -99,19 +105,29 @@ class FragmentApi {
 
     $response = $this->client->delete($endpoint, $options);
 
-    \Drupal::logger('jcms_article')
+    if (!in_array($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_FOUND])) {
+      \Drupal::logger('jcms_article_fragment_api')
+        ->error(
+          'A @fragmentId fragment has been deleted at @endpoint with the response (@statusCode): @response',
+          [
+            '@fragmentId' => $fragmentId,
+            '@endpoint' => $endpoint,
+            '@response' => Message::toString($response),
+          ]
+        );
+
+      throw new FragmentApiUpdateFailure('Fragment API delete could not be performed.');
+    }
+
+    \Drupal::logger('jcms_article_fragment_api')
       ->notice(
-        'A @fragmentId fragment has been deleted at @endpoint with the response: @response',
+        'A @fragmentId fragment has been deleted at @endpoint with the response (@statusCode): @response',
         [
           '@fragmentId' => $fragmentId,
           '@endpoint' => $endpoint,
           '@response' => Message::toString($response),
         ]
       );
-
-    if (!in_array($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_FOUND])) {
-      throw new FragmentApiUpdateFailure('Fragment API delete could not be performed.');
-    }
 
     return $response;
   }
