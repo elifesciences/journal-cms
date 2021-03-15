@@ -3,7 +3,6 @@
 namespace Drupal\jcms_article;
 
 use Drupal\Core\Site\Settings;
-use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Message;
 use Psr\Http\Message\ResponseInterface;
