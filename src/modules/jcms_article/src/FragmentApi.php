@@ -73,7 +73,7 @@ class FragmentApi {
 
     \Drupal::logger('jcms_article_fragment_api')
       ->notice(
-        'A @fragmentId fragment has been posted to @endpoint with the response (@statusCode): @response',
+        'A @fragmentId fragment has been posted to @endpoint with the response: @response',
         [
           '@fragmentId' => $fragmentId,
           '@endpoint' => $endpoint,
@@ -108,7 +108,7 @@ class FragmentApi {
     if (!in_array($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_FOUND])) {
       \Drupal::logger('jcms_article_fragment_api')
         ->error(
-          'A @fragmentId fragment has been deleted at @endpoint with the response (@statusCode): @response',
+          'A @fragmentId fragment has been deleted at @endpoint with the response: @response',
           [
             '@fragmentId' => $fragmentId,
             '@endpoint' => $endpoint,
@@ -121,7 +121,7 @@ class FragmentApi {
 
     \Drupal::logger('jcms_article_fragment_api')
       ->notice(
-        'A @fragmentId fragment has been deleted at @endpoint with the response (@statusCode): @response',
+        'A @fragmentId fragment has been deleted at @endpoint with the response: @response',
         [
           '@fragmentId' => $fragmentId,
           '@endpoint' => $endpoint,
