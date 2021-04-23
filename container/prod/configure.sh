@@ -31,6 +31,8 @@ rm -f /tmp/drush-migrate.log
 ../vendor/bin/drush mi jcms_subjects_json 2>&1 | tee --append /tmp/drush-migrate.log
 cat /tmp/drush-migrate.log | ../check-drush-migrate-output.sh
 
+../smoke_tests.sh
+
 #{% for username, user in pillar.journal_cms.users.items() %}
 #journal-cms-defaults-users-{{ username }}:
 #    cmd.run:

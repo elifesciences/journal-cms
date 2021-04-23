@@ -57,14 +57,13 @@ RUN cp config/drupal-container.settings.php config/local.settings.php
 RUN cp config/drupal-container.services.yml config/local.services.yml
 
 COPY --chown=www-data:www-data check-drush-migrate-output.sh check-drush-migrate-output.sh
+COPY --chown=www-data:www-data smoke_tests.sh project_tests.sh ./
 
 WORKDIR ${PROJECT_FOLDER}/web
 
 COPY --chown=www-data:www-data wait-for-it.sh wait-for-it.sh
 
 COPY --chown=www-data:www-data ./container/prod/configure.sh configure.sh
-
-USER www-data
 
 # `assert_fpm`, see: `elife-base-images/utils/assert_fpm`
 # disabled temporarily
