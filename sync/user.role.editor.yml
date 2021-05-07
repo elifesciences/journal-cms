@@ -44,6 +44,7 @@ permissions:
   - 'delete any promotional_collection content'
   - 'delete cover revisions'
   - 'delete own blog_article content'
+  - 'download any image files'
   - 'edit any annual_report content'
   - 'edit any article content'
   - 'edit any blog_article content'
