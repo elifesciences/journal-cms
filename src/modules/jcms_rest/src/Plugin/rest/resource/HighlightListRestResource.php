@@ -69,7 +69,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
       if ($tids) {
         $query = Database::getConnection()->select('node__field_highlight_item', 'hi');
         $query->addField('hi', 'entity_id', 'item');
-        $query->addField('hi', 'field_highlight_item_target_id', 'highlight');
+        $query->addField('hi', 'field_highlight_item_target_id', 'target');
         $query->condition('hi.bundle', 'highlight_item');
         $query->leftJoin('node__field_subjects', 's', 's.entity_id = hi.field_highlight_item_target_id');
         $query->leftJoin('taxonomy_term__field_subject_id', 'si', 'si.entity_id = s.field_subjects_target_id');
@@ -89,7 +89,8 @@ class HighlightListRestResource extends AbstractRestResourceBase {
         $db_or->condition('spi.field_subject_id_value', $list);
         $query->condition($db_or);
 
-        if ($results = $query->execute()->fetchAllAssoc('highlight')) {
+        // Group by highlight item target to ensure there are no duplicates.
+        if ($results = $query->execute()->fetchAllAssoc('target')) {
           $item_nids = array_values(array_map(function ($result) {
             return $result->item;
           }, $results));
