@@ -397,9 +397,6 @@
       "drupal/inline_entity_form": {
         "Field name/label disappears when I create a new entity inline (2842744)": "https://www.drupal.org/files/issues/inline_entity_form-no_label_required_field_with_no_entries-2842744.patch"
       },
-      "drupal/hide_revision_field": {
-        "Call to a member function getComponent() on null in hide_revision_field_form_user_form_alter() (3018160)": "https://www.drupal.org/files/issues/2019-05-15/hide-revision-field-3018160-5-8.x-2.1.patch"
-      },
       "embed/embed": {
         "Add twitter adapter to prevent errors on 429 status code": "https://github.com/denniszon/Embed/commit/56fc5273c02971ade656991dc9173b01753a07d9.patch"
       }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0024a06acb1ac8fe01ec68db5c39b1cc",
+    "content-hash": "396b00cc6f1ea13c6668e44bd87fad91",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3984,41 +3984,30 @@
         },
         {
             "name": "drupal/hide_revision_field",
-            "version": "2.1.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/hide_revision_field.git",
-                "reference": "8.x-2.1"
+                "reference": "8.x-2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/hide_revision_field-8.x-2.1.zip",
-                "reference": "8.x-2.1",
-                "shasum": "1d924bdcda121b128176e99736537f04e069b316"
+                "url": "https://ftp.drupal.org/files/projects/hide_revision_field-8.x-2.2.zip",
+                "reference": "8.x-2.2",
+                "shasum": "fd26577c66b6105e2a7cb1df16b2270cf21dfc04"
             },
             "require": {
-                "drupal/core": "^8.5"
-            },
-            "require-dev": {
-                "nickwilde1990/drupal-standards-composer-commands": "^1.0",
-                "nickwilde1990/php-composter-phpcs-drupal": "^1.0",
-                "squizlabs/php_codesniffer": "2.9.x-dev@dev"
+                "drupal/core": "^8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-2.x": "2.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-2.1",
-                    "datestamp": "1537427280",
+                    "version": "8.x-2.2",
+                    "datestamp": "1606459114",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "Call to a member function getComponent() on null in hide_revision_field_form_user_form_alter() (3018160)": "https://www.drupal.org/files/issues/2019-05-15/hide-revision-field-3018160-5-8.x-2.1.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4027,14 +4016,14 @@
             ],
             "authors": [
                 {
-                    "name": "NickWilde",
+                    "name": "NickDickinsonWilde",
                     "homepage": "https://www.drupal.org/user/3094661"
                 }
             ],
-            "description": "Controls visibility of the revision field on entity add/edit forms.",
+            "description": "Controls visibility of the revision field on content add/edit forms.",
             "homepage": "https://www.drupal.org/project/hide_revision_field",
             "support": {
-                "source": "http://cgit.drupalcode.org/hide_revision_field"
+                "source": "https://git.drupalcode.org/project/hide_revision_field"
             }
         },
         {
