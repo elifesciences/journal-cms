@@ -1988,9 +1988,6 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "generateSampleValue (2819251)": "https://www.drupal.org/files/issues/generatesamplevalue-2819251-4.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2819,11 +2816,6 @@
                         "[web-root]/profiles/README.txt": "assets/scaffold/files/profiles.README.txt",
                         "[web-root]/themes/README.txt": "assets/scaffold/files/themes.README.txt"
                     }
-                },
-                "patches_applied": {
-                    "Composer-friendly patches for filename sanitation while #2492171 awaits #3032390 (3094052)": "https://www.drupal.org/files/issues/2020-11-19/3094052-9.patch",
-                    "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/2020-08-20/273595-166.patch",
-                    "Temporary fix for \\Drupal\\Core\\Field\\FieldItemList::generateSampleItems (2905527)": "src/patches/2905527-temporary-fix-generate-sample-items.patch"
                 }
             },
             "autoload": {
@@ -3976,9 +3968,6 @@
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
                     }
-                },
-                "patches_applied": {
-                    "Field name/label disappears when I create a new entity inline (2842744)": "https://www.drupal.org/files/issues/inline_entity_form-no_label_required_field_with_no_entries-2842744.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5012,6 +5001,7 @@
                 "mtdowling/jmespath.php": "^2.0, to use the Result::search() method",
                 "psr/log": "^1.0, to use the WarningCheckingHttpClient adapter"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -5070,6 +5060,7 @@
                 "psr/http-message": "^1.0",
                 "squizlabs/php_codesniffer": "^3.5"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -5119,6 +5110,7 @@
                 "phpunit/phpunit": "^5.2",
                 "squizlabs/php_codesniffer": "^3.5"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -5175,6 +5167,7 @@
             "suggest": {
                 "symfony/console": "^2.7 || ^3.2, to use Command classes"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -5279,11 +5272,6 @@
                 "phpunit/phpunit": "^5.7|^6.0|^7.0"
             },
             "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Add twitter adapter to prevent errors on 429 status code": "https://github.com/denniszon/Embed/commit/56fc5273c02971ade656991dc9173b01753a07d9.patch"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Embed\\": "src"
@@ -12942,5 +12930,5 @@
     "platform-overrides": {
         "php": "7.2"
     },
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
