@@ -299,7 +299,7 @@
     "zenorocha/clipboardjs": "^1.7",
     "league/commonmark": "^0.18.5",
     "symfony/serializer": "^3.4",
-    "league/html-to-markdown": "^4.7",
+    "league/html-to-markdown": "4.9.0",
     "paquettg/php-html-parser": "^2.0",
     "ckeditor/autoembed": "^4.9",
     "ckeditor/autolink": "^4.9",
