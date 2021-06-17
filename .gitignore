@@ -1,4 +1,6 @@
 .DS_Store
+.editorconfig
+.gitattributes
 .idea/
 .vagrant/
 config/local.settings.php
@@ -9,5 +11,3 @@ console/
 private/
 *.gz
 *.sql
-/.editorconfig
-/.gitattributes
