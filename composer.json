@@ -258,15 +258,14 @@
   "require": {
     "php": "^7.2",
     "composer/installers": "^1.2",
-    "drupal-composer/drupal-scaffold": "~2.4.0",
-    "cweagans/composer-patches": "^1.6",
+    "cweagans/composer-patches": "^1.7",
     "drush/drush": "~8.1.17",
     "drupal/console": "^1.0.2",
     "drupal/admin_toolbar": "^2.0",
     "drupal/config_devel": "~1.0-rc1",
     "drupal/config_installer": "~1",
     "drupal/entity_reference_revisions": "1.x-dev",
-    "drupal/inline_entity_form": "~1.0-beta1",
+    "drupal/inline_entity_form": "1.0-rc3",
     "drupal/jsonb": "~1.0-beta1",
     "drupal/paragraphs": "^1.9",
     "drupal/migrate_plus": "~3.0-rc1",
@@ -289,7 +288,6 @@
     "drupal/diff": "^1.0@RC",
     "embed/embed": "^3.0",
     "drupal/devel": "^3.0",
-    "drupal/core": "^8.7",
     "drupal/monolog": "^1.0@alpha",
     "monolog/monolog": "~1.6",
     "drupal/country": "^1.0@beta",
@@ -301,7 +299,7 @@
     "zenorocha/clipboardjs": "^1.7",
     "league/commonmark": "^0.18.5",
     "symfony/serializer": "^3.4",
-    "league/html-to-markdown": "^4.7",
+    "league/html-to-markdown": "4.9.0",
     "paquettg/php-html-parser": "^2.0",
     "ckeditor/autoembed": "^4.9",
     "ckeditor/autolink": "^4.9",
@@ -328,7 +326,9 @@
     "drupal/file_entity": "~2.0-beta6",
     "egulias/email-validator": "^2.1",
     "drupal/allowed_formats": "^1.3",
-    "elife/api-sdk": "dev-master"
+    "elife/api-sdk": "dev-master",
+    "drupal/core-composer-scaffold": "^8.9",
+    "drupal/core-recommended": "^8.9"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",
@@ -351,9 +351,7 @@
   },
   "scripts": {
     "clean-up": "chmod -R 755 web/ && rm -rf config/local.settings.php web/ vendor/ private/",
-    "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "post-install-cmd": [
-      "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
       "JCMSDrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ],
     "post-update-cmd": [
@@ -362,6 +360,11 @@
   },
   "extra": {
     "composer-exit-on-patch-failure": true,
+    "drupal-scaffold": {
+      "locations": {
+        "web-root": "web/"
+      }
+    },
     "installer-paths": {
       "web/core": [
         "type:drupal-core"
@@ -388,20 +391,11 @@
         "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/2020-08-20/273595-166.patch",
         "Temporary fix for \\Drupal\\Core\\Field\\FieldItemList::generateSampleItems (2905527)": "src/patches/2905527-temporary-fix-generate-sample-items.patch"
       },
-      "drupal/entity_reference_revisions": {
-        "Allow entities to be generated if none exist (2910326)": "https://www.drupal.org/files/issues/entity_reference_revisions-stop_checking_for_entities_before_generating_sample-2910326-2.patch"
-      },
       "drupal/address": {
         "generateSampleValue (2819251)": "https://www.drupal.org/files/issues/generatesamplevalue-2819251-4.patch"
       },
       "drupal/inline_entity_form": {
         "Field name/label disappears when I create a new entity inline (2842744)": "https://www.drupal.org/files/issues/inline_entity_form-no_label_required_field_with_no_entries-2842744.patch"
-      },
-      "drupal/file_entity" : {
-        "D8.6 file rest upload PluginNotFoundException error (2959947)": "https://www.drupal.org/files/issues/2018-07-11/file-rest-upload-pluginnotfoundexception-error-2959947-8.patch"
-      },
-      "drupal/hide_revision_field": {
-        "Call to a member function getComponent() on null in hide_revision_field_form_user_form_alter() (3018160)": "https://www.drupal.org/files/issues/2019-05-15/hide-revision-field-3018160-5-8.x-2.1.patch"
       },
       "embed/embed": {
         "Add twitter adapter to prevent errors on 429 status code": "https://github.com/denniszon/Embed/commit/56fc5273c02971ade656991dc9173b01753a07d9.patch"
