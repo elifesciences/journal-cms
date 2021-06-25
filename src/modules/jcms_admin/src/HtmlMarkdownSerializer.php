@@ -4,6 +4,7 @@ namespace Drupal\jcms_admin;
 
 use League\HTMLToMarkdown\HtmlConverter;
 use PHPHtmlParser\Dom;
+use PHPHtmlParser\Exceptions\ParentNotFoundException;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
@@ -57,6 +58,7 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
     $html = preg_replace_callback('~<div class="([^"]*)"[^>]*>[\s\n]*(<figure )class="[^\"]*"(.*</figure>).*</div>~s', function ($match) {
       return '<figure class="image ' . $match[1] . '"' . preg_replace('~<p>[^<]*</p>~', '', $match[3]);
     }, $html);
+    $html = $this->wrapImgInFigure($html);
     $dom = new Dom();
     $dom->setOptions([
       'preserveLineBreaks' => TRUE,
@@ -130,6 +132,31 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
       return base64_decode($matches[1]);
     }, preg_replace('~(preserve' . $bc . ')\s*([^\n])~', '$1' . PHP_EOL . PHP_EOL . '$2', $html));
     return preg_replace('/\n{2,}/', PHP_EOL . PHP_EOL, $output);
+  }
+
+  /**
+   * Wrap img elements in figure.
+   */
+  private function wrapImgInFigure(string $content) : string {
+    $dom = new Dom();
+    $dom->setOptions([
+      'preserveLineBreaks' => TRUE,
+    ]);
+    $dom->load($content);
+    /** @var \PHPHtmlParser\Dom\HtmlNode $img */
+    foreach ($dom->find('img') as $img) {
+      try {
+        $img->ancestorByTag('figure');
+      }
+      catch (ParentNotFoundException $e) {
+        $figure = new Dom();
+        $figure->loadStr('<figure class="image">' . $img->outerHtml() . '</figure>');
+        $img->getParent()->replaceChild($img->id(), $figure->find('figure')[0]);
+      }
+    }
+
+    $content = $dom->outerHtml;
+    return $content;
   }
 
   /**
