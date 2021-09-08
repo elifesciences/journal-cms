@@ -1,6 +1,4 @@
 .DS_Store
-.editorconfig
-.gitattributes
 .idea/
 .vagrant/
 config/local.settings.php
