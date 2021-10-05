@@ -35,8 +35,6 @@ class PersonListRestResource extends AbstractRestResourceBase {
 
     if (!$this->viewUnpublished()) {
       $base_query->condition('status', NodeInterface::PUBLISHED);
-      // Filter out ethics-committee type until the schema supports them.
-      $base_query->condition('field_person_type.value', ['ethics-committee'], 'NOT IN');
     }
 
     $this->filterSubjects($base_query);
