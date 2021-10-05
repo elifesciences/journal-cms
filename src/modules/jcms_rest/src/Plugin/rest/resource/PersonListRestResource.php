@@ -31,12 +31,12 @@ class PersonListRestResource extends AbstractRestResourceBase {
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
       ->condition('field_archive.value', 0)
-      ->condition('type', 'person')
-      // Filter out ethics-committee type until the schema supports them.
-      ->condition('field_person_type.value', ['ethics-committee'], 'NOT IN');
+      ->condition('type', 'person');
 
     if (!$this->viewUnpublished()) {
       $base_query->condition('status', NodeInterface::PUBLISHED);
+      // Filter out ethics-committee type until the schema supports them.
+      $base_query->condition('field_person_type.value', ['ethics-committee'], 'NOT IN');
     }
 
     $this->filterSubjects($base_query);
