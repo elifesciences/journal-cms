@@ -261,6 +261,7 @@ function drush_jcms_migrate_msa_switch(string $from, string $to = NULL) {
  * Callback function drush_jcms_migrate_paragraphs_revisions_purge().
  */
 function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
+  $logger = \Drupal::logger('jcms_revisions_purge');
   $limit = drush_get_option('limit') ? (int) drush_get_option('limit') : 0;
   $feedback_frequency = drush_get_option('feedback') ? (int) drush_get_option('feedback') : 100;
 
@@ -273,6 +274,7 @@ function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
   $query->isNull('pi.id');
   $count = $query->countQuery()->execute()->fetch()->expression;
   drush_print(dt('Number of revisions to be deleted is !count.', ['!count' => $count]));
+  $logger->info('Number of revisions to be deleted', ['count' => $count]);
 
   if ($count > 0 && $limit >= 0) {
     $count_deleted = 0;
@@ -303,6 +305,7 @@ function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
             $count_deleted++;
             if (($count_deleted % $feedback_frequency) == 0) {
               drush_print(dt('Number of revisions deleted is !count.', ['!count' => $count_deleted]));
+              $logger->info('Progress of revisions deleted.', ['count' => $count_deleted]);
             }
           }
           catch (\Exception $e) {
@@ -318,6 +321,7 @@ function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
       }
     } while ($limit >= 0);
     drush_print(dt('Total number of revisions deleted is !count.', ['!count' => $count_deleted]));
+    $logger->info('Completed deletion of revisions', ['count' => $count_deleted]);
   }
 
   // Get the number of revisions left to delete.
@@ -330,9 +334,12 @@ function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
   $count = $query->countQuery()->execute()->fetch()->expression;
   if ($count > 0) {
     drush_print(dt('Completed with !count revisions left in place.', ['!count' => $count]));
+    $logger->info('Completed with some revisions left in place.', ['remaining' => $count]);
   }
   else {
-    drush_print(dt('Success! All revisions for !field have been purged.', ['!field' => !empty($field) ? $field : 'all fields']));
+    $field = !empty($field) ? $field : 'all fields';
+    drush_print(dt('Success! All revisions for !field have been purged.', ['!field' => $field]));
+    $logger->info('Success! All revisions have been purged.', ['field' => $field]);
   }
 }
 
@@ -340,12 +347,15 @@ function drush_jcms_migrate_paragraphs_revisions_purge(string $field = NULL) {
  * Callback function drush_jcms_migrate_paragraphs_revisions_optimise().
  */
 function drush_jcms_migrate_paragraphs_revisions_optimise() {
+  $logger = \Drupal::logger('jcms_revisions_optimise');
   drush_print(dt('Optimise paragraph revision tables.'));
+  $logger->info('Optimise paragraph revision tables.');
   $table_list = Database::getConnection()->query("SHOW TABLES LIKE 'paragraph_r%'")->fetchCol();
   $table_list[] = 'paragraphs_item_revision';
   $table_list[] = 'paragraphs_item_revision_field_data';
   Database::getConnection()->query('OPTIMIZE TABLE ' . implode(',', $table_list));
   drush_print(dt('All paragraph revision tables have been optimised.'));
+  $logger->info('All paragraph revision tables have been optimised.');
 }
 
 /**
