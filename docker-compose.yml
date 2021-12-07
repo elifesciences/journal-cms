@@ -11,7 +11,7 @@ services:
             - /var/log/journal-cms:/srv/journal-cms/private/monolog
             - ./web/sites/default:/srv/journal-cms/web/sites/default
         ports:
-            - "80:80" # nginx
+            - "8080:80" # nginx
             #- "9000:9000" # php-fpm
         networks:
             - internal
