@@ -5,7 +5,6 @@
  * Drush commands for the module.
  */
 
-use Drupal\jcms_article\Entity\ArticleVersions;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use GuzzleHttp\Exception\RequestException;
@@ -363,16 +362,20 @@ function drush_jcms_notifications_message_import($lrp = FALSE) {
             // Process article views-downloads metrics sqs items.
             $body = $message->getMessage();
             if ($body['contentType'] == 'article' && $body['metric'] == 'views-downloads') {
-              $articleVersions = $article_service->getArticleVersions($id);
-              if ($articleVersions->getAction() == ArticleVersions::WRITE) {
-                // Make sure article has been created.
+              $nid = $article_crud_service->getNodeIdByArticleId($id);
+              if ($nid === 0) {
+                $articleVersions = $article_service->getArticleVersions($id);
                 $node = $article_crud_service->crudArticle($articleVersions);
-                $metrics = $metrics_service->getArticleMetrics($id);
-                if ((int) $node->get('field_page_views')->getString() != $metrics->getPageViews()) {
-                  $logger->info('Adjusted metrics', ['id' => $id, 'metrics' => $metrics->getPageViews()]);
-                  $node->set('field_page_views', $metrics->getPageViews());
-                  $node->save();
-                }
+              }
+              else {
+                $node = Node::load($nid);
+              }
+
+              $metrics = $metrics_service->getArticleMetrics($id);
+              if ((int) $node->get('field_page_views')->getString() != $metrics->getPageViews()) {
+                $logger->info('Adjusted metrics', ['id' => $id, 'metrics' => $metrics->getPageViews()]);
+                $node->set('field_page_views', $metrics->getPageViews());
+                $node->save();
               }
             }
             break;

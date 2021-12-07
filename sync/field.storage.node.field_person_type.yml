@@ -18,6 +18,9 @@ settings:
       value: early-career
       label: 'Early Careers Advisory Group'
     -
+      value: ethics-committee
+      label: 'Ethics Committee'
+    -
       value: executive
       label: Executive
     -

@@ -3,7 +3,6 @@
 namespace Drupal\jcms_article;
 
 use Drupal\Core\Site\Settings;
-use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Message;
 use Psr\Http\Message\ResponseInterface;
@@ -31,11 +30,20 @@ class FragmentApi {
   }
 
   /**
+   * Availability check.
+   */
+  public function available() {
+    return !is_null(Settings::get('jcms_article_auth_unpublished')) && !is_null(Settings::get('jcms_article_fragments_endpoint'));
+  }
+
+  /**
    * Post a fragment to the article store.
-   *
-   * @throws Exception
    */
   public function postFragment(string $articleId, string $fragmentId, string $payload) {
+    if (!$this->available()) {
+      throw new FragmentApiUnavailable();
+    }
+
     $endpoint = $this->endpointFullPath($articleId, $fragmentId);
     $options = [
       'body' => $payload,
@@ -49,7 +57,21 @@ class FragmentApi {
     }
     $response = $this->client->post($endpoint, $options);
 
-    \Drupal::logger('jcms_article')
+    if ($response->getStatusCode() !== Response::HTTP_OK) {
+      \Drupal::logger('jcms_article_fragment_api')
+        ->error(
+          'A @fragmentId fragment has been posted to @endpoint with the response: @response',
+          [
+            '@fragmentId' => $fragmentId,
+            '@endpoint' => $endpoint,
+            '@response' => Message::toString($response),
+          ]
+        );
+
+      throw new FragmentApiUpdateFailure('Fragment API post could not be performed.');
+    }
+
+    \Drupal::logger('jcms_article_fragment_api')
       ->notice(
         'A @fragmentId fragment has been posted to @endpoint with the response: @response',
         [
@@ -59,19 +81,17 @@ class FragmentApi {
         ]
       );
 
-    if ($response->getStatusCode() !== Response::HTTP_OK) {
-      throw new Exception('Fragment API post could not be performed.');
-    }
-
     return $response;
   }
 
   /**
    * Delete a fragment from the article store.
-   *
-   * @throws Exception
    */
   public function deleteFragment(string $articleId, string $fragmentId) : ResponseInterface {
+    if (!$this->available()) {
+      throw new FragmentApiUnavailable();
+    }
+
     $endpoint = $this->endpointFullPath($articleId, $fragmentId);
     $options = [
       'headers' => [
@@ -85,7 +105,21 @@ class FragmentApi {
 
     $response = $this->client->delete($endpoint, $options);
 
-    \Drupal::logger('jcms_article')
+    if (!in_array($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_FOUND])) {
+      \Drupal::logger('jcms_article_fragment_api')
+        ->error(
+          'A @fragmentId fragment has been deleted at @endpoint with the response: @response',
+          [
+            '@fragmentId' => $fragmentId,
+            '@endpoint' => $endpoint,
+            '@response' => Message::toString($response),
+          ]
+        );
+
+      throw new FragmentApiUpdateFailure('Fragment API delete could not be performed.');
+    }
+
+    \Drupal::logger('jcms_article_fragment_api')
       ->notice(
         'A @fragmentId fragment has been deleted at @endpoint with the response: @response',
         [
@@ -94,10 +128,6 @@ class FragmentApi {
           '@response' => Message::toString($response),
         ]
       );
-
-    if (!in_array($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_FOUND])) {
-      throw new Exception('Fragment API delete could not be performed.');
-    }
 
     return $response;
   }
