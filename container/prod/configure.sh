@@ -21,7 +21,7 @@ fi
 
 ../vendor/bin/drush updatedb -y
 ../vendor/bin/drush config-import -y
-../vendor/bin/drush cr
+../vendor/bin/drush cache-rebuild
 
 if [[ $(../vendor/bin/drush php-eval "print node_access_needs_rebuild()") == "1" ]]; then
     ../vendor/bin/drush php-eval "node_access_rebuild();"
@@ -31,7 +31,10 @@ rm -f /tmp/drush-migrate.log
 ../vendor/bin/drush mi jcms_subjects_json 2>&1 | tee --append /tmp/drush-migrate.log
 cat /tmp/drush-migrate.log | ../check-drush-migrate-output.sh
 
-../smoke_tests.sh
+# create users
+
+#../vendor/bin/drush user-create "admin" --mail="foo@example.com" --password="admin"
+#../vendor/bin/drush user-add-role "administrator" --name="admin"
 
 #{% for username, user in pillar.journal_cms.users.items() %}
 #journal-cms-defaults-users-{{ username }}:
@@ -48,3 +51,6 @@ cat /tmp/drush-migrate.log | ../check-drush-migrate-output.sh
 #{% endfor %}
 
 
+
+
+../smoke_tests.sh
