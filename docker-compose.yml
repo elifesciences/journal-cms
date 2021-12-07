@@ -6,11 +6,13 @@ services:
         build: .
         image: elifesciences/journal-cms #:${IMAGE_TAG}
         volumes:
+            - ./container/dev/nginx/sites-enabled:/etc/nginx/sites-enabled
             # todo: ensure writeable by www-data
             - /var/log/journal-cms:/srv/journal-cms/private/monolog
             - ./web/sites/default:/srv/journal-cms/web/sites/default
         ports:
-            - "9000:9000"
+            - "80:80" # nginx
+            #- "9000:9000" # php-fpm
         networks:
             - internal
             - external
@@ -49,23 +51,6 @@ services:
             - redis
         networks:
             - internal
-
-    nginx:
-        profiles:
-            - dev
-        image: nginx:stable
-        ports:
-            - "8080:81"
-        volumes:
-            - ./container/dev/nginx/templates:/etc/nginx/templates
-            - ./web/sites/default:/srv/journal-cms/web
-            - ./web/core:/srv/journal-cms/web/core
-        environment:
-            - NGINX_HOST=localhost
-            - NGINX_PORT=81
-        networks:
-            - internal
-            - external
 
 networks:
     external:

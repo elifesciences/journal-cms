@@ -14,13 +14,9 @@ USER root
 
 RUN chown -R www-data:www-data ./
 
-# todo: vim can be removed
 RUN apt-get update
-RUN apt-get install mysql-client git zip unzip libpng-dev redis-tools vim -y --no-install-recommends
-
-# sqlite3? looks like it's a built in now
+RUN apt-get install mysql-client git zip unzip libpng-dev redis-tools nginx -y --no-install-recommends
 RUN pecl install redis igbinary uploadprogress
-RUN pecl install # todo: rm
 # needs both mysqli and pdo_mysql or site-install fails
 RUN docker-php-ext-install gd mysqli pdo_mysql # cli mbstring xsl curl
 RUN docker-php-ext-enable redis igbinary uploadprogress
@@ -34,6 +30,9 @@ RUN echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/elife-fpm.ini
 RUN echo "upload_max_filesize = 32M" >> /usr/local/etc/php/conf.d/elife-fpm.ini
 RUN echo "post_max_size = 32M" >> /usr/local/etc/php/conf.d/elife-fpm.ini
 RUN echo "sendmail_path = /bin/true" > /usr/local/etc/php/conf.d/elife-sendmail.ini
+
+COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint.sh
+RUN chmod 755 /usr/local/bin/docker-php-entrypoint.sh
 
 USER www-data
 
@@ -71,3 +70,8 @@ HEALTHCHECK --interval=5s CMD HTTP_HOST=localhost assert_fpm /ping 'pong'
 
 # this image inherits from `elifesciences/php_7.3_fpm`, which inherits from `php:7.3.4-fpm-stretch`, which has it's own
 # custom EXECUTE command that starts `php-fpm`.
+# lsh@2021-12: 
+
+# nginx drops down to www-data, php-fpm is configured to runs as www-data
+USER root
+ENTRYPOINT ["/usr/local/bin/docker-php-entrypoint.sh"]
