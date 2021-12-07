@@ -70,8 +70,7 @@ HEALTHCHECK --interval=5s CMD HTTP_HOST=localhost assert_fpm /ping 'pong'
 
 # this image inherits from `elifesciences/php_7.3_fpm`, which inherits from `php:7.3.4-fpm-stretch`, which has it's own
 # custom EXECUTE command that starts `php-fpm`.
-# lsh@2021-12: 
-
-# nginx drops down to www-data, php-fpm is configured to runs as www-data
+# lsh@2021-12: replaced ENTRYPOINT with a custom script that inits nginx and then runs php-fpm.
+# nginx will drop down to www-data, php-fpm is configured to run as www-data.
 USER root
 ENTRYPOINT ["/usr/local/bin/docker-php-entrypoint.sh"]
