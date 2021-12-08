@@ -9,7 +9,8 @@ services:
             - ./container/dev/nginx/sites-enabled:/etc/nginx/sites-enabled
             # todo: ensure writeable by www-data
             - /var/log/journal-cms:/srv/journal-cms/private/monolog
-            - ./web/sites/default:/srv/journal-cms/web/sites/default
+            # disabled as this replaces the guest's copy of ./web/sites/default which is populated 
+            #- ./web/sites/default:/srv/journal-cms/web/sites/default
         ports:
             - "8080:80" # nginx
             #- "9000:9000" # php-fpm

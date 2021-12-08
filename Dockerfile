@@ -12,11 +12,13 @@ WORKDIR ${PROJECT_FOLDER}
 
 USER root
 
-RUN chown -R www-data:www-data ./
+RUN chown -R elife:elife ./
 
 RUN apt-get update
 RUN apt-get install mysql-client git zip unzip libpng-dev redis-tools nginx -y --no-install-recommends
 RUN pecl install redis igbinary uploadprogress
+# 'docker-php-ext-*'?
+# - https://github.com/docker-library/docs/tree/master/php#how-to-install-more-php-extensions
 # needs both mysqli and pdo_mysql or site-install fails
 RUN docker-php-ext-install gd mysqli pdo_mysql # cli mbstring xsl curl
 RUN docker-php-ext-enable redis igbinary uploadprogress
@@ -31,38 +33,35 @@ RUN echo "upload_max_filesize = 32M" >> /usr/local/etc/php/conf.d/elife-fpm.ini
 RUN echo "post_max_size = 32M" >> /usr/local/etc/php/conf.d/elife-fpm.ini
 RUN echo "sendmail_path = /bin/true" > /usr/local/etc/php/conf.d/elife-sendmail.ini
 
-COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint.sh
-RUN chmod 755 /usr/local/bin/docker-php-entrypoint.sh
+USER elife
 
-USER www-data
+# files and dirs required by composer
+COPY --chown=elife:elife config ./config
+COPY --chown=elife:elife features ./features
+COPY --chown=elife:elife src ./src
+COPY --chown=elife:elife sync ./sync
+COPY --chown=elife:elife scripts ./scripts
+COPY --chown=elife:elife composer.json composer.lock composer-setup.json composer-setup.lock ./
+# and the rest
+COPY --chown=elife:elife wait-for-it.sh ./web/wait-for-it.sh
+COPY --chown=elife:elife check-drush-migrate-output.sh check-drush-migrate-output.sh
+COPY --chown=elife:elife smoke_tests.sh project_tests.sh ./
+COPY --chown=elife:elife ./container/prod/configure.sh ./web/configure.sh
 
-# required by composer
-COPY --chown=www-data:www-data config ./config
-COPY --chown=www-data:www-data features ./features
-COPY --chown=www-data:www-data src ./src
-COPY --chown=www-data:www-data sync ./sync
-COPY --chown=www-data:www-data scripts ./scripts
-COPY --chown=www-data:www-data composer.json composer.lock composer-setup.json composer-setup.lock ./
-
+# install everything
 ENV COMPOSER_DISCARD_CHANGES=true
 RUN composer --no-interaction install --optimize-autoloader --no-dev
 
-# TODO: further file/dir permissions
 
-# default settings
-# these are overridden when instance is launched by mounting custom per-environment versions
-# see docker-compose.yml
+
+# TODO: further file/dir permissions so www-data can write/execute what it needs
+
+
+# settings
 RUN cp config/drupal-container.settings.php config/local.settings.php
 RUN cp config/drupal-container.services.yml config/local.services.yml
 
-COPY --chown=www-data:www-data check-drush-migrate-output.sh check-drush-migrate-output.sh
-COPY --chown=www-data:www-data smoke_tests.sh project_tests.sh ./
-
 WORKDIR ${PROJECT_FOLDER}/web
-
-COPY --chown=www-data:www-data wait-for-it.sh wait-for-it.sh
-
-COPY --chown=www-data:www-data ./container/prod/configure.sh configure.sh
 
 # `assert_fpm`, see: `elife-base-images/utils/assert_fpm`
 # disabled temporarily
@@ -71,6 +70,8 @@ HEALTHCHECK --interval=5s CMD HTTP_HOST=localhost assert_fpm /ping 'pong'
 # this image inherits from `elifesciences/php_7.3_fpm`, which inherits from `php:7.3.4-fpm-stretch`, which has it's own
 # custom EXECUTE command that starts `php-fpm`.
 # lsh@2021-12: replaced ENTRYPOINT with a custom script that inits nginx and then runs php-fpm.
-# nginx will drop down to www-data, php-fpm is configured to run as www-data.
+# nginx will drop down to www-data and php-fpm is configured to run as www-data.
 USER root
+COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint.sh
+RUN chmod 755 /usr/local/bin/docker-php-entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/docker-php-entrypoint.sh"]
