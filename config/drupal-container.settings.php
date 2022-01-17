@@ -13,6 +13,7 @@ $databases['default']['default'] = [
 
 $settings['trusted_host_patterns'] = [
   '^localhost$',
+  '^app$', // the Drupal container has a hostname of 'app'.
 ];
   
 if (class_exists(\Composer\Autoload\ClassLoader::class)) {

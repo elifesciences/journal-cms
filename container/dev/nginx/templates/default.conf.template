@@ -1,6 +1,7 @@
 server {
     listen ${NGINX_PORT};
-    server_name ${NGINX_HOST};
+    server_name ${NGINX_HOST}
+                app;
 
     #root /srv/journal-cms/web;
     client_max_body_size 32M;

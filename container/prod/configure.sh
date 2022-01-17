@@ -50,7 +50,5 @@ cat /tmp/drush-migrate.log | ../check-drush-migrate-output.sh
 #            - migrate-content
 #{% endfor %}
 
+../smoke_tests.sh app 80 redis 6379
 
-
-
-../smoke_tests.sh
