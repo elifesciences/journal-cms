@@ -1,4 +1,4 @@
-version: "3.8"
+version: "2.1" # last version to support mem_limit
 services:
 
     # mysql database
@@ -29,10 +29,12 @@ services:
             - internal
 
     # basic drupal site installation with dependencies and permissions configured
-    # use `docker exec -ti journal-cms_app_1 /bin/bash` to get a shell
+    # use `docker exec -ti <process> /bin/bash` to get a shell
     app:
         build: .
         image: elifesciences/journal-cms #:${IMAGE_TAG}
+        mem_limit: 2048MB
+        mem_reservation: 512MB
         volumes:
             - ./container/dev/nginx/sites-enabled:/etc/nginx/sites-enabled
             

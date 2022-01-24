@@ -1,6 +1,6 @@
 #!/bin/bash
 # run as the www-data user. no access to su or sudo
-set -ex
+set -e
 
 # this should be redundent, but just in case
 cd /srv/journal-cms/web
@@ -31,24 +31,18 @@ rm -f /tmp/drush-migrate.log
 ../vendor/bin/drush mi jcms_subjects_json 2>&1 | tee --append /tmp/drush-migrate.log
 cat /tmp/drush-migrate.log | ../check-drush-migrate-output.sh
 
-# create users
+function create_user {
+    user_name=$1
+    user_email=$2
+    user_pass=$3
+    if ! ../vendor/bin/drush user-information "$user_name"; then
+        ../vendor/bin/drush user-create "$user_name" --mail="$user_email" --password="$user_pass"
+    else
+        echo "user '$user_name' exists"
+    fi
+}
 
-#../vendor/bin/drush user-create "admin" --mail="foo@example.com" --password="admin"
-#../vendor/bin/drush user-add-role "administrator" --name="admin"
-
-#{% for username, user in pillar.journal_cms.users.items() %}
-#journal-cms-defaults-users-{{ username }}:
-#    cmd.run:
-#        - name: |
-#            ../vendor/bin/drush user-create {{ username }} --mail="{{ user.email }}" --password="{{ user.password }}"
-#            ../vendor/bin/drush user-add-role "{{ user.role }}" --name={{ username }}
-#        - cwd: /srv/journal-cms/web
-#        - runas: {{ pillar.elife.deploy_user.username }}
-#        - unless:
-#            - sudo -u {{ pillar.elife.deploy_user.username}} ../vendor/bin/drush user-information {{ username }}
-#        - require:
-#            - migrate-content
-#{% endfor %}
+create_user "admin" "admin@example.org" "example-password-do-not-use"
 
 ../smoke_tests.sh app 80 redis 6379
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 # I think this is failing because we're not running in the same container as the app?
 local_hostname="localhost"
@@ -14,7 +14,7 @@ function ensure {
     label="$1"
     path="$2"
     url="http://$hostname:$web_port$path"
-    echo "$label $path"
+    echo "$label $url"
     [ $(curl "$url" \
         --retry 3 \
         --retry-delay 1 \

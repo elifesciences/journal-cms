@@ -28,7 +28,11 @@ RUN curl https://getcomposer.org/installer > composer-setup.php && \
     php composer-setup.php --install-dir=/srv/bin --filename=composer --version=1.10.16 && \
     rm composer-setup.php
 
-RUN echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/elife-fpm.ini
+# container default is 64MB
+# journal-cms--prod is 128MB
+RUN echo "memory_limit = 128M" >> /usr/local/etc/php/conf.d/elife-fpm.ini
+# this is unlimited memory usage:
+#RUN echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/elife-fpm.ini
 RUN echo "upload_max_filesize = 32M" >> /usr/local/etc/php/conf.d/elife-fpm.ini
 RUN echo "post_max_size = 32M" >> /usr/local/etc/php/conf.d/elife-fpm.ini
 RUN echo "sendmail_path = /bin/true" > /usr/local/etc/php/conf.d/elife-sendmail.ini
