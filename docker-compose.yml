@@ -1,22 +1,5 @@
 version: "3.8"
 services:
-    # basic drupal site installation with dependencies and permissions configured
-    # use `docker exec -ti journal-cms_app_1 /bin/bash` to get a shell
-    app:
-        build: .
-        image: elifesciences/journal-cms #:${IMAGE_TAG}
-        volumes:
-            - ./container/dev/nginx/sites-enabled:/etc/nginx/sites-enabled
-            # todo: ensure writeable by www-data
-            - /var/log/journal-cms:/srv/journal-cms/private/monolog
-            # disabled as this replaces the guest's copy of ./web/sites/default which is populated 
-            #- ./web/sites/default:/srv/journal-cms/web/sites/default
-        ports:
-            - "8080:80" # nginx
-            #- "9000:9000" # php-fpm
-        networks:
-            - internal
-            - external
 
     # mysql database
     db:
@@ -45,17 +28,36 @@ services:
         networks:
             - internal
 
-    # continue with installation now that drupal has been connected to a database
-    configure:
-        image: elifesciences/journal-cms
-        entrypoint: ["./wait-for-it.sh", "db:3306", "-t", "120", "--"]
-        command: ./configure.sh
-        depends_on:
-            - app
-            - db
-            - redis
+    # basic drupal site installation with dependencies and permissions configured
+    # use `docker exec -ti journal-cms_app_1 /bin/bash` to get a shell
+    app:
+        build: .
+        image: elifesciences/journal-cms #:${IMAGE_TAG}
+        volumes:
+            - ./container/dev/nginx/sites-enabled:/etc/nginx/sites-enabled
+            
+            # todo: ensure writeable by www-data
+            # todo: not suitable for dev environments
+            - /var/log/journal-cms:/srv/journal-cms/private/monolog
+
+            # warning! "./web/sites/default" contains settings that can't be replaced by this mount.
+            # use "./web/sites/default/files" instead.
+            - ./web/sites/default/files:/srv/journal-cms/web/sites/default/files:rw
+
+            # see Dockerfile, this allows for any dev for per-run overrides
+            - ./config:/srv/journal-cms/config
+            - ./config/drupal-container.settings.php:/srv/journal-cms/config/local.settings.php
+            - ./config/drupal-container.services.yml:/srv/journal-cms/config/local.services.yml
+
+        ports:
+            - "8080:80" # nginx
+            #- "9000:9000" # php-fpm
         networks:
             - internal
+            - external
+        depends_on:
+            - db
+            - redis
 
 networks:
     external:

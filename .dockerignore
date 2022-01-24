@@ -1,1 +1,5 @@
 mysql/
+web/
+.git/
+# cuts down on dev time, is it really needed?
+src/modules/jcms_migrate/migration_assets/images/subjects/

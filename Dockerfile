@@ -42,36 +42,41 @@ COPY --chown=elife:elife src ./src
 COPY --chown=elife:elife sync ./sync
 COPY --chown=elife:elife scripts ./scripts
 COPY --chown=elife:elife composer.json composer.lock composer-setup.json composer-setup.lock ./
-# and the rest
+# and those required by the rest of the app
 COPY --chown=elife:elife wait-for-it.sh ./web/wait-for-it.sh
 COPY --chown=elife:elife check-drush-migrate-output.sh check-drush-migrate-output.sh
 COPY --chown=elife:elife smoke_tests.sh project_tests.sh ./
-COPY --chown=elife:elife ./container/prod/configure.sh ./web/configure.sh
 
 # install everything
 ENV COMPOSER_DISCARD_CHANGES=true
 RUN composer --no-interaction install --optimize-autoloader --no-dev
 
 
-
-# TODO: further file/dir permissions so www-data can write/execute what it needs
-
-
-# settings
+# default settings
 RUN cp config/drupal-container.settings.php config/local.settings.php
 RUN cp config/drupal-container.services.yml config/local.services.yml
 
+
 WORKDIR ${PROJECT_FOLDER}/web
+
+COPY --chown=elife:elife ./container/prod/configure.sh ./configure.sh
 
 # `assert_fpm`, see: `elife-base-images/utils/assert_fpm`
 # disabled temporarily
-HEALTHCHECK --interval=5s CMD HTTP_HOST=localhost assert_fpm /ping 'pong'
+HEALTHCHECK --interval=10s CMD HTTP_HOST=localhost assert_fpm /ping 'pong'
 
 # this image inherits from `elifesciences/php_7.3_fpm`, which inherits from `php:7.3.4-fpm-stretch`, which has it's own
 # custom EXECUTE command that starts `php-fpm`.
 # lsh@2021-12: replaced ENTRYPOINT with a custom script that inits nginx and then runs php-fpm.
 # nginx will drop down to www-data and php-fpm is configured to run as www-data.
 USER root
+
+
+# any further file/dir permissions so www-data can write/execute what it needs
+RUN mkdir -p /srv/journal-cms/private && chown www-data:www-data -R /srv/journal-cms/private
+# RUN ...
+
+
 COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint.sh
 RUN chmod 755 /usr/local/bin/docker-php-entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/docker-php-entrypoint.sh"]
