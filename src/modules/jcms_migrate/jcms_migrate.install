@@ -1796,3 +1796,31 @@ function jcms_migrate_update_8167() {
   $executable = new MigrateExecutable($migration, new MigrateMessage());
   $executable->import();
 }
+
+/**
+ * Amend content publication dates and uuid.
+ */
+function jcms_migrate_update_8168() {
+  $content = [
+    'd47836a4' => [
+      'created' => '2020-10-12',
+      'uuid' => 'bfd36e50-a78a-4d2f-932e-e92c7379e8d5',
+    ],
+  ];
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
+    ->condition('type', 'interview');
+
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $id = substr($node->uuid(), -8);
+      $current = $node->getCreatedTime();
+      $node->set('created', strtotime($content[$id]['created'] . ' ' . date('H:i:s', $current)));
+      $node->set('uuid', $content[$id]['uuid']);
+      $node->save();
+    }
+  }
+}
