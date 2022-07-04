@@ -256,7 +256,7 @@
     }
   ],
   "require": {
-    "php": "^7.2",
+    "php": "^7.4",
     "composer/installers": "^1.2",
     "drupal-composer/drupal-scaffold": "~2.4.0",
     "cweagans/composer-patches": "^1.6",
@@ -342,7 +342,7 @@
     "drupal/drupal": "*"
   },
   "config": {
-    "platform": {"php": "7.2"}
+    "platform": {"php": "7.4"}
   },
   "autoload": {
     "classmap": [
