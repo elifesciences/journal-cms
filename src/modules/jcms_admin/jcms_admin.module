@@ -150,7 +150,7 @@ function jcms_admin_form_entity_subqueue_covers_preview_edit_form_alter(&$form, 
   $form['covers_active_publish'] = [
     '#title' => t('Publish items'),
     '#type' => 'checkbox',
-    '#description' => t('Tick this box to transfer the active items (1 - 3) to the current covers list.'),
+    '#description' => t('Tick this box to transfer the active items (1 - 4) to the current covers list.'),
     '#default_value' => FALSE,
     '#weight' => ++$max_weight,
   ];
