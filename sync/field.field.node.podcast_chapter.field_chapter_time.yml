@@ -15,14 +15,11 @@ label: Time
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    duration: null
+    seconds: 0
 default_value_callback: ''
 settings:
-  granularity:
-    minute: true
-    second: true
-    year: false
-    month: false
-    day: false
-    hour: false
+  granularity: 'i:s'
 field_type: duration
