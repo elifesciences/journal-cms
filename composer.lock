@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d2adbe068575df6c7ab3f6b71fd2770",
+    "content-hash": "3796f4aeb0ac1283a59071cd28797f27",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1750,24 +1750,24 @@
         },
         {
             "name": "cweagans/composer-patches",
-            "version": "1.6.5",
+            "version": "1.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweagans/composer-patches.git",
-                "reference": "2ec4f00ff5fb64de584c8c4aea53bf9053ecb0b3"
+                "reference": "e9969cfc0796e6dea9b4e52f77f18e1065212871"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/2ec4f00ff5fb64de584c8c4aea53bf9053ecb0b3",
-                "reference": "2ec4f00ff5fb64de584c8c4aea53bf9053ecb0b3",
+                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/e9969cfc0796e6dea9b4e52f77f18e1065212871",
+                "reference": "e9969cfc0796e6dea9b4e52f77f18e1065212871",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0",
+                "composer-plugin-api": "^1.0 || ^2.0",
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "composer/composer": "~1.0",
+                "composer/composer": "~1.0 || ~2.0",
                 "phpunit/phpunit": "~4.6"
             },
             "type": "composer-plugin",
@@ -1790,7 +1790,7 @@
                 }
             ],
             "description": "Provides a way to patch Composer packages.",
-            "time": "2018-05-11T18:00:16+00:00"
+            "time": "2022-01-25T19:21:20+00:00"
         },
         {
             "name": "dflydev/dot-access-configuration",
@@ -3033,22 +3033,23 @@
         },
         {
             "name": "drupal/console-extend-plugin",
-            "version": "0.9.2",
+            "version": "0.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hechoendrupal/drupal-console-extend-plugin.git",
-                "reference": "f3bac233fd305359c33e96621443b3bd065555cc"
+                "reference": "eff6da99cfb5fe1fc60990672d2667c402eb3585"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hechoendrupal/drupal-console-extend-plugin/zipball/f3bac233fd305359c33e96621443b3bd065555cc",
-                "reference": "f3bac233fd305359c33e96621443b3bd065555cc",
+                "url": "https://api.github.com/repos/hechoendrupal/drupal-console-extend-plugin/zipball/eff6da99cfb5fe1fc60990672d2667c402eb3585",
+                "reference": "eff6da99cfb5fe1fc60990672d2667c402eb3585",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0",
-                "symfony/finder": "~2.7|~3.0",
-                "symfony/yaml": "~2.7|~3.0"
+                "composer-plugin-api": "^1.0 || ^2.0",
+                "composer/installers": "^1.2",
+                "symfony/finder": "~3.0|^4.4",
+                "symfony/yaml": "~3.0|^4.4"
             },
             "type": "composer-plugin",
             "extra": {
@@ -3070,7 +3071,7 @@
                 }
             ],
             "description": "Drupal Console Extend Plugin",
-            "time": "2017-07-28T17:11:54+00:00"
+            "time": "2020-11-18T00:15:28+00:00"
         },
         {
             "name": "drupal/core",
@@ -7249,24 +7250,24 @@
         },
         {
             "name": "mindplay/composer-locator",
-            "version": "2.1.3",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mindplay-dk/composer-locator.git",
-                "reference": "629988d5305cd8ef11adbd6bb485660219c599fc"
+                "reference": "d206ce7a5a88f5336332f489be0c8988eddb7a38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mindplay-dk/composer-locator/zipball/629988d5305cd8ef11adbd6bb485660219c599fc",
-                "reference": "629988d5305cd8ef11adbd6bb485660219c599fc",
+                "url": "https://api.github.com/repos/mindplay-dk/composer-locator/zipball/d206ce7a5a88f5336332f489be0c8988eddb7a38",
+                "reference": "d206ce7a5a88f5336332f489be0c8988eddb7a38",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1",
+                "composer-plugin-api": "^1.0 || ^2.0",
                 "php": ">= 5.4"
             },
             "require-dev": {
-                "composer/composer": "^1",
+                "composer/composer": "^1.0 || ^2.0",
                 "mindplay/testies": "^0.3.0",
                 "symfony/filesystem": "^2.7 || ^3.0",
                 "symfony/process": "^2.7 || ^3.0"
@@ -7286,7 +7287,7 @@
                 "MIT"
             ],
             "description": "Locates Composer package root folders by package name",
-            "time": "2017-05-08T12:12:31+00:00"
+            "time": "2020-12-23T10:58:04+00:00"
         },
         {
             "name": "mkalkbrenner/php-htmldiff-advanced",
@@ -13242,17 +13243,17 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "drupal/entity_reference_revisions": 20,
-        "drupal/restui": 20,
         "drupal/address": 5,
-        "elife/bus-sdk": 20,
-        "drupal/field_validation": 15,
-        "drupal/diff": 5,
-        "drupal/monolog": 15,
         "drupal/country": 10,
+        "drupal/diff": 5,
+        "drupal/entity_reference_revisions": 20,
         "drupal/entity_reference_unpublished": 15,
+        "drupal/field_validation": 15,
+        "drupal/monolog": 15,
+        "drupal/restui": 20,
+        "elife/api-sdk": 20,
         "elife/api-validator": 20,
-        "elife/api-sdk": 20
+        "elife/bus-sdk": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
