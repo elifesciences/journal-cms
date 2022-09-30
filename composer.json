@@ -309,6 +309,7 @@
     "drupal/restui": "1.x-dev",
     "drupal/scheduler": "^1.1",
     "drupal/services": "~4.0-beta2",
+    "drupal/upgrade_status": "^3.17",
     "drush/drush": "10.3.6",
     "egulias/email-validator": "^2.1",
     "elife/api": "^2.11",
