@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0bf0182dd4755c0f3dc1a668e8b46b5f",
+    "content-hash": "e8a5932dede078afe9f1c544ff57fb93",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5100,30 +5100,27 @@
         },
         {
             "name": "drupal/services",
-            "version": "4.0.0-beta5",
+            "version": "4.0.0-beta6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/services.git",
-                "reference": "8.x-4.0-beta5"
+                "reference": "8.x-4.0-beta6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/services-8.x-4.0-beta5.zip",
-                "reference": "8.x-4.0-beta5",
-                "shasum": "115739bc6e33963e322c13a5f404eba6a6947027"
+                "url": "https://ftp.drupal.org/files/projects/services-8.x-4.0-beta6.zip",
+                "reference": "8.x-4.0-beta6",
+                "shasum": "eb7c0809d50c87819a23d80f3c66e9318a98effc"
             },
             "require": {
-                "drupal/core": "*",
+                "drupal/core": "^8 || ^9",
                 "drupal/ctools": "*"
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-4.x": "4.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-4.0-beta5",
-                    "datestamp": "1554130084",
+                    "version": "8.x-4.0-beta6",
+                    "datestamp": "1622398043",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -5139,6 +5136,10 @@
                     "name": "See contributors",
                     "homepage": "https://www.drupal.org/node/109640/committers",
                     "role": "Developer"
+                },
+                {
+                    "name": "jcnventura",
+                    "homepage": "https://www.drupal.org/user/122464"
                 },
                 {
                     "name": "kylebrowning",
@@ -14953,6 +14954,7 @@
         "drupal/file_entity": 20,
         "drupal/monolog": 15,
         "drupal/restui": 20,
+        "drupal/services": 10,
         "elife/api-sdk": 20,
         "elife/api-validator": 20,
         "elife/bus-sdk": 20
