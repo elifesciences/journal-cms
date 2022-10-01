@@ -300,7 +300,7 @@
     "drupal/inline_entity_form": "~1.0-beta1",
     "drupal/jsonb": "~1.0-beta1",
     "drupal/migrate_manifest": "^2.1",
-    "drupal/migrate_plus": "^4.2",
+    "drupal/migrate_plus": "^5.1",
     "drupal/migrate_tools": "^4.5",
     "drupal/monolog": "^1.0@alpha",
     "drupal/paragraphs": "^1.9",
