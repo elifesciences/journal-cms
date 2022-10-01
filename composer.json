@@ -409,6 +409,9 @@
       },
       "embed/embed": {
         "Add twitter adapter to prevent errors on 429 status code": "https://github.com/denniszon/Embed/commit/56fc5273c02971ade656991dc9173b01753a07d9.patch"
+      },
+      "drupal/monolog": {
+        "Prepare the module for D9 (3109707)": "src/patches/monolog-3109707-4.patch"
       }
     }
   }
