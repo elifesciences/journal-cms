@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48ffcb7e54714caefbcba69b6d76d727",
+    "content-hash": "87b57c783c56589e85261b846eb15c73",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4559,6 +4559,77 @@
             }
         },
         {
+            "name": "drupal/profile_switcher",
+            "version": "1.0.0-alpha6",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/profile_switcher.git",
+                "reference": "8.x-1.0-alpha6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/profile_switcher-8.x-1.0-alpha6.zip",
+                "reference": "8.x-1.0-alpha6",
+                "shasum": "b0b7aad7c1e745f2b074a9733fbda784bb1a2615"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10",
+                "php": ">=5.6.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-alpha6",
+                    "datestamp": "1657897251",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Author name",
+                    "homepage": "https://www.drupal.org/user/145609",
+                    "email": "author@example.com"
+                },
+                {
+                    "name": "joachim",
+                    "homepage": "https://www.drupal.org/user/107701"
+                },
+                {
+                    "name": "kreynen",
+                    "homepage": "https://www.drupal.org/user/48877"
+                },
+                {
+                    "name": "owenpm3",
+                    "homepage": "https://www.drupal.org/user/1644952"
+                },
+                {
+                    "name": "phenaproxima",
+                    "homepage": "https://www.drupal.org/user/205645"
+                },
+                {
+                    "name": "University of Colorado Boulder",
+                    "homepage": "https://www.drupal.org/user/3299791"
+                }
+            ],
+            "description": "Allows switching of installation profiles for a Drupal site.",
+            "homepage": "https://www.drupal.org/project/profile_switcher",
+            "support": {
+                "source": "https://git.drupalcode.org/project/profile_switcher"
+            }
+        },
+        {
             "name": "drupal/redis",
             "version": "1.4.0",
             "source": {
@@ -5425,6 +5496,11 @@
                 "phpunit/phpunit": "^5.7|^6.0|^7.0"
             },
             "type": "library",
+            "extra": {
+                "patches_applied": {
+                    "Add twitter adapter to prevent errors on 429 status code": "https://github.com/denniszon/Embed/commit/56fc5273c02971ade656991dc9173b01753a07d9.patch"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Embed\\": "src"
@@ -5451,12 +5527,7 @@
                 "opengraph",
                 "twitter cards"
             ],
-            "time": "2020-12-24T09:42:20+00:00",
-            "extra": {
-                "patches_applied": {
-                    "Add twitter adapter to prevent errors on 429 status code": "https://github.com/denniszon/Embed/commit/56fc5273c02971ade656991dc9173b01753a07d9.patch"
-                }
-            }
+            "time": "2020-12-24T09:42:20+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -13226,7 +13297,8 @@
         "drupal/country": 10,
         "drupal/entity_reference_unpublished": 15,
         "elife/api-validator": 20,
-        "elife/api-sdk": 20
+        "elife/api-sdk": 20,
+        "drupal/profile_switcher": 15
     },
     "prefer-stable": true,
     "prefer-lowest": false,
