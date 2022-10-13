@@ -686,8 +686,9 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       return FALSE;
     }
 
-    // Override impact statement of related item with value from field_impact_statement of cover item until we can
-    // support impact statement on cover directly.
+    // Override impact statement of related item with value from
+    // field_impact_statement of cover item until we can support impact
+    // statement on cover directly.
     if (!empty($item_values['item']['impactStatement'])) {
       unset($item_values['item']['impactStatement']);
     }
