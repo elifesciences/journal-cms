@@ -31,7 +31,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $list) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
@@ -53,7 +53,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
     $nids = $query->execute();
     if ($nids) {
       $nid = reset($nids);
-      /* @var Node $node */
+      /** @var \Drupal\node\Entity\Node $node */
       $node = Node::load($nid);
       $dependencies[] = $node;
       foreach ($node->get('field_highlight_items')->getValue() as $item) {
@@ -103,7 +103,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
 
     if (!empty($item_nids)) {
       $response_data['total'] = count($item_nids);
-      /* @var \Drupal\node\Entity\Node[] $items */
+      /** @var \Drupal\node\Entity\Node[] $items */
       if ($items = Node::loadMultiple($this->filterPageAndOrderArray($item_nids))) {
         foreach ($items as $item) {
           $dependencies[] = $item;
@@ -135,7 +135,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
    *   Return item, if found.
    */
   public function getItem(EntityInterface $node) {
-    /* @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $item = $this->getEntityQueueItem($node, $node->get('field_highlight_item'), FALSE);
 
     if ($item) {

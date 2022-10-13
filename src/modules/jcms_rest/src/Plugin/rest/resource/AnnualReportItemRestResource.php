@@ -26,7 +26,7 @@ class AnnualReportItemRestResource extends AbstractRestResourceBase {
   /**
    * Responds to GET requests.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(int $year) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
@@ -40,7 +40,7 @@ class AnnualReportItemRestResource extends AbstractRestResourceBase {
     $nids = $query->execute();
     if ($nids) {
       $nid = reset($nids);
-      /* @var \Drupal\node\Entity\Node $node */
+      /** @var \Drupal\node\Entity\Node $node */
       $node = Node::load($nid);
 
       $this->setSortBy(FALSE);

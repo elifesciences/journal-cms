@@ -25,7 +25,7 @@ class SubjectItemRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $id = NULL) : JCMSRestResponse {
     if ($this->checkId($id, 'subject')) {
@@ -36,7 +36,7 @@ class SubjectItemRestResource extends AbstractRestResourceBase {
       $tids = $query->execute();
       if ($tids) {
         $tid = reset($tids);
-        /* @var \Drupal\taxonomy\Entity\Term $term */
+        /** @var \Drupal\taxonomy\Entity\Term $term */
         $term = Term::load($tid);
 
         $response = [

@@ -43,7 +43,7 @@ class BlogArticleItemRestResource extends AbstractRestResourceBase {
       $nids = $query->execute();
       if ($nids) {
         $nid = reset($nids);
-        /* @var \Drupal\node\Entity\Node $node */
+        /** @var \Drupal\node\Entity\Node $node */
         $node = Node::load($nid);
 
         $response = $this->processDefault($node, $id);

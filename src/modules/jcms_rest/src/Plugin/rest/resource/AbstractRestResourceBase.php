@@ -5,8 +5,6 @@ namespace Drupal\jcms_rest\Plugin\rest\resource;
 use Drupal\jcms_rest\JCMSCheckIdTrait;
 use Drupal\node\NodeInterface;
 use function GuzzleHttp\Psr7\normalize_header;
-use DateTimeImmutable;
-use DateTimeZone;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -229,7 +227,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   protected function processSubjects(FieldItemListInterface $field_subjects, bool $required = FALSE) : array {
     $subjects = [];
     if ($required || $field_subjects->count()) {
-      /* @var \Drupal\taxonomy\Entity\Term $term */
+      /** @var \Drupal\taxonomy\Entity\Term $term */
       foreach ($field_subjects->referencedEntities() as $term) {
         $subjects[] = [
           'id' => $term->get('field_subject_id')->getString(),
@@ -325,7 +323,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   /**
    * Apply filter by show parameter: all, open or closed.
    *
-   * @throws JCMSBadRequestHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSBadRequestHttpException
    */
   protected function filterShow(QueryInterface &$query, string $filterFieldName, bool $isTimeStamp = FALSE) {
     $show_option = $this->getRequestOption('show');
@@ -356,8 +354,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    *   UNIX timestamp.
    */
   protected function filterDateRange(QueryInterface &$query, string $default_field = 'field_order_date.value', $published_field = 'created', bool $timestamp = TRUE) {
-    $start_date = DateTimeImmutable::createFromFormat('Y-m-d', $originalStartDate = $this->getRequestOption('start-date'), new DateTimeZone('Z'));
-    $end_date = DateTimeImmutable::createFromFormat('Y-m-d', $originalEndDate = $this->getRequestOption('end-date'), new DateTimeZone('Z'));
+    $start_date = \DateTimeImmutable::createFromFormat('Y-m-d', $originalStartDate = $this->getRequestOption('start-date'), new \DateTimeZone('Z'));
+    $end_date = \DateTimeImmutable::createFromFormat('Y-m-d', $originalEndDate = $this->getRequestOption('end-date'), new \DateTimeZone('Z'));
     $use_date = $this->getRequestOption('use-date');
 
     if (!$start_date || $start_date->format('Y-m-d') !== $this->getRequestOption('start-date')) {
@@ -504,7 +502,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     // Venue address is optional.
     if ($venue_field->get('field_block_address')->count()) {
       $locale = 'en';
-      /* @var \CommerceGuys\Addressing\AddressInterface $address  */
+      /** @var \CommerceGuys\Addressing\AddressInterface $address  */
       $address = $venue_field->get('field_block_address')->first();
       $postal_label_formatter = \Drupal::service('address.postal_label_formatter');
       $components = [
@@ -569,7 +567,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
     foreach (['content' => 'field_collection_content', 'relatedContent' => 'field_collection_related_content'] as $k => $field) {
       foreach ($node->get($field)->referencedEntities() as $content) {
-        /* @var Node $content */
+        /** @var \Drupal\node\Entity\Node $content */
         if ($content->isPublished() || $this->viewUnpublished()) {
           switch ($content->getType()) {
             case 'blog_article':
@@ -606,7 +604,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       $item['podcastEpisodes'] = [];
       $podcast_rest_resource = new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger);
       foreach ($node->get('field_collection_podcasts')->referencedEntities() as $podcast) {
-        /* @var Node $podcast */
+        /** @var \Drupal\node\Entity\Node $podcast */
         if ($podcast->isPublished() || $this->viewUnpublished()) {
           $item['podcastEpisodes'][] = $podcast_rest_resource->getItem($podcast);
         }
@@ -633,8 +631,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       return FALSE;
     }
 
-    /* @var Node $node */
-    /* @var Node $related */
+    /** @var \Drupal\node\Entity\Node $node */
+    /** @var \Drupal\node\Entity\Node $related */
     $related = $related_field->first()->get('entity')->getTarget()->getValue();
     $rest_resource = [
       'blog_article' => new BlogArticleListRestResource([], 'blog_article_list_rest_resource', [], $this->serializerFormats, $this->logger),

@@ -46,7 +46,7 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
    */
   private function cleanHtml(string $html) : string {
     // Strip out placeholder text.
-    // @todo - Consider stripping this out of the saved HTML.
+    // @todo Consider stripping this out of the saved HTML.
     $html = preg_replace([
       '~<figcaption>\s*caption\s*</figcaption>~i',
       '~<placeholder>[^<]+</placeholder>~',

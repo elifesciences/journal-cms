@@ -27,7 +27,7 @@ class PromotionalCollectionItemRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
@@ -71,7 +71,7 @@ class PromotionalCollectionItemRestResource extends AbstractRestResourceBase {
       $people_rest_resource = new PersonListRestResource([], 'person_list_rest_resource', [], $this->serializerFormats, $this->logger);
       $item['editors'] = [];
       foreach ($node->get('field_editors')->referencedEntities() as $editor) {
-        /* @var Node $editor */
+        /** @var \Drupal\node\Entity\Node $editor */
         if ($editor->isPublished() || $this->viewUnpublished()) {
           $item['editors'][] = $people_rest_resource->getItem($editor);
         }

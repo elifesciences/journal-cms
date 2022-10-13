@@ -27,7 +27,7 @@ class EventItemRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
@@ -42,7 +42,7 @@ class EventItemRestResource extends AbstractRestResourceBase {
       $nids = $query->execute();
       if ($nids) {
         $nid = reset($nids);
-        /* @var \Drupal\node\Entity\Node $node */
+        /** @var \Drupal\node\Entity\Node $node */
         $node = Node::load($nid);
 
         $this->setSortBy(FALSE);

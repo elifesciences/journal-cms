@@ -40,7 +40,7 @@ final class Tweet implements TweetInterface {
       if ($info = $this->embed->create('https://twitter.com/og/status/' . $id)) {
         $providers = $info->getProviders();
         if (isset($providers['oembed'])) {
-          /* @var \Embed\Providers\OEmbed $oembed */
+          /** @var \Embed\Providers\OEmbed $oembed */
           $oembed = $providers['oembed'];
           $oembed_dom = new Dom();
           $oembed_dom->setOptions([

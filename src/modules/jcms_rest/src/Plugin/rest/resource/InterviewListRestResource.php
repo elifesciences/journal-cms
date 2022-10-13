@@ -62,7 +62,7 @@ class InterviewListRestResource extends AbstractRestResourceBase {
    * Takes a node and builds an item from it.
    */
   public function getItem(EntityInterface $node) : array {
-    /* @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $item = $this->processDefault($node);
 
     $item['interviewee']['name'] = $this->processPeopleNames($node->get('field_person_preferred_name')->getString(), $node->get('field_person_index_name'));

@@ -81,7 +81,7 @@ class DeprecationEndpointValidatorTest extends FixtureBasedTestCase {
       }
 
       $data = \GuzzleHttp\json_decode((string) $response->getBody());
-      $items = isset($data->items) ? $data->items : $data;
+      $items = $data->items ?? $data;
 
       if (!is_array($items) || count($items) < $per_page) {
         $page = -1;

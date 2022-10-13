@@ -75,7 +75,7 @@ final class FetchArticleMetrics {
   /**
    * Makes the request to get the article versions.
    *
-   * @throws BadResponseException
+   * @throws \GuzzleHttp\Exception\BadResponseException
    */
   private function requestArticleMetrics(string $id, string $type = 'page-views') : ResponseInterface {
     $options = [

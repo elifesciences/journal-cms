@@ -55,7 +55,7 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
 
     $cover_rest_resource = new CoverListRestResource([], 'cover_list_rest_resource', [], $this->serializerFormats, $this->logger);
     foreach (EntitySubqueue::load('covers')->get('items') as $item) {
-      /* @var \Drupal\node\Entity\Node $item_node */
+      /** @var \Drupal\node\Entity\Node $item_node */
       $item_node = $item->get('entity')->getTarget()->getValue();
       if ($item_node->isPublished() && $item_node->get('field_image')->count()) {
         $this->nodes[$item_node->id()] = $item_node;
@@ -80,7 +80,7 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
     $limit = 4;
     foreach ($items as $item) {
       $limit--;
-      /* @var \Drupal\node\Entity\Node $item_node */
+      /** @var \Drupal\node\Entity\Node $item_node */
       $item_node = $item->get('entity')->getTarget()->getValue();
       $moderation_info = \Drupal::service('content_moderation.moderation_information');
       if (!$moderation_info->isLatestRevision($item_node)) {

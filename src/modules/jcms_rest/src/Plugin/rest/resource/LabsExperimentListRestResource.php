@@ -62,7 +62,7 @@ class LabsExperimentListRestResource extends AbstractRestResourceBase {
    * Takes a node and builds an item from it.
    */
   public function getItem(EntityInterface $node) : array {
-    /* @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $this->setSortBy('created', TRUE);
     $item = $this->processDefault($node);
 

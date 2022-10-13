@@ -47,7 +47,7 @@ class ValidateContentRestResource extends AbstractRestResourceBase {
       $nids = $query->execute();
       if ($nids) {
         $nid = reset($nids);
-        /* @var \Drupal\node\Entity\Node $node */
+        /** @var \Drupal\node\Entity\Node $node */
         $node = Node::load($nid);
         $validator = \Drupal::service('jcms_rest.content_validator');
 

@@ -72,7 +72,7 @@ class PersonListRestResource extends AbstractRestResourceBase {
   protected function filterSubjects(QueryInterface &$query) {
     $subjects = $this->getRequestOption('subject');
     if (!empty($subjects)) {
-      // @todo - elife - nlisgo - Ideally we would just filter on $query.
+      // @todo elife - nlisgo - Ideally we would just filter on $query.
       // The below query doesn't work.
       // $query
       // ->condition(

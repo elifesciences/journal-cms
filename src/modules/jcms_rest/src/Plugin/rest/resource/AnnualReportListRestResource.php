@@ -67,7 +67,7 @@ class AnnualReportListRestResource extends AbstractRestResourceBase {
    * Takes a node and builds an item from it.
    */
   public function getItem(EntityInterface $node) : array {
-    /* @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $item = $this->processDefault($node, (int) $node->get('field_annual_report_year')->getString(), 'year');
 
     // Uri is required.

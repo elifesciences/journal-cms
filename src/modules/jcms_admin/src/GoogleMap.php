@@ -39,7 +39,7 @@ final class GoogleMap implements GoogleMapInterface {
       if ($info = $this->embed->create('https://www.google.com/maps/d/embed?mid=' . $id)) {
         $providers = $info->getProviders();
         if (isset($providers['opengraph'])) {
-          /* @var \Embed\Providers\OpenGraph $opengraph */
+          /** @var \Embed\Providers\OpenGraph $opengraph */
           $opengraph = $providers['opengraph'];
           // Retrieve title of the google map.
           if ($title = $opengraph->getTitle()) {

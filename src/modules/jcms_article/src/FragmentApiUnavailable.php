@@ -2,12 +2,10 @@
 
 namespace Drupal\jcms_article;
 
-use Exception;
-
 /**
  * Class FragmentApiUnavailable.
  */
-class FragmentApiUnavailable extends Exception {
+class FragmentApiUnavailable extends \Exception {
 
   /**
    * FragmentApiUnavailable constructor.

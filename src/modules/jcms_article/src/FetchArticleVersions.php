@@ -66,7 +66,7 @@ final class FetchArticleVersions {
   /**
    * Makes the request to get the article versions.
    *
-   * @throws BadResponseException
+   * @throws \GuzzleHttp\Exception\BadResponseException
    */
   private function requestArticleVersions(string $id): ResponseInterface {
     $options = [

@@ -39,7 +39,7 @@ final class Figshare implements FigshareInterface {
       if ($info = $this->embed->create('https://figshare.com/articles/og/' . $id)) {
         $providers = $info->getProviders();
         if (isset($providers['opengraph'])) {
-          /* @var \Embed\Providers\OpenGraph $opengraph */
+          /** @var \Embed\Providers\OpenGraph $opengraph */
           $opengraph = $providers['opengraph'];
           // Retrieve title of the Fighsare.
           if ($title = $opengraph->getTitle()) {

@@ -39,7 +39,7 @@ final class YouTube implements YouTubeInterface {
       if ($info = $this->embed->create('https://www.youtube.com/watch?v=' . $id)) {
         $providers = $info->getProviders();
         if (isset($providers['opengraph'])) {
-          /* @var \Embed\Providers\OpenGraph $opengraph */
+          /** @var \Embed\Providers\OpenGraph $opengraph */
           $opengraph = $providers['opengraph'];
           $width = $opengraph->getWidth();
           $height = $opengraph->getHeight();

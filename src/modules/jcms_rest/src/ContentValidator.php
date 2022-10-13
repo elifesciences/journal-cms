@@ -37,7 +37,7 @@ final class ContentValidator implements ValidatorInterface {
   /**
    * Validate the content.
    *
-   * @throws InvalidMessage
+   * @throws \eLife\ApiValidator\Exception\InvalidMessage
    */
   public function validate(NodeInterface $node, $preview = FALSE, $context = []) {
     $paths = [

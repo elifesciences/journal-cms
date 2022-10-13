@@ -28,7 +28,7 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
@@ -89,7 +89,7 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
           $response['subjects'] = $subjects;
         }
 
-        // @todo - elife - nlisgo - expose this in a form in admin UI.
+        // @todo elife - nlisgo - expose this in a form in admin UI.
         $response['mediaContacts'] = [
           [
             'name' => [
