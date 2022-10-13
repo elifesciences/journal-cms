@@ -686,15 +686,17 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       return FALSE;
     }
 
-    // Override impact statement of related item with value from
-    // field_impact_statement of cover item until we can support impact
-    // statement on cover directly.
-    if (!empty($item_values['item']['impactStatement'])) {
-      unset($item_values['item']['impactStatement']);
-    }
+    if ($node->getType() === 'cover') {
+      // Override impact statement of related item with value from
+      // field_impact_statement of cover item until we can support impact
+      // statement on cover directly.
+      if (!empty($item_values['item']['impactStatement'])) {
+        unset($item_values['item']['impactStatement']);
+      }
 
-    if ($impact_statement = $this->fieldValueFormatted($node->get('field_impact_statement'), FALSE)) {
-      $item_values['item']['impactStatement'] = str_replace(['<p>', '</p>'], '', $impact_statement);
+      if ($impact_statement = $this->fieldValueFormatted($node->get('field_impact_statement'), FALSE)) {
+        $item_values['item']['impactStatement'] = str_replace(['<p>', '</p>'], '', $impact_statement);
+      }
     }
 
     return $item_values;
