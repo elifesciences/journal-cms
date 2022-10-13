@@ -693,7 +693,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       unset($item_values['item']['impactStatement']);
     }
 
-    if ($impact_statement = $this->fieldValueFormatted($node->get('field_impact_statement'), FALSE, TRUE)) {
+    if ($impact_statement = $this->fieldValueFormatted($node->get('field_impact_statement'), FALSE)) {
       $item_values['item']['impactStatement'] = str_replace(['<p>', '</p>'], '', $impact_statement);
     }
 
