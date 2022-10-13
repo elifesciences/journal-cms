@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.cover.field_cover_content
     - field.field.node.cover.field_image
     - field.field.node.cover.field_image_attribution
+    - field.field.node.cover.field_impact_statement
     - field.field.node.cover.field_order_date
     - image.style.thumbnail
     - node.type.cover
@@ -21,7 +22,7 @@ bundle: cover
 mode: default
 content:
   field_cover_content:
-    weight: 3
+    weight: 4
     settings:
       form_mode: default
       override_labels: true
@@ -33,6 +34,7 @@ content:
       collapsible: false
       collapsed: false
       allow_duplicate: false
+      revision: false
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
@@ -54,8 +56,16 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
+  field_impact_statement:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
   moderation_state:
-    weight: 5
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: moderation_state_default
@@ -64,7 +74,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 5
     third_party_settings: {  }
     region: content
   title:

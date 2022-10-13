@@ -1,0 +1,29 @@
+uuid: 9fb27c46-6354-4ca9-865e-8c397cf488cf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_impact_statement
+    - node.type.cover
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    basic_html: '0'
+    basic_html_plus: '0'
+    ckeditor_html: '0'
+    full_html: '0'
+    plain_text: '0'
+id: node.cover.field_impact_statement
+field_name: field_impact_statement
+entity_type: node
+bundle: cover
+label: 'Impact statement'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
