@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.cover.field_cover_content
     - field.field.node.cover.field_image
     - field.field.node.cover.field_image_attribution
+    - field.field.node.cover.field_impact_statement
     - field.field.node.cover.field_order_date
     - node.type.cover
   module:
@@ -41,6 +42,13 @@ content:
     region: content
   field_image_attribution:
     weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_impact_statement:
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
