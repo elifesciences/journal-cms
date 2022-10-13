@@ -15,6 +15,11 @@ use JsonSchema\Validator;
  */
 abstract class FixtureBasedTestCase extends UnitTestCase {
 
+  /**
+   * Content generated flag.
+   *
+   * @var bool
+   */
   protected static $contentGenerated = FALSE;
 
   /**

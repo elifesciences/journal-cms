@@ -20,6 +20,12 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class LabsExperimentItemRestResource extends AbstractRestResourceBase {
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
   protected $latestVersion = 2;
 
   /**

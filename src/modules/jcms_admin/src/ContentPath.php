@@ -10,7 +10,19 @@ use Drupal\node\NodeInterface;
  * Create content path from Node.
  */
 final class ContentPath {
+
+  /**
+   * The notification Service.
+   *
+   * @var \Drupal\jcms_notificationsEntityCrudNotificationService
+   */
   private $notificationService;
+
+  /**
+   * The catabase connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
   private $connection;
 
   /**

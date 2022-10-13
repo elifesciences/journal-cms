@@ -21,6 +21,12 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class PressPackageItemRestResource extends AbstractRestResourceBase {
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
   protected $latestVersion = 3;
 
   /**

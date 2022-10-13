@@ -22,6 +22,12 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class CollectionItemRestResource extends AbstractRestResourceBase {
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
   protected $latestVersion = 2;
 
   /**

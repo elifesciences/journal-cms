@@ -5,10 +5,22 @@ namespace Drupal\jcms_admin;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class YouTube.
+ * Class YouTube Embed.
  */
 final class YouTube implements YouTubeInterface {
+
+  /**
+   * The Embed.
+   *
+   * @var \Drupal\jcms_admin\Embed
+   */
   private $embed;
+
+  /**
+   * The logger channel.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
   private $logger;
 
   /**

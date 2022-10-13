@@ -63,6 +63,7 @@ trait JCMSImageUriTrait {
   /**
    * Process image field and return json string.
    */
+  // phpcs:ignore
   protected function processFieldImage(FieldItemListInterface $data, bool $required = FALSE, $size_types = ['banner', 'thumbnail'], $bump = FALSE) : array {
     if ($required || $data->count()) {
       $image = $this->getImageSizes($size_types);

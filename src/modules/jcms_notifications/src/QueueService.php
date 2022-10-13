@@ -9,7 +9,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\jcms_notifications\Queue\SqsMessage;
 
 /**
- * Class QueueService.
+ * SQS Queue Service.
  *
  * @package Drupal\jcms_notifications
  */
@@ -22,10 +22,25 @@ final class QueueService {
    */
   protected $sqsClient;
 
+  /**
+   * SQS endpoint.
+   *
+   * @var mixed|string
+   */
   protected $endpoint = '';
 
+  /**
+   * SQS queue name.
+   *
+   * @var mixed|string
+   */
   protected $queueName = '';
 
+  /**
+   * SQS region.
+   *
+   * @var mixed|string
+   */
   protected $region = '';
 
   /**

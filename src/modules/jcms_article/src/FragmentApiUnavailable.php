@@ -3,7 +3,7 @@
 namespace Drupal\jcms_article;
 
 /**
- * Class FragmentApiUnavailable.
+ * Exception class for FragmentApiUnavailable.
  */
 class FragmentApiUnavailable extends \Exception {
 

@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class FetchArticleMetrics.
+ * Fetch for articles metrics.
  *
  * @package Drupal\jcms_article
  */
@@ -103,7 +103,10 @@ final class FetchArticleMetrics {
         \Drupal::logger('jcms_article')
           ->notice(
             'Article metrics have been requested but not found @url with the response: @response',
-            ['@url' => $url, '@response' => Message::toString($exception->getResponse())]
+            [
+              '@url' => $url,
+              '@response' => Message::toString($exception->getResponse()),
+            ]
           );
         return $exception->getResponse();
       }

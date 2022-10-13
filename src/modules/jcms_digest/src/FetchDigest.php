@@ -9,7 +9,7 @@ use GuzzleHttp\Psr7\Message;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class FetchDigest.
+ * Fetch Digest Snippets.
  *
  * @package Drupal\jcms_digest
  */
@@ -123,7 +123,12 @@ class FetchDigest {
         ];
       }
       while (!$stop) {
-        $response = $this->client->get($endpoint, $options + ['query' => ['per-page' => $per_page, 'page' => $page]]);
+        $response = $this->client->get($endpoint, $options + [
+          'query' => [
+            'per-page' => $per_page,
+            'page' => $page,
+          ],
+        ]);
         if ($response instanceof ResponseInterface) {
           $json = json_decode((string) $response->getBody(), TRUE);
           if (isset($json['items']) && !empty($json['items'])) {

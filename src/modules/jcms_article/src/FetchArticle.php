@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class FetchArticle.
+ * Fetch for articles.
  *
  * @package Drupal\jcms_article
  */
@@ -83,7 +83,14 @@ class FetchArticle {
         ];
       }
       while (!$stop) {
-        $response = $this->client->get($endpoint, $options + ['query' => ['per-page' => $per_page, 'page' => $page]]);
+        $response = $this->client->get($endpoint, $options +
+          [
+            'query' => [
+              'per-page' => $per_page,
+              'page' => $page,
+            ],
+          ]
+        );
         if ($response instanceof ResponseInterface) {
           $json = json_decode((string) $response->getBody(), TRUE);
           if (isset($json['items']) && !empty($json['items'])) {

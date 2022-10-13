@@ -20,6 +20,12 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class InterviewItemRestResource extends AbstractRestResourceBase {
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
   protected $latestVersion = 2;
 
   /**

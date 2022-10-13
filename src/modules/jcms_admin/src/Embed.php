@@ -6,7 +6,7 @@ use Embed\Adapters\Adapter;
 use Embed\Embed as EmbedLib;
 
 /**
- * Class Embed.
+ * Embed wrapper class.
  */
 class Embed {
 

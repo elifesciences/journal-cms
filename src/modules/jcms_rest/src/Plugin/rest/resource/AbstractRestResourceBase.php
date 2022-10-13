@@ -29,6 +29,11 @@ abstract class AbstractRestResourceBase extends ResourceBase {
   use JCMSHtmlHelperTrait;
   use JCMSCheckIdTrait;
 
+  /**
+   * The default options.
+   *
+   * @var array
+   */
   protected $defaultOptions = [
     'per-page' => 10,
     'page' => 1,
@@ -43,8 +48,18 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     'type' => NULL,
   ];
 
+  /**
+   * The request options.
+   *
+   * @var array
+   */
   protected static $requestOptions = [];
 
+  /**
+   * The default sort.
+   *
+   * @var string
+   */
   protected $defaultSortBy = 'created';
 
   /**
@@ -565,7 +580,11 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     $event_rest_resource = new EventListRestResource([], 'event_list_rest_resource', [], $this->serializerFormats, $this->logger);
     $interview_rest_resource = new InterviewListRestResource([], 'interview_list_rest_resource', [], $this->serializerFormats, $this->logger);
 
-    foreach (['content' => 'field_collection_content', 'relatedContent' => 'field_collection_related_content'] as $k => $field) {
+    $field_collection_map = [
+      'content' => 'field_collection_content',
+      'relatedContent' => 'field_collection_related_content',
+    ];
+    foreach ($field_collection_map as $k => $field) {
       foreach ($node->get($field)->referencedEntities() as $content) {
         /** @var \Drupal\node\Entity\Node $content */
         if ($content->isPublished() || $this->viewUnpublished()) {
@@ -804,8 +823,12 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     return array_filter([
       'surname' => $surname,
       'givenNames' => $given,
-      'preferred' => ($preferred_name->count()) ? $preferred_name->getString() : implode(' ', array_filter([$given, $surname])),
-      'index' => ($index_name->count()) ? $index_name->getString() : implode(', ', array_filter([$surname, $given])),
+      'preferred' => ($preferred_name->count())
+        ? $preferred_name->getString()
+        : implode(' ', array_filter([$given, $surname])),
+      'index' => ($index_name->count())
+        ? $index_name->getString()
+        : implode(', ', array_filter([$surname, $given])),
     ]);
   }
 

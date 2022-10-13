@@ -170,9 +170,9 @@
 
             // Insert a figure widget when image is uploaded with uuid
             bodyEditor.widgets.registered.uploadimage.onUploaded = function (upload) {
-              this.replaceWith( '<figure class="image"><img src="' + upload.url + '" ' +
-                'width="' + upload.responseData.width + '" ' +
-                'height="' + upload.responseData.height + '" ' +
+              this.replaceWith( '<figure class="image"><img src="' + upload.url + '" width="' +
+                upload.responseData.width + '" height="' +
+                upload.responseData.height + '" ' +
                 //'data-fid="' + upload.responseData.fid + '" ' +
                 'data-uuid="' + upload.responseData.uuid + '">' +
                 '<figcaption>Caption</figcaption></figure>');

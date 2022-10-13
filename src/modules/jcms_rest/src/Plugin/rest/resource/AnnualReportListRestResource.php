@@ -20,7 +20,19 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class AnnualReportListRestResource extends AbstractRestResourceBase {
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
   protected $latestVersion = 2;
+
+  /**
+   * Minimum version.
+   *
+   * @var int
+   */
   protected $minVersion = 2;
 
   /**

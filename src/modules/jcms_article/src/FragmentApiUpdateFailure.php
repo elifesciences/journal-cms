@@ -3,6 +3,6 @@
 namespace Drupal\jcms_article;
 
 /**
- * Class FragmentApiUpdateFailure.
+ * Exception class for FragmentApiUpdateFailure.
  */
 class FragmentApiUpdateFailure extends \Exception {}

@@ -9,7 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class FragmentApi.
+ * Fetch for fragments.
  *
  * @package Drupal\jcms_article
  */
@@ -105,7 +105,12 @@ class FragmentApi {
 
     $response = $this->client->delete($endpoint, $options);
 
-    if (!in_array($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_FOUND])) {
+    if (!in_array($response->getStatusCode(),
+      [
+        Response::HTTP_OK,
+        Response::HTTP_NOT_FOUND,
+      ]
+    )) {
       \Drupal::logger('jcms_article_fragment_api')
         ->error(
           'A @fragmentId fragment has been deleted at @endpoint with the response: @response',

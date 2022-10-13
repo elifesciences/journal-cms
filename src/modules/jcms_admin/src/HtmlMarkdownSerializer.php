@@ -11,9 +11,26 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
  * Convert HTML to Markdown.
  */
 final class HtmlMarkdownSerializer implements NormalizerInterface {
+
+  /**
+   * The HTML converter.
+   *
+   * @var \League\HTMLToMarkdown\HtmlConverter
+   */
   private $htmlConverter;
+
+  /**
+   * The bracket character.
+   *
+   * @var string
+   */
   private $bracketChar = 'ø';
 
+  /**
+   * The HTML converter config.
+   *
+   * @var array
+   */
   private $htmlConverterConfig = [
     'header_style' => 'atx',
     'italic_style' => '*',
@@ -74,7 +91,11 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
    * Preserve output of code and tables.
    */
   private function preserveOutput(string $html, array $context = []) : string {
-    $html = preg_replace(['~(<pre>\s*<code[^>]*>)~', '~(</code>\s*</pre>)~'], ['$1' . PHP_EOL, PHP_EOL . '$1'], $html);
+    $html = preg_replace(
+      ['~(<pre>\s*<code[^>]*>)~', '~(</code>\s*</pre>)~'],
+      ['$1' . PHP_EOL, PHP_EOL . '$1'],
+      $html
+    );
     $regexes = $context['regexes'] ?? [];
     $preserve = preg_replace(array_keys($regexes), array_values($regexes), $html);
     $encode = $context['encode'] ?? [];

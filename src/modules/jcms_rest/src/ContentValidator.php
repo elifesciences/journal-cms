@@ -13,9 +13,33 @@ use Psr\Log\LoggerInterface;
  * Validate whether the content matches the schema.
  */
 final class ContentValidator implements ValidatorInterface {
+
+  /**
+   * The base URL.
+   *
+   * @var string
+   */
   private $baseUrl = 'http://journal-cms.local/';
+
+  /**
+   * The HTTP Client.
+   *
+   * @var \GuzzleHttp\ClientInterface
+   */
   private $client;
+
+  /**
+   * Message validator.
+   *
+   * @var \eLife\ApiValidator\MessageValidator
+   */
   private $messageValidator;
+
+  /**
+   * The Logger Channel.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
   private $logger;
 
   /**

@@ -5,10 +5,22 @@ namespace Drupal\jcms_admin;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class Figshare.
+ * Figshare Embed Class.
  */
 final class Figshare implements FigshareInterface {
+
+  /**
+   * The Embed.
+   *
+   * @var \Drupal\jcms_admin\Embed
+   */
   private $embed;
+
+  /**
+   * The logger channel.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
   private $logger;
 
   /**
