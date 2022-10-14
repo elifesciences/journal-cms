@@ -118,6 +118,7 @@ class DigestCrud {
    */
   public function getNodeIdByDigestId(string $id) : int {
     $query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'digest')
       ->condition('field_digest_id', $id);
     $result = $query->execute();

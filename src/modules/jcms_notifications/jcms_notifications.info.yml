@@ -2,4 +2,5 @@ name: Journal CMS (Notifications)
 type: module
 description: Integrates with Amazon SQS and Amazon SNS.
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: Journal CMS

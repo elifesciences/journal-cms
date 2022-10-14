@@ -67,6 +67,7 @@ function jcms_digest_node_presave(NodeInterface $node) {
   if (!$node->isNew()) {
     // Trigger save of nodes that reference this digest.
     $query = Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('status', NodeInterface::PUBLISHED)
       ->condition('type', 'collection');
     $collection_ids = (clone $query)->condition('field_collection_related_content', $node->id())->execute();

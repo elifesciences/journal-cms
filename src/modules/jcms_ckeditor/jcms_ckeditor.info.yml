@@ -2,6 +2,7 @@ name: Journal CMS (CKEditor)
 type: module
 description: Provide inline editing using CKEditor
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: Journal CMS
 dependencies:
   - jsonapi:jsonapi

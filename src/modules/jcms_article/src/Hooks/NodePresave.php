@@ -198,6 +198,7 @@ final class NodePresave {
   private function loadTermIdByIdField(string $id): int {
     $tid = 0;
     $query = \Drupal::entityQuery('taxonomy_term')
+      ->accessCheck(TRUE)
       ->condition('field_subject_id', $id);
     $tids = $query->execute();
     if ($tids) {

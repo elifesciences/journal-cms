@@ -2,6 +2,7 @@ name: Plain Editor
 type: theme
 description: This is a  plain editor sub-theme of Bartik
 core: 8.x
+core_version_requirement: ^8 || ^9
 # Defines the base theme
 base theme: bartik
 libraries:

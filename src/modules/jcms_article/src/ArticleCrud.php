@@ -175,7 +175,9 @@ class ArticleCrud {
    * Checks if node with the article ID already exists and returns the node ID.
    */
   public function getNodeIdByArticleId(string $articleId) : int {
-    $query = \Drupal::entityQuery('node')->condition('title', $articleId);
+    $query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
+      ->condition('title', $articleId);
     $result = $query->execute();
     return !empty($result) ? reset($result) : 0;
   }

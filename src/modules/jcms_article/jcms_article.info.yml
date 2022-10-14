@@ -2,4 +2,5 @@ name: Journal CMS (Article)
 type: module
 description: Article functionality.
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: Journal CMS
