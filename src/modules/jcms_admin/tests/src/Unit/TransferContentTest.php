@@ -48,7 +48,7 @@ class TransferContentTest extends UnitTestCase {
    *
    * @before
    */
-  protected function setUp() {
+  protected function setUp(): void {
     $this->fileSystem = $this->createMock(FileSystemInterface::class);
     $this->renderer = $this->createMock(RendererInterface::class);
     $this->validator = $this->createMock(ValidatorInterface::class);

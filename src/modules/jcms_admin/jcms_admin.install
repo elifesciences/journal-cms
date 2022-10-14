@@ -30,7 +30,9 @@ function jcms_admin_update_8101() {
 function jcms_admin_update_8102() {
   // Uninstalling the module temporarily will resolve data structure issues.
   // We do not need to retain data for continuity.
-  $ids = \Drupal::entityQuery('content_moderation_state')->execute();
+  $ids = \Drupal::entityQuery('content_moderation_state')
+    ->accessCheck(FALSE)
+    ->execute();
   $entities = ContentModerationState::loadMultiple($ids);
   foreach ($entities as $entity) {
     $entity->delete();

@@ -298,6 +298,7 @@
     "drupal/focal_point": "^1.1",
     "drupal/hide_revision_field": "^2.2",
     "drupal/inline_entity_form": "~1.0-beta1",
+    "drupal/jquery_ui_tooltip": "^1.1",
     "drupal/jsonb": "~1.0-beta1",
     "drupal/migrate_manifest": "^2.1",
     "drupal/migrate_plus": "^5.1",

@@ -45,6 +45,8 @@ module:
   jcms_notifications: 0
   jcms_ping: 0
   jcms_rest: 0
+  jquery_ui: 0
+  jquery_ui_tooltip: 0
   jsonapi: 0
   jsonb: 0
   link: 0

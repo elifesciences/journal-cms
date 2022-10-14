@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_admin\Plugin\views\field;
 
+use Drupal\Core\Link;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
@@ -45,7 +46,7 @@ class ContentLink extends FieldPluginBase {
       if ($journal_preview) {
         $links[] = [
           '#theme' => 'markup',
-          '#markup' => \Drupal::l(t('Preview page'), Url::fromUri($journal_preview . $path)),
+          '#markup' => Link::fromTextAndUrl(t('Preview page'), Url::fromUri($journal_preview . $path)),
         ];
         $links = [
           '#theme' => 'item_list',

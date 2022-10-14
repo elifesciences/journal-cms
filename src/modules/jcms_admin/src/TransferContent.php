@@ -7,10 +7,6 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\jcms_rest\ValidatorInterface;
 use Drupal\node\NodeInterface;
-use function file_copy;
-use function file_create_url;
-use function file_prepare_directory;
-use function file_url_transform_relative;
 
 /**
  * Transfer content from preview to live and vice versa.
@@ -77,14 +73,14 @@ final class TransferContent {
         $fromFid = $image->id();
         $newImageUri = preg_replace('~(/[a-z+\-]+\-)(content|preview)/~', '$1' . ($toLive ? 'content' : 'preview') . '/', $image->getFileUri());
         $directory = $this->fileSystem->dirname($newImageUri);
-        file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
-        $newImage = file_copy($image, $newImageUri, FILE_EXISTS_RENAME);
+        \Drupal::service('file_system')->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
+        $newImage = \Drupal::service('file.repository')->copy($image, $newImageUri, FileSystemInterface::EXISTS_RENAME);
         $newImage->save();
         $toFids[] = ['target_id' => $newImage->id()];
         $fids[$fromFid] = [
           'fid' => $newImage->id(),
           'uuid' => $newImage->uuid(),
-          'src' => file_url_transform_relative(file_create_url($newImage->getFileUri())),
+          'src' => \Drupal::service('file_url_generator')->generateString($newImage->getFileUri()),
         ];
       }
 

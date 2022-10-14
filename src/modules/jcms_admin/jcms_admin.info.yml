@@ -2,6 +2,7 @@ name: Journal CMS (Admin)
 type: module
 description: Admin improvements.
 core: 8.x
+core_version_requirement: ^8 || ^9
 dependencies:
   - jcms_notifications
   - jcms_rest

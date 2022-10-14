@@ -40,7 +40,7 @@ class FigshareTest extends UnitTestCase {
    *
    * @before
    */
-  protected function setUp() {
+  protected function setUp(): void {
     $this->embed = $this->createMock(Embed::class);
     $this->logger = $this->createMock(LoggerInterface::class);
     $this->figshare = new Figshare($this->embed, $this->logger);
