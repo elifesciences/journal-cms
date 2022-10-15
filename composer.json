@@ -10,11 +10,27 @@
   "repositories": [
     {
       "type": "composer",
-      "url": "https://packages.drupal.org/8"
+      "url": "https://packages.drupal.org/8",
+      "exclude": [
+        "drupal/monolog"
+      ]
     },
     {
       "type": "vcs",
       "url": "https://github.com/drupal-composer/drupal-project"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "drupal/monolog",
+        "type": "drupal-module",
+        "version": "dev-custom",
+        "source": {
+          "type": "git",
+          "url": "https://git.drupalcode.org/project/monolog.git",
+          "reference": "3109707-drupal-9-readiness"
+        }
+      }
     },
     {
       "type": "package",
@@ -303,7 +319,7 @@
     "drupal/migrate_manifest": "^2.1",
     "drupal/migrate_plus": "^5.1",
     "drupal/migrate_tools": "^4.5",
-    "drupal/monolog": "^1.0@alpha",
+    "drupal/monolog": "dev-custom#b216caca850aa580ce7b21e618c5acfa2a24e344",
     "drupal/paragraphs": "^1.9",
     "drupal/redis": "^1.2",
     "drupal/restui": "1.x-dev",
@@ -341,12 +357,14 @@
     "drupal/drupal": "*"
   },
   "config": {
-    "platform": {"php": "7.4"},
+    "platform": {
+      "php": "7.4"
+    },
     "allow-plugins": {
       "composer/installers": true,
       "cweagans/composer-patches": true,
-      "drupal/core-composer-scaffold": true,
       "drupal/console-extend-plugin": true,
+      "drupal/core-composer-scaffold": true,
       "mindplay/composer-locator": true,
       "dealerdirect/phpcodesniffer-composer-installer": true
     },

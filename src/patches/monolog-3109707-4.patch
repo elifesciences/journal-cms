@@ -5,7 +5,7 @@ index 5c994a3..671b138 100644
 @@ -3,4 +3,5 @@ name: Monolog
  description: A Framework for integrating with the Monolog library.
  dependencies: []
- # core: 8.x
+ core: 8.x
 +core_version_requirement: ^8 || ^9
  package: Development
 diff --git a/tests/src/Unit/Logger/LoggerTest.php b/tests/src/Unit/Logger/LoggerTest.php
