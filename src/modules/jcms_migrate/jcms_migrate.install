@@ -61,6 +61,7 @@ function jcms_migrate_update_8101() {
   $regex = sprintf('(%s)$', implode('|', array_keys($type_labels)));
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('type', 'person')
     ->condition('uuid', $regex, 'REGEXP');
 
@@ -187,6 +188,7 @@ function jcms_migrate_update_8102() {
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('type', 'person');
 
   $nids = $query->execute();
@@ -521,6 +523,7 @@ function jcms_migrate_update_8103() {
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('type', 'person');
 
   $nids = $query->execute();
@@ -585,6 +588,7 @@ function jcms_migrate_update_8105() {
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'press_package');
 
@@ -608,6 +612,7 @@ function jcms_migrate_update_8106(&$sandbox) {
   if (!isset($sandbox['current'])) {
     $sandbox['current'] = 0;
     $sandbox['total'] = \Drupal::entityQuery('node')
+      ->accessCheck(FALSE)
       ->notExists('field_order_date')
       ->count()
       ->execute();
@@ -615,6 +620,7 @@ function jcms_migrate_update_8106(&$sandbox) {
   $items_per_batch = 200;
 
   $nodes = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->notExists('field_order_date')
     ->sort('nid', 'ASC')
     ->range(0, $items_per_batch)
@@ -654,6 +660,7 @@ function jcms_migrate_update_8107() {
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'press_package');
 
@@ -768,6 +775,7 @@ function jcms_migrate_update_8109() {
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'blog_article');
 
@@ -792,6 +800,7 @@ function jcms_migrate_update_8110() {
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'press_package');
 
@@ -846,6 +855,7 @@ function jcms_migrate_update_8113(&$sandbox) {
     $sandbox['progress'] = 0;
     $sandbox['current_pk'] = 0;
     $query = \Drupal::entityQuery('node')
+      ->accessCheck(FALSE)
       ->condition('type', [
         'blog_article',
         'event',
@@ -859,6 +869,7 @@ function jcms_migrate_update_8113(&$sandbox) {
 
   // Update 20 nodes at a time.
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('type', [
       'blog_article',
       'event',
@@ -908,6 +919,7 @@ function jcms_migrate_update_8115() {
     'immunology',
   ];
   $tids = \Drupal::entityQuery('taxonomy_term')
+    ->accessCheck(FALSE)
     ->condition('vid', 'subjects')
     ->condition('field_subject_id.value', $msa, 'IN')
     ->execute();
@@ -955,6 +967,7 @@ function jcms_migrate_update_8119() {
     'biophysics-structural-biology',
   ];
   $tids = \Drupal::entityQuery('taxonomy_term')
+    ->accessCheck(FALSE)
     ->condition('vid', 'subjects')
     ->condition('field_subject_id.value', $msa, 'IN')
     ->execute();
@@ -983,6 +996,7 @@ function jcms_migrate_update_8120() {
  */
 function jcms_migrate_update_8121() {
   $subject_tids = \Drupal::entityQuery('taxonomy_term')
+    ->accessCheck(FALSE)
     ->condition('vid', 'subjects')->execute();
 
   $aims = [];
@@ -1021,7 +1035,20 @@ function jcms_migrate_update_8121() {
  * Update taxonomy_term.field_aims_and_scope field.
  */
 function jcms_migrate_update_8122() {
-  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $entity_type_manager->clearCachedDefinitions();
+
+  $entity_type_ids = [];
+  $change_summary = \Drupal::service('entity.definition_update_manager')->getChangeSummary();
+  foreach ($change_summary as $entity_type_id => $change_list) {
+    $entity_type = $entity_type_manager->getDefinition($entity_type_id);
+    \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
+    $entity_type_ids[] = $entity_type_id;
+  }
+
+  return t("Installed/Updated the entity type(s): @entity_type_ids", [
+    '@entity_type_ids' => implode(', ', $entity_type_ids),
+  ]);
 }
 
 /**
@@ -1042,6 +1069,7 @@ function jcms_migrate_update_8124() {
     'genes-chromosomes',
   ];
   $tids = \Drupal::entityQuery('taxonomy_term')
+    ->accessCheck(FALSE)
     ->condition('vid', 'subjects')
     ->condition('field_subject_id.value', $msa, 'IN')
     ->execute();
@@ -1062,6 +1090,7 @@ function jcms_migrate_update_8124() {
  */
 function jcms_migrate_update_8125() {
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('type', 'person')
     // Limit the person nodes to those with a competing interest.
     ->condition('field_person_competing.format', 'basic_html');
@@ -1081,6 +1110,7 @@ function jcms_migrate_update_8125() {
  */
 function jcms_migrate_update_8126() {
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('type', 'labs_experiment');
   $nids = $query->execute();
   if ($nids) {
@@ -1127,6 +1157,7 @@ function jcms_migrate_update_8129() {
     'genomics-evolutionary-biology',
   ];
   $tids = \Drupal::entityQuery('taxonomy_term')
+    ->accessCheck(FALSE)
     ->condition('vid', 'subjects')
     ->condition('field_subject_id.value', $msa, 'IN')
     ->execute();
@@ -1182,12 +1213,14 @@ function jcms_migrate_update_8132(&$sandbox) {
     $sandbox['progress'] = 0;
     $sandbox['current_pk'] = 0;
     $query = \Drupal::entityQuery('node')
+      ->accessCheck(FALSE)
       ->condition('type', $types, 'IN');
     $sandbox['max'] = $query->count()->execute() - 1;
   }
 
   // Update 20 nodes at a time.
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('type', $types, 'IN')
     ->condition('nid', $sandbox['current_pk'], '>')
     ->range(0, 20)
@@ -1228,6 +1261,7 @@ function jcms_migrate_update_8133(&$sandbox) {
     $sandbox['progress'] = 0;
     $sandbox['current_pk'] = 0;
     $query = \Drupal::entityQuery('node')
+      ->accessCheck(FALSE)
       ->exists('field_image')
       ->condition('type', $types, 'NOT IN');
     $sandbox['max'] = $query->count()->execute() - 1;
@@ -1235,6 +1269,7 @@ function jcms_migrate_update_8133(&$sandbox) {
 
   // Update 20 nodes at a time.
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->exists('field_image')
     ->condition('type', $types, 'NOT IN')
     ->condition('nid', $sandbox['current_pk'], '>')
@@ -1264,6 +1299,7 @@ function jcms_migrate_update_8133(&$sandbox) {
  */
 function jcms_migrate_update_8134() {
   $query = \Drupal::entityQuery('taxonomy_term')
+    ->accessCheck(FALSE)
     ->condition('vid', 'subjects');
   $tids = $query->execute();
   if ($tids) {
@@ -1287,6 +1323,7 @@ function jcms_migrate_update_8135() {
     'developmental-biology-stem-cells',
   ];
   $tids = \Drupal::entityQuery('taxonomy_term')
+    ->accessCheck(FALSE)
     ->condition('vid', 'subjects')
     ->condition('field_subject_id.value', $msa, 'IN')
     ->execute();
@@ -1332,12 +1369,14 @@ function jcms_migrate_update_8138(&$sandbox) {
     $sandbox['progress'] = 0;
     $sandbox['current_pk'] = 0;
     $query = \Drupal::entityQuery('node')
+      ->accessCheck(FALSE)
       ->condition('type', 'podcast_chapter');
     $sandbox['max'] = $query->count()->execute() - 1;
   }
 
   // Update 20 nodes at a time.
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('type', 'podcast_chapter')
     ->condition('nid', $sandbox['current_pk'], '>')
     ->range(0, 20)
@@ -1466,6 +1505,7 @@ function jcms_migrate_update_8147() {
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'interview');
 
@@ -1490,6 +1530,7 @@ function jcms_migrate_update_8148() {
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'interview');
 
@@ -1514,6 +1555,7 @@ function jcms_migrate_update_8149() {
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'job_advert');
 
@@ -1538,6 +1580,7 @@ function jcms_migrate_update_8150() {
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'interview');
 
@@ -1564,6 +1607,7 @@ function jcms_migrate_update_8151() {
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('uuid', '(' . implode('|', $content) . ')$', 'REGEXP')
     ->condition('type', 'blog_article');
 
@@ -1586,6 +1630,7 @@ function jcms_migrate_update_8152() {
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('uuid', '(' . implode('|', $content) . ')$', 'REGEXP')
     ->condition('type', 'press_package');
 
@@ -1683,6 +1728,7 @@ function jcms_migrate_update_8159() {
     'human-biology-medicine',
   ];
   $tids = \Drupal::entityQuery('taxonomy_term')
+    ->accessCheck(FALSE)
     ->condition('vid', 'subjects')
     ->condition('field_subject_id.value', $msa, 'IN')
     ->execute();
@@ -1724,6 +1770,7 @@ function jcms_migrate_update_8162() {
  */
 function jcms_migrate_update_8163() {
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('type', 'job_advert')
     ->sort('nid', 'ASC');
   $nids = $query->execute();
@@ -1809,6 +1856,7 @@ function jcms_migrate_update_8168() {
   ];
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
     ->condition('uuid', '(' . implode('|', array_keys($content)) . ')', 'REGEXP')
     ->condition('type', 'interview');
 
