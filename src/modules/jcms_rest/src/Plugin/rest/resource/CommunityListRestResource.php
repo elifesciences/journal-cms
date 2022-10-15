@@ -28,6 +28,7 @@ class CommunityListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('field_community_list.value', 1);
 
     if (!$this->viewUnpublished()) {

@@ -31,6 +31,7 @@ class BlogArticleListRestResource extends AbstractRestResourceBase {
    */
   public function get() {
     $base_query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'blog_article');
 
     if (!$this->viewUnpublished()) {

@@ -42,6 +42,7 @@ class AnnualReportItemRestResource extends AbstractRestResourceBase {
    */
   public function get(int $year) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'annual_report')
       ->condition('field_annual_report_year.value', $year);
 

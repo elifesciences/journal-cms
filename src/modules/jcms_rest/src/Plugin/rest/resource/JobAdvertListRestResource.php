@@ -28,6 +28,7 @@ class JobAdvertListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'job_advert');
 
     if (!$this->viewUnpublished()) {

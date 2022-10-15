@@ -29,6 +29,7 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'press_package');
 
     if (!$this->viewUnpublished()) {

@@ -39,6 +39,7 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'press_package')
         ->condition('uuid', '%' . $id, 'LIKE');
 

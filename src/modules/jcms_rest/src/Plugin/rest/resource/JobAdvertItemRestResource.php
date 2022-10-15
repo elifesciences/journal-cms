@@ -32,6 +32,7 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'job_advert')
         ->condition('uuid', '%' . $id, 'LIKE');
 

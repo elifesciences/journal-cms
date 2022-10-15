@@ -28,6 +28,7 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'podcast_episode');
 
     if (!$this->viewUnpublished()) {

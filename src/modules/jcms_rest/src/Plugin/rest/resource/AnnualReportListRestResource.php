@@ -45,6 +45,7 @@ class AnnualReportListRestResource extends AbstractRestResourceBase {
    */
   public function get() {
     $base_query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'annual_report');
 
     if (!$this->viewUnpublished()) {

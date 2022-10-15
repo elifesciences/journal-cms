@@ -27,6 +27,7 @@ class SubjectListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('taxonomy_term')
+      ->accessCheck(TRUE)
       ->condition('vid', 'subjects');
     $count_query = clone $base_query;
     $items_query = clone $base_query;

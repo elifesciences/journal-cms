@@ -38,6 +38,7 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'labs_experiment')
         ->condition('uuid', '%' . $id, 'LIKE');
 

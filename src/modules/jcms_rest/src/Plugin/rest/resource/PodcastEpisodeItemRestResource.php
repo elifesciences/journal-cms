@@ -33,6 +33,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
   public function get(int $number) : JCMSRestResponse {
     if ($this->checkId($number, 'podcast-episode')) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'podcast_episode')
         ->condition('field_episode_number.value', $number);
 
