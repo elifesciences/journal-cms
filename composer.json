@@ -299,7 +299,7 @@
     "drupal/console": "^1.0.2",
     "drupal/core-composer-scaffold": "^8.9.20",
     "drupal/core-recommended": "8.9.20",
-    "drupal/country": "^1.0@beta",
+    "drupal/country": "^1.0",
     "drupal/ctools": "~3.0-alpha27",
     "drupal/devel": "3.0.0-beta1",
     "drupal/diff": "^1.0@RC",
