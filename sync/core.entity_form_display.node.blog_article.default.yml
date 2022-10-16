@@ -26,56 +26,56 @@ third_party_settings:
     group_image_attribution:
       children:
         - field_image_attribution
+      label: 'Image attribution'
+      region: content
       parent_name: ''
       weight: 2
       format_type: details
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         open: false
         required_fields: true
-      label: 'Image attribution'
-      region: content
 id: node.blog_article.default
 targetEntityType: node
 bundle: blog_article
 mode: default
 content:
   field_community_list:
+    type: boolean_checkbox
     weight: 6
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_image_social:
+    type: image_focal_point
     weight: 3
+    region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
       preview_link: true
       offsets: '50,50'
     third_party_settings: {  }
-    type: image_focal_point
-    region: content
   field_impact_statement:
+    type: text_textarea
     weight: 4
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
-    region: content
   field_subjects:
+    type: entity_reference_autocomplete
     weight: 5
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   publish_on:
     type: datetime_timestamp_no_default
     weight: 8
@@ -90,11 +90,11 @@ content:
   title:
     type: string_textfield
     weight: 0
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
   field_content_html: true

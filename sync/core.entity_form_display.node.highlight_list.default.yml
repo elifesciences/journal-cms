@@ -14,7 +14,9 @@ bundle: highlight_list
 mode: default
 content:
   field_highlight_items:
+    type: inline_entity_form_complex
     weight: 1
+    region: content
     settings:
       form_mode: default
       override_labels: true
@@ -23,27 +25,25 @@ content:
       allow_new: true
       allow_existing: true
       match_operator: CONTAINS
+      allow_duplicate: false
       collapsible: false
       collapsed: false
-      allow_duplicate: false
     third_party_settings: {  }
-    type: inline_entity_form_complex
-    region: content
   status:
     type: boolean_checkbox
+    weight: 2
+    region: content
     settings:
       display_label: true
-    weight: 2
     third_party_settings: {  }
-    region: content
   title:
     type: string_textfield
     weight: 0
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
   field_order_date: true

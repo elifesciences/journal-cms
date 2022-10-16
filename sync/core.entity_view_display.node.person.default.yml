@@ -35,154 +35,156 @@ bundle: person
 mode: default
 content:
   field_archive:
-    weight: 111
+    type: boolean
     label: above
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    type: boolean
+    weight: 111
     region: content
   field_image:
-    weight: 103
+    type: image
     label: above
     settings:
-      image_style: ''
       image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
-    type: image
+    weight: 103
     region: content
   field_order_date:
-    weight: 112
+    type: timestamp
     label: above
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    type: timestamp
+    weight: 112
     region: content
   field_person_affiliation:
     type: entity_reference_revisions_entity_view
-    weight: 110
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 110
     region: content
   field_person_affiliation_json:
-    weight: 113
+    type: jsonb_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: jsonb_default
+    weight: 113
     region: content
   field_person_competing:
-    weight: 106
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 106
     region: content
   field_person_email:
-    weight: 120
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 120
     region: content
   field_person_index_name:
-    weight: 105
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 105
     region: content
   field_person_name_given:
-    weight: 117
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 117
     region: content
   field_person_name_surname:
-    weight: 119
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 119
     region: content
   field_person_orcid:
-    weight: 104
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 104
     region: content
   field_person_preferred_name:
-    weight: 118
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 118
     region: content
   field_person_profile:
     type: entity_reference_revisions_entity_view
-    weight: 107
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 107
     region: content
   field_person_profile_json:
-    weight: 114
+    type: jsonb_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: jsonb_default
+    weight: 114
     region: content
   field_person_type:
-    weight: 102
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 102
     region: content
   field_person_type_label:
-    weight: 109
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 109
     region: content
   field_research_details:
     type: entity_reference_revisions_entity_view
-    weight: 108
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 108
     region: content
   field_research_details_json:
-    weight: 115
+    type: jsonb_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: jsonb_default
+    weight: 115
     region: content
   links:
-    weight: 100
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 100
+    region: content
 hidden: {  }

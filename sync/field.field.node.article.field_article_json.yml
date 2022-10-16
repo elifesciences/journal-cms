@@ -21,16 +21,16 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       json: json
+    negate: 0
     target_bundles_drag_drop:
       affiliation:
         weight: 7
         enabled: false
       json:
-        enabled: true
         weight: 13
+        enabled: true
       media_contact:
         weight: 9
         enabled: false

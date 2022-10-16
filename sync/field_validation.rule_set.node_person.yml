@@ -8,12 +8,12 @@ entity_type: node
 bundle: person
 field_validation_rules:
   4179bf40-5d6a-404b-9020-9ceef1c66c9d:
-    uuid: 4179bf40-5d6a-404b-9020-9ceef1c66c9d
     id: regex_field_validation_rule
     title: 'ORCID ID'
+    data:
+      setting: '/^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$/'
     weight: 1
+    uuid: 4179bf40-5d6a-404b-9020-9ceef1c66c9d
     field_name: field_person_orcid
     column: value
     error_message: 'The value for ORCID ID is not valid'
-    data:
-      setting: '/^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$/'

@@ -21,9 +21,9 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       media_contact: media_contact
+    negate: 0
     target_bundles_drag_drop:
       affiliation:
         weight: 7
@@ -32,8 +32,8 @@ settings:
         weight: 21
         enabled: false
       media_contact:
-        enabled: true
         weight: 16
+        enabled: true
       paragraph:
         weight: 24
         enabled: false

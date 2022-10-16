@@ -18,48 +18,50 @@ bundle: subjects
 mode: default
 content:
   description:
-    label: hidden
     type: text_default
-    weight: 0
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 0
     region: content
   field_aims_and_scope:
-    weight: 5
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 5
     region: content
   field_image:
-    weight: 2
+    type: image
     label: above
     settings:
-      image_style: ''
       image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
-    type: image
+    weight: 2
     region: content
   field_image_attribution:
-    weight: 3
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 3
     region: content
   field_impact_statement:
-    weight: 4
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 4
     region: content
   field_subject_id:
-    weight: 1
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 1
     region: content
 hidden: {  }

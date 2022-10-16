@@ -21,9 +21,9 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       research_details: research_details
+    negate: 0
     target_bundles_drag_drop:
       affiliation:
         weight: 7
@@ -38,8 +38,8 @@ settings:
         weight: 14
         enabled: false
       research_details:
-        enabled: true
         weight: 15
+        enabled: true
       venue:
         weight: 12
         enabled: false

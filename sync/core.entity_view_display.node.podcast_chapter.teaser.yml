@@ -18,10 +18,10 @@ bundle: podcast_chapter
 mode: teaser
 content:
   links:
-    weight: 100
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 100
+    region: content
 hidden:
   field_chapter_time: true
   field_impact_statement: true

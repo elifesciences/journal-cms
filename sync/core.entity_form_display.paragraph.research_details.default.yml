@@ -13,35 +13,35 @@ bundle: research_details
 mode: default
 content:
   field_research_expertises:
+    type: entity_reference_autocomplete
     weight: 0
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_research_focuses:
+    type: entity_reference_autocomplete
     weight: 1
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_research_organisms:
+    type: entity_reference_autocomplete
     weight: 2
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
 hidden:
   created: true
   moderation_state: true

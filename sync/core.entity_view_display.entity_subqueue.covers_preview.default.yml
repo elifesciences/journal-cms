@@ -10,19 +10,19 @@ bundle: covers_preview
 mode: default
 content:
   items:
-    label: hidden
     type: entity_reference_label
-    weight: 0
-    region: content
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
-  title:
-    label: hidden
-    type: string
-    weight: -10
+    weight: 0
     region: content
+  title:
+    type: string
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: -10
+    region: content
 hidden: {  }

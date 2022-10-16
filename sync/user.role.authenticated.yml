@@ -1,7 +1,46 @@
 uuid: f4996fd2-51ab-457e-8b94-0090adf12618
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.basic_html_plus
+    - filter.format.ckeditor_html
+    - rest.resource.annual_report_item_rest_resource
+    - rest.resource.annual_report_list_rest_resource
+    - rest.resource.blog_article_item_rest_resource
+    - rest.resource.blog_article_list_rest_resource
+    - rest.resource.collection_item_rest_resource
+    - rest.resource.collection_list_rest_resource
+    - rest.resource.community_list_rest_resource
+    - rest.resource.cover_current_list_rest_resource
+    - rest.resource.cover_list_rest_resource
+    - rest.resource.event_item_rest_resource
+    - rest.resource.event_list_rest_resource
+    - rest.resource.highlight_list_rest_resource
+    - rest.resource.interview_item_rest_resource
+    - rest.resource.interview_list_rest_resource
+    - rest.resource.job_advert_item_rest_resource
+    - rest.resource.job_advert_list_rest_resource
+    - rest.resource.labs_experiment_item_rest_resource
+    - rest.resource.labs_experiment_list_rest_resource
+    - rest.resource.person_item_rest_resource
+    - rest.resource.person_list_rest_resource
+    - rest.resource.podcast_episode_item_rest_resource
+    - rest.resource.podcast_episode_list_rest_resource
+    - rest.resource.press_package_item_rest_resource
+    - rest.resource.press_package_list_rest_resource
+    - rest.resource.promotional_collection_item_rest_resource
+    - rest.resource.promotional_collection_list_rest_resource
+    - rest.resource.subject_item_rest_resource
+    - rest.resource.subject_list_rest_resource
+  module:
+    - field_permissions
+    - file_entity
+    - filter
+    - rest
+    - shortcut
+    - system
 _core:
   default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
 id: authenticated
@@ -9,11 +48,8 @@ label: 'Authenticated user'
 weight: -9
 is_admin: false
 permissions:
-  - 'access comments'
   - 'access content'
   - 'access shortcuts'
-  - 'access site-wide contact form'
-  - 'post comments'
   - 'restful get annual_report_item_rest_resource'
   - 'restful get annual_report_list_rest_resource'
   - 'restful get blog_article_item_rest_resource'
@@ -42,8 +78,6 @@ permissions:
   - 'restful get promotional_collection_list_rest_resource'
   - 'restful get subject_item_rest_resource'
   - 'restful get subject_list_rest_resource'
-  - 'search content'
-  - 'skip comment approval'
   - 'use text format basic_html'
   - 'use text format basic_html_plus'
   - 'use text format ckeditor_html'

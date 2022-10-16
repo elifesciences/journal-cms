@@ -28,17 +28,17 @@ mode: full
 content:
   field_content_html:
     type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
     weight: 1
     region: content
-    label: above
-    settings: {  }
-    third_party_settings: {  }
   field_impact_statement:
-    weight: 0
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 0
     region: content
 hidden:
   field_community_list: true

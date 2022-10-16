@@ -21,13 +21,13 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       affiliation: affiliation
+    negate: 0
     target_bundles_drag_drop:
       affiliation:
-        enabled: true
         weight: 18
+        enabled: true
       json:
         weight: 22
         enabled: false

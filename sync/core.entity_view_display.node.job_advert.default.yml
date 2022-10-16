@@ -21,60 +21,60 @@ bundle: job_advert
 mode: default
 content:
   field_impact_statement:
-    weight: 1
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 1
     region: content
   field_job_advert_closing_date:
-    weight: 0
+    type: timestamp
     label: above
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    type: timestamp
+    weight: 0
     region: content
   field_job_advert_experience:
-    weight: 4
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 4
     region: content
   field_job_advert_respons:
-    weight: 3
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 3
     region: content
   field_job_advert_role_summary:
-    weight: 2
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 2
     region: content
   field_job_advert_terms:
-    weight: 5
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 5
     region: content
   field_order_date:
     type: timestamp
-    weight: 6
-    region: content
     label: above
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
+    weight: 6
+    region: content
 hidden:
   field_image_social: true
   links: true

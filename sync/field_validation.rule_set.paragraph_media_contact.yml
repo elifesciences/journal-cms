@@ -8,12 +8,12 @@ entity_type: paragraph
 bundle: media_contact
 field_validation_rules:
   cad6388c-736f-46f6-bf6e-0b75fcb3c6bf:
-    uuid: cad6388c-736f-46f6-bf6e-0b75fcb3c6bf
     id: regex_field_validation_rule
     title: 'Phone number in E.164 format'
+    data:
+      setting: '/^\+[0-9]{8,15}(;ext=[0-9]+)?$/'
     weight: 2
+    uuid: cad6388c-736f-46f6-bf6e-0b75fcb3c6bf
     field_name: field_block_phone_number
     column: value
     error_message: 'The phone number must be a valid E.164 value'
-    data:
-      setting: '/^\+[0-9]{8,15}(;ext=[0-9]+)?$/'

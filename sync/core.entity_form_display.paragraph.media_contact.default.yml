@@ -20,6 +20,7 @@ content:
   field_block_affiliation:
     type: entity_reference_paragraphs
     weight: 4
+    region: content
     settings:
       title: Affiliation
       title_plural: Affiliations
@@ -28,38 +29,37 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
-    region: content
   field_block_email:
-    weight: 2
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
     type: email_default
+    weight: 2
     region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
   field_block_index_name:
+    type: string_textfield
     weight: 1
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_block_phone_number:
+    type: telephone_default
     weight: 3
+    region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
-    type: telephone_default
-    region: content
   field_block_preferred_name:
+    type: string_textfield
     weight: 0
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
 hidden:
   created: true
   moderation_state: true

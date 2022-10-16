@@ -25,18 +25,18 @@ bundle: blog_article
 mode: full
 content:
   field_content_html_preview:
-    weight: 1
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 1
     region: content
   field_impact_statement:
-    weight: 0
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 0
     region: content
 hidden:
   field_community_list: true
