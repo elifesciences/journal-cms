@@ -26,7 +26,7 @@ class JcmsAdminCommands extends DrushCommands {
    *   Transfer HTML from content to content preview for node with ID 123.
    * @validate-module-enabled jcms_admin
    *
-   * @command jcms:transfer-content.
+   * @command jcms:transfer-content
    * @aliases jcms-transfer-content
    */
   public function transferContent(string $id, array $options = ['to-live' => TRUE]) {
@@ -98,7 +98,7 @@ class JcmsAdminCommands extends DrushCommands {
    *   Re-save profiles with organism "amphibians" to trigger notifications
    * @validate-module-enabled jcms_admin
    *
-   * @command jcms:profile-notify.
+   * @command jcms:profile-notify
    * @aliases jcms-profile-notify
    */
   public function profileNotify(array $options = [
