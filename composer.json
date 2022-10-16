@@ -296,12 +296,12 @@
     "drupal/allowed_formats": "^1.3",
     "drupal/confi": "^3.0",
     "drupal/config_devel": "^1.8",
-    "drupal/console": "^1.0.2",
-    "drupal/core-composer-scaffold": "^8.9.20",
-    "drupal/core-recommended": "8.9.20",
+    "drupal/console": "^1.9",
+    "drupal/core-composer-scaffold": "^9.4",
+    "drupal/core-recommended": "^9.4",
     "drupal/country": "^1.0",
     "drupal/ctools": "~3.0-alpha27",
-    "drupal/devel": "3.0.0-beta1",
+    "drupal/devel": "^5.0",
     "drupal/diff": "^1.0@RC",
     "drupal/duration_field": "^2.0",
     "drupal/entity_reference_revisions": "1.x-dev",
@@ -316,7 +316,7 @@
     "drupal/inline_entity_form": "~1.0-beta1",
     "drupal/jquery_ui_tooltip": "^1.1",
     "drupal/jsonb": "~1.0-beta1",
-    "drupal/migrate_manifest": "^2.1",
+    "drupal/migrate_manifest": "^3.0",
     "drupal/migrate_plus": "^5.1",
     "drupal/migrate_tools": "^4.5",
     "drupal/monolog": "dev-custom#b216caca850aa580ce7b21e618c5acfa2a24e344",
@@ -326,10 +326,9 @@
     "drupal/scheduler": "^1.1",
     "drupal/services": "^4.0@beta",
     "drupal/upgrade_status": "^3.17",
-    "drush/drush": "10.3.6",
-    "egulias/email-validator": "^2.1",
+    "drush/drush": "^10",
     "elife/api": "^2.11",
-    "elife/api-sdk": "^1.0@dev",
+    "elife/api-sdk": "1.0.x-dev",
     "elife/api-validator": "^1.0@dev",
     "elife/bus-sdk": "dev-master",
     "embed/embed": "^3.0",
@@ -342,14 +341,9 @@
     "monolog/monolog": "~1.6",
     "paquettg/php-html-parser": "^2.0",
     "sebastian/version": "~2.0.1",
-    "symfony-cmf/routing": "^1.4",
-    "symfony/serializer": "^3.4",
+    "symfony/serializer": "4.4.47 as 3.4",
     "webmozart/path-util": "^2.3",
     "zenorocha/clipboardjs": "^1.7"
-  },
-  "require-dev": {
-    "drupal/core-dev": "8.9.20",
-    "drupal/drupal-extension": "^3.4"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -364,9 +358,9 @@
       "composer/installers": true,
       "cweagans/composer-patches": true,
       "drupal/console-extend-plugin": true,
-      "drupal/core-composer-scaffold": true,
       "mindplay/composer-locator": true,
-      "dealerdirect/phpcodesniffer-composer-installer": true
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "drupal/core-composer-scaffold": true
     },
     "sort-packages": true
   },
@@ -413,7 +407,7 @@
     },
     "patches": {
       "drupal/core": {
-        "Composer-friendly patches for filename sanitation while #2492171 awaits #3032390 (3094052)": "https://www.drupal.org/files/issues/2020-11-19/3094052-9.patch",
+        "Composer-friendly patches for filename sanitation while #2492171 awaits #3032390 (3094052)": "https://www.drupal.org/files/issues/2021-12-01/3094052-14.patch",
         "Move permission \"view any unpublished content\" from content moderation to core (273595)": "https://www.drupal.org/files/issues/2020-08-20/273595-166.patch",
         "Temporary fix for \\Drupal\\Core\\Field\\FieldItemList::generateSampleItems (2905527)": "src/patches/2905527-temporary-fix-generate-sample-items.patch"
       },
@@ -433,5 +427,9 @@
         "Prepare the module for D9 (3109707)": "src/patches/monolog-3109707-4.patch"
       }
     }
+  },
+  "require-dev": {
+    "drupal/core-dev": "^9.4",
+    "drupal/drupal-extension": "^4.2"
   }
 }

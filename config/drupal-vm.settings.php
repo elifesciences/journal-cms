@@ -49,7 +49,7 @@ if (class_exists(\Composer\Autoload\ClassLoader::class)) {
   ];
 }
 
-if (!drupal_installation_attempted()) {
+if (!\Drupal\Core\Installer\InstallerKernel::installationAttempted()) {
   $settings['cache']['default'] = 'cache.backend.redis';
   $settings['redis.connection']['interface'] = 'PhpRedis';
   $settings['redis.connection']['host'] = '127.0.0.1';
