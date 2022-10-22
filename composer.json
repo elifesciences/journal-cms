@@ -325,7 +325,6 @@
     "drupal/restui": "1.x-dev",
     "drupal/scheduler": "^1.1",
     "drupal/services": "^4.0@beta",
-    "drupal/upgrade_status": "^3.17",
     "drush/drush": "^10",
     "elife/api": "^2.11",
     "elife/api-sdk": "1.0.x-dev",

@@ -78,7 +78,6 @@ module:
   token: 0
   toolbar: 0
   update: 0
-  upgrade_status: 0
   user: 0
   workflows: 0
   hide_revision_field: 1
