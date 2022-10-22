@@ -46,7 +46,7 @@ class ContentLink extends FieldPluginBase {
       if ($journal_preview) {
         $links[] = [
           '#theme' => 'markup',
-          '#markup' => Link::fromTextAndUrl(t('Preview page'), Url::fromUri($journal_preview . $path)),
+          '#markup' => Link::fromTextAndUrl(t('Preview page'), Url::fromUri($journal_preview . $path))->toString(),
         ];
         $links = [
           '#theme' => 'item_list',
