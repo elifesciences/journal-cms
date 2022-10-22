@@ -33,9 +33,9 @@ class DigestTest extends UnitTestCase {
    *
    * @test
    * @group journal-cms-tests
-   * @expectedException \InvalidArgumentException
    */
   public function testInvalidJson() {
+    $this->expectException(\InvalidArgumentException::class);
     $id = 'id';
     $json = '{';
     new Digest($id, $json, Digest::DELETE);
