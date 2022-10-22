@@ -415,7 +415,7 @@
         "Allow entities to be generated if none exist (2910326)": "https://www.drupal.org/files/issues/entity_reference_revisions-stop_checking_for_entities_before_generating_sample-2910326-2.patch"
       },
       "drupal/address": {
-        "generateSampleValue (2819251)": "https://www.drupal.org/files/issues/generatesamplevalue-2819251-4.patch"
+        "generateSampleValue (2819251)": "https://www.drupal.org/files/issues/2022-05-16/address-2819251-6.patch"
       },
       "drupal/inline_entity_form": {
         "Field name/label disappears when I create a new entity inline (2842744)": "https://www.drupal.org/files/issues/inline_entity_form-no_label_required_field_with_no_entries-2842744.patch"
