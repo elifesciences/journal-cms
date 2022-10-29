@@ -14,7 +14,7 @@ if [[ ! -e /etc/init.d/goaws ]]; then
     sudo chmod +x /etc/init.d/goaws
     sudo update-rc.d goaws defaults
     # Download, install and configure AWS CLI.
-    curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+    curl "https://s3.amazonaws.com/aws-cli/awscli-bundle-1.19.112.zip" -o "awscli-bundle.zip"
     unzip -u awscli-bundle.zip
     sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
     sudo ln -sfn /var/www/journal-cms/config/aws /var/www/.aws
