@@ -695,7 +695,11 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       }
 
       if ($impact_statement = $this->fieldValueFormatted($node->get('field_impact_statement'), FALSE)) {
-        $item_values['item']['impactStatement'] = str_replace(['<p>', '</p>'], '', $impact_statement);
+        $item_values['impactStatement'] = str_replace(['<p>', '</p>'], '', $impact_statement);
+
+        // Once journal switches to cover impactStatement, no longer implement
+        // override.
+        $item_values['item']['impactStatement'] = $item_values['impactStatement'];
       }
     }
 
