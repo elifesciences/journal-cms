@@ -651,6 +651,11 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       'title' => $node->getTitle(),
     ];
 
+    if ($node->getType() === 'cover' &&
+      $impact_statement = $this->fieldValueFormatted($node->get('field_impact_statement'), FALSE)) {
+      $item_values['impactStatement'] = str_replace(['<p>', '</p>'], '', $impact_statement);
+    }
+
     if ($image) {
       $item_values['image'] = $this->processFieldImage($node->get('field_image'), TRUE, 'banner', TRUE);
       $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
@@ -684,23 +689,6 @@ abstract class AbstractRestResourceBase extends ResourceBase {
 
     if (empty($item_values['item'])) {
       return FALSE;
-    }
-
-    if ($node->getType() === 'cover') {
-      // Override impact statement of related item with value from
-      // field_impact_statement of cover item until we can support impact
-      // statement on cover directly.
-      if (!empty($item_values['item']['impactStatement'])) {
-        unset($item_values['item']['impactStatement']);
-      }
-
-      if ($impact_statement = $this->fieldValueFormatted($node->get('field_impact_statement'), FALSE)) {
-        $item_values['impactStatement'] = str_replace(['<p>', '</p>'], '', $impact_statement);
-
-        // Once journal switches to cover impactStatement, no longer implement
-        // override.
-        $item_values['item']['impactStatement'] = $item_values['impactStatement'];
-      }
     }
 
     return $item_values;
