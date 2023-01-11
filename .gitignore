@@ -9,3 +9,6 @@ console/
 private/
 *.gz
 *.sql
+/.editorconfig
+/.gitattributes
+/build/phpunit.xml
