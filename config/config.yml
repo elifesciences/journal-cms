@@ -92,13 +92,13 @@ drupal_db_host: localhost
 drupal_major_version: 8
 drupal_domain: "{{ vagrant_hostname }}"
 drupal_site_name: "Journal CMS"
-drupal_install_profile: minimal
+drupal_install_profile: config_installer
 drupal_enable_modules: []
 drupal_account_name: admin
 drupal_account_pass: admin
 
 # Additional arguments or options to pass to `drush site-install`.
-drupal_site_install_extra_args: [--existing-config]
+drupal_site_install_extra_args: []
 
 # Cron jobs are added to the vagrant user's crontab. Keys include name
 # (required), minute, hour, day, weekday, month, job (required), and state.

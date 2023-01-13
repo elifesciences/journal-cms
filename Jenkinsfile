@@ -20,7 +20,7 @@ elifePipeline {
                     revision: commit,
                     folder: '/srv/journal-cms',
                     rollbackStep: {
-                        builderCmd 'journal-cms--end2end', 'cd /srv/journal-cms/web && ../vendor/bin/drush si minimal --existing-config -y && ../vendor/bin/drush cr'
+                        builderCmd 'journal-cms--end2end', 'cd /srv/journal-cms/web && ../vendor/bin/drush si config_installer -y && ../vendor/bin/drush cr'
                         builderDeployRevision 'journal-cms--end2end', 'approved'
                         builderSmokeTests 'journal-cms--end2end', '/srv/journal-cms'
                     }

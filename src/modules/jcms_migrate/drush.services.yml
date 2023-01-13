@@ -1,5 +1,0 @@
-services:
-  jcms_migrate.commands:
-    class: \Drupal\jcms_migrate\Commands\JcmsMigrateCommands
-    tags:
-      - { name: drush.command }

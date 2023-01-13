@@ -257,6 +257,18 @@ $config_directories = array();
  */
 
 /**
+ * The active installation profile.
+ *
+ * Changing this after installation is not recommended as it changes which
+ * directories are scanned during extension discovery. If this is set prior to
+ * installation this value will be rewritten according to the profile selected
+ * by the user.
+ *
+ * @see install_select_profile()
+ */
+# $settings['install_profile'] = '';
+
+/**
  * Salt for one-time login links, cancel links, form tokens, etc.
  *
  * This variable will be set to a random value by the installer. All one-time
@@ -697,7 +709,8 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  *
  * Keep this code block at the end of this file to take full effect.
  */
-$settings['config_sync_directory'] = './../sync';
+$settings['install_profile'] = 'config_installer';
+$config_directories[CONFIG_SYNC_DIRECTORY] = './../sync';
 
 if (file_exists(__DIR__ . '/../../../config/local.settings.php')) {
   include __DIR__ . '/../../../config/local.settings.php';
