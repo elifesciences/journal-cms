@@ -260,7 +260,6 @@
     "composer/installers": "^1.2",
     "drupal-composer/drupal-scaffold": "~2.4.0",
     "cweagans/composer-patches": "^1.6",
-    "drush/drush": "~8.1.17",
     "drupal/console": "^1.0.2",
     "drupal/admin_toolbar": "^2.0",
     "drupal/config_devel": "~1.0-rc1",
@@ -269,9 +268,9 @@
     "drupal/inline_entity_form": "~1.0-beta1",
     "drupal/jsonb": "~1.0-beta1",
     "drupal/paragraphs": "^1.9",
-    "drupal/migrate_plus": "~3.0-rc1",
-    "drupal/migrate_tools": "~3.0-rc1",
-    "drupal/migrate_manifest": "^1",
+    "drupal/migrate_plus": "^4.2",
+    "drupal/migrate_tools": "^4.5",
+    "drupal/migrate_manifest": "^2.1",
     "drupal/redis": "^1.2",
     "drupal/restui": "1.x-dev",
     "drupal/ctools": "~3.0-alpha27",
@@ -328,7 +327,9 @@
     "drupal/file_entity": "~2.0-beta6",
     "egulias/email-validator": "^2.1",
     "drupal/allowed_formats": "^1.3",
-    "elife/api-sdk": "^1.0@dev"
+    "elife/api-sdk": "^1.0@dev",
+    "drupal/profile_switcher": "^1.0@alpha",
+    "drush/drush": "10.3.6"
   },
   "require-dev": {
     "drupal/drupal-extension": "^3.4",
