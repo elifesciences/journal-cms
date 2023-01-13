@@ -1,5 +1,0 @@
-services:
-  jcms_notifications.commands:
-    class: \Drupal\jcms_notifications\Commands\JcmsNotificationsCommands
-    tags:
-      - { name: drush.command }

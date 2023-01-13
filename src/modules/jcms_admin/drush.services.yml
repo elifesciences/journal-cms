@@ -1,5 +1,0 @@
-services:
-  jcms_admin.commands:
-    class: \Drupal\jcms_admin\Commands\JcmsAdminCommands
-    tags:
-      - { name: drush.command }
