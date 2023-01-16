@@ -77,7 +77,7 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
     $cover_rest_resource = new CoverListRestResource([], 'cover_list_rest_resource', [], $this->serializerFormats, $this->logger);
     $subqueue = EntitySubqueue::load('covers_preview');
     $items = $subqueue->get('items');
-    $limit = (int) $subqueue->get('field_covers_active_items')->getString();
+    $limit = 4;
     foreach ($items as $item) {
       $limit--;
       /* @var \Drupal\node\Entity\Node $item_node */

@@ -4,21 +4,14 @@ status: true
 dependencies:
   config:
     - entityqueue.entity_queue.covers_preview
-    - field.field.entity_subqueue.covers_preview.field_covers_active_items
   module:
+    - hide_revision_field
     - jcms_admin
 id: entity_subqueue.covers_preview.default
 targetEntityType: entity_subqueue
 bundle: covers_preview
 mode: default
 content:
-  field_covers_active_items:
-    weight: 2
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
   items:
     weight: 1
     settings:
