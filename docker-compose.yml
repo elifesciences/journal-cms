@@ -1,0 +1,69 @@
+version: "2.1" # last version to support mem_limit
+services:
+
+    # mysql database
+    db:
+        image: mysql:5.7
+        command: --default-authentication-plugin=mysql_native_password
+        ports:
+            - '3306:3306'
+        environment:
+            MYSQL_DATABASE: journal_cms
+            MYSQL_USER: journal_cms
+            MYSQL_PASSWORD: journal_cms
+            MYSQL_ROOT_PASSWORD: journal_cms #${MYSQL_ROOT_PASSWORD}
+        volumes:
+            # ensure the database doesn't live within the container.
+            # the database must be preserved between container restarts
+            - ./mysql:/var/lib/mysql
+        networks:
+            - internal
+
+    # caching
+    # use `docker exec -it <container-process-id> redis-cli` to get a shell
+    redis:
+        image: redis:4.0-alpine
+        ports:
+            - '6379:6379'
+        networks:
+            - internal
+
+    # basic drupal site installation with dependencies and permissions configured
+    # use `docker exec -ti <process> /bin/bash` to get a shell
+    app:
+        build: .
+        image: elifesciences/journal-cms #:${IMAGE_TAG}
+        mem_limit: 2048MB
+        mem_reservation: 512MB
+        volumes:
+            - ./container/dev/nginx/sites-enabled:/etc/nginx/sites-enabled
+            
+            # todo: ensure writeable by www-data
+            # todo: not suitable for dev environments
+            - /var/log/journal-cms:/srv/journal-cms/private/monolog
+
+            # warning! "./web/sites/default" contains settings that can't be replaced by this mount.
+            # use "./web/sites/default/files" instead.
+            - ./web/sites/default/files:/srv/journal-cms/web/sites/default/files:rw
+
+            # see Dockerfile, this allows for any dev for per-run overrides
+            - ./config:/srv/journal-cms/config
+            - ./config/drupal-container.settings.php:/srv/journal-cms/config/local.settings.php
+            - ./config/drupal-container.services.yml:/srv/journal-cms/config/local.services.yml
+
+        ports:
+            - "8080:80" # nginx
+            #- "9000:9000" # php-fpm
+        networks:
+            - internal
+            - external
+        depends_on:
+            - db
+            - redis
+
+networks:
+    external:
+        external: true
+        driver: bridge
+    internal:
+        driver: bridge

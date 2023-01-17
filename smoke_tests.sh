@@ -1,32 +1,47 @@
 #!/bin/bash
-set -ex
+set -e
 
-local_hostname=$(hostname)
+# I think this is failing because we're not running in the same container as the app?
+local_hostname="localhost"
+
 hostname=${1:-$local_hostname}
+web_port=${2:-80}
 
-echo "Ping"
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/ping") == 200 ]
+redis_host=${3:-$hostname}
+redis_port=${4:-6379}
 
-echo "Homepage"
-[ $(curl --write-out %{http_code} --silent --output /dev/null "$hostname") == 200 ]
+function ensure {
+    label="$1"
+    path="$2"
+    url="http://$hostname:$web_port$path"
+    echo "$label $url"
+    [ $(curl "$url" \
+        --retry 3 \
+        --retry-delay 1 \
+        --retry-connrefused \
+        --write-out "%{http_code}" \
+        --silent \
+        --output /dev/null) == 200 ]
+}
 
-echo "APIs"
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/annual-reports") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/blog-articles") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/collections") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/community") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/covers") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/events") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/interviews") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/job-adverts") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/labs-posts") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/people") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/people?type=leadership") == 200 ] # Deprecated
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/people?type\[\]=leadership") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/podcast-episodes") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/press-packages") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/promotional-collections") == 200 ]
-[ $(curl --write-out %{http_code} --silent --output /dev/null "${hostname}/subjects") == 200 ]
+ensure "Homepage" "/"
+ensure "Ping" "/ping"
+ensure "API" "/annual-reports"
+ensure "API" "/blog-articles"
+ensure "API" "/collections"
+ensure "API" "/community"
+ensure "API" "/covers"
+ensure "API" "/events"
+ensure "API" "/interviews"
+ensure "API" "/job-adverts"
+ensure "API" "/labs-posts"
+ensure "API" "/people"
+ensure "API" "/people?type=leadership"
+ensure "API" "/people?type\[\]=leadership" # Deprecated
+ensure "API" "/podcast-episodes"
+ensure "API" "/press-packages"
+ensure "API" "/promotional-collections"
+ensure "API" "/subjects"
 
 echo "Redis"
-php -r '$redis = new \Redis(); $redis->connect($argv[1], 6379);' "$hostname"
+php -r '$redis = new \Redis(); $redis->connect($argv[1], (int) $argv[2]);' "$redis_host" "$redis_port"
