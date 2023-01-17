@@ -150,7 +150,7 @@ function jcms_admin_form_entity_subqueue_covers_preview_edit_form_alter(&$form, 
   $form['covers_active_publish'] = [
     '#title' => t('Publish items'),
     '#type' => 'checkbox',
-    '#description' => t('Tick this box to transfer the active items (1 - 4) to the current covers list.'),
+    '#description' => t('Tick this box to transfer the active items (4) to the current covers list.'),
     '#default_value' => FALSE,
     '#weight' => ++$max_weight,
   ];
@@ -494,7 +494,7 @@ function jcms_admin_entity_subqueue_presave(EntityInterface $entity) {
   }
   if (_jcms_admin_static_store('covers_active_publish')) {
     $items = ($entity->get('items')) ? $entity->get('items')->getValue() : [];
-    $items = array_splice($items, 0, $entity->get('field_covers_active_items')->getString());
+    $items = array_splice($items, 0, 4);
     foreach ($items as $item) {
       $latest = Node::load($item['target_id']);
       $moderation_info = \Drupal::service('content_moderation.moderation_information');
@@ -517,7 +517,6 @@ function jcms_admin_entity_subqueue_presave(EntityInterface $entity) {
   if (_jcms_admin_static_store('covers_active_reset')) {
     $subqueue = EntitySubqueue::load('covers');
     $items = ($subqueue->get('items')) ? $subqueue->get('items')->getValue() : [];
-    $entity->set('field_covers_active_items', 3);
     foreach ($items as $item) {
       $node = Node::load($item['target_id']);
       $node->set('moderation_state', 'published');
