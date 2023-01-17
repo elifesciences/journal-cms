@@ -72,3 +72,14 @@ function jcms_admin_update_8105() {
 function jcms_admin_update_8106() {
   drupal_flush_all_caches();
 }
+
+/**
+ * Enable profile_switcher module and switch to minimal.
+ */
+function jcms_admin_update_8107() {
+  \Drupal::service('module_installer')->install(['profile_switcher']);
+  drupal_flush_all_caches();
+  \Drupal::service('profile_switcher.profile_switcher')->switchProfile('minimal');
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->uninstall(['profile_switcher']);
+}
