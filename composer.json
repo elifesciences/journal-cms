@@ -342,7 +342,14 @@
     "drupal/drupal": "*"
   },
   "config": {
-    "platform": {"php": "7.4"}
+    "platform": {"php": "7.4"},
+    "allow-plugins": {
+      "composer/installers": true,
+      "cweagans/composer-patches": true,
+      "drupal/core-composer-scaffold": true,
+      "drupal/console-extend-plugin": true,
+      "mindplay/composer-locator": true
+    },
   },
   "autoload": {
     "classmap": [
