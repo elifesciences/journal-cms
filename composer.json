@@ -349,7 +349,7 @@
       "drupal/core-composer-scaffold": true,
       "drupal/console-extend-plugin": true,
       "mindplay/composer-locator": true
-    },
+    }
   },
   "autoload": {
     "classmap": [
