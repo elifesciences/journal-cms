@@ -81,9 +81,9 @@
 
         var $content = $(' .node__content .field--name-field-content-html-preview');
 
-        $content.attr('contenteditable', TRUE);
+        $content.attr('contenteditable', true);
 
-        var uuid = FALSE, url, data, options, node_type;
+        var uuid = false, url, data, options, node_type;
 
         // Get UUID and node type from body tag
         if ($('body').data('uuid') && $('body').data('node-type')) {
@@ -98,7 +98,7 @@
           accepts: {json: 'application/vnd.api+json'},
           contentType: 'application/vnd.api+json',
           url: url,
-          processData: FALSE,
+          processData: false,
           headers: []
         };
 
@@ -117,15 +117,15 @@
           imageUploadUrl: url + '/field_content_images_preview',
           removeButtons: 'Underline,Strike,Anchor,SpecialChar,HorizontalRule,ImageAlignLeft,ImageAlignRight,ImageFullWidth,Styles',
           image2_alignClasses: ['align-left', 'align-center', 'profile-left'],
-          image2_disableResizer: TRUE,
+          image2_disableResizer: true,
           extraAllowedContent: 'elifebutton[data-href](elife-button--default,elife-button--outline);oembed[data-videocaption](align-left,align-right,align-center);figure[data-*](figshare,tweet,gmap);figcaption;iframe[!src,width,height,frameborder](no-events);img[data-fid,data-uuid];placeholder;a',
           format_tags: 'p;h1;h2',
           embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
           autoEmbed_widget: 'embedVideo',
           customConfig: '',
-          stylesSet: FALSE,
-          linkShowAdvancedTab: FALSE,
-          linkShowTargetTab: FALSE,
+          stylesSet: false,
+          linkShowAdvancedTab: false,
+          linkShowTargetTab: false,
           sharedSpaces: {top: 'cke-floating-toolbar'}
         };
 
@@ -140,7 +140,7 @@
 
         if (uuid) {
           // Disable autoinline as we are going to create a shared space toolbar
-          CKEDITOR.disableAutoInline = TRUE;
+          CKEDITOR.disableAutoInline = true;
 
           // Remove link type option and unwanted protocols
           // from link dialog window
@@ -150,7 +150,7 @@
 
             if (dialogName == 'link') {
               var infoTab = dialogDefinition.getContents('info');
-              infoTab.get('linkType').hidden = TRUE;
+              infoTab.get('linkType').hidden = true;
               infoTab.get('protocol')['items'].splice(2, 3);
             }
 
@@ -330,7 +330,7 @@
                 data: JSON.stringify(data),
                 error: saveError
               };
-              if (typeof showSaveNotification === 'undefined' || (typeof showSaveNotification === 'boolean' && showSaveNotification === TRUE)) {
+              if (typeof showSaveNotification === 'undefined' || (typeof showSaveNotification === 'boolean' && showSaveNotification === true)) {
                 extraOptions.success = saveAutoSuccess;
               } else if (typeof showSaveNotification === 'function') {
                 extraOptions.success = showSaveNotification;
@@ -404,7 +404,7 @@
 
             // Save when editor gains focus to help initial paste work
             bodyEditor.on('focus', function (e) {
-              saveBodyEditor(FALSE);
+              saveBodyEditor(false);
             });
 
             // Save and close button just saves the current text
