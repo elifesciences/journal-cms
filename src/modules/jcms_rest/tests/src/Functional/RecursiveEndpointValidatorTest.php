@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\jcms_rest\Functional;
 
-use ComposerLocator;
 use eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator;
 use eLife\ApiValidator\SchemaFinder\PathBasedSchemaFinder;
 use GuzzleHttp\Client;
@@ -41,7 +40,7 @@ class RecursiveEndpointValidatorTest extends FixtureBasedTestCase {
     parent::setUp();
     $this->validator = new FakeHttpsMessageValidator(
       new JsonMessageValidator(
-        new PathBasedSchemaFinder(ComposerLocator::getPath('elife/api') . '/dist/model'),
+        new PathBasedSchemaFinder(\ComposerLocator::getPath('elife/api') . '/dist/model'),
         new Validator()
       )
     );

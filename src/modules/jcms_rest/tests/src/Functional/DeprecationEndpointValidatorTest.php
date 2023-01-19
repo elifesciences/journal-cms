@@ -73,7 +73,8 @@ class DeprecationEndpointValidatorTest extends FixtureBasedTestCase {
       ]);
 
       $response = $this->client->send($request);
-      $this->assertContains($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_ACCEPTABLE]);
+      $this->assertContains($response->getStatusCode(),
+        [Response::HTTP_OK, Response::HTTP_NOT_ACCEPTABLE]);
       if ($response->getStatusCode() == Response::HTTP_OK) {
         foreach ($check as $header => $value) {
           $this->assertEquals($response->getHeaderLine($header), $value);
@@ -81,7 +82,7 @@ class DeprecationEndpointValidatorTest extends FixtureBasedTestCase {
       }
 
       $data = \GuzzleHttp\json_decode((string) $response->getBody());
-      $items = isset($data->items) ? $data->items : $data;
+      $items = $data->items ?? $data;
 
       if (!is_array($items) || count($items) < $per_page) {
         $page = -1;
@@ -175,7 +176,8 @@ class DeprecationEndpointValidatorTest extends FixtureBasedTestCase {
       ]);
 
       $response = $this->client->send($request);
-      $this->assertContains($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_ACCEPTABLE]);
+      $this->assertContains($response->getStatusCode(),
+        [Response::HTTP_OK, Response::HTTP_NOT_ACCEPTABLE]);
       if ($response->getStatusCode() == Response::HTTP_OK) {
         foreach ($check as $header => $value) {
           $this->assertEquals($response->getHeaderLine($header), $value);

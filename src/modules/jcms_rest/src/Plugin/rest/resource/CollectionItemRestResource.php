@@ -22,6 +22,12 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class CollectionItemRestResource extends AbstractRestResourceBase {
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
   protected $latestVersion = 2;
 
   /**
@@ -29,7 +35,7 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
@@ -73,7 +79,7 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
     $people_rest_resource = new PersonListRestResource([], 'person_list_rest_resource', [], $this->serializerFormats, $this->logger);
     $item['curators'] = [];
     foreach ($node->get('field_curators')->referencedEntities() as $curator) {
-      /* @var Node $curator */
+      /** @var \Drupal\node\Entity\Node $curator */
       if ($curator->isPublished() || $this->viewUnpublished()) {
         $curator_item = $people_rest_resource->getItem($curator);
         $item['curators'][] = $curator_item;
@@ -91,7 +97,7 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
 
     foreach (['field_collection_content', 'field_collection_related_content'] as $field) {
       foreach ($node->get($field)->referencedEntities() as $content) {
-        /* @var Node $content */
+        /** @var \Drupal\node\Entity\Node $content */
         if ($content->isPublished() || $this->viewUnpublished()) {
           switch ($content->getType()) {
             case 'event':

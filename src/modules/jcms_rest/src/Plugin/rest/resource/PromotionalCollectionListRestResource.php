@@ -64,8 +64,9 @@ class PromotionalCollectionListRestResource extends AbstractRestResourceBase {
   /**
    * Takes a node and builds an item from it.
    */
+  // phpcs:ignore
   public function getItem(EntityInterface $node, $image_size_types = ['banner', 'thumbnail']) : array {
-    /* @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $this->setSortBy('changed');
     $item = $this->processDefault($node);
 

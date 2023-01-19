@@ -63,6 +63,7 @@ trait JCMSImageUriTrait {
   /**
    * Process image field and return json string.
    */
+  // phpcs:ignore
   protected function processFieldImage(FieldItemListInterface $data, bool $required = FALSE, $size_types = ['banner', 'thumbnail'], $bump = FALSE) : array {
     if ($required || $data->count()) {
       $image = $this->getImageSizes($size_types);
@@ -75,7 +76,7 @@ trait JCMSImageUriTrait {
       $width = (int) $data->first()->getValue()['width'];
       $height = (int) $data->first()->getValue()['height'];
 
-      // @todo - elife - nlisgo - this is a temporary fix until we can trust mimetype of images.
+      // @todo elife - nlisgo - this is a temporary fix until we can trust mimetype of images.
       if (\Drupal::service('file.mime_type.guesser')->guess($image_uri) == 'image/png') {
         $filemime = 'image/jpeg';
         $filename = preg_replace('/\.png$/', '.jpg', $filename);

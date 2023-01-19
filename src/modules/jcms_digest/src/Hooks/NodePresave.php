@@ -7,7 +7,7 @@ use Drupal\jcms_digest\Entity\Digest;
 use Drupal\jcms_digest\FetchDigest;
 
 /**
- * Class NodePresave.
+ * Node Presave service.
  *
  * @package Drupal\jcms_digest
  */

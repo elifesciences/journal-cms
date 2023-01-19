@@ -47,7 +47,7 @@ class CommunityListRestResource extends AbstractRestResourceBase {
       $nids = $items_query->execute();
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
-        /* @var Node $node */
+        /** @var \Drupal\node\Entity\Node $node */
         foreach ($nodes as $node) {
           $response_data['items'][] = $this->getItem($node);
         }
@@ -63,7 +63,7 @@ class CommunityListRestResource extends AbstractRestResourceBase {
    * Takes a node and builds an item from it.
    */
   public function getItem(EntityInterface $node) : array {
-    /* @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $rest_resource = [
       'blog_article' => new BlogArticleListRestResource([], 'blog_article_list_rest_resource', [], $this->serializerFormats, $this->logger),
       'collection' => new CollectionListRestResource([], 'collection_list_rest_resource', [], $this->serializerFormats, $this->logger),

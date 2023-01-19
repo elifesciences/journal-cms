@@ -5,10 +5,22 @@ namespace Drupal\jcms_admin;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class GoogleMap.
+ * GoogleMap Embed Class.
  */
 final class GoogleMap implements GoogleMapInterface {
+
+  /**
+   * The Embed.
+   *
+   * @var \Drupal\jcms_admin\Embed
+   */
   private $embed;
+
+  /**
+   * The logger channel.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
   private $logger;
 
   /**
@@ -39,7 +51,7 @@ final class GoogleMap implements GoogleMapInterface {
       if ($info = $this->embed->create('https://www.google.com/maps/d/embed?mid=' . $id)) {
         $providers = $info->getProviders();
         if (isset($providers['opengraph'])) {
-          /* @var \Embed\Providers\OpenGraph $opengraph */
+          /** @var \Embed\Providers\OpenGraph $opengraph */
           $opengraph = $providers['opengraph'];
           // Retrieve title of the google map.
           if ($title = $opengraph->getTitle()) {

@@ -2,9 +2,7 @@
 
 namespace Drupal\jcms_article;
 
-use Exception;
-
 /**
- * Class FragmentApiUpdateFailure.
+ * Exception class for FragmentApiUpdateFailure.
  */
-class FragmentApiUpdateFailure extends Exception {}
+class FragmentApiUpdateFailure extends \Exception {}

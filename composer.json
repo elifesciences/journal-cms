@@ -331,10 +331,8 @@
     "zenorocha/clipboardjs": "^1.7"
   },
   "require-dev": {
-    "drupal/drupal-extension": "^3.4",
-    "phpunit/phpunit": "~6.5.13",
-    "drupal/coder": "^8.2",
-    "squizlabs/php_codesniffer": "~2.8"
+    "drupal/core-dev": "8.9.20",
+    "drupal/drupal-extension": "^3.4"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -348,7 +346,8 @@
       "cweagans/composer-patches": true,
       "drupal/core-composer-scaffold": true,
       "drupal/console-extend-plugin": true,
-      "mindplay/composer-locator": true
+      "mindplay/composer-locator": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
     },
     "sort-packages": true
   },

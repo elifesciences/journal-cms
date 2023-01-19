@@ -31,7 +31,7 @@ class JCMSImage extends ProcessPluginBase {
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     $this->row = $row;
-    list($image, $alt) = $value;
+    [$image, $alt] = $value;
     $destination_path = $this->imagePath();
     $source = NULL;
 

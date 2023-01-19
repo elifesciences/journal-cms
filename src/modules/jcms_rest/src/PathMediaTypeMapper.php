@@ -3,7 +3,7 @@
 namespace Drupal\jcms_rest;
 
 /**
- * Class PathMediaTypeMapper.
+ * Maps media types based on path.
  *
  * @package Drupal\jcms_rest
  */

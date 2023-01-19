@@ -9,14 +9,25 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
  */
 final class HtmlJsonSerializer implements NormalizerInterface {
 
-  private $htmlMardownNormalizer;
+  /**
+   * The Html Markdown Serializer.
+   *
+   * @var \Drupal\jcms_admin\HtmlMarkdownSerializer
+   */
+  private $htmlMarkdownNormalizer;
+
+  /**
+   * The Markdown Serializer.
+   *
+   * @var \Drupal\jcms_admin\MarkdownJsonSerializer
+   */
   private $markdownJsonNormalizer;
 
   /**
    * Constructor.
    */
-  public function __construct(HtmlMarkdownSerializer $htmlMardownNormalizer, MarkdownJsonSerializer $markdownJsonNormalizer) {
-    $this->htmlMardownNormalizer = $htmlMardownNormalizer;
+  public function __construct(HtmlMarkdownSerializer $htmlMarkdownNormalizer, MarkdownJsonSerializer $markdownJsonNormalizer) {
+    $this->htmlMarkdownNormalizer = $htmlMarkdownNormalizer;
     $this->markdownJsonNormalizer = $markdownJsonNormalizer;
   }
 
@@ -45,7 +56,7 @@ final class HtmlJsonSerializer implements NormalizerInterface {
       '~<backtick></backtick>~' => '`',
     ];
 
-    $markdown = $this->htmlMardownNormalizer->normalize($object, $format, $markdownContext);
+    $markdown = $this->htmlMarkdownNormalizer->normalize($object, $format, $markdownContext);
     return $this->markdownJsonNormalizer->normalize($markdown, $format, $jsonContext);
   }
 

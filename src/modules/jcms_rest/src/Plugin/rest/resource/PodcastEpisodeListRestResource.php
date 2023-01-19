@@ -35,7 +35,10 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
     }
 
     $this->filterSubjects($base_query);
-    $this->filterContaining($base_query, 'field_episode_chapter.entity.field_related_content', ['article', 'collection']);
+    $this->filterContaining($base_query,
+      'field_episode_chapter.entity.field_related_content',
+      ['article', 'collection']
+    );
 
     $count_query = clone $base_query;
     $items_query = clone $base_query;
@@ -64,8 +67,9 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
   /**
    * Takes a node and builds an item from it.
    */
+  // phpcs:ignore
   public function getItem(EntityInterface $node, $image_size_types = ['banner', 'thumbnail']) : array {
-    /* @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $this->setSortBy('created', TRUE);
     $item = $this->processDefault($node, (int) $node->get('field_episode_number')->getString(), 'number');
 

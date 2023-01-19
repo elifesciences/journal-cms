@@ -12,6 +12,11 @@ use Drupal\jcms_article\Entity\ArticleVersions;
  */
 class ArticleVersionsTest extends UnitTestCase {
 
+  /**
+   * Test JSON content.
+   *
+   * @var string
+   */
   protected $testJson;
 
   /**

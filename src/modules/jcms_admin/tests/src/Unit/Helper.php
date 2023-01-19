@@ -3,7 +3,7 @@
 namespace Drupal\Tests\jcms_admin\Unit;
 
 /**
- * Trait Helper.
+ * Trait Helper for tests.
  */
 trait Helper {
 

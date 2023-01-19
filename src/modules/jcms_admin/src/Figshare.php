@@ -5,10 +5,22 @@ namespace Drupal\jcms_admin;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class Figshare.
+ * Figshare Embed Class.
  */
 final class Figshare implements FigshareInterface {
+
+  /**
+   * The Embed.
+   *
+   * @var \Drupal\jcms_admin\Embed
+   */
   private $embed;
+
+  /**
+   * The logger channel.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
   private $logger;
 
   /**
@@ -39,7 +51,7 @@ final class Figshare implements FigshareInterface {
       if ($info = $this->embed->create('https://figshare.com/articles/og/' . $id)) {
         $providers = $info->getProviders();
         if (isset($providers['opengraph'])) {
-          /* @var \Embed\Providers\OpenGraph $opengraph */
+          /** @var \Embed\Providers\OpenGraph $opengraph */
           $opengraph = $providers['opengraph'];
           // Retrieve title of the Fighsare.
           if ($title = $opengraph->getTitle()) {

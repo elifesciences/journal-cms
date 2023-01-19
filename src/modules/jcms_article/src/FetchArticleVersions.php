@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class FetchArticleVersions.
+ * Fetch for articles versions.
  *
  * @package Drupal\jcms_article
  */
@@ -66,7 +66,7 @@ final class FetchArticleVersions {
   /**
    * Makes the request to get the article versions.
    *
-   * @throws BadResponseException
+   * @throws \GuzzleHttp\Exception\BadResponseException
    */
   private function requestArticleVersions(string $id): ResponseInterface {
     $options = [
@@ -94,7 +94,10 @@ final class FetchArticleVersions {
         \Drupal::logger('jcms_article')
           ->notice(
             'Article versions have been requested but not found @url with the response: @response',
-            ['@url' => $url, '@response' => Message::toString($exception->getResponse())]
+            [
+              '@url' => $url,
+              '@response' => Message::toString($exception->getResponse()),
+            ]
           );
         return $exception->getResponse();
       }

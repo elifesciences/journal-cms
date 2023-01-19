@@ -3,7 +3,6 @@
 namespace Drupal\Tests\jcms_rest\Functional;
 
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 

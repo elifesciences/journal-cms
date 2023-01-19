@@ -19,6 +19,7 @@ trait JCMSHtmlHelperTrait {
       $html = $node->ownerDocument->saveHTML($node);
       $new_node = $dom->createElement($node->nodeName);
       $frag = $dom->createDocumentFragment();
+      // phpcs:ignore
       $frag->appendXML(preg_replace(['~<br\s*/?>~', '~(?!</(ul|ol)>\s*)(\n|\t)+~'], '', $html));
       $new_node->appendChild($frag);
       $node->parentNode->replaceChild($new_node->firstChild, $node);

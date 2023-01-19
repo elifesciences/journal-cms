@@ -16,8 +16,26 @@ use function file_url_transform_relative;
  * Transfer content from preview to live and vice versa.
  */
 final class TransferContent {
+
+  /**
+   * The file system service.
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
   private $fileSystem;
+
+  /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
   private $renderer;
+
+  /**
+   * The Validator.
+   *
+   * @var \Drupal\jcms_rest\ValidatorInterface
+   */
   private $validator;
 
   /**

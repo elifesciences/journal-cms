@@ -11,7 +11,7 @@ use Drupal\jcms_rest\JCMSImageUriTrait;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
- * Class NodePresave.
+ * Node Presave service class.
  *
  * @package Drupal\jcms_article
  * @todo Look to share more code with \Drupal\jcms_article\ArticleCrud.

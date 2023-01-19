@@ -2,7 +2,6 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use DateInterval;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
@@ -29,7 +28,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(int $number) : JCMSRestResponse {
     if ($this->checkId($number, 'podcast-episode')) {
@@ -44,7 +43,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       $nids = $query->execute();
       if ($nids) {
         $nid = reset($nids);
-        /* @var \Drupal\node\Entity\Node $node */
+        /** @var \Drupal\node\Entity\Node $node */
         $node = Node::load($nid);
 
         $response = $this->processDefault($node, $number, 'number');
@@ -82,7 +81,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
         if ($node->get('field_episode_chapter')->count()) {
           $response['chapters'] = [];
           foreach ($node->get('field_episode_chapter')->referencedEntities() as $chapter) {
-            /* @var Node $chapter */
+            /** @var \Drupal\node\Entity\Node $chapter */
             if ($chapter->isPublished() || $this->viewUnpublished()) {
               $response['chapters'][] = $this->getChapterItem($chapter, 0);
             }
@@ -119,7 +118,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
     }
 
     if ($node->get('field_chapter_time')->getValue()) {
-      $time = new DateInterval($node->get('field_chapter_time')->getString());
+      $time = new \DateInterval($node->get('field_chapter_time')->getString());
     }
     else {
       $time = 0;
@@ -128,7 +127,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
     $chapter_values = [
       'number' => $number ?: $count,
       'title' => $node->getTitle(),
-      'time' => ($time instanceof DateInterval) ? ($time->i * 60 + $time->s) : $time,
+      'time' => ($time instanceof \DateInterval) ? ($time->i * 60 + $time->s) : $time,
     ];
 
     if ($node->get('field_impact_statement')->count()) {
@@ -172,7 +171,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       $query->addField('ec', 'entity_id');
       $query->range(0, 1);
       if ($result = $query->execute()->fetchObject()) {
-        /* @var \Drupal\node\Entity\Node $episode */
+        /** @var \Drupal\node\Entity\Node $episode */
         $episode = Node::load($result->entity_id);
         $podcast_episode_list = new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger);
         $chapter_values['episode'] = $podcast_episode_list->getItem($episode);

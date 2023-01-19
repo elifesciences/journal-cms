@@ -9,7 +9,19 @@ use Psr\Log\LoggerInterface;
  * Class YouTube.
  */
 final class Tweet implements TweetInterface {
+
+  /**
+   * The Embed.
+   *
+   * @var \Drupal\jcms_admin\Embed
+   */
   private $embed;
+
+  /**
+   * The logger channel.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
   private $logger;
 
   /**
@@ -40,7 +52,7 @@ final class Tweet implements TweetInterface {
       if ($info = $this->embed->create('https://twitter.com/og/status/' . $id)) {
         $providers = $info->getProviders();
         if (isset($providers['oembed'])) {
-          /* @var \Embed\Providers\OEmbed $oembed */
+          /** @var \Embed\Providers\OEmbed $oembed */
           $oembed = $providers['oembed'];
           $oembed_dom = new Dom();
           $oembed_dom->setOptions([
@@ -72,7 +84,10 @@ final class Tweet implements TweetInterface {
       }
     }
     catch (\Exception $e) {
-      $this->logger->error('Twitter could not be reached.', ['id' => $id, 'error' => $e->getMessage()]);
+      $this->logger->error('Twitter could not be reached.', [
+        'id' => $id,
+        'error' => $e->getMessage(),
+      ]);
     }
 
     return [];

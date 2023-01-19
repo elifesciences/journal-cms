@@ -63,7 +63,7 @@ class EventListRestResource extends AbstractRestResourceBase {
    * Takes a node and builds an item from it.
    */
   public function getItem(EntityInterface $node) : array {
-    /* @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $item = $this->processDefault($node);
 
     $item['starts'] = $this->formatDate(strtotime($node->get('field_event_datetime')->first()->getValue()['value']));

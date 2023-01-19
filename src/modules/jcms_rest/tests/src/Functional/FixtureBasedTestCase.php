@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\jcms_rest\Functional;
 
-use ComposerLocator;
 use Drupal\Tests\UnitTestCase;
 use eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator;
 use eLife\ApiValidator\MessageValidator\JsonMessageValidator;
@@ -10,13 +9,17 @@ use eLife\ApiValidator\SchemaFinder\PathBasedSchemaFinder;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use JsonSchema\Validator;
-use RuntimeException;
 
 /**
  * Abstract class for fixture based test cases.
  */
 abstract class FixtureBasedTestCase extends UnitTestCase {
 
+  /**
+   * Content generated flag.
+   *
+   * @var bool
+   */
   protected static $contentGenerated = FALSE;
 
   /**
@@ -39,7 +42,7 @@ abstract class FixtureBasedTestCase extends UnitTestCase {
   public function setUp() {
     $this->validator = new FakeHttpsMessageValidator(
       new JsonMessageValidator(
-        new PathBasedSchemaFinder(ComposerLocator::getPath('elife/api') . '/dist/model'),
+        new PathBasedSchemaFinder(\ComposerLocator::getPath('elife/api') . '/dist/model'),
         new Validator()
       )
     );
@@ -60,12 +63,12 @@ abstract class FixtureBasedTestCase extends UnitTestCase {
       $projectRoot = realpath(__DIR__ . '/../../../../../..');
       $script = $projectRoot . '/scripts/generate_content.sh';
       if (!file_exists($script)) {
-        throw new RuntimeException("File $script does not exist");
+        throw new \RuntimeException("File $script does not exist");
       }
       $logFile = '/tmp/generate_content.log';
       exec("$script >$logFile 2>&1", $output, $exitCode);
       if ($exitCode != 0) {
-        throw new RuntimeException("$script failed. Check log file $logFile");
+        throw new \RuntimeException("$script failed. Check log file $logFile");
       }
     }
   }
@@ -91,7 +94,7 @@ abstract class FixtureBasedTestCase extends UnitTestCase {
         $total = $data->total;
       }
 
-      $items = isset($data->items) ? $data->items : $data;
+      $items = $data->items ?? $data;
       if (!empty($items)) {
         $all_items = array_merge($all_items, $items);
       }

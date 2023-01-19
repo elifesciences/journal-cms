@@ -70,7 +70,7 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
    *   Return item, if found.
    */
   public function getItem(EntityInterface $node) {
-    /* @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $item = $this->processDefault($node);
 
     // Impact statement is optional.
