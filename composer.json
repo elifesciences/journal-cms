@@ -384,6 +384,10 @@
     "drupal-scaffold": {
       "locations": {
         "web-root": "web/"
+      },
+      "file-mapping": {
+        "[web-root]/sites/default/default.services.yml": false,
+        "[web-root]/sites/default/default.settings.php": false
       }
     },
     "installer-paths": {
