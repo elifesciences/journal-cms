@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a0c873cbccdff49008063da3c954fbd",
+    "content-hash": "fcf1b27e00c5bc45052950c2095054a7",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4024,21 +4024,22 @@
         },
         {
             "name": "drupal/devel",
-            "version": "5.0.2",
+            "version": "5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/devel.git",
-                "reference": "5.0.2"
+                "reference": "5.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/devel-5.0.2.zip",
-                "reference": "5.0.2",
-                "shasum": "9299d52d806897240fb5a57e66f12e09c4f00960"
+                "url": "https://ftp.drupal.org/files/projects/devel-5.1.1.zip",
+                "reference": "5.1.1",
+                "shasum": "d7423dfe9c2333508618975c37f3b63026adca50"
             },
             "require": {
-                "doctrine/common": "^2.7",
+                "doctrine/common": "^2.7 || ^3.4",
                 "drupal/core": "^9 || ^10",
+                "php": ">=7.4",
                 "symfony/var-dumper": "^4 || ^5 || ^6"
             },
             "conflict": {
@@ -4053,8 +4054,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "5.0.2",
-                    "datestamp": "1664317512",
+                    "version": "5.1.1",
+                    "datestamp": "1671644739",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
