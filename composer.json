@@ -297,8 +297,8 @@
     "drupal/confi": "^3.0",
     "drupal/config_devel": "^1.8",
     "drupal/console": "^1.9",
-    "drupal/core-composer-scaffold": "^9.4",
-    "drupal/core-recommended": "^9.4",
+    "drupal/core-composer-scaffold": "^9.5",
+    "drupal/core-recommended": "^9.5",
     "drupal/country": "^1.0",
     "drupal/ctools": "~3.0-alpha27",
     "drupal/devel": "^5.0",
@@ -425,7 +425,7 @@
     }
   },
   "require-dev": {
-    "drupal/core-dev": "^9.4",
+    "drupal/core-dev": "^9.5",
     "drupal/drupal-extension": "^4.2"
   }
 }
