@@ -307,7 +307,7 @@
     "drupal/entity_reference_revisions": "1.x-dev",
     "drupal/entity_reference_unpublished": "^1.0@alpha",
     "drupal/entityqueue": "^1.5",
-    "drupal/field_group": "~3.0-beta1",
+    "drupal/field_group": "^3.4",
     "drupal/field_permissions": "~1.0-beta1",
     "drupal/field_validation": "^1.0@beta",
     "drupal/file_entity": "2.x-dev@dev",
