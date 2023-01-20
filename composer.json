@@ -322,7 +322,7 @@
     "drupal/migrate_tools": "^4.5",
     "drupal/monolog": "dev-custom#b216caca850aa580ce7b21e618c5acfa2a24e344",
     "drupal/paragraphs": "^1.9",
-    "drupal/redis": "^1.2",
+    "drupal/redis": "^1.6",
     "drupal/restui": "1.x-dev",
     "drupal/scheduler": "^1.1",
     "drupal/services": "^4.0@beta",
