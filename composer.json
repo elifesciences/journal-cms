@@ -300,7 +300,7 @@
     "drupal/core-composer-scaffold": "^9.5",
     "drupal/core-recommended": "^9.5",
     "drupal/country": "^1.0",
-    "drupal/ctools": "~3.0-alpha27",
+    "drupal/ctools": "^3.13",
     "drupal/devel": "^5.0",
     "drupal/diff": "^1.0@RC",
     "drupal/duration_field": "^2.0",
