@@ -324,7 +324,7 @@
     "drupal/paragraphs": "^1.9",
     "drupal/redis": "^1.6",
     "drupal/restui": "1.x-dev",
-    "drupal/scheduler": "^1.1",
+    "drupal/scheduler": "^1.5",
     "drupal/services": "^4.0@beta",
     "drupal/transliterate_filenames": "^2.0",
     "drush/drush": "^10",
