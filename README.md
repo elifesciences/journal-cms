@@ -4,7 +4,7 @@
 
 ## Preparation
 
-Ensure the you have the following installed:
+Ensure that you have the following installed:
 
 - VirtualBox
 - Vagrant

@@ -5,7 +5,6 @@ namespace Drupal\jcms_digest;
 use Drupal\Core\Site\Settings;
 use Drupal\jcms_digest\Entity\Digest;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Message;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -80,7 +79,7 @@ class FetchDigest {
       \Drupal::logger('jcms_digest')
         ->notice(
           'Digest has been requested @url with the response: @response',
-          ['@url' => $url, '@response' => Message::toString($response)]
+          ['@url' => $url, '@response' => $response->getBody()->getContents()]
         );
       return $response;
     }
