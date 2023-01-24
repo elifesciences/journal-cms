@@ -4,7 +4,6 @@ namespace Drupal\jcms_article;
 
 use Drupal\Core\Site\Settings;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Message;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -64,7 +63,7 @@ class FragmentApi {
           [
             '@fragmentId' => $fragmentId,
             '@endpoint' => $endpoint,
-            '@response' => Message::toString($response),
+            '@response' => $response->getBody()->getContents(),
           ]
         );
 
@@ -77,7 +76,7 @@ class FragmentApi {
         [
           '@fragmentId' => $fragmentId,
           '@endpoint' => $endpoint,
-          '@response' => Message::toString($response),
+          '@response' => $response->getBody()->getContents(),
         ]
       );
 
@@ -117,7 +116,7 @@ class FragmentApi {
           [
             '@fragmentId' => $fragmentId,
             '@endpoint' => $endpoint,
-            '@response' => Message::toString($response),
+            '@response' => $response->getBody()->getContents(),
           ]
         );
 
@@ -130,7 +129,7 @@ class FragmentApi {
         [
           '@fragmentId' => $fragmentId,
           '@endpoint' => $endpoint,
-          '@response' => Message::toString($response),
+          '@response' => $response->getBody()->getContents(),
         ]
       );
 
