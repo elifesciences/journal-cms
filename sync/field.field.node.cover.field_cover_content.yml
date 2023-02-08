@@ -8,9 +8,11 @@ dependencies:
     - node.type.blog_article
     - node.type.collection
     - node.type.cover
+    - node.type.event
     - node.type.interview
     - node.type.labs_experiment
     - node.type.podcast_episode
+    - node.type.press_package
 id: node.cover.field_cover_content
 field_name: field_cover_content
 entity_type: node
@@ -28,9 +30,11 @@ settings:
       article: article
       blog_article: blog_article
       collection: collection
+      event: event
       interview: interview
       labs_experiment: labs_experiment
       podcast_episode: podcast_episode
+      press_package: press_package
     sort:
       field: _none
     auto_create: 0
