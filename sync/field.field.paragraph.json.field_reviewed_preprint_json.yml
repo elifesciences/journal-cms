@@ -1,0 +1,21 @@
+uuid: c64f74cb-dfb8-450d-a39e-0edbc67c916c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_reviewed_preprint_json
+    - paragraphs.paragraphs_type.json
+  module:
+    - jsonb
+id: paragraph.json.field_reviewed_preprint_json
+field_name: field_reviewed_preprint_json
+entity_type: paragraph
+bundle: json
+label: 'Reviewed preprint JSON'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: json
