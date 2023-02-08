@@ -47,7 +47,7 @@ final class ReviewedPreprint {
     $prepareSnippet = json_decode($json, TRUE);
     unset($prepareSnippet['indexContent']);
 
-    $this->json = json_encode($prepareSnippet);
+    $this->json = !empty($prepareSnippet) ? json_encode($prepareSnippet) : '{}';
   }
 
   /**
