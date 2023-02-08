@@ -197,6 +197,9 @@ class ArticleCrud {
       elseif ($paragraph->get('field_article_published_json')->getValue()) {
         $snippet = json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
       }
+      elseif ($paragraph->get('field_reviewed_preprint_json')->getValue()) {
+        $snippet = ['type' => 'reviewed-preprint'] + json_decode($paragraph->get('field_reviewed_preprint_json')->getString(), TRUE);
+      }
 
       // Remove all but the thumbnail image from article snippet.
       if (!empty($snippet) && !empty($snippet['image']) && empty($snippet['image']['thumbnail'])) {

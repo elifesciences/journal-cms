@@ -96,8 +96,11 @@ final class NodePresave {
    */
   public function setPublishedStatus(EntityInterface $entity, ArticleVersions $article) {
     $id = $entity->label();
+    $pid = $entity->get('field_article_json')->getValue()[0]['target_id'];
+    $paragraph = Paragraph::load($pid);
+    $reviewed_preprint = json_decode($paragraph->get('field_reviewed_preprint_json')->getString(), TRUE);
     // If there's a published version, set to published.
-    $status = $article->getLatestPublishedVersionJson() ? 1 : 0;
+    $status = $article->getLatestPublishedVersionJson() || !empty($reviewed_preprint) ? 1 : 0;
     $entity->set('status', $status);
   }
 

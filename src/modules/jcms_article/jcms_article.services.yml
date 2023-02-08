@@ -23,3 +23,11 @@ services:
   jcms_article.fetch_article:
     class: Drupal\jcms_article\FetchArticle
     arguments: ["@http_client"]
+
+  jcms_article.fetch_reviewed_preprint:
+    class: Drupal\jcms_article\FetchReviewedPreprint
+    arguments: ["@http_client"]
+
+  jcms_article.reviewed_preprint_crud:
+    class: Drupal\jcms_article\ReviewedPreprintCrud
+    arguments: ["@entity_type.manager"]
