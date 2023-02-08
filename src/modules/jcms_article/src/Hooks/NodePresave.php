@@ -99,7 +99,7 @@ final class NodePresave {
     $pid = $entity->get('field_article_json')->getValue()[0]['target_id'];
     $paragraph = Paragraph::load($pid);
     $reviewed_preprint = json_decode($paragraph->get('field_reviewed_preprint_json')->getString(), TRUE);
-    // If there's a published version, set to published.
+    // If there's a published version or reviewed preprint, set to published.
     $status = $article->getLatestPublishedVersionJson() || !empty($reviewed_preprint) ? 1 : 0;
     $entity->set('status', $status);
   }
