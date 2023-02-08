@@ -43,7 +43,11 @@ final class ReviewedPreprint {
     }
     $this->id = $id;
     $this->action = $action;
-    $this->json = $json;
+
+    $prepareSnippet = json_decode($json, TRUE);
+    unset($prepareSnippet['indexContent']);
+
+    $this->json = json_encode($prepareSnippet);
   }
 
   /**
@@ -81,7 +85,7 @@ final class ReviewedPreprint {
   /**
    * Returns the reviewed preprint action: write or delete.
    */
-  public function getAction(): string {
+  public function getAction(): int {
     return $this->action;
   }
 

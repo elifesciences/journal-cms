@@ -158,9 +158,25 @@ class ReviewedPreprintCrud {
   public function deleteArticle(ReviewedPreprint $reviewedPreprint) {
     $node_id = $this->getNodeIdByArticleId($reviewedPreprint->getId());
     $node = $this->entityTypeManager->getStorage('node')->load($node_id);
+
     if (!$node) {
       return NULL;
     }
+
+    $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
+    $paragraph = Paragraph::load($pid);
+    $article = json_decode($paragraph->get('field_article_unpublished_json')->getString(), TRUE);
+
+    if ($article) {
+      $paragraph->set('field_reviewed_preprint_json', NULL);
+      $paragraph->setNewRevision();
+      $paragraph->save();
+
+      $node->save();
+
+      return $node;
+    }
+
     return $this->entityTypeManager->getStorage('node')->delete([$node]);
   }
 

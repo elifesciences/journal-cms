@@ -66,7 +66,7 @@ class CoverListRestResource extends AbstractRestResourceBase {
         }
       }
     }
-    $response = new JCMSRestResponse($response_data, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+    $response = new JCMSRestResponse(['total' => count($response_data['items'])] + $response_data, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
     $response->addCacheableDependencies($nodes);
     $this->processResponse($response);
     return $response;
@@ -74,8 +74,11 @@ class CoverListRestResource extends AbstractRestResourceBase {
 
   /**
    * Takes a node and builds an item from it.
+   *
+   * @return array|bool
+   *   Return item snippet, if found.
    */
-  public function getItem(EntityInterface $node) : array {
+  public function getItem(EntityInterface $node) {
     return $this->getEntityQueueItem($node, $node->get('field_cover_content'));
   }
 

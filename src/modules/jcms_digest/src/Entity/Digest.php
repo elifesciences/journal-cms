@@ -109,7 +109,7 @@ final class Digest {
   /**
    * Returns the digest action: write or delete.
    */
-  public function getAction(): string {
+  public function getAction(): int {
     return $this->action;
   }
 

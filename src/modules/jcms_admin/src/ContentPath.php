@@ -14,7 +14,7 @@ final class ContentPath {
   /**
    * The notification Service.
    *
-   * @var \Drupal\jcms_notificationsEntityCrudNotificationService
+   * @var \Drupal\jcms_notifications\EntityCrudNotificationService
    */
   private $notificationService;
 
