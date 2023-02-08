@@ -123,11 +123,11 @@ class FetchReviewedPreprint {
       }
       while (!$stop) {
         $response = $this->client->get($endpoint, $options + [
-            'query' => [
-              'per-page' => $per_page,
-              'page' => $page,
-            ],
-          ]);
+          'query' => [
+            'per-page' => $per_page,
+            'page' => $page,
+          ],
+        ]);
         if ($response instanceof ResponseInterface) {
           $json = json_decode((string) $response->getBody(), TRUE);
           if (isset($json['items']) && !empty($json['items'])) {

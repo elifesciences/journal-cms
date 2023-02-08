@@ -65,7 +65,8 @@ class ReviewedPreprintCrud {
         $node = $this->updateArticle($reviewedPreprint);
       }
     }
-    // Create a new node if we have no node ID with the reviewed preprint ID requested.
+    // Create a new node if we have no node ID with the reviewed preprint ID
+    // requested.
     else {
       $node = $this->createArticle($reviewedPreprint);
     }
@@ -164,7 +165,9 @@ class ReviewedPreprintCrud {
   }
 
   /**
-   * Checks if node with the reviewed preprint ID already exists and returns the node ID.
+   * Checks if node with reviewed preprint ID already exists.
+   *
+   * Returns the node ID.
    */
   public function getNodeIdByArticleId(string $reviewedPreprintId) : int {
     $query = \Drupal::entityQuery('node')->condition('title', $reviewedPreprintId);
