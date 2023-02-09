@@ -472,9 +472,9 @@ abstract class AbstractRestResourceBase extends ResourceBase {
    * @return mixed|bool
    *   Return article snippet, if found.
    */
-  protected function getArticleSnippet(Node $node) {
+  protected function getArticleSnippet(Node $node, $allowReviewedPreprint = FALSE) {
     $crud_service = \Drupal::service('jcms_article.article_crud');
-    return $crud_service->getArticle($node, $this->viewUnpublished());
+    return $crud_service->getArticle($node, $this->viewUnpublished(), $allowReviewedPreprint);
   }
 
   /**
@@ -682,7 +682,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     }
 
     if ($related->getType() == 'article') {
-      if ($article = $this->getArticleSnippet($related)) {
+      if ($article = $this->getArticleSnippet($related, in_array($node->bundle(), ['cover']))) {
         $item_values['item'] = $article;
       }
     }

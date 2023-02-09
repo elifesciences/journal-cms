@@ -52,9 +52,11 @@ class JcmsNotificationsCommands extends DrushCommands {
     $logger = \Drupal::logger('jcms_message_import');
     $queue_service = \Drupal::service('jcms_notifications.queue_service');
     $article_service = \Drupal::service('jcms_article.fetch_article_versions');
+    $reviewed_preprint_service = \Drupal::service('jcms_article.fetch_reviewed_preprint');
     $digest_service = \Drupal::service('jcms_digest.fetch_digest');
     $article_crud_service = \Drupal::service('jcms_article.article_crud');
     $digest_crud_service = \Drupal::service('jcms_digest.digest_crud');
+    $reviewed_preprint_crud_service = \Drupal::service('jcms_article.reviewed_preprint_crud');
     $message = $queue_service->prepareMessage($id, $type);
     $logger->info('Prepared message', ['message' => $message->getMessage()]);
 
@@ -65,6 +67,15 @@ class JcmsNotificationsCommands extends DrushCommands {
           $article_crud_service->crudArticle($articleVersions);
           $logger->info('Article snippet updated', ['message' => $message->getMessage()]);
           $this->output()->writeln(dt('Article snippet updated (!id)', [
+            '!id' => $message->getId(),
+          ]));
+          break;
+
+        case 'reviewed-preprint':
+          $reviewedPreprint = $reviewed_preprint_service->getReviewedPreprintById($message->getId());
+          $reviewed_preprint_crud_service->crudReviewedPreprint($reviewedPreprint);
+          $logger->info('Reviewed preprint snippet updated', ['message' => $message->getMessage()]);
+          $this->output()->writeln(dt('Reviewed preprint snippet updated (!id)', [
             '!id' => $message->getId(),
           ]));
           break;
@@ -113,8 +124,10 @@ class JcmsNotificationsCommands extends DrushCommands {
     $article_service = \Drupal::service('jcms_article.fetch_article_versions');
     $metrics_service = \Drupal::service('jcms_article.fetch_article_metrics');
     $digest_service = \Drupal::service('jcms_digest.fetch_digest');
+    $reviewed_preprint_service = \Drupal::service('jcms_article.fetch_reviewed_preprint');
     $article_crud_service = \Drupal::service('jcms_article.article_crud');
     $digest_crud_service = \Drupal::service('jcms_digest.digest_crud');
+    $reviewed_preprint_crud_service = \Drupal::service('jcms_article.reviewed_preprint_crud');
     $limit_service = \Drupal::service('jcms_notifications.limit_service');
     $logger->info('Started');
     $count = 0;
@@ -147,6 +160,12 @@ class JcmsNotificationsCommands extends DrushCommands {
               $articleVersions = $article_service->getArticleVersions($id);
               $article_crud_service->crudArticle($articleVersions);
               $logger->info('Article snippet updated', ['message' => $message->getMessage()]);
+              break;
+
+            case 'reviewed-preprint':
+              $reviewedPreprint = $reviewed_preprint_service->getReviewedPreprintById($id);
+              $reviewed_preprint_crud_service->crudReviewedPreprint($reviewedPreprint);
+              $logger->info('Reviewed preprint snippet updated', ['message' => $message->getMessage()]);
               break;
 
             case 'digest':
@@ -279,6 +298,67 @@ class JcmsNotificationsCommands extends DrushCommands {
       $time = round($time_end - $time_start, 0);
       $this->output()->writeln(dt('Processed !count articles in !minutes minutes !seconds seconds.', [
         '!count' => count($ids),
+        '!minutes' => floor($time / 60),
+        '!seconds' => round($time % 60),
+      ]));
+    }
+  }
+
+  /**
+   * Imports all reviewed preprints.
+   *
+   * @param array $options
+   *   Array of options whose values come from cli, aliases, config, etc.
+   *
+   * @option limit
+   *   Limit on the number of items to process in each import.
+   * @option skip-updates
+   *   Do not attempt to update reviewed preprints that exist already.
+   * @usage drush reviewed-preprint-import-all
+   *   Import all reviewed preprints and return a message when finished.
+   * @usage drush reviewed-preprint-import-all --limit=500
+   *   Import first 500 reviewed preprints and return a message when finished.
+   * @usage drush reviewed-preprint-import-all --skip-updates
+   *   Import all reviewed preprints, but skip over reviewed preprints that
+   * exist already, and return a message when finished.
+   * @validate-module-enabled jcms_notifications
+   *
+   * @command reviewed-preprint:import-all
+   * @aliases rpia,reviewed-preprint-import-all
+   */
+  public function reviewedPreprintImportAll(array $options = [
+    'limit' => NULL,
+    'skip-updates' => NULL,
+  ]) {
+    $fetch_service = \Drupal::service('jcms_article.fetch_reviewed_preprint');
+    $crud_service = \Drupal::service('jcms_article.reviewed_preprint_crud');
+
+    $this->output()->writeln(dt('Fetching all reviewed preprint IDs. This may take a few minutes.'));
+    $limit = $options['limit'] ? (int) $options['limit'] : NULL;
+    if (!empty($limit)) {
+      $fetch_service->setLimit($limit);
+    }
+    $reviewedPreprints = $fetch_service->getAllReviewedPreprints();
+    $this->output()->writeln(dt('Received !count reviewed preprint IDs to process.', ['!count' => count($reviewedPreprints)]));
+    if ($reviewedPreprints) {
+      $time_start = microtime(TRUE);
+      $num = 0;
+      /** @var \Drupal\jcms_article\Entity\ReviewedPreprint $reviewedPreprint */
+      foreach ($reviewedPreprints as $reviewedPreprint) {
+        if ($options['skip-updates']) {
+          $crud_service->skipUpdates();
+        }
+        $crud_service->crudReviewedPreprint($reviewedPreprint);
+        $this->output()->writeln(dt('Processed reviewed preprint !reviewed_preprint_id (!num of !count)', [
+          '!reviewed_preprint_id' => $reviewedPreprint->getId(),
+          '!num' => ++$num,
+          '!count' => count($reviewedPreprints),
+        ]));
+      }
+      $time_end = microtime(TRUE);
+      $time = round($time_end - $time_start, 0);
+      $this->output()->writeln(dt('Processed !count reviewed preprints in !minutes minutes !seconds seconds.', [
+        '!count' => count($reviewedPreprints),
         '!minutes' => floor($time / 60),
         '!seconds' => round($time % 60),
       ]));

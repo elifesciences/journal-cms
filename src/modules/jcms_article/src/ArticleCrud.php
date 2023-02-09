@@ -165,9 +165,26 @@ class ArticleCrud {
   public function deleteArticle(ArticleVersions $articleVersions) {
     $node_id = $this->getNodeIdByArticleId($articleVersions->getId());
     $node = $this->entityTypeManager->getStorage('node')->load($node_id);
+
     if (!$node) {
       return NULL;
     }
+
+    $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
+    $paragraph = Paragraph::load($pid);
+    $reviewed_preprint = json_decode($paragraph->get('field_reviewed_preprint_json')->getString(), TRUE);
+
+    if ($reviewed_preprint) {
+      $paragraph->set('field_article_unpublished_json', NULL);
+      $paragraph->set('field_article_published_json', NULL);
+      $paragraph->setNewRevision();
+      $paragraph->save();
+
+      $node->save();
+
+      return $node;
+    }
+
     return $this->entityTypeManager->getStorage('node')->delete([$node]);
   }
 
@@ -186,16 +203,19 @@ class ArticleCrud {
    * @return array|bool
    *   Return article snippet, if found.
    */
-  public function getArticle(EntityInterface $node, bool $preview = FALSE) {
+  public function getArticle(EntityInterface $node, bool $preview = FALSE, $allowReviewedPreprint = FALSE) {
     $snippet = [];
     if ($article_json = $node->get('field_article_json')->getValue()) {
       $pid = $article_json[0]['target_id'];
       $paragraph = Paragraph::load($pid);
-      if ($preview) {
+      if ($preview && $paragraph->get('field_article_unpublished_json')->getValue()) {
         $snippet = json_decode($paragraph->get('field_article_unpublished_json')->getString(), TRUE);
       }
       elseif ($paragraph->get('field_article_published_json')->getValue()) {
         $snippet = json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
+      }
+      elseif ($allowReviewedPreprint && $paragraph->get('field_reviewed_preprint_json')->getValue()) {
+        $snippet = ['type' => 'reviewed-preprint'] + json_decode($paragraph->get('field_reviewed_preprint_json')->getString(), TRUE);
       }
 
       // Remove all but the thumbnail image from article snippet.

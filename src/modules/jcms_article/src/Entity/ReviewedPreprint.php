@@ -1,33 +1,26 @@
 <?php
 
-namespace Drupal\jcms_digest\Entity;
+namespace Drupal\jcms_article\Entity;
 
 /**
- * Store and verify digest snippet.
+ * Store and verify reviewed preprint snippet.
  *
- * @package Drupal\jcms_digest\Entity
+ * @package Drupal\jcms_article\Entity
  */
-final class Digest {
+final class ReviewedPreprint {
 
   const WRITE = 1;
   const DELETE = 2;
 
   /**
-   * Digest ID.
+   * ReviewedPreprint ID.
    *
    * @var string
    */
   private $id;
 
   /**
-   * Digest Title.
-   *
-   * @var string
-   */
-  private $title;
-
-  /**
-   * Digest snippet.
+   * ReviewedPreprint snippet.
    *
    * @var string
    */
@@ -41,7 +34,7 @@ final class Digest {
   private $action;
 
   /**
-   * Digest constructor.
+   * ReviewedPreprint constructor.
    */
   public function __construct(string $id, string $json, int $action = self::WRITE) {
     $json = $json ?: '{}';
@@ -50,10 +43,11 @@ final class Digest {
     }
     $this->id = $id;
     $this->action = $action;
-    $this->json = $json;
-    if ($json !== '{}') {
-      $this->title = $this->getJsonObject()->title;
-    }
+
+    $prepareSnippet = json_decode($json, TRUE);
+    unset($prepareSnippet['indexContent']);
+
+    $this->json = !empty($prepareSnippet) ? json_encode($prepareSnippet) : '{}';
   }
 
   /**
@@ -62,25 +56,14 @@ final class Digest {
   public function generateSampleJson() {
     $this->json = json_encode([
       'id' => (string) $this->id,
-      'title' => 'Digest ' . $this->id,
+      'doi' => '10.7554/eLife.' . $this->id,
+      'title' => 'Reviewed preprint ' . $this->id,
       'stage' => 'published',
       'published' => '2018-07-05T10:21:01Z',
-      'updated' => '2018-07-05T10:21:01Z',
-      'image' => [
-        'thumbnail' => [
-          'uri' => 'https://iiif.elifesciences.org/digests/' . $this->id . '%2Fdigest-' . $this->id . '.jpg',
-          'alt' => '',
-          'source' => [
-            'uri' => 'https://iiif.elifesciences.org/digests/' . $this->id . '%2Fdigest-' . $this->id . '.jpg/full/full/0/default.jpg',
-            'filename' => 'digest-' . $this->id . '.jpg',
-            'mediaType' => 'image/jpeg',
-          ],
-          'size' => [
-            'width' => 1920,
-            'height' => 1421,
-          ],
-        ],
-      ],
+      'reviewedDate' => '2018-07-05T10:21:01Z',
+      'versionDate' => '2018-07-05T10:21:01Z',
+      'statusDate' => '2018-07-05T10:21:01Z',
+      'elocationId' => 'RP' . $this->id,
     ]);
   }
 
@@ -93,21 +76,14 @@ final class Digest {
   }
 
   /**
-   * Returns the digest ID.
+   * Returns the reviewed preprint ID.
    */
   public function getId(): string {
     return $this->id;
   }
 
   /**
-   * Returns the digest title.
-   */
-  public function getTitle(): string {
-    return $this->title;
-  }
-
-  /**
-   * Returns the digest action: write or delete.
+   * Returns the reviewed preprint action: write or delete.
    */
   public function getAction(): int {
     return $this->action;

@@ -96,8 +96,11 @@ final class NodePresave {
    */
   public function setPublishedStatus(EntityInterface $entity, ArticleVersions $article) {
     $id = $entity->label();
-    // If there's a published version, set to published.
-    $status = $article->getLatestPublishedVersionJson() ? 1 : 0;
+    $pid = $entity->get('field_article_json')->getValue()[0]['target_id'];
+    $paragraph = Paragraph::load($pid);
+    $reviewed_preprint = json_decode($paragraph->get('field_reviewed_preprint_json')->getString(), TRUE);
+    // If there's a published version or reviewed preprint, set to published.
+    $status = $article->getLatestPublishedVersionJson() || !empty($reviewed_preprint) ? 1 : 0;
     $entity->set('status', $status);
   }
 
@@ -109,6 +112,12 @@ final class NodePresave {
     // Use the unpublished JSON if no published exists.
     $version = $article->getLatestPublishedVersionJson() ?: $article->getLatestUnpublishedVersionJson();
     $json = json_decode($version);
+    if (!is_object($json) || !property_exists($json, 'subjects')) {
+      $pid = $entity->get('field_article_json')->getValue()[0]['target_id'];
+      $paragraph = Paragraph::load($pid);
+      $json = json_decode($paragraph->get('field_reviewed_preprint_json')->getString());
+    }
+
     if (is_object($json) && property_exists($json, 'subjects')) {
       // Unset the terms first.
       $entity->set('field_subjects', []);
