@@ -311,7 +311,7 @@
     "drupal/services": "~4.0-beta2",
     "drush/drush": "10.3.6",
     "egulias/email-validator": "^2.1",
-    "elife/api": "^2.11",
+    "elife/api": "^2.16",
     "elife/api-sdk": "^1.0@dev",
     "elife/api-validator": "^1.0@dev",
     "elife/bus-sdk": "dev-master",
