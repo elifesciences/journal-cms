@@ -94,7 +94,7 @@ final class ArticleVersions {
   /**
    * Returns the article action, write or delete.
    */
-  public function getAction(): string {
+  public function getAction(): int {
     return $this->action;
   }
 

@@ -14,11 +14,30 @@ dependencies:
     - node.type.article
   module:
     - focal_point
+    - paragraphs
 id: node.article.default
 targetEntityType: node
 bundle: article
 mode: default
 content:
+  field_article_json:
+    type: paragraphs
+    weight: 5
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
   field_community_list:
     type: boolean_checkbox
     weight: 4
@@ -63,7 +82,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_article_json: true
   field_order_date: true
   field_subjects: true
   moderation_state: true
