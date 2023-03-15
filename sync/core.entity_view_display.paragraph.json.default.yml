@@ -29,11 +29,11 @@ content:
     weight: 1
     region: content
   field_reviewed_preprint_json:
-    weight: 2
+    type: jsonb_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: jsonb_default
+    weight: 2
     region: content
 hidden:
   created: true

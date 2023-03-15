@@ -426,6 +426,9 @@
       },
       "drupal/monolog": {
         "Prepare the module for D9 (3109707)": "src/patches/monolog-3109707-4.patch"
+      },
+      "drupal/duration_field": {
+        "Field storage of field shared amongst several bundles is processed more than once when updating 1.x → 2.x": "https://www.drupal.org/files/issues/2022-11-25/duration_field-ignore_field_update_with_proper_settings-3079754-7.patch"
       }
     }
   },
