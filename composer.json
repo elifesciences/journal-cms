@@ -310,7 +310,7 @@
     "drupal/field_group": "^3.4",
     "drupal/field_permissions": "~1.0-beta1",
     "drupal/field_validation": "^1.0@beta",
-    "drupal/file_entity": "2.x-dev@dev",
+    "drupal/file_entity": "2.0-beta9",
     "drupal/focal_point": "^1.1",
     "drupal/hide_revision_field": "^2.2",
     "drupal/inline_entity_form": "~1.0-beta1",
@@ -426,6 +426,9 @@
       },
       "drupal/monolog": {
         "Prepare the module for D9 (3109707)": "src/patches/monolog-3109707-4.patch"
+      },
+      "drupal/duration_field": {
+        "Field storage of field shared amongst several bundles is processed more than once when updating 1.x → 2.x": "https://www.drupal.org/files/issues/2022-11-25/duration_field-ignore_field_update_with_proper_settings-3079754-7.patch"
       }
     }
   },
