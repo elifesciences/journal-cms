@@ -5,7 +5,7 @@ cd ./web
 ../vendor/bin/drush --no-ansi -y en devel_generate
 
 echo "Creating content type subjects"
-../vendor/bin/drush migrate-import jcms_subjects_json
+../vendor/bin/drush --no-ansi migrate-import jcms_subjects_json
 
 echo "Creating some articles"
 ../vendor/bin/drush --no-ansi devel-generate-content 20 --bundles=article --kill

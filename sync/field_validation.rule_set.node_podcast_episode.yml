@@ -8,12 +8,13 @@ entity_type: node
 bundle: podcast_episode
 field_validation_rules:
   c8007be4-1f8a-47e4-bc03-92274d845e87:
-    uuid: c8007be4-1f8a-47e4-bc03-92274d845e87
     id: unique_field_validation_rule
     title: 'Episode number is unique'
+    data:
+      scope: bundle
+      per_user: false
     weight: 1
+    uuid: c8007be4-1f8a-47e4-bc03-92274d845e87
     field_name: field_episode_number
     column: value
     error_message: 'The value for episode number should be unique'
-    data:
-      scope: bundle

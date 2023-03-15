@@ -15,29 +15,29 @@ bundle: json
 mode: default
 content:
   field_article_published_json:
+    type: jsonb_textarea
     weight: 0
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: jsonb_textarea
-    region: content
   field_article_unpublished_json:
+    type: jsonb_textarea
     weight: 1
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: jsonb_textarea
-    region: content
   field_reviewed_preprint_json:
+    type: jsonb_textarea
     weight: 2
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: jsonb_textarea
-    region: content
 hidden:
   created: true
   moderation_state: true

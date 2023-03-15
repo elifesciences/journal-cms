@@ -28,6 +28,7 @@ class PromotionalCollectionListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'promotional_collection');
 
     if (!$this->viewUnpublished()) {

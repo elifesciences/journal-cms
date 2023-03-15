@@ -38,6 +38,7 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'interview')
         ->condition('uuid', '%' . $id, 'LIKE');
 

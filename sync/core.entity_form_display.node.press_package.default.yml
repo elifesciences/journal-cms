@@ -29,26 +29,27 @@ bundle: press_package
 mode: default
 content:
   field_image_social:
+    type: image_focal_point
     weight: 1
+    region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
       preview_link: true
       offsets: '50,50'
     third_party_settings: {  }
-    type: image_focal_point
-    region: content
   field_impact_statement:
+    type: text_textarea
     weight: 2
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
-    region: content
   field_media_contact:
     type: entity_reference_paragraphs
     weight: 4
+    region: content
     settings:
       title: 'Media contact'
       title_plural: 'Media contacts'
@@ -57,10 +58,10 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
-    region: content
   field_press_package_about:
     type: entity_reference_paragraphs
     weight: 5
+    region: content
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -69,24 +70,23 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
-    region: content
   field_related_content:
+    type: inline_entity_form_complex
     weight: 3
+    region: content
     settings:
       form_mode: default
       override_labels: true
       label_singular: article
       label_plural: articles
+      allow_new: false
       allow_existing: true
       match_operator: STARTS_WITH
-      allow_new: false
+      allow_duplicate: false
       collapsible: false
       collapsed: false
-      allow_duplicate: false
       revision: false
     third_party_settings: {  }
-    type: inline_entity_form_complex
-    region: content
   publish_on:
     type: datetime_timestamp_no_default
     weight: 7
@@ -101,11 +101,11 @@ content:
   title:
     type: string_textfield
     weight: 0
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
   field_content_html: true

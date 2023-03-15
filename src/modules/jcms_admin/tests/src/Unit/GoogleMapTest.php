@@ -40,7 +40,7 @@ class GoogleMapTest extends UnitTestCase {
    *
    * @before
    */
-  protected function setUp() {
+  protected function setUp(): void {
     $this->embed = $this->createMock(Embed::class);
     $this->logger = $this->createMock(LoggerInterface::class);
     $this->googleMap = new GoogleMap($this->embed, $this->logger);

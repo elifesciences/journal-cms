@@ -8,22 +8,24 @@ entity_type: node
 bundle: annual_report
 field_validation_rules:
   db678a48-808c-48f7-b488-7a7e4824b0f3:
-    uuid: db678a48-808c-48f7-b488-7a7e4824b0f3
     id: unique_field_validation_rule
     title: 'URI is unique'
+    data:
+      scope: bundle
+      per_user: false
     weight: -9
+    uuid: db678a48-808c-48f7-b488-7a7e4824b0f3
     field_name: field_annual_report_uri
     column: uri
     error_message: 'The value for URI should be unique'
-    data:
-      scope: bundle
   7db2963c-d2df-4c34-a947-23635c443317:
-    uuid: 7db2963c-d2df-4c34-a947-23635c443317
     id: unique_field_validation_rule
     title: 'Year is unique'
+    data:
+      scope: bundle
+      per_user: false
     weight: -10
+    uuid: 7db2963c-d2df-4c34-a947-23635c443317
     field_name: field_annual_report_year
     column: value
     error_message: 'The value for year should be unique'
-    data:
-      scope: bundle

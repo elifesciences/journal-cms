@@ -30,50 +30,50 @@ bundle: event
 mode: default
 content:
   field_community_list:
+    type: boolean_checkbox
     weight: 6
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_event_datetime:
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
     type: daterange_default
+    weight: 3
     region: content
-  field_event_timezone:
-    weight: 4
     settings: {  }
     third_party_settings: {  }
+  field_event_timezone:
     type: options_select
+    weight: 4
     region: content
+    settings: {  }
+    third_party_settings: {  }
   field_event_uri:
+    type: link_default
     weight: 5
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: link_default
-    region: content
   field_image_social:
+    type: image_focal_point
     weight: 1
+    region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
       preview_link: true
       offsets: '50,50'
     third_party_settings: {  }
-    type: image_focal_point
-    region: content
   field_impact_statement:
+    type: text_textarea
     weight: 2
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
-    region: content
   publish_on:
     type: datetime_timestamp_no_default
     weight: 8
@@ -88,11 +88,11 @@ content:
   title:
     type: string_textfield
     weight: 0
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
   field_content_html: true

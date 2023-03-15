@@ -30,6 +30,7 @@ class SubjectItemRestResource extends AbstractRestResourceBase {
   public function get(string $id = NULL) : JCMSRestResponse {
     if ($this->checkId($id, 'subject')) {
       $query = \Drupal::entityQuery('taxonomy_term')
+        ->accessCheck(TRUE)
         ->condition('vid', 'subjects')
         ->condition('field_subject_id.value', $id);
 

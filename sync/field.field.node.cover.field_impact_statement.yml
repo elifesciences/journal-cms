@@ -10,11 +10,7 @@ dependencies:
     - text
 third_party_settings:
   allowed_formats:
-    basic_html: '0'
-    basic_html_plus: '0'
-    ckeditor_html: '0'
-    full_html: '0'
-    plain_text: '0'
+    allowed_formats: {  }
 id: node.cover.field_impact_statement
 field_name: field_impact_statement
 entity_type: node

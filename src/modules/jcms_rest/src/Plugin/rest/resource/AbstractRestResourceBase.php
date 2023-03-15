@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\jcms_rest\JCMSCheckIdTrait;
 use Drupal\node\NodeInterface;
 use function GuzzleHttp\Psr7\normalize_header;
@@ -397,8 +398,8 @@ abstract class AbstractRestResourceBase extends ResourceBase {
       $query->condition($field, $end_date->getTimestamp(), '<=');
     }
     else {
-      $query->condition($field, $start_date->format(DATETIME_DATETIME_STORAGE_FORMAT), '>=');
-      $query->condition($field, $end_date->format(DATETIME_DATETIME_STORAGE_FORMAT), '<=');
+      $query->condition($field, $start_date->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT), '>=');
+      $query->condition($field, $end_date->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT), '<=');
     }
   }
 

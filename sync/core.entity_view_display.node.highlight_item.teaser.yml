@@ -16,10 +16,10 @@ bundle: highlight_item
 mode: teaser
 content:
   links:
-    weight: 100
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 100
+    region: content
 hidden:
   field_highlight_item: true
   field_image: true

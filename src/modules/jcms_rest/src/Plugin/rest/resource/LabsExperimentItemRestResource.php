@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   id = "labs_experiment_item_rest_resource",
  *   label = @Translation("Labs post item rest resource"),
  *   uri_paths = {
- *     "canonical" = "/labs-posts/{number}"
+ *     "canonical" = "/labs-posts/{id}"
  *   }
  * )
  */
@@ -38,6 +38,7 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'labs_experiment')
         ->condition('uuid', '%' . $id, 'LIKE');
 

@@ -19,49 +19,49 @@ bundle: podcast_chapter
 mode: default
 content:
   field_chapter_time:
-    weight: 106
+    type: duration_human_display
     label: above
     settings:
       text_length: full
       separator: space
     third_party_settings: {  }
-    type: duration_human_display
+    weight: 106
     region: content
   field_impact_statement:
-    weight: 102
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 102
     region: content
   field_long_title:
-    weight: 104
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 104
     region: content
   field_order_date:
-    weight: 105
+    type: timestamp
     label: above
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    type: timestamp
+    weight: 105
     region: content
   field_related_content:
-    weight: 101
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 101
     region: content
   links:
-    weight: 100
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 100
+    region: content
 hidden: {  }

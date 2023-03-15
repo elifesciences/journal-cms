@@ -84,9 +84,12 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
       $limit--;
       /** @var \Drupal\node\Entity\Node $item_node */
       $item_node = $item->get('entity')->getTarget()->getValue();
-      $moderation_info = \Drupal::service('content_moderation.moderation_information');
-      if (!$moderation_info->isLatestRevision($item_node)) {
-        $item_node = $moderation_info->getLatestRevision($item_node->getEntityTypeId(), $item_node->id());
+      if (!$item_node->isLatestRevision()) {
+        /** @var \Drupal\Core\Entity\RevisionableStorageInterface $entity_storage */
+        $entity_storage = \Drupal::entityTypeManager()
+          ->getStorage($item_node->getEntityTypeId());
+        $latest_revision_id = $entity_storage->getLatestRevisionId();
+        $item_node = $entity_storage->loadRevision($latest_revision_id);
       }
       if ($item_node->get('field_image')->count()) {
         if ($item = $cover_rest_resource->getItem($item_node)) {

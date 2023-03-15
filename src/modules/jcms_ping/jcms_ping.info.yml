@@ -2,4 +2,5 @@ name: Journal CMS (Ping)
 type: module
 description: Check to see the site is up
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: Journal CMS

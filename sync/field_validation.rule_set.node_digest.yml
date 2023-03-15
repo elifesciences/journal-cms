@@ -8,12 +8,12 @@ entity_type: node
 bundle: digest
 field_validation_rules:
   c154a228-0158-44a2-a494-8889b438af8c:
-    uuid: c154a228-0158-44a2-a494-8889b438af8c
     id: regex_field_validation_rule
     title: 'Valid Digest ID'
+    data:
+      setting: '/^[a-z0-9-]+$/'
     weight: 1
+    uuid: c154a228-0158-44a2-a494-8889b438af8c
     field_name: field_digest_id
     column: value
     error_message: 'Could not detect a valid Digest ID'
-    data:
-      setting: '/^[a-z0-9-]+$/'

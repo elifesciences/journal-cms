@@ -19,7 +19,7 @@ bundle: annual_report
 mode: default
 content:
   field_annual_report_uri:
-    weight: 2
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -28,36 +28,36 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 2
     region: content
   field_annual_report_year:
-    weight: 1
+    type: number_integer
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    type: number_integer
+    weight: 1
     region: content
   field_impact_statement:
-    weight: 4
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 4
     region: content
   field_order_date:
-    weight: 6
+    type: timestamp
     label: above
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    type: timestamp
+    weight: 6
     region: content
   field_pdf:
-    weight: 3
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -66,11 +66,11 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 3
     region: content
   links:
-    weight: 0
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden: {  }

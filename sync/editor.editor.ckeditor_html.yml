@@ -41,11 +41,7 @@ settings:
           name: Paste
           items:
             - PasteText
-  plugins:
-    language:
-      language_list: un
-    stylescombo:
-      styles: ''
+  plugins: {  }
 image_upload:
   status: false
   scheme: public

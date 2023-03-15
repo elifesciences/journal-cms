@@ -21,10 +21,10 @@ bundle: job_advert
 mode: teaser
 content:
   links:
-    weight: 100
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 100
+    region: content
 hidden:
   field_image_social: true
   field_impact_statement: true

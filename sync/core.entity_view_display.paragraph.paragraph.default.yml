@@ -13,11 +13,11 @@ bundle: paragraph
 mode: default
 content:
   field_block_html:
-    weight: 1
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 1
     region: content
 hidden:
   created: true

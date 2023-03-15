@@ -49,9 +49,9 @@ class ArticleVersionsTest extends UnitTestCase {
    *
    * @test
    * @group journal-cms-tests
-   * @expectedException \InvalidArgumentException
    */
   public function testInvalidJson() {
+    $this->expectException(\InvalidArgumentException::class);
     $id = 19887;
     $json = '{"versions":[{"stage":}';
     $versions = new ArticleVersions($id, $json, ArticleVersions::DELETE);

@@ -18,10 +18,10 @@ bundle: annual_report
 mode: teaser
 content:
   links:
-    weight: 100
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 100
+    region: content
 hidden:
   field_annual_report_uri: true
   field_annual_report_year: true

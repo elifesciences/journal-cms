@@ -10,11 +10,8 @@ dependencies:
     - text
 third_party_settings:
   allowed_formats:
-    basic_html_plus: basic_html_plus
-    basic_html: '0'
-    ckeditor_html: '0'
-    full_html: '0'
-    plain_text: '0'
+    allowed_formats:
+      - basic_html_plus
 id: node.job_advert.field_job_advert_respons
 field_name: field_job_advert_respons
 entity_type: node

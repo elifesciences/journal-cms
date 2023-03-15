@@ -29,6 +29,7 @@ class CoverListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'cover')
       ->exists('field_image');
 

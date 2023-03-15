@@ -14,7 +14,7 @@ drupal:
     - core/drupal
     - core/drupalSettings
     - core/jquery.once
-    - core/jquery.ui.tooltip
+    - jquery_ui_tooltip/tooltip
     - jcms_admin/clipboardjs
 
 clipboardjs:

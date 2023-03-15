@@ -132,7 +132,7 @@
         // Get the session token for crsf
         $.ajax({
           method: 'GET',
-          url: '/rest/session/token',
+          url: '/session/token',
           success: function (response) {
             ajaxOptions.headers['X-CSRF-Token'] = response;
           }

@@ -13,7 +13,7 @@ use Drupal\node\Entity\Node;
 function jcms_rest_update_8101() {
   $query = \Drupal::entityQuery('node')
     ->condition('type', 'podcast_episode');
-  $nids = $query->execute();
+  $nids = $query->accessCheck(FALSE)->execute();
   if ($nids) {
     $nodes = Node::loadMultiple($nids);
     if (!empty($nodes)) {
