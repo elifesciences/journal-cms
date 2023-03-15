@@ -310,7 +310,7 @@
     "drupal/field_group": "^3.4",
     "drupal/field_permissions": "~1.0-beta1",
     "drupal/field_validation": "^1.0@beta",
-    "drupal/file_entity": "2.x-dev@dev",
+    "drupal/file_entity": "2.0-beta9",
     "drupal/focal_point": "^1.1",
     "drupal/hide_revision_field": "^2.2",
     "drupal/inline_entity_form": "~1.0-beta1",

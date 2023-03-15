@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f91510f7e983f0c5faffdec2e921168",
+    "content-hash": "7612b9c97d5c3027baefdfa23a7aad5d",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4568,11 +4568,17 @@
         },
         {
             "name": "drupal/file_entity",
-            "version": "dev-2.x",
+            "version": "2.0.0-beta9",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/file_entity.git",
-                "reference": "00b02133b2777672428c2c624d609706d5369291"
+                "reference": "8.x-2.0-beta9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/file_entity-8.x-2.0-beta9.zip",
+                "reference": "8.x-2.0-beta9",
+                "shasum": "f75e45f4046904eb582979c701ffa0a2ccb988dc"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9",
@@ -4583,15 +4589,12 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-2.x": "2.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-2.0-beta9+1-dev",
-                    "datestamp": "1659725795",
+                    "version": "8.x-2.0-beta9",
+                    "datestamp": "1625735670",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -16260,7 +16263,6 @@
         "drupal/entity_reference_revisions": 20,
         "drupal/entity_reference_unpublished": 15,
         "drupal/field_validation": 10,
-        "drupal/file_entity": 20,
         "drupal/monolog": 20,
         "drupal/restui": 20,
         "drupal/services": 10,
