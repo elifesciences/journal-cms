@@ -5,9 +5,7 @@
  * Contains install and update functions for Journal CMS (Migrate).
  */
 
-use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Database\Database;
-use Drupal\Core\Site\Settings;
 use Drupal\duration_field\Service\DurationService;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
