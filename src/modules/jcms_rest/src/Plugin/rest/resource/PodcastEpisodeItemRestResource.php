@@ -118,16 +118,13 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       }
     }
 
-    // @todo Duration field is broken since the Drupal 9 migration.
-    // Set time to 0, until we can migrate to a new field.
-    $time = 0;
+    if ($duration = $node->get('field_chapter_time')->getValue()) {
+      $time = new \DateInterval($duration[0]['duration']);
+    }
+    else {
+      $time = 0;
+    }
 
-    // If ($node->get('field_chapter_time')->getValue()) {
-    // $time = new \DateInterval($node->get('field_chapter_time')->getString());
-    // }
-    // else {
-    // $time = 0;
-    // }.
     $chapter_values = [
       'number' => $number ?: $count,
       'title' => $node->getTitle(),
