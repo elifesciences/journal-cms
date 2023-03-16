@@ -1,0 +1,23 @@
+uuid: 34f229e2-bc48-422d-9b45-2505e761dc30
+langcode: en
+status: true
+dependencies:
+  module:
+    - duration_field
+    - field_permissions
+    - node
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_chapter_start_time
+field_name: field_chapter_start_time
+entity_type: node
+type: duration
+settings: {  }
+module: duration_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

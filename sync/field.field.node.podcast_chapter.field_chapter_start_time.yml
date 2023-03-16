@@ -1,0 +1,22 @@
+uuid: 8b4406b2-9015-43f6-a23f-5bb5b1c84715
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_chapter_start_time
+    - node.type.podcast_chapter
+  module:
+    - duration_field
+id: node.podcast_chapter.field_chapter_start_time
+field_name: field_chapter_start_time
+entity_type: node
+bundle: podcast_chapter
+label: Time
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  granularity: 'i:s'
+field_type: duration

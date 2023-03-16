@@ -5,7 +5,9 @@
  * Contains install and update functions for Journal CMS (Migrate).
  */
 
+use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Database\Database;
+use Drupal\Core\Site\Settings;
 use Drupal\duration_field\Service\DurationService;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -1869,6 +1871,50 @@ function jcms_migrate_update_8168() {
       $node->set('created', strtotime($content[$id]['created'] . ' ' . date('H:i:s', $current)));
       $node->set('uuid', $content[$id]['uuid']);
       $node->save();
+    }
+  }
+}
+
+/**
+ * Migrate data from field_chapter_time to field_chapter_start_time (import config).
+ */
+function jcms_migrate_update_9001() {
+  $config_path = Settings::get('config_sync_directory');
+  $source = new FileStorage($config_path);
+
+  $config_storage = \Drupal::service('config.storage');
+  $config_factory = \Drupal::configFactory();
+  $uuid_service = \Drupal::service('uuid');
+
+  $configs = [
+    'core.entity_form_display.node.podcast_chapter.default',
+    'core.entity_view_display.node.podcast_chapter.default',
+    'core.entity_view_display.node.podcast_chapter.teaser',
+    'field.field.node.podcast_chapter.field_chapter_start_time',
+    'field.storage.node.field_chapter_start_time',
+  ];
+
+  foreach ($configs as $config) {
+    $config_storage->write($config, $source->read($config));
+  }
+}
+
+/**
+ * Migrate data from field_chapter_time to field_chapterDatabase_start_time (data).
+ */
+function jcms_migrate_update_9002() {
+  $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
+    ->condition('type', 'podcast_chapter')
+    ->sort('nid', 'ASC');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        $node->set('field_chapter_start_time', $node->get('field_chapter_time')->getValue());
+        $node->save();
+      }
     }
   }
 }
