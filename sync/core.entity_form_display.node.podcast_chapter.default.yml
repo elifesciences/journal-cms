@@ -20,13 +20,13 @@ mode: default
 content:
   field_chapter_start_time:
     type: duration_widget
-    weight: 2
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
   field_chapter_time:
     type: duration_widget
-    weight: 1
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
