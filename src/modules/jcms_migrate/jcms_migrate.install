@@ -1889,9 +1889,9 @@ function jcms_migrate_update_9001() {
   $configs = [
     'field.storage.node.field_chapter_start_time',
     'field.field.node.podcast_chapter.field_chapter_start_time',
-    'core.entity_view_display.node.podcast_chapter.default',
-    'core.entity_view_display.node.podcast_chapter.teaser',
     'core.entity_form_display.node.podcast_chapter.default',
+    'core.entity_view_display.node.podcast_chapter.teaser',
+    'core.entity_view_display.node.podcast_chapter.default',
   ];
 
   foreach ($configs as $config) {
