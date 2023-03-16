@@ -1876,33 +1876,9 @@ function jcms_migrate_update_8168() {
 }
 
 /**
- * Migrate data from field_chapter_time to field_chapter_start_time (import config).
+ * Migrate data from field_chapter_time to field_chapterDatabase_start_time.
  */
 function jcms_migrate_update_9001() {
-  $config_path = Settings::get('config_sync_directory');
-  $source = new FileStorage($config_path);
-
-  $config_storage = \Drupal::service('config.storage');
-  $config_factory = \Drupal::configFactory();
-  $uuid_service = \Drupal::service('uuid');
-
-  $configs = [
-    'field.storage.node.field_chapter_start_time',
-    'field.field.node.podcast_chapter.field_chapter_start_time',
-    'core.entity_form_display.node.podcast_chapter.default',
-    'core.entity_view_display.node.podcast_chapter.teaser',
-    'core.entity_view_display.node.podcast_chapter.default',
-  ];
-
-  foreach ($configs as $config) {
-    $config_storage->write($config, $source->read($config));
-  }
-}
-
-/**
- * Migrate data from field_chapter_time to field_chapterDatabase_start_time (data).
- */
-function jcms_migrate_update_9002() {
   $query = \Drupal::entityQuery('node')
     ->accessCheck(FALSE)
     ->condition('type', 'podcast_chapter')
