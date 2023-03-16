@@ -83,13 +83,17 @@ final class ContentPath {
     }
     elseif ($node->bundle() === 'podcast_chapter') {
       if ($episode = $this->getChapterEpisodeNumber($node)) {
-        if ($node->get('field_chapter_time')->getValue()) {
-          $time = new \DateInterval($node->get('field_chapter_time')->getString());
-        }
-        else {
-          $time = 0;
-        }
+        // @todo Duration field is broken since the Drupal 9 migration.
+        // Set time to 0, until we can migrate to a new field.
+        $time = 0;
 
+        // If ($node->get('field_chapter_time')->getValue()) {
+        // $time = new \DateInterval($node->get('field_chapter_time')
+        // ->getString());
+        // }
+        // else {
+        // $time = 0;
+        // }.
         return sprintf('/%s%d#%d', 'podcast/episode', $episode, ($time instanceof \DateInterval) ? ($time->i * 60 + $time->s) : $time);
       }
     }
