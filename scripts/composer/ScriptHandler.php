@@ -26,6 +26,12 @@ class ScriptHandler {
       }
     }
 
+    // Create the sites/default
+    if (!$fs->exists($drupal_root . '/sites/default')) {
+      $fs->mkdir($drupal_root . '/sites/default', 0755);
+      $event->getIO()->write("Create a sites/default directory with chmod 00755");
+    }
+
     // Prepare the settings file for installation
     if (!$fs->exists($drupal_root . '/sites/default/settings.php') and $fs->exists($drupal_root . '/sites/default/default.settings.php')) {
       $fs->copy($drupal_root . '/sites/default/default.settings.php', $drupal_root . '/sites/default/settings.php');
