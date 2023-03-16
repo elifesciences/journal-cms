@@ -1887,11 +1887,11 @@ function jcms_migrate_update_9001() {
   $uuid_service = \Drupal::service('uuid');
 
   $configs = [
-    'core.entity_form_display.node.podcast_chapter.default',
+    'field.storage.node.field_chapter_start_time',
+    'field.field.node.podcast_chapter.field_chapter_start_time',
     'core.entity_view_display.node.podcast_chapter.default',
     'core.entity_view_display.node.podcast_chapter.teaser',
-    'field.field.node.podcast_chapter.field_chapter_start_time',
-    'field.storage.node.field_chapter_start_time',
+    'core.entity_form_display.node.podcast_chapter.default',
   ];
 
   foreach ($configs as $config) {
