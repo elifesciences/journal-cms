@@ -118,7 +118,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       }
     }
 
-    if ($duration = $node->get('field_chapter_time')->getValue()) {
+    if ($duration = $node->get('field_chapter_start_time')->getValue()) {
       $time = new \DateInterval($duration[0]['duration']);
     }
     else {

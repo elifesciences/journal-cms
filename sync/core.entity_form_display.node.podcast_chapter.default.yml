@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.podcast_chapter.field_chapter_start_time
-    - field.field.node.podcast_chapter.field_chapter_time
     - field.field.node.podcast_chapter.field_impact_statement
     - field.field.node.podcast_chapter.field_long_title
     - field.field.node.podcast_chapter.field_order_date
@@ -21,12 +20,6 @@ content:
   field_chapter_start_time:
     type: duration_widget
     weight: 1
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_chapter_time:
-    type: duration_widget
-    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }

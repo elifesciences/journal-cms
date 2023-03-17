@@ -1872,3 +1872,23 @@ function jcms_migrate_update_8168() {
     }
   }
 }
+
+/**
+ * Migrate data from field_chapter_time to field_chapterDatabase_start_time.
+ */
+function jcms_migrate_update_9001() {
+  $query = \Drupal::entityQuery('node')
+    ->accessCheck(FALSE)
+    ->condition('type', 'podcast_chapter')
+    ->sort('nid', 'ASC');
+  $nids = $query->execute();
+  if ($nids) {
+    $nodes = Node::loadMultiple($nids);
+    if (!empty($nodes)) {
+      foreach ($nodes as $node) {
+        $node->set('field_chapter_start_time', $node->get('field_chapter_time')->getValue());
+        $node->save();
+      }
+    }
+  }
+}
