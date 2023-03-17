@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.podcast_chapter.field_chapter_start_time
-    - field.field.node.podcast_chapter.field_chapter_time
     - field.field.node.podcast_chapter.field_impact_statement
     - field.field.node.podcast_chapter.field_long_title
     - field.field.node.podcast_chapter.field_order_date
@@ -27,15 +26,6 @@ content:
       separator: space
     third_party_settings: {  }
     weight: 107
-    region: content
-  field_chapter_time:
-    type: duration_human_display
-    label: above
-    settings:
-      text_length: full
-      separator: space
-    third_party_settings: {  }
-    weight: 106
     region: content
   field_impact_statement:
     type: text_default

@@ -5,7 +5,6 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.podcast_chapter.field_chapter_start_time
-    - field.field.node.podcast_chapter.field_chapter_time
     - field.field.node.podcast_chapter.field_impact_statement
     - field.field.node.podcast_chapter.field_long_title
     - field.field.node.podcast_chapter.field_order_date
@@ -25,7 +24,6 @@ content:
     region: content
 hidden:
   field_chapter_start_time: true
-  field_chapter_time: true
   field_impact_statement: true
   field_long_title: true
   field_order_date: true
