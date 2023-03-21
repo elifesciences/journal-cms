@@ -8,6 +8,14 @@
     }
   ],
   "repositories": [
+      {"type": "vcs",
+       "url": "https://github.com/elifesciences/api-sdk-php"},
+      {"type": "vcs",
+       "url": "https://github.com/elifesciences/bus-sdk-php"},
+      {"type": "vcs",
+       "url": "https://github.com/elifesciences/api-validator-php"},
+      {"type": "vcs",
+       "url": "https://github.com/elifesciences/logging-sdk-php"},
     {
       "type": "composer",
       "url": "https://packages.drupal.org/8",
@@ -272,7 +280,7 @@
     }
   ],
   "require": {
-    "php": "^7.4",
+    "php": ">=7.0",
     "aws/aws-sdk-php": "~3.0",
     "ckeditor/autoembed": "^4.9",
     "ckeditor/autolink": "^4.9",
@@ -329,9 +337,9 @@
     "drupal/transliterate_filenames": "^2.0",
     "drush/drush": "^10",
     "elife/api": "^2.16",
-    "elife/api-sdk": "1.0.x-dev",
-    "elife/api-validator": "^1.0@dev",
-    "elife/bus-sdk": "dev-master",
+    "elife/api-sdk": "dev-relax-php-requirement",
+    "elife/api-validator": "dev-relax-php-requirement",
+    "elife/bus-sdk": "dev-relax-php-requirement",
     "embed/embed": "^3.0",
     "geerlingguy/drupal-vm": "^6.0",
     "giggsey/libphonenumber-for-php": "^7.7",
@@ -353,7 +361,7 @@
   },
   "config": {
     "platform": {
-      "php": "7.4"
+      "php": "8.1"
     },
     "allow-plugins": {
       "composer/installers": true,
