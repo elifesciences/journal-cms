@@ -33,7 +33,7 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
    *
    * @var int
    */
-  protected $minVersion = 2;
+  protected $minVersion = 3;
 
   /**
    * Responds to GET requests.
