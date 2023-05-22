@@ -16,15 +16,7 @@ class UnsupportedEndpointValidatorTest extends FixtureBasedTestCase {
    * {@inheritdoc}
    */
   public function dataProvider() : array {
-    return [
-      [
-        '/press-packages',
-        'id',
-        'application/vnd.elife.press-package-list+json',
-        'application/vnd.elife.press-package+json;version=1',
-        'This press package requires version 2+.',
-      ],
-    ];
+    return [];
   }
 
   /**

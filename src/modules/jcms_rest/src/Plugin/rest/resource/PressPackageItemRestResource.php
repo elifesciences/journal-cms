@@ -2,7 +2,6 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
@@ -27,7 +26,14 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
    *
    * @var int
    */
-  protected $latestVersion = 3;
+  protected $latestVersion = 4;
+
+  /**
+   * Minimum version.
+   *
+   * @var int
+   */
+  protected $minVersion = 2;
 
   /**
    * Responds to GET requests.
@@ -77,17 +83,13 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
         if ($node->get('field_related_content')->count()) {
           $related_content = [];
           foreach ($node->get('field_related_content')->referencedEntities() as $related) {
-            if ($article = $this->getArticleSnippet($related)) {
+            if ($article = $this->getArticleSnippet($related, $this->acceptVersion >= 4)) {
               $related_content[] = $article;
             }
           }
           if (!empty($related_content)) {
             $response['relatedContent'] = $related_content;
           }
-        }
-
-        if ($this->acceptVersion < 2 && empty($response['relatedContent'])) {
-          throw new JCMSNotAcceptableHttpException('This press package requires version 2+.');
         }
 
         // Subjects is optional.

@@ -97,7 +97,7 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         '/press-packages',
         'id',
         'application/vnd.elife.press-package-list+json;version=1',
-        'application/vnd.elife.press-package+json;version=2',
+        'application/vnd.elife.press-package+json;version=4',
       ],
       [
         'GET',
