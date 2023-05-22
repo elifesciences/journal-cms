@@ -187,6 +187,13 @@ class WrongVersionEndpointTest extends FixtureBasedTestCase {
         ],
       ],
       [
+        '/press-packages',
+        'id',
+        [
+          'application/vnd.elife.press-package+json; version=1',
+        ],
+      ],
+      [
         '/subjects',
         'id',
         [

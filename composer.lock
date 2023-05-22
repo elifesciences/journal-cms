@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1ef8d3fae63eecb4b5cf2846b77977c",
+    "content-hash": "400f75f18905363ec24575526b03559b",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5966,16 +5966,16 @@
         },
         {
             "name": "elife/api",
-            "version": "2.16.0",
+            "version": "2.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "3f09734870eac743f5856f80643a984e54d7544b"
+                "reference": "94c782ddbedb9eafa3055b00e45496933dd1688f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/3f09734870eac743f5856f80643a984e54d7544b",
-                "reference": "3f09734870eac743f5856f80643a984e54d7544b",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/94c782ddbedb9eafa3055b00e45496933dd1688f",
+                "reference": "94c782ddbedb9eafa3055b00e45496933dd1688f",
                 "shasum": ""
             },
             "conflict": {
@@ -5989,9 +5989,9 @@
             "description": "eLife Sciences API specification",
             "support": {
                 "issues": "https://github.com/elifesciences/api-raml/issues",
-                "source": "https://github.com/elifesciences/api-raml/tree/2.16.0"
+                "source": "https://github.com/elifesciences/api-raml/tree/2.20.0"
             },
-            "time": "2023-02-08T07:54:22+00:00"
+            "time": "2023-05-19T16:24:41+00:00"
         },
         {
             "name": "elife/api-client",

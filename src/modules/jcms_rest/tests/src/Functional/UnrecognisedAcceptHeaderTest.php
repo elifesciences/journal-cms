@@ -93,7 +93,7 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         '/press-packages',
         [
           'application/vnd.elife.press-package-list+json;version=1',
-          'application/vnd.elife.press-package+json;version=3',
+          'application/vnd.elife.press-package+json;version=4',
         ],
         'id',
       ],
