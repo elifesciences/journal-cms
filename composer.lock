@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "225a98e2cf5f5f9f02ce5a87aa1c9a70",
+    "content-hash": "d24ceb354d2528aeb865a039934fab88",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5966,16 +5966,16 @@
         },
         {
             "name": "elife/api",
-            "version": "dev-compiled-press-pack-remove-v2",
+            "version": "2.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/api-raml.git",
-                "reference": "cef514cb6843dca2a88e83a88712f71d5efa1d6f"
+                "reference": "dc41f529a0408242a97dc79bec4035e13a9ceaa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/cef514cb6843dca2a88e83a88712f71d5efa1d6f",
-                "reference": "cef514cb6843dca2a88e83a88712f71d5efa1d6f",
+                "url": "https://api.github.com/repos/elifesciences/api-raml/zipball/dc41f529a0408242a97dc79bec4035e13a9ceaa5",
+                "reference": "dc41f529a0408242a97dc79bec4035e13a9ceaa5",
                 "shasum": ""
             },
             "conflict": {
@@ -5989,9 +5989,9 @@
             "description": "eLife Sciences API specification",
             "support": {
                 "issues": "https://github.com/elifesciences/api-raml/issues",
-                "source": "https://github.com/elifesciences/api-raml/tree/compiled-press-pack-remove-v2"
+                "source": "https://github.com/elifesciences/api-raml/tree/2.21.0"
             },
-            "time": "2023-05-22T16:56:13+00:00"
+            "time": "2023-05-24T08:11:39+00:00"
         },
         {
             "name": "elife/api-client",
@@ -16308,7 +16308,6 @@
         "drupal/monolog": 20,
         "drupal/restui": 20,
         "drupal/services": 10,
-        "elife/api": 20,
         "elife/api-sdk": 20,
         "elife/api-validator": 20,
         "elife/bus-sdk": 20
