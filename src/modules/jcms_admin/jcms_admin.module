@@ -503,7 +503,7 @@ function jcms_admin_entity_subqueue_presave(EntityInterface $entity) {
     foreach ($items as $item) {
       $latest = $node_storage->load($item['target_id']);
       if ($latest instanceof RevisionableInterface && !$latest->isLatestRevision() && $node_storage instanceof RevisionableStorageInterface) {
-        $latest_revision_id = $node_storage->getLatestRevisionId();
+        $latest_revision_id = $node_storage->getLatestRevisionId($item['target_id']);
         $latest = $node_storage->loadRevision($latest_revision_id);
       }
       $latest->set('moderation_state', 'published');

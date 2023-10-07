@@ -178,7 +178,7 @@ class JcmsAdminCommands extends DrushCommands {
       ->exists('field_image')
       ->execute();
     shuffle($covers);
-    $covers = array_slice($covers, 0, 3);
+    $covers = array_slice($covers, 0, 4);
     array_walk($covers, function (&$cover) {
       $node = Node::load($cover);
       $node->set('moderation_state', 'published');
@@ -193,6 +193,38 @@ class JcmsAdminCommands extends DrushCommands {
     $subqueue->save();
 
     $this->output()->writeln(dt('Covers list populated with random covers'));
+  }
+
+  /**
+   * Populate covers entityqueue with random covers.
+   *
+   * @validate-module-enabled jcms_admin
+   *
+   * @command jcms:covers-preview-random
+   * @aliases jcms-covers-preview-random
+   */
+  public function coversPreviewRandom() {
+    $covers = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
+      ->condition('type', 'cover')
+      ->exists('field_image')
+      ->execute();
+    shuffle($covers);
+    $covers = array_slice($covers, 0, 5);
+    array_walk($covers, function (&$cover) {
+      $node = Node::load($cover);
+      $node->set('moderation_state', 'published');
+      $node->save();
+      $cover = [
+        'target_id' => $cover,
+      ];
+    });
+
+    $subqueue = EntitySubqueue::load('covers_preview');
+    $subqueue->set('items', $covers);
+    $subqueue->save();
+
+    $this->output()->writeln(dt('Covers Preview list populated with random covers'));
   }
 
 }

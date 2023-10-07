@@ -40,7 +40,7 @@ class InlineEntityFormComplex extends IefInlineEntityFormComplex {
         if ($entity instanceof RevisionableInterface && !$entity->isLatestRevision($entity)) {
           /** @var \Drupal\Core\Entity\RevisionableStorageInterface $entity_storage */
           $entity_storage = \Drupal::entityTypeManager()->getStorage($entity->getEntityTypeId());
-          $latest_revision_id = $entity_storage->getLatestRevisionId();
+          $latest_revision_id = $entity_storage->getLatestRevisionId($entity->id());
           $latest = $entity_storage->loadRevision($latest_revision_id);
           $row['#label'] = $this->inlineFormHandler->getEntityLabel($latest) . ' *';
         }
