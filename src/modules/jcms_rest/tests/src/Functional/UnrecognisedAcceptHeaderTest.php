@@ -137,7 +137,7 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         '/promotional-collections',
         [
           'application/vnd.elife.promotional-collection-list+json;version=1',
-          'application/vnd.elife.promotional-collection+json;version=1',
+          'application/vnd.elife.promotional-collection+json;version=2',
         ],
         'id',
       ],
