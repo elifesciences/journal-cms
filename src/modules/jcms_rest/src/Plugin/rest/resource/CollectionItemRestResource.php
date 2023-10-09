@@ -28,7 +28,14 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
    *
    * @var int
    */
-  protected $latestVersion = 2;
+  protected $latestVersion = 3;
+
+  /**
+   * Minimum version.
+   *
+   * @var int
+   */
+  protected $minVersion = 2;
 
   /**
    * Responds to GET requests.
@@ -96,23 +103,15 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
 
     $item += $this->extendedCollectionItem($node);
 
-    foreach (['field_collection_content', 'field_collection_related_content'] as $field) {
-      foreach ($node->get($field)->referencedEntities() as $content) {
-        /** @var \Drupal\node\Entity\Node $content */
-        if ($content->isPublished() || $this->viewUnpublished()) {
-          switch ($content->getType()) {
-            case 'event':
-              if ($this->acceptVersion < 2) {
-                throw new JCMSNotAcceptableHttpException('This collection requires version 2+.');
+    foreach (['content', 'relatedContent'] as $field) {
+      if (isset($item[$field]) && count($item[$field]) > 0) {
+        foreach ($item[$field] as $content) {
+          switch ($content['type']) {
+            case 'reviewed-preprint':
+              if ($this->acceptVersion < 3) {
+                throw new JCMSNotAcceptableHttpException('This collection requires version 3+.');
               }
               break;
-
-            case 'digest':
-              if ($snippet = $this->getDigestSnippet($content)) {
-                if ($this->acceptVersion < 2) {
-                  throw new JCMSNotAcceptableHttpException('This collection requires version 2+.');
-                }
-              }
 
             default:
           }
