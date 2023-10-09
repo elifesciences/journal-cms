@@ -88,7 +88,7 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
         /** @var \Drupal\Core\Entity\RevisionableStorageInterface $entity_storage */
         $entity_storage = \Drupal::entityTypeManager()
           ->getStorage($item_node->getEntityTypeId());
-        $latest_revision_id = $entity_storage->getLatestRevisionId();
+        $latest_revision_id = $entity_storage->getLatestRevisionId($item_node->id());
         $item_node = $entity_storage->loadRevision($latest_revision_id);
       }
       if ($item_node->get('field_image')->count()) {
