@@ -3,6 +3,7 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
@@ -21,6 +22,13 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class PromotionalCollectionItemRestResource extends AbstractRestResourceBase {
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
+  protected $latestVersion = 2;
 
   /**
    * Responds to GET requests.
@@ -79,7 +87,25 @@ class PromotionalCollectionItemRestResource extends AbstractRestResourceBase {
       }
     }
 
-    return $item + $this->extendedCollectionItem($node);
+    $item += $this->extendedCollectionItem($node);
+
+    foreach (['content', 'relatedContent'] as $field) {
+      if (isset($item[$field]) && count($item[$field]) > 0) {
+        foreach ($item[$field] as $content) {
+          switch ($content['type']) {
+            case 'reviewed-preprint':
+              if ($this->acceptVersion < 2) {
+                throw new JCMSNotAcceptableHttpException('This promotional collection requires version 2+.');
+              }
+              break;
+
+            default:
+          }
+        }
+      }
+    }
+
+    return $item;
   }
 
 }

@@ -603,7 +603,7 @@ abstract class AbstractRestResourceBase extends ResourceBase {
               break;
 
             case 'article':
-              if ($snippet = $this->getArticleSnippet($content)) {
+              if ($snippet = $this->getArticleSnippet($content, TRUE)) {
                 $item[$k][] = $snippet;
               }
               break;
