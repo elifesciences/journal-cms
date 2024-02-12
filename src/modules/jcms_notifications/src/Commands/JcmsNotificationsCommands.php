@@ -314,8 +314,13 @@ class JcmsNotificationsCommands extends DrushCommands {
    *   Limit on the number of items to process in each import.
    * @option skip-updates
    *   Do not attempt to update reviewed preprints that exist already.
+   * @option start-date
+   *   Apply start-date filter.
    * @usage drush reviewed-preprint-import-all
    *   Import all reviewed preprints and return a message when finished.
+   * @usage drush reviewed-preprint-import-all --start-date=today
+   *   Import all reviewed preprints updated after start-date and return a
+   * message when finished.
    * @usage drush reviewed-preprint-import-all --limit=500
    *   Import first 500 reviewed preprints and return a message when finished.
    * @usage drush reviewed-preprint-import-all --skip-updates
@@ -338,7 +343,8 @@ class JcmsNotificationsCommands extends DrushCommands {
     if (!empty($limit)) {
       $fetch_service->setLimit($limit);
     }
-    $reviewedPreprints = $fetch_service->getAllReviewedPreprints();
+    $start_date = $options['start-date'] ? date('Y-m-d', strtotime(['start-date'])) : NULL;
+    $reviewedPreprints = $fetch_service->getAllReviewedPreprints($start_date);
     $this->output()->writeln(dt('Received !count reviewed preprint IDs to process.', ['!count' => count($reviewedPreprints)]));
     if ($reviewedPreprints) {
       $time_start = microtime(TRUE);
