@@ -343,7 +343,7 @@ class JcmsNotificationsCommands extends DrushCommands {
     if (!empty($limit)) {
       $fetch_service->setLimit($limit);
     }
-    $start_date = $options['start-date'] ? date('Y-m-d', strtotime(['start-date'])) : NULL;
+    $start_date = $options['start-date'] ? date('Y-m-d', strtotime($options['start-date'])) : NULL;
     $reviewedPreprints = $fetch_service->getAllReviewedPreprints($start_date);
     $this->output()->writeln(dt('Received !count reviewed preprint IDs to process.', ['!count' => count($reviewedPreprints)]));
     if ($reviewedPreprints) {
