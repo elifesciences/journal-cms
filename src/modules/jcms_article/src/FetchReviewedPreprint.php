@@ -103,7 +103,7 @@ class FetchReviewedPreprint {
   /**
    * Gets every reviewed preprints.
    */
-  public function getAllReviewedPreprints() : array {
+  public function getAllReviewedPreprints($start_date = NULL) : array {
     $reviewed_preprints = [];
     $endpoint = Settings::get('jcms_all_reviewed_preprints_endpoint');
     if ($endpoint) {
@@ -123,10 +123,11 @@ class FetchReviewedPreprint {
       }
       while (!$stop) {
         $response = $this->client->get($endpoint, $options + [
-          'query' => [
+          'query' => array_filter([
             'per-page' => $per_page,
             'page' => $page,
-          ],
+            'start-date' => $start_date,
+          ]),
         ]);
         if ($response instanceof ResponseInterface) {
           $json = json_decode((string) $response->getBody(), TRUE);
