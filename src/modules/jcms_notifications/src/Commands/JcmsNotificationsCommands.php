@@ -319,7 +319,8 @@ class JcmsNotificationsCommands extends DrushCommands {
    * @usage drush reviewed-preprint-import-all
    *   Import all reviewed preprints and return a message when finished.
    * @usage drush reviewed-preprint-import-all --start-date=today
-   *   Import all reviewed preprints updated after start-date and return a message when finished.
+   *   Import all reviewed preprints updated after start-date and return a
+   * message when finished.
    * @usage drush reviewed-preprint-import-all --limit=500
    *   Import first 500 reviewed preprints and return a message when finished.
    * @usage drush reviewed-preprint-import-all --skip-updates
