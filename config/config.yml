@@ -287,7 +287,7 @@ composer_home_group: "{{ drupalvm_user }}"
 # reference the directory where your `config.yml` is.
 pre_provision_scripts:
   - "../../../../scripts/pre-provision.sh"
-post_provision_scripts:
+post_provision_scripts: []
   # - "../../../../scripts/go-aws.sh" # Temporarily disable this script.
   # - "{{ playbook_dir }}/../examples/scripts/configure-solr.sh"
 
