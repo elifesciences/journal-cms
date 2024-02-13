@@ -68,3 +68,12 @@ composer run-script clean-up
 ## Goaws
 
 The setup of goaws has been temporarily disabled. Most development is unimpacted by this but we have created a ticket to restore this functionality.
+
+## DDev setup
+
+```bash
+ddev start
+ddev drush si minimal --existing-config -y
+```
+
+Visit http://journal-cms.ddev.site:8080.
