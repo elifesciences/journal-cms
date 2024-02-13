@@ -64,3 +64,7 @@ vagrant destroy -f
 vagrant box remove geerlingguy/ubuntu2004
 composer run-script clean-up
 ```
+
+## Goaws
+
+The setup of goaws has been temporarily disabled. Most development is unimpacted by this but we have created a ticket to restore this functionality.
