@@ -14,7 +14,7 @@ Ensure that you have the following installed:
 ## Instructions
 
 ```
-COMPOSER=composer-setup.json composer install
+composer install
 vagrant up
 ```
 
@@ -61,6 +61,6 @@ If you want to completely replay the set up of this project locally then you can
 
 ```
 vagrant destroy -f
-vagrant box remove geerlingguy/drupal-vm
+vagrant box remove geerlingguy/ubuntu2004
 composer run-script clean-up
 ```
