@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\jcms_rest\Functional;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -86,7 +85,7 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         '/collections',
         [
           'application/vnd.elife.collection-list+json;version=1',
-          'application/vnd.elife.collection+json;version=2',
+          'application/vnd.elife.collection+json;version=3',
         ],
         'id',
       ],
@@ -94,7 +93,7 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         '/press-packages',
         [
           'application/vnd.elife.press-package-list+json;version=1',
-          'application/vnd.elife.press-package+json;version=3',
+          'application/vnd.elife.press-package+json;version=4',
         ],
         'id',
       ],
@@ -138,7 +137,7 @@ class UnrecognisedAcceptHeaderTest extends FixtureBasedTestCase {
         '/promotional-collections',
         [
           'application/vnd.elife.promotional-collection-list+json;version=1',
-          'application/vnd.elife.promotional-collection+json;version=1',
+          'application/vnd.elife.promotional-collection+json;version=2',
         ],
         'id',
       ],

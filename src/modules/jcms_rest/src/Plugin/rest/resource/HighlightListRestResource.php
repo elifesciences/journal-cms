@@ -24,6 +24,12 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class HighlightListRestResource extends AbstractRestResourceBase {
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
   protected $latestVersion = 3;
 
   /**
@@ -31,10 +37,11 @@ class HighlightListRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $list) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'highlight_list')
       ->condition('title', $list);
 
@@ -53,7 +60,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
     $nids = $query->execute();
     if ($nids) {
       $nid = reset($nids);
-      /* @var Node $node */
+      /** @var \Drupal\node\Entity\Node $node */
       $node = Node::load($nid);
       $dependencies[] = $node;
       foreach ($node->get('field_highlight_items')->getValue() as $item) {
@@ -69,6 +76,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
       if ($tids) {
         $query = Database::getConnection()->select('node__field_highlight_item', 'hi');
         $query->addField('hi', 'entity_id', 'item');
+        $query->addField('hi', 'field_highlight_item_target_id', 'target');
         $query->condition('hi.bundle', 'highlight_item');
         $query->leftJoin('node__field_subjects', 's', 's.entity_id = hi.field_highlight_item_target_id');
         $query->leftJoin('taxonomy_term__field_subject_id', 'si', 'si.entity_id = s.field_subjects_target_id');
@@ -88,8 +96,11 @@ class HighlightListRestResource extends AbstractRestResourceBase {
         $db_or->condition('spi.field_subject_id_value', $list);
         $query->condition($db_or);
 
-        if ($results = $query->execute()->fetchAllKeyed()) {
-          $item_nids = array_keys($results);
+        // Group by highlight item target to ensure there are no duplicates.
+        if ($results = $query->execute()->fetchAllAssoc('target')) {
+          $item_nids = array_values(array_map(function ($result) {
+            return $result->item;
+          }, $results));
         }
       }
       else {
@@ -99,7 +110,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
 
     if (!empty($item_nids)) {
       $response_data['total'] = count($item_nids);
-      /* @var \Drupal\node\Entity\Node[] $items */
+      /** @var \Drupal\node\Entity\Node[] $items */
       if ($items = Node::loadMultiple($this->filterPageAndOrderArray($item_nids))) {
         foreach ($items as $item) {
           $dependencies[] = $item;
@@ -131,7 +142,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
    *   Return item, if found.
    */
   public function getItem(EntityInterface $node) {
-    /* @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $item = $this->getEntityQueueItem($node, $node->get('field_highlight_item'), FALSE);
 
     if ($item) {

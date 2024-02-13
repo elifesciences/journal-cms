@@ -6,7 +6,7 @@ use Drupal\Tests\UnitTestCase;
 use Drupal\jcms_rest\PathMediaTypeMapper;
 
 /**
- * Class PathMediaTypeMapperTest.
+ * Tests for PathMediaTypeMapper.
  *
  * @package Drupal\Tests\jcms_rest\Unit
  */
@@ -31,6 +31,7 @@ class PathMediaTypeMapperTest extends UnitTestCase {
    * Provider for media type tests.
    */
   public function dataProvider() {
+    // phpcs:disable
     return [
       ['/labs-posts', 'application/vnd.elife.labs-post-list+json'],
       ['/labs-posts/{number}', 'application/vnd.elife.labs-post+json'],
@@ -51,6 +52,7 @@ class PathMediaTypeMapperTest extends UnitTestCase {
       ['/subjects/{id}/another-bad-path', ''],
       ['/subjects/{id}/{anotherbadplaceholder}', ''],
     ];
+    // phpcs:enable
   }
 
   /**

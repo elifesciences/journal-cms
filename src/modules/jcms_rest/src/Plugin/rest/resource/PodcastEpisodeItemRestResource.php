@@ -2,7 +2,6 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use DateInterval;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
@@ -29,64 +28,72 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(int $number) : JCMSRestResponse {
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'podcast_episode')
-      ->condition('field_episode_number.value', $number);
+    if ($this->checkId($number, 'podcast-episode')) {
+      $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
+        ->condition('type', 'podcast_episode')
+        ->condition('field_episode_number.value', $number);
 
-    if (!$this->viewUnpublished()) {
-      $query->condition('status', NodeInterface::PUBLISHED);
-    }
-
-    $nids = $query->execute();
-    if ($nids) {
-      $nid = reset($nids);
-      /* @var \Drupal\node\Entity\Node $node */
-      $node = Node::load($nid);
-
-      $response = $this->processDefault($node, $number, 'number');
-
-      // Image is required.
-      $response['image'] = $this->processFieldImage($node->get('field_image'), TRUE);
-      $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
-      if (!empty($attribution)) {
-        foreach ($response['image'] as $key => $type) {
-          $response['image'][$key]['attribution'] = $attribution;
-        }
+      if (!$this->viewUnpublished()) {
+        $query->condition('status', NodeInterface::PUBLISHED);
       }
 
-      // mp3 is required.
-      $response['sources'] = [
-        [
-          'mediaType' => 'audio/mpeg',
-          'uri' => $node->get('field_episode_mp3')->first()->getValue()['uri'],
-        ],
-      ];
+      $nids = $query->execute();
+      if ($nids) {
+        $nid = reset($nids);
+        /** @var \Drupal\node\Entity\Node $node */
+        $node = Node::load($nid);
 
-      // Impact statement is optional.
-      if ($node->get('field_impact_statement')->count()) {
-        $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
-        if (empty($response['impactStatement'])) {
-          unset($response['impactStatement']);
-        }
-      }
+        $response = $this->processDefault($node, $number, 'number');
 
-      if ($node->get('field_episode_chapter')->count()) {
-        $response['chapters'] = [];
-        foreach ($node->get('field_episode_chapter')->referencedEntities() as $chapter) {
-          /* @var Node $chapter */
-          if ($chapter->isPublished() || $this->viewUnpublished()) {
-            $response['chapters'][] = $this->getChapterItem($chapter, 0);
+        // Image is required.
+        $response['image'] = $this->processFieldImage($node->get('field_image'), TRUE);
+        $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
+        if (!empty($attribution)) {
+          foreach ($response['image'] as $key => $type) {
+            $response['image'][$key]['attribution'] = $attribution;
           }
         }
-      }
 
-      $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
-      $response->addCacheableDependency($node);
-      $this->processResponse($response);
-      return $response;
+        // Social image is optional.
+        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+          $response['image']['social'] = $socialImage;
+        }
+
+        // mp3 is required.
+        $response['sources'] = [
+          [
+            'mediaType' => 'audio/mpeg',
+            'uri' => $node->get('field_episode_mp3')->first()->getValue()['uri'],
+          ],
+        ];
+
+        // Impact statement is optional.
+        if ($node->get('field_impact_statement')->count()) {
+          $response['impactStatement'] = $this->fieldValueFormatted($node->get('field_impact_statement'));
+          if (empty($response['impactStatement'])) {
+            unset($response['impactStatement']);
+          }
+        }
+
+        if ($node->get('field_episode_chapter')->count()) {
+          $response['chapters'] = [];
+          foreach ($node->get('field_episode_chapter')->referencedEntities() as $chapter) {
+            /** @var \Drupal\node\Entity\Node $chapter */
+            if ($chapter->isPublished() || $this->viewUnpublished()) {
+              $response['chapters'][] = $this->getChapterItem($chapter, 0);
+            }
+          }
+        }
+
+        $response = new JCMSRestResponse($response, Response::HTTP_OK, ['Content-Type' => $this->getContentType()]);
+        $response->addCacheableDependency($node);
+        $this->processResponse($response);
+        return $response;
+      }
     }
 
     throw new JCMSNotFoundHttpException(t('Podcast episode with ID @id was not found', ['@id' => $number]));
@@ -111,8 +118,8 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       }
     }
 
-    if ($node->get('field_chapter_time')->getValue()) {
-      $time = new DateInterval($node->get('field_chapter_time')->getString());
+    if ($duration = $node->get('field_chapter_start_time')->getValue()) {
+      $time = new \DateInterval($duration[0]['duration']);
     }
     else {
       $time = 0;
@@ -121,7 +128,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
     $chapter_values = [
       'number' => $number ?: $count,
       'title' => $node->getTitle(),
-      'time' => ($time instanceof DateInterval) ? ($time->i * 60 + $time->s) : $time,
+      'time' => ($time instanceof \DateInterval) ? ($time->i * 60 + $time->s) : $time,
     ];
 
     if ($node->get('field_impact_statement')->count()) {
@@ -165,7 +172,7 @@ class PodcastEpisodeItemRestResource extends AbstractRestResourceBase {
       $query->addField('ec', 'entity_id');
       $query->range(0, 1);
       if ($result = $query->execute()->fetchObject()) {
-        /* @var \Drupal\node\Entity\Node $episode */
+        /** @var \Drupal\node\Entity\Node $episode */
         $episode = Node::load($result->entity_id);
         $podcast_episode_list = new PodcastEpisodeListRestResource([], 'podcast_episode_list_rest_resource', [], $this->serializerFormats, $this->logger);
         $chapter_values['episode'] = $podcast_episode_list->getItem($episode);

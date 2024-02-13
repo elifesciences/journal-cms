@@ -1,0 +1,17 @@
+uuid: fedacb15-f109-471a-a94f-62285597d150
+langcode: en
+status: true
+dependencies: {  }
+name: 'Basic HTML+'
+format: basic_html_plus
+weight: 0
+filters:
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -10
+    settings:
+      allowed_html: '<p> <i> <sub> <sup> <del> <math> <a href> <b> <br> <table> <caption> <tbody> <thead> <tfoot> <th> <td> <tr> <img src alt width height> <ol> <ul> <li>'
+      filter_html_help: true
+      filter_html_nofollow: false

@@ -2,11 +2,11 @@
 
 namespace Drupal\jcms_notifications;
 
-use Drupal\Core\Database\Driver\mysql\Connection;
+use Drupal\mysql\Driver\Database\mysql\Connection;
 use Drupal\Core\Entity\EntityInterface;
 
 /**
- * Class MysqlNotificationStorage.
+ * MysqlNotificationStorage service class.
  *
  * @package Drupal\jcms_notifications
  */
@@ -28,9 +28,9 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
   const ID_FIELD = 'entity_id';
 
   /**
-   * Drupal\Core\Database\Driver\mysql\Connection definition.
+   * MySQL Connection definition.
    *
-   * @var \Drupal\Core\Database\Driver\mysql\Connection
+   * @var \Drupal\mysql\Driver\Database\mysql\Connection
    */
   private $connection;
 
@@ -51,7 +51,10 @@ final class MysqlNotificationStorage implements NotificationStorageInterface {
     }
     $id = $entity->id();
     $entity_type = $entity->getEntityTypeId();
-    return $this->connection->insert(self::TABLE)->fields([self::ID_FIELD => $id, self::ENTITY_TYPE_FIELD => $entity_type])->execute();
+    return $this->connection->insert(self::TABLE)->fields([
+      self::ID_FIELD => $id,
+      self::ENTITY_TYPE_FIELD => $entity_type,
+    ])->execute();
   }
 
   /**

@@ -12,7 +12,7 @@
             $clipboard.once('simplified').each(function () {
                 var text = $(this).val(), buttonText = $(this).data('buttonText');
 
-                $('<button class="button clipboard-simple-btn" data-clipboard-text="'+text+'">'+buttonText+'</button>').insertAfter(this);
+                $('<button class="button clipboard-simple-btn" data-clipboard-text="' + text + '">' + buttonText + '</button>').insertAfter(this);
             });
 
             var clipboardSimples = new ClipboardJS('.clipboard-simple-btn');

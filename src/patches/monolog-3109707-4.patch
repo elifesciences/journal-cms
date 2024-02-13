@@ -1,0 +1,23 @@
+diff --git a/monolog.info.yml b/monolog.info.yml
+index 5c994a3..671b138 100644
+--- a/monolog.info.yml
++++ b/monolog.info.yml
+@@ -3,4 +3,5 @@ name: Monolog
+ description: A Framework for integrating with the Monolog library.
+ dependencies: []
+ core: 8.x
++core_version_requirement: ^8 || ^9
+ package: Development
+diff --git a/tests/src/Unit/Logger/LoggerTest.php b/tests/src/Unit/Logger/LoggerTest.php
+index 65d6813..c8f53c3 100644
+--- a/tests/src/Unit/Logger/LoggerTest.php
++++ b/tests/src/Unit/Logger/LoggerTest.php
+@@ -19,7 +19,7 @@ class LoggerTest extends UnitTestCase {
+    * @dataProvider providerTestAddRecord
+    */
+   public function testAddRecord($log_level, $handler_log_level, $log_message) {
+-    $mock = $this->getMock('Monolog\Handler\NullHandler');
++    $mock = $this->createMock('Monolog\Handler\NullHandler');
+     $mock->expects($this->once())
+       ->method('isHandling')
+       ->will($this->returnValue(TRUE));

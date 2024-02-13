@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\Core\Cache\CacheableResponseTrait;
 
 /**
- * Class JCMSRestResponse.
+ * Custom cacheable Json Response.
  */
 class JCMSRestResponse extends JsonResponse implements CacheableResponseInterface {
 

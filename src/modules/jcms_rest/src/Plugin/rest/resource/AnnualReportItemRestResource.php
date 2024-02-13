@@ -20,16 +20,29 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class AnnualReportItemRestResource extends AbstractRestResourceBase {
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
   protected $latestVersion = 2;
+
+  /**
+   * Minimum version.
+   *
+   * @var int
+   */
   protected $minVersion = 2;
 
   /**
    * Responds to GET requests.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(int $year) : JCMSRestResponse {
     $query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'annual_report')
       ->condition('field_annual_report_year.value', $year);
 
@@ -40,7 +53,7 @@ class AnnualReportItemRestResource extends AbstractRestResourceBase {
     $nids = $query->execute();
     if ($nids) {
       $nid = reset($nids);
-      /* @var \Drupal\node\Entity\Node $node */
+      /** @var \Drupal\node\Entity\Node $node */
       $node = Node::load($nid);
 
       $this->setSortBy(FALSE);

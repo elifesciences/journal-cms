@@ -1,3 +1,5 @@
+_core:
+  default_config_hash: JOzWPTQNpL0mkZGbvh0o7T1wKYyGfC3DHHiwhjw2YhU
 allow_date_only: false
 date_format: 'Y-m-d H:i:s'
 date_letters: djmnFMyY
@@ -9,6 +11,7 @@ default_publish_past_date: error
 default_publish_required: false
 default_publish_revision: false
 default_publish_touch: false
+default_show_message_after_update: true
 default_time: '00:00:00'
 default_unpublish_enable: false
 default_unpublish_required: false
@@ -17,5 +20,3 @@ lightweight_cron_access_key: f8d68dd6e0bcd50c4075
 log: true
 time_letters: hHgGisaA
 time_only_format: 'H:i:s'
-_core:
-  default_config_hash: JOzWPTQNpL0mkZGbvh0o7T1wKYyGfC3DHHiwhjw2YhU

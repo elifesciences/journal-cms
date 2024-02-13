@@ -2,7 +2,6 @@
 
 namespace Drupal\jcms_admin;
 
-use DateInterval;
 use Drupal\Core\Database\Connection;
 use Drupal\jcms_notifications\EntityCrudNotificationService;
 use Drupal\node\NodeInterface;
@@ -11,7 +10,19 @@ use Drupal\node\NodeInterface;
  * Create content path from Node.
  */
 final class ContentPath {
+
+  /**
+   * The notification Service.
+   *
+   * @var \Drupal\jcms_notifications\EntityCrudNotificationService
+   */
   private $notificationService;
+
+  /**
+   * The catabase connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
   private $connection;
 
   /**
@@ -72,14 +83,14 @@ final class ContentPath {
     }
     elseif ($node->bundle() === 'podcast_chapter') {
       if ($episode = $this->getChapterEpisodeNumber($node)) {
-        if ($node->get('field_chapter_time')->getValue()) {
-          $time = new DateInterval($node->get('field_chapter_time')->getString());
+        if ($duration = $node->get('field_chapter_start_time')->getValue()) {
+          $time = new \DateInterval($duration[0]['duration']);
         }
         else {
           $time = 0;
         }
 
-        return sprintf('/%s%d#%d', 'podcast/episode', $episode, ($time instanceof DateInterval) ? ($time->i * 60 + $time->s) : $time);
+        return sprintf('/%s%d#%d', 'podcast/episode', $episode, ($time instanceof \DateInterval) ? ($time->i * 60 + $time->s) : $time);
       }
     }
     elseif ($node->bundle() === 'press_package') {

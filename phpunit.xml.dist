@@ -4,7 +4,7 @@
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.1/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="./web/core/tests/bootstrap.php"
+         bootstrap="web/core/tests/bootstrap.php"
          verbose="true"
         >
     <testsuites>
@@ -25,14 +25,5 @@
                 <directory>./src/modules/jcms_migrate</directory>
             </exclude>
         </whitelist>
-        <blacklist>
-            <directory>./build</directory>
-            <directory>./config</directory>
-            <directory>./features</directory>
-            <directory>./scripts</directory>
-            <directory>./sync</directory>
-            <directory>./vendor</directory>
-            <directory>./web</directory>
-        </blacklist>
     </filter>
 </phpunit>

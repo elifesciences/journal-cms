@@ -1,14 +1,14 @@
-uuid: 82f160e0-a32d-4157-8601-7c1d682eeb75
+uuid: 9df4c05b-0a4a-441b-97f4-934fe86caf61
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_chapter_time
+    - field.storage.node.field_chapter_start_time
     - node.type.podcast_chapter
   module:
     - duration_field
-id: node.podcast_chapter.field_chapter_time
-field_name: field_chapter_time
+id: node.podcast_chapter.field_chapter_start_time
+field_name: field_chapter_start_time
 entity_type: node
 bundle: podcast_chapter
 label: Time
@@ -18,11 +18,5 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  granularity:
-    minute: true
-    second: true
-    year: false
-    month: false
-    day: false
-    hour: false
+  granularity: 'i:s'
 field_type: duration

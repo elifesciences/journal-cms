@@ -5,16 +5,36 @@ namespace Drupal\jcms_notifications\Notification;
 /**
  * Object to prepare outgoing notification.
  *
- * @package Drupal\jcms_notifications
+ * @package Drupal\jcms_notifications\Notification
  */
 final class BusOutgoingMessage {
 
+  /**
+   * Notification id.
+   *
+   * @var string
+   */
   private $id;
 
+  /**
+   * Notification key.
+   *
+   * @var string
+   */
   private $key;
 
+  /**
+   * Notification topic.
+   *
+   * @var string
+   */
   private $topic;
 
+  /**
+   * Notification type.
+   *
+   * @var string
+   */
   private $type;
 
   /**
@@ -59,7 +79,10 @@ final class BusOutgoingMessage {
    * Returns an SNS message as a JSON string.
    */
   public function getMessageJson(): string {
-    return json_encode(['type' => $this->getType(), $this->getKey() => $this->getId()]);
+    return json_encode([
+      'type' => $this->getType(),
+      $this->getKey() => $this->getId(),
+    ]);
   }
 
 }

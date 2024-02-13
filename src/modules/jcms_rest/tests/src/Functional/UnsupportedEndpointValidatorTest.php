@@ -16,15 +16,7 @@ class UnsupportedEndpointValidatorTest extends FixtureBasedTestCase {
    * {@inheritdoc}
    */
   public function dataProvider() : array {
-    return [
-      [
-        '/press-packages',
-        'id',
-        'application/vnd.elife.press-package-list+json',
-        'application/vnd.elife.press-package+json;version=1',
-        'This press package requires version 2+.',
-      ],
-    ];
+    return [];
   }
 
   /**
@@ -42,7 +34,8 @@ class UnsupportedEndpointValidatorTest extends FixtureBasedTestCase {
       ]);
 
       $response = $this->client->send($request);
-      $this->assertContains($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_ACCEPTABLE]);
+      $this->assertContains($response->getStatusCode(),
+        [Response::HTTP_OK, Response::HTTP_NOT_ACCEPTABLE]);
 
       if ($response->getStatusCode() == Response::HTTP_NOT_ACCEPTABLE) {
         $body = \GuzzleHttp\json_decode((string) $response->getBody());

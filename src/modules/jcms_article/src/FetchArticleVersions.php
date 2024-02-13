@@ -10,11 +10,13 @@ use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class FetchArticleVersions.
+ * Fetch for articles versions.
  *
  * @package Drupal\jcms_article
  */
 final class FetchArticleVersions {
+
+  const VERSION_ARTICLE_HISTORY = 2;
 
   /**
    * GuzzleHttp\Client definition.
@@ -63,12 +65,16 @@ final class FetchArticleVersions {
   /**
    * Makes the request to get the article versions.
    *
-   * @throws BadResponseException
+   * @throws \GuzzleHttp\Exception\BadResponseException
    */
   private function requestArticleVersions(string $id): ResponseInterface {
-    $options = [];
+    $options = [
+      'headers' => [
+        'Accept' => 'application/vnd.elife.article-history+json;version=' . self::VERSION_ARTICLE_HISTORY,
+      ],
+    ];
     if ($auth = Settings::get('jcms_article_auth_unpublished')) {
-      $options['headers'] = [
+      $options['headers'] += [
         'Authorization' => $auth,
       ];
     }
@@ -78,7 +84,7 @@ final class FetchArticleVersions {
       \Drupal::logger('jcms_article')
         ->notice(
           'Article versions have been requested @url with the response: @response',
-          ['@url' => $url, '@response' => \GuzzleHttp\Psr7\str($response)]
+          ['@url' => $url, '@response' => $response->getBody()->getContents()]
         );
       return $response;
     }
@@ -87,7 +93,10 @@ final class FetchArticleVersions {
         \Drupal::logger('jcms_article')
           ->notice(
             'Article versions have been requested but not found @url with the response: @response',
-            ['@url' => $url, '@response' => \GuzzleHttp\Psr7\str($exception->getResponse())]
+            [
+              '@url' => $url,
+              '@response' => $exception->getResponse()->getBody()->getContents(),
+            ]
           );
         return $exception->getResponse();
       }

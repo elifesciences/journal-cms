@@ -1,29 +1,31 @@
-uuid: 3bb2eb65-55ba-401c-97cb-b0eecbce1a1d
+uuid: 5383d89d-9c38-4140-be51-87800aa43525
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_image
-    - node.type.blog_article
+    - field.storage.node.field_image_social
+    - node.type.labs_experiment
   module:
     - image
-id: node.blog_article.field_image
-field_name: field_image
+id: node.labs_experiment.field_image_social
+field_name: field_image_social
 entity_type: node
-bundle: blog_article
-label: 'Image (banner)'
+bundle: labs_experiment
+label: 'Social image'
 description: ''
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  file_directory: 'iiif/blog_article/[date:custom:Y]-[date:custom:m]'
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: 'iiif/labs_experiment/[date:custom:Y]-[date:custom:m]'
   file_extensions: 'png jpg jpeg'
   max_filesize: ''
   max_resolution: ''
-  min_resolution: 1800x900
-  alt_field: true
+  min_resolution: 600x600
+  alt_field: false
   alt_field_required: false
   title_field: false
   title_field_required: false
@@ -33,6 +35,4 @@ settings:
     title: ''
     width: null
     height: null
-  handler: 'default:file'
-  handler_settings: {  }
 field_type: image

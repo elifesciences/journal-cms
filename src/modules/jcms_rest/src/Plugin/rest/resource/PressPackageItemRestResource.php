@@ -2,7 +2,6 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
@@ -21,18 +20,32 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class PressPackageItemRestResource extends AbstractRestResourceBase {
-  protected $latestVersion = 3;
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
+  protected $latestVersion = 4;
+
+  /**
+   * Minimum version.
+   *
+   * @var int
+   */
+  protected $minVersion = 3;
 
   /**
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'press_package')
         ->condition('uuid', '%' . $id, 'LIKE');
 
@@ -46,6 +59,11 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
         $node = Node::load($nid);
 
         $response = $this->processDefault($node, $id);
+
+        // Social image is optional.
+        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+          $response['image']['social'] = $socialImage;
+        }
 
         // Impact statement is optional.
         if ($node->get('field_impact_statement')->count()) {
@@ -65,7 +83,7 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
         if ($node->get('field_related_content')->count()) {
           $related_content = [];
           foreach ($node->get('field_related_content')->referencedEntities() as $related) {
-            if ($article = $this->getArticleSnippet($related)) {
+            if ($article = $this->getArticleSnippet($related, $this->acceptVersion >= 4)) {
               $related_content[] = $article;
             }
           }
@@ -74,17 +92,13 @@ class PressPackageItemRestResource extends AbstractRestResourceBase {
           }
         }
 
-        if ($this->acceptVersion < 2 && empty($response['relatedContent'])) {
-          throw new JCMSNotAcceptableHttpException('This press package requires version 2+.');
-        }
-
         // Subjects is optional.
         $subjects = $this->subjectsFromArticles($response['relatedContent']);
         if (!empty($subjects)) {
           $response['subjects'] = $subjects;
         }
 
-        // @todo - elife - nlisgo - expose this in a form in admin UI.
+        // @todo elife - nlisgo - expose this in a form in admin UI.
         $response['mediaContacts'] = [
           [
             'name' => [

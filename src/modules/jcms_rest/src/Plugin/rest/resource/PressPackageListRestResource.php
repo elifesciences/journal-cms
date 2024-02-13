@@ -29,6 +29,7 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'press_package');
 
     if (!$this->viewUnpublished()) {
@@ -70,7 +71,7 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
    *   Return item, if found.
    */
   public function getItem(EntityInterface $node) {
-    /* @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $item = $this->processDefault($node);
 
     // Impact statement is optional.

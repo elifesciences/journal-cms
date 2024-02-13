@@ -10,10 +10,39 @@ namespace Drupal\jcms_notifications\Queue;
  */
 final class SqsMessage implements QueueItemInterface {
 
+  /**
+   * The entity id.
+   *
+   * @var string
+   */
   private $id;
+
+  /**
+   * The entity type.
+   *
+   * @var string
+   */
   private $type;
+
+  /**
+   * The message body.
+   *
+   * @var array
+   */
   private $message;
+
+  /**
+   * SQS ReceiptHandle.
+   *
+   * @var string
+   */
   private $receipt;
+
+  /**
+   * The Message id.
+   *
+   * @var string
+   */
   private $messageId;
 
   /**

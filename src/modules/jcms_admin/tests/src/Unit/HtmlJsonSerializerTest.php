@@ -549,6 +549,41 @@ class HtmlJsonSerializerTest extends UnitTestCase {
           'public://iiif/labs-post-content/2017-08/refigure_extension.png' => 'image/png',
         ],
       ],
+      'image with captioned image unchecked' => [
+        [
+          [
+            'type' => 'paragraph',
+            'text' => 'A photo with no caption - (captioned text unchecked)',
+          ],
+          [
+            'type' => 'image',
+            'image' => [
+              'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg',
+              'alt' => '',
+              'source' => [
+                'mediaType' => 'image/jpeg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg/full/full/0/default.jpg',
+                'filename' => 'image-20180427145110-1.jpeg',
+              ],
+              'size' => [
+                'width' => 2000,
+                'height' => 2000,
+              ],
+              'focalPoint' => [
+                'x' => 50,
+                'y' => 50,
+              ],
+            ],
+          ],
+        ],
+        $this->lines([
+          '<p>A photo with no caption - (captioned text unchecked)</p>',
+          '<p><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" /></p>',
+        ]),
+        [
+          'public://iiif/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
+        ],
+      ],
       'multiple tables' => [
         [
           [

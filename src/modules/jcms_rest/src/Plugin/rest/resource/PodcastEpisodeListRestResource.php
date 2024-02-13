@@ -28,6 +28,7 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'podcast_episode');
 
     if (!$this->viewUnpublished()) {
@@ -35,7 +36,10 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
     }
 
     $this->filterSubjects($base_query);
-    $this->filterContaining($base_query, 'field_episode_chapter.entity.field_related_content', ['article', 'collection']);
+    $this->filterContaining($base_query,
+      'field_episode_chapter.entity.field_related_content',
+      ['article', 'collection']
+    );
 
     $count_query = clone $base_query;
     $items_query = clone $base_query;
@@ -51,7 +55,7 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
       $nodes = Node::loadMultiple($nids);
       if (!empty($nodes)) {
         foreach ($nodes as $node) {
-          $response_data['items'][] = $this->getItem($node);
+          $response_data['items'][] = $this->getItem($node, 'thumbnail');
         }
       }
     }
@@ -64,8 +68,9 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
   /**
    * Takes a node and builds an item from it.
    */
-  public function getItem(EntityInterface $node) : array {
-    /* @var Node $node */
+  // phpcs:ignore
+  public function getItem(EntityInterface $node, $image_size_types = ['banner', 'thumbnail']) : array {
+    /** @var \Drupal\node\Entity\Node $node */
     $this->setSortBy('created', TRUE);
     $item = $this->processDefault($node, (int) $node->get('field_episode_number')->getString(), 'number');
 
@@ -78,7 +83,7 @@ class PodcastEpisodeListRestResource extends AbstractRestResourceBase {
     }
 
     // Image is required.
-    $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE);
+    $item['image'] = $this->processFieldImage($node->get('field_image'), TRUE, $image_size_types);
     $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
     if (!empty($attribution)) {
       foreach ($item['image'] as $key => $type) {

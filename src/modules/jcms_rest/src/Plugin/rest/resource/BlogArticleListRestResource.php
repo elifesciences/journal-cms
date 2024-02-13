@@ -31,6 +31,7 @@ class BlogArticleListRestResource extends AbstractRestResourceBase {
    */
   public function get() {
     $base_query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'blog_article');
 
     if (!$this->viewUnpublished()) {
@@ -67,19 +68,8 @@ class BlogArticleListRestResource extends AbstractRestResourceBase {
    * Takes a node and builds an item from it.
    */
   public function getItem(EntityInterface $node) : array {
-    /* @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $item = $this->processDefault($node);
-
-    // Image is optional.
-    if ($image = $this->processFieldImage($node->get('field_image'), FALSE)) {
-      $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
-      if (!empty($attribution)) {
-        foreach ($image as $key => $type) {
-          $image[$key]['attribution'] = $attribution;
-        }
-      }
-      $item['image'] = $image;
-    }
 
     // Impact statement is optional.
     if ($node->get('field_impact_statement')->count()) {

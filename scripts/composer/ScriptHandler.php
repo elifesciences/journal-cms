@@ -26,13 +26,19 @@ class ScriptHandler {
       }
     }
 
+    // Create the sites/default
+    if (!$fs->exists($drupal_root . '/sites/default')) {
+      $fs->mkdir($drupal_root . '/sites/default', 0755);
+      $event->getIO()->write("Create a sites/default directory with chmod 00755");
+    }
+
     // Prepare the settings file for installation
     if (!$fs->exists($drupal_root . '/sites/default/settings.php') and $fs->exists($drupal_root . '/sites/default/default.settings.php')) {
       $fs->copy($drupal_root . '/sites/default/default.settings.php', $drupal_root . '/sites/default/settings.php');
       require_once $drupal_root . '/core/includes/bootstrap.inc';
       require_once $drupal_root . '/core/includes/install.inc';
       $settings['config_directories'] = [
-        CONFIG_SYNC_DIRECTORY => (object) [
+        'config_sync_directory' => (object) [
           'value' => Path::makeRelative($config_root . '/sync', $drupal_root),
           'required' => TRUE,
         ],
@@ -44,6 +50,7 @@ class ScriptHandler {
 
     // Create the files directory with chmod 0777
     if (!$fs->exists($drupal_root . '/sites/default/files')) {
+      $fs->chmod($drupal_root . '/sites/default', 0755);
       $oldmask = umask(0);
       $fs->mkdir($drupal_root . '/sites/default/files', 0777);
       umask($oldmask);

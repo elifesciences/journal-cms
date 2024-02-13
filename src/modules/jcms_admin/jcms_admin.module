@@ -10,6 +10,8 @@ use Drupal\Core\Database\Query\Condition;
 use Drupal\Core\Database\Query\SelectInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\RevisionableInterface;
+use Drupal\Core\Entity\RevisionableStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\entityqueue\Entity\EntitySubqueue;
@@ -110,6 +112,7 @@ function _jcms_admin_default_value_podcast_episode_number() {
  */
 function _jcms_admin_field_integer_next(string $field_name, $default = NULL, $content_type = NULL, $sort_order = 'DESC', $increment = 1) {
   $query = Drupal::entityQuery('node')
+    ->accessCheck(TRUE)
     ->sort($field_name, $sort_order)
     ->range(0, 1);
 
@@ -150,7 +153,7 @@ function jcms_admin_form_entity_subqueue_covers_preview_edit_form_alter(&$form, 
   $form['covers_active_publish'] = [
     '#title' => t('Publish items'),
     '#type' => 'checkbox',
-    '#description' => t('Tick this box to transfer the active items (1 - 3) to the current covers list.'),
+    '#description' => t('Tick this box to transfer the active items (4) to the current covers list.'),
     '#default_value' => FALSE,
     '#weight' => ++$max_weight,
   ];
@@ -181,6 +184,7 @@ function jcms_admin_form_node_interview_form_alter(&$form, FormStateInterface $f
   }
 
   $query = \Drupal::entityQuery('node')
+    ->accessCheck(TRUE)
     ->condition('status', NodeInterface::PUBLISHED)
     ->condition('type', 'collection')
     ->addTag('interview_collections_filter');
@@ -465,7 +469,7 @@ function jcms_admin_paragraph_presave(EntityInterface $entity) {
       }
     }
     catch (\Exception $e) {
-      drupal_set_message(t('YouTube could not be reached.'), LogLevel::WARNING);
+      \Drupal::messenger()->addWarning(t('YouTube could not be reached.'));
       $e_message = "Message: {$e->getMessage()}\n";
       $e_line = "Line: {$e->getLine()}\n";
       $e_trace = "Trace: {$e->getTraceAsString()}\n";
@@ -474,7 +478,7 @@ function jcms_admin_paragraph_presave(EntityInterface $entity) {
     }
 
     if (empty($dimensions)) {
-      drupal_set_message(t('Details unavailable for YouTube ID @id. Using defaults.', ['@id' => $youtube_id]), LogLevel::WARNING);
+      \Drupal::messenger()->addWarning(t('Details unavailable for YouTube ID @id. Using defaults.', ['@id' => $youtube_id]));
       $dimensions = [
         'width' => 16,
         'height' => 9,
@@ -494,19 +498,20 @@ function jcms_admin_entity_subqueue_presave(EntityInterface $entity) {
   }
   if (_jcms_admin_static_store('covers_active_publish')) {
     $items = ($entity->get('items')) ? $entity->get('items')->getValue() : [];
-    $items = array_splice($items, 0, $entity->get('field_covers_active_items')->getString());
+    $items = array_splice($items, 0, 4);
+    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
     foreach ($items as $item) {
-      $latest = Node::load($item['target_id']);
-      $moderation_info = \Drupal::service('content_moderation.moderation_information');
-      if (!$moderation_info->isLatestRevision($latest)) {
-        $latest = $moderation_info->getLatestRevision($latest->getEntityTypeId(), $latest->id());
+      $latest = $node_storage->load($item['target_id']);
+      if ($latest instanceof RevisionableInterface && !$latest->isLatestRevision() && $node_storage instanceof RevisionableStorageInterface) {
+        $latest_revision_id = $node_storage->getLatestRevisionId($item['target_id']);
+        $latest = $node_storage->loadRevision($latest_revision_id);
       }
       $latest->set('moderation_state', 'published');
       $latest->save();
     }
     $subqueue = EntitySubqueue::load('covers');
     $subqueue->set('items', $items);
-    drupal_set_message(\Drupal::translation()->formatPlural(count($items),
+    \Drupal::messenger()->addStatus(\Drupal::translation()->formatPlural(count($items),
       '%number active item has been published to the current covers list from preview list.',
       '%number active item(s) have been published to the current covers list from preview list.',
       [
@@ -517,14 +522,13 @@ function jcms_admin_entity_subqueue_presave(EntityInterface $entity) {
   if (_jcms_admin_static_store('covers_active_reset')) {
     $subqueue = EntitySubqueue::load('covers');
     $items = ($subqueue->get('items')) ? $subqueue->get('items')->getValue() : [];
-    $entity->set('field_covers_active_items', 3);
     foreach ($items as $item) {
       $node = Node::load($item['target_id']);
       $node->set('moderation_state', 'published');
       $node->save();
     }
     $entity->set('items', $items);
-    drupal_set_message(\Drupal::translation()->formatPlural(count($items),
+    \Drupal::messenger()->addStatus(\Drupal::translation()->formatPlural(count($items),
       'The covers preview list has been reset to %number item from current list.',
       'The covers preview list has been reset to %number items from current list.',
       [
@@ -702,6 +706,7 @@ function jcms_admin_node_presave(NodeInterface $node) {
   if (\Drupal::moduleHandler()->moduleExists('devel_generate') && $node->bundle() === 'highlight_list' && $node->isNew()) {
     $titles = ['magazine', 'community', 'announcements'];
     $count = (int) \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', 'highlight_list')
       ->count()->execute();
     if (isset($titles[$count])) {

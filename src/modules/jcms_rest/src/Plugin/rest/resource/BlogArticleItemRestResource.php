@@ -20,6 +20,12 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class BlogArticleItemRestResource extends AbstractRestResourceBase {
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
   protected $latestVersion = 2;
 
   /**
@@ -33,6 +39,7 @@ class BlogArticleItemRestResource extends AbstractRestResourceBase {
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'blog_article')
         ->condition('uuid', '%' . $id, 'LIKE');
 
@@ -43,20 +50,14 @@ class BlogArticleItemRestResource extends AbstractRestResourceBase {
       $nids = $query->execute();
       if ($nids) {
         $nid = reset($nids);
-        /* @var \Drupal\node\Entity\Node $node */
+        /** @var \Drupal\node\Entity\Node $node */
         $node = Node::load($nid);
 
         $response = $this->processDefault($node, $id);
 
-        // Image is optional.
-        if ($image = $this->processFieldImage($node->get('field_image'), FALSE)) {
-          $attribution = $this->fieldValueFormatted($node->get('field_image_attribution'), FALSE, TRUE);
-          if (!empty($attribution)) {
-            foreach ($image as $key => $type) {
-              $image[$key]['attribution'] = $attribution;
-            }
-          }
-          $response['image'] = $image;
+        // Social image is optional.
+        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+          $response['image']['social'] = $socialImage;
         }
 
         // Impact statement is optional.

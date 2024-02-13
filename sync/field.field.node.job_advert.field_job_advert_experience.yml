@@ -6,7 +6,12 @@ dependencies:
     - field.storage.node.field_job_advert_experience
     - node.type.job_advert
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - basic_html_plus
 id: node.job_advert.field_job_advert_experience
 field_name: field_job_advert_experience
 entity_type: node
@@ -18,7 +23,7 @@ translatable: false
 default_value:
   -
     value: "<p>The ideal candidate should have:</p>\r\n\r\n<ul>\r\n\t<li>item 1</li>\r\n</ul>\r\n\r\n<p>In addition:</p>\r\n\r\n<ul>\r\n\t<li>item 1</li>\r\n</ul>\r\n"
-    format: basic_html
+    format: basic_html_plus
 default_value_callback: ''
 settings: {  }
 field_type: text_long

@@ -20,6 +20,12 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class EventItemRestResource extends AbstractRestResourceBase {
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
   protected $latestVersion = 2;
 
   /**
@@ -27,11 +33,12 @@ class EventItemRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'event')
         ->condition('uuid', '%' . $id, 'LIKE');
 
@@ -42,7 +49,7 @@ class EventItemRestResource extends AbstractRestResourceBase {
       $nids = $query->execute();
       if ($nids) {
         $nid = reset($nids);
-        /* @var \Drupal\node\Entity\Node $node */
+        /** @var \Drupal\node\Entity\Node $node */
         $node = Node::load($nid);
 
         $this->setSortBy(FALSE);
@@ -54,6 +61,11 @@ class EventItemRestResource extends AbstractRestResourceBase {
         // Timezone is optional.
         if ($node->get('field_event_timezone')->count()) {
           $response['timezone'] = $node->get('field_event_timezone')->getString();
+        }
+
+        // Social image is optional.
+        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+          $response['image']['social'] = $socialImage;
         }
 
         // Impact statement is optional.

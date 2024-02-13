@@ -21,9 +21,9 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       paragraph: paragraph
+    negate: 0
     target_bundles_drag_drop:
       affiliation:
         weight: 7
@@ -34,13 +34,13 @@ settings:
       media_contact:
         weight: 9
         enabled: false
+      paragraph:
+        weight: 13
+        enabled: true
       research_details:
         weight: 11
         enabled: false
       venue:
         weight: 12
         enabled: false
-      paragraph:
-        enabled: true
-        weight: 13
 field_type: entity_reference_revisions

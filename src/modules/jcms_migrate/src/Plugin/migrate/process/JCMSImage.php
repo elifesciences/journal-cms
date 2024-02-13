@@ -2,7 +2,7 @@
 
 namespace Drupal\jcms_migrate\Plugin\migrate\process;
 
-use Drupal\Component\Utility\Unicode;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\ProcessPluginBase;
@@ -31,27 +31,29 @@ class JCMSImage extends ProcessPluginBase {
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     $this->row = $row;
-    list($image, $alt) = $value;
+    [$image, $alt] = $value;
     $destination_path = $this->imagePath();
     $source = NULL;
 
     if (!empty($image)) {
       if (!preg_match('/^http/', $image)) {
-        $source = drupal_get_path('module', 'jcms_migrate') . '/migration_assets/images/' . $image;
+        $source = \Drupal::service('extension.list.module')->getPath('jcms_migrate') . '/migration_assets/images/' . $image;
       }
       else {
         $source = $image;
       }
 
+      /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+      $file_system = \Drupal::service('file_system');
       if (preg_match('/^http/', $source) && $data = $this->getFile($source)) {
         $new_filename = self::transliteration(basename($source));
-        file_prepare_directory($destination_path, FILE_CREATE_DIRECTORY);
-        $file = file_save_data($data, $destination_path . $new_filename, FILE_EXISTS_REPLACE);
+        $file_system->prepareDirectory($destination_path, FileSystemInterface::CREATE_DIRECTORY);
+        $file = \Drupal::service('file.repository')->writeData($data, $destination_path . $new_filename, FileSystemInterface::EXISTS_REPLACE);
       }
       elseif (file_exists($source)) {
-        file_prepare_directory($destination_path, FILE_CREATE_DIRECTORY);
+        $file_system->prepareDirectory($destination_path, FileSystemInterface::CREATE_DIRECTORY);
         $new_filename = self::transliteration(basename($source));
-        $uri = file_unmanaged_copy($source, $destination_path . $new_filename, FILE_EXISTS_REPLACE);
+        $uri = $file_system->copy($source, $destination_path . $new_filename, FileSystemInterface::EXISTS_REPLACE);
         $file = \Drupal::entityTypeManager()->getStorage('file')->create(['uri' => $uri]);
       }
       else {
@@ -104,7 +106,7 @@ class JCMSImage extends ProcessPluginBase {
     // Remove multiple consecutive non-alphabetical characters.
     $string = preg_replace('/(_)_+|(\.)\.+|(-)-+/', '\\1\\2\\3', $string);
     // Force lowercase to prevent issues on case-insensitive file systems.
-    $string = Unicode::strtolower($string);
+    $string = mb_strtolower($string);
 
     return $string;
   }

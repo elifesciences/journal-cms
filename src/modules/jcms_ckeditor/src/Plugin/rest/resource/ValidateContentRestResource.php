@@ -42,12 +42,13 @@ class ValidateContentRestResource extends AbstractRestResourceBase {
     $response['published'] = FALSE;
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('uuid', '%' . $id, 'LIKE');
 
       $nids = $query->execute();
       if ($nids) {
         $nid = reset($nids);
-        /* @var \Drupal\node\Entity\Node $node */
+        /** @var \Drupal\node\Entity\Node $node */
         $node = Node::load($nid);
         $validator = \Drupal::service('jcms_rest.content_validator');
 

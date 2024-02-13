@@ -1,0 +1,53 @@
+uuid: 4548e854-e092-44c4-bdf6-5165516cd0ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html_plus
+  module:
+    - ckeditor
+format: basic_html_plus
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Formatting
+          items:
+            - Bold
+            - Italic
+            - Superscript
+            - Subscript
+            - RemoveFormat
+        -
+          name: 'Simple Lists'
+          items:
+            - BulletedList
+            - NumberedList
+        -
+          name: Linking
+          items:
+            - DrupalLink
+            - DrupalUnlink
+        -
+          name: 'Block Formatting'
+          items:
+            - Table
+        -
+          name: Tools
+          items:
+            - Source
+        -
+          name: Paste
+          items:
+            - PasteText
+  plugins: {  }
+image_upload:
+  status: false
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null

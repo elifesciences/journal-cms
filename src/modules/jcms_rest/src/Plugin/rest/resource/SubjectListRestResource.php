@@ -27,6 +27,7 @@ class SubjectListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('taxonomy_term')
+      ->accessCheck(TRUE)
       ->condition('vid', 'subjects');
     $count_query = clone $base_query;
     $items_query = clone $base_query;
@@ -56,7 +57,7 @@ class SubjectListRestResource extends AbstractRestResourceBase {
    * Takes a taxonomy term and builds an item from it.
    */
   public function getItem(EntityInterface $term) : array {
-    /* @var Term $term */
+    /** @var \Drupal\taxonomy\Entity\Term $term */
     $item = [
       'id' => $term->get('field_subject_id')->getString(),
       'name' => $term->toLink()->getText(),

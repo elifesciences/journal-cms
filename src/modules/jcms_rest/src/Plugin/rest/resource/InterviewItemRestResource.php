@@ -20,6 +20,12 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class InterviewItemRestResource extends AbstractRestResourceBase {
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
   protected $latestVersion = 2;
 
   /**
@@ -27,11 +33,12 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'interview')
         ->condition('uuid', '%' . $id, 'LIKE');
 
@@ -42,7 +49,7 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
       $nids = $query->execute();
       if ($nids) {
         $nid = reset($nids);
-        /* @var \Drupal\node\Entity\Node $node */
+        /** @var \Drupal\node\Entity\Node $node */
         $node = Node::load($nid);
 
         $response = $this->processDefault($node, $id);
@@ -60,6 +67,11 @@ class InterviewItemRestResource extends AbstractRestResourceBase {
         // Image is optional.
         if ($image = $this->processFieldImage($node->get('field_image'), FALSE, 'thumbnail')) {
           $response['image'] = $image;
+        }
+
+        // Social image is optional.
+        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+          $response['image']['social'] = $socialImage;
         }
 
         if (!$this->viewUnpublished()) {

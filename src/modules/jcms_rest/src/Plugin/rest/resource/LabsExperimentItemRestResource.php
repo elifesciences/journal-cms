@@ -15,11 +15,17 @@ use Symfony\Component\HttpFoundation\Response;
  *   id = "labs_experiment_item_rest_resource",
  *   label = @Translation("Labs post item rest resource"),
  *   uri_paths = {
- *     "canonical" = "/labs-posts/{number}"
+ *     "canonical" = "/labs-posts/{id}"
  *   }
  * )
  */
 class LabsExperimentItemRestResource extends AbstractRestResourceBase {
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
   protected $latestVersion = 2;
 
   /**
@@ -27,11 +33,12 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'labs_experiment')
         ->condition('uuid', '%' . $id, 'LIKE');
 
@@ -42,7 +49,7 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
       $nids = $query->execute();
       if ($nids) {
         $nid = reset($nids);
-        /* @var \Drupal\node\Entity\Node $node */
+        /** @var \Drupal\node\Entity\Node $node */
         $node = Node::load($nid);
 
         $this->setSortBy('created', TRUE);
@@ -55,6 +62,11 @@ class LabsExperimentItemRestResource extends AbstractRestResourceBase {
           foreach ($response['image'] as $key => $type) {
             $response['image'][$key]['attribution'] = $attribution;
           }
+        }
+
+        // Social image is optional.
+        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+          $response['image']['social'] = $socialImage;
         }
 
         // Impact statement is optional.

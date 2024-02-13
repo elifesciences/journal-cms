@@ -15,7 +15,7 @@ $settings['trusted_host_patterns'] = [
   '^journal\-cms\.local$',
   '^[a-z0-9\-]+\.vagrantshare\.com$',
 ];
-  
+
 if (class_exists(\Composer\Autoload\ClassLoader::class)) {
   $loader = new \Composer\Autoload\ClassLoader();
   $loader->addPsr4('Drupal\\redis\\', 'modules/redis/src');
@@ -49,7 +49,7 @@ if (class_exists(\Composer\Autoload\ClassLoader::class)) {
   ];
 }
 
-if (!drupal_installation_attempted()) {
+if (!\Drupal\Core\Installer\InstallerKernel::installationAttempted()) {
   $settings['cache']['default'] = 'cache.backend.redis';
   $settings['redis.connection']['interface'] = 'PhpRedis';
   $settings['redis.connection']['host'] = '127.0.0.1';
@@ -83,7 +83,8 @@ $settings['jcms_all_articles_endpoint'] = $settings['jcms_gateway'] . '/articles
 $settings['jcms_articles_endpoint'] = $settings['jcms_gateway'] . '/articles/%s/versions';
 $settings['jcms_metrics_endpoint'] = $settings['jcms_gateway'] . '/metrics/article/%s/%s';
 $settings['jcms_all_digests_endpoint'] = $settings['jcms_gateway'] . '/digests';
-$settings['jcms_article_fragment_images_endpoint'] = $settings['jcms_gateway'] . '/articles/%s/fragments/image';
+$settings['jcms_article_fragments_endpoint'] = $settings['jcms_gateway'] . '/articles/%s/fragments/%s';
+$settings['jcms_all_reviewed_preprints_endpoint'] = $settings['jcms_gateway'] . '/reviewed-preprints';
 $settings['jcms_article_auth_unpublished'] = NULL;
 $settings['jcms_iiif_base_uri'] = 'https://iiif.elifesciences.org/journal-cms/';
 // This folder should be relative to the sites/default/files folder.

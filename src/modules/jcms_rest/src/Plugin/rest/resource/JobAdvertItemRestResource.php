@@ -27,11 +27,12 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'job_advert')
         ->condition('uuid', '%' . $id, 'LIKE');
 
@@ -42,11 +43,16 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
       $nids = $query->execute();
       if ($nids) {
         $nid = reset($nids);
-        /* @var Node $node */
+        /** @var \Drupal\node\Entity\Node $node */
         $node = Node::load($nid);
 
         $this->setSortBy(FALSE);
         $response = $this->processDefault($node, $id);
+
+        // Social image is optional.
+        if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+          $response['image']['social'] = $socialImage;
+        }
 
         // Impact statement is optional.
         if ($node->get('field_impact_statement')->count()) {
@@ -122,69 +128,26 @@ class JobAdvertItemRestResource extends AbstractRestResourceBase {
   /**
    * Get field label.
    */
-  public function getFieldLabel(Node $node, string $fieldName) : string {
+  private function getFieldLabel(Node $node, string $fieldName) : string {
     return $node->{$fieldName}->getFieldDefinition()->getLabel();
   }
 
   /**
    * Get field json.
    */
-  public function getFieldJson(FieldItemListInterface $field, string $fieldLabel = '', bool $isSection = FALSE) : array {
-    $texts = $this->splitParagraphs($this->fieldValueFormatted($field, FALSE));
+  private function getFieldJson(FieldItemListInterface $field, string $fieldLabel = '', bool $isSection = FALSE) : array {
+    $normalizer = \Drupal::service('jcms_admin.html_json_normalizer');
+    $html = \Drupal::service('jcms_admin.transfer_content')->cleanHtmlField($field);
+    $content = $normalizer->normalize($html);
     if ($isSection) {
-      return self::getFieldJsonAsSection($fieldLabel, $texts);
-    }
-
-    return self::getFieldJsonContent($texts);
-  }
-
-  /**
-   * Get field json as section.
-   */
-  public static function getFieldJsonAsSection(string $title, array $content) : array {
-    return [
-      'type' => 'section',
-      'title' => $title,
-      'content' => self::getFieldJsonContent($content),
-    ];
-  }
-
-  /**
-   * Get content items as an array.
-   */
-  public static function getFieldJsonContent(array $content) : array {
-    foreach ($content as $i => $item) {
-      if (!is_array($item)) {
-        $content[$i] = self::getFieldJsonAsParagraphs($item);
-      }
+      return [
+        'type' => 'section',
+        'title' => $fieldLabel,
+        'content' => $content,
+      ];
     }
 
     return $content;
-  }
-
-  /**
-   * Get field json as paragraphs.
-   *
-   * @param string|array $text
-   *   Can be array or string.
-   *
-   * @return array
-   *   Paragraph blocks.
-   */
-  public static function getFieldJsonAsParagraphs($text) : array {
-    if (is_array($text)) {
-      foreach ($text as $i => $para) {
-        $text[$i] = [
-          'type' => 'paragraph',
-          'text' => trim($para),
-        ];
-      }
-      return $text;
-    }
-    return [
-      'type' => 'paragraph',
-      'text' => trim($text),
-    ];
   }
 
 }

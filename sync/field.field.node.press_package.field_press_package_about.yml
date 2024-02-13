@@ -21,9 +21,9 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       paragraph: paragraph
+    negate: 0
     target_bundles_drag_drop:
       affiliation:
         weight: 7
@@ -35,8 +35,8 @@ settings:
         weight: 23
         enabled: false
       paragraph:
-        enabled: true
         weight: 24
+        enabled: true
       research_details:
         weight: 26
         enabled: false

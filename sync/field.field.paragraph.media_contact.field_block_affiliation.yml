@@ -21,18 +21,18 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       venue: venue
+    negate: 0
     target_bundles_drag_drop:
       affiliation:
         weight: 7
         enabled: false
-      media_contact:
-        weight: 16
-        enabled: false
       json:
         weight: 21
+        enabled: false
+      media_contact:
+        weight: 16
         enabled: false
       paragraph:
         weight: 24
@@ -41,6 +41,6 @@ settings:
         weight: 26
         enabled: false
       venue:
-        enabled: true
         weight: 29
+        enabled: true
 field_type: entity_reference_revisions

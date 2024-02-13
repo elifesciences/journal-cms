@@ -26,17 +26,75 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
 
   use JCMSImageUriTrait;
 
+  /**
+   * The docparser.
+   *
+   * @var \League\CommonMark\DocParser
+   */
   private $docParser;
+
+  /**
+   * The HTML renderer.
+   *
+   * @var \League\CommonMark\ElementRendererInterface
+   */
   private $htmlRenderer;
+
+  /**
+   * The mime type guesser.
+   *
+   * @var \Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface
+   */
   private $mimeTypeGuesser;
+
+  /**
+   * The Youtube embed.
+   *
+   * @var \Drupal\jcms_admin\YouTubeInterface
+   */
   private $youtube;
+
+  /**
+   * The Tweet embed.
+   *
+   * @var \Drupal\jcms_admin\TweetInterface
+   */
   private $tweet;
+
+  /**
+   * The Google Map embed.
+   *
+   * @var \Drupal\jcms_admin\GoogleMapInterface
+   */
   private $googleMap;
+
+  /**
+   * The Figshare embed.
+   *
+   * @var \Drupal\jcms_admin\FigshareInterface
+   */
   private $figshare;
+
+  /**
+   * The Markdown converter.
+   *
+   * @var \League\CommonMark\CommonMarkConverter
+   */
   private $converter;
+
+  /**
+   * Depth offset.
+   *
+   * @var null
+   */
   private $depthOffset = NULL;
+
+  /**
+   * International image interoperability framework component.
+   *
+   * @var string
+   */
   private $iiif = '';
-  private $bracketChar = 'ø';
 
   /**
    * Constructor.

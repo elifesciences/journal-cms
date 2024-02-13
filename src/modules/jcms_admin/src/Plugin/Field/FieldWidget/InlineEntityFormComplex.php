@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_admin\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\inline_entity_form\Plugin\Field\FieldWidget\InlineEntityFormComplex as IefInlineEntityFormComplex;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -36,9 +37,11 @@ class InlineEntityFormComplex extends IefInlineEntityFormComplex {
       $entity = $value['entity'];
       if (empty($value['form'])) {
         $row = &$element['entities'][$key];
-        $moderation_info = \Drupal::service('content_moderation.moderation_information');
-        if (!$moderation_info->isLatestRevision($entity)) {
-          $latest = $moderation_info->getLatestRevision($entity->getEntityTypeId(), $entity->id());
+        if ($entity instanceof RevisionableInterface && !$entity->isLatestRevision($entity)) {
+          /** @var \Drupal\Core\Entity\RevisionableStorageInterface $entity_storage */
+          $entity_storage = \Drupal::entityTypeManager()->getStorage($entity->getEntityTypeId());
+          $latest_revision_id = $entity_storage->getLatestRevisionId($entity->id());
+          $latest = $entity_storage->loadRevision($latest_revision_id);
           $row['#label'] = $this->inlineFormHandler->getEntityLabel($latest) . ' *';
         }
         elseif ($entity->get('status')->value == 0) {

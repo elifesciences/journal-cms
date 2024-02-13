@@ -30,6 +30,9 @@ class PersonListRestResource extends AbstractRestResourceBase {
    */
   public function get() : JCMSRestResponse {
     $base_query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
+      // NL 30/10/23: remove staff from api response.
+      ->condition('field_person_type.value', 'executive', '!=')
       ->condition('field_archive.value', 0)
       ->condition('type', 'person');
 
@@ -72,7 +75,7 @@ class PersonListRestResource extends AbstractRestResourceBase {
   protected function filterSubjects(QueryInterface &$query) {
     $subjects = $this->getRequestOption('subject');
     if (!empty($subjects)) {
-      // @todo - elife - nlisgo - Ideally we would just filter on $query.
+      // @todo elife - nlisgo - Ideally we would just filter on $query.
       // The below query doesn't work.
       // $query
       // ->condition(
@@ -116,7 +119,10 @@ class PersonListRestResource extends AbstractRestResourceBase {
     $type_label = ($node->get('field_person_type_label')->count()) ? $node->get('field_person_type_label')->getString() : $options[$node->get('field_person_type')->getString()];
     $item = [
       'id' => substr($node->uuid(), -8),
-      'type' => ['id' => $node->get('field_person_type')->getString(), 'label' => $type_label],
+      'type' => [
+        'id' => $node->get('field_person_type')->getString(),
+        'label' => $type_label,
+      ],
       'name' => $this->processPeopleNamesSplit($node->get('field_person_name_surname')->getString(), $node->get('field_person_name_given')->getString(), $node->get('field_person_preferred_name'), $node->get('field_person_index_name')),
     ];
 

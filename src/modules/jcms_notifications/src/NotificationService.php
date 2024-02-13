@@ -9,7 +9,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\jcms_notifications\Notification\BusOutgoingMessage;
 
 /**
- * Class NotificationService.
+ * SNS Notification Service.
  *
  * @package Drupal\jcms_notifications
  */
@@ -22,10 +22,25 @@ final class NotificationService {
    */
   protected $snsClient;
 
+  /**
+   * SNS endpoint.
+   *
+   * @var mixed|string
+   */
   protected $endpoint = '';
 
+  /**
+   * SNS topic.
+   *
+   * @var mixed|string
+   */
   protected $topicArn = '';
 
+  /**
+   * SNS region.
+   *
+   * @var mixed|string
+   */
   protected $region = '';
 
   /**

@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.json.field_article_published_json
     - field.field.paragraph.json.field_article_unpublished_json
+    - field.field.paragraph.json.field_reviewed_preprint_json
     - paragraphs.paragraphs_type.json
   module:
     - jsonb
@@ -14,18 +15,25 @@ bundle: json
 mode: default
 content:
   field_article_published_json:
-    weight: 0
+    type: jsonb_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: jsonb_default
+    weight: 0
     region: content
   field_article_unpublished_json:
-    weight: 1
+    type: jsonb_default
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 1
+    region: content
+  field_reviewed_preprint_json:
     type: jsonb_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
     region: content
 hidden:
   created: true

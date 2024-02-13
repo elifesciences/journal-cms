@@ -1,7 +1,38 @@
 uuid: 1a2bba1c-3d26-40b1-b871-1fe1cd81843c
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - node.type.annual_report
+    - node.type.article
+    - node.type.blog_article
+    - node.type.collection
+    - node.type.cover
+    - node.type.event
+    - node.type.highlight_item
+    - node.type.highlight_list
+    - node.type.interview
+    - node.type.job_advert
+    - node.type.labs_experiment
+    - node.type.person
+    - node.type.podcast_chapter
+    - node.type.podcast_episode
+    - node.type.press_package
+    - node.type.promotional_collection
+    - rest.resource.validate_content_rest_resource
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - entityqueue
+    - field_permissions
+    - file_entity
+    - jcms_ckeditor
+    - node
+    - rest
+    - scheduler
+    - system
+    - taxonomy
+    - toolbar
 id: editor
 label: Editor
 weight: -8
@@ -44,6 +75,7 @@ permissions:
   - 'delete any promotional_collection content'
   - 'delete cover revisions'
   - 'delete own blog_article content'
+  - 'download any image files'
   - 'edit any annual_report content'
   - 'edit any article content'
   - 'edit any blog_article content'
@@ -66,31 +98,11 @@ permissions:
   - 'schedule publishing of nodes'
   - 'show wysiwyg editor'
   - 'update covers_preview entityqueue'
-  - 'use draft_draft transition'
-  - 'use draft_published transition'
   - 'use editorial transition create_new_draft'
   - 'use editorial transition publish'
   - 'use inline editor'
-  - 'use published_draft transition'
-  - 'use published_published transition'
   - 'view all revisions'
-  - 'view any unpublished annual_report content'
-  - 'view any unpublished article content'
-  - 'view any unpublished blog_article content'
-  - 'view any unpublished collection content'
   - 'view any unpublished content'
-  - 'view any unpublished cover content'
-  - 'view any unpublished event content'
-  - 'view any unpublished highlight_item content'
-  - 'view any unpublished highlight_list content'
-  - 'view any unpublished interview content'
-  - 'view any unpublished labs_experiment content'
-  - 'view any unpublished person content'
-  - 'view any unpublished podcast_chapter content'
-  - 'view any unpublished podcast_episode content'
-  - 'view any unpublished press_package content'
-  - 'view content moderation'
   - 'view latest version'
-  - 'view moderation states'
   - 'view scheduled content'
   - 'view the administration theme'

@@ -11,12 +11,14 @@ dependencies:
     - field.field.node.interview.field_content_json
     - field.field.node.interview.field_content_json_preview
     - field.field.node.interview.field_image
+    - field.field.node.interview.field_image_social
     - field.field.node.interview.field_impact_statement
     - field.field.node.interview.field_order_date
     - field.field.node.interview.field_person_index_name
     - field.field.node.interview.field_person_preferred_name
     - node.type.interview
   module:
+    - image
     - text
     - user
 id: node.interview.default
@@ -25,18 +27,29 @@ bundle: interview
 mode: default
 content:
   field_content_html_preview:
-    weight: 1
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 1
+    region: content
+  field_image_social:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 12
     region: content
   field_impact_statement:
-    weight: 0
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 0
     region: content
 hidden:
   field_community_list: true

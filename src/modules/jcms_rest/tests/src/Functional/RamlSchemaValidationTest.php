@@ -3,9 +3,7 @@
 namespace Drupal\Tests\jcms_rest\Functional;
 
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use JsonSchema\Validator;
 
 /**
  * Tests endpoints ot ensure that they match schema.
@@ -99,7 +97,7 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
         '/press-packages',
         'id',
         'application/vnd.elife.press-package-list+json;version=1',
-        'application/vnd.elife.press-package+json;version=2',
+        'application/vnd.elife.press-package+json;version=4',
       ],
       [
         'GET',
@@ -146,7 +144,7 @@ class RamlSchemaValidationTest extends FixtureBasedTestCase {
     $data = json_decode((string) $list_response->getBody());
     $this->validator->validate($list_response);
     $this->assertEquals(200, $list_response->getStatusCode());
-    // @todo - check to ensure that $data->items is not empty.
+    // @todo check to ensure that $data->items is not empty.
     // To be added when generating content for all items in the data provider.
     foreach ($data->items as $item) {
       $item_response = $this->makeGuzzleRequest($http_method, $endpoint . '/' . $item->{$id_key}, $media_type_item);

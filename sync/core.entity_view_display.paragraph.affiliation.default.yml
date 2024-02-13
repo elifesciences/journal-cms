@@ -14,17 +14,17 @@ bundle: affiliation
 mode: default
 content:
   field_block_country:
-    weight: 1
+    type: country_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: country_default
+    weight: 1
     region: content
   field_block_title_multiline:
-    weight: 0
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 0
     region: content
 hidden: {  }

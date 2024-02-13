@@ -73,7 +73,8 @@ class DeprecationEndpointValidatorTest extends FixtureBasedTestCase {
       ]);
 
       $response = $this->client->send($request);
-      $this->assertContains($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_ACCEPTABLE]);
+      $this->assertContains($response->getStatusCode(),
+        [Response::HTTP_OK, Response::HTTP_NOT_ACCEPTABLE]);
       if ($response->getStatusCode() == Response::HTTP_OK) {
         foreach ($check as $header => $value) {
           $this->assertEquals($response->getHeaderLine($header), $value);
@@ -81,9 +82,9 @@ class DeprecationEndpointValidatorTest extends FixtureBasedTestCase {
       }
 
       $data = \GuzzleHttp\json_decode((string) $response->getBody());
-      $items = isset($data->items) ? $data->items : $data;
+      $items = $data->items ?? $data;
 
-      if (count($items) < $per_page) {
+      if (!is_array($items) || count($items) < $per_page) {
         $page = -1;
       }
       else {
@@ -143,15 +144,8 @@ class DeprecationEndpointValidatorTest extends FixtureBasedTestCase {
         '/press-packages',
         'id',
         'application/vnd.elife.press-package-list+json',
-        'application/vnd.elife.press-package+json;version=1',
-        '299 api.elifesciences.org "Deprecation: Support for version 1 will be removed"',
-      ],
-      [
-        '/press-packages',
-        'id',
-        'application/vnd.elife.press-package-list+json',
-        'application/vnd.elife.press-package+json;version=2',
-        '299 api.elifesciences.org "Deprecation: Support for version 2 will be removed"',
+        'application/vnd.elife.press-package+json;version=3',
+        '299 api.elifesciences.org "Deprecation: Support for version 3 will be removed"',
       ],
     ];
   }
@@ -175,7 +169,8 @@ class DeprecationEndpointValidatorTest extends FixtureBasedTestCase {
       ]);
 
       $response = $this->client->send($request);
-      $this->assertContains($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_ACCEPTABLE]);
+      $this->assertContains($response->getStatusCode(),
+        [Response::HTTP_OK, Response::HTTP_NOT_ACCEPTABLE]);
       if ($response->getStatusCode() == Response::HTTP_OK) {
         foreach ($check as $header => $value) {
           $this->assertEquals($response->getHeaderLine($header), $value);

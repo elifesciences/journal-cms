@@ -19,7 +19,13 @@ class JcmsRestServiceProvider extends ServiceProviderBase {
     $modules = $container->getParameter('container.modules');
 
     if ($container->has('http_middleware.negotiation') && is_a($container->getDefinition('http_middleware.negotiation')->getClass(), '\Drupal\Core\StackMiddleware\NegotiationMiddleware', TRUE)) {
-      $container->getDefinition('http_middleware.negotiation')->addMethodCall('registerFormat', ['jcms_json', array_values(PathMediaTypeMapper::getMappings())]);
+      $container->getDefinition('http_middleware.negotiation')->addMethodCall(
+        'registerFormat',
+          [
+            'jcms_json',
+            array_values(PathMediaTypeMapper::getMappings()),
+          ]
+      );
     }
 
     // Alter the http_middleware.page_cache service only if Internal Page Cache

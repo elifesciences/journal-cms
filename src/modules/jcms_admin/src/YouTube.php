@@ -5,10 +5,22 @@ namespace Drupal\jcms_admin;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class YouTube.
+ * Class YouTube Embed.
  */
 final class YouTube implements YouTubeInterface {
+
+  /**
+   * The Embed.
+   *
+   * @var \Drupal\jcms_admin\Embed
+   */
   private $embed;
+
+  /**
+   * The logger channel.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
   private $logger;
 
   /**
@@ -39,7 +51,7 @@ final class YouTube implements YouTubeInterface {
       if ($info = $this->embed->create('https://www.youtube.com/watch?v=' . $id)) {
         $providers = $info->getProviders();
         if (isset($providers['opengraph'])) {
-          /* @var \Embed\Providers\OpenGraph $opengraph */
+          /** @var \Embed\Providers\OpenGraph $opengraph */
           $opengraph = $providers['opengraph'];
           $width = $opengraph->getWidth();
           $height = $opengraph->getHeight();

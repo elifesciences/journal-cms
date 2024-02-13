@@ -4,15 +4,33 @@ namespace Drupal\jcms_admin;
 
 use League\HTMLToMarkdown\HtmlConverter;
 use PHPHtmlParser\Dom;
+use PHPHtmlParser\Exceptions\ParentNotFoundException;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * Convert HTML to Markdown.
  */
 final class HtmlMarkdownSerializer implements NormalizerInterface {
+
+  /**
+   * The HTML converter.
+   *
+   * @var \League\HTMLToMarkdown\HtmlConverter
+   */
   private $htmlConverter;
+
+  /**
+   * The bracket character.
+   *
+   * @var string
+   */
   private $bracketChar = 'ø';
 
+  /**
+   * The HTML converter config.
+   *
+   * @var array
+   */
   private $htmlConverterConfig = [
     'header_style' => 'atx',
     'italic_style' => '*',
@@ -45,7 +63,7 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
    */
   private function cleanHtml(string $html) : string {
     // Strip out placeholder text.
-    // @todo - Consider stripping this out of the saved HTML.
+    // @todo Consider stripping this out of the saved HTML.
     $html = preg_replace([
       '~<figcaption>\s*caption\s*</figcaption>~i',
       '~<placeholder>[^<]+</placeholder>~',
@@ -57,6 +75,7 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
     $html = preg_replace_callback('~<div class="([^"]*)"[^>]*>[\s\n]*(<figure )class="[^\"]*"(.*</figure>).*</div>~s', function ($match) {
       return '<figure class="image ' . $match[1] . '"' . preg_replace('~<p>[^<]*</p>~', '', $match[3]);
     }, $html);
+    $html = $this->wrapImgInFigure($html);
     $dom = new Dom();
     $dom->setOptions([
       'preserveLineBreaks' => TRUE,
@@ -72,7 +91,11 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
    * Preserve output of code and tables.
    */
   private function preserveOutput(string $html, array $context = []) : string {
-    $html = preg_replace(['~(<pre>\s*<code[^>]*>)~', '~(</code>\s*</pre>)~'], ['$1' . PHP_EOL, PHP_EOL . '$1'], $html);
+    $html = preg_replace(
+      ['~(<pre>\s*<code[^>]*>)~', '~(</code>\s*</pre>)~'],
+      ['$1' . PHP_EOL, PHP_EOL . '$1'],
+      $html
+    );
     $regexes = $context['regexes'] ?? [];
     $preserve = preg_replace(array_keys($regexes), array_values($regexes), $html);
     $encode = $context['encode'] ?? [];
@@ -130,6 +153,31 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
       return base64_decode($matches[1]);
     }, preg_replace('~(preserve' . $bc . ')\s*([^\n])~', '$1' . PHP_EOL . PHP_EOL . '$2', $html));
     return preg_replace('/\n{2,}/', PHP_EOL . PHP_EOL, $output);
+  }
+
+  /**
+   * Wrap img elements in figure.
+   */
+  private function wrapImgInFigure(string $content) : string {
+    $dom = new Dom();
+    $dom->setOptions([
+      'preserveLineBreaks' => TRUE,
+    ]);
+    $dom->load($content);
+    /** @var \PHPHtmlParser\Dom\HtmlNode $img */
+    foreach ($dom->find('img') as $img) {
+      try {
+        $img->ancestorByTag('figure');
+      }
+      catch (ParentNotFoundException $e) {
+        $figure = new Dom();
+        $figure->loadStr('<figure class="image">' . $img->outerHtml() . '</figure>');
+        $img->getParent()->replaceChild($img->id(), $figure->find('figure')[0]);
+      }
+    }
+
+    $content = $dom->outerHtml;
+    return $content;
   }
 
   /**

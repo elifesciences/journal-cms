@@ -3,6 +3,7 @@
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
 use Drupal\node\Entity\Node;
@@ -23,15 +24,23 @@ use Symfony\Component\HttpFoundation\Response;
 class PromotionalCollectionItemRestResource extends AbstractRestResourceBase {
 
   /**
+   * Latest version.
+   *
+   * @var int
+   */
+  protected $latestVersion = 2;
+
+  /**
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'promotional_collection')
         ->condition('uuid', '%' . $id, 'LIKE');
 
@@ -61,19 +70,42 @@ class PromotionalCollectionItemRestResource extends AbstractRestResourceBase {
     $promotional_collection_list_rest_resource = new PromotionalCollectionListRestResource([], 'promotional_collection_list_rest_resource', [], $this->serializerFormats, $this->logger);
     $item = $promotional_collection_list_rest_resource->getItem($node);
 
+    // Social image is optional.
+    if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+      $item['image']['social'] = $socialImage;
+    }
+
     // Editors are optional.
     if ($node->get('field_editors')->count()) {
       $people_rest_resource = new PersonListRestResource([], 'person_list_rest_resource', [], $this->serializerFormats, $this->logger);
       $item['editors'] = [];
       foreach ($node->get('field_editors')->referencedEntities() as $editor) {
-        /* @var Node $editor */
+        /** @var \Drupal\node\Entity\Node $editor */
         if ($editor->isPublished() || $this->viewUnpublished()) {
           $item['editors'][] = $people_rest_resource->getItem($editor);
         }
       }
     }
 
-    return $item + $this->extendedCollectionItem($node);
+    $item += $this->extendedCollectionItem($node);
+
+    foreach (['content', 'relatedContent'] as $field) {
+      if (isset($item[$field]) && count($item[$field]) > 0) {
+        foreach ($item[$field] as $content) {
+          switch ($content['type']) {
+            case 'reviewed-preprint':
+              if ($this->acceptVersion < 2) {
+                throw new JCMSNotAcceptableHttpException('This promotional collection requires version 2+.');
+              }
+              break;
+
+            default:
+          }
+        }
+      }
+    }
+
+    return $item;
   }
 
 }

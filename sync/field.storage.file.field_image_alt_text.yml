@@ -2,11 +2,11 @@ uuid: ddad36d4-19f9-4468-8cbd-1a80d5f5a0ee
 langcode: en
 status: true
 dependencies:
+  module:
+    - file
   enforced:
     module:
       - file_entity
-  module:
-    - file
 _core:
   default_config_hash: 1662XH078oY7N3ywSPw3NQnzTRvcbFr76bgz9IIZ5DY
 id: file.field_image_alt_text
@@ -15,8 +15,8 @@ entity_type: file
 type: string
 settings:
   max_length: 255
-  is_ascii: false
   case_sensitive: false
+  is_ascii: false
 module: core
 locked: false
 cardinality: 1

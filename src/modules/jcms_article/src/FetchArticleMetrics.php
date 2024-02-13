@@ -10,11 +10,13 @@ use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class FetchArticleMetrics.
+ * Fetch for articles metrics.
  *
  * @package Drupal\jcms_article
  */
 final class FetchArticleMetrics {
+
+  const VERSION_METRIC_TIME_PERIOD = 1;
 
   /**
    * GuzzleHttp\Client definition.
@@ -72,12 +74,16 @@ final class FetchArticleMetrics {
   /**
    * Makes the request to get the article versions.
    *
-   * @throws BadResponseException
+   * @throws \GuzzleHttp\Exception\BadResponseException
    */
   private function requestArticleMetrics(string $id, string $type = 'page-views') : ResponseInterface {
-    $options = [];
+    $options = [
+      'headers' => [
+        'Accept' => 'application/vnd.elife.metric-time-period+json;version=' . self::VERSION_METRIC_TIME_PERIOD,
+      ],
+    ];
     if ($auth = Settings::get('jcms_article_auth_unpublished')) {
-      $options['headers'] = [
+      $options['headers'] += [
         'Authorization' => $auth,
       ];
     }
@@ -87,7 +93,7 @@ final class FetchArticleMetrics {
       \Drupal::logger('jcms_article')
         ->notice(
           'Article metrics have been requested @url with the response: @response',
-          ['@url' => $url, '@response' => \GuzzleHttp\Psr7\str($response)]
+          ['@url' => $url, '@response' => $response->getBody()->getContents()]
         );
       return $response;
     }
@@ -96,7 +102,10 @@ final class FetchArticleMetrics {
         \Drupal::logger('jcms_article')
           ->notice(
             'Article metrics have been requested but not found @url with the response: @response',
-            ['@url' => $url, '@response' => \GuzzleHttp\Psr7\str($exception->getResponse())]
+            [
+              '@url' => $url,
+              '@response' => $exception->getResponse()->getBody()->getContents(),
+            ]
           );
         return $exception->getResponse();
       }

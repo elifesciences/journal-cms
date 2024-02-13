@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class FragmentApi.
+ * Fetch for fragments.
  *
  * @package Drupal\jcms_article
  */
@@ -29,12 +29,21 @@ class FragmentApi {
   }
 
   /**
-   * Post the image fragment.
-   *
-   * @throws \Exception
+   * Availability check.
    */
-  public function postImageFragment(string $articleId, string $payload) : ResponseInterface {
-    $endpoint = sprintf(Settings::get('jcms_article_fragment_images_endpoint'), $articleId);
+  public function available() {
+    return !is_null(Settings::get('jcms_article_auth_unpublished')) && !is_null(Settings::get('jcms_article_fragments_endpoint'));
+  }
+
+  /**
+   * Post a fragment to the article store.
+   */
+  public function postFragment(string $articleId, string $fragmentId, string $payload) {
+    if (!$this->available()) {
+      throw new FragmentApiUnavailable();
+    }
+
+    $endpoint = $this->endpointFullPath($articleId, $fragmentId);
     $options = [
       'body' => $payload,
       'headers' => [
@@ -47,26 +56,42 @@ class FragmentApi {
     }
     $response = $this->client->post($endpoint, $options);
 
-    \Drupal::logger('jcms_article')
-      ->notice(
-        'An image fragment has been posted to @endpoint with the response: @response',
-        ['@endpoint' => $endpoint, '@response' => \GuzzleHttp\Psr7\str($response)]
-      );
-
     if ($response->getStatusCode() !== Response::HTTP_OK) {
-      throw new \Exception("Fragment API update could not be performed.");
+      \Drupal::logger('jcms_article_fragment_api')
+        ->error(
+          'A @fragmentId fragment has been posted to @endpoint with the response: @response',
+          [
+            '@fragmentId' => $fragmentId,
+            '@endpoint' => $endpoint,
+            '@response' => $response->getBody()->getContents(),
+          ]
+        );
+
+      throw new FragmentApiUpdateFailure('Fragment API post could not be performed.');
     }
+
+    \Drupal::logger('jcms_article_fragment_api')
+      ->notice(
+        'A @fragmentId fragment has been posted to @endpoint with the response: @response',
+        [
+          '@fragmentId' => $fragmentId,
+          '@endpoint' => $endpoint,
+          '@response' => $response->getBody()->getContents(),
+        ]
+      );
 
     return $response;
   }
 
   /**
-   * Delete the image fragment.
-   *
-   * @throws \Exception
+   * Delete a fragment from the article store.
    */
-  public function deleteImageFragment(string $articleId) : ResponseInterface {
-    $endpoint = sprintf(Settings::get('jcms_article_fragment_images_endpoint'), $articleId);
+  public function deleteFragment(string $articleId, string $fragmentId) : ResponseInterface {
+    if (!$this->available()) {
+      throw new FragmentApiUnavailable();
+    }
+
+    $endpoint = $this->endpointFullPath($articleId, $fragmentId);
     $options = [
       'headers' => [
         'Content-Type' => 'application/json',
@@ -79,17 +104,43 @@ class FragmentApi {
 
     $response = $this->client->delete($endpoint, $options);
 
-    \Drupal::logger('jcms_article')
-      ->notice(
-        'An image fragment has been deleted at @endpoint with the response: @response',
-        ['@endpoint' => $endpoint, '@response' => \GuzzleHttp\Psr7\str($response)]
-      );
+    if (!in_array($response->getStatusCode(),
+      [
+        Response::HTTP_OK,
+        Response::HTTP_NOT_FOUND,
+      ]
+    )) {
+      \Drupal::logger('jcms_article_fragment_api')
+        ->error(
+          'A @fragmentId fragment has been deleted at @endpoint with the response: @response',
+          [
+            '@fragmentId' => $fragmentId,
+            '@endpoint' => $endpoint,
+            '@response' => $response->getBody()->getContents(),
+          ]
+        );
 
-    if (!in_array($response->getStatusCode(), [Response::HTTP_OK, Response::HTTP_NOT_FOUND])) {
-      throw new \Exception("Fragment API delete could not be performed.");
+      throw new FragmentApiUpdateFailure('Fragment API delete could not be performed.');
     }
 
+    \Drupal::logger('jcms_article_fragment_api')
+      ->notice(
+        'A @fragmentId fragment has been deleted at @endpoint with the response: @response',
+        [
+          '@fragmentId' => $fragmentId,
+          '@endpoint' => $endpoint,
+          '@response' => $response->getBody()->getContents(),
+        ]
+      );
+
     return $response;
+  }
+
+  /**
+   * Get the full path to the fragment api.
+   */
+  private function endpointFullPath(string $articleId, string $fragmentId) {
+    return sprintf(Settings::get('jcms_article_fragments_endpoint'), $articleId, $fragmentId);
   }
 
 }

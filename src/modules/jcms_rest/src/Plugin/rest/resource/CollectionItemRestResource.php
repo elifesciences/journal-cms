@@ -22,18 +22,32 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class CollectionItemRestResource extends AbstractRestResourceBase {
-  protected $latestVersion = 2;
+
+  /**
+   * Latest version.
+   *
+   * @var int
+   */
+  protected $latestVersion = 3;
+
+  /**
+   * Minimum version.
+   *
+   * @var int
+   */
+  protected $minVersion = 2;
 
   /**
    * Responds to GET requests.
    *
    * Returns a list of bundles for specified entity.
    *
-   * @throws JCMSNotFoundHttpException
+   * @throws \Drupal\jcms_rest\Exception\JCMSNotFoundHttpException
    */
   public function get(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('type', 'collection')
         ->condition('uuid', '%' . $id, 'LIKE');
 
@@ -63,12 +77,17 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
     $collection_list_rest_resource = new CollectionListRestResource([], 'collection_list_rest_resource', [], $this->serializerFormats, $this->logger);
     $item = $collection_list_rest_resource->getItem($node);
 
+    // Social image is optional.
+    if ($socialImage = $this->processFieldImage($node->get('field_image_social'), FALSE, 'social', TRUE)) {
+      $item['image']['social'] = $socialImage;
+    }
+
     // Curators are required.
     $co = 0;
     $people_rest_resource = new PersonListRestResource([], 'person_list_rest_resource', [], $this->serializerFormats, $this->logger);
     $item['curators'] = [];
     foreach ($node->get('field_curators')->referencedEntities() as $curator) {
-      /* @var Node $curator */
+      /** @var \Drupal\node\Entity\Node $curator */
       if ($curator->isPublished() || $this->viewUnpublished()) {
         $curator_item = $people_rest_resource->getItem($curator);
         $item['curators'][] = $curator_item;
@@ -84,23 +103,15 @@ class CollectionItemRestResource extends AbstractRestResourceBase {
 
     $item += $this->extendedCollectionItem($node);
 
-    foreach (['field_collection_content', 'field_collection_related_content'] as $field) {
-      foreach ($node->get($field)->referencedEntities() as $content) {
-        /* @var Node $content */
-        if ($content->isPublished() || $this->viewUnpublished()) {
-          switch ($content->getType()) {
-            case 'event':
-              if ($this->acceptVersion < 2) {
-                throw new JCMSNotAcceptableHttpException('This collection requires version 2+.');
+    foreach (['content', 'relatedContent'] as $field) {
+      if (isset($item[$field]) && count($item[$field]) > 0) {
+        foreach ($item[$field] as $content) {
+          switch ($content['type']) {
+            case 'reviewed-preprint':
+              if ($this->acceptVersion < 3) {
+                throw new JCMSNotAcceptableHttpException('This collection requires version 3+.');
               }
               break;
-
-            case 'digest':
-              if ($snippet = $this->getDigestSnippet($content)) {
-                if ($this->acceptVersion < 2) {
-                  throw new JCMSNotAcceptableHttpException('This collection requires version 2+.');
-                }
-              }
 
             default:
           }

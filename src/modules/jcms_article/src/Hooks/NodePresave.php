@@ -11,7 +11,7 @@ use Drupal\jcms_rest\JCMSImageUriTrait;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
- * Class NodePresave.
+ * Node Presave service class.
  *
  * @package Drupal\jcms_article
  * @todo Look to share more code with \Drupal\jcms_article\ArticleCrud.
@@ -96,8 +96,11 @@ final class NodePresave {
    */
   public function setPublishedStatus(EntityInterface $entity, ArticleVersions $article) {
     $id = $entity->label();
-    // If there's a published version, set to published.
-    $status = $article->getLatestPublishedVersionJson() ? 1 : 0;
+    $pid = $entity->get('field_article_json')->getValue()[0]['target_id'];
+    $paragraph = Paragraph::load($pid);
+    $reviewed_preprint = json_decode($paragraph->get('field_reviewed_preprint_json')->getString(), TRUE);
+    // If there's a published version or reviewed preprint, set to published.
+    $status = $article->getLatestPublishedVersionJson() || !empty($reviewed_preprint) ? 1 : 0;
     $entity->set('status', $status);
   }
 
@@ -109,6 +112,12 @@ final class NodePresave {
     // Use the unpublished JSON if no published exists.
     $version = $article->getLatestPublishedVersionJson() ?: $article->getLatestUnpublishedVersionJson();
     $json = json_decode($version);
+    if (!is_object($json) || !property_exists($json, 'subjects')) {
+      $pid = $entity->get('field_article_json')->getValue()[0]['target_id'];
+      $paragraph = Paragraph::load($pid);
+      $json = json_decode($paragraph->get('field_reviewed_preprint_json')->getString());
+    }
+
     if (is_object($json) && property_exists($json, 'subjects')) {
       // Unset the terms first.
       $entity->set('field_subjects', []);
@@ -125,17 +134,25 @@ final class NodePresave {
 
   /**
    * Update or delete the article fragment.
+   *
+   * @throws \Exception
    */
   public function updateFragmentApi(EntityInterface $entity, string $articleId) {
-    if (empty(Settings::get('jcms_article_auth_unpublished', FALSE))) {
-      return;
+    $images = [];
+
+    if ($thumbnail = $this->processFieldImage($entity->get('field_image'), FALSE, 'thumbnail', TRUE)) {
+      $images['thumbnail'] = $thumbnail;
     }
 
-    if ($image = $this->processFieldImage($entity->get('field_image'), FALSE, 'thumbnail')) {
-      $this->fragmentApi->postImageFragment($articleId, json_encode(['image' => $image]));
+    if ($socialImage = $this->processFieldImage($entity->get('field_image_social'), FALSE, 'social', TRUE)) {
+      $images['social'] = $socialImage;
+    }
+
+    if (!empty($images)) {
+      $this->fragmentApi->postFragment($articleId, 'image', json_encode(['image' => $images]));
     }
     else {
-      $this->fragmentApi->deleteImageFragment($articleId);
+      $this->fragmentApi->deleteFragment($articleId, 'image');
     }
   }
 
@@ -143,7 +160,6 @@ final class NodePresave {
    * Updates existing JSON field paragraphs.
    */
   private function updateJsonParagraph(EntityInterface $entity, ArticleVersions $article) {
-    $id = $entity->label();
     $pid = $entity->get('field_article_json')->getValue()[0]['target_id'];
     $paragraph = Paragraph::load($pid);
     $published = $article->getLatestPublishedVersionJson();
@@ -191,6 +207,7 @@ final class NodePresave {
   private function loadTermIdByIdField(string $id): int {
     $tid = 0;
     $query = \Drupal::entityQuery('taxonomy_term')
+      ->accessCheck(TRUE)
       ->condition('field_subject_id', $id);
     $tids = $query->execute();
     if ($tids) {

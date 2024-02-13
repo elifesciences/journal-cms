@@ -9,7 +9,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\jcms_notifications\Queue\SqsMessage;
 
 /**
- * Class QueueService.
+ * SQS Queue Service.
  *
  * @package Drupal\jcms_notifications
  */
@@ -22,10 +22,25 @@ final class QueueService {
    */
   protected $sqsClient;
 
+  /**
+   * SQS endpoint.
+   *
+   * @var mixed|string
+   */
   protected $endpoint = '';
 
+  /**
+   * SQS queue name.
+   *
+   * @var mixed|string
+   */
   protected $queueName = '';
 
+  /**
+   * SQS region.
+   *
+   * @var mixed|string
+   */
   protected $region = '';
 
   /**
@@ -53,6 +68,28 @@ final class QueueService {
     return $this->sqsClient->getQueueUrl([
       'QueueName' => $this->queueName,
     ]);
+  }
+
+  /**
+   * Prepare a message as if from SQS.
+   *
+   * @throws \Exception
+   */
+  public function prepareMessage(string $id, string $type = 'article') {
+    return $this->mapSqsMessage(
+      [
+        [
+          'MessageId' => sprintf('%s:%s', $type, $id),
+          'Body' => json_encode(array_filter([
+            'id' => $id,
+            'type' => $type,
+            'contentType' => 'metrics' === $type ? 'article' : NULL,
+            'metric' => 'metrics' === $type ? 'views-downloads' : NULL,
+          ])),
+          'ReceiptHandle' => sprintf('receipt:%s:%s', $type, $id),
+        ],
+      ]
+    );
   }
 
   /**
@@ -87,6 +124,17 @@ final class QueueService {
     return $this->sqsClient->deleteMessage([
       'QueueUrl' => $queue['QueueUrl'],
       'ReceiptHandle' => $sqsMessage->getReceipt(),
+    ]);
+  }
+
+  /**
+   * Send a message to the queue.
+   */
+  public function sendMessage(SqsMessage $sqsMessage) : Result {
+    $queue = $this->getQueue();
+    return $this->sqsClient->sendMessage([
+      'QueueUrl' => $queue['QueueUrl'],
+      'MessageBody' => json_encode($sqsMessage->getMessage()),
     ]);
   }
 

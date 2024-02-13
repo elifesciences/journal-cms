@@ -165,9 +165,26 @@ class ArticleCrud {
   public function deleteArticle(ArticleVersions $articleVersions) {
     $node_id = $this->getNodeIdByArticleId($articleVersions->getId());
     $node = $this->entityTypeManager->getStorage('node')->load($node_id);
+
     if (!$node) {
       return NULL;
     }
+
+    $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
+    $paragraph = Paragraph::load($pid);
+    $reviewed_preprint = json_decode($paragraph->get('field_reviewed_preprint_json')->getString(), TRUE);
+
+    if ($reviewed_preprint) {
+      $paragraph->set('field_article_unpublished_json', NULL);
+      $paragraph->set('field_article_published_json', NULL);
+      $paragraph->setNewRevision();
+      $paragraph->save();
+
+      $node->save();
+
+      return $node;
+    }
+
     return $this->entityTypeManager->getStorage('node')->delete([$node]);
   }
 
@@ -175,7 +192,9 @@ class ArticleCrud {
    * Checks if node with the article ID already exists and returns the node ID.
    */
   public function getNodeIdByArticleId(string $articleId) : int {
-    $query = \Drupal::entityQuery('node')->condition('title', $articleId);
+    $query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
+      ->condition('title', $articleId);
     $result = $query->execute();
     return !empty($result) ? reset($result) : 0;
   }
@@ -186,20 +205,47 @@ class ArticleCrud {
    * @return array|bool
    *   Return article snippet, if found.
    */
-  public function getArticle(EntityInterface $node, bool $preview = FALSE) {
-    $pid = $node->get('field_article_json')->getValue()[0]['target_id'];
-    $paragraph = Paragraph::load($pid);
-    if ($preview) {
-      return json_decode($paragraph->get('field_article_unpublished_json')->getString(), TRUE);
-    }
-    else {
-      if ($paragraph->get('field_article_published_json')->getValue()) {
-        return json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
+  public function getArticle(EntityInterface $node, bool $preview = FALSE, $allowReviewedPreprint = FALSE) {
+    $snippet = [];
+    if ($article_json = $node->get('field_article_json')->getValue()) {
+      $pid = $article_json[0]['target_id'];
+      $paragraph = Paragraph::load($pid);
+      if ($preview && $paragraph->get('field_article_unpublished_json')->getValue()) {
+        $snippet = json_decode($paragraph->get('field_article_unpublished_json')->getString(), TRUE);
       }
-      else {
-        return FALSE;
+      elseif ($paragraph->get('field_article_published_json')->getValue()) {
+        $snippet = json_decode($paragraph->get('field_article_published_json')->getString(), TRUE);
+      }
+      elseif ($allowReviewedPreprint && $paragraph->get('field_reviewed_preprint_json')->getValue()) {
+        $snippet = ['type' => 'reviewed-preprint'] + json_decode($paragraph->get('field_reviewed_preprint_json')->getString(), TRUE);
+      }
+
+      // Remove all but the thumbnail image from article snippet.
+      if (!empty($snippet) && !empty($snippet['image']) && empty($snippet['image']['thumbnail'])) {
+        unset($snippet['image']);
       }
     }
+
+    return !empty($snippet) ? $snippet : FALSE;
+  }
+
+  /**
+   * Get ArticleVersions from node.
+   */
+  public function getNodeArticleVersions(EntityInterface $node) {
+    $versions = [];
+    $published = $this->getArticle($node, FALSE);
+    $preview = $this->getArticle($node, TRUE);
+
+    if ($published) {
+      $versions[] = $published;
+    }
+
+    if ($preview && (!$published || ($published && $published['stage'] !== $preview['stage']))) {
+      $versions[] = $preview;
+    }
+
+    return new ArticleVersions($node->label(), json_encode(['versions' => $versions]));
   }
 
 }

@@ -39,6 +39,9 @@ class PersonItemRestResource extends AbstractRestResourceBase {
   public function getItemResponse(string $id) : JCMSRestResponse {
     if ($this->checkId($id)) {
       $query = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
+        // NL 30/10/23: remove staff from api response.
+        ->condition('field_person_type.value', 'executive', '!=')
         ->condition('field_archive.value', 0)
         ->condition('type', 'person')
         ->condition('uuid', '%' . $id, 'LIKE');

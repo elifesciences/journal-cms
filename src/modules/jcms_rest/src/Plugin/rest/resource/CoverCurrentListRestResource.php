@@ -55,11 +55,13 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
 
     $cover_rest_resource = new CoverListRestResource([], 'cover_list_rest_resource', [], $this->serializerFormats, $this->logger);
     foreach (EntitySubqueue::load('covers')->get('items') as $item) {
-      /* @var \Drupal\node\Entity\Node $item_node */
+      /** @var \Drupal\node\Entity\Node $item_node */
       $item_node = $item->get('entity')->getTarget()->getValue();
       if ($item_node->isPublished() && $item_node->get('field_image')->count()) {
-        $this->nodes[$item_node->id()] = $item_node;
-        $response_data['items'][] = $cover_rest_resource->getItem($item_node);
+        if ($item = $cover_rest_resource->getItem($item_node)) {
+          $this->nodes[$item_node->id()] = $item_node;
+          $response_data['items'][] = $item;
+        }
       }
     }
 
@@ -77,18 +79,23 @@ class CoverCurrentListRestResource extends AbstractRestResourceBase {
     $cover_rest_resource = new CoverListRestResource([], 'cover_list_rest_resource', [], $this->serializerFormats, $this->logger);
     $subqueue = EntitySubqueue::load('covers_preview');
     $items = $subqueue->get('items');
-    $limit = (int) $subqueue->get('field_covers_active_items')->getString();
+    $limit = 4;
     foreach ($items as $item) {
       $limit--;
-      /* @var \Drupal\node\Entity\Node $item_node */
+      /** @var \Drupal\node\Entity\Node $item_node */
       $item_node = $item->get('entity')->getTarget()->getValue();
-      $moderation_info = \Drupal::service('content_moderation.moderation_information');
-      if (!$moderation_info->isLatestRevision($item_node)) {
-        $item_node = $moderation_info->getLatestRevision($item_node->getEntityTypeId(), $item_node->id());
+      if (!$item_node->isLatestRevision()) {
+        /** @var \Drupal\Core\Entity\RevisionableStorageInterface $entity_storage */
+        $entity_storage = \Drupal::entityTypeManager()
+          ->getStorage($item_node->getEntityTypeId());
+        $latest_revision_id = $entity_storage->getLatestRevisionId($item_node->id());
+        $item_node = $entity_storage->loadRevision($latest_revision_id);
       }
       if ($item_node->get('field_image')->count()) {
-        $this->nodes[$item_node->id()] = $item_node;
-        $response_data['items'][] = $cover_rest_resource->getItem($item_node);
+        if ($item = $cover_rest_resource->getItem($item_node)) {
+          $this->nodes[$item_node->id()] = $item_node;
+          $response_data['items'][] = $item;
+        }
       }
 
       if ($limit <= 0) {

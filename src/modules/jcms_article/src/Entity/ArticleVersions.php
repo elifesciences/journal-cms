@@ -52,6 +52,31 @@ final class ArticleVersions {
   }
 
   /**
+   * Generate sample json.
+   */
+  public function generateSampleJson() {
+    $this->json = json_encode([
+      'versions' => [
+        [
+          'stage' => self::PUBLISHED,
+          'status' => 'vor',
+          'id' => (string) $this->id,
+          'version' => 1,
+          'type' => 'research-article',
+          'doi' => '10.7554/eLife.' . $this->id,
+          'title' => 'Article ' . $this->id,
+          'stage' => 'published',
+          'published' => '2016-03-28T00:00:00Z',
+          'versionDate' => '2016-03-28T00:00:00Z',
+          'statusDate' => '2016-03-28T00:00:00Z',
+          'volume' => 1,
+          'elocationId' => 'e' . $this->id,
+        ],
+      ],
+    ]);
+  }
+
+  /**
    * Checks if the string passed is valid JSON (passes with an empty string).
    */
   public function isValidJson(string $json) : bool {
@@ -69,7 +94,7 @@ final class ArticleVersions {
   /**
    * Returns the article action, write or delete.
    */
-  public function getAction(): string {
+  public function getAction(): int {
     return $this->action;
   }
 
@@ -110,9 +135,15 @@ final class ArticleVersions {
     if (!property_exists($json, 'versions')) {
       return $needle;
     }
-    $versions = array_reverse($json->versions);
+    $versions = array_filter($json->versions, function ($version) {
+      return isset($version->version);
+    });
+
+    usort($versions, function ($a, $b) {
+      return $a->version === $b->version ? 0 : (($a->version > $b->version) ? -1 : 1);
+    });
     foreach ($versions as $version) {
-      if ($version->stage == $stage) {
+      if ($version->stage === $stage) {
         $needle = json_encode($version);
         break;
       }
