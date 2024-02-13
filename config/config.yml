@@ -4,7 +4,7 @@
 #   - geerlingguy/centos8
 #   - geerlingguy/debian10
 #   - geerlingguy/ubuntu1804
-vagrant_box: geerlingguy/drupal-vm
+vagrant_box: geerlingguy/ubuntu2004
 
 vagrant_user: vagrant
 vagrant_synced_folder_default_type: nfs
@@ -14,7 +14,7 @@ vagrant_gui: false
 # machine name, and IP address for each instance.
 vagrant_hostname: journal-cms.local
 vagrant_machine_name: journal-cms
-vagrant_ip: 192.168.88.83
+vagrant_ip: 192.168.56.9
 
 # Allow Drupal VM to be accessed via a public network interface on your host.
 # Vagrant boxes are insecure by default, so be careful. You've been warned!
@@ -89,7 +89,7 @@ drupal_db_name: journal_cms
 drupal_db_host: localhost
 
 # Settings for installing a Drupal site if 'drupal_install_site:' is 'true'.
-drupal_major_version: 8
+drupal_major_version: 9
 drupal_domain: "{{ vagrant_hostname }}"
 drupal_site_name: "Journal CMS"
 drupal_install_profile: minimal
@@ -287,8 +287,8 @@ composer_home_group: "{{ drupalvm_user }}"
 # reference the directory where your `config.yml` is.
 pre_provision_scripts:
   - "../../../../scripts/pre-provision.sh"
-post_provision_scripts:
-  - "../../../../scripts/go-aws.sh"
+post_provision_scripts: []
+  # - "../../../../scripts/go-aws.sh" # Temporarily disable this script.
   # - "{{ playbook_dir }}/../examples/scripts/configure-solr.sh"
 
 # MySQL Configuration.
