@@ -71,6 +71,8 @@ The setup of goaws has been temporarily disabled. Most development is unimpacted
 
 ## DDev setup
 
+First you need to install DDev, installation instruction for most platforms available here: `https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/`
+
 ```bash
 ddev start
 ddev drush si minimal --existing-config -y
