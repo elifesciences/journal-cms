@@ -1,0 +1,42 @@
+services:
+  localstack:
+    container_name: ddev-${DDEV_SITENAME}-localstack
+    image: localstack/localstack:3.1.0
+    # These labels ensure this service is discoverable by ddev.
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
+    environment:
+      - SERVICES=sns,sqs
+      - AWS_DEFAULT_REGION=us-east-1
+      - LOCALSTACK_HOSTNAME=localstack
+      - LOCALSTACK_HOST=localstack
+      - EDGE_PORT=4566
+    ports:
+      - '4566-4597:4566-4597'
+  aws-cli:
+    image: amazon/aws-cli
+    depends_on:
+      - localstack
+    environment:
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=us-east-1
+    entrypoint: /bin/sh -c
+    command: >
+      "
+        aws sns create-topic --name=annual-reports --endpoint-url=http://localstack:4566
+        aws sns create-topic --name=blog-articles --endpoint-url=http://localstack:4566
+        aws sns create-topic --name=collections --endpoint-url=http://localstack:4566
+        aws sns create-topic --name=covers --endpoint-url=http://localstack:4566
+        aws sns create-topic --name=digests --endpoint-url=http://localstack:4566
+        aws sns create-topic --name=events --endpoint-url=http://localstack:4566
+        aws sns create-topic --name=interviews --endpoint-url=http://localstack:4566
+        aws sns create-topic --name=labs-posts --endpoint-url=http://localstack:4566
+        aws sns create-topic --name=people --endpoint-url=http://localstack:4566
+        aws sns create-topic --name=podcast-episodes --endpoint-url=http://localstack:4566
+        aws sns create-topic --name=press-packages --endpoint-url=http://localstack:4566
+        aws sns create-topic --name=reviewed-preprints --endpoint-url=http://localstack:4566
+        aws sns create-topic --name=subjects --endpoint-url=http://localstack:4566
+        aws sqs create-queue --queue-name journal-cms--queue-local --endpoint-url=http://localstack:4566
+      "
