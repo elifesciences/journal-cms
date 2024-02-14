@@ -327,7 +327,7 @@
     "drupal/scheduler": "^1.5",
     "drupal/services": "^4.0@beta",
     "drupal/transliterate_filenames": "^2.0",
-    "drush/drush": "^10.6",
+    "drush/drush": "^10",
     "elife/api": "^2.24",
     "elife/api-sdk": "1.0.x-dev",
     "elife/api-validator": "^1.0@dev",
