@@ -207,7 +207,7 @@ class JcmsMigrateCommands extends DrushCommands {
    * @command paragraphs:revisions-purge
    * @aliases pr-purge,paragraphs-revisions-purge
    */
-  public function paragraphsRevisionsPurge(string $field, array $options = [
+  public function paragraphsRevisionsPurge(string $field = NULL, array $options = [
     'limit' => NULL,
     'feedback' => NULL,
   ]) {
