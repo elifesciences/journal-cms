@@ -5,4 +5,17 @@ jcms_ckeditor:
     js/jcms_ckeditor.js: {}
   css:
     theme:
-      css/jcms_ckeditor.css: {} 
+      css/jcms_ckeditor.css: {}
+  dependencies:
+    - core/once
+    - core/ckeditor5.editorDecoupled
+    - core/ckeditor5.basic
+    - core/ckeditor5.essentials
+    - core/ckeditor5.link
+    - core/ckeditor5.list
+    - core/ckeditor5.table
+    - core/ckeditor5.codeBlock
+    - core/ckeditor5.blockquote
+    - core/ckeditor5.image
+    - core/drupal.debounce
+    - ckeditor5/internal.drupal.ckeditor5.image

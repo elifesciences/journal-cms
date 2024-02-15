@@ -1,3 +1,4 @@
+
 /**
  * CKEditor Inline
  */
@@ -497,6 +498,70 @@
         return `${name}.${ext}`.toLowerCase().replace(/[^a-z0-9-_.]+/gi, '_');
       };
 
+      // CKEditor5
+      var editorDecoupled = CKEditor5.editorDecoupled;
+
+      var DecoupledEditor = editorDecoupled.DecoupledEditor;
+      $(once('ckeditor5-load', 'body', context)).each(function() {
+        DecoupledEditor.create(document.querySelector('.node__editable'), {
+          plugins: [
+            CKEditor5.basicStyles.Bold,
+            CKEditor5.basicStyles.Italic,
+            CKEditor5.basicStyles.Subscript,
+            CKEditor5.basicStyles.Superscript,
+            CKEditor5.link.Link,
+            CKEditor5.list.DocumentList,
+            CKEditor5.list.DocumentListProperties,
+            CKEditor5.codeBlock.CodeBlock,
+            CKEditor5.blockQuote.BlockQuote,
+            CKEditor5.heading.Heading,
+            CKEditor5.table.Table,
+            CKEditor5.table.TableToolbar,
+            CKEditor5.table.TableCaption,
+            CKEditor5.table.PlainTableOutput,
+            CKEditor5.image.Image,
+            CKEditor5.image.ImageToolbar,
+            CKEditor5.image.ImageResize,
+            CKEditor5.image.ImageInsertUI,
+            CKEditor5.drupalImage.DrupalImage,
+            CKEditor5.drupalImage.DrupalInsertImage,
+            CKEditor5.essentials.Essentials
+          ],
+          toolbar: [
+            'bold',
+            'italic',
+            'subscript',
+            'superscript',
+            '|',
+            'link',
+            '|',
+            'numberedList',
+            'bulletedList',
+            '|',
+            'blockQuote',
+            '|',
+            'drupalInsertImage',
+            'codeBlock',
+            'insertTable',
+            '|',
+            'undo',
+            'redo',
+            '|',
+            'heading'
+          ]
+        }).then(function (editor) {
+          var toolbar = document.getElementById('cke5-floating-toolbar');
+          toolbar.appendChild(editor.ui.view.toolbar.element);
+          /*editor.model.document.on('change:data', function () {
+            var callback = callbacks.get(id);
+            if (callback) {
+              debounce(callback, 400)(editor.getData());
+            }
+          });*/
+        }).catch(function (error) {
+          console.error(error);
+        });
+      });
     }
 
   };
