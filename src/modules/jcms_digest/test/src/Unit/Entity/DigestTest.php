@@ -2,8 +2,8 @@
 
 namespace Drupal\jcms_digest\Tests\Unit\Entity;
 
-use Drupal\Tests\UnitTestCase;
 use Drupal\jcms_digest\Entity\Digest;
+use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests for Digest.

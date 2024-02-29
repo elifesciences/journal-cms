@@ -2,9 +2,9 @@
 
 namespace Drupal\jcms_article;
 
-use GuzzleHttp\Client;
 use Drupal\Core\Site\Settings;
 use Drupal\jcms_article\Entity\ArticleVersions;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;

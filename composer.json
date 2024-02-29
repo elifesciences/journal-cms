@@ -312,6 +312,7 @@
     "drupal/field_validation": "^1.0@beta",
     "drupal/file_entity": "2.0-beta9",
     "drupal/focal_point": "^1.1",
+    "drupal/gin": "^3.0@RC",
     "drupal/hide_revision_field": "^2.2",
     "drupal/inline_entity_form": "~1.0-beta1",
     "drupal/jquery_ui": "^1.6",

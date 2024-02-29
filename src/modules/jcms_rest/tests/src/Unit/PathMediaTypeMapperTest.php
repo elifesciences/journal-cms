@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\jcms_rest\Unit;
 
-use Drupal\Tests\UnitTestCase;
 use Drupal\jcms_rest\PathMediaTypeMapper;
+use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests for PathMediaTypeMapper.

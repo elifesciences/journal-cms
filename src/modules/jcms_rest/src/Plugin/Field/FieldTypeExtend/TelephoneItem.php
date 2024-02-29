@@ -2,8 +2,8 @@
 
 namespace Drupal\jcms_rest\Plugin\Field\FieldTypeExtend;
 
-use Drupal\telephone\Plugin\Field\FieldType\TelephoneItem as TelephoneItemExtend;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\telephone\Plugin\Field\FieldType\TelephoneItem as TelephoneItemExtend;
 
 /**
  * {@inheritdoc}

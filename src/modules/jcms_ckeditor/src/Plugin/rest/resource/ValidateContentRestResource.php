@@ -2,11 +2,11 @@
 
 namespace Drupal\jcms_ckeditor\Plugin\rest\resource;
 
-use Drupal\node\Entity\Node;
-use eLife\ApiValidator\Exception\InvalidMessage;
+use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Plugin\rest\resource\AbstractRestResourceBase;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
-use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
+use Drupal\node\Entity\Node;
+use eLife\ApiValidator\Exception\InvalidMessage;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

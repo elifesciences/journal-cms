@@ -3,10 +3,10 @@
 namespace Drupal\Tests\jcms_rest\Functional;
 
 use eLife\ApiValidator\MessageValidator\FakeHttpsMessageValidator;
+use eLife\ApiValidator\MessageValidator\JsonMessageValidator;
 use eLife\ApiValidator\SchemaFinder\PathBasedSchemaFinder;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
-use eLife\ApiValidator\MessageValidator\JsonMessageValidator;
 use JsonSchema\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
