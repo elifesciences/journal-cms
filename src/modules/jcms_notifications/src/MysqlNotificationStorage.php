@@ -2,8 +2,8 @@
 
 namespace Drupal\jcms_notifications;
 
-use Drupal\mysql\Driver\Database\mysql\Connection;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\mysql\Driver\Database\mysql\Connection;
 
 /**
  * MysqlNotificationStorage service class.

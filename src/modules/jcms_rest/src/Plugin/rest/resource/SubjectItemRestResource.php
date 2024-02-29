@@ -2,9 +2,9 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\taxonomy\Entity\Term;
 use Drupal\jcms_rest\Exception\JCMSNotFoundHttpException;
 use Drupal\jcms_rest\Response\JCMSRestResponse;
+use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

@@ -2,9 +2,9 @@
 
 namespace Drupal\jcms_admin;
 
-use Drupal\Core\Entity\EntityAutocompleteMatcher as CoreEntityAutocompleteMatcher;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Tags;
+use Drupal\Core\Entity\EntityAutocompleteMatcher as CoreEntityAutocompleteMatcher;
 
 /**
  * Matcher class to get autocompletion results for entity reference.

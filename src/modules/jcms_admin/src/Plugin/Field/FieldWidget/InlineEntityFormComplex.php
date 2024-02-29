@@ -3,9 +3,9 @@
 namespace Drupal\jcms_admin\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Entity\RevisionableInterface;
-use Drupal\inline_entity_form\Plugin\Field\FieldWidget\InlineEntityFormComplex as IefInlineEntityFormComplex;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\inline_entity_form\Plugin\Field\FieldWidget\InlineEntityFormComplex as IefInlineEntityFormComplex;
 
 /**
  * Complex inline widget.

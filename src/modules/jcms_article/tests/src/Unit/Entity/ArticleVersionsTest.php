@@ -2,8 +2,8 @@
 
 namespace Drupal\jcms_article\Tests\Unit\Entity;
 
-use Drupal\Tests\UnitTestCase;
 use Drupal\jcms_article\Entity\ArticleVersions;
+use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests for ArticleVersions.
