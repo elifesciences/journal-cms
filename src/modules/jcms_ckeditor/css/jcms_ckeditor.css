@@ -171,7 +171,6 @@ elifebutton.elife-button--outline:hover {
 
 .cke5_floating_toolbar {
   z-index: 1;
-  //width: 100%;
 }
 
 .cke_toolbar_fixed {
@@ -203,7 +202,7 @@ body .toast-success {
 
 body .toast-warning {
   background-color: #c83939;
-  border: 1px solid #902b2b
+  border: 1px solid #902b2b;
 }
 
 body .toast-close-button {
@@ -227,4 +226,3 @@ body .toast-close-button {
   overflow: hidden;
   padding-bottom: 10px;
 }
-

@@ -64,8 +64,6 @@ class FilterCkImages extends FilterBase implements ContainerFactoryPluginInterfa
   public function process($text, $langcode) {
     $result = new FilterProcessResult($text);
 
-    //return $result;
-
     if (stristr($text, 'img') !== FALSE) {
       $dom = Html::load($text);
       $xpath = new \DOMXPath($dom);
@@ -86,24 +84,13 @@ class FilterCkImages extends FilterBase implements ContainerFactoryPluginInterfa
         $node->removeAttribute('data-caption');
 
         if ($caption) {
-          // Sanitize caption: decode HTML encoding, limit allowed HTML tags; only
-          // allow inline tags that are allowed by default, plus <br>.
+          // Sanitize caption: decode HTML encoding, limit allowed HTML tags;
+          // only allow inline tags that are allowed by default, plus <br>.
           $caption = Html::decodeEntities($caption);
           $raw_caption = $caption;
           $filtered_caption = $html_filter->process($caption, $langcode);
           $result->addCacheableDependency($filtered_caption);
           $caption = FilteredMarkup::create($filtered_caption->getProcessedText());
-
-          // The caption must be non-empty - however the Media Embed CKEditor
-          // plugin uses a single space to represent a newly added caption. The
-          // HTML filter will transform this into an empty string and prevent the
-          // content editor from adding a new caption. To allow for this we treat
-          // a raw caption value of ' ' as valid and adding the wrapping figure
-          // element.
-          // @see core/modules/media/js/plugins/drupalmedia/plugin.es6.js
-          //if (mb_strlen($caption) === 0 && $raw_caption !== ' ') {
-          //  continue;
-          //}
         }
 
         $align_mapping = [
@@ -114,7 +101,7 @@ class FilterCkImages extends FilterBase implements ContainerFactoryPluginInterfa
         $classes = ['image'];
         $align = $node->getAttribute('data-align');
         $node->removeAttribute('data-align');
-        //$classes .= $node->getAttribute('class');
+        // $classes .= $node->getAttribute('class');
         $node->removeAttribute('class');
 
         // If one of the allowed alignments, add the corresponding class.
@@ -137,7 +124,7 @@ class FilterCkImages extends FilterBase implements ContainerFactoryPluginInterfa
         ];
         $altered_html = \Drupal::service('renderer')->render($filter_caption);
 
-        // Load the altered HTML into a new DOMDocument and retrieve the element.
+        // Load altered HTML into a new DOMDocument and retrieve the element.
         $updated_nodes = Html::load($altered_html)->getElementsByTagName('body')
           ->item(0)
           ->childNodes;
