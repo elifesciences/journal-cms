@@ -9,17 +9,15 @@
   const PUBLISH = 2;
   const VALIDATE_AND_PUBLISH = 3;
 
-  Drupal.behaviors.customCKEditorConfig = {
-    attach: function (context, settings) {
-      if (typeof CKEDITOR !== "undefined") {
-        CKEDITOR.dtd.placeholder = {span: 1, img: 1};
-        CKEDITOR.dtd.$inline['placeholder'] = 1;
-      }
-    }
-  };
+  Drupal.CKEditor5Instances = new Map();
 
   Drupal.behaviors.inlineEditor = {
     attach: function (context, settings) {
+
+      toastr.options.closeButton = true;
+      toastr.options.positionClass = "toast-top-center";
+      toastr.options.showDuration = 100;
+      toastr.options.hideDuration = 30;
 
       if ($('.node__content .field--name-field-impact-statement', context).length > 0) {
         $('.node__content .field--name-field-impact-statement', context).appendTo($('.block-page-title-block .content', context));
@@ -27,64 +25,29 @@
 
       // Make sure we have the content field to process
       if ($('.node__content .field--name-field-content-html-preview', context).length > 0) {
-        var autosaveTimer;
+        var autosaveTimer, isDirty = false;
+        var uuid = false, url, data, option, node_type, currentImages;
 
-        // Takes in two CKEditor Node Lists containing images
-        // and finds any uuid of images that are no longer
-        // in the updated list (i.e. deleted)
-        var diff = function (original, updated) {
-          var deletedIds = [], ids = [], id, i;
-          // Get array of ids in the updated list
-          if (updated.count() > 0) {
-            for (i = 0; i < updated.count(); i++) {
-              id = updated.getItem(i).data('uuid');
-              if (id) {
-                ids.push(id);
-              }
+        const getCkImages = function(editor) {
+          const range = editor.model.createRangeIn(editor.model.document.getRoot());
+          const images = new Set();
+          for (const value of range.getWalker()) {
+            if (value.type === 'elementStart' &&
+              (value.item.name === 'imageInline' || value.item.name === 'imageBlock') &&
+              value.item.hasAttribute('dataEntityUuid')) {
+              images.add(value.item.getAttribute('dataEntityUuid'));
             }
           }
-          // Find any ids in the original list not in the updated list
-          if (original.count() > 0) {
-            for (i = 0; i < original.count(); i++) {
-              id = original.getItem(i).data('uuid');
-              if (id && ids.indexOf(id) < 0) {
-                deletedIds.push(id);
-              }
-            }
+          return images;
+        }
+
+        const difference = function(setA, setB) {
+          const _difference = new Set(setA);
+          for (const elem of setB) {
+            _difference.delete(elem);
           }
-          return deletedIds;
-        };
-
-        // Contrib plugins
-        CKEDITOR.plugins.addExternal('embedbase', settings.pluginPathContrib + 'embedbase/');
-        CKEDITOR.plugins.addExternal('embedvideo', settings.pluginPathContrib + 'embedvideo/');
-        CKEDITOR.plugins.addExternal('balloonpanel', settings.pluginPathContrib + 'balloonpanel/');
-        CKEDITOR.plugins.addExternal('balloontoolbar', settings.pluginPathContrib + 'balloontoolbar/');
-        CKEDITOR.plugins.addExternal('autoembed', settings.pluginPathContrib + 'autoembed/');
-        CKEDITOR.plugins.addExternal('filetools', settings.pluginPathContrib + 'filetools/');
-        CKEDITOR.plugins.addExternal('notificationaggregator', settings.pluginPathContrib + 'notificationaggregator/');
-        CKEDITOR.plugins.addExternal('uploadwidget', settings.pluginPathContrib + 'uploadwidget/');
-        CKEDITOR.plugins.addExternal('uploadimage', settings.pluginPathContrib + 'uploadimage/');
-        CKEDITOR.plugins.addExternal('autolink', settings.pluginPathContrib + 'autolink/');
-        CKEDITOR.plugins.addExternal('undo', settings.pluginPathContrib + 'undo/');
-        CKEDITOR.plugins.addExternal('sharedspace', settings.pluginPathContrib + 'sharedspace/');
-        CKEDITOR.plugins.addExternal('fakeobjects', settings.pluginPathContrib + 'fakeobjects/');
-        CKEDITOR.plugins.addExternal('link', settings.pluginPathContrib + 'link/');
-        CKEDITOR.plugins.addExternal('codesnippet', settings.pluginPathContrib + 'codesnippet/');
-
-        // Custom plugins
-        CKEDITOR.plugins.addExternal('imagealign', settings.pluginPathCustom + 'imagealign/');
-        CKEDITOR.plugins.addExternal('elifebutton', settings.pluginPathCustom + 'elifebutton/');
-        CKEDITOR.plugins.addExternal('captionedvideo', settings.pluginPathCustom + 'captionedvideo/');
-        CKEDITOR.plugins.addExternal('twitterembed', settings.pluginPathCustom + 'twitterembed/');
-        CKEDITOR.plugins.addExternal('googlemapembed', settings.pluginPathCustom + 'googlemapembed/');
-        CKEDITOR.plugins.addExternal('figshareembed', settings.pluginPathCustom + 'figshareembed/');
-
-        var $content = $(' .node__content .field--name-field-content-html-preview');
-
-        $content.attr('contenteditable', true);
-
-        var uuid = false, url, data, options, node_type;
+          return _difference;
+        }
 
         // Get UUID and node type from body tag
         if ($('body').data('uuid') && $('body').data('node-type')) {
@@ -103,33 +66,6 @@
           headers: []
         };
 
-        var bodyEditorOptions = {
-          extraPlugins: 'image2,uploadimage,balloontoolbar,balloonpanel,imagealign,elifebutton,captionedvideo,twitterembed,googlemapembed,figshareembed,autoembed,pastefromword,undo,sharedspace,link,codesnippet',
-          toolbarGroups: [
-            {"name":"basicstyles","groups":["basicstyles"]},
-            {"name":"links","groups":["links"]},
-            {"name":"paragraph","groups":["list","blocks"]},
-            //{"name":"document","groups":["mode"]},
-            {"name":"insert","groups":["insert"]},
-            {"name":"undo","groups":["undo"]},
-            {"name":"codesnippet","groups":["codesnippet"]},
-            {"name": "styles"}
-          ],
-          imageUploadUrl: url + '/field_content_images_preview',
-          removeButtons: 'Underline,Strike,Anchor,SpecialChar,HorizontalRule,ImageAlignLeft,ImageAlignRight,ImageFullWidth,Styles',
-          image2_alignClasses: ['align-left', 'align-center', 'profile-left'],
-          image2_disableResizer: true,
-          extraAllowedContent: 'elifebutton[data-href](elife-button--default,elife-button--outline);oembed[data-videocaption](align-left,align-right,align-center);figure[data-*](figshare,tweet,gmap);figcaption;iframe[!src,width,height,frameborder](no-events);img[data-fid,data-uuid];placeholder;a',
-          format_tags: 'p;h1;h2',
-          embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
-          autoEmbed_widget: 'embedVideo',
-          customConfig: '',
-          stylesSet: false,
-          linkShowAdvancedTab: false,
-          linkShowTargetTab: false,
-          sharedSpaces: {top: 'cke-floating-toolbar'}
-        };
-
         // Get the session token for crsf
         $.ajax({
           method: 'GET',
@@ -139,429 +75,332 @@
           }
         });
 
-        if (uuid) {
-          // Disable autoinline as we are going to create a shared space toolbar
-          CKEDITOR.disableAutoInline = true;
+        var setElementId = function setElementId(element) {
+          var id = Math.random().toString().slice(2, 9);
+          element.setAttribute('data-ckeditor5-id', id);
+          return id;
+        };
 
-          // Remove link type option and unwanted protocols
-          // from link dialog window
-          CKEDITOR.on('dialogDefinition', function (event) {
-            var dialogName = event.data.name;
-            var dialogDefinition = event.data.definition;
+        var getElementId = function getElementId(element) {
+          return element.getAttribute('data-ckeditor5-id');
+        };
 
-            if (dialogName == 'link') {
-              var infoTab = dialogDefinition.getContents('info');
-              infoTab.get('linkType').hidden = true;
-              infoTab.get('protocol')['items'].splice(2, 3);
+        $(once('ckeditor5-load', 'body', context)).each(function () {
+          var editorDecoupled = CKEditor5.editorDecoupled;
+          var DecoupledEditor = editorDecoupled.DecoupledEditor;
+
+          var editorSetting = settings.editor.formats.ckeditor_html.editorSettings,
+            toolbar = editorSetting.toolbar,
+            plugins = editorSetting.plugins,
+            pluginConfig = editorSetting.config,
+            language = editorSetting.language;
+
+          var config = _objectSpread({
+            extraPlugins: selectPlugins(plugins),
+            toolbar: toolbar,
+            language: language
+          }, processConfig(pluginConfig));
+
+          var element = document.querySelector('.node__content');
+          var id = setElementId(element);
+
+          DecoupledEditor.create(element, config).then(function (editor) {
+            Drupal.CKEditor5Instances.set(id, editor);
+            if (CKEditorInspector) {
+              CKEditorInspector.attach(editor);
             }
+            var toolbar = document.getElementById('cke5-floating-toolbar');
+            toolbar.appendChild(editor.ui.view.toolbar.element);
 
-          });
-
-          var bodyEditor = $content.ckeditor(bodyEditorOptions).editor;
-
-          bodyEditor.on( 'instanceReady', function (ck) {
-            var editable = bodyEditor.editable(), images = editable.find('img');
-            var notification = new CKEDITOR.plugins.notification(bodyEditor, {message: 'Test'});
-
-            // Remove items from context menus
-            //bodyEditor.removeMenuItem('paste');
-            bodyEditor.removeMenuItem('cut');
-            //bodyEditor.removeMenuItem('copy');
-            bodyEditor.removeMenuItem('image');
-
-            // Insert a figure widget when image is uploaded with uuid
-            bodyEditor.widgets.registered.uploadimage.onUploaded = function (upload) {
-              this.replaceWith( '<figure class="image"><img src="' + upload.url + '" width="' +
-                upload.responseData.width + '" height="' +
-                upload.responseData.height + '" ' +
-                //'data-fid="' + upload.responseData.fid + '" ' +
-                'data-uuid="' + upload.responseData.uuid + '">' +
-                '<figcaption>Caption</figcaption></figure>');
-              // force images list to be rebuilt
-              images = editable.find('img');
-            };
-
-            // Balloon toolbar for figure/image alignment
-            bodyEditor.balloonToolbars.create({
-              buttons: 'ImageAlignLeft,ImageFullWidth,ImageAlignRight',
-              widgets: 'image'
+            // Save any changes when editor looses focus
+            editor.editing.view.document.on('change:isFocused' , function (e) {
+              if (isDirty) {
+                saveEditor(!editor.editing.view.document.isFocused);
+              }
             });
 
-            // Any change in the editor contents
-            bodyEditor.on('change', function () {
+            editor.model.document.on('change:data', function () {
               // Hide any previous autosave notification and
               // autosave content 5 seconds after last change
-              notification.hide();
+              toastr.clear();
               clearTimeout(autosaveTimer);
-              autosaveTimer = setTimeout(saveBodyEditor, 5000);
+              isDirty = true;
+              autosaveTimer = setTimeout(saveEditor, 5000);
 
-              // Look for any deleted images and if so remove
-              // from backend
-              var deletedIds = diff(images, editable.find('img'));
-              if (deletedIds.length > 0) {
-                for (var i = 0; i < deletedIds.length; i++) {
-                  $.ajax({
-                    method: 'DELETE',
-                    dataType: 'json',
-                    contentType: 'application/vnd.api+json',
-                    headers: {'X-CSRF-Token': ajaxOptions.headers['X-CSRF-Token']},
-                    url: '/jsonapi/file/image/' + deletedIds[i]
+              // Look for any deleted images and if so remove from backend
+              if (currentImages && currentImages.size > 0) {
+                const deletedImages = difference(currentImages, getCkImages(editor));
+                if (deletedImages.size > 0) {
+                  deletedImages.forEach((uuid) => {
+                    $.ajax({
+                      method: 'DELETE',
+                      dataType: 'json',
+                      contentType: 'application/vnd.api+json',
+                      headers: {'X-CSRF-Token': ajaxOptions.headers['X-CSRF-Token']},
+                      url: '/jsonapi/file/image/' + uuid
+                    });
                   });
                 }
               }
-              images = editable.find('img');
+              currentImages = getCkImages(editor);
             });
-
-            // Callback if publish/save is successful
-            var saveSuccess = function (response, status) {
-              // Delay validation by 1s because of recent save
-              setTimeout(function () {
-                $.ajax({
-                  method: 'GET',
-                  url: '/validate-publish/' + VALIDATE_AND_PUBLISH + '/' + uuid.substring(uuid.length - 8),
-                  success: function (response) {
-                    if (response.validated && response.published) {
-                      var msg = Drupal.t('Content has been published.');
-                      notification.update({message: msg, duration: 3000, type: 'info'});
-                      notification.show();
-                      setTimeout(function () {window.location.reload();}, 1000);
-                    } else {
-                      var msg = Drupal.t('Content validation failed. Content will NOT be published.');
-                      notification.update({message: msg, duration: 0, type: 'warning'});
-                      notification.show();
-                    }
-                  },
-                  error: function (xhr, status, error) {
-                    var msg = Drupal.t('Content publication failed');
-                    if (xhr && xhr.responseJSON && xhr.responseJSON.errors[0]) {
-                      var err = xhr.responseJSON.errors[0];
-                      msg += '<br>' + err.title + ': ' + err.detail;
-                    }
-                    else if (xhr && xhr.responseText) {
-                      msg += '<br>' + xhr.responseText;
-                    }
-                    notification.update({message: msg, duration: 0, type: 'warning'});
-                    notification.show();
-                  }
-                });
-              }, 1000);
-            };
-
-            // Callback if autosave is successful
-            var saveAutoSuccess = function (response, status) {
-              var msg = Drupal.t('Auto save successful');
-              notification.update({message: msg, duration: 3000, type: 'info'});
-              notification.show();
-            };
-
-            // Callback if save and redirect to edit (close)
-            var saveCloseSuccess = function (response, status) {
-              var msg = Drupal.t('Save successful');
-              notification.update({message: msg, duration: 3000, type: 'info'});
-              notification.show();
-              var href = window.location.href;
-              if (href.match(/node\/[0-9]+/i)) {
-                // Redirect after 1 sec to avoid race condition with node just being saved
-                setTimeout(function () {window.location.href = href + "/edit";}, 1000);
-              }
-            };
-
-            // Callback if autosave fails
-            var saveError = function (xhr, status, error) {
-              var msg = Drupal.t('Auto save failed');
-              if (xhr && xhr.responseJSON && xhr.responseJSON.errors[0]) {
-                var err = xhr.responseJSON.errors[0];
-                msg += '<br>' + err.title + ': ' + err.detail;
-              }
-              else if (xhr && xhr.responseText) {
-                msg += '<br>' + xhr.responseText;
-              }
-              notification.update({message: msg, duration: 0, type: 'warning'});
-              notification.show();
-            };
-
-            // Save the main field content
-            var saveBodyEditor = function (showSaveNotification) {
-              // Remove any hidden placeholder text
-              if ($(bodyEditor.editable().$).find('placeholder').length > 0) {
-                var placeholder = $(bodyEditor.editable().$).find('placeholder').html().replace(settings.placeholder, '');
-                if ($.trim(placeholder).length === 0) {
-                  $(bodyEditor.editable().$).find('placeholder').remove();
-                }
-              }
-              $(bodyEditor.editable().$).find('placeholder').remove();
-              var content = bodyEditor.getData();
-              if ($.trim(content).length === 0) {
-                // if we are left with an empty string
-                // reinstate placeholder
-                bodyEditor.setData('<p><placeholder>' + settings.placeholder + '</placeholder></p>');
-              }
-              images = editable.find('img');
-              var image_fields = [], image_field, image;
-              for (var i = 0; i < images.count(); i++) {
-                image = images.getItem(i);
-                if (image.data('uuid')) {
-                  image_field = {
-                    id: image.data('uuid'),
-                    type: 'file--image',
-                    meta: {
-                      height: image.data('height'),
-                      width: image.data('width'),
-                    }
-                  }
-                  image_fields.push(image_field);
-                }
-              }
-              data = {
-                data: {
-                  type: "node--" + node_type,
-                  id: uuid,
-                  attributes: {
-                    field_content_html_preview: {
-                      value: bodyEditor.getData(),
-                      format: 'ckeditor_html'
-                    }
-                  },
-                  relationships: {
-                    field_content_images_preview: {data: image_fields}
-                  }
-                }
-              };
-              var extraOptions = {
-                data: JSON.stringify(data),
-                error: saveError
-              };
-              if (typeof showSaveNotification === 'undefined' || (typeof showSaveNotification === 'boolean' && showSaveNotification === true)) {
-                extraOptions.success = saveAutoSuccess;
-              } else if (typeof showSaveNotification === 'function') {
-                extraOptions.success = showSaveNotification;
-              }
-              options = $.extend({}, ajaxOptions, extraOptions);
-              $.ajax(options);
-              clearTimeout(autosaveTimer);
-            };
-
-            // Save any changes when editor looses focus
-            bodyEditor.on('blur' , function (e) {
-              saveBodyEditor();
-            });
-
-            // Save image in backend when receive upload request
-            bodyEditor.on('fileUploadRequest', function (e) {
-              var fileLoader = e.data.fileLoader;
-              var image = fileLoader.data.split(',');
-              if (image[0] === 'data:image/jpeg;base64' ||
-                  image[0] === 'data:image/png;base64') {
-
-                //data = image[1];
-                data = b64toBlob(image[1]);
-                var xhr = fileLoader.xhr;
-                var filename = filenameSanitize(fileLoader.fileName);
-
-                xhr.setRequestHeader('Content-Type', 'application/octet-stream');
-                xhr.setRequestHeader('Accept', 'application/vnd.api+json');
-                xhr.setRequestHeader('X-CSRF-Token', ajaxOptions.headers['X-CSRF-Token']);
-                xhr.setRequestHeader('Content-Disposition', 'file; filename="' + filename + '"');
-                xhr.send(data);
-
-                // Prevent the default behavior.
-                e.stop();
-              } else {
-                // Image format not recognised
-                e.cancel();
-              }
-            });
-
-            // Handle response from file save
-            bodyEditor.on('fileUploadResponse', function (e) {
-              // Prevent the default response handler.
-              e.stop();
-
-              // Get XHR and response.
-              var data = e.data,
-                fileLoader = data.fileLoader,
-                xhr = fileLoader.xhr;
-
-              if (xhr.status == 200) {
-                // New file created so set attributes so they are
-                // available to the editor
-                var response = JSON.parse(xhr.responseText);
-                for (var i in response.data) {
-                  var attr = response.data[i].attributes;
-                  if (attr.filename == filenameSanitize(fileLoader.fileName)) {
-                    data.url = attr.uri.url;
-                    //data.fid = attr.drupal_internal__fid;
-                    data.uuid = response.data[i].id;
-                    data.width = attr.field_image_width;
-                    data.height = attr.field_image_height;
-                    break;
-                  }
-                }
-              } else {
-                // File upload error
-                e.cancel();
-              }
-            });
-
-            // Save when editor gains focus to help initial paste work
-            bodyEditor.on('focus', function (e) {
-              saveBodyEditor(false);
-            });
-
-            // Save and close button just saves the current text
-            $('.save-button').once('save').each(function () {
-              $(this).click(function (event) {
-                event.preventDefault();
-                saveBodyEditor(saveCloseSuccess);
-              });
-            });
-
-            // Publish button just saves the current text
-            $('.publish-button').once('publish').each(function () {
-              $(this).click(function (event) {
-                event.preventDefault();
-                saveBodyEditor(saveSuccess);
-              });
-            });
-
-            $('.discard-button').once('discard').each(function () {
-              $(this).click(function (event) {
-                if (!confirm('You are about to discard your changes?')) {
-                  event.preventDefault();
-                }
-              });
-            });
-
-          });
-
-        }
-      }
-
-      // Position the toolbar div as the window scrolls
-      var toolbarScroll = function () {
-        var $window = $(window);
-        var $toolbar = $('#cke-floating-toolbar');
-        var $container = $toolbar.parent();
-        var defaultTop = $('article.node').offset().top;
-        var containerLeft = $container.offset().left;
-        var containerWidth = $container.width();
-        var toolbarHeight = 0;
-        if ($('.toolbar-bar').length > 0) {
-          toolbarHeight += $('.toolbar-bar').height();
-        }
-        if ($('.toolbar-tray-horizontal.is-active').length > 0) {
-          toolbarHeight += $('.toolbar-tray-horizontal.is-active').height();
-        }
-
-        if ($window.scrollTop() > defaultTop - toolbarHeight) {
-          $toolbar.addClass('cke_toolbar_fixed');
-          $toolbar.css('top', toolbarHeight).css('left', containerLeft).css('width', containerWidth);
-        }
-        else {
-          $toolbar.removeClass('cke_toolbar_fixed');
-          $toolbar.css('top', 'auto').css('left', 'auto').css('width', 'auto');
-        }
-      };
-
-      if ($('#cke-floating-toolbar').length > 0) {
-        $('#cke-floating-toolbar').once('toolbar').each( function () {
-          $(window).scroll(function () {
-            toolbarScroll();
+          }).catch(function (error) {
+            console.error(error);
           });
         });
-      }
 
-      const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
-        const byteCharacters = atob(b64Data);
-        const byteArrays = [];
+        const toastStyle = $('<style>').text('#toast-container{top:0px}').appendTo(document.head);
 
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-          const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-          const byteNumbers = new Array(slice.length);
-          for (let i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
+        // Position the toolbar div as the window scrolls
+        var toolbarScroll = function () {
+          const $window = $(window);
+          const $toolbar = $('#cke5-floating-toolbar');
+          const $container = $toolbar.parent();
+          const $toast = $('#toast-container');
+          const defaultTop = $('article.node').offset().top;
+          const containerLeft = $container.offset().left;
+          const containerWidth = $container.width();
+          var toolbarHeight = 0;
+          if ($('.toolbar-bar').length > 0) {
+            toolbarHeight += $('.toolbar-bar').height();
+          }
+          if ($('.toolbar-tray-horizontal.is-active').length > 0) {
+            toolbarHeight += $('.toolbar-tray-horizontal.is-active').height();
           }
 
-          const byteArray = new Uint8Array(byteNumbers);
-          byteArrays.push(byteArray);
+          var scrollTop = (defaultTop - toolbarHeight) - $window.scrollTop();
+          var toastTop = 0;
+          if (scrollTop < 0) {
+            $toolbar.addClass('cke_toolbar_fixed');
+            $toolbar.css('top', toolbarHeight).css('left', containerLeft).css('width', containerWidth);
+            toastTop = toolbarHeight + 50;
+          } else {
+            $toolbar.removeClass('cke_toolbar_fixed');
+            $toolbar.css('top', 'auto').css('left', 'auto').css('width', 'auto');
+            toastTop = toolbarHeight + 50 + scrollTop;
+          }
+          toastStyle.text('#toast-container{top:' + toastTop + 'px}');
+        };
+
+        if ($('#cke5-floating-toolbar').length > 0) {
+          toolbarScroll();
+          $('#cke5-floating-toolbar').once('toolbar').each(function () {
+            $(window).scroll(function () {
+              toolbarScroll();
+            });
+          });
         }
 
-        const blob = new Blob(byteArrays, {type: contentType});
-        return blob;
-      };
-
-      const filenameSanitize = (filename) => {
-        const parts = filename.split('.');
-        const ext = parts.pop();
-        const name = parts.join('_');
-        return `${name}.${ext}`.toLowerCase().replace(/[^a-z0-9-_.]+/gi, '_');
-      };
-
-      // CKEditor5
-      var editorDecoupled = CKEditor5.editorDecoupled;
-
-      var DecoupledEditor = editorDecoupled.DecoupledEditor;
-      $(once('ckeditor5-load', 'body', context)).each(function() {
-        DecoupledEditor.create(document.querySelector('.node__editable'), {
-          plugins: [
-            CKEditor5.basicStyles.Bold,
-            CKEditor5.basicStyles.Italic,
-            CKEditor5.basicStyles.Subscript,
-            CKEditor5.basicStyles.Superscript,
-            CKEditor5.link.Link,
-            CKEditor5.list.DocumentList,
-            CKEditor5.list.DocumentListProperties,
-            CKEditor5.codeBlock.CodeBlock,
-            CKEditor5.blockQuote.BlockQuote,
-            CKEditor5.heading.Heading,
-            CKEditor5.table.Table,
-            CKEditor5.table.TableToolbar,
-            CKEditor5.table.TableCaption,
-            CKEditor5.table.PlainTableOutput,
-            CKEditor5.image.Image,
-            CKEditor5.image.ImageToolbar,
-            CKEditor5.image.ImageResize,
-            CKEditor5.image.ImageInsertUI,
-            CKEditor5.drupalImage.DrupalImage,
-            CKEditor5.drupalImage.DrupalInsertImage,
-            CKEditor5.essentials.Essentials
-          ],
-          toolbar: [
-            'bold',
-            'italic',
-            'subscript',
-            'superscript',
-            '|',
-            'link',
-            '|',
-            'numberedList',
-            'bulletedList',
-            '|',
-            'blockQuote',
-            '|',
-            'drupalInsertImage',
-            'codeBlock',
-            'insertTable',
-            '|',
-            'undo',
-            'redo',
-            '|',
-            'heading'
-          ]
-        }).then(function (editor) {
-          var toolbar = document.getElementById('cke5-floating-toolbar');
-          toolbar.appendChild(editor.ui.view.toolbar.element);
-          /*editor.model.document.on('change:data', function () {
-            var callback = callbacks.get(id);
-            if (callback) {
-              debounce(callback, 400)(editor.getData());
+        // Save the main field content
+        var saveEditor = function (showSaveNotification) {
+          // Remove any hidden placeholder text
+          /*if ($(bodyEditor.editable().$).find('placeholder').length > 0) {
+            var placeholder = $(bodyEditor.editable().$).find('placeholder').html().replace(settings.placeholder, '');
+            if ($.trim(placeholder).length === 0) {
+              $(bodyEditor.editable().$).find('placeholder').remove();
             }
-          });*/
-        }).catch(function (error) {
-          console.error(error);
+          }
+          $(bodyEditor.editable().$).find('placeholder').remove();*/
+
+          const element = document.querySelector('.node__content');
+          const id = getElementId(element);
+          const editor = Drupal.CKEditor5Instances.get(id);
+          if (!editor) {
+            return;
+          }
+          const content = editor.getData();
+          const image_fields = [];
+
+          if ($.trim(content).length === 0) {
+            // if we are left with an empty string
+            // reinstate placeholder
+            editor.setData('<p><placeholder>' + settings.placeholder + '</placeholder></p>');
+          }
+
+          currentImages = getCkImages(editor);
+          currentImages.forEach((uuid) => {
+            const image_field = {
+              id: uuid,
+              type: 'file--image',
+              /*meta: {
+                height: image.data('height'),
+                width: image.data('width'),
+              }*/
+            }
+            image_fields.push(image_field);
+          });
+          data = {
+            data: {
+              type: "node--" + node_type,
+              id: uuid,
+              attributes: {
+                field_content_html_preview: {
+                  value: content,
+                  format: 'ckeditor_html'
+                }
+              },
+              relationships: {
+                field_content_images_preview: {data: image_fields}
+              }
+            }
+          };
+          var extraOptions = {
+            data: JSON.stringify(data),
+            error: saveError
+          };
+          if (typeof showSaveNotification === 'undefined' || (typeof showSaveNotification === 'boolean' && showSaveNotification === true)) {
+            extraOptions.success = saveAutoSuccess;
+          } else if (typeof showSaveNotification === 'function') {
+            extraOptions.success = showSaveNotification;
+          }
+          const options = $.extend({}, ajaxOptions, extraOptions);
+          $.ajax(options);
+          clearTimeout(autosaveTimer);
+        };
+
+        // Callback if autosave is successful
+        var saveAutoSuccess = function (response, status) {
+          var msg = Drupal.t('Auto save successful');
+          toastr.success(msg);
+          isDirty = false;
+        };
+
+        // Callback if save and redirect to edit (close)
+        var saveCloseSuccess = function (response, status) {
+          var msg = Drupal.t('Save successful');
+          toastr.success(msg);
+          isDirty = false;
+          var href = window.location.href;
+          if (href.match(/node\/[0-9]+/i)) {
+            // Redirect after 1 sec to avoid race condition with node just being saved
+            setTimeout(function () {window.location.href = href + "/edit";}, 1000);
+          }
+        };
+
+        // Callback if publish/save is successful
+        var saveSuccess = function (response, status) {
+          // Delay validation by 1s because of recent save
+          setTimeout(function () {
+            $.ajax({
+              method: 'GET',
+              url: '/validate-publish/' + VALIDATE_AND_PUBLISH + '/' + uuid.substring(uuid.length - 8),
+              success: function (response) {
+                if (response.validated && response.published) {
+                  var msg = Drupal.t('Content has been published.');
+                  toastr.success(msg);
+                  setTimeout(function () {window.location.reload();}, 1000);
+                } else {
+                  var msg = Drupal.t('Content validation failed. Content will NOT be published.');
+                  toastr.warning(msg);
+                }
+              },
+              error: function (xhr, status, error) {
+                var msg = Drupal.t('Content publication failed');
+                if (xhr && xhr.responseJSON && xhr.responseJSON.errors[0]) {
+                  var err = xhr.responseJSON.errors[0];
+                  msg += '<br>' + err.title + ': ' + err.detail;
+                }
+                else if (xhr && xhr.responseText) {
+                  msg += '<br>' + xhr.responseText;
+                }
+                toastr.warning(msg);
+              }
+            });
+          }, 1000);
+        };
+
+        // Callback if autosave fails
+        var saveError = function (xhr, status, error) {
+          var msg = Drupal.t('Auto save failed');
+          if (xhr && xhr.responseJSON && xhr.responseJSON.errors[0]) {
+            var err = xhr.responseJSON.errors[0];
+            msg += '<br>' + err.title + ': ' + err.detail;
+          } else if (xhr && xhr.responseText) {
+            msg += '<br>' + xhr.responseText;
+          }
+          toastr.warning(msg);
+        };
+
+        // Save and close button just saves the current text
+        $(once('save', '.save-button', context)).each(function () {
+          $(this).click(function (event) {
+            event.preventDefault();
+            saveEditor(saveCloseSuccess);
+          });
         });
-      });
+
+        // Publish button just saves the current text
+        $(once('publish', '.publish-button', context)).each(function () {
+          $(this).click(function (event) {
+            event.preventDefault();
+            saveEditor(saveSuccess);
+          });
+        });
+
+        // Discard button just saves the current text
+        $(once('discard', '.discard-button', context)).each(function () {
+          $(this).click(function (event) {
+            if (!confirm('You are about to discard your changes?')) {
+              event.preventDefault();
+            }
+          });
+        });
+
+        function selectPlugins(plugins) {
+          return plugins.map(function (pluginDefinition) {
+            var _pluginDefinition$spl = pluginDefinition.split('.'),
+              _pluginDefinition$spl2 = _slicedToArray(_pluginDefinition$spl, 2),
+              build = _pluginDefinition$spl2[0],
+              name = _pluginDefinition$spl2[1];
+            if (CKEditor5[build] && CKEditor5[build][name]) {
+              return CKEditor5[build][name];
+            }
+            console.warn("Failed to load ".concat(build, " - ").concat(name));
+            return null;
+          });
+        }
+
+        function buildRegexp(config) {
+          var pattern = config.regexp.pattern;
+          var main = pattern.match(/\/(.+)\/.*/)[1];
+          var options = pattern.match(/\/.+\/(.*)/)[1];
+          return new RegExp(main, options);
+        }
+
+        function processConfig(config) {
+          function processArray(config) {
+            return config.map(function (item) {
+              if (_typeof(item) === 'object') {
+                return processConfig(item);
+              }
+              return item;
+            });
+          }
+
+          return Object.entries(config).reduce(function (processed, _ref) {
+            var _ref2 = _slicedToArray(_ref, 2),
+              key = _ref2[0],
+              value = _ref2[1];
+            if (_typeof(value) === 'object') {
+              if (!value) {
+                return processed;
+              }
+              if (value.hasOwnProperty('func')) {
+                processed[key] = buildFunc(value);
+              } else if (value.hasOwnProperty('regexp')) {
+                processed[key] = buildRegexp(value);
+              } else if (Array.isArray(value)) {
+                processed[key] = processArray(value);
+              } else {
+                processed[key] = processConfig(value);
+              }
+            } else {
+              processed[key] = value;
+            }
+            return processed;
+          }, {});
+        }
+      }
     }
 
   };

@@ -78,7 +78,7 @@
   ]
 %}
 {{ attach_library('classy/node') }}
-<article{{ attributes.addClass(classes) }}>
+<article id="cke5-inline-editor" {{ attributes.addClass(classes) }}>
   <header>
     {{ title_prefix }}
     {% if not page %}
@@ -99,7 +99,7 @@
   </header>
   <!-- <div id="cke-floating-toolbar" class="cke_floating_toolbar"></div> -->
   <div id="cke5-floating-toolbar" class="cke5_floating_toolbar"></div>
-  <div{{ content_attributes.addClass('node__editable', 'clearfix') }}>
+  <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
     {{ content }}
   </div>
 </article>

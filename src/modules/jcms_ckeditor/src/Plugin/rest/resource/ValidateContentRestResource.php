@@ -51,6 +51,8 @@ class ValidateContentRestResource extends AbstractRestResourceBase {
         /** @var \Drupal\node\Entity\Node $node */
         $node = Node::load($nid);
         $validator = \Drupal::service('jcms_rest.content_validator');
+        $host = \Drupal::request()->getSchemeAndHttpHost();
+        $validator->setBaseUrl($host);
 
         try {
           if ($action === self::VALIDATE_ACTION || $action === self::VALIDATE_AND_PUBLISH_ACTION) {
