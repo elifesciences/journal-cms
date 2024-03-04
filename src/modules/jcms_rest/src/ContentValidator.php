@@ -19,7 +19,7 @@ final class ContentValidator implements ValidatorInterface {
    *
    * @var string
    */
-  private $baseUrl = 'http://journal-cms.local/';
+  private $baseUrl = 'http://journal-ck4.ddev.site/';
 
   /**
    * The HTTP Client.

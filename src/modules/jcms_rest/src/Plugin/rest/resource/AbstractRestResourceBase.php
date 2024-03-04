@@ -2,24 +2,24 @@
 
 namespace Drupal\jcms_rest\Plugin\rest\resource;
 
-use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
-use Drupal\jcms_rest\JCMSCheckIdTrait;
-use Drupal\node\NodeInterface;
-use function GuzzleHttp\Psr7\normalize_header;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\jcms_rest\Exception\JCMSBadRequestHttpException;
 use Drupal\jcms_rest\Exception\JCMSNotAcceptableHttpException;
+use Drupal\jcms_rest\JCMSCheckIdTrait;
 use Drupal\jcms_rest\JCMSHtmlHelperTrait;
 use Drupal\jcms_rest\JCMSImageUriTrait;
 use Drupal\jcms_rest\PathMediaTypeMapper;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\rest\Plugin\ResourceBase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\AcceptHeader;
 use Symfony\Component\HttpFoundation\Response;
+use function GuzzleHttp\Psr7\normalize_header;
 
 /**
  * Abstract class AbstractRestResourceBase.

@@ -5,10 +5,10 @@ namespace Drupal\jcms_rest\Response;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableResponseInterface;
-use Drupal\Core\Site\Settings;
-use function GuzzleHttp\Psr7\normalize_header;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\Core\Cache\CacheableResponseTrait;
+use Drupal\Core\Site\Settings;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use function GuzzleHttp\Psr7\normalize_header;
 
 /**
  * Custom cacheable Json Response.
