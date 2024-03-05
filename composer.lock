@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67675e6bb8b09ba07ff0c3462aff711a",
+    "content-hash": "2eaec33cbccecfd168525972eef42081",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -73,15 +73,6 @@
                 "source": "https://github.com/alchemy-fr/Zippy/tree/master"
             },
             "time": "2018-02-22T13:58:36+00:00"
-        },
-        {
-            "name": "apvarun/toastify-js",
-            "version": "1.12.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/apvarun/toastify-js/archive/refs/tags/1.12.0.zip"
-            },
-            "type": "drupal-library"
         },
         {
             "name": "asm89/stack-cors",
@@ -459,6 +450,15 @@
                 "source": "https://github.com/Chi-teck/drupal-code-generator/tree/1.33.1"
             },
             "time": "2020-12-05T05:59:11+00:00"
+        },
+        {
+            "name": "codeseven/toastr",
+            "version": "2.1.4",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/CodeSeven/toastr/archive/refs/tags/2.1.4.zip"
+            },
+            "type": "drupal-library"
         },
         {
             "name": "commerceguys/addressing",

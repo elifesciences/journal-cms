@@ -17,16 +17,16 @@ getDirectories('./ckeditor5_plugins').forEach((dir) => {
   const bc = {
     mode: 'production',
     optimization: {
-      minimize: FALSE,
+      minimize: false,
       minimizer: [
         new TerserPlugin({
           terserOptions: {
             format: {
-              comments: FALSE,
+              comments: false,
             },
           },
           test: /\.js(\?.*)?$/i,
-          extractComments: FALSE,
+          extractComments: false,
         }),
       ],
       moduleIds: 'named',
@@ -71,7 +71,7 @@ getDirectories('./ckeditor5_plugins').forEach((dir) => {
               options: {
                 injectType: 'singletonStyleTag',
                 attributes: {
-                  'data-cke': TRUE
+                  'data-cke': true
                 }
               }
             },
@@ -83,7 +83,7 @@ getDirectories('./ckeditor5_plugins').forEach((dir) => {
                   themeImporter: {
                     themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
                   },
-                  minify: TRUE
+                  minify: true
                 } )
               }
             }

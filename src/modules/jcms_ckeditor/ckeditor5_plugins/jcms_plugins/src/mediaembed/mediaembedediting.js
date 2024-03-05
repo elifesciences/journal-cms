@@ -13,8 +13,9 @@ import { modelToViewUrlAttributeConverter } from './converters';
 import MediaEmbedCommand from './mediaembedcommand';
 import MediaRegistry from './mediaregistry';
 import { toMediaWidget, createMediaFigureElement } from './utils';
-
 import './theme/mediaembedediting.css';
+import mapEmbedIcon from "../../../../icons/mapembed.svg";
+import twitterEmbedIcon from "../../../../icons/xembed.svg";
 
 /**
  * The media embed editing feature.
@@ -139,16 +140,39 @@ export default class MediaEmbedEditing extends Plugin {
 				},
 				{
 					name: 'twitter',
-					url: /^twitter\.com/
+					url: [
+            /^twitter\.com\/(\w+)/,
+            /^x\.com\/(\w+)/,
+          ],
+          html: match => {
+            const src = "https://www." + match.input;
+            return (
+              '<div class="ck ck-reset_all ck-media__placeholder">' +
+              '<div class="ck-media__placeholder__icon">' + twitterEmbedIcon + '</div>' +
+              `<a class="ck-media__placeholder__url" target="_blank" data-cke-tooltip-text="Open media in new tab" href="${ src }">` +
+              '<span class="ck-media__placeholder__url__text">' + src +
+              '</span></a></div>'
+            );
+          }
 				},
 				{
 					name: 'googleMaps',
 					url: [
-						/^google\.com\/maps/,
-						/^goo\.gl\/maps/,
-						/^maps\.google\.com/,
-						/^maps\.app\.goo\.gl/
-					]
+						/^google\.com\/maps\/(\w+)/,
+						/^goo\.gl\/maps\/(\w+)/,
+						/^maps\.google\.com\/(\w+)/,
+						/^maps\.app\.goo\.gl\/(\w+)/
+					],
+          html: match => {
+            const src = "https://www." + match.input;
+            return (
+              '<div class="ck ck-reset_all ck-media__placeholder">' +
+              '<div class="ck-media__placeholder__icon">' + mapEmbedIcon + '</div>' +
+              `<a class="ck-media__placeholder__url" target="_blank" data-cke-tooltip-text="Open media in new tab" href="${ src }">` +
+              '<span class="ck-media__placeholder__url__text">' + src +
+              '</span></a></div>'
+            );
+          }
 				},
 				{
 					name: 'flickr',
@@ -160,7 +184,17 @@ export default class MediaEmbedEditing extends Plugin {
 				},
         {
           name: 'figshare',
-          url: /^widgets.figshare\.com/
+          url: /^widgets.figshare\.com\/(\w+)/,
+          html: match => {
+            return (
+              '<div style="position: relative; padding-bottom: 75%; height: 0; padding-bottom: 56.2493%;">' +
+              `<iframe src="https://${ match.input }" ` +
+              'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
+              'frameborder="0" allowfullscreen>' +
+              '</iframe>' +
+              '</div>'
+            );
+          }
         }
 			]
 		} );
@@ -290,7 +324,10 @@ export default class MediaEmbedEditing extends Plugin {
 
           const attrName = firstChildItem.is( 'element', 'iframe' ) ? 'src' : 'url';
           // Create model media element.
-          const url = firstChildItem.getAttribute( attrName );
+          let url = firstChildItem.getAttribute( attrName );
+          if (!url) {
+            url = firstChildItem.getCustomProperty('$rawContent');
+          }
           const modelElement = writer.createElement( 'media', { url: url, type: type } );
 
           // Insert element on a current cursor location.
