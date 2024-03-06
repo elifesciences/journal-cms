@@ -76,7 +76,9 @@ class FilterCkImages extends FilterBase implements ContainerFactoryPluginInterfa
       ]);
       foreach ($xpath->query('//img') as $node) {
         // Ignore img tags inside figures.
-        if ($node->parentNode->tagName === 'figure') {
+        $parent = $node->parentNode;
+        $parent2 = $parent->parentNode;
+        if ($parent->tagName === 'figure' || $parent2->tagName === 'figure') {
           continue;
         }
         // Read the data-caption attribute's value, then delete it.
@@ -137,6 +139,18 @@ class FilterCkImages extends FilterBase implements ContainerFactoryPluginInterfa
         }
         // Finally, remove the original data-caption node.
         $node->parentNode->removeChild($node);
+      }
+
+      // If <figure> wrapped in <div class="align-center">
+      // then apply to <figure>.
+      foreach ($xpath->query('//figure') as $node) {
+        $parent = $node->parentNode;
+        if ($parent->tagName === 'div' && $parent->getAttribute('class') === 'align-center'){
+          $classes = $node->getAttribute('class');
+          $classes .= ' align-center';
+          $node->setAttribute('class', $classes);
+          $parent->removeAttribute('class');
+        }
       }
 
       $result->setProcessedText(Html::serialize($dom))

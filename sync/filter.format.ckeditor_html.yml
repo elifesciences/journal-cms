@@ -13,19 +13,19 @@ filters:
     id: editor_file_reference
     provider: editor
     status: true
-    weight: -47
+    weight: -50
     settings: {  }
   filter_align:
     id: filter_align
     provider: filter
     status: false
-    weight: -49
+    weight: -46
     settings: {  }
   filter_caption:
     id: filter_caption
     provider: filter
     status: false
-    weight: -50
+    weight: -47
     settings: {  }
   filter_html:
     id: filter_html
@@ -40,36 +40,36 @@ filters:
     id: filter_autop
     provider: filter
     status: false
-    weight: -45
+    weight: -44
     settings: {  }
   filter_htmlcorrector:
     id: filter_htmlcorrector
     provider: filter
     status: false
-    weight: -42
+    weight: -41
     settings: {  }
   filter_html_escape:
     id: filter_html_escape
     provider: filter
     status: false
-    weight: -46
+    weight: -45
     settings: {  }
   filter_html_image_secure:
     id: filter_html_image_secure
     provider: filter
     status: false
-    weight: -43
+    weight: -42
     settings: {  }
   filter_url:
     id: filter_url
     provider: filter
     status: false
-    weight: -44
+    weight: -43
     settings:
       filter_url_length: 72
   filter_ck_images:
     id: filter_ck_images
     provider: jcms_ckeditor
     status: true
-    weight: -41
+    weight: -49
     settings: {  }

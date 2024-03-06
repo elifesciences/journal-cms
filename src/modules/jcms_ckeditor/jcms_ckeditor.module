@@ -223,24 +223,8 @@ function jcms_ckeditor_editable_types() : array {
  * Implements hook_ckeditor5_plugin_info_alter().
  */
 function jcms_ckeditor_ckeditor5_plugin_info_alter(array &$plugin_definitions): void {
-  /*$image_align_plugin_definition = $plugin_definitions['ckeditor5_imageAlign']->toArray();
-  $image_align_plugin_definition['ckeditor5']['config']['image']['toolbar'] = [
-    '|',
-    'imageStyle:alignLeft',
-    'imageStyle:alignCenter',
-    'imageStyle:alignRight',
-    '|',
-  ];
-  $image_align_plugin_definition['ckeditor5']['config']['image']['styles']['options'][] = [
-    'name' => 'alignProfile',
-    'title' => 'Profile left align',
-    'modelElements' => ['imageBlock', 'imageElement'],
-    'className' => 'image-style-align-profile',
-  ];
-  $plugin_definitions['ckeditor5_imageAlign'] = new CKEditor5PluginDefinition($image_align_plugin_definition);*/
   $image_plugin_definition = $plugin_definitions['ckeditor5_image']->toArray();
   $image_plugin_definition['ckeditor5']['config']['image']['insert']['type'] = 'block';
   $plugin_definitions['ckeditor5_image']= new CKEditor5PluginDefinition($image_plugin_definition);
-  unset ($plugin_definitions['ckeditor5_linkImage']);
 }
 

@@ -159,7 +159,6 @@ jcms_ckeditor_imageAlign:
           - 'imageStyle:alignLeft'
           - 'imageStyle:alignCenter'
           - 'imageStyle:alignRight'
-          - 'imageStyle:alignProfile'
           - '|'
         styles:
           options:

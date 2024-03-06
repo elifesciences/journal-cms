@@ -9,7 +9,6 @@ jcms_ckeditor:
     - core/ckeditor5.editorDecoupled
     - core/drupal.debounce
     - jcms_ckeditor/ckeditor5_plugins
-    - jcms_ckeditor/ckeditor5_inspector
 
 ckeditor5_plugins:
   js:

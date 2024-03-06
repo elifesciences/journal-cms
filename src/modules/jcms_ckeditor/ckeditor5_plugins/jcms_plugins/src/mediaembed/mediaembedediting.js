@@ -144,7 +144,7 @@ export default class MediaEmbedEditing extends Plugin {
             /^twitter\.com\/(\w+)/,
             /^x\.com\/(\w+)/,
           ],
-          html: match => {
+          /*html: match => {
             const src = "https://www." + match.input;
             return (
               '<div class="ck ck-reset_all ck-media__placeholder">' +
@@ -153,17 +153,28 @@ export default class MediaEmbedEditing extends Plugin {
               '<span class="ck-media__placeholder__url__text">' + src +
               '</span></a></div>'
             );
+          }*/
+          html: match => {
+            const url = 'https://' + match.input;
+            return (
+              '<div style="position: relative; padding-bottom: 100%; width: 100%; height: 0;">' +
+              `<iframe src="https://twitframe.com/show?url=${ url }" ` +
+              'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
+              'frameborder="0" >' +
+              '</iframe>' +
+              '</div>'
+            );
           }
 				},
 				{
 					name: 'googleMaps',
 					url: [
-						/^google\.com\/maps\/(\w+)/,
-						/^goo\.gl\/maps\/(\w+)/,
-						/^maps\.google\.com\/(\w+)/,
-						/^maps\.app\.goo\.gl\/(\w+)/
+						/^google\.com\/maps\/([\w-\/?&=;.%,]+)/,
+						/^goo\.gl\/maps\/([\w-\/?&=;.%,]+)/,
+						/^maps\.google\.com\/([\w-\/?&=;.%,]+)/,
+						/^maps\.app\.goo\.gl\/([\w-\/?&=;.%,]+)/
 					],
-          html: match => {
+          /*html: match => {
             const src = "https://www." + match.input;
             return (
               '<div class="ck ck-reset_all ck-media__placeholder">' +
@@ -171,6 +182,17 @@ export default class MediaEmbedEditing extends Plugin {
               `<a class="ck-media__placeholder__url" target="_blank" data-cke-tooltip-text="Open media in new tab" href="${ src }">` +
               '<span class="ck-media__placeholder__url__text">' + src +
               '</span></a></div>'
+            );
+          }*/
+          html: match => {
+            const url = new URL('https://' + match.input);
+            return (
+              '<div style="position: relative; padding-bottom: 75%; width: 100%; height: 0;">' +
+              `<iframe src="https://www.google.com/maps/d/embed${ url.search }" ` +
+              'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
+              'frameborder="0" >' +
+              '</iframe>' +
+              '</div>'
             );
           }
 				},

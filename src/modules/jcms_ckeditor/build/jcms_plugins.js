@@ -73,7 +73,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.ck-content .media{clear:both;display:
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.ck-media__wrapper .ck-media__placeholder{align-items:center;display:flex;flex-direction:column}.ck-media__wrapper .ck-media__placeholder .ck-media__placeholder__url{max-width:100%;position:relative}.ck-media__wrapper .ck-media__placeholder .ck-media__placeholder__url .ck-media__placeholder__url__text{display:block;overflow:hidden}.ck-media__wrapper .ck-media__placeholder .ck-media__placeholder__icon{height:30px;margin-bottom:10px;width:30px}.ck-media__wrapper[data-oembed-url*="facebook.com"] .ck-media__placeholder__icon *,.ck-media__wrapper[data-oembed-url*="instagram.com"] .ck-media__placeholder__icon *,.ck-media__wrapper[data-oembed-url*="twitter.com"] .ck-media__placeholder__icon *{display:none}.ck-editor__editable:not(.ck-read-only) .ck-media__wrapper>:not(.ck-media__placeholder),.ck-editor__editable:not(.ck-read-only) .ck-widget:not(.ck-widget_selected) .ck-media__placeholder{pointer-events:none}`, ""]);
+___CSS_LOADER_EXPORT___.push([module.id, `.ck-media__wrapper .ck-media__placeholder{align-items:center;display:flex;flex-direction:column}.ck-media__wrapper .ck-media__placeholder .ck-media__placeholder__url{max-width:100%;position:relative}.ck-media__wrapper .ck-media__placeholder .ck-media__placeholder__url .ck-media__placeholder__url__text{display:block;overflow:hidden}.ck-media__wrapper .ck-media__placeholder .ck-media__placeholder__icon{height:30px;margin-bottom:10px;width:30px}.ck-media__wrapper[data-oembed-url*="facebook.com"] .ck-media__placeholder__icon *,.ck-media__wrapper[data-oembed-url*="instagram.com"] .ck-media__placeholder__icon *{display:none}.ck-editor__editable:not(.ck-read-only) .ck-media__wrapper>:not(.ck-media__placeholder),.ck-editor__editable:not(.ck-read-only) .ck-widget:not(.ck-widget_selected) .ck-media__placeholder{pointer-events:none}`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1319,10 +1319,6 @@ var update = injectStylesIntoStyleTag_default()(mediaembedediting/* default */.c
 
 
 /* harmony default export */ const theme_mediaembedediting = (mediaembedediting/* default */.c.locals || {});
-;// CONCATENATED MODULE: ./icons/mapembed.svg
-/* harmony default export */ const mapembed = ("<?xml version=\"1.0\" encoding=\"utf-8\"?><svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 122.88 117.55\" style=\"enable-background:new 0 0 122.88 117.55\" xml:space=\"preserve\"><style type=\"text/css\">.st0{fill-rule:evenodd;clip-rule:evenodd;}</style><g><path class=\"st0\" d=\"M78.81,82.78c-4.35,4.77-9.42,9.05-15.12,12.51c-0.7,0.51-1.65,0.58-2.43,0.08 c-8.41-5.35-15.48-11.78-21.03-18.76c-7.66-9.61-12.49-20.27-14.14-30.53c-1.68-10.41-0.11-20.42,5.07-28.56 c2.04-3.22,4.65-6.15,7.83-8.68C46.3,3.01,54.65-0.06,62.96,0c8.01,0.06,15.91,3.05,22.74,9.28c2.4,2.18,4.42,4.68,6.07,7.39 c5.57,9.17,6.77,20.87,4.32,32.73c-2.41,11.71-8.41,23.62-17.28,33.35V82.78L78.81,82.78L78.81,82.78z M25.32,74.54 c1.98,0,3.59,1.61,3.59,3.59c0,1.98-1.61,3.59-3.59,3.59h-6.74l-8.88,28.67h103.22l-9.64-28.67h-5.57c-1.98,0-3.59-1.61-3.59-3.59 c0-1.98,1.61-3.59,3.59-3.59h10.7l14.46,43.01H0l13.32-43.01H25.32L25.32,74.54z M61.38,18.51c9.88,0,17.88,8.01,17.88,17.87 c0,9.88-8.01,17.88-17.88,17.88c-9.88,0-17.87-8-17.87-17.88C43.49,26.51,51.5,18.51,61.38,18.51L61.38,18.51L61.38,18.51z\"/></g></svg>");
-;// CONCATENATED MODULE: ./icons/xembed.svg
-/* harmony default export */ const xembed = ("<svg xmlns=\"http://www.w3.org/2000/svg\" shape-rendering=\"geometricPrecision\" text-rendering=\"geometricPrecision\" image-rendering=\"optimizeQuality\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" viewBox=\"0 0 512 462.799\"><path fill-rule=\"nonzero\" d=\"M403.229 0h78.506L310.219 196.04 512 462.799H354.002L230.261 301.007 88.669 462.799h-78.56l183.455-209.683L0 0h161.999l111.856 147.88L403.229 0zm-27.556 415.805h43.505L138.363 44.527h-46.68l283.99 371.278z\"/></svg>");
 ;// CONCATENATED MODULE: ./ckeditor5_plugins/jcms_plugins/src/mediaembed/mediaembedediting.js
 /**
  * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
@@ -1470,33 +1466,55 @@ class MediaEmbedEditing extends delegated_corefrom_dll_reference_CKEditor5.Plugi
             /^twitter\.com\/(\w+)/,
             /^x\.com\/(\w+)/,
           ],
-          html: match => {
+          /*html: match => {
             const src = "https://www." + match.input;
             return (
               '<div class="ck ck-reset_all ck-media__placeholder">' +
-              '<div class="ck-media__placeholder__icon">' + xembed + '</div>' +
+              '<div class="ck-media__placeholder__icon">' + twitterEmbedIcon + '</div>' +
               `<a class="ck-media__placeholder__url" target="_blank" data-cke-tooltip-text="Open media in new tab" href="${ src }">` +
               '<span class="ck-media__placeholder__url__text">' + src +
               '</span></a></div>'
+            );
+          }*/
+          html: match => {
+            const url = 'https://' + match.input;
+            return (
+              '<div style="position: relative; padding-bottom: 100%; width: 100%; height: 0;">' +
+              `<iframe src="https://twitframe.com/show?url=${ url }" ` +
+              'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
+              'frameborder="0" >' +
+              '</iframe>' +
+              '</div>'
             );
           }
 				},
 				{
 					name: 'googleMaps',
 					url: [
-						/^google\.com\/maps\/(\w+)/,
-						/^goo\.gl\/maps\/(\w+)/,
-						/^maps\.google\.com\/(\w+)/,
-						/^maps\.app\.goo\.gl\/(\w+)/
+						/^google\.com\/maps\/([\w-\/?&=;.%,]+)/,
+						/^goo\.gl\/maps\/([\w-\/?&=;.%,]+)/,
+						/^maps\.google\.com\/([\w-\/?&=;.%,]+)/,
+						/^maps\.app\.goo\.gl\/([\w-\/?&=;.%,]+)/
 					],
-          html: match => {
+          /*html: match => {
             const src = "https://www." + match.input;
             return (
               '<div class="ck ck-reset_all ck-media__placeholder">' +
-              '<div class="ck-media__placeholder__icon">' + mapembed + '</div>' +
+              '<div class="ck-media__placeholder__icon">' + mapEmbedIcon + '</div>' +
               `<a class="ck-media__placeholder__url" target="_blank" data-cke-tooltip-text="Open media in new tab" href="${ src }">` +
               '<span class="ck-media__placeholder__url__text">' + src +
               '</span></a></div>'
+            );
+          }*/
+          html: match => {
+            const url = new URL('https://' + match.input);
+            return (
+              '<div style="position: relative; padding-bottom: 75%; width: 100%; height: 0;">' +
+              `<iframe src="https://www.google.com/maps/d/embed${ url.search }" ` +
+              'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
+              'frameborder="0" >' +
+              '</iframe>' +
+              '</div>'
             );
           }
 				},
@@ -4105,6 +4123,8 @@ class GoogleMapEmbedEditing extends MediaEmbedEditing {
 
 }
 
+;// CONCATENATED MODULE: ./icons/mapembed.svg
+/* harmony default export */ const mapembed = ("<?xml version=\"1.0\" encoding=\"utf-8\"?><svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 122.88 117.55\" style=\"enable-background:new 0 0 122.88 117.55\" xml:space=\"preserve\"><style type=\"text/css\">.st0{fill-rule:evenodd;clip-rule:evenodd;}</style><g><path class=\"st0\" d=\"M78.81,82.78c-4.35,4.77-9.42,9.05-15.12,12.51c-0.7,0.51-1.65,0.58-2.43,0.08 c-8.41-5.35-15.48-11.78-21.03-18.76c-7.66-9.61-12.49-20.27-14.14-30.53c-1.68-10.41-0.11-20.42,5.07-28.56 c2.04-3.22,4.65-6.15,7.83-8.68C46.3,3.01,54.65-0.06,62.96,0c8.01,0.06,15.91,3.05,22.74,9.28c2.4,2.18,4.42,4.68,6.07,7.39 c5.57,9.17,6.77,20.87,4.32,32.73c-2.41,11.71-8.41,23.62-17.28,33.35V82.78L78.81,82.78L78.81,82.78z M25.32,74.54 c1.98,0,3.59,1.61,3.59,3.59c0,1.98-1.61,3.59-3.59,3.59h-6.74l-8.88,28.67h103.22l-9.64-28.67h-5.57c-1.98,0-3.59-1.61-3.59-3.59 c0-1.98,1.61-3.59,3.59-3.59h10.7l14.46,43.01H0l13.32-43.01H25.32L25.32,74.54z M61.38,18.51c9.88,0,17.88,8.01,17.88,17.87 c0,9.88-8.01,17.88-17.88,17.88c-9.88,0-17.87-8-17.87-17.88C43.49,26.51,51.5,18.51,61.38,18.51L61.38,18.51L61.38,18.51z\"/></g></svg>");
 ;// CONCATENATED MODULE: ./ckeditor5_plugins/jcms_plugins/src/googlemapembed/googlemapembedui.js
 /**
  * @module googlemap-embed/googlemapembedui
@@ -4313,6 +4333,8 @@ class TwitterEmbedEditing extends MediaEmbedEditing {
 
 }
 
+;// CONCATENATED MODULE: ./icons/xembed.svg
+/* harmony default export */ const xembed = ("<svg xmlns=\"http://www.w3.org/2000/svg\" shape-rendering=\"geometricPrecision\" text-rendering=\"geometricPrecision\" image-rendering=\"optimizeQuality\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" viewBox=\"0 0 512 462.799\"><path fill-rule=\"nonzero\" d=\"M403.229 0h78.506L310.219 196.04 512 462.799H354.002L230.261 301.007 88.669 462.799h-78.56l183.455-209.683L0 0h161.999l111.856 147.88L403.229 0zm-27.556 415.805h43.505L138.363 44.527h-46.68l283.99 371.278z\"/></svg>");
 ;// CONCATENATED MODULE: ./ckeditor5_plugins/jcms_plugins/src/twitterembed/twitterembedui.js
 /**
  * @module twitter-embed/twitterembedui

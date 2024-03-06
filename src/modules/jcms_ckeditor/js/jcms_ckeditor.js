@@ -113,7 +113,7 @@
             toolbar.appendChild(editor.ui.view.toolbar.element);
 
             // Save any changes when editor looses focus
-            editor.editing.view.document.on('change:isFocused' , function (e) {
+            editor.ui.focusTracker.on('change:isFocused' , function (e) {
               if (isDirty) {
                 saveEditor(!editor.editing.view.document.isFocused);
               }
