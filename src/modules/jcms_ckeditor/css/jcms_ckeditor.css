@@ -170,7 +170,7 @@ elifebutton.elife-button--outline:hover {
 }
 
 .cke5_floating_toolbar {
-  z-index: 1;
+  z-index: 2;
 }
 
 .cke_toolbar_fixed {

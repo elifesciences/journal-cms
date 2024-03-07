@@ -106,7 +106,7 @@
 
           DecoupledEditor.create(element, config).then(function (editor) {
             Drupal.CKEditor5Instances.set(id, editor);
-            if (CKEditorInspector) {
+            if (typeof CKEditorInspector !== 'undefined') {
               CKEditorInspector.attach(editor);
             }
             var toolbar = document.getElementById('cke5-floating-toolbar');
@@ -184,7 +184,7 @@
 
         if ($('#cke5-floating-toolbar').length > 0) {
           toolbarScroll();
-          $('#cke5-floating-toolbar').once('toolbar').each(function () {
+          $(once('toolbar', '#cke5-floating-toolbar', context)).each(function () {
             $(window).scroll(function () {
               toolbarScroll();
             });
@@ -193,15 +193,6 @@
 
         // Save the main field content
         var saveEditor = function (showSaveNotification) {
-          // Remove any hidden placeholder text
-          /*if ($(bodyEditor.editable().$).find('placeholder').length > 0) {
-            var placeholder = $(bodyEditor.editable().$).find('placeholder').html().replace(settings.placeholder, '');
-            if ($.trim(placeholder).length === 0) {
-              $(bodyEditor.editable().$).find('placeholder').remove();
-            }
-          }
-          $(bodyEditor.editable().$).find('placeholder').remove();*/
-
           const element = document.querySelector('.node__content');
           const id = getElementId(element);
           const editor = Drupal.CKEditor5Instances.get(id);
@@ -209,6 +200,16 @@
             return;
           }
           const content = editor.getData();
+
+          // Remove any hidden placeholder text
+          /*if (content.find('placeholder').length > 0) {
+            var placeholder = $(bodyEditor.editable().$).find('placeholder').html().replace(settings.placeholder, '');
+            if ($.trim(placeholder).length === 0) {
+              $(bodyEditor.editable().$).find('placeholder').remove();
+            }
+          }
+          $(bodyEditor.editable().$).find('placeholder').remove();*/
+
           const image_fields = [];
 
           if ($.trim(content).length === 0) {

@@ -41,6 +41,7 @@ jcms_ckeditor_elifebutton:
     elements:
       - <elifebutton>
       - <elifebutton data-href>
+      - <placeholder>
     conditions: []
 
 jcms_ckeditor_figshare:
