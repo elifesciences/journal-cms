@@ -65,6 +65,11 @@ export default class ElifeButtonEditing extends Plugin {
       allowWhere: '$block',
       allowAttributes: ['url']
     });
+
+    schema.register('placeholder', {
+      isObject: true,
+      allowWhere: '$block',
+    });
   }
 
   /**
@@ -123,6 +128,28 @@ export default class ElifeButtonEditing extends Plugin {
         viewWriter.setCustomProperty('elifebutton', true, viewElement);
         return toWidget(viewElement, viewWriter);
       },
+    });
+
+    conversion.for('upcast').elementToElement( {
+      view: {
+        name: 'placeholder',
+      },
+      model: ( viewElement, { writer } ) => {
+        const text = (viewElement && viewElement.childCount > 0 ) ? viewElement.getChild(0).data : '';
+        const modelElement = writer.createElement( 'placeholder', { } );
+        writer.appendText(text, modelElement);
+        return modelElement;
+      }
+    } );
+
+    conversion.for('dataDowncast').elementToElement({
+      model: 'placeholder',
+      view: 'placeholder'
+    });
+
+    conversion.for('editingDowncast').elementToElement({
+      model: 'placeholder',
+      view: 'p'
     });
 
   }

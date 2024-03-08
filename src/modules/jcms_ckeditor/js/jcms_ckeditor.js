@@ -111,15 +111,29 @@
             }
             var toolbar = document.getElementById('cke5-floating-toolbar');
             toolbar.appendChild(editor.ui.view.toolbar.element);
+            const editorModel = editor.model;
+            const editorDocument = editorModel.document;
 
-            // Save any changes when editor looses focus
+            // Save any changes when editor looses focus.
+            // Hide placeholder when editor gets focus.
             editor.ui.focusTracker.on('change:isFocused' , function (e) {
-              if (isDirty) {
-                saveEditor(!editor.editing.view.document.isFocused);
+              if (isDirty || $.trim(editor.getData()).length === 0) {
+                saveEditor(!e.source.isFocused);
+              }
+              if (e.source.isFocused) {
+                let root = editorDocument.getRoot();
+                let children = root.getChildren();
+                for (let child of children) {
+                  if (child.is('element', 'placeholder')) {
+                    editorModel.change(writer => {
+                      writer.remove(child);
+                    });
+                  }
+                }
               }
             });
 
-            editor.model.document.on('change:data', function () {
+            editorDocument.on('change:data', function () {
               // Hide any previous autosave notification and
               // autosave content 5 seconds after last change
               toastr.clear();
@@ -201,21 +215,12 @@
           }
           const content = editor.getData();
 
-          // Remove any hidden placeholder text
-          /*if (content.find('placeholder').length > 0) {
-            var placeholder = $(bodyEditor.editable().$).find('placeholder').html().replace(settings.placeholder, '');
-            if ($.trim(placeholder).length === 0) {
-              $(bodyEditor.editable().$).find('placeholder').remove();
-            }
-          }
-          $(bodyEditor.editable().$).find('placeholder').remove();*/
-
           const image_fields = [];
 
-          if ($.trim(content).length === 0) {
-            // if we are left with an empty string
-            // reinstate placeholder
-            editor.setData('<p><placeholder>' + settings.placeholder + '</placeholder></p>');
+          if ($.trim(content).length === 0 && !editor.ui.focusTracker.isFocused) {
+            // If we have lost focus and are left with an empty
+            // string then reinstate the placeholder.
+            editor.setData('<placeholder>' + settings.placeholder + '</placeholder>');
           }
 
           currentImages = getCkImages(editor);
@@ -223,10 +228,6 @@
             const image_field = {
               id: uuid,
               type: 'file--image',
-              /*meta: {
-                height: image.data('height'),
-                width: image.data('width'),
-              }*/
             }
             image_fields.push(image_field);
           });

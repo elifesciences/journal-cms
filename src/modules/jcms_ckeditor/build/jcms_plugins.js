@@ -3146,6 +3146,11 @@ class ElifeButtonEditing extends delegated_corefrom_dll_reference_CKEditor5.Plug
       allowWhere: '$block',
       allowAttributes: ['url']
     });
+
+    schema.register('placeholder', {
+      isObject: true,
+      allowWhere: '$block',
+    });
   }
 
   /**
@@ -3204,6 +3209,28 @@ class ElifeButtonEditing extends delegated_corefrom_dll_reference_CKEditor5.Plug
         viewWriter.setCustomProperty('elifebutton', true, viewElement);
         return (0,delegated_widgetfrom_dll_reference_CKEditor5.toWidget)(viewElement, viewWriter);
       },
+    });
+
+    conversion.for('upcast').elementToElement( {
+      view: {
+        name: 'placeholder',
+      },
+      model: ( viewElement, { writer } ) => {
+        const text = (viewElement && viewElement.childCount > 0 ) ? viewElement.getChild(0).data : '';
+        const modelElement = writer.createElement( 'placeholder', { } );
+        writer.appendText(text, modelElement);
+        return modelElement;
+      }
+    } );
+
+    conversion.for('dataDowncast').elementToElement({
+      model: 'placeholder',
+      view: 'placeholder'
+    });
+
+    conversion.for('editingDowncast').elementToElement({
+      model: 'placeholder',
+      view: 'p'
     });
 
   }
