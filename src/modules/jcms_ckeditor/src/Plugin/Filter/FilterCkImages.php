@@ -145,7 +145,7 @@ class FilterCkImages extends FilterBase implements ContainerFactoryPluginInterfa
       // then apply to <figure>.
       foreach ($xpath->query('//figure') as $node) {
         $parent = $node->parentNode;
-        if ($parent->tagName === 'div' && $parent->getAttribute('class') === 'align-center'){
+        if ($parent->tagName === 'div' && $parent->getAttribute('class') === 'align-center') {
           $classes = $node->getAttribute('class');
           $classes .= ' align-center';
           $node->setAttribute('class', $classes);
