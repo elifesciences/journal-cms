@@ -151,7 +151,7 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
     $bc = $this->bracketChar;
     $output = preg_replace_callback('~' . $bc . 'preserve([^' . $bc . ']*)preserve' . $bc . '~s', function ($matches) {
       return base64_decode($matches[1]);
-    }, preg_replace('~(preserve' . $bc . ')\s*([^\n])~', '$1' . PHP_EOL . PHP_EOL . '$2', $html));
+    }, preg_replace('~(preserve' . $bc . ')\s*([^\n])~', '$1' . PHP_EOL . PHP_EOL . '$2', htmlspecialchars_decode($html)));
     return preg_replace('/\n{2,}/', PHP_EOL . PHP_EOL, $output);
   }
 
