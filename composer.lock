@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab1ab1d461cc53785dbf2c040990113c",
+    "content-hash": "e9b12a6a37aac84aa3574f39ef40b6b0",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -182,16 +182,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.300.10",
+            "version": "3.238.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "b24bf7882fed0ef029996dcdcba6c273b69db8fe"
+                "reference": "2f5440652fa7a6f20a1bb15926dd8248c24c733c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b24bf7882fed0ef029996dcdcba6c273b69db8fe",
-                "reference": "b24bf7882fed0ef029996dcdcba6c273b69db8fe",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2f5440652fa7a6f20a1bb15926dd8248c24c733c",
+                "reference": "2f5440652fa7a6f20a1bb15926dd8248c24c733c",
                 "shasum": ""
             },
             "require": {
@@ -270,9 +270,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.300.10"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.238.5"
             },
-            "time": "2024-03-04T19:06:07+00:00"
+            "time": "2022-10-14T18:15:06+00:00"
         },
         {
             "name": "beberlei/assert",
@@ -9222,16 +9222,16 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v5.4.36",
+            "version": "v5.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "a30f316214d908cf5874f700f3f3fb29ceee91ba"
+                "reference": "32cab695bf99c63aff7d27ac67919944c00530ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/a30f316214d908cf5874f700f3f3fb29ceee91ba",
-                "reference": "a30f316214d908cf5874f700f3f3fb29ceee91ba",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/32cab695bf99c63aff7d27ac67919944c00530ed",
+                "reference": "32cab695bf99c63aff7d27ac67919944c00530ed",
                 "shasum": ""
             },
             "require": {
@@ -9299,7 +9299,7 @@
                 "psr6"
             ],
             "support": {
-                "source": "https://github.com/symfony/cache/tree/v5.4.36"
+                "source": "https://github.com/symfony/cache/tree/v5.4.21"
             },
             "funding": [
                 {
@@ -9315,7 +9315,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-19T13:08:14+00:00"
+            "time": "2023-02-21T12:11:13+00:00"
         },
         {
             "name": "symfony/cache-contracts",
