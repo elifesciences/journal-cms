@@ -2,11 +2,11 @@
 
 namespace Drupal\Tests\jcms_admin\Unit;
 
-use Drupal\jcms_admin\Embed;
 use Drupal\jcms_admin\Tweet;
+use Drupal\media\OEmbed\Resource;
+use Drupal\media\OEmbed\ResourceFetcher;
+use Drupal\media\OEmbed\UrlResolver;
 use Drupal\Tests\UnitTestCase;
-use Embed\Adapters\Adapter;
-use Embed\Providers\OEmbed;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -15,11 +15,18 @@ use Psr\Log\LoggerInterface;
 class TweetTest extends UnitTestCase {
 
   /**
-   * Embed.
+   * The Oembed Url Resolver.
    *
-   * @var \Drupal\jcms_admin\Embed
+   * @var \Drupal\media\OEmbed\UrlResolver
    */
-  private $embed;
+  private $urlResolver;
+
+  /**
+   * The Oembed Resource Fetcher.
+   *
+   * @var \Drupal\media\OEmbed\ResourceFetcher
+   */
+  private $resourceFetcher;
 
   /**
    * Logger.
@@ -41,9 +48,10 @@ class TweetTest extends UnitTestCase {
    * @before
    */
   protected function setUp(): void {
-    $this->embed = $this->createMock(Embed::class);
+    $this->urlResolver = $this->createMock(UrlResolver::class);
+    $this->resourceFetcher = $this->createMock(ResourceFetcher::class);
     $this->logger = $this->createMock(LoggerInterface::class);
-    $this->tweet = new Tweet($this->embed, $this->logger);
+    $this->tweet = new Tweet($this->logger, $this->urlResolver, $this->resourceFetcher);
   }
 
   /**
@@ -74,27 +82,26 @@ class TweetTest extends UnitTestCase {
    * @test
    */
   public function itWillGetDetails() {
-    $oembed = $this->createMock(OEmbed::class);
-    $adapter = $this->createMock(Adapter::class);
-    $oembed
+    $resource = $this->createMock(Resource::class);
+    $resource
       ->expects($this->once())
-      ->method('getCode')
+      ->method('getHtml')
       ->willReturn('<blockquote><p>text</p>&mdash; accountLabel (@accountId) <a href="https://twitter.com/eLife/status/id">April 20, 2020</a></blockquote>');
-    $oembed
+    $resource
       ->expects($this->once())
       ->method('getAuthorName')
       ->willReturn('accountLabel');
-    $adapter
+    $uri = 'https://twitter.com/og/status/id';
+    $this->urlResolver
       ->expects($this->once())
-      ->method('getProviders')
-      ->willReturn([
-        'oembed' => $oembed,
-      ]);
-    $this->embed
+      ->method('getResourceUrl')
+      ->with($uri)
+      ->willReturn($uri);
+    $this->resourceFetcher
       ->expects($this->once())
-      ->method('create')
-      ->with('https://twitter.com/og/status/id')
-      ->willReturn($adapter);
+      ->method('fetchResource')
+      ->with($uri)
+      ->willReturn($resource);
     $this->assertEquals([
       'date' => 1587304800,
       'accountId' => 'accountId',
