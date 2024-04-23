@@ -2,10 +2,10 @@
 
 namespace Drupal\jcms_admin;
 
+use Drupal\media\OEmbed\ResourceFetcher;
+use Drupal\media\OEmbed\UrlResolver;
 use PHPHtmlParser\Dom;
 use Psr\Log\LoggerInterface;
-use Drupal\media\OEmbed\UrlResolver;
-use Drupal\media\OEmbed\ResourceFetcher;
 
 /**
  * Class YouTube.
