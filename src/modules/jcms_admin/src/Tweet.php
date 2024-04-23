@@ -4,18 +4,13 @@ namespace Drupal\jcms_admin;
 
 use PHPHtmlParser\Dom;
 use Psr\Log\LoggerInterface;
+use Drupal\media\OEmbed\UrlResolver;
+use Drupal\media\OEmbed\ResourceFetcher;
 
 /**
  * Class YouTube.
  */
 final class Tweet implements TweetInterface {
-
-  /**
-   * The Embed.
-   *
-   * @var \Drupal\jcms_admin\Embed
-   */
-  private $embed;
 
   /**
    * The logger channel.
@@ -25,11 +20,26 @@ final class Tweet implements TweetInterface {
   private $logger;
 
   /**
+   * The Oembed Url Resolver.
+   *
+   * @var \Drupal\media\OEmbed\UrlResolver
+   */
+  private $urlResolver;
+
+  /**
+   * The Oembed Resource Fetcher.
+   *
+   * @var \Drupal\media\OEmbed\ResourceFetcher
+   */
+  private $resourceFetcher;
+
+  /**
    * Tweet constructor.
    */
-  public function __construct(Embed $embed, LoggerInterface $logger) {
-    $this->embed = $embed;
+  public function __construct(LoggerInterface $logger, UrlResolver $url_resolver, ResourceFetcher $resource_fetcher) {
     $this->logger = $logger;
+    $this->urlResolver = $url_resolver;
+    $this->resourceFetcher = $resource_fetcher;
   }
 
   /**
@@ -49,16 +59,16 @@ final class Tweet implements TweetInterface {
    */
   public function getDetails(string $id): array {
     try {
-      if ($info = $this->embed->create('https://twitter.com/og/status/' . $id)) {
-        $providers = $info->getProviders();
-        if (isset($providers['oembed'])) {
-          /** @var \Embed\Providers\OEmbed $oembed */
-          $oembed = $providers['oembed'];
+      $url = 'https://twitter.com/og/status/' . $id;
+      $resourceUrl = $this->urlResolver->getResourceUrl($url);
+      if ($resourceUrl) {
+        $oembed = $this->resourceFetcher->fetchResource($resourceUrl);
+        if ($oembed) {
           $oembed_dom = new Dom();
           $oembed_dom->setOptions([
             'preserveLineBreaks' => TRUE,
           ]);
-          $oembed_dom->load($oembed->getCode());
+          $oembed_dom->load($oembed->getHtml());
           $blockquote = $oembed_dom->find('blockquote');
           $text = $blockquote->firstChild()->innerHtml();
           $datestr = $blockquote->lastChild()->text();
