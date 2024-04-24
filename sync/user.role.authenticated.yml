@@ -38,6 +38,7 @@ dependencies:
     - field_permissions
     - file_entity
     - filter
+    - media
     - rest
     - shortcut
     - system
@@ -86,4 +87,5 @@ permissions:
   - 'view field_research_details_json'
   - 'view field_subject_id'
   - 'view files'
+  - 'view media'
   - 'view own field_subject_id'
