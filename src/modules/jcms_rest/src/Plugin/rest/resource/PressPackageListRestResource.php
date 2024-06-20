@@ -86,7 +86,7 @@ class PressPackageListRestResource extends AbstractRestResourceBase {
     if ($node->get('field_related_content')->count()) {
       $articles = [];
       foreach ($node->get('field_related_content')->referencedEntities() as $related) {
-        if ($article = $this->getArticleSnippet($related)) {
+        if ($article = $this->getArticleSnippet($related, TRUE)) {
           $articles[] = $article;
         }
       }
