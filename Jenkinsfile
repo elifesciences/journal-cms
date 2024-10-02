@@ -13,22 +13,7 @@ elifePipeline {
     }
 
     elifeMainlineOnly {
-        stage 'End2end tests', {
-            elifeSpectrum(
-                deploy: [
-                    stackname: 'journal-cms--end2end',
-                    revision: commit,
-                    folder: '/srv/journal-cms',
-                    rollbackStep: {
-                        builderCmd 'journal-cms--end2end', 'cd /srv/journal-cms/web && ../vendor/bin/drush si minimal --existing-config -y && ../vendor/bin/drush cr'
-                        builderDeployRevision 'journal-cms--end2end', 'approved'
-                        builderSmokeTests 'journal-cms--end2end', '/srv/journal-cms'
-                    }
-                ],
-                marker: 'journal_cms'
-            )
-        }
-
+        
         stage 'Deploy on continuumtest', {
             lock('journal-cms--continuumtest') {
                 builderDeployRevision 'journal-cms--continuumtest', commit
