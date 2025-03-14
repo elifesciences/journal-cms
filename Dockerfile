@@ -60,13 +60,18 @@ RUN { \
 
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
 
-# https://www.drupal.org/node/3060/release
-ENV DRUPAL_VERSION 9.5.11
-
 WORKDIR /opt/drupal
+
+COPY ./composer.json composer.json
+COPY ./composer.lock composer.lock
+COPY ./src src
+COPY ./scripts scripts
+COPY ./config/drupal-vm.settings.php config/drupal-vm.settings.php
+COPY ./config/drupal-vm.services.yml config/drupal-vm.services.yml
+
 RUN set -eux; \
 	export COMPOSER_HOME="$(mktemp -d)"; \
-	composer create-project --no-interaction "drupal/recommended-project:$DRUPAL_VERSION" ./; \
+	composer install --no-interaction; \
 	chown -R www-data:www-data web/sites web/modules web/themes; \
 	rmdir /var/www/html; \
 	ln -sf /opt/drupal/web /var/www/html; \
