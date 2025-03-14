@@ -7,9 +7,11 @@ RUN set -eux; \
 		a2enmod rewrite; \
 	fi; \
 	\
+	apt-get update; \
+	apt-get install -y --no-install-recommends git; \
+	\
 	savedAptMark="$(apt-mark showmanual)"; \
 	\
-	apt-get update; \
 	apt-get install -y --no-install-recommends \
 		libfreetype6-dev \
 		libjpeg-dev \
