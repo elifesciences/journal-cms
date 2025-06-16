@@ -78,7 +78,7 @@ ENV PATH=${PATH}:/opt/drupal/vendor/bin
 FROM drupal-9 AS journal-cms
 
 # Downgrade composer for eLife Journal CMS
-COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
+COPY --from=composer:1.10 /usr/bin/composer /usr/local/bin/
 
 # Copy over custom modules and themes
 COPY ./src/modules/* web/modules/
