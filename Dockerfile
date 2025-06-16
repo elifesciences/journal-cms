@@ -76,3 +76,21 @@ RUN set -eux; \
 ENV PATH=${PATH}:/opt/drupal/vendor/bin
 
 FROM drupal-9 AS journal-cms
+
+# Downgrade composer for eLife Journal CMS
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
+
+# Copy over custom modules and themes
+COPY ./src/modules/* web/modules/
+COPY ./src/themes/* web/themes/
+
+# Copy custom scripts
+COPY ./scripts scripts
+
+# Copy our deps and install
+COPY ./composer.json composer.json
+COPY ./composer.lock composer.lock
+RUN composer install --no-interaction \
+  --no-scripts # There is a lot of custom path handling in the JCMSDrupalProject\composer\ScriptHandler class, so skip for now.
+
+CMD [ "bash", "-c", "(cd web; drush site-install minimal --existing-config -y) && apache2-foreground" ]
