@@ -502,6 +502,86 @@ class JcmsNotificationsCommands extends DrushCommands {
   }
 
   /**
+   * Imports all metrics for articles attached to a cover item in journal-cms.
+   *
+   * @param array $options
+   *   Array of options whose values come from cli, aliases, config, etc.
+   *
+   * @option limit
+   *   Limit on the number of items to process in each import.
+   * @option skip-updates
+   *   Do not attempt to update articles that have a metric value already.
+   * @usage drush cover-article-metrics-import-all
+   *   Import all article metrics in journal-cms and return a message when
+   * finished.
+   * @usage drush cover-article-metrics-import-all --limit=500
+   *   Import first 500 article metrics in journal-cms and return a message
+   * when finished.
+   * @usage drush cover-article-metrics-import-all --skip-updates
+   *   Import all article metrics in journal-cms, but skip over articles that
+   * we have a metric for already, and return a message when finished.
+   * @validate-module-enabled jcms_notifications
+   *
+   * @command cover-article:metrics-import-all
+   * @aliases camia,cover-article-metrics-import-all
+   */
+  public function coverArticleMetricsImportAll(array $options = [
+    'limit' => NULL,
+  ]) {
+    $metrics_service = \Drupal::service('jcms_article.fetch_article_metrics');
+    $this->output()->writeln(dt('Fetching article metrics. This may take a few minutes.'));
+    $limit = $options['limit'] ? (int) $options['limit'] : NULL;
+
+    $query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
+      ->condition('type', 'cover')
+      ->condition('field_cover_content.entity.type', 'article')
+      ->sort('field_cover_content.entity.created', 'desc');
+    if (!empty($limit)) {
+      $query->range(0, $limit);
+    }
+    if ($options['skip-updates']) {
+      $query->condition('field_cover_content.entity.field_page_views.value', 0);
+    }
+    $nids = $query->execute();
+    /** @var \Drupal\node\Entity\Node[] $nodes */
+    $nodes = Node::loadMultiple($nids);
+    $this->output()->writeln(dt('Received !count cover article metrics to process.', ['!count' => count($nids)]));
+    if ($nodes) {
+      $time_start = microtime(TRUE);
+      $num = 0;
+      $article_nids = [];
+      foreach ($nodes as $node) {
+        $article_nid = $node->get('field_cover_content')->getString();
+        $article_nids[$article_nid] = $article_nid;
+      }
+
+      $article_nodes = Node::loadMultiple($article_nids);
+      foreach ($article_nodes as $article_node) {
+        $articleMetrics = $metrics_service->getArticleMetrics($article_node->label());
+        if ((int) $article_node->get('field_page_views')->getString() != $articleMetrics->getPageViews()) {
+          $article_node->set('field_page_views', $articleMetrics->getPageViews());
+          $article_node->save();
+        }
+
+        $this->output()->writeln(dt('Processed cover article metrics for !article_id (!num of !count)', [
+          '!article_id' => $article_node->label(),
+          '!num' => ++$num,
+          '!count' => count($article_nids),
+        ]));
+      }
+
+      $time_end = microtime(TRUE);
+      $time = round($time_end - $time_start, 0);
+      $this->output()->writeln(dt('Processed !count cover article metrics in !minutes minutes !seconds seconds.', [
+        '!count' => count($nids),
+        '!minutes' => floor($time / 60),
+        '!seconds' => round($time % 60),
+      ]));
+    }
+  }
+
+  /**
    * Gets notifications from the database and send them to SNS.
    *
    * @param array $options

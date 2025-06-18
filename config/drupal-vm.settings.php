@@ -78,7 +78,7 @@ $settings['jcms_sqs_queue'] = 'journal-cms--queue-local';
 // Production template is 'arn:aws:sns:us-east-1:512686554592:bus-%s--dev'.
 $settings['jcms_sns_topic_template'] = 'arn:aws:sns:local:000000000000:%s';
 $settings['jcms_sqs_region'] = 'us-east-1';
-$settings['jcms_gateway'] = 'https://prod--gateway.elifesciences.org';
+$settings['jcms_gateway'] = 'https://api.elifesciences.org';
 $settings['jcms_all_articles_endpoint'] = $settings['jcms_gateway'] . '/articles';
 $settings['jcms_articles_endpoint'] = $settings['jcms_gateway'] . '/articles/%s/versions';
 $settings['jcms_metrics_endpoint'] = $settings['jcms_gateway'] . '/metrics/article/%s/%s';
