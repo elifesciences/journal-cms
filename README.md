@@ -77,6 +77,7 @@ First you need to install DDev, installation instruction for most platforms avai
 ddev composer install
 ddev start
 ddev drush si minimal --existing-config -y
+ddev add-on get ddev/ddev-redis
 ```
 
 Visit http://journal-cms.ddev.site:8080.
