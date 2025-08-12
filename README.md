@@ -19,3 +19,7 @@ If you want to completely replay the set up of this project locally then you can
 ddev stop --remove-data
 ddev composer run-script clean-up
 ```
+
+## Observability
+
+Application logs can be found at https://elifesciences.loggly.com.
