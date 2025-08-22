@@ -6,13 +6,14 @@
  */
 
 use Drupal\Core\Site\Settings;
-use Drupal\node\NodeInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\block\Entity\Block;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Url;
+use Drupal\ckeditor5\Plugin\CKEditor5PluginDefinition;
+use Drupal\getDerivativeDefinitions;
 
 /**
  * Implements hook_page_attachments().
@@ -23,20 +24,13 @@ use Drupal\Core\Url;
  */
 function jcms_ckeditor_page_attachments(array &$attachments) {
   $current_theme = \Drupal::theme()->getActiveTheme()->getName();
-  $default_theme = $config = \Drupal::config('system.theme')->get('default');
+  $default_theme = \Drupal::config('system.theme')->get('default');
   if (\Drupal::currentUser()->hasPermission('use inline editor') && $current_theme == $default_theme) {
+    $attachments['#attached'] = \Drupal::service('plugin.manager.editor')->getAttachments(['ckeditor_html']);
     $attachments['#attached']['library'][] = 'jcms_ckeditor/jcms_ckeditor';
-    $attachments['#attached']['drupalSettings']['pluginPathContrib'] = '/libraries/ckeditor/plugins/';
-    $attachments['#attached']['drupalSettings']['pluginPathCustom'] = '/' . drupal_get_path('module', 'jcms_ckeditor') . '/ckeditor/plugins/';
+    //$attachments['#attached']['library'][] = 'jcms_ckeditor/toastify';
+    $attachments['#attached']['library'][] = 'jcms_ckeditor/toastr';
     $attachments['#attached']['drupalSettings']['placeholder'] = t('Type something here ...');
-    $node = \Drupal::routeMatch()->getParameter('node');
-    if ($node instanceof NodeInterface && $node->hasField('field_content_images_preview')) {
-      $bundle_fields = \Drupal::getContainer()->get('entity_field.manager')->getFieldDefinitions('node', $node->bundle());
-      $field_definition = $bundle_fields['field_content_images_preview'];
-      $file_directory = $field_definition->getSetting('file_directory');
-      $token_service = \Drupal::service('token');
-      $attachments['#attached']['drupalSettings']['imageFileDirectory'] = $token_service->replace($file_directory);
-    }
   }
 }
 
@@ -167,6 +161,21 @@ function jcms_ckeditor_block_access(Block $block, string $operation, AccountInte
 }
 
 /**
+ * Implements hook_theme().
+ */
+function jcms_ckeditor_theme($existing, $type, $theme, $path) {
+  return [
+    'filter_ckimages' => [
+      'variables' => [
+        'node' => NULL,
+        'caption' => NULL,
+        'classes' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
  * Implements hook_theme_suggestions_node_alter().
  *
  * Allow for toolbar on editable node views.
@@ -209,3 +218,13 @@ function jcms_ckeditor_editable_types() : array {
     'press_package',
   ];
 }
+
+/**
+ * Implements hook_ckeditor5_plugin_info_alter().
+ */
+function jcms_ckeditor_ckeditor5_plugin_info_alter(array &$plugin_definitions): void {
+  $image_plugin_definition = $plugin_definitions['ckeditor5_image']->toArray();
+  $image_plugin_definition['ckeditor5']['config']['image']['insert']['type'] = 'block';
+  $plugin_definitions['ckeditor5_image']= new CKEditor5PluginDefinition($image_plugin_definition);
+}
+

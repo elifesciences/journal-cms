@@ -283,6 +283,8 @@ function jcms_admin_form_alter(&$form, FormStateInterface $form_state, $form_id)
     /** @var \Drupal\node\NodeInterface $node */
     $node = $form_state->getFormObject()->getEntity();
     $validator = \Drupal::service('jcms_rest.content_validator');
+    $host = \Drupal::request()->getSchemeAndHttpHost();
+    $validator->setBaseUrl($host);
     $disabled = FALSE;
     $description = '';
     try {

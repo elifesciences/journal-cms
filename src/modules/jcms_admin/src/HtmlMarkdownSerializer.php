@@ -53,6 +53,7 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
     $html = $this->preserveOutput($object, $context);
     $html = $this->cleanHtml($html);
     $html = $this->htmlConverter->convert($html);
+    $html = htmlspecialchars_decode($html);
     $markdown = $this->prepareOutput($html);
     $markdown = preg_replace('~(</table>|</figure>|</elifebutton>)\s*([^\s\n])~', '$1' . PHP_EOL . PHP_EOL . '$2', $markdown);
     return trim($markdown);

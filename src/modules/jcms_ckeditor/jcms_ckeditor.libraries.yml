@@ -1,8 +1,35 @@
 jcms_ckeditor:
   js:
-    /core/assets/vendor/ckeditor/ckeditor.js: {}
-    /libraries/ckeditor/adaptors/jquery.js: {}
     js/jcms_ckeditor.js: {}
   css:
     theme:
-      css/jcms_ckeditor.css: {} 
+      css/jcms_ckeditor.css: {}
+  dependencies:
+    - core/once
+    - core/ckeditor5.editorDecoupled
+    - core/drupal.debounce
+    - jcms_ckeditor/ckeditor5_plugins
+
+ckeditor5_plugins:
+  js:
+    build/jcms_plugins.js: { preprocess: false, minified: true }
+
+jcmsDrupalImage:
+  js:
+    build/jcmsDrupalImage.js: { preprocess: false, minified: true }
+
+admin_jcms_plugins:
+  css:
+    theme:
+      css/jcms_ckeditor.admin.css: { }
+
+toastr:
+  js:
+    /libraries/toastr/build/toastr.min.js: {}
+  css:
+    component:
+      /libraries/toastr/build/toastr.css: {}
+
+ckeditor5_inspector:
+  js:
+    node_modules/@ckeditor/ckeditor5-inspector/build/inspector.js: {}
