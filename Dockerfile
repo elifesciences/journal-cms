@@ -109,6 +109,8 @@ RUN chmod 644 web/sites/default/services.yml
 COPY ./composer.json composer.json
 COPY ./composer.lock composer.lock
 
+RUN mkdir -p private/monolog
+
 # drupal/core-project-message apparently won't work on first install.
 # So we install without script, then with scripts
 RUN composer install --no-interaction --no-scripts
@@ -117,3 +119,5 @@ RUN composer install --no-interaction --no-scripts
 RUN mkdir config && touch config/drupal-vm.settings.php && touch config/drupal-vm.services.yml \
   && composer install --no-interaction \
   && rm -r config
+
+RUN chown -R www-data:www-data private
