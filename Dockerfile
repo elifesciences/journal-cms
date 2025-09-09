@@ -86,18 +86,18 @@ COPY ./scripts scripts
 # Copy patches
 COPY ./src/patches src/patches
 
-# Copy docker configs
-COPY ./config/docker/settings.php web/sites/default/settings.php
-COPY ./config/docker/services.yml web/sites/default/services.yml
-RUN chmod 644 web/sites/default/settings.php
-RUN chmod 644 web/sites/default/services.yml
-
 # Copy over custom modules and themes
 COPY ./src/modules/ web/modules/
 COPY ./src/themes/ web/themes/
 
 # Copy sync config
 COPY ./sync sync
+
+# Copy docker configs
+COPY ./config/docker/settings.php web/sites/default/settings.php
+COPY ./config/docker/services.yml web/sites/default/services.yml
+RUN chmod 644 web/sites/default/settings.php
+RUN chmod 644 web/sites/default/services.yml
 
 # Copy our deps and composer install (which runs install scripts)
 COPY ./composer.json composer.json
