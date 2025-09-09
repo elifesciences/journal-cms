@@ -77,6 +77,12 @@ ENV PATH=${PATH}:/opt/drupal/vendor/bin
 
 FROM drupal-9 AS journal-cms
 
+RUN apt-get update && apt-get install -y unzip git \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN pecl install redis igbinary uploadprogress \
+	&& docker-php-ext-enable redis igbinary uploadprogress
+
 # Downgrade composer for eLife Journal CMS
 COPY --from=composer:1.10 /usr/bin/composer /usr/local/bin/
 
