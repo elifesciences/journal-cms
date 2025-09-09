@@ -1,0 +1,39 @@
+services:
+  db:
+    image: percona/percona-server:8.4
+    environment:
+      MYSQL_USER: journal_cms
+      MYSQL_PASSWORD: journal_cms
+      MYSQL_DATABASE: journal_cms
+      MYSQL_RANDOM_ROOT_PASSWORD: true
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - db_data:/var/lib/mysql
+
+  app:
+    build:
+      context: .
+      target: journal-cms
+    ports:
+      - 8080:80
+    env_file: .env
+    environment:
+      DRUPAL_DATABASE_NAME: journal_cms
+      DRUPAL_DATABASE_USERNAME: journal_cms
+      DRUPAL_DATABASE_PASSWORD: journal_cms
+      DRUPAL_DATABASE_HOST: db
+      DRUPAL_DATABASE_PORT: 3306
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - sites_files:/opt/drupal/web/sites/default/files/
+
+volumes:
+  db_data: {}
+  sites_files: {}
+  private: {}
