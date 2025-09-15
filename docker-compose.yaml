@@ -47,6 +47,16 @@ services:
         awslocal sqs create-queue --queue-name journal-cms--dev;
       '
 
+  api-dummy:
+    image: ghcr.io/elifesciences/api-dummy:20250911155213.0.0-g50b00e3-17650078370-1
+    stop_grace_period: 1s
+    healthcheck:
+      test: ["CMD", "curl", "localhost:8080"]
+      interval: 1s
+      timeout: 1s
+      retries: 5
+
+
   app:
     build:
       context: .
@@ -65,6 +75,9 @@ services:
       # redis service
       REDIS_HOST: redis
 
+      # api-dummy service
+      JCMS_API_GATEWAY: http://api-dummy:8080
+
       # localstack service
       AWS_ACCESS_KEY_ID: 'test'
       AWS_SECRET_ACCESS_KEY: 'test'
@@ -77,6 +90,8 @@ services:
       db:
         condition: service_healthy
       redis:
+        condition: service_healthy
+      api-dummy:
         condition: service_healthy
       init-aws:
         condition: service_completed_successfully
