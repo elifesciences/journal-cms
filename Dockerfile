@@ -87,7 +87,7 @@ RUN pecl install redis igbinary uploadprogress \
 COPY --from=composer:1.10 /usr/bin/composer /usr/local/bin/
 
 # Copy custom scripts
-COPY ./scripts scripts
+COPY ./config/docker/ScriptHandler.php scripts/composer/ScriptHandler.php
 
 # Copy patches
 COPY ./src/patches src/patches
@@ -113,11 +113,6 @@ RUN mkdir -p private/monolog
 
 # drupal/core-project-message apparently won't work on first install.
 # So we install without script, then with scripts
-RUN composer install --no-interaction --no-scripts
-# Our JCMSDrupalProject\composer\ScriptHandler presupposes a lot about development and deployment
-# but it's easier to just inject a settings.php into sites/default in docker/kubernetes with env vars.
-RUN mkdir config && touch config/drupal-vm.settings.php && touch config/drupal-vm.services.yml \
-  && composer install --no-interaction \
-  && rm -r config
+RUN composer install --no-interaction --no-scripts && composer install --no-interaction
 
 RUN chown -R www-data:www-data private
