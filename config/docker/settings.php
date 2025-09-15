@@ -60,14 +60,18 @@ if (getenv('JCMS_SQS_ENDPOINT')) {
 $settings['jcms_sqs_queue'] = getenv('JCMS_SQS_QUEUE');
 $settings['jcms_sqs_region'] = getenv('JCMS_SQS_REGION');
 $settings['jcms_sns_topic_template'] =  getenv('JCMS_TOPIC_TEMPLATE');
+
 $settings['jcms_gateway'] = getenv('JCMS_API_GATEWAY');
-$settings['jcms_articles_endpoint_for_migration'] = getenv('JCMS_ARTICLES_ENDPOINT_FOR_MIGRATION');
-$settings['jcms_articles_endpoint'] = getenv('JCMS_ARTICLES_ENDPOINT');
-$settings['jcms_metrics_endpoint'] = getenv('JCMS_METRICS_ENDPOINT');
-$settings['jcms_all_digests_endpoint'] = getenv('JCMS_ALL_DIGESTS_ENDPOINT');
-$settings['jcms_all_articles_endpoint'] = getenv('JCMS_ALL_ARTICLES_ENDPOINT');
-$settings['jcms_all_reviewed_preprints_endpoint'] = getenv('JCMS_ALL_REVIEWED_PREPRINTS_ENDPOINT');
-$settings['jcms_article_fragments_endpoint'] = getenv('JCMS_ARTICLE_FRAGMENTS_ENDPOINT');
+$settings['jcms_articles_endpoint'] = $settings['jcms_gateway'] . '/articles/%s/versions';
+$settings['jcms_metrics_endpoint'] = $settings['jcms_gateway'] . '/metrics/article/%s/%s';
+$settings['jcms_all_articles_endpoint'] = $settings['jcms_gateway'] . '/articles';
+$settings['jcms_all_reviewed_preprints_endpoint'] = $settings['jcms_gateway'] . '/reviewed-preprints';
+$settings['jcms_all_digests_endpoint'] = $settings['jcms_gateway'] . '/digests';
+$settings['jcms_article_fragments_endpoint'] = $settings['jcms_gateway'] . '/articles/%s/fragments/%s';
+
+// migration gateway can be overridden
+$settings['jcms_articles_endpoint_for_migration'] = (getenv('JCMS_API_GATEWAY_FOR_MIGRATION') ?: $settings['jcms_gateway']) . $settings['jcms_articles_endpoint'];
+
 if (getenv('JCMS_AUTH_UNPUBLISHED')) {
   $settings['jcms_article_auth_unpublished'] = getenv('JCMS_AUTH_UNPUBLISHED');
 } else {
