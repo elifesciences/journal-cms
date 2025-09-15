@@ -55,24 +55,31 @@ services:
       - 8080:80
     env_file: .env
     environment:
+      # db service
       DRUPAL_DATABASE_NAME: journal_cms
       DRUPAL_DATABASE_USERNAME: journal_cms
       DRUPAL_DATABASE_PASSWORD: journal_cms
       DRUPAL_DATABASE_HOST: db
       DRUPAL_DATABASE_PORT: 3306
+
+      # redis service
       REDIS_HOST: redis
+
+      # localstack service
+      AWS_ACCESS_KEY_ID: 'test'
+      AWS_SECRET_ACCESS_KEY: 'test'
       JCMS_SQS_ENDPOINT: http://localstack:4566
       JCMS_SQS_REGION: us-east-1
       JCMS_SQS_QUEUE: journal-cms--dev
-      AWS_ACCESS_KEY_ID: 'test'
-      AWS_SECRET_ACCESS_KEY: 'test'
+      JCMS_TOPIC_TEMPLATE: arn:aws:sns:us-east-1:000000000000:%s
+
     depends_on:
       db:
         condition: service_healthy
-      init-aws:
-        condition: service_completed_successfully
       redis:
         condition: service_healthy
+      init-aws:
+        condition: service_completed_successfully
     volumes:
       - sites_files:/opt/drupal/web/sites/default/files/
 
