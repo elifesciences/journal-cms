@@ -14,6 +14,12 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
+  redis:
+    image: redis:7-alpine
+    restart: always
+    volumes:
+      - redis_data:/data
+
   app:
     build:
       context: .
@@ -27,6 +33,7 @@ services:
       DRUPAL_DATABASE_PASSWORD: journal_cms
       DRUPAL_DATABASE_HOST: db
       DRUPAL_DATABASE_PORT: 3306
+      REDIS_HOST: redis
     depends_on:
       db:
         condition: service_healthy
@@ -35,5 +42,6 @@ services:
 
 volumes:
   db_data: {}
+  redis_data: {}
   sites_files: {}
   private: {}
