@@ -77,6 +77,13 @@ services:
 
       # api-dummy service
       JCMS_API_GATEWAY: http://api-dummy:8080
+      JCMS_ARTICLES_ENDPOINT_FOR_MIGRATION: http://api-dummy:8080
+      JCMS_ALL_DIGESTS_ENDPOINT: http://api-dummy:8080/digests
+      JCMS_ALL_REVIEWED_PREPRINTS_ENDPOINT: http://api-dummy:8080/reviewed-preprints
+      JCMS_ALL_ARTICLES_ENDPOINT: http://api-dummy:8080/articles
+      JCMS_ARTICLES_ENDPOINT: http://api-dummy:8080/articles/%s/versions
+      JCMS_ARTICLE_FRAGMENTS_ENDPOINT: http://api-dummy:8080/articles/%s/fragments/%s
+      JCMS_METRICS_ENDPOINT: http://api-dummy:8080/metrics/article/%s/%s
 
       # localstack service
       AWS_ACCESS_KEY_ID: 'test'
