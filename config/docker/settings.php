@@ -24,3 +24,60 @@ $databases['default']['default'] = [
   'namespace' => 'Drupal\Core\Database\Driver\mysql',
   'driver' => 'mysql',
 ];
+
+$settings['trusted_host_patterns'] = ['.*'];
+
+if (getenv('REDIS_HOST')) {
+  $settings['cache']['default'] = 'cache.backend.redis';
+  $settings['redis.connection']['interface'] = 'PhpRedis';
+  $settings['redis.connection']['host'] = getenv('REDIS_HOST');
+  // Always set the fast backend for bootstrap, discover and config, otherwise
+  // this gets lost when redis is enabled.
+  $settings['cache']['bins']['bootstrap'] = 'cache.backend.chainedfast';
+  $settings['cache']['bins']['discovery'] = 'cache.backend.chainedfast';
+  $settings['cache']['bins']['config'] = 'cache.backend.chainedfast';
+  $settings['container_yamls'][] = 'modules/redis/example.services.yml';
+}
+else {
+  error_log('Redis cache backend is unavailable.');
+}
+
+if (getenv('JCMS_JOURNAL_PATH')) {
+  $settings['journal_path'] = getenv('JCMS_JOURNAL_PATH');
+}
+
+if (getenv('JCMS_JOURNAL_PREVIEW')) {
+  $settings['journal_preview'] = getenv('JCMS_JOURNAL_PREVIEW');
+}
+
+
+if (getenv('JCMS_SQS_ENDPOINT')) {
+  $settings['jcms_sqs_endpoint'] = getenv('JCMS_SQS_ENDPOINT');
+} else {
+  $settings['jcms_sqs_endpoint'] = null;
+}
+
+$settings['jcms_sqs_queue'] = getenv('JCMS_SQS_QUEUE');
+$settings['jcms_sqs_region'] = getenv('JCMS_SQS_REGION');
+$settings['jcms_sns_topic_template'] =  getenv('JCMS_TOPIC_TEMPLATE');
+$settings['jcms_gateway'] = getenv('JCMS_API_GATEWAY');
+$settings['jcms_articles_endpoint_for_migration'] = getenv('JCMS_ARTICLES_ENDPOINT_FOR_MIGRATION');
+$settings['jcms_articles_endpoint'] = getenv('JCMS_ARTICLES_ENDPOINT');
+$settings['jcms_metrics_endpoint'] = getenv('JCMS_METRICS_ENDPOINT');
+$settings['jcms_all_digests_endpoint'] = getenv('JCMS_ALL_DIGESTS_ENDPOINT');
+$settings['jcms_all_articles_endpoint'] = getenv('JCMS_ALL_ARTICLES_ENDPOINT');
+$settings['jcms_all_reviewed_preprints_endpoint'] = getenv('JCMS_ALL_REVIEWED_PREPRINTS_ENDPOINT');
+$settings['jcms_article_fragments_endpoint'] = getenv('JCMS_ARTICLE_FRAGMENTS_ENDPOINT');
+if (getenv('JCMS_AUTH_UNPUBLISHED')) {
+  $settings['jcms_article_auth_unpublished'] = getenv('JCMS_AUTH_UNPUBLISHED');
+} else {
+  $settings['jcms_article_auth_unpublished'] = null;
+}
+
+if (getenv('JCMS_IIIF_BASE_URI') && getenv('JCMS_IIIF_MOUNT')) {
+  $settings['jcms_iiif_base_uri'] = getenv('JCMS_IIIF_BASE_URI');
+  $settings['jcms_iiif_mount'] = getenv('JCMS_IIIF_MOUNT');
+} else {
+  $settings['jcms_iiif_base_uri'] = null;
+}
+$settings['jcms_rest_cache_max_age'] = 300;
