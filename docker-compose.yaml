@@ -27,10 +27,20 @@ services:
       - "127.0.0.1:4510-4559:4510-4559"  # external services port range
     environment:
       # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
+      - LOCALSTACK_HOST=localstack:4566
+      - SQS_ENDPOINT_STRATEGY=path
       - DEBUG=${DEBUG:-0}
     volumes:
       - "localstack_data:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
+  init-aws:
+    image: localstack/localstack
+    environment:
+      - AWS_ENDPOINT_URL=http://localstack:4566
+    entrypoint: |
+      bash -c '
+        awslocal sqs create-queue --queue-name journal-cms--dev;
+      '
 
   app:
     build:
@@ -49,11 +59,13 @@ services:
       JCMS_SQS_ENDPOINT: http://localstack:4566
       JCMS_SQS_REGION: us-east-1
       JCMS_SQS_QUEUE: journal-cms--dev
-      AWS_ACCESS_KEY_ID: 112233445566
-      AWS_SECRET_ACCESS_KEY: 112233445566
+      AWS_ACCESS_KEY_ID: 'test'
+      AWS_SECRET_ACCESS_KEY: 'test'
     depends_on:
       db:
         condition: service_healthy
+      init-aws:
+        condition: service_completed_successfully
     volumes:
       - sites_files:/opt/drupal/web/sites/default/files/
 
