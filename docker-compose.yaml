@@ -17,6 +17,11 @@ services:
   redis:
     image: redis:7-alpine
     restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - redis_data:/data
 
@@ -66,6 +71,8 @@ services:
         condition: service_healthy
       init-aws:
         condition: service_completed_successfully
+      redis:
+        condition: service_healthy
     volumes:
       - sites_files:/opt/drupal/web/sites/default/files/
 
