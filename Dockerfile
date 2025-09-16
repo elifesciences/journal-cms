@@ -105,6 +105,7 @@ COPY ./config/docker/services.yml web/sites/default/services.yml
 RUN chmod 644 web/sites/default/settings.php && \
   chmod 644 web/sites/default/services.yml && \
   mkdir web/sites/default/files && \
+  mkdir web/sites/default/files/iiif && \
   chown -R www-data:www-data web/sites/default
 
 # Copy our deps and composer install (which runs install scripts)
