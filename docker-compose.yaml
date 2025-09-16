@@ -56,6 +56,22 @@ services:
       timeout: 1s
       retries: 5
 
+  iiif:
+    image: ghcr.io/elifesciences/cantaloupe:20250903133904.0.0-g0e80db1-17435320409-1-5.0.7
+    environment:
+    - SOURCE_STATIC=FilesystemSource
+    - LOG_APPLICATION_LEVEL=all
+    - FILESYSTEMSOURCE_BASICLOOKUPSTRATEGY_PATH_PREFIX=/iiif/
+    volumes:
+      - iiif_files:/iiif
+    ports:
+      - "8182:8182"
+    healthcheck:
+      test: curl http://iiif:8182/
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 2s
 
   app:
     build:
@@ -87,6 +103,10 @@ services:
       JCMS_SQS_QUEUE: journal-cms--dev
       JCMS_TOPIC_TEMPLATE: arn:aws:sns:us-east-1:000000000000:%s
 
+      # iiif service
+      JCMS_IIIF_BASE_URI: http://localhost:8182/iiif/2/
+      JCMS_IIIF_MOUNT: iiif
+
     depends_on:
       db:
         condition: service_healthy
@@ -98,10 +118,12 @@ services:
         condition: service_completed_successfully
     volumes:
       - sites_files:/opt/drupal/web/sites/default/files/
+      - iiif_files:/opt/drupal/web/sites/default/files/iiif
 
 volumes:
   db_data: {}
   redis_data: {}
-  sites_files: {}
-  private: {}
   localstack_data: {}
+  sites_files: {}
+  iiif_files: {}
+  private: {}
