@@ -102,8 +102,10 @@ COPY ./sync sync
 # Copy docker configs
 COPY ./config/docker/settings.php web/sites/default/settings.php
 COPY ./config/docker/services.yml web/sites/default/services.yml
-RUN chmod 644 web/sites/default/settings.php
-RUN chmod 644 web/sites/default/services.yml
+RUN chmod 644 web/sites/default/settings.php && \
+  chmod 644 web/sites/default/services.yml && \
+  mkdir web/sites/default/files && \
+  chown -R www-data:www-data web/sites/default
 
 # Copy our deps and composer install (which runs install scripts)
 COPY ./composer.json composer.json
@@ -116,3 +118,4 @@ RUN mkdir -p private/monolog
 RUN composer install --no-interaction --no-scripts && composer install --no-interaction
 
 RUN chown -R www-data:www-data private
+USER www-data
