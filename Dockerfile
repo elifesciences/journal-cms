@@ -99,6 +99,10 @@ COPY ./src/themes/ web/themes/
 # Copy sync config
 COPY ./sync sync
 
+# Fix up paths in config
+RUN sed -i 's#modules/custom/jcms_migrate#modules/jcms_migrate#g' web/modules/jcms_migrate/config/install/migrate_plus.migration.subjects_json.yml sync/migrate_plus.migration.jcms_subjects_json.yml
+
+
 # Copy docker configs
 COPY ./config/docker/settings.php web/sites/default/settings.php
 COPY ./config/docker/services.yml web/sites/default/services.yml
