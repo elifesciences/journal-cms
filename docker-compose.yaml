@@ -76,7 +76,7 @@ services:
   app:
     build:
       context: .
-      target: journal-cms
+      target: test
     ports:
       - 8080:80
     env_file: .env
@@ -107,6 +107,8 @@ services:
       JCMS_IIIF_BASE_URI: http://localhost:8182/iiif/2/
       JCMS_IIIF_MOUNT: iiif
 
+      # For tests
+      JCMS_TEST_BASE_URI: http://app
     depends_on:
       db:
         condition: service_healthy

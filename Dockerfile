@@ -120,3 +120,12 @@ RUN composer install --no-interaction --no-scripts && composer install --no-inte
 
 RUN chown -R www-data:www-data private
 USER www-data
+
+
+FROM journal-cms AS test
+
+COPY ./scripts/generate_content.sh scripts/generate_content.sh
+COPY ./src src
+COPY ./phpunit.xml.dist phpunit.xml.dist
+
+FROM journal-cms AS prod
