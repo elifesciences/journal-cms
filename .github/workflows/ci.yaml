@@ -43,9 +43,6 @@ jobs:
         run: |
           docker compose exec app bash  -c 'cd web; drush site-install  --existing-config -y'
           docker compose exec app ./project_tests.sh
-      - name: Take down test stack
-        if: always()
-        run: docker compose down
 
   build-and-push:
     runs-on: ubuntu-latest
