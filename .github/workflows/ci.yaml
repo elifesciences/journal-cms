@@ -69,5 +69,7 @@ jobs:
           tags: |
             ${{ env.IMAGE_REPO }}:${{ github.sha }}
             ${{ env.IMAGE_REPO }}:${{ env.IMAGE_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       - name: Push container image
         run: docker push ${CONTAINER_REPO}:${CONTAINER_TAG}
