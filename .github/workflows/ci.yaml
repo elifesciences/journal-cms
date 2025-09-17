@@ -1,0 +1,67 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+  push:
+    branches:
+      - master
+
+jobs:
+  generate-version:
+    runs-on: ubuntu-latest
+    outputs:
+      trunkver: ${{ steps.trunkver.outputs.trunkver }}
+    steps:
+      - name: Get a version tag
+        id: trunkver
+        uses: crftd-tech/trunkver@main
+        with:
+          prerelease: ${{ github.ref == 'refs/heads/master' && 'false' || 'true' }}
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bring up test stack
+        run: docker compose -f docker-compose.yml up --wait
+      - name: Debug bring up test stack
+        if: failure()
+        run: docker compose logs
+      - name: Run tests
+        run: docker compose -f docker-compose.yml run app ./project_tests.sh
+      - name: Take down test stack
+        if: always()
+        run: docker compose down
+
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs: [generate-version, tests]
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
+    env:
+      IMAGE_REPO: ghcr.io/elifesciences/journal-cms
+      IMAGE_TAG: ${{ github.ref == 'refs/heads/master' && needs.generate-version.outputs.trunkver || format('{0}-{1}', github.head_ref || github.ref_name, needs.generate-version.outputs.trunkver) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push client image
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          load: false
+          platforms: linux/amd64,linux/arm64
+          target: prod
+          tags: |
+            ${{ env.IMAGE_REPO }}:${{ github.sha }}
+            ${{ env.IMAGE_REPO }}:${{ env.IMAGE_TAG }}
+      - name: Push container image
+        run: docker push ${CONTAINER_REPO}:${CONTAINER_TAG}
