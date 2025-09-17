@@ -36,8 +36,6 @@ jobs:
           load: true
           target: test
           cache-from: type=gha,scope=global
-      - name: Pre-pull vendor docker images
-        run: docker compose pull
       - name: Bring up test stack
         run: docker compose up --wait
       - name: Debug bring up test stack
