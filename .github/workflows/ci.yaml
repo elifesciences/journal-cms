@@ -43,7 +43,7 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     needs: [generate-version, tests]
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
+    # if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
     env:
       IMAGE_REPO: ghcr.io/elifesciences/journal-cms
       IMAGE_TAG: ${{ github.ref == 'refs/heads/master' && needs.generate-version.outputs.trunkver || format('{0}-{1}', github.head_ref || github.ref_name, needs.generate-version.outputs.trunkver) }}
