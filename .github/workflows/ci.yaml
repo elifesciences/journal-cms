@@ -33,7 +33,7 @@ jobs:
           push: false
           load: true
           target: test
-          cache-from: type=gha
+          cache-from: type=gha,scope=global
       - name: Bring up test stack
         run: docker compose up --wait
       - name: Debug bring up test stack
@@ -76,5 +76,5 @@ jobs:
           tags: |
             ${{ env.IMAGE_REPO }}:${{ github.sha }}
             ${{ env.IMAGE_REPO }}:${{ env.IMAGE_TAG }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=global
+          cache-to: type=gha,mode=max,scope=global
