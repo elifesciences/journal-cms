@@ -33,7 +33,10 @@ jobs:
           push: false
           load: true
           target: test
-          cache-from: type=gha,scope=global
+          cache-from: |
+            type=gha,scope=global
+            type=gha,scope=localbuild
+          cache-to: type=gha,mode=max,scope=localbuild
       - name: Bring up test stack
         run: docker compose up --wait
       - name: Debug bring up test stack
