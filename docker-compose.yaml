@@ -79,7 +79,9 @@ services:
       target: test
     ports:
       - 8080:80
-    env_file: .env
+    env_file:
+      - path: ./.env
+        required: false
     environment:
       # db service
       DRUPAL_DATABASE_NAME: journal_cms
