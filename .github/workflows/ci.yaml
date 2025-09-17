@@ -27,16 +27,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Build and load (cached) client image
         uses: docker/build-push-action@v6
         with:
           push: false
           load: true
           target: test
-          cache-from: |
-            type=gha,scope=global
-            type=gha,scope=localbuild
-          cache-to: type=gha,mode=max,scope=localbuild
+          cache-from: type=gha,scope=global
       - name: Bring up test stack
         run: docker compose up --wait
       - name: Debug bring up test stack
