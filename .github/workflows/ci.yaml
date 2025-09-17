@@ -28,12 +28,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Bring up test stack
-        run: docker compose -f docker-compose.yml up --wait
+        run: docker compose up --wait
       - name: Debug bring up test stack
         if: failure()
         run: docker compose logs
       - name: Run tests
-        run: docker compose -f docker-compose.yml run app ./project_tests.sh
+        run: docker compose run app ./project_tests.sh
       - name: Take down test stack
         if: always()
         run: docker compose down
