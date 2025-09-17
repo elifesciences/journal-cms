@@ -126,7 +126,7 @@ USER www-data
 FROM journal-cms AS test
 
 COPY ./scripts/generate_content.sh scripts/generate_content.sh
-COPY ./src src
 COPY ./phpunit.xml.dist phpunit.xml.dist
+COPY ./project_tests.sh project_tests.sh
 
 FROM journal-cms AS prod
