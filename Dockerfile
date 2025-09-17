@@ -84,7 +84,7 @@ RUN pecl install redis igbinary uploadprogress \
 	&& docker-php-ext-enable redis igbinary uploadprogress
 
 # Downgrade composer for eLife Journal CMS
-COPY --from=composer:1.10 /usr/bin/composer /usr/local/bin/
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
 
 # Copy custom scripts
 COPY ./config/docker/ScriptHandler.php scripts/composer/ScriptHandler.php
