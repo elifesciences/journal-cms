@@ -125,6 +125,9 @@ USER www-data
 
 FROM journal-cms AS test
 
+USER root
+RUN mkdir build && chown www-data:www-data build
+USER www-data
 COPY ./scripts/generate_content.sh scripts/generate_content.sh
 COPY ./phpunit.xml.dist phpunit.xml.dist
 COPY ./project_tests.sh project_tests.sh
