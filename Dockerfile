@@ -93,15 +93,12 @@ COPY ./config/docker/ScriptHandler.php scripts/composer/ScriptHandler.php
 COPY ./src/patches src/patches
 
 # Copy over custom modules and themes
-COPY ./src/modules/ web/modules/
-COPY ./src/themes/ web/themes/
-
+COPY ./src/modules/ src/modules
+COPY ./src/themes/ src/themes/
+RUN ln -s $(pwd)/src/modules  $(pwd)/web/modules/custom && \
+  ln -s $(pwd)/src/themes  $(pwd)/web/themes
 # Copy sync config
 COPY ./sync sync
-
-# Fix up paths in config
-RUN sed -i 's#modules/custom/jcms_migrate#modules/jcms_migrate#g' web/modules/jcms_migrate/config/install/migrate_plus.migration.subjects_json.yml sync/migrate_plus.migration.jcms_subjects_json.yml
-
 
 # Copy docker configs
 COPY ./config/docker/settings.php web/sites/default/settings.php
