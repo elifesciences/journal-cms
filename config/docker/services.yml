@@ -12,12 +12,12 @@ services:
       - [includeStacktraces, []]
   monolog.handler.default_handler:
     class: Monolog\Handler\StreamHandler
-    arguments: ['private://monolog/all.json']
+    arguments: ['php://stderr']
     calls:
       - [setFormatter, ['@jcms.monolog.formatter_basic']]
   monolog.handler.error_handler:
     class: Monolog\Handler\StreamHandler
-    arguments: ['private://monolog/error.json', 400]
+    arguments: ['php://stderr', 400]
     calls:
       - [setFormatter, ['@jcms.monolog.formatter_advanced']]
   cache.container:
