@@ -1,0 +1,9 @@
+services:
+  db:
+    ports:
+      - "3306:3306"
+
+  app:
+    volumes:
+      - ./vendor:/opt/drupal/vendor
+      - ./src:/opt/drupal/src

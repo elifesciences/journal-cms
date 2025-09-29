@@ -37,7 +37,7 @@ jobs:
           target: test
           cache-from: type=gha,scope=global
       - name: Bring up test stack
-        run: docker compose up --wait
+        run: docker compose -f docker-compose.yaml up --wait
       - name: Debug bring up test stack
         if: failure()
         run: docker compose logs
