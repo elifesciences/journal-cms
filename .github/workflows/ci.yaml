@@ -50,6 +50,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [generate-version, tests]
     # if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      packages: write
     env:
       IMAGE_REPO: ghcr.io/elifesciences/journal-cms
       IMAGE_TAG: ${{ github.ref == 'refs/heads/master' && needs.generate-version.outputs.trunkver || format('{0}-{1}', github.head_ref || github.ref_name, needs.generate-version.outputs.trunkver) }}
@@ -66,6 +71,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push client image
+        id: build-push
         uses: docker/build-push-action@v6
         with:
           push: true
@@ -77,3 +83,8 @@ jobs:
             ${{ env.IMAGE_REPO }}:${{ env.IMAGE_TAG }}
           cache-from: type=gha,scope=global
           cache-to: type=gha,mode=max,scope=global
+      - name: Generate artefact attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: ${{ env.IMAGE_REPO }}
+          subject-digest: ${{ steps.build-push.outputs.digest }}
