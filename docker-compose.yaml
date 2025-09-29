@@ -118,7 +118,7 @@ services:
       JCMS_IIIF_MOUNT: iiif
 
       # For tests
-      JCMS_TEST_BASE_URI: http://app
+      JCMS_TEST_BASE_URI: http://app:8080
     depends_on:
       db:
         condition: service_healthy
