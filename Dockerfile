@@ -83,7 +83,10 @@ RUN apt-get update && apt-get install -y unzip git \
 RUN pecl install redis igbinary uploadprogress \
 	&& docker-php-ext-enable redis igbinary uploadprogress
 
-# Downgrade composer for eLife Journal CMS
+# Default apache to a new port
+RUN sed -i "s/80/8080/g" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
+EXPOSE 8080
+
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
 
 # Copy custom scripts
