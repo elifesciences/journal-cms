@@ -35,6 +35,11 @@ services:
       - LOCALSTACK_HOST=localstack:4566
       - SQS_ENDPOINT_STRATEGY=path
       - DEBUG=${DEBUG:-0}
+    healthcheck:
+      test: ["CMD", "curl", "localhost:4566"]
+      interval: 1s
+      timeout: 1s
+      retries: 5
     volumes:
       - "localstack_data:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
@@ -46,6 +51,9 @@ services:
       bash -c '
         awslocal sqs create-queue --queue-name journal-cms--dev;
       '
+    depends_on:
+      localstack:
+        condition: service_healthy
 
   api-dummy:
     image: ghcr.io/elifesciences/api-dummy:20250911155213.0.0-g50b00e3-17650078370-1
