@@ -141,7 +141,7 @@ class HtmlJsonSerializerTest extends UnitTestCase {
         ->expects($this->exactly($guessCount))
         ->method('guess')
         ->willReturnCallback(function (string $calledUri) use ($mimeTypeGuesses) {
-          return $mimeTypeGuesses[$calledUri] ?? null;
+          return $mimeTypeGuesses[$calledUri] ?? NULL;
         });
     }
     foreach ($youtubes as $uri => $details) {
@@ -543,7 +543,7 @@ class HtmlJsonSerializerTest extends UnitTestCase {
               ],
             ],
             'title' => 'Image caption',
-            'inline' => true,
+            'inline' => TRUE,
           ],
           [
             'type' => 'image',
