@@ -132,12 +132,17 @@ class HtmlJsonSerializerTest extends UnitTestCase {
       ],
     ]
   ) {
+    $guessCount = 0;
     foreach ($mimeTypeGuesses as $uri => $mimeType) {
+      $guessCount += substr_count($html, preg_replace('/^public:\/\/iiif\//', '', $uri));
+    }
+    if ($guessCount > 0) {
       $this->mimeTypeGuesser
-        ->expects($this->once())
+        ->expects($this->exactly($guessCount))
         ->method('guess')
-        ->with($uri)
-        ->willReturn($mimeType);
+        ->willReturnCallback(function (string $calledUri) use ($mimeTypeGuesses) {
+          return $mimeTypeGuesses[$calledUri] ?? null;
+        });
     }
     foreach ($youtubes as $uri => $details) {
       $details += [
@@ -508,6 +513,64 @@ class HtmlJsonSerializerTest extends UnitTestCase {
           ],
         ],
         $this->lines([
+          '<div class="align-center">',
+          '<figure class="image profile-left"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" /><figcaption>Image caption</figcaption><p>1</p>',
+          '</figure></div>',
+        ]),
+        [
+          'public://iiif/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
+        ],
+      ],
+      'multiple images with wrapping div' => [
+        [
+          [
+            'type' => 'image',
+            'image' => [
+              'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg',
+              'alt' => '',
+              'source' => [
+                'mediaType' => 'image/jpeg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg/full/full/0/default.jpg',
+                'filename' => 'image-20180427145110-1.jpeg',
+              ],
+              'size' => [
+                'width' => 2000,
+                'height' => 2000,
+              ],
+              'focalPoint' => [
+                'x' => 50,
+                'y' => 50,
+              ],
+            ],
+            'title' => 'Image caption',
+            'inline' => true,
+          ],
+          [
+            'type' => 'image',
+            'image' => [
+              'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg',
+              'alt' => '',
+              'source' => [
+                'mediaType' => 'image/jpeg',
+                'uri' => 'https://iiif.elifesciences.org/journal-cms/editor-images%2Fimage-20180427145110-1.jpeg/full/full/0/default.jpg',
+                'filename' => 'image-20180427145110-1.jpeg',
+              ],
+              'size' => [
+                'width' => 2000,
+                'height' => 2000,
+              ],
+              'focalPoint' => [
+                'x' => 50,
+                'y' => 50,
+              ],
+            ],
+            'title' => 'Image caption',
+          ],
+        ],
+        $this->lines([
+          '<div class="align-left">',
+          '<figure class="image profile-left"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" /><figcaption>Image caption</figcaption><p>1</p>',
+          '</figure></div>',
           '<div class="align-center">',
           '<figure class="image profile-left"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" /><figcaption>Image caption</figcaption><p>1</p>',
           '</figure></div>',
@@ -1159,6 +1222,348 @@ class HtmlJsonSerializerTest extends UnitTestCase {
       'placeholder text' => [
         [],
         '<p><placeholder>Type something here ...</placeholder></p>',
+      ],
+      'media coverage july roundup' => [
+        [
+          [
+            'text' => 'In our latest monthly media coverage roundup, we highlight the top mentions that eLife papers generated in July. You can view the coverage, listed beneath the relevant subject areas, below.',
+            'type' => 'paragraph',
+          ],
+          [
+            'type' => 'section',
+            'title' => 'In Ecology',
+            'content' => [
+              [
+                'type' => 'image',
+                'image' => [
+                  'alt' => '',
+                  'uri' => 'https://iiif.elifesciences.org/journal-cms/for-the-press-content%2F2025-10%2Fimage-20251001154109-2.png',
+                  'size' => [
+                    'width' => 1280,
+                    'height' => 885,
+                  ],
+                  'source' => [
+                    'uri' => 'https://iiif.elifesciences.org/journal-cms/for-the-press-content%2F2025-10%2Fimage-20251001154109-2.png/full/full/0/default.jpg',
+                    'filename' => 'image-20251001154109-2.jpg',
+                    'mediaType' => 'image/jpeg',
+                  ],
+                  'focalPoint' => [
+                    'x' => 50,
+                    'y' => 50,
+                  ],
+                ],
+                'title' => 'A tomato plant. Image by <a href="https://pixabay.com/users/congerdesign-509903/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=879441">congerdesign</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=879441">Pixabay</a>.',
+              ],
+              [
+                'text' => 'Seltzer et al.’s Reviewed Preprint, ‘<a href="https://doi.org/10.7554/eLife.104700.2">Female Moths Incorporate Plant Acoustic Emissions into Their Oviposition Decision-Making Process</a>’, was covered in:',
+                'type' => 'paragraph',
+              ],
+              [
+                'type' => 'list',
+                'items' => [
+                  '<a href="https://www.bbc.co.uk/news/articles/c8e4860n9rpo">BBC News</a> – Animals react to secret sounds from plants, say scientists',
+                  '<a href="https://www.reuters.com/science/israeli-research-finds-that-when-plants-talk-insects-listen-2025-07-15/">Reuters</a> and <a href="https://www.yahoo.com/news/israeli-research-finds-plants-talk-143538886.html">Yahoo! News</a> – Israeli research finds that when plants talk, insects listen',
+                  '<a href="https://edition.cnn.com/2025/07/24/science/moths-listen-understand-plant-noises">CNN</a> – Breakthrough discovery shows that moths listen to plants — and avoid the noisy ones',
+                  '<a href="https://www.jpost.com/science/article-861248">The Jerusalem Post</a> – Israeli scientists: Stressed plants emit ultrasonic sounds influencing insect behavior',
+                  '<a href="https://www.israelhayom.com/2025/07/15/the-bug-whisperer-israeli-scientists-decode-natures-hidden-language/">Israel Hayom</a> – The bug whisperer: Israeli scientists decode nature\'s hidden language',
+                  '<a href="https://www.ynetnews.com/environment/article/hkimvim8xg">Ynetnews</a> – Moths can hear plants: Israeli study finds insects respond to plant distress calls',
+                  '<a href="https://www.jewishnews.co.uk/insects-hear-plants-talking-in-distress-israeli-study-reveals-groundbreaking-study/">Jewish News</a> – Insects hear plants ‘talking’ in distress, Israeli groundbreaking study reveals',
+                  '<a href="https://www.jns.org/tau-researchers-discover-first-evidence-of-auditory-interaction-between-plants-and-animals/">Jewish News Syndicate (JNS)</a> – TAU researchers discover first evidence of auditory interaction between plants and animals',
+                  '<a href="https://english.news.cn/20250716/4bbd1e5afd054b0ab56e4150108e98f8/c.html">Xinhua (China)</a> – Researchers find moths &quot;listen to&quot; ultrasonic sound from tomato plants',
+                  '<a href="https://www.ndtv.com/science/insects-listen-when-plants-talk-finds-israeli-study-8885237%20https://www.labrujulaverde.com/en/2025/07/animals-documented-for-the-first-time-responding-to-sounds-emitted-by-plants/">NDTV (India)</a> – Insects Listen When Plants Talk, Finds Israeli Study',
+                  '<a href="https://timesofindia.indiatimes.com/life-style/home-garden/insects-can-hear-when-plants-talk-finds-groundbreaking-study/articleshow/122830049.cms">The Times of India</a> – Insects can hear when plants talk, finds groundbreaking study',
+                  '<a href="https://economictimes.indiatimes.com/news/international/us/moths-can-hear-and-decode-plant-sound-signals-for-reproductive-decisions-new-study-reveals/articleshow/122901324.cms?from=mdr">The Economic Times (India)</a> – Moths can hear and decode plant sound signals for reproductive decisions: New study reveals',
+                  '<a href="https://www.greenmatters.com/pn/scientists-find-the-first-evidence-of-insects-choosing-egg-laying-site-based-on-plants-sounds">Green Matters</a> – Scientists Find the First Evidence of Insects Choosing Egg-Laying Site Based on Plants’ Sounds',
+                  '<a href="https://www.ecowatch.com/animals-plants-acoustic-interaction.html">EcoWatch</a> – Scientists Find First Evidence of Auditory Interaction Between Animals and Plants: Study',
+                  '<a href="https://www.iflscience.com/for-the-first-time-an-animal-has-been-shown-responding-to-plant-produced-sounds-80009">IFLScience</a> – For The First Time, An Animal Has Been Shown Responding To Plant-Produced Sounds',
+                  '<a href="https://www.sciencealert.com/moths-dont-like-to-lay-their-eggs-on-plants-that-are-screaming">Science Alert</a> – Moths Don\'t Like to Lay Their Eggs on Plants That Are Screaming',
+                ],
+                'prefix' => 'bullet',
+              ],
+            ],
+          ],
+          [
+            'type' => 'section',
+            'title' => '<strong>In Evolutionary Biology</strong>',
+            'content' => [
+              [
+                'type' => 'image',
+                'image' => [
+                  'alt' => '',
+                  'uri' => 'https://iiif.elifesciences.org/journal-cms/for-the-press-content%2F2025-10%2Fimage-20251001162702-3.png',
+                  'size' => [
+                    'width' => 4194,
+                    'height' => 3015,
+                  ],
+                  'source' => [
+                    'uri' => 'https://iiif.elifesciences.org/journal-cms/for-the-press-content%2F2025-10%2Fimage-20251001162702-3.png/full/full/0/default.jpg',
+                    'filename' => 'image-20251001162702-3.jpg',
+                    'mediaType' => 'image/jpeg',
+                  ],
+                  'focalPoint' => [
+                    'x' => 50,
+                    'y' => 50,
+                  ],
+                ],
+                'title' => 'Dinaledi skeletal remains. Image credit: Berger et al. (CC BY 4.0)',
+              ],
+              [
+                'text' => 'Berger et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.89106.3">Evidence for deliberate burial of the dead by <em>Homo naledi</em></a>’, was picked up in:',
+                'type' => 'paragraph',
+              ],
+              [
+                'type' => 'list',
+                'items' => [
+                  '<a href="https://www.iflscience.com/homo-naledi-may-have-buried-its-dead-after-all-peer-reviewer-accepts-80661">IFLScience</a> and <a href="https://www.msn.com/en-us/news/technology/homo-naledi-may-have-buried-its-dead-after-all-peer-reviewer-accepts/ar-AA1LNObX">MSN</a> – Homo Naledi May Have Buried Its Dead After All, Peer Reviewer Accepts',
+                  '<a href="https://www.newscientist.com/article/mg26735532-600-homo-naledis-burial-practices-could-change-what-it-means-to-be-human/">New Scientist</a> – Homo naledi\'s burial practices could change what it means to be human',
+                  '<a href="https://www.newscientist.com/article/2487980-what-were-ancient-humans-thinking-when-they-began-to-bury-their-dead/">New Scientist</a> – What were ancient humans thinking when they began to bury their dead?',
+                  '<a href="https://scienceandculture.com/2025/07/investigation-of-ancient-burials-yields-surprises/">Science &amp; Culture Today</a> – Investigation of Ancient Burials Yields Surprises',
+                  '<a href="https://www.discoverwildlife.com/prehistoric-life/human-species-lived-alongside-us">Discover Wildlife</a> – It turns out we aren\'t as unique as we think we are: Here are 5 ancient human species that once lived alongside us',
+                  '<a href="https://economictimes.indiatimes.com/news/international/us/five-ancient-human-species-that-lived-alongside-modern-humans-revealed-new-insights-into-our-prehistoric-cousins/articleshow/122960996.cms?from=mdr">The Economic Times</a> (India) – Five ancient human species that lived alongside modern humans revealed: New insights into our prehistoric cousins',
+                ],
+                'prefix' => 'bullet',
+              ],
+            ],
+          ],
+          [
+            'type' => 'section',
+            'title' => '<strong>In Ecology and Evolutionary Biology</strong>',
+            'content' => [
+              [
+                'type' => 'image',
+                'image' => [
+                  'alt' => '',
+                  'uri' => 'https://iiif.elifesciences.org/journal-cms/for-the-press-content%2F2025-10%2Fimage-20251001160311-6.png',
+                  'size' => [
+                    'width' => 1280,
+                    'height' => 855,
+                  ],
+                  'source' => [
+                    'uri' => 'https://iiif.elifesciences.org/journal-cms/for-the-press-content%2F2025-10%2Fimage-20251001160311-6.png/full/full/0/default.jpg',
+                    'filename' => 'image-20251001160311-6.jpg',
+                    'mediaType' => 'image/jpeg',
+                  ],
+                  'focalPoint' => [
+                    'x' => 50,
+                    'y' => 50,
+                  ],
+                ],
+                'title' => 'A young adult male chimpanzee (Jeje) cracking nuts using stone tools. Image credit: Dora Biro (<a href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a>)',
+              ],
+              [
+                'text' => 'Howard-Spink et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.105411.3">Old age variably impacts chimpanzee engagement and efficiency in stone tool use</a>’, was covered in:',
+                'type' => 'paragraph',
+              ],
+              [
+                'type' => 'list',
+                'items' => [
+                  '<a href="https://mailchi.mp/nature/daily-briefing-13893801?e=fcfcb4cba6">Nature briefing (July 15)</a>',
+                  '<a href="https://www.earth.com/news/what-aging-chimpanzees-can-teach-us-about-ourselves/">Earth.com</a> – What aging chimpanzees can teach us about ourselves',
+                ],
+                'prefix' => 'bullet',
+              ],
+              [
+                'text' => 'The Research Article by Smit and Robbins, ‘<a href="https://doi.org/10.7554/eLife.107093.3">Risk-taking incentives predict aggression heuristics in female gorillas</a>’, was featured in:',
+                'type' => 'paragraph',
+              ],
+              [
+                'type' => 'list',
+                'items' => [
+                  '<a href="https://scienceblog.com/wildscience/2025/07/25/hungry-pregnant-and-bold-why-female-gorillas-take-big-risks/">Science Blog</a> – Hungry, Pregnant, and Bold: Why Female Gorillas Take Big Risks',
+                ],
+                'prefix' => 'bullet',
+              ],
+            ],
+          ],
+          [
+            'type' => 'section',
+            'title' => '<strong>In Neuroscience</strong>',
+            'content' => [
+              [
+                'type' => 'image',
+                'image' => [
+                  'alt' => '',
+                  'uri' => 'https://iiif.elifesciences.org/journal-cms/for-the-press-content%2F2025-10%2Fimage-20251001162550-2.png',
+                  'size' => [
+                    'width' => 3474,
+                    'height' => 2082,
+                  ],
+                  'source' => [
+                    'uri' => 'https://iiif.elifesciences.org/journal-cms/for-the-press-content%2F2025-10%2Fimage-20251001162550-2.png/full/full/0/default.jpg',
+                    'filename' => 'image-20251001162550-2.jpg',
+                    'mediaType' => 'image/jpeg',
+                  ],
+                  'focalPoint' => [
+                    'x' => 50,
+                    'y' => 50,
+                  ],
+                ],
+                'title' => '[Add caption when available]',
+              ],
+              [
+                'text' => 'Park, Sipe et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.107298.3">Astrocytic modulation of population encoding in mouse visual cortex via GABA transporter 3 revealed by multiplexed CRISPR/Cas9 gene editing</a>’, was covered in:',
+                'type' => 'paragraph',
+              ],
+              [
+                'type' => 'list',
+                'items' => [
+                  '<a href="https://scienceblog.com/brains-silent-partners-how-astrocytes-keep-visual-neurons-in-sync/">Science Blog</a> – Brain’s Silent Partners: How Astrocytes Keep Visual Neurons in Sync',
+                  '<a href="https://neurosciencenews.com/astrocytes-gaba-neuron-29529/">Neuroscience News</a> – How Astrocytes Keep Neural Teams in Sync',
+                ],
+                'prefix' => 'bullet',
+              ],
+              [
+                'text' => 'Schmidig et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.89601.2">Episodic long-term memory formation during slow-wave sleep</a>’ was highlighted by:',
+                'type' => 'paragraph',
+              ],
+              [
+                'type' => 'list',
+                'items' => [
+                  '<a href="https://www.sleepfoundation.org/how-sleep-works/can-you-learn-a-language-while-sleeping">Sleep Foundation</a> – Can You Learn a Language While Sleeping?',
+                ],
+                'prefix' => 'bullet',
+              ],
+              [
+                'text' => 'Salehinejad et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.69308">Sleep-dependent upscaled excitability, saturated neuroplasticity, and modulated cognition in the human brain</a>’, was picked up by:',
+                'type' => 'paragraph',
+              ],
+              [
+                'type' => 'list',
+                'items' => [
+                  '<a href="https://www.mindbodygreen.com/articles/study-finds-sleep-deprivation-directly-impacts-cognition-and-memory-to">mindbodygreen</a> – Sleep-Deprived? Here\'s How It Actually Impacts Your Brain (&amp; What To Do About It)',
+                ],
+                'prefix' => 'bullet',
+              ],
+              [
+                'text' => 'Nartker et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.100337.3">Sensitivity to visual features in inattentional blindness</a>’, was featured in:',
+                'type' => 'paragraph',
+              ],
+              [
+                'type' => 'list',
+                'items' => [
+                  '<a href="https://www.thetransmitter.org/attention/attention-not-necessary-for-visual-awareness-large-study-suggests/">The Transmitter</a> – Attention not necessary for visual awareness, large study suggests',
+                ],
+                'prefix' => 'bullet',
+              ],
+              [
+                'text' => 'Phillips et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.88775.2">Endogenous oscillatory rhythms and interactive contingencies jointly influence infant attention during early infant-caregiver interaction</a>’, was covered in:',
+                'type' => 'paragraph',
+              ],
+              [
+                'type' => 'list',
+                'items' => [
+                  '<a href="https://www.zmescience.com/science/psychology-science/whos-really-in-charge-by-12-months-old-your-baby-is-already-guiding-you/">ZME Science</a> – Who’s Really in Charge? By 12 Months Old, Your Baby Is Already Guiding You',
+                ],
+                'prefix' => 'bullet',
+              ],
+              [
+                'text' => 'The Tools and Resources article by de Vries, Siegle and Koch, ‘<a href="https://doi.org/10.7554/eLife.85550">Sharing neurophysiology data from the Allen Brain Observatory</a>’, was featured in:',
+                'type' => 'paragraph',
+              ],
+              [
+                'type' => 'list',
+                'items' => [
+                  '<a href="https://www.thetransmitter.org/open-neuroscience-and-data-sharing/neurosciences-open-data-revolution-is-just-getting-started/">The Transmitter</a> – Neuroscience’s open-data revolution is just getting started',
+                ],
+                'prefix' => 'bullet',
+              ],
+              [
+                'text' => 'Power et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.98662.4">Photoreceptor loss does not recruit neutrophils despite strong microglial activation</a>’, was covered in:',
+                'type' => 'paragraph',
+              ],
+              [
+                'type' => 'list',
+                'items' => [
+                  '<a href="https://neurosciencenews.com/microglia-retina-vision-29520/">Neuroscience News</a> – Immune Cells Ignore Retinal Damage While Microglia Step',
+                ],
+                'prefix' => 'bullet',
+              ],
+            ],
+          ],
+        ],
+        $this->lines([
+          '<p>In our latest monthly media coverage roundup, we highlight the top mentions that eLife papers generated in July. You can view the coverage, listed beneath the relevant subject areas, below.</p>',
+          '',
+          '<h2>In Ecology</h2>',
+          '',
+          '<div class="align-center">',
+          '<figure class="image"><img alt="" data-uuid="1c91031e-7853-4695-8168-d52832b7945a" height="885" src="/sites/default/files/iiif/for-the-press-content/2025-10/image-20251001154109-2.png" width="1280" /><figcaption>A tomato plant. Image by <a href="https://pixabay.com/users/congerdesign-509903/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=879441">congerdesign</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=879441">Pixabay</a>.</figcaption></figure></div>',
+          '',
+          '<p>Seltzer et al.’s Reviewed Preprint, ‘<a href="https://doi.org/10.7554/eLife.104700.2">Female Moths Incorporate Plant Acoustic Emissions into Their Oviposition Decision-Making Process</a>’, was covered in:</p>',
+          '',
+          '<ul><li><a href="https://www.bbc.co.uk/news/articles/c8e4860n9rpo">BBC News</a> – Animals react to secret sounds from plants, say scientists</li>',
+          '	<li><a href="https://www.reuters.com/science/israeli-research-finds-that-when-plants-talk-insects-listen-2025-07-15/">Reuters</a> and <a href="https://www.yahoo.com/news/israeli-research-finds-plants-talk-143538886.html">Yahoo! News</a> – Israeli research finds that when plants talk, insects listen</li>',
+          '	<li><a href="https://edition.cnn.com/2025/07/24/science/moths-listen-understand-plant-noises">CNN</a> – Breakthrough discovery shows that moths listen to plants — and avoid the noisy ones</li>',
+          '	<li><a href="https://www.jpost.com/science/article-861248">The Jerusalem Post</a> – Israeli scientists: Stressed plants emit ultrasonic sounds influencing insect behavior</li>',
+          '	<li><a href="https://www.israelhayom.com/2025/07/15/the-bug-whisperer-israeli-scientists-decode-natures-hidden-language/">Israel Hayom</a> – The bug whisperer: Israeli scientists decode nature\'s hidden language</li>',
+          '	<li><a href="https://www.ynetnews.com/environment/article/hkimvim8xg">Ynetnews</a> – Moths can hear plants: Israeli study finds insects respond to plant distress calls</li>',
+          '	<li><a href="https://www.jewishnews.co.uk/insects-hear-plants-talking-in-distress-israeli-study-reveals-groundbreaking-study/">Jewish News</a> – Insects hear plants ‘talking’ in distress, Israeli groundbreaking study reveals</li>',
+          '	<li><a href="https://www.jns.org/tau-researchers-discover-first-evidence-of-auditory-interaction-between-plants-and-animals/">Jewish News Syndicate (JNS)</a> – TAU researchers discover first evidence of auditory interaction between plants and animals</li>',
+          '	<li><a href="https://english.news.cn/20250716/4bbd1e5afd054b0ab56e4150108e98f8/c.html">Xinhua (China)</a> – Researchers find moths "listen to" ultrasonic sound from tomato plants</li>',
+          '	<li><a href="https://www.ndtv.com/science/insects-listen-when-plants-talk-finds-israeli-study-8885237%20https://www.labrujulaverde.com/en/2025/07/animals-documented-for-the-first-time-responding-to-sounds-emitted-by-plants/">NDTV (India)</a> – Insects Listen When Plants Talk, Finds Israeli Study</li>',
+          '	<li><a href="https://timesofindia.indiatimes.com/life-style/home-garden/insects-can-hear-when-plants-talk-finds-groundbreaking-study/articleshow/122830049.cms">The Times of India</a> – Insects can hear when plants talk, finds groundbreaking study</li>',
+          '	<li><a href="https://economictimes.indiatimes.com/news/international/us/moths-can-hear-and-decode-plant-sound-signals-for-reproductive-decisions-new-study-reveals/articleshow/122901324.cms?from=mdr">The Economic Times (India)</a> – Moths can hear and decode plant sound signals for reproductive decisions: New study reveals</li>',
+          '	<li><a href="https://www.greenmatters.com/pn/scientists-find-the-first-evidence-of-insects-choosing-egg-laying-site-based-on-plants-sounds">Green Matters</a> – Scientists Find the First Evidence of Insects Choosing Egg-Laying Site Based on Plants’ Sounds</li>',
+          '	<li><a href="https://www.ecowatch.com/animals-plants-acoustic-interaction.html">EcoWatch</a> – Scientists Find First Evidence of Auditory Interaction Between Animals and Plants: Study</li>',
+          '	<li><a href="https://www.iflscience.com/for-the-first-time-an-animal-has-been-shown-responding-to-plant-produced-sounds-80009">IFLScience</a> – For The First Time, An Animal Has Been Shown Responding To Plant-Produced Sounds</li>',
+          '	<li><a href="https://www.sciencealert.com/moths-dont-like-to-lay-their-eggs-on-plants-that-are-screaming">Science Alert</a> – Moths Don\'t Like to Lay Their Eggs on Plants That Are Screaming</li>',
+          '</ul><h2><strong>In Evolutionary Biology</strong></h2>',
+          '',
+          '<figure class="image"><img alt="" data-uuid="0a9d8ad6-80c6-45b8-9e68-6fe9a14858aa" height="3015" src="/sites/default/files/iiif/for-the-press-content/2025-10/image-20251001162702-3.png" width="4194" /><figcaption>Dinaledi skeletal remains. Image credit: Berger et al. (CC BY 4.0)</figcaption></figure><p>Berger et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.89106.3">Evidence for deliberate burial of the dead by <em>Homo naledi</em></a>’, was picked up in:</p>',
+          '',
+          '<ul><li><a href="https://www.iflscience.com/homo-naledi-may-have-buried-its-dead-after-all-peer-reviewer-accepts-80661">IFLScience</a> and <a href="https://www.msn.com/en-us/news/technology/homo-naledi-may-have-buried-its-dead-after-all-peer-reviewer-accepts/ar-AA1LNObX">MSN</a> – Homo Naledi May Have Buried Its Dead After All, Peer Reviewer Accepts</li>',
+          '	<li><a href="https://www.newscientist.com/article/mg26735532-600-homo-naledis-burial-practices-could-change-what-it-means-to-be-human/">New Scientist</a> – Homo naledi\'s burial practices could change what it means to be human</li>',
+          '	<li><a href="https://www.newscientist.com/article/2487980-what-were-ancient-humans-thinking-when-they-began-to-bury-their-dead/">New Scientist</a> – What were ancient humans thinking when they began to bury their dead?</li>',
+          '	<li><a href="https://scienceandculture.com/2025/07/investigation-of-ancient-burials-yields-surprises/">Science &amp; Culture Today</a> – Investigation of Ancient Burials Yields Surprises</li>',
+          '	<li><a href="https://www.discoverwildlife.com/prehistoric-life/human-species-lived-alongside-us">Discover Wildlife</a> – It turns out we aren\'t as unique as we think we are: Here are 5 ancient human species that once lived alongside us</li>',
+          '	<li><a href="https://economictimes.indiatimes.com/news/international/us/five-ancient-human-species-that-lived-alongside-modern-humans-revealed-new-insights-into-our-prehistoric-cousins/articleshow/122960996.cms?from=mdr">The Economic Times</a> (India) – Five ancient human species that lived alongside modern humans revealed: New insights into our prehistoric cousins</li>',
+          '</ul><h2><strong>In Ecology and Evolutionary Biology</strong></h2>',
+          '',
+          '<div class="align-center">',
+          '<figure class="image"><img alt="" data-uuid="2351d828-a7c9-4ca2-82c5-f0ebbb7c1041" height="855" src="/sites/default/files/iiif/for-the-press-content/2025-10/image-20251001160311-6.png" width="1280" /><figcaption>A young adult male chimpanzee (Jeje) cracking nuts using stone tools. Image credit: Dora Biro (<a href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a>)</figcaption></figure></div>',
+          '',
+          '<p>Howard-Spink et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.105411.3">Old age variably impacts chimpanzee engagement and efficiency in stone tool use</a>’, was covered in:</p>',
+          '',
+          '<ul><li><a href="https://mailchi.mp/nature/daily-briefing-13893801?e=fcfcb4cba6">Nature briefing (July 15)</a></li>',
+          '	<li><a href="https://www.earth.com/news/what-aging-chimpanzees-can-teach-us-about-ourselves/">Earth.com</a> – What aging chimpanzees can teach us about ourselves</li>',
+          '</ul><p>The Research Article by Smit and Robbins, ‘<a href="https://doi.org/10.7554/eLife.107093.3">Risk-taking incentives predict aggression heuristics in female gorillas</a>’, was featured in:</p>',
+          '',
+          '<ul><li><a href="https://scienceblog.com/wildscience/2025/07/25/hungry-pregnant-and-bold-why-female-gorillas-take-big-risks/">Science Blog</a> – Hungry, Pregnant, and Bold: Why Female Gorillas Take Big Risks</li>',
+          '</ul><h2><strong>In Neuroscience</strong></h2>',
+          '',
+          '<div class="align-center">',
+          '<figure class="image"><img alt="" data-uuid="b3e7b482-4d1b-4af1-b9ac-bc2a899b9977" height="2082" src="/sites/default/files/iiif/for-the-press-content/2025-10/image-20251001162550-2.png" width="3474" /><figcaption>[Add caption when available]</figcaption></figure></div>',
+          '',
+          '<p>Park, Sipe et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.107298.3">Astrocytic modulation of population encoding in mouse visual cortex via GABA transporter 3 revealed by multiplexed CRISPR/Cas9 gene editing</a>’, was covered in:</p>',
+          '',
+          '<ul><li><a href="https://scienceblog.com/brains-silent-partners-how-astrocytes-keep-visual-neurons-in-sync/">Science Blog</a> – Brain’s Silent Partners: How Astrocytes Keep Visual Neurons in Sync</li>',
+          '	<li><a href="https://neurosciencenews.com/astrocytes-gaba-neuron-29529/">Neuroscience News</a> – How Astrocytes Keep Neural Teams in Sync</li>',
+          '</ul><p>Schmidig et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.89601.2">Episodic long-term memory formation during slow-wave sleep</a>’ was highlighted by:</p>',
+          '',
+          '<ul><li><a href="https://www.sleepfoundation.org/how-sleep-works/can-you-learn-a-language-while-sleeping">Sleep Foundation</a> – Can You Learn a Language While Sleeping?</li>',
+          '</ul><p>Salehinejad et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.69308">Sleep-dependent upscaled excitability, saturated neuroplasticity, and modulated cognition in the human brain</a>’, was picked up by:</p>',
+          '',
+          '<ul><li><a href="https://www.mindbodygreen.com/articles/study-finds-sleep-deprivation-directly-impacts-cognition-and-memory-to">mindbodygreen</a> – Sleep-Deprived? Here\'s How It Actually Impacts Your Brain (&amp; What To Do About It)</li>',
+          '</ul><p>Nartker et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.100337.3">Sensitivity to visual features in inattentional blindness</a>’, was featured in:</p>',
+          '',
+          '<ul><li><a href="https://www.thetransmitter.org/attention/attention-not-necessary-for-visual-awareness-large-study-suggests/">The Transmitter</a> – Attention not necessary for visual awareness, large study suggests</li>',
+          '</ul><p>Phillips et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.88775.2">Endogenous oscillatory rhythms and interactive contingencies jointly influence infant attention during early infant-caregiver interaction</a>’, was covered in:</p>',
+          '',
+          '<ul><li><a href="https://www.zmescience.com/science/psychology-science/whos-really-in-charge-by-12-months-old-your-baby-is-already-guiding-you/">ZME Science</a> – Who’s Really in Charge? By 12 Months Old, Your Baby Is Already Guiding You</li>',
+          '</ul><p>The Tools and Resources article by de Vries, Siegle and Koch, ‘<a href="https://doi.org/10.7554/eLife.85550">Sharing neurophysiology data from the Allen Brain Observatory</a>’, was featured in:</p>',
+          '',
+          '<ul><li><a href="https://www.thetransmitter.org/open-neuroscience-and-data-sharing/neurosciences-open-data-revolution-is-just-getting-started/">The Transmitter</a> – Neuroscience’s open-data revolution is just getting started</li>',
+          '</ul><p>Power et al.’s Research Article, ‘<a href="https://doi.org/10.7554/eLife.98662.4">Photoreceptor loss does not recruit neutrophils despite strong microglial activation</a>’, was covered in:</p>',
+          '',
+          '<ul><li><a href="https://neurosciencenews.com/microglia-retina-vision-29520/">Neuroscience News</a> – Immune Cells Ignore Retinal Damage While Microglia Step</li>',
+          '</ul>',
+        ]),
+        [
+          'public://iiif/for-the-press-content/2025-10/image-20251001154109-2.png' => 'image/png',
+          'public://iiif/for-the-press-content/2025-10/image-20251001162702-3.png' => 'image/png',
+          'public://iiif/for-the-press-content/2025-10/image-20251001160311-6.png' => 'image/png',
+          'public://iiif/for-the-press-content/2025-10/image-20251001162550-2.png' => 'image/png',
+        ],
       ],
     ];
   }

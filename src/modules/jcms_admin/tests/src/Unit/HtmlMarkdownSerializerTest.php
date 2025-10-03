@@ -222,6 +222,23 @@ class HtmlMarkdownSerializerTest extends UnitTestCase {
           '<p>Paragraph 2 in Section 2.</p>',
         ], 2),
       ],
+      'multiple images with wrapping div' => [
+        $this->lines([
+          '<figure alt="" class="image align-left" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000">![](/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg)<figcaption>Image caption</figcaption></figure>' . PHP_EOL,
+          '<figure alt="" class="image align-center" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000">![](/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg)<figcaption>Image caption</figcaption></figure>',
+        ]),
+        $this->lines([
+          '<div class="align-left">',
+          '<figure class="image profile-left"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" /><figcaption>Image caption</figcaption><p>1</p>',
+          '</figure></div>',
+          '<div class="align-center">',
+          '<figure class="image profile-left"><img alt="" data-fid="1" data-uuid="UUID" height="2000" src="/sites/default/files/iiif/editor-images/image-20180427145110-1.jpeg" width="2000" /><figcaption>Image caption</figcaption><p>1</p>',
+          '</figure></div>',
+        ]),
+        [
+          'public://iiif/editor-images/image-20180427145110-1.jpeg' => 'image/jpeg',
+        ],
+      ],
     ];
   }
 

@@ -72,7 +72,7 @@ final class HtmlMarkdownSerializer implements NormalizerInterface {
     $html = preg_replace_callback('~ href="([^\"]+)"~', function ($matches) {
       return ' href="' . str_replace([' ', '(', ')'], ['%20', '%28', '%29'], $matches[1]) . '"';
     }, $html);
-    $html = preg_replace_callback('~<div class="([^"]*)"[^>]*>[\s\n]*(<figure )class="[^\"]*"(.*</figure>).*</div>~s', function ($match) {
+    $html = preg_replace_callback('~<div class="([^"]*)"[^>]*>[\s\n]*(<figure )class="[^\"]*"(.*</figure>).*</div>~sU', function ($match) {
       return '<figure class="image ' . $match[1] . '"' . preg_replace('~<p>[^<]*</p>~', '', $match[3]);
     }, $html);
     $html = $this->wrapImgInFigure($html);
