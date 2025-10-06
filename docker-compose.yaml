@@ -91,6 +91,9 @@ services:
       - path: ./.env
         required: false
     environment:
+      # Drupal drush options
+      DRUSH_OPTIONS_URI: http://localhost:8080
+
       # db service
       DRUPAL_DATABASE_NAME: journal_cms
       DRUPAL_DATABASE_USERNAME: journal_cms
