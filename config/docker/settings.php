@@ -7,6 +7,10 @@ $settings['file_private_path'] = __DIR__.'/../../../private';
 // Hash salt.
 $settings['hash_salt'] = getenv('DRUPAL_HASH_SALT');
 
+//Twig cache directory
+$settings['php_storage']['twig']['directory'] = '/tmp/twig';
+$settings['php_storage']['twig']['secret'] = $settings['hash_salt'];
+
 // Disallow access to update.php by anonymous users.
 $settings['update_free_access'] = FALSE;
 
