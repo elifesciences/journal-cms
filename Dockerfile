@@ -75,9 +75,13 @@ RUN set -eux; \
 
 ENV PATH=${PATH}:/opt/drupal/vendor/bin
 
+
+
+
+
 FROM drupal-9 AS journal-cms
 
-RUN apt-get update && apt-get install -y unzip git \
+RUN apt-get update && apt-get install -y unzip git ssmtp \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN pecl install redis igbinary uploadprogress \
