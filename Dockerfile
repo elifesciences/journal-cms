@@ -134,6 +134,8 @@ FROM journal-cms AS test
 
 USER root
 RUN mkdir build && chown www-data:www-data build
+# Disable opcache
+RUN rm /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
 USER www-data
 COPY ./scripts/generate_content.sh scripts/generate_content.sh
 COPY ./phpunit.xml.dist phpunit.xml.dist
