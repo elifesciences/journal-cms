@@ -53,12 +53,11 @@ final class ContentValidator implements ValidatorInterface {
   }
 
   /**
-   * Retreive base_url setting, or default to ddev
+   * Retreive base_url setting, or default to ddev.
    *
-   * @return string
+   * @return string the BaseURL from settings, or the default
    */
-  private function getBaseUrl()
-  {
+  private function getBaseUrl() {
     return rtrim(Settings::get("base_url", $this->defaultBaseUrl), '/') . '/';
   }
 
