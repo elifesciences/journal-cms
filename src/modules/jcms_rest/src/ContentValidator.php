@@ -59,7 +59,7 @@ final class ContentValidator implements ValidatorInterface {
    *   the BaseURL from settings, or the default
    */
   private function getBaseUrl() {
-    return rtrim(Settings::get("base_url", $this->defaultBaseUrl), '/') . '/';
+    return rtrim(Settings::get("jcms_content_validator_base_url", $this->defaultBaseUrl), '/') . '/';
   }
 
   /**

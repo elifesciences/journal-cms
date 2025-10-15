@@ -90,6 +90,6 @@ if (getenv('JCMS_IIIF_BASE_URI') && getenv('JCMS_IIIF_MOUNT')) {
 }
 $settings['jcms_rest_cache_max_age'] = 300;
 
-if (getenv('JCMS_BASE_URL')) {
-  $settings['base_url'] = getenv('JCMS_BASE_URL');
+if (getenv('JCMS_CONTENT_VALIDATOR_BASE_URL')) {
+  $settings['jcms_content_validator_base_url'] = getenv('JCMS_CONTENT_VALIDATOR_BASE_URL');
 }

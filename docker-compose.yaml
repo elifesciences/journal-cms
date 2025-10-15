@@ -120,6 +120,9 @@ services:
       JCMS_IIIF_BASE_URI: http://localhost:8182/iiif/2/
       JCMS_IIIF_MOUNT: iiif
 
+      # To fix unknown host requests for content validator
+      JCMS_CONTENT_VALIDATOR_BASE_URL: http://app:8080
+
       # For tests
       JCMS_TEST_BASE_URI: http://app:8080
     depends_on:
