@@ -2,6 +2,7 @@ parameters:
   monolog.channel_handlers:
     default: ['default_handler', 'error_handler']
   monolog.processors: ['process_id', 'message_placeholder', 'current_user', 'request_uri', 'ip', 'referer']
+  content_validator_base_url: http://localhost:8080
 
 services:
   jcms.monolog.formatter_basic:
@@ -36,3 +37,8 @@ services:
     class: Drupal\redis\ClientFactory
   serialization.phpserialize:
     class: Drupal\Component\Serialization\PhpSerialize
+  jcms_rest.content_validator:
+    class: Drupal\jcms_rest\ContentValidator
+    arguments: ['@http_client', '@jcms_rest.message_validator', '@jcms_rest.logger.channel.validator']
+    calls:
+      - [setBaseUrl, ["%content_validator_base_url%"]]
