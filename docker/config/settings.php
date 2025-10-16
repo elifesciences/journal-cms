@@ -1,8 +1,8 @@
 <?php
 
 // Config sync directory.
-$settings['config_sync_directory'] = __DIR__.'/../../../sync';
-$settings['file_private_path'] = __DIR__.'/../../../private';
+$settings['config_sync_directory'] = "{$app_root}/../sync";
+$settings['file_private_path'] = "{$app_root}/../private";
 
 // Hash salt.
 $settings['hash_salt'] = getenv('DRUPAL_HASH_SALT');
