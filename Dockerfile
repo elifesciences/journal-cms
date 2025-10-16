@@ -113,8 +113,6 @@ COPY ./docker/config/services.yml config/services.yml
 
 RUN ln -s /opt/drupal/config/settings.php /opt/drupal/web/sites/default/settings.php && \
   ln -s /opt/drupal/config/services.yml /opt/drupal/web/sites/default/services.yml && \
-  chmod 644 web/sites/default/settings.php && \
-  chmod 644 web/sites/default/services.yml && \
   chmod 644 config/settings.php && \
   chmod 644 config/services.yml && \
   mkdir web/sites/default/files && \
