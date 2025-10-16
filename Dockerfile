@@ -113,11 +113,13 @@ COPY ./docker/config/services.yml config/services.yml
 
 RUN ln -s /opt/drupal/config/settings.php /opt/drupal/web/sites/default/settings.php && \
   ln -s /opt/drupal/config/services.yml /opt/drupal/web/sites/default/services.yml && \
+  chmod 644 web/sites/default/settings.php && \
+  chmod 644 web/sites/default/services.yml && \
   chmod 644 config/settings.php && \
   chmod 644 config/services.yml && \
   mkdir web/sites/default/files && \
   mkdir web/sites/default/files/iiif && \
-  chown -R www-data:www-data web/sites/default
+  chown -R www-data:www-data web/sites/default config
 
 # Copy our deps and composer install (which runs install scripts)
 COPY ./composer.json composer.json
