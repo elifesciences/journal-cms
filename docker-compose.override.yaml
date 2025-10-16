@@ -7,3 +7,4 @@ services:
     volumes:
       - ./vendor:/opt/drupal/vendor
       - ./src:/opt/drupal/src
+      - ./docker/config:/opt/drupal/config
