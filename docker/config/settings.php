@@ -41,8 +41,36 @@ if (getenv('REDIS_HOST')) {
   $settings['cache']['bins']['discovery'] = 'cache.backend.chainedfast';
   $settings['cache']['bins']['config'] = 'cache.backend.chainedfast';
   $settings['container_yamls'][] = 'modules/redis/example.services.yml';
-}
-else {
+
+  // cache the container in redis
+  $settings['bootstrap_container_definition'] = [
+    'parameters' => [],
+    'services' => [
+      'cache.container' => [
+        'class' => 'Drupal\redis\Cache\PhpRedis',
+        'factory' => ['@cache.backend.redis', 'get'],
+        'arguments' => ['container', '@redis', '@cache_tags_provider.container', '@serialization.phpserialize'],
+      ],
+      'cache_tags_provider.container' => [
+        'class' => 'Drupal\redis\Cache\RedisCacheTagsChecksum',
+        'arguments' => ['@redis.factory'],
+      ],
+      'redis' => [
+        'class' => 'Redis',
+      ],
+      'cache.backend.redis' => [
+        'class' => 'Drupal\redis\Cache\CacheBackendFactory',
+        'arguments' => ['@redis.factory', '@cache_tags_provider.container', '@serialization.phpserialize'],
+      ],
+      'redis.factory' => [
+        'class' => 'Drupal\redis\ClientFactory',
+      ],
+      'serialization.phpserialize' => [
+        'class' => 'Drupal\Component\Serialization\PhpSerialize',
+      ],
+    ],
+  ];
+} else {
   error_log('Redis cache backend is unavailable.');
 }
 
