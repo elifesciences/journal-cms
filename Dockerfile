@@ -94,7 +94,7 @@ EXPOSE 8080
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
 
 # Copy custom scripts
-COPY ./config/docker/ScriptHandler.php scripts/composer/ScriptHandler.php
+COPY ./docker/ScriptHandler.php scripts/composer/ScriptHandler.php
 
 # Copy patches
 COPY ./src/patches src/patches
@@ -108,9 +108,12 @@ RUN ln -s $(pwd)/src/modules  $(pwd)/web/modules/custom && \
 COPY ./sync sync
 
 # Copy docker configs
-COPY ./config/docker/settings.php web/sites/default/settings.php
-COPY ./config/docker/services.yml web/sites/default/services.yml
-RUN chmod 644 web/sites/default/settings.php && \
+COPY ./docker/config/settings.php config/settings.php
+COPY ./docker/config/services.yml config/services.yml
+
+RUN ln -s /opt/drupal/config/settings.php /opt/drupal/web/sites/default/settings.php && \
+  ln -s /opt/drupal/config/services.yml /opt/drupal/web/sites/default/services.yml && \
+  chmod 644 web/sites/default/settings.php && \
   chmod 644 web/sites/default/services.yml && \
   mkdir web/sites/default/files && \
   mkdir web/sites/default/files/iiif && \
