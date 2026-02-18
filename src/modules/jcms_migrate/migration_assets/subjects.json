@@ -36,6 +36,15 @@
     "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
   },
   {
+    "id": "physiology",
+    "name": "Physiology",
+    "impact_statement": "Not yet provided.",
+    "aims_and_scope": "Not yet provided.",
+    "image": "subjects/elife-sciences-structural-biology-molecular-biophysics-illustration.jpg",
+    "alt": "Placeholder image for physiology",
+    "attribution": "Illustration by <a href=\"http://www.davidebonazzi.com/\">Davide Bonazzi</a>"
+  },
+  {
     "id": "neuroscience",
     "name": "Neuroscience",
     "impact_statement": "eLife publishes research including brain function, neuronal circuits, synapses, sensory processing and motor pattern generation. Learn more about <a href=\"https://elifesciences.org/about/aims-scope#neuroscience\">what we publish</a> and <a href=\"https://elifesciences.org/content-alerts?utm_source=website&amp;utm_medium=link&amp;utm_campaign=neuroscience\">sign up for the latest research</a>.",
