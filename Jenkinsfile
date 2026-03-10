@@ -9,11 +9,12 @@ elifePipeline {
         lock('journal-cms--ci') {
             builderDeployRevision 'journal-cms--ci', commit
             builderProjectTests 'journal-cms--ci', '/srv/journal-cms', ['build/phpunit.xml']
+            builderSmokeTests 'journal-cms--ci', '/srv/journal-cms'
         }
     }
 
     elifeMainlineOnly {
-        
+
         stage 'Deploy on continuumtest', {
             lock('journal-cms--continuumtest') {
                 builderDeployRevision 'journal-cms--continuumtest', commit
