@@ -2,6 +2,9 @@
 set -ex
 
 local_hostname=$(hostname)
+if [[ "$local_hostname" == "ci--journal-cms.elifesciences.org" ]]; then
+  local_hostname="ci-journal-cms.elifesciences.org"
+fi
 hostname=${1:-$local_hostname}
 
 echo "Ping"
