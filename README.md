@@ -9,6 +9,7 @@ ddev composer install
 ddev start
 ddev drush si minimal --existing-config -y
 ddev add-on get ddev/ddev-redis
+ddev restart
 ```
 
 Visit http://journal-cms.ddev.site:8080.
