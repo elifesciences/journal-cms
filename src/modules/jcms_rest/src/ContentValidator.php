@@ -2,6 +2,7 @@
 
 namespace Drupal\jcms_rest;
 
+use Drupal\Core\Site\Settings;
 use Drupal\node\NodeInterface;
 use eLife\ApiValidator\Exception\InvalidMessage;
 use eLife\ApiValidator\MessageValidator;
@@ -19,7 +20,7 @@ final class ContentValidator implements ValidatorInterface {
    *
    * @var string
    */
-  private $baseUrl = 'http://journal-ck4.ddev.site/';
+  private $defaultBaseUrl = 'http://journal-ck4.ddev.site/';
 
   /**
    * The HTTP Client.
@@ -52,10 +53,13 @@ final class ContentValidator implements ValidatorInterface {
   }
 
   /**
-   * Allow the base url to be overridden.
+   * Retreive base_url setting, or default to ddev.
+   *
+   * @return string
+   *   the BaseURL from settings, or the default
    */
-  public function setBaseUrl(string $baseUrl) {
-    $this->baseUrl = rtrim($baseUrl, '/') . '/';
+  private function getBaseUrl() {
+    return rtrim(Settings::get("jcms_content_validator_base_url", $this->defaultBaseUrl), '/') . '/';
   }
 
   /**
@@ -72,7 +76,7 @@ final class ContentValidator implements ValidatorInterface {
       'press_package' => 'press-packages',
     ];
     if (array_key_exists($node->bundle(), $paths)) {
-      $request = new Request('GET', $this->baseUrl . $paths[$node->bundle()] . '/' . substr($node->uuid(), -8), [
+      $request = new Request('GET', $this->getBaseUrl() . $paths[$node->bundle()] . '/' . substr($node->uuid(), -8), [
         'X-Consumer-Groups' => $preview ? 'view-unpublished-content' : 'user',
       ]);
       $response = $this->client->send($request);
