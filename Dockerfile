@@ -60,18 +60,13 @@ RUN { \
 
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
 
+# https://www.drupal.org/node/3060/release
+ENV DRUPAL_VERSION=9.5.11
+
 WORKDIR /opt/drupal
-
-COPY ./composer.json composer.json
-COPY ./composer.lock composer.lock
-COPY ./src src
-COPY ./scripts scripts
-COPY ./config/drupal-vm.settings.php config/drupal-vm.settings.php
-COPY ./config/drupal-vm.services.yml config/drupal-vm.services.yml
-
 RUN set -eux; \
 	export COMPOSER_HOME="$(mktemp -d)"; \
-	composer install --no-interaction; \
+	composer create-project --no-interaction "drupal/recommended-project:$DRUPAL_VERSION" ./; \
 	chown -R www-data:www-data web/sites web/modules web/themes; \
 	rmdir /var/www/html; \
 	ln -sf /opt/drupal/web /var/www/html; \
@@ -80,4 +75,73 @@ RUN set -eux; \
 
 ENV PATH=${PATH}:/opt/drupal/vendor/bin
 
+
+
+
+
 FROM drupal-9 AS journal-cms
+
+RUN apt-get update && apt-get install -y unzip git ssmtp \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN pecl install redis igbinary uploadprogress \
+	&& docker-php-ext-enable redis igbinary uploadprogress
+
+# Default apache to a new port
+RUN sed -i "s/80/8080/g" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
+EXPOSE 8080
+
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
+
+# Copy custom scripts
+COPY ./docker/ScriptHandler.php scripts/composer/ScriptHandler.php
+
+# Copy patches
+COPY ./src/patches src/patches
+
+# Copy over custom modules and themes
+COPY ./src/modules/ src/modules
+COPY ./src/themes/ src/themes/
+RUN ln -s $(pwd)/src/modules  $(pwd)/web/modules/custom && \
+  ln -s $(pwd)/src/themes  $(pwd)/web/themes
+# Copy sync config
+COPY ./sync sync
+
+# Copy docker configs
+COPY ./docker/config/settings.php config/settings.php
+COPY ./docker/config/services.yml config/services.yml
+
+RUN ln -s /opt/drupal/config/settings.php /opt/drupal/web/sites/default/settings.php && \
+  ln -s /opt/drupal/config/services.yml /opt/drupal/web/sites/default/services.yml && \
+  chmod 644 config/settings.php && \
+  chmod 644 config/services.yml && \
+  mkdir web/sites/default/files && \
+  mkdir web/sites/default/files/iiif && \
+  chown -R www-data:www-data web/sites/default config
+
+# Copy our deps and composer install (which runs install scripts)
+COPY ./composer.json composer.json
+COPY ./composer.lock composer.lock
+
+RUN mkdir -p private/monolog
+
+# drupal/core-project-message apparently won't work on first install.
+# So we install without script, then with scripts
+RUN composer install --no-interaction --no-scripts && composer install --no-interaction
+
+RUN chown -R www-data:www-data private
+USER www-data
+
+
+FROM journal-cms AS test
+
+USER root
+RUN mkdir build && chown www-data:www-data build
+# Disable opcache
+RUN rm /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
+USER www-data
+COPY ./scripts/generate_content.sh scripts/generate_content.sh
+COPY ./phpunit.xml.dist phpunit.xml.dist
+COPY ./project_tests.sh project_tests.sh
+
+FROM journal-cms AS prod
