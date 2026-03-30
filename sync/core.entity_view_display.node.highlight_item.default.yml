@@ -5,10 +5,12 @@ dependencies:
   config:
     - field.field.node.highlight_item.field_highlight_item
     - field.field.node.highlight_item.field_image
+    - field.field.node.highlight_item.field_impact_statement
     - field.field.node.highlight_item.field_order_date
     - node.type.highlight_item
   module:
     - image
+    - text
     - user
 id: node.highlight_item.default
 targetEntityType: node
@@ -33,6 +35,13 @@ content:
         attribute: lazy
     third_party_settings: {  }
     weight: 101
+    region: content
+  field_impact_statement:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 105
     region: content
   field_order_date:
     type: timestamp

@@ -5,11 +5,13 @@ dependencies:
   config:
     - field.field.node.highlight_item.field_highlight_item
     - field.field.node.highlight_item.field_image
+    - field.field.node.highlight_item.field_impact_statement
     - field.field.node.highlight_item.field_order_date
     - image.style.thumbnail
     - node.type.highlight_item
   module:
     - focal_point
+    - text
 id: node.highlight_item.default
 targetEntityType: node
 bundle: highlight_item
@@ -17,7 +19,7 @@ mode: default
 content:
   field_highlight_item:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 3
     region: content
     settings:
       match_operator: CONTAINS
@@ -35,9 +37,17 @@ content:
       preview_link: true
       offsets: '50,50'
     third_party_settings: {  }
+  field_impact_statement:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 3
+    weight: 4
     region: content
     settings:
       display_label: true
