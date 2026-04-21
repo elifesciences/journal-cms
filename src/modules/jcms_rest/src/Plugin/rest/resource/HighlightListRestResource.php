@@ -152,7 +152,7 @@ class HighlightListRestResource extends AbstractRestResourceBase {
       }
 
       if ($impactStatement = $this->fieldValueFormatted($node->get('field_impact_statement'))) {
-        $item['impactStatement'] = '<p>' . $impactStatement . '</p>';
+        $item['impactStatement'] = $impactStatement;
       }
 
       return $item;
