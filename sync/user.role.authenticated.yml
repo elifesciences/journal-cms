@@ -17,6 +17,7 @@ dependencies:
     - rest.resource.cover_list_rest_resource
     - rest.resource.event_item_rest_resource
     - rest.resource.event_list_rest_resource
+    - rest.resource.highlight_current_list_rest_resource
     - rest.resource.highlight_list_rest_resource
     - rest.resource.interview_item_rest_resource
     - rest.resource.interview_list_rest_resource
@@ -62,6 +63,7 @@ permissions:
   - 'restful get cover_list_rest_resource'
   - 'restful get event_item_rest_resource'
   - 'restful get event_list_rest_resource'
+  - 'restful get highlight_current_list_rest_resource'
   - 'restful get highlight_list_rest_resource'
   - 'restful get interview_item_rest_resource'
   - 'restful get interview_list_rest_resource'
