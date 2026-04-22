@@ -41,6 +41,7 @@ class PathMediaTypeMapper {
       '/covers' => 'application/vnd.elife.cover-list+json',
       '/covers/current' => 'application/vnd.elife.cover-list+json',
       '/highlights/{list}' => 'application/vnd.elife.highlight-list+json',
+      '/highlights/{list}/current' => 'application/vnd.elife.highlight-list+json',
       '/job-adverts' => 'application/vnd.elife.job-advert-list+json',
       '/job-adverts/{id}' => 'application/vnd.elife.job-advert+json',
       '/promotional-collections' => 'application/vnd.elife.promotional-collection-list+json',
