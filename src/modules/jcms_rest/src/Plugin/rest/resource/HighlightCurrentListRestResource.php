@@ -32,8 +32,6 @@ class HighlightCurrentListRestResource extends AbstractRestResourceBase {
    */
   protected $latestVersion = 3;
 
-
-
   /**
    * Responds to GET requests.
    *
@@ -178,4 +176,5 @@ class HighlightCurrentListRestResource extends AbstractRestResourceBase {
 
     return $nids;
   }
+
 }
