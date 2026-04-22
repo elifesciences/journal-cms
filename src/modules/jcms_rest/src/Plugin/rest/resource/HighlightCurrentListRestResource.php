@@ -56,12 +56,16 @@ class HighlightCurrentListRestResource extends AbstractRestResourceBase {
       'items' => [],
     ];
 
+    $hero = FALSE;
     $item_nids = [];
     $nids = $query->execute();
     if ($nids) {
       $nid = reset($nids);
       /** @var \Drupal\node\Entity\Node $node */
       $node = Node::load($nid);
+      if ($node->get('field_highlight_list_hero') && $node->get('field_highlight_list_hero')->getValue()[0]['value'] === '1') {
+        $hero = TRUE;
+      }
       $dependencies[] = $node;
       foreach ($node->get('field_highlight_items')->getValue() as $item) {
         $item_nids[] = $item['target_id'];
@@ -110,7 +114,7 @@ class HighlightCurrentListRestResource extends AbstractRestResourceBase {
 
     if (!empty($item_nids)) {
       /** @var \Drupal\node\Entity\Node[] $items */
-      if ($items = Node::loadMultiple($this->filterPageAndOrderArray($item_nids))) {
+      if ($items = Node::loadMultiple($this->filterPageAndOrderArray($item_nids, $hero))) {
         $response_data['total'] = count($items);
         foreach ($items as $item) {
           $dependencies[] = $item;
@@ -165,14 +169,14 @@ class HighlightCurrentListRestResource extends AbstractRestResourceBase {
   /**
    * Apply filter for page, per-page and order.
    */
-  protected function filterPageAndOrderArray(array $nids) : array {
+  protected function filterPageAndOrderArray(array $nids, bool $hero = FALSE) : array {
     $request_options = $this->getRequestOptions();
 
     if ($request_options['order'] == 'asc') {
       $nids = array_reverse($nids);
     }
 
-    $nids = array_slice($nids, 0, 3);
+    $nids = array_slice($nids, 0, $hero ? 4 : 3);
 
     return $nids;
   }
