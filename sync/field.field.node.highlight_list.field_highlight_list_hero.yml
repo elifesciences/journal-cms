@@ -1,0 +1,23 @@
+uuid: 617bcbaf-e001-46e5-aec4-c10d42ed940f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_highlight_list_hero
+    - node.type.highlight_list
+id: node.highlight_list.field_highlight_list_hero
+field_name: field_highlight_list_hero
+entity_type: node
+bundle: highlight_list
+label: Hero
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.highlight_list.field_highlight_items
+    - field.field.node.highlight_list.field_highlight_list_hero
     - field.field.node.highlight_list.field_order_date
     - node.type.highlight_list
   module:
@@ -15,7 +16,7 @@ mode: default
 content:
   field_highlight_items:
     type: inline_entity_form_complex
-    weight: 1
+    weight: 2
     region: content
     settings:
       form_mode: default
@@ -28,10 +29,18 @@ content:
       allow_duplicate: false
       collapsible: false
       collapsed: false
+      revision: false
+    third_party_settings: {  }
+  field_highlight_list_hero:
+    type: boolean_checkbox
+    weight: 1
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 2
+    weight: 3
     region: content
     settings:
       display_label: true
