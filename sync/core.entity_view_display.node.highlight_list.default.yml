@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.highlight_list.field_highlight_items
-    - field.field.node.highlight_list.field_highlight_list_hero
     - field.field.node.highlight_list.field_order_date
     - node.type.highlight_list
   module:
@@ -21,16 +20,6 @@ content:
       link: true
     third_party_settings: {  }
     weight: 101
-    region: content
-  field_highlight_list_hero:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 103
     region: content
   field_order_date:
     type: timestamp
