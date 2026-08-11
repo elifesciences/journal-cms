@@ -1,0 +1,23 @@
+.ckeditor5-toolbar-button-elifebutton {
+  background-image: url(../icons/elifebutton.svg);
+}
+
+.ckeditor5-toolbar-button-figshareembed {
+  background-image: url(../icons/figshareembed.svg);
+}
+
+.ckeditor5-toolbar-button-twitterembed {
+  background-image: url(../icons/xembed.svg);
+}
+
+.ckeditor5-toolbar-button-captionedvideo {
+  background-image: url(../icons/videoembed.svg);
+}
+
+.ckeditor5-toolbar-button-googlemapembed {
+  background-image: url(../icons/mapembed.svg);
+}
+
+.ckeditor5-toolbar-button-mediaembed {
+  background-image: url(../icons/mediaEmbed.svg);
+}

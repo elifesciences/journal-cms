@@ -12,6 +12,6 @@ filters:
     status: true
     weight: -10
     settings:
-      allowed_html: '<p> <i> <sub> <sup> <del> <math> <a href> <b> <br> <table> <caption> <tbody> <thead> <tfoot> <th> <td> <tr> <img src alt width height> <ol> <ul> <li>'
+      allowed_html: '<br> <p> <i> <del> <math> <b> <img src alt width height> <strong> <em> <sub> <sup> <a href> <ul> <ol> <li> <table> <tr> <td rowspan colspan> <th rowspan colspan> <thead> <tbody> <tfoot> <caption> <oembed url> <figure class> <figcaption> <elifebutton>'
       filter_html_help: true
       filter_html_nofollow: false

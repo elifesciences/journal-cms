@@ -3,6 +3,19 @@
   width: 50%;
 }
 
+.ck-content .image {
+  display: block !important;
+}
+
+.ck-content .image img {
+  min-width: auto !important;
+}
+
+.ck-content .image > figcaption {
+  padding: 0.6em 0 !important;
+  display: block !important;
+}
+
 figure {
   box-sizing: border-box;
   padding: 1em 40px;
@@ -14,11 +27,7 @@ figure img {
   height: auto;
 }
 
-figure.video {
-  padding: 0;
-}
-
-figure.video figcaption {
+figure figcaption {
   margin: 10px 0;
 }
 
@@ -52,7 +61,7 @@ figure.profile-left::after {
 .profile-left figure img,
 figure.profile-left img {
   width: 25%;
-  margin-right: 5%;
+  margin-right: 4% !important;
   float: left;
 }
 
@@ -160,12 +169,60 @@ elifebutton.elife-button--outline:hover {
   min-height: 2.5em;
 }
 
-.cke_floating_toolbar {
-  z-index: 1000;
-  width: 100%;
+.cke5_floating_toolbar {
+  z-index: 2;
 }
 
 .cke_toolbar_fixed {
   position: fixed;
   top: 0;
+}
+
+#cke5-inline-editor {
+  position: relative;
+  overflow: hidden;
+}
+
+body #toast-container .toast {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  max-width: none;
+  width: 300px;
+  opacity: 0.95;
+  padding: 4px 23px;
+  text-align: center;
+  background-image: none !important;
+}
+
+body .toast-success {
+  background-color: #2e9ad0;
+  border: 1px solid #0f74a8;
+}
+
+body .toast-warning {
+  background-color: #c83939;
+  border: 1px solid #902b2b;
+}
+
+body .toast-close-button {
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  font-size: 18px;
+  color: #333;
+  opacity: 0.5;
+}
+
+.ck.ck-elifebutton-form .ck-labeled-field-view {
+  margin: 0 0 10px 0 !important;
+}
+
+#cke5-inline-editor.node--unpublished {
+  padding: 0;
+}
+
+#cke5-inline-editor .node__content {
+  overflow: hidden;
+  padding-bottom: 10px;
 }

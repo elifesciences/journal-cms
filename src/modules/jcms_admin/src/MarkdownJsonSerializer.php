@@ -273,8 +273,10 @@ final class MarkdownJsonSerializer implements NormalizerInterface {
                 'type' => 'figshare',
                 'id' => $id,
                 'title' => $this->figshare->getTitle($id),
-                'width' => $width,
-                'height' => $height,
+                // $width force default value
+                'width' => '568',
+                // $height force default value
+                'height' => '426',
               ]);
             }
             else {

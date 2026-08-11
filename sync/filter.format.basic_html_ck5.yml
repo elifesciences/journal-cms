@@ -1,0 +1,8 @@
+uuid: f6b0ca9a-0c3b-4a2e-a5bd-d16bfc7e476e
+langcode: en
+status: false
+dependencies: {  }
+name: 'Basic HTML (ck5)'
+format: basic_html_ck5
+weight: 0
+filters: {  }

@@ -27,3 +27,7 @@
 .page-links ul li:first-child:before {
   content: '';
 }
+
+.node__content {
+  margin-top: 0;
+}
