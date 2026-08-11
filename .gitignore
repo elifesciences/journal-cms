@@ -12,3 +12,4 @@ private/
 /.editorconfig
 /.gitattributes
 /build/phpunit.xml
+.env
