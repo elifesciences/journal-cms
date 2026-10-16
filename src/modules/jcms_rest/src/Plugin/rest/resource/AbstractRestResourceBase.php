@@ -22,8 +22,6 @@ use Symfony\Component\HttpFoundation\Response;
 use function GuzzleHttp\Psr7\normalize_header;
 
 /**
- *
- * /Users/dragos/elife/journal-cms/src/modules/jcms_rest/src/Plugin/rest/resource/AbstractRestResourceBase.php
  * Abstract class AbstractRestResourceBase.
  */
 abstract class AbstractRestResourceBase extends ResourceBase {
