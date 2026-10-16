@@ -22,6 +22,8 @@ use Symfony\Component\HttpFoundation\Response;
 use function GuzzleHttp\Psr7\normalize_header;
 
 /**
+ *
+ * /Users/dragos/elife/journal-cms/src/modules/jcms_rest/src/Plugin/rest/resource/AbstractRestResourceBase.php
  * Abstract class AbstractRestResourceBase.
  */
 abstract class AbstractRestResourceBase extends ResourceBase {
@@ -333,6 +335,12 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     $query->range(($request_options['page'] - 1) * $request_options['per-page'], $request_options['per-page']);
     foreach ($sort_bys as $sort_by) {
       $query->sort($sort_by, $request_options['order']);
+    }
+
+    // Add a unique tiebreaker so rows with equal values in the primary sort
+    $id_key = \Drupal::entityTypeManager()->getDefinition($query->getEntityTypeId())->getKey('id');
+    if (!in_array($id_key, $sort_bys)) {
+      $query->sort($id_key, $request_options['order']);
     }
   }
 
