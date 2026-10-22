@@ -51,7 +51,6 @@ final class QueueService {
     $this->queueName = Settings::get('jcms_sqs_queue');
     $this->region = Settings::get('jcms_sqs_region');
     $config = [
-      'profile' => 'default',
       'version' => 'latest',
       'region' => $this->region,
     ];

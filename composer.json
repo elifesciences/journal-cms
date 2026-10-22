@@ -362,7 +362,8 @@
       "drupal/console-extend-plugin": true,
       "mindplay/composer-locator": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
-      "drupal/core-composer-scaffold": true
+      "drupal/core-composer-scaffold": true,
+      "drupal/core-project-message": true
     },
     "sort-packages": true
   },
