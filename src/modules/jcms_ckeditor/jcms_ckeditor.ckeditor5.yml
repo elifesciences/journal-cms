@@ -1,0 +1,197 @@
+jcms_ckeditor_media_embed:
+  ckeditor5:
+    plugins:
+      - jcms_plugins.MediaEmbed
+      - jcms_plugins.MediaEmbedToolbar
+      - jcms_plugins.MediaCaption
+    config:
+      mediaEmbed:
+        previewsInData: false
+        toolbar: ['mediaEdit', 'toggleMediaCaption']
+  drupal:
+    label: Media Embed
+    library: jcms_ckeditor/ckeditor5_plugins
+    admin_library: jcms_ckeditor/admin_jcms_plugins
+    toolbar_items:
+      mediaembed:
+        label: Media Embed
+    elements:
+      - <oembed>
+      - <oembed url>
+      - <figure>
+      - <figure class>
+      - <figcaption>
+    conditions: []
+
+jcms_ckeditor_elifebutton:
+  ckeditor5:
+    plugins:
+      - jcms_plugins.ElifeButton
+      - jcms_plugins.ElifeButtonToolbar
+    config:
+      elifeButton:
+        toolbar: ['elifeButtonEdit']
+  drupal:
+    label: Elife Button
+    library: jcms_ckeditor/ckeditor5_plugins
+    admin_library: jcms_ckeditor/admin_jcms_plugins
+    toolbar_items:
+      elifebutton:
+        label: Elife Button
+    elements:
+      - <elifebutton>
+      - <elifebutton data-href>
+      - <placeholder>
+    conditions: []
+
+jcms_ckeditor_figshare:
+  ckeditor5:
+    plugins:
+      - jcms_plugins.FigshareEmbed
+      - jcms_plugins.FigshareEmbedToolbar
+      - jcms_plugins.MediaCaption
+    config:
+      figshareEmbed:
+        previewsInData: false
+        elementName: iframe
+        toolbar: ['figshareEdit', 'toggleMediaCaption']
+        removeProviders: ['dailymotion', 'spotify', 'youtube', 'vimeo', 'instagram', 'twitter', 'googleMaps', 'flickr', 'facebook']
+  drupal:
+    label: Insert Figshare
+    library: jcms_ckeditor/ckeditor5_plugins
+    admin_library: jcms_ckeditor/admin_jcms_plugins
+    toolbar_items:
+      figshareembed:
+        label: Insert Figshare
+    elements:
+      - <iframe>
+      - <iframe src>
+      - <figure>
+      - <figure class>
+      - <figcaption>
+    conditions: []
+
+jcms_ckeditor_googlemap:
+  ckeditor5:
+    plugins:
+      - jcms_plugins.GoogleMapEmbed
+      - jcms_plugins.GoogleMapEmbedToolbar
+      - jcms_plugins.MediaCaption
+    config:
+      googleMapEmbed:
+        previewsInData: false
+        toolbar: ['googleMapEdit', 'toggleMediaCaption']
+        removeProviders: ['dailymotion', 'spotify', 'youtube', 'vimeo', 'instagram', 'twitter', 'flickr', 'facebook', 'figshare']
+  drupal:
+    label: Insert Google Map
+    library: jcms_ckeditor/ckeditor5_plugins
+    admin_library: jcms_ckeditor/admin_jcms_plugins
+    toolbar_items:
+      googlemapembed:
+        label: Insert Google Map
+    elements:
+      - <oembed>
+      - <oembed url>
+      - <figure>
+      - <figure class>
+      - <figcaption>
+    conditions: []
+
+jcms_ckeditor_captioned_video:
+  ckeditor5:
+    plugins:
+      - jcms_plugins.CaptionedVideo
+      - jcms_plugins.CaptionedVideoToolbar
+      - jcms_plugins.MediaCaption
+    config:
+      captionedVideo:
+        previewsInData: false
+        toolbar: ['videoEdit', 'toggleMediaCaption']
+        removeProviders: ['dailymotion', 'spotify', 'instagram', 'twitter', 'googleMaps', 'flickr', 'facebook', 'figshare']
+  drupal:
+    label: Insert Video
+    library: jcms_ckeditor/ckeditor5_plugins
+    admin_library: jcms_ckeditor/admin_jcms_plugins
+    toolbar_items:
+      captionedvideo:
+        label: Insert Video
+    elements:
+      - <oembed>
+      - <oembed url>
+      - <figure>
+      - <figure class>
+      - <figcaption>
+    conditions: []
+
+jcms_ckeditor_twitter:
+  ckeditor5:
+    plugins:
+      - jcms_plugins.TwitterEmbed
+      - jcms_plugins.TwitterEmbedToolbar
+      - jcms_plugins.MediaCaption
+    config:
+      twitterEmbed:
+        previewsInData: false
+        toolbar: ['twitterEdit', 'toggleMediaCaption']
+        removeProviders: ['dailymotion', 'spotify', 'youtube', 'vimeo', 'instagram', 'googleMaps', 'flickr', 'facebook', 'figshare']
+  drupal:
+    label: Insert Twitter
+    library: jcms_ckeditor/ckeditor5_plugins
+    admin_library: jcms_ckeditor/admin_jcms_plugins
+    toolbar_items:
+      twitterembed:
+        label: Insert Twitter
+    elements:
+      - <oembed>
+      - <oembed url>
+      - <figure>
+      - <figure class>
+      - <figcaption>
+    conditions: []
+
+jcms_ckeditor_imageAlign:
+  ckeditor5:
+    plugins:
+      - image.ImageStyle
+    config:
+      image:
+        toolbar:
+          - '|'
+          - 'imageStyle:alignLeft'
+          - 'imageStyle:alignCenter'
+          - 'imageStyle:alignRight'
+          - '|'
+        styles:
+          options:
+            - name: 'alignLeft'
+              title: 'Align left and wrap text'
+              className: 'align-left'
+            - name: 'alignCenter'
+              title: 'Align center and break text'
+              className: 'align-center'
+            - name: 'alignRight'
+              title: 'Align left using profile'
+              icon: 'left'
+              className: 'profile-left'
+  drupal:
+    label: Image align
+    elements:
+      - <img data-align>
+    conditions:
+      filter: filter_ck_images
+      plugins: [ckeditor5_image]
+
+jcms_ckeditor_imageCaption:
+  ckeditor5:
+    plugins:
+      - image.ImageCaption
+    config:
+      image:
+        toolbar: [toggleImageCaption]
+  drupal:
+    label: Image caption
+    elements:
+      - <img data-caption>
+    conditions:
+      filter: filter_ck_images
+      plugins: [ckeditor5_image]

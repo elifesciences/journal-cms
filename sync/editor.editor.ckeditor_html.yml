@@ -1,52 +1,56 @@
-uuid: 2793ae94-b20d-401c-b776-78f93232c81d
+uuid: 6c7750b6-7dae-4241-a4f3-dc9fd3d33c9d
 langcode: en
 status: true
 dependencies:
   config:
     - filter.format.ckeditor_html
   module:
-    - ckeditor
+    - ckeditor5
 format: ckeditor_html
-editor: ckeditor
+editor: ckeditor5
 settings:
   toolbar:
-    rows:
-      -
-        -
-          name: Formatting
-          items:
-            - Bold
-            - Italic
-            - Subscript
-            - RemoveFormat
-        -
-          name: Lists
-          items:
-            - BulletedList
-            - NumberedList
-        -
-          name: Links
-          items:
-            - DrupalLink
-            - DrupalUnlink
-        -
-          name: 'Block Formatting'
-          items:
-            - Table
-        -
-          name: Tools
-          items:
-            - Source
-        -
-          name: Paste
-          items:
-            - PasteText
-  plugins: {  }
+    items:
+      - bold
+      - italic
+      - subscript
+      - superscript
+      - '|'
+      - link
+      - '|'
+      - numberedList
+      - bulletedList
+      - '|'
+      - blockQuote
+      - '|'
+      - drupalInsertImage
+      - codeBlock
+      - elifebutton
+      - captionedvideo
+      - googlemapembed
+      - figshareembed
+      - twitterembed
+      - insertTable
+      - '|'
+      - undo
+      - redo
+      - '|'
+      - heading
+  plugins:
+    ckeditor5_heading:
+      enabled_headings:
+        - heading1
+        - heading2
+    ckeditor5_list:
+      reversed: false
+      startIndex: false
+    ckeditor5_imageResize:
+      allow_resize: false
 image_upload:
-  status: false
+  status: true
   scheme: public
   directory: inline-images
   max_size: ''
   max_dimensions:
-    width: null
-    height: null
+    width: 0
+    height: 0
