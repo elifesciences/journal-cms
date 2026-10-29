@@ -26,7 +26,7 @@ class VerifyContainingFilterTest extends FixtureBasedTestCase {
   public function setUp() {
     parent::setUp();
     $this->client = new Client([
-      'base_uri' => 'http://journal-cms.local/',
+      'base_uri' => getenv('JCMS_TEST_BASE_URI') ?: 'http://journal-cms.local/',
       'http_errors' => FALSE,
     ]);
   }

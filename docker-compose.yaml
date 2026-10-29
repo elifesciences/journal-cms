@@ -1,0 +1,148 @@
+services:
+  db:
+    image: percona/percona-server:8.4
+    environment:
+      MYSQL_USER: journal_cms
+      MYSQL_PASSWORD: journal_cms
+      MYSQL_DATABASE: journal_cms
+      MYSQL_RANDOM_ROOT_PASSWORD: true
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - db_data:/var/lib/mysql
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - redis_data:/data
+
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "127.0.0.1:4566:4566"            # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+    environment:
+      # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
+      - LOCALSTACK_HOST=localstack:4566
+      - SQS_ENDPOINT_STRATEGY=path
+      - DEBUG=${DEBUG:-0}
+    healthcheck:
+      test: ["CMD", "curl", "localhost:4566"]
+      interval: 1s
+      timeout: 1s
+      retries: 5
+    volumes:
+      - "localstack_data:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+  init-aws:
+    image: localstack/localstack
+    environment:
+      - AWS_ENDPOINT_URL=http://localstack:4566
+    entrypoint: |
+      bash -c '
+        awslocal sqs create-queue --queue-name journal-cms--dev;
+      '
+    depends_on:
+      localstack:
+        condition: service_healthy
+
+  api-dummy:
+    image: ghcr.io/elifesciences/api-dummy:20250911155213.0.0-g50b00e3-17650078370-1
+    stop_grace_period: 1s
+    healthcheck:
+      test: ["CMD", "curl", "localhost:8080"]
+      interval: 1s
+      timeout: 1s
+      retries: 5
+
+  iiif:
+    image: ghcr.io/elifesciences/cantaloupe:20250903133904.0.0-g0e80db1-17435320409-1-5.0.7
+    environment:
+    - SOURCE_STATIC=FilesystemSource
+    - LOG_APPLICATION_LEVEL=all
+    - FILESYSTEMSOURCE_BASICLOOKUPSTRATEGY_PATH_PREFIX=/iiif/
+    volumes:
+      - iiif_files:/iiif
+    ports:
+      - "8182:8182"
+    healthcheck:
+      test: curl http://iiif:8182/
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 2s
+
+  app:
+    build:
+      context: .
+      target: test
+    ports:
+      - 8080:8080
+    env_file:
+      - path: ./.env
+        required: false
+    environment:
+      # Drupal drush options
+      DRUSH_OPTIONS_URI: http://localhost:8080
+
+      # db service
+      DRUPAL_DATABASE_NAME: journal_cms
+      DRUPAL_DATABASE_USERNAME: journal_cms
+      DRUPAL_DATABASE_PASSWORD: journal_cms
+      DRUPAL_DATABASE_HOST: db
+      DRUPAL_DATABASE_PORT: 3306
+
+      # redis service
+      REDIS_HOST: redis
+
+      # api-dummy service
+      JCMS_API_GATEWAY: http://api-dummy:8080
+      JCMS_API_GATEWAY_FOR_MIGRATION: http://api-dummy:8080
+
+      # localstack service
+      AWS_ACCESS_KEY_ID: 'test'
+      AWS_SECRET_ACCESS_KEY: 'test'
+      JCMS_SQS_ENDPOINT: http://localstack:4566
+      JCMS_SQS_REGION: us-east-1
+      JCMS_SQS_QUEUE: journal-cms--dev
+      JCMS_TOPIC_TEMPLATE: arn:aws:sns:us-east-1:000000000000:%s
+
+      # iiif service
+      JCMS_IIIF_BASE_URI: http://localhost:8182/iiif/2/
+      JCMS_IIIF_MOUNT: iiif
+
+      # To fix unknown host requests for content validator
+      JCMS_CONTENT_VALIDATOR_BASE_URL: http://app:8080
+
+      # For tests
+      JCMS_TEST_BASE_URI: http://app:8080
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      api-dummy:
+        condition: service_healthy
+      init-aws:
+        condition: service_completed_successfully
+    volumes:
+      - sites_files:/opt/drupal/web/sites/default/files/
+      - iiif_files:/opt/drupal/web/sites/default/files/iiif
+
+
+volumes:
+  db_data: {}
+  redis_data: {}
+  localstack_data: {}
+  sites_files: {}
+  iiif_files: {}
+  private: {}

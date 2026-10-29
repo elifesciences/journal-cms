@@ -51,7 +51,6 @@ final class NotificationService {
     $this->region = Settings::get('jcms_sqs_region');
     $this->topicArn = Settings::get('jcms_sns_topic_template');
     $config = [
-      'profile' => 'default',
       'version' => 'latest',
       'region' => $this->region,
     ];
