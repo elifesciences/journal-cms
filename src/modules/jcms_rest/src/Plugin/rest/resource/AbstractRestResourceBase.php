@@ -334,6 +334,12 @@ abstract class AbstractRestResourceBase extends ResourceBase {
     foreach ($sort_bys as $sort_by) {
       $query->sort($sort_by, $request_options['order']);
     }
+
+    // Add a unique tiebreaker so rows with equal values in the primary sort
+    $id_key = \Drupal::entityTypeManager()->getDefinition($query->getEntityTypeId())->getKey('id');
+    if (!in_array($id_key, $sort_bys)) {
+      $query->sort($id_key, $request_options['order']);
+    }
   }
 
   /**
